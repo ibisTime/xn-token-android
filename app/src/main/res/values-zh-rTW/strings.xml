@@ -1,0 +1,325 @@
+<resources>
+    <string name="app_names">OGC錢包</string>
+
+    <string name="main_tag_consult">首頁</string>
+    <string name="main_tab_wallet">錢包</string>
+    <string name="main_tab_my">我的</string>
+    <string name="exit_confirm">確認退出？</string>
+
+    <string name="tip">提示</string>
+    <string name="confirm">確認</string>
+    <string name="attention">註意</string>
+    <string name="kick_logout">您的賬號已在其他終端登錄,重新登錄</string>
+
+    <string name="deal">交易</string>
+    <string name="good">好評</string>
+    <string name="trust">信任</string>
+
+    <string name="build_type">環境切換</string>
+
+    // 主頁
+
+
+    // 錢包
+    <string name="property_eth">以太幣資產(ETH)</string>
+    <string name="property_btc">比特幣資產(BTC)</string>
+    <string name="property_sc">雲儲幣資產(SC)</string>
+    <string name="property_ogc">橙幣資產(OGC)</string>
+    <string name="freeze">凍結</string>
+
+    <string name="wallet_exchange_explain">計算規則:采用銀行櫃臺匯率過去14天的平均值作為匯率參考值,在每壹個交割結算日,若該平均值與系統當前匯率偏差超過0.2,則會采用新的14天平均是做為系統匯率。</string>
+    <string name="wallet_exchange_past_time">時間</string>
+    <string name="wallet_exchange_past_rate">當日匯率</string>
+    <string name="wallet_exchange_past_rate_week">兩周平均匯率</string>
+
+    <string name="wallet_charge_my_address">我的比特幣收款地址</string>
+    <string name="wallet_charge_address_copy">(點擊復制地址)</string>
+    <string name="wallet_charge_address">地址</string>
+
+    <string name="wallet_withdraw_balance">可用余額</string>
+    <string name="wallet_withdraw_address">接收地址</string>
+    <string name="wallet_withdraw_address_input_hint">請粘貼地址或掃碼錄入</string>
+    <string name="wallet_withdraw_amount">提幣數量</string>
+    <string name="wallet_withdraw_free">手續費\u3000</string>
+    <string name="wallet_withdraw_tip">手續費將在提現金額中扣除</string>
+    <string name="wallet_withdraw_tip2">溫馨提示：部分OGC不可提現，用來支付提現所需礦工費</string>
+    <string name="wallet_withdraw_confirm">確認提幣</string>
+
+    <string name="wallet_withdraw_order_title">提幣訂單</string>
+    <string name="wallet_withdraw_order_none">暫無提現記錄</string>
+
+    <string name="wallet_title">我的資產</string>
+    <string name="wallet_assets">總資產折合CNY</string>
+    <string name="wallet_frozen_0">凍結0</string>
+    <string name="wallet_charge">充幣</string>
+    <string name="wallet_withdraw">提幣</string>
+    <string name="wallet_bill">賬單</string>
+
+    <string name="bill_type_all">全部</string>
+    <string name="bill_type_charge">充幣</string>
+    <string name="bill_type_withdraw">提現</string>
+    <string name="bill_type_autofill">自動補給</string>
+    <string name="bill_type_select">篩選</string>
+    <string name="bill_title_all">余額明細</string>
+    <string name="bill_title_charge">充值明細</string>
+    <string name="bill_title_withdraw">提幣明細</string>
+    <string name="bill_title_frozen">凍結明細</string>
+    <string name="bill_none">暫無明細</string>
+    <string name="bill_all_none">暫無余額明細</string>
+    <string name="bill_charge_none">暫無充值明細</string>
+    <string name="bill_withdraw_none">暫無提幣明細</string>
+    <string name="bill_frozen_none">暫無凍結明細</string>
+
+    <string name="wallet_title_bill_detail">賬單詳情</string>
+    <string name="wallet_bill_detail_before">變動前金額</string>
+    <string name="wallet_bill_detail_after">變動後金額</string>
+    <string name="wallet_bill_detail_date">變動時間</string>
+    <string name="wallet_bill_detail_status">明細狀態</string>
+    <string name="wallet_bill_detail_type">明細摘要</string>
+
+    <string name="wallet_title_charge">充幣</string>
+    <string name="wallet_charge_recode">記錄</string>
+    <string name="wallet_charge_address_eth">我的以太幣收款地址</string>
+    <string name="wallet_charge_address_btc">我的比特幣收款地址</string>
+    <string name="wallet_charge_address_sc">我的雲儲幣收款地址</string>
+    <string name="wallet_charge_address_copy_success">地址已復制</string>
+
+    <string name="wallet_title_withdraw">提幣</string>
+    <string name="wallet_withdraw_address_hint">請填寫發送地址</string>
+    <string name="wallet_withdraw_amount_hint">請填寫數量</string>
+    <string name="wallet_withdraw_success">提現申請成功</string>
+    <string name="wallet_transfer_success">轉賬申請成功</string>
+
+    <string name="wallet_title_exchange">匯率概述</string>
+
+    <string name="wallet_title_exchange_past">歷史匯率</string>
+    <string name="wallet_title_exchange_past_none">暫無歷史匯率</string>
+
+    <string name="wallet_none">暫無錢包</string>
+
+    <string name="market_quantity">量</string>
+
+    <string name="deal_type_select_tip">請選擇交易類型</string>
+
+    <string name="popup_scan">掃描二維碼</string>
+    <string name="popup_paste">粘貼地址</string>
+    <string name="copy_tip_none">您還沒有復制內容</string>
+    <string name="qrcode_parsing_failure">解析二維碼失敗</string>
+    <string name="camera_refused">已拒絕打開相機</string>
+
+
+    <string name="order_status_daishenpi">待審批</string>
+    <string name="order_status_butongguo">審批不通過</string>
+    <string name="order_status_daiguangbo">審批通過待廣播</string>
+    <string name="order_status_guangbozhong">廣播中</string>
+    <string name="order_status_shibai">廣播失敗</string>
+    <string name="order_status_chenggong">廣播成功</string>
+
+
+    // 我的
+    <string name="address_attestation">已認證</string>
+    <string name="address_unattestation">未認證</string>
+
+    <string name="user_title_address_add">添加地址</string>
+    <string name="user_title_address_add_success">添加地址成功</string>
+    <string name="user_address_tag_hint">請填寫地址標簽</string>
+    <string name="user_address_hint">請輸入地址</string>
+
+    <string name="user_title_address">地址管理</string>
+    <string name="user_address_none">暫無地址</string>
+    <string name="user_address_delete_confirm">您確定要刪除該地址嗎？</string>
+    <string name="user_address_delete_success">刪除成功</string>
+
+    <string name="user_title_language">語言設置</string>
+    <string name="user_language_english">英文</string>
+    <string name="user_language_simplified">中文簡體</string>
+    <string name="user_language_traditional">中文繁體</string>
+
+    <string name="user_title_google">谷歌驗證</string>
+    <string name="user_google_open">已開啟</string>
+    <string name="user_google_close">未開啟</string>
+    <string name="user_google_btn_open">開啟谷歌驗證</string>
+    <string name="user_google_btn_close">關閉谷歌驗證</string>
+    <string name="user_google_btn_modify">修改谷歌驗證</string>
+
+    <string name="user_title_invite_history">推薦歷史</string>
+    <string name="invite_history_none">暫無推薦歷史</string>
+
+    <string name="user_title_published">我的廣告</string>
+    <string name="user_published_none">暫無發布</string>
+
+    <string name="user_title_setting">安全設置</string>
+    <string name="user_identity_success">您已通過實名認證</string>
+
+    <string name="user_title_person">個人主頁</string>
+
+    <string name="user_title_tip">個性設置</string>
+
+    <string name="user_title_sign_in">登錄</string>
+    <string name="user_mobile_hint">請填寫手機號碼</string>
+    <string name="user_mobile_format_hint">手機號碼格式不正確</string>
+    <string name="user_password_format_hint">密碼長度不能小於6位</string>
+
+    <string name="user_title_trust">受信任的</string>
+    <string name="user_trust_none">暫無信任人</string>
+
+    <string name="user_title_sign_up">註冊</string>
+    <string name="user_sign_up_protocol">註冊協議</string>
+    <string name="user_nick_hint">請設置您的昵稱</string>
+    <string name="user_code_hint">請填寫驗證碼</string>
+    <string name="user_code_format_hint">驗證碼格式不正確</string>
+    <string name="user_password_hint">請填寫密碼</string>
+    <string name="user_repassword_hint">請確認密碼</string>
+    <string name="user_repassword_two_hint">兩次輸入的密碼不相同</string>
+    <string name="user_protocol_hint">請閱讀並同意條款</string>
+    <string name="user_sign_up_success">註冊成功,為您自動登錄</string>
+    <string name="user_sign_up_failure">註冊失敗</string>
+
+    <string name="user_person_deal">和Ta交易過</string>
+    <string name="user_person_times">次</string>
+
+    <string name="user_invite_people">成功邀請(人)</string>
+    <string name="user_invite_profit">提成收益</string>
+    <string name="user_invite_confirm">我要推薦</string>
+    <string name="user_invite_activity">活動規則</string>
+    <string name="user_invite_share_title">分享到</string>
+    <string name="user_invite_share_wx">微信</string>
+    <string name="user_invite_share_pyq">朋友圈</string>
+    <string name="user_invite_title">邀請好友</string>
+    <string name="user_invite_title_web">點擊分享</string>
+    <string name="user_invite_title_right">推薦歷史</string>
+
+    <string name="user_sign_in_mobile_hint">請輸入手機號</string>
+    <string name="user_sign_in_pwd_hint">請輸入密碼</string>
+    <string name="user_sign_in_confirm">確認登錄</string>
+    <string name="user_sign_in_forget">忘記密碼?</string>
+
+    <string name="user_sign_up_nick">昵稱</string>
+    <string name="user_sign_up_nick_hint">請設置您的昵稱</string>
+    <string name="user_sign_up_mobile">手機號</string>
+    <string name="user_sign_up_mobile_hint">請輸入手機號碼</string>
+    <string name="user_sign_up_code">手機驗證碼</string>
+    <string name="user_sign_up_code_hint">請輸入驗證碼</string>
+    <string name="user_sign_up_send">獲取驗證碼</string>
+    <string name="user_sign_up_pwd">新密碼</string>
+    <string name="user_sign_up_pwd_hint">不少於6位</string>
+    <string name="user_sign_up_repwd">確認密碼</string>
+    <string name="user_sign_up_repwd_hint">不少於6位</string>
+    <string name="user_sign_up_agree">我已閱讀並同意</string>
+    <string name="user_sign_up_profile">《註冊協議》</string>
+    <string name="user_sign_up_confirm">確認註冊</string>
+
+    <string name="user_address_add_tag">標簽</string>
+    <string name="user_address_add_tag_hint">請輸入標簽</string>
+    <string name="user_address_add_address">提幣地址</string>
+    <string name="user_address_add_code">手機驗證碼</string>
+    <string name="user_address_add_code_hint">請輸入驗證碼</string>
+    <string name="user_address_add_is_default">將該賬戶設置為認證賬戶</string>
+    <string name="user_address_add_tip">向認證賬戶提現不再輸入資金密碼、谷歌驗證碼</string>
+
+    <string name="user_title_email_bind">綁定郵箱</string>
+    <string name="user_title_email_modify">修改郵箱</string>
+    <string name="user_email_bind_success">綁定成功</string>
+    <string name="user_email_modify_success">修改成功</string>
+    <string name="user_email">郵箱</string>
+    <string name="user_email_hint">請輸入郵箱</string>
+    <string name="user_email_code">郵箱驗證碼</string>
+    <string name="user_email_code_hint">請輸入郵箱驗證碼</string>
+
+    <string name="user_google_key">密鑰</string>
+    <string name="user_google_copy">復制</string>
+    <string name="user_google_paste">粘貼</string>
+
+    <string name="user_password_old">原密碼</string>
+    <string name="user_password_old_hint">請輸入原密碼</string>
+    <string name="user_password_new">新密碼</string>
+    <string name="user_password_new_hint">不少於6位</string>
+    <string name="user_password_re">確認密碼</string>
+    <string name="user_password_re_hint">不少於6位</string>
+    <string name="user_password_title">修改密碼</string>
+    <string name="user_password_pwdold_hint">請輸入原密碼</string>
+    <string name="user_password_google_hint">請輸入谷歌驗證碼</string>
+    <string name="user_password_pwdnew_hint">請輸入新密碼</string>
+    <string name="user_password_repwd_hint">請重新輸入密碼</string>
+    <string name="user_password_pwdnew_format_hint">密碼不少於6位</string>
+    <string name="user_password_repwd_format_hint">兩次密碼輸入不壹致</string>
+    <string name="user_password_success">密碼修改成功</string>
+    <string name="user_password_failure">密碼修改失敗</string>
+    <string name="user_password_google">谷歌驗證碼</string>
+    <string name="user_password_google_paste">粘貼</string>
+
+    <string name="user_setting_trade_pwd">資金密碼</string>
+    <string name="user_setting_identity">實名認證</string>
+    <string name="user_setting_mail">綁定郵箱</string>
+    <string name="user_setting_mobile">修改手機號</string>
+    <string name="user_setting_password">修改登錄密碼</string>
+    <string name="user_setting_google">谷歌驗證</string>
+    <string name="user_setting_sign_out">退出登錄</string>
+
+    <string name="user_tip_good">自動好評</string>
+    <string name="user_tip_trust">自動加信任</string>
+    <string name="user_tip_language">語言設置</string>
+
+    <string name="user_address_add">添加新地址</string>
+    <string name="user_buy">我要購買</string>
+    <string name="user_sale">我要出售</string>
+    <string name="user_adv">我的廣告</string>
+    <string name="user_address">我的地址</string>
+    <string name="user_trust">受信任的</string>
+    <string name="user_invite">邀請好友</string>
+    <string name="user_setting">安全中心</string>
+    <string name="user_tip">個性設置</string>
+    <string name="user_issue">幫助中心</string>
+    <string name="user_services">聯系客服</string>
+    <string name="user_about">關於我們</string>
+
+    <string name="user_about_update">更新至最新版本</string>
+    <string name="user_about_updated">已經是最新版本</string>
+    <string name="user_sign_up_referee">推薦人手機</string>
+    <string name="user_sign_up_referee_hint">推薦人手機號(選填)</string>
+    <string name="user_invite_url">分享鏈接</string>
+    <string name="user_invite_pic">分享二維碼</string>
+
+    <string name="email_code_send_success">驗證碼已經發送至郵箱，請註意查收</string>
+    <string name="email_code_send_failure">郵箱驗證碼發送失敗</string>
+
+    <string name="sms_code_title">手機驗證碼</string>
+    <string name="sms_code_send">獲取驗證碼</string>
+    <string name="sms_code_hint">請輸入短信驗證碼</string>
+    <string name="trade_code_hint">請輸入資金密碼</string>
+    <string name="google_code_title">谷歌驗證碼</string>
+    <string name="google_code_hint">請輸入谷歌驗證碼</string>
+    <string name="google_code_format_hint">請輸入正確的谷歌驗證碼</string>
+
+    <string name="user_about_copyright">2018BCOIN版權所有</string>
+
+    // Util
+    <string name="coin_eth">以太幣</string>
+    <string name="coin_btc">比特幣</string>
+    <string name="coin_sc">雲儲幣</string>
+    <string name="biz_type_charge">充值</string>
+    <string name="biz_type_withdraw">取現</string>
+    <string name="biz_type_autofill">自動補給</string>
+    <string name="biz_type_buy">交易買入</string>
+    <string name="biz_type_sell">交易賣出</string>
+    <string name="biz_type_tradefrozen">交易凍結</string>
+    <string name="biz_type_tradeunfrozen">交易解凍</string>
+    <string name="biz_type_withdrawfrozen">取現凍結</string>
+    <string name="biz_type_withdrawunfrozen">取現解凍</string>
+    <string name="biz_type_tradefee">交易手續費</string>
+    <string name="biz_type_withdrawfee">提現手續費</string>
+    <string name="biz_type_invite">邀請好友收入</string>
+
+    <string name="biz_status_daiduizhang">待對賬</string>
+    <string name="biz_status_yiduiyiping">已對賬且賬已平</string>
+    <string name="biz_status_zhangbuping">帳不平待調賬審批</string>
+    <string name="biz_status_yiduibuping">已對賬且賬不平</string>
+    <string name="biz_status_wuxuduizhang">無需對賬</string>
+    <string name="consult_title">首頁</string>
+    <string name="consult_none">暫無資訊</string>
+    <string name="consult_activity_title">資訊詳情</string>
+    <string name="consult_statistics_none">暫無統計</string>
+    <string name="consult_statistics_title">分發統計</string>
+    <string name="wallet_withdraw_amount_hint2">您最多可以提現</string>
+
+</resources>

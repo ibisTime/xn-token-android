@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.cdkj.token">
+
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+
+    <application
+        android:name="com.cdkj.token.MyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/app_icon"
+        android:label="@string/app_names"
+        android:roundIcon="@mipmap/app_icon_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme.NoActionBar">
+
+        <activity android:name="com.cdkj.token.user.login.StartActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.cdkj.token.MainActivity"
+            android:launchMode="singleTask" />
+
+        <activity android:name="com.cdkj.token.wallet.ExchangeActivity"/>
+        <activity android:name="com.cdkj.token.wallet.ExchangePastActivity"/>
+        <activity android:name="com.cdkj.token.wallet.account.BillActivity" />
+        <activity android:name="com.cdkj.token.wallet.account.BillDetailActivity" />
+        <activity android:name="com.cdkj.token.wallet.account.RechargeActivity"/>
+        <activity android:name="com.cdkj.token.wallet.account.WithdrawActivity"/>
+
+        <activity android:name="com.cdkj.token.user.UserSettingActivity"/>
+        <activity android:name="com.cdkj.token.user.UserEmailActivity"/>
+        <activity android:name="com.cdkj.token.user.UserLanguageActivity" />
+        <activity android:name="com.cdkj.token.user.UserPasswordActivity" />
+        <activity android:name="com.cdkj.token.user.UserAboutActivity" />
+        <activity android:name="com.cdkj.token.user.login.SignInActivity"
+            android:launchMode="singleTask"/>
+        <activity android:name="com.cdkj.token.user.login.SignUpActivity"/>
+
+        //找回密码
+        <activity
+            android:name="com.cdkj.baselibrary.activitys.FindPwdActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        //修改手机号
+        <activity
+            android:name="com.cdkj.baselibrary.activitys.UpdatePhoneActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        //资金密码修改
+        <activity
+            android:name="com.cdkj.baselibrary.activitys.PayPwdModifyActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        //H5
+        <activity
+            android:name="com.cdkj.baselibrary.activitys.WebViewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        // 图片
+        <activity
+            android:name="com.cdkj.baselibrary.activitys.ImageSelectActivity"
+            android:theme="@style/ActivityDialogStyleBottom" />
+        // RichText
+        <activity
+            android:name="com.cdkj.baselibrary.activitys.RichTextActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+        // 实名认证
+        <activity
+            android:name="com.cdkj.baselibrary.activitys.AuthenticateActivity"
+            android:launchMode="singleTask">
+
+            // 需要添加下面的intent-filter配置
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                //scheme:为 实名认证Activity，认证接口参数"returnUrl"冒号前字符，host为同位置参数冒号后字符
+                <data
+                    android:host="certify.back"
+                    android:scheme="orangecoin" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".consult.ConsultActivity" />
+        <activity android:name=".consult.StatisticsActivity" />
+        <activity android:name=".wallet.account.WithdrawOrderActivity" />
+        <activity android:name=".user.UserGoogleActivity" />
+
+    </application>
+
+</manifest>
