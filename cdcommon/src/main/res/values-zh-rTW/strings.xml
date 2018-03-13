@@ -74,4 +74,6 @@
     <string name="smscode_send_failure">驗證碼發送失敗</string>
     <string name="storage_refused">已拒絕BCoin獲取您的內存權限</string>
     <string name="web_create_pic_failure">生成圖片失敗</string>
+
+    <string name="no_camera_permission">沒有獲取到權限，無法使用相機和相冊功能</string>
 </resources>

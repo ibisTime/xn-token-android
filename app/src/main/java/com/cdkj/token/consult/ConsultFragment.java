@@ -27,14 +27,13 @@ import java.util.Map;
 import retrofit2.Call;
 
 /**
+ * 首页
  * Created by lei on 2018/3/6.
  */
 
 public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
 
-    private FragmentConsultBinding mBinding;
-
-    private List<String> banner = new ArrayList<>();
+    private FragmentConsultBinding mHeadBinding;
     private List<BannerModel> bannerData = new ArrayList<>();
 
     /**
@@ -54,38 +53,46 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
 
     @Override
     protected void afterCreate(int pageIndex, int limit) {
-        mBinding = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.fragment_consult, null, false);
+        mBinding.refreshLayout.setEnableAutoLoadmore(false);//不能自动加载
+        setTopTitle(getString(R.string.consult_title));
+        setTopTitleLine(true);
+
+        initAdapter();
+
+        initListener();
+
+        initBanner();
+
+        getListData(pageIndex, 15, true);
+    }
+
+    /**
+     * 初始化适配器
+     */
+    private void initAdapter() {
+        mHeadBinding = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.fragment_consult, null, false);
         mAdapter.setHeaderAndEmpty(true);
-        mAdapter.addHeaderView(mBinding.getRoot());
+        mAdapter.addHeaderView(mHeadBinding.getRoot());
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
 
             ConsultModel model = (ConsultModel) mAdapter.getItem(position);
 
-            ConsultActivity.open(mActivity,model.getName(),model.getName(),model.getDate());
+            ConsultActivity.open(mActivity, model.getName(), model.getName(), model.getDate());
 
         });
-
-        inits();
-        initListener();
-
-        getListData(pageIndex,limit,true);
     }
 
     private void initListener() {
-        mBinding.llStatistics.setOnClickListener(view -> {
+        mHeadBinding.llStatistics.setOnClickListener(view -> {
             StatisticsActivity.open(mActivity);
         });
     }
 
-    private void inits() {
-        setTopTitle(getString(R.string.consult_title));
-        setTopTitleLine(true);
-    }
 
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mBinding.banner.stopAutoPlay();
+        mHeadBinding.banner.stopAutoPlay();
     }
 
 
@@ -94,14 +101,15 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
 
         List<ConsultModel> list = new ArrayList<>();
 
-        for (int i=0; i<3; i++){
+        for (int i = 0; i < 3; i++) {
             ConsultModel model = new ConsultModel();
-            model.setName("资讯标题"+i);
-            model.setDate((i+1)+"分钟牵");
+            model.setName("资讯标题" + i);
+            model.setDate((i + 1) + "分钟牵");
             list.add(model);
         }
 
         setData(list);
+
 
         // 刷新轮播图
         getBanner();
@@ -142,15 +150,12 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
 
             @Override
             protected void onSuccess(List<BannerModel> data, String SucMessage) {
-                if (data != null){
-                    bannerData = data;
-                    banner.clear();
-                    for (BannerModel model : data) {
-                        banner.add(model.getPic());
-                    }
-                }
+                bannerData = data;
+                //设置图片集合
+                mHeadBinding.banner.setImages(bannerData);
+                //banner设置方法全部调用完毕时最后调用
+                mHeadBinding.banner.start();
 
-                initBanner();
             }
 
             @Override
@@ -162,38 +167,34 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
     }
 
     private void initBanner() {
-        if (banner == null) return;
 
         //设置banner样式
-        mBinding.banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+        mHeadBinding.banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         //设置图片加载器
-        mBinding.banner.setImageLoader(new BannerImageLoader());
-        //设置图片集合
-        mBinding.banner.setImages(banner);
+        mHeadBinding.banner.setImageLoader(new BannerImageLoader());
+
         //设置banner动画效果
-        mBinding.banner.setBannerAnimation(Transformer.DepthPage);
+        mHeadBinding.banner.setBannerAnimation(Transformer.DepthPage);
         //设置标题集合（当banner样式有显示title时）
 //        banner.setBannerTitles(Arrays.asList(titles));
         //设置自动轮播，默认为true
-        mBinding.banner.isAutoPlay(true);
+        mHeadBinding.banner.isAutoPlay(true);
         //设置轮播时间
-        mBinding.banner.setDelayTime(3500);
+        mHeadBinding.banner.setDelayTime(3500);
         //设置指示器位置（当banner模式中有指示器时）
-        mBinding.banner.setIndicatorGravity(BannerConfig.CENTER);
+        mHeadBinding.banner.setIndicatorGravity(BannerConfig.CENTER);
         //设置banner点击事件
-        mBinding.banner.setOnBannerClickListener(position -> {
+        mHeadBinding.banner.setOnBannerListener(position -> {
 
-            if (bannerData.get(position-1).getUrl()!=null){
-                if (bannerData.get(position-1).getUrl().indexOf("http") != -1){
-                    WebViewActivity.openURL(mActivity,bannerData.get(position-1).getName(),bannerData.get(position-1).getUrl());
+            if (bannerData.get(position).getUrl() != null) {
+                if (bannerData.get(position).getUrl().indexOf("http") != -1) {
+                    WebViewActivity.openURL(mActivity, bannerData.get(position - 1).getName(), bannerData.get(position - 1).getUrl());
                 }
             }
 
         });
-        //banner设置方法全部调用完毕时最后调用
-        mBinding.banner.start();
 
         // 设置在操作Banner时listView事件不触发
-//        mBinding.banner.setOnPageChangeListener(new MyPageChangeListener());
+//        mHeadBinding.banner.setOnPageChangeListener(new MyPageChangeListener());
     }
 }

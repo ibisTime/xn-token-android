@@ -87,6 +87,11 @@ public class CameraHelper {
         mPreHelper = new PermissionHelper(object);
     }
 
+
+    public void setSplit(boolean split) {
+        isSplit = split;
+    }
+
     /**
      * 设置裁剪接口
      *

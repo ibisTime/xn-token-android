@@ -19,7 +19,7 @@ public class MyConfig {
 
     public static String IMGURL = "http://ozfszueqz.bkt.clouddn.com/";
 
-    public static boolean IS_DEBUG = false;
+    public static boolean IS_DEBUG = true;
 
     // 拍照文件保存路径
     public static final String CACHDIR = "beikeying";

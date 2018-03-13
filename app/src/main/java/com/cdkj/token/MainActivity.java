@@ -33,8 +33,6 @@ public class MainActivity extends AbsBaseActivity {
     public static final int MY = 2;
     private List<Fragment> fragments;
 
-    public static Context mContext;
-
     /**
      * 打开当前页面
      *
@@ -69,9 +67,7 @@ public class MainActivity extends AbsBaseActivity {
 
 
     private void init() {
-        mContext = this;
-
-        setShowIndex(WALLET);
+        setShowIndex(CONSULT);
     }
 
 

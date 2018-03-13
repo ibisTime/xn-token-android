@@ -17,21 +17,19 @@ import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.CameraHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
-import com.cdkj.baselibrary.utils.QiNiuUtil;
+import com.cdkj.baselibrary.utils.QiNiuHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUserBinding;
-import com.qiniu.android.http.ResponseInfo;
-
-import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
-
 
 
 /**
@@ -69,7 +67,7 @@ public class UserFragment extends BaseLazyFragment {
     private void initListener() {
 
         mBinding.rlPhoto.setOnClickListener(view -> {
-            ImageSelectActivity.launch(mActivity, PHOTOFLAG);
+            ImageSelectActivity.launchFragment(this, PHOTOFLAG);
         });
 
         mBinding.llSetting.setOnClickListener(view -> {
@@ -81,7 +79,7 @@ public class UserFragment extends BaseLazyFragment {
         });
 
         mBinding.llIssue.setOnClickListener(view -> {
-            WebViewActivity.openkey(mActivity, mBinding.tvIssue.getText().toString(),"questions");
+            WebViewActivity.openkey(mActivity, mBinding.tvIssue.getText().toString(), "questions");
 //            new SupportActivity.Builder().show(getActivity());
         });
 
@@ -101,7 +99,7 @@ public class UserFragment extends BaseLazyFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if(!SPUtilHelper.getUserId().equals("")){
+        if (!SPUtilHelper.getUserId().equals("")) {
             // 已登陆时初始化登录用户的用户信息
             getUserInfoRequest();
         }
@@ -120,15 +118,18 @@ public class UserFragment extends BaseLazyFragment {
             return;
         }
         if (requestCode == PHOTOFLAG) {
-            String path = data.getStringExtra(ImageSelectActivity.staticPath);
-            new QiNiuUtil(mActivity).getQiniuURL(new QiNiuUtil.QiNiuCallBack() {
+            showLoadingDialog();
+            String path = data.getStringExtra(CameraHelper.staticPath);
+            new QiNiuHelper(mActivity).uploadSinglePic(new QiNiuHelper.QiNiuCallBack() {
                 @Override
-                public void onSuccess(String key, ResponseInfo info, JSONObject res) {
+                public void onSuccess(String key) {
                     updateUserPhoto(key);
                 }
 
                 @Override
                 public void onFal(String info) {
+                    disMissLoading();
+                    ToastUtil.show(mActivity, info);
                 }
             }, path);
 
@@ -137,6 +138,7 @@ public class UserFragment extends BaseLazyFragment {
 
     /**
      * 更新用户头像
+     *
      * @param key
      */
     private void updateUserPhoto(final String key) {
@@ -147,7 +149,7 @@ public class UserFragment extends BaseLazyFragment {
 
         Call call = RetrofitUtils.getBaseAPiService().successRequest("805080", StringUtils.getJsonToString(map));
         addCall(call);
-        showLoadingDialog();
+
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(mActivity) {
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {

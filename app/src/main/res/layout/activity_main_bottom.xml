@@ -18,10 +18,9 @@
             android:layout_height="50dp"
             android:clickable="false"
             android:orientation="horizontal"
-            android:weightSum="2">
+            android:weightSum="3">
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_consult"
                 android:gravity="center"
                 android:layout_weight="1"

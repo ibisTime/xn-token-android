@@ -3,8 +3,11 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://E:\work_project\xn-token-android\app\app.iml" filepath="E:\work_project\xn-token-android\app\app.iml" />
       <module fileurl="file://$PROJECT_DIR$/cdcommon/cdcommon.iml" filepath="$PROJECT_DIR$/cdcommon/cdcommon.iml" />
+      <module fileurl="file://E:\work_project\xn-token-android\cdcommon\cdcommon.iml" filepath="E:\work_project\xn-token-android\cdcommon\cdcommon.iml" />
       <module fileurl="file://$PROJECT_DIR$/xn-token-android.iml" filepath="$PROJECT_DIR$/xn-token-android.iml" />
+      <module fileurl="file://E:\work_project\xn-token-android\xn-token-android.iml" filepath="E:\work_project\xn-token-android\xn-token-android.iml" />
     </modules>
   </component>
 </project>

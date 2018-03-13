@@ -93,7 +93,7 @@
     </style>
 
     <!--activity_share dialog style-->
-    <style name="ActivityDialogStyleBottom" parent="android:Theme.Dialog">
+    <style name="ActivityDialogStyleBottom" parent="@style/Theme.AppCompat.NoActionBar">
         <item name="android:windowAnimationStyle">@style/AnimBottom</item>
         <item name="android:windowFrame">@null</item>
         <!-- 边框 -->
@@ -106,6 +106,10 @@
         <item name="android:windowBackground">@android:color/transparent</item>
         <!-- 背景透明 -->
         <item name="android:backgroundDimEnabled">true</item>
+
+        <!--设置状态栏颜色-->
+        <item name="colorPrimaryDark">@android:color/transparent</item>
+
         <!-- 模糊 -->
     </style>
 
