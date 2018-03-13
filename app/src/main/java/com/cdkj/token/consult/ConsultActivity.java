@@ -13,6 +13,7 @@ import com.cdkj.token.databinding.ActivityConsultBinding;
 import com.zzhoujay.richtext.RichText;
 
 /**
+ * 资讯详情
  * Created by lei on 2018/3/7.
  */
 

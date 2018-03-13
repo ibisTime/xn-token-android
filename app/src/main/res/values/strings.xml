@@ -317,9 +317,11 @@
     <string name="biz_status_wuxuduizhang">无需对账</string>
     <string name="consult_title">首页</string>
     <string name="consult_none">暂无资讯</string>
-    <string name="consult_activity_title">资讯详情</string>
+    <string name="consult_activity_title">店铺详情</string>
     <string name="consult_statistics_none">暂无统计</string>
     <string name="consult_statistics_title">分发统计</string>
     <string name="wallet_withdraw_amount_hint2">您最多可以提现</string>
+    <string name="call_phone">联系对方</string>
+    <string name="want_to_pay">我要支付</string>
 
 </resources>
