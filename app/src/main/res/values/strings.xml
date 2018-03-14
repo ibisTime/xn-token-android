@@ -318,8 +318,8 @@
     <string name="consult_title">首页</string>
     <string name="consult_none">暂无资讯</string>
     <string name="consult_activity_title">店铺详情</string>
-    <string name="consult_statistics_none">暂无统计</string>
-    <string name="consult_statistics_title">分发统计</string>
+    <string name="consult_statistics_none">暂无流水</string>
+    <string name="consult_statistics_title">交易流水</string>
     <string name="wallet_withdraw_amount_hint2">您最多可以提现</string>
     <string name="call_phone">联系对方</string>
     <string name="want_to_pay">我要支付</string>
@@ -328,5 +328,9 @@
     <string name="kt_ratio">占比：</string>
     <string name="kt_statistical">空投统计</string>
     <string name="kt_statistical_2">分发：</string>
+
+    <string name="pay_confirm">确认支付</string>
+
+    <string name="pay_amount">支付数量</string>
 
 </resources>

@@ -318,8 +318,8 @@
     <string name="consult_title">首頁</string>
     <string name="consult_none">暫無店鋪</string>
     <string name="consult_activity_title">店鋪详情</string>
-    <string name="consult_statistics_none">暫無統計</string>
-    <string name="consult_statistics_title">分發統計</string>
+    <string name="consult_statistics_none">暫無流水</string>
+    <string name="consult_statistics_title">交易流水</string>
     <string name="wallet_withdraw_amount_hint2">您最多可以提現</string>
     <string name="call_phone">聯係對方</string>
     <string name="want_to_pay">我要支付</string>
@@ -329,4 +329,7 @@
     <string name="kt_statistical">空投統計</string>
     <string name="kt_statistical_2">分發：</string>
 
+    <string name="pay_confirm">確認支付</string>
+
+    <string name="pay_amount">支付數量</string>
 </resources>

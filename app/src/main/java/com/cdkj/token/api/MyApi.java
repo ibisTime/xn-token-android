@@ -18,11 +18,13 @@ import com.cdkj.token.model.DealResultModel;
 import com.cdkj.token.model.DealUserDataModel;
 import com.cdkj.token.model.ExchangeModel;
 import com.cdkj.token.model.InviteModel;
+import com.cdkj.token.model.KtInfoModel;
 import com.cdkj.token.model.MarketCoinModel;
 import com.cdkj.token.model.MarketModel;
 import com.cdkj.token.model.OrderDetailModel;
 import com.cdkj.token.model.OrderModel;
 import com.cdkj.token.model.RateModel;
+import com.cdkj.token.model.StatisticsListModel;
 import com.cdkj.token.model.SystemMessageModel;
 import com.cdkj.token.model.SystemParameterListModel;
 import com.cdkj.token.model.SystemParameterModel;
@@ -42,6 +44,30 @@ import retrofit2.http.POST;
  */
 
 public interface MyApi {
+
+
+    /**
+     * 获取空投流水
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<StatisticsListModel>> getKtBillList(@Field("code") String code, @Field("json") String json);
+
+
+    /**
+     * 获取空投信息
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<KtInfoModel>> getTkInfo(@Field("code") String code, @Field("json") String json);
 
 
     /**

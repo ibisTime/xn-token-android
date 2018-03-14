@@ -43,11 +43,8 @@ public class ConsultAdapter extends BaseQuickAdapter<ConsultModel, BaseViewHolde
         StringBuffer stringBuffer = new StringBuffer();
 
         stringBuffer.append(model.getProvince());
-        stringBuffer.append(" ");
         stringBuffer.append(model.getCity());
-        stringBuffer.append(" ");
         stringBuffer.append(model.getArea());
-        stringBuffer.append(" ");
         stringBuffer.append(model.getAddress());
 
         return stringBuffer.toString();

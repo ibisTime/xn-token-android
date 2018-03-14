@@ -1,6 +1,7 @@
 package com.cdkj.token.consult;
 
 import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
 
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.MyConfig;
@@ -8,9 +9,13 @@ import com.cdkj.baselibrary.base.BaseRefreshFragment;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.BigDecimalUtils;
+import com.cdkj.baselibrary.utils.BitmapUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
+import com.cdkj.baselibrary.utils.MoneyUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.Util.StringUtil;
+import com.cdkj.token.Util.AccountUtil;
 import com.cdkj.token.adapter.ConsultAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentConsultBinding;
@@ -18,16 +23,22 @@ import com.cdkj.token.loader.BannerImageLoader;
 import com.cdkj.token.model.BannerModel;
 import com.cdkj.token.model.ConsultListModel;
 import com.cdkj.token.model.ConsultModel;
+import com.cdkj.token.model.KtInfoModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
+
+import static com.cdkj.token.Util.AccountUtil.OGCSCALE;
 
 /**
  * 首页
@@ -66,7 +77,10 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
 
         initBanner();
 
+        // 刷新轮播图
+        getBanner();
         getListData(pageIndex, 15, true);
+        getKtInfo(true);
     }
 
     /**
@@ -103,13 +117,66 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
 
     @Override
     protected void getListData(int pageIndex, int limit, boolean canShowDialog) {
-
-
-        // 刷新轮播图
-        getBanner();
         getConsultListRequest(pageIndex, limit, canShowDialog);
 
     }
+
+    @Override
+    protected void onMRefresh(int pageIndex, int limit) {
+        getKtInfo(false);
+        // 刷新轮播图
+        getBanner();
+        getListData(pageIndex, limit, false);
+    }
+
+
+    /**
+     * 获取空投数据信息
+     */
+    private void getKtInfo(boolean canShowDialog) {
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getTkInfo("802108", StringUtils.getJsonToString(new HashMap<>()));
+
+        addCall(call);
+
+        if (canShowDialog) showLoadingDialog();
+
+
+        call.enqueue(new BaseResponseModelCallBack<KtInfoModel>(mActivity) {
+            @Override
+            protected void onSuccess(KtInfoModel data, String SucMessage) {
+
+                mHeadBinding.tvKtInfo.setText(getTkText(data));
+                mHeadBinding.progress.setMax(100);
+                mHeadBinding.progress.setProgress(BigDecimalUtils.intValue(data.getUseRate()) * 100);
+
+            }
+
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+
+
+    }
+
+    /**
+     * 获取空投数据显示文本
+     *
+     * @param data
+     * @return
+     */
+    @NonNull
+    private String getTkText(KtInfoModel data) {
+        DecimalFormat df = new DecimalFormat("#######0.########%");
+
+        return getString(R.string.kt_total) + AccountUtil.amountFormatUnit(data.getInitialBalance(), AccountUtil.OGC, OGCSCALE) + "  "
+                + getString(R.string.kt_statistical_2) + AccountUtil.amountFormatUnit(data.getUseBalance(), AccountUtil.OGC, OGCSCALE) + "  " + getString(R.string.kt_ratio) +df.format(BigDecimalUtils.multiply(data.getUseRate(), new BigDecimal(100)).doubleValue());
+
+    }
+
 
     /**
      * 获取列表数据
@@ -133,6 +200,8 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
         if (canShowDialog) showLoadingDialog();
 
         Call call = RetrofitUtils.createApi(MyApi.class).getConsultList("625327", StringUtils.getJsonToString(map));
+
+        addCall(call);
 
         call.enqueue(new BaseResponseModelCallBack<ConsultListModel>(mActivity) {
             @Override
@@ -170,7 +239,7 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
      */
     private void getBanner() {
         Map<String, String> map = new HashMap<>();
-        map.put("location", "trade"); // 交易位置轮播
+        map.put("location", "app_home"); // 交易位置轮播
         map.put("systemCode", MyConfig.SYSTEMCODE);
         map.put("companyCode", MyConfig.COMPANYCODE);
 
@@ -184,6 +253,8 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
             @Override
             protected void onSuccess(List<BannerModel> data, String SucMessage) {
                 bannerData = data;
+
+                if (bannerData == null || bannerData.isEmpty()) return;
                 //设置图片集合
                 mHeadBinding.banner.setImages(bannerData);
                 //banner设置方法全部调用完毕时最后调用
@@ -195,7 +266,6 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
             protected void onFinish() {
             }
         });
-
     }
 
     private void initBanner() {
@@ -217,6 +287,8 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
         mHeadBinding.banner.setIndicatorGravity(BannerConfig.CENTER);
         //设置banner点击事件
         mHeadBinding.banner.setOnBannerListener(position -> {
+
+            if (bannerData == null || position > bannerData.size()) return;
 
             if (bannerData.get(position).getUrl() != null) {
                 if (bannerData.get(position).getUrl().indexOf("http") != -1) {

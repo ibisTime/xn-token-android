@@ -20,27 +20,38 @@ import java.util.regex.Pattern;
 public class StringUtils {
 
 
-    public static String getJsonToString(Object object){
+    public static String getJsonToString(Object object) {
 
-        if(object==null){
+        if (object == null) {
             return "";
         }
 
-        String jsonString= JSON.toJSONString(object);
+        String jsonString = JSON.toJSONString(object);
 
-        LogUtil.BIGLOG("JSON 转换__:        "+jsonString);
+        LogUtil.BIGLOG("JSON 转换__:        " + jsonString);
 
         return jsonString;
     }
 
 
+    public static double parseDouble(String s) {
 
-    public static List<String> splitAsList(String s, String sp){
 
-        List<String> strings=new ArrayList<>();
+        try {
+            return Double.valueOf(s);
+        } catch (Exception e) {
 
-        if(!TextUtils.isEmpty(s)){
-            strings= Arrays.asList( s.split(sp));
+        }
+        return 0;
+    }
+
+
+    public static List<String> splitAsList(String s, String sp) {
+
+        List<String> strings = new ArrayList<>();
+
+        if (!TextUtils.isEmpty(s)) {
+            strings = Arrays.asList(s.split(sp));
         }
 
         return strings;
@@ -49,11 +60,12 @@ public class StringUtils {
 
     /**
      * 切割获取广告图片
+     *
      * @param s
      * @return
      */
-   public static List<String> splitBannerList(String s){
-        return splitAsList(s,"\\|\\|");
+    public static List<String> splitBannerList(String s) {
+        return splitAsList(s, "\\|\\|");
     }
 
     public static String subString(String s, int start, int end) {
@@ -68,14 +80,13 @@ public class StringUtils {
             return "";
         }
     }
+
     //int前面补零
-    public static String frontCompWithZoreString(Object sourceDate, int formatLength)
-    {
+    public static String frontCompWithZoreString(Object sourceDate, int formatLength) {
         try {
             String newString = String.format("%0" + formatLength + "d", sourceDate);
-            return  newString;
-        }catch (Exception e)
-        {
+            return newString;
+        } catch (Exception e) {
             return sourceDate.toString();
         }
     }
@@ -100,7 +111,7 @@ public class StringUtils {
                 }
                 // 如果值是list类型则调用自己
                 if (list.get(i) instanceof List) {
-                    sb.append(listToString((List<?>) list.get(i),sep1));
+                    sb.append(listToString((List<?>) list.get(i), sep1));
                     if (i != list.size() - 1) {
                         sb.append(sep1);
                     }
@@ -125,7 +136,7 @@ public class StringUtils {
 
 
     //判断email格式是否正确
-    public static  boolean isEmail(String email) {
+    public static boolean isEmail(String email) {
         String str = "^([a-zA-Z0-9_\\-\\.]+)@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.)|(([a-zA-Z0-9\\-]+\\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\\]?)$";
         Pattern p = Pattern.compile(str);
         Matcher m = p.matcher(email);
@@ -134,8 +145,8 @@ public class StringUtils {
     }
 
 
- //设置价格输入
-    public static  void editSetPriceInputState(EditText editText){
+    //设置价格输入
+    public static void editSetPriceInputState(EditText editText) {
 
         editText.setFilters(new InputFilter[]{new InputFilter() {
             @Override
@@ -159,12 +170,12 @@ public class StringUtils {
 
     /**
      * 是否设置过资金密码
+     *
      * @return
      */
-   public static boolean getIsSetPayPwd(String state){
-     return !TextUtils.equals("0",state);
-   }
-
+    public static boolean getIsSetPayPwd(String state) {
+        return !TextUtils.equals("0", state);
+    }
 
 
     /**
@@ -208,7 +219,9 @@ public class StringUtils {
     public static boolean isMatch(final String regex, final CharSequence input) {
         return input != null && input.length() > 0 && Pattern.matches(regex, input);
     }
-    public static final String REGEX_IP            = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
+
+    public static final String REGEX_IP = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
+
     /**
      * 验证IP地址
      *

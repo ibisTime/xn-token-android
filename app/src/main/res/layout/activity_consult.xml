@@ -52,7 +52,7 @@
                     android:layout_marginBottom="15dp"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:textColor="@color/black"
+                    android:textColor="@color/gray_7a7a7a"
                     android:textSize="14sp"
                     tools:text="橙袋科技" />
 
@@ -79,7 +79,7 @@
                             android:id="@+id/tv_phone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/black"
+                            android:textColor="@color/gray_7a7a7a"
                             android:textSize="14sp"
                             tools:text="橙袋科技" />
 
@@ -88,7 +88,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:textColor="@color/black"
+                            android:textColor="@color/gray_7a7a7a"
                             android:textSize="14sp"
                             tools:text="橙袋科技" />
 
@@ -134,7 +134,7 @@
                 android:textColor="@color/white" />
 
             <Button
-                android:id="@+id/bt"
+                android:id="@+id/btn_to_pay"
                 android:layout_width="0dp"
                 android:layout_height="45dp"
                 android:layout_marginLeft="5dp"

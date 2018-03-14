@@ -42,6 +42,14 @@ public class ConsultActivity extends AbsBaseActivity {
 
     private String mPhoneNum;//电话号
 
+    private String mStoreCode;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBinding.banner.stopAutoPlay();
+    }
+
     /**
      * 加载activity
      *
@@ -85,6 +93,10 @@ public class ConsultActivity extends AbsBaseActivity {
             CallPhoneActivity.open(this, mPhoneNum);
         });
 
+        mBinding.btnToPay.setOnClickListener(v -> {
+            StorePayActivity.open(this,mStoreCode);
+        });
+
     }
 
     private void initData() {
@@ -96,7 +108,9 @@ public class ConsultActivity extends AbsBaseActivity {
             return;
         }
 
-        getConsultDetails(getIntent().getStringExtra("code"));
+        mStoreCode=getIntent().getStringExtra("code");
+
+        getConsultDetails(mStoreCode);
 
     }
 
@@ -123,11 +137,8 @@ public class ConsultActivity extends AbsBaseActivity {
         StringBuffer stringBuffer = new StringBuffer();
 
         stringBuffer.append(model.getProvince());
-        stringBuffer.append(" ");
         stringBuffer.append(model.getCity());
-        stringBuffer.append(" ");
         stringBuffer.append(model.getArea());
-        stringBuffer.append(" ");
         stringBuffer.append(model.getAddress());
 
         return stringBuffer.toString();
@@ -174,6 +185,8 @@ public class ConsultActivity extends AbsBaseActivity {
 
         Call call = RetrofitUtils.createApi(MyApi.class).getConsultDetail("625328", StringUtils.getJsonToString(map));
 
+        addCall(call);
+
         call.enqueue(new BaseResponseModelCallBack<ConsultModel>(this) {
             @Override
             protected void onSuccess(ConsultModel data, String SucMessage) {
@@ -206,9 +219,4 @@ public class ConsultActivity extends AbsBaseActivity {
         mBinding.banner.startAutoPlay();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mBinding.banner.stopAutoPlay();
-    }
 }

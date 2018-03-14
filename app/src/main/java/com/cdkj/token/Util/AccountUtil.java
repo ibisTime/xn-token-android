@@ -17,15 +17,19 @@ public class AccountUtil {
     public static BigDecimal UNIT_MIN = new BigDecimal("10");
     public static BigDecimal UNIT_OGC = UNIT_MIN.pow(8);
 
+    public static final String OGC = "OGC";
+    public static final int OGCSCALE = 8;
+
     /**
      * 货币单位转换
+     *
      * @param amount
      * @param coin
      * @return
      */
-    public static String amountFormatUnit(BigDecimal amount,String coin, int scale){
+    public static String amountFormatUnit(BigDecimal amount, String coin, int scale) {
 
-        if(amount.equals(new BigDecimal(0))){
+        if (amount == null || amount.doubleValue() <= 0) {
             return "0.00";
         }
 
@@ -34,33 +38,52 @@ public class AccountUtil {
     }
 
     /**
+     * 货币单位转换 带单位 OGC
+     *
+     * @param amount
+     * @param coin
+     * @return
+     */
+    public static String amountFormatUnitForShow(BigDecimal amount, String coin, int scale) {
+
+        if (amount == null || amount.doubleValue() <= 0) {
+            return "0.00 " + OGC;
+        }
+
+        return scale(amount.divide(getUnit(coin)).toPlainString(), scale) + " "+ OGC;
+
+    }
+
+    /**
      * 格式化输出的金额格式，最多8位小数
+     *
      * @param s
      * @return
      */
-    public static String scale(String s, int scale){
+    public static String scale(String s, int scale) {
         String amount[] = s.split("\\.");
-        if (amount.length > 1){
-            if (amount[1].length() > scale){
-                return amount[0]+"."+amount[1].substring(0,scale);
-            }else {
-                return amount[0]+"."+amount[1];
+        if (amount.length > 1) {
+            if (amount[1].length() > scale) {
+                return amount[0] + "." + amount[1].substring(0, scale);
+            } else {
+                return amount[0] + "." + amount[1];
             }
-        }else {
+        } else {
             return amount[0];
         }
     }
 
     /**
      * 根据货币获取最小单位
+     *
      * @param coin
      * @return
      */
-    public static BigDecimal getUnit(String coin){
+    public static BigDecimal getUnit(String coin) {
 
-        switch (coin){
+        switch (coin) {
 
-            case "OGC":
+            case OGC:
                 return UNIT_OGC;
 
             default:
@@ -70,30 +93,30 @@ public class AccountUtil {
     }
 
 
-    public static String formatDouble(double money){
+    public static String formatDouble(double money) {
         DecimalFormat df = new DecimalFormat("#######0.000");
         String showMoney = df.format(money);
 
-        return showMoney.substring(0,showMoney.length()-1);
+        return showMoney.substring(0, showMoney.length() - 1);
     }
 
-    public static String formatInt(double money){
+    public static String formatInt(double money) {
         DecimalFormat df = new DecimalFormat("#######0.000");
         String showMoney = df.format(money);
 
-        return showMoney.substring(0,showMoney.length()-1).split("\\.")[0];
+        return showMoney.substring(0, showMoney.length() - 1).split("\\.")[0];
     }
 
-    public static String formatDoubleDiv(String money, int scale){
+    public static String formatDoubleDiv(String money, int scale) {
 
         DecimalFormat df = new DecimalFormat("#######0.000");
-        String showMoney = df.format((Double.parseDouble(money)/scale));
+        String showMoney = df.format((Double.parseDouble(money) / scale));
 
-        return showMoney.substring(0,showMoney.length()-1);
+        return showMoney.substring(0, showMoney.length() - 1);
     }
 
-    public static String getCurrency(String currency){
-        switch (currency){
+    public static String getCurrency(String currency) {
+        switch (currency) {
             case "ETH":
                 return StringUtil.getString(R.string.coin_eth);
 
@@ -109,8 +132,8 @@ public class AccountUtil {
         }
     }
 
-    public static String formatBizType(String bizType){
-        switch (bizType){
+    public static String formatBizType(String bizType) {
+        switch (bizType) {
             case "charge":
                 return StringUtil.getString(R.string.biz_type_charge);
 
@@ -154,9 +177,9 @@ public class AccountUtil {
     }
 
 
-    public static String formatBillStatus(String status){
+    public static String formatBillStatus(String status) {
 
-        switch (status){
+        switch (status) {
 
             case "1":
                 return StringUtil.getString(R.string.biz_status_daiduizhang);
@@ -181,11 +204,12 @@ public class AccountUtil {
 
     /**
      * 提供精确加法计算的add方法
+     *
      * @param value1 被加数
      * @param value2 加数
      * @return 两个参数的和
      */
-    public static String add(double value1,double value2){
+    public static String add(double value1, double value2) {
         BigDecimal b1 = new BigDecimal(Double.valueOf(value1));
         BigDecimal b2 = new BigDecimal(Double.valueOf(value2));
         return b1.add(b2).toPlainString();
@@ -193,11 +217,12 @@ public class AccountUtil {
 
     /**
      * 提供精确减法运算的sub方法
+     *
      * @param value1 被减数
      * @param value2 减数
      * @return 两个参数的差
      */
-    public static String sub(double value1,double value2, String coin){
+    public static String sub(double value1, double value2, String coin) {
         BigDecimal b1 = new BigDecimal(Double.valueOf(value1));
         BigDecimal b2 = new BigDecimal(Double.valueOf(value2));
         return amountFormatUnit(b1.subtract(b2), coin, 8);
@@ -205,11 +230,12 @@ public class AccountUtil {
 
     /**
      * 提供精确乘法运算的mul方法
+     *
      * @param value1 被乘数
      * @param value2 乘数
      * @return 两个参数的积
      */
-    public static String mul(double value1,double value2){
+    public static String mul(double value1, double value2) {
         BigDecimal b1 = new BigDecimal(Double.valueOf(value1));
         BigDecimal b2 = new BigDecimal(Double.valueOf(value2));
         return b1.multiply(b2).toPlainString();
@@ -217,15 +243,16 @@ public class AccountUtil {
 
     /**
      * 提供精确的除法运算方法div
+     *
      * @param value1 被除数
      * @param value2 除数
-     * @param scale 精确范围
+     * @param scale  精确范围
      * @return 两个参数的商
      * @throws IllegalAccessException
      */
-    public static String div(double value1,double value2,int scale) throws IllegalAccessException{
+    public static String div(double value1, double value2, int scale) throws IllegalAccessException {
         //如果精确范围小于0，抛出异常信息
-        if(scale<0){
+        if (scale < 0) {
             throw new IllegalAccessException("精确度不能小于0");
         }
         BigDecimal b1 = new BigDecimal(Double.valueOf(value1));
@@ -237,6 +264,7 @@ public class AccountUtil {
 
     /**
      * 去掉末尾的零
+     *
      * @param str
      * @return
      */

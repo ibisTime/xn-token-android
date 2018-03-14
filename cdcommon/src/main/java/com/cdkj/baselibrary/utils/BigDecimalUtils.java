@@ -8,24 +8,34 @@ import java.math.BigDecimal;
 
 public class BigDecimalUtils {
 
-    public static int intValue(BigDecimal b){
-        if(b!=null){
+    public static int intValue(BigDecimal b) {
+        if (b != null) {
             return b.intValue();
         }
 
         return 0;
     }
+
+    public static double doubleValue(BigDecimal b) {
+        if (b != null) {
+            return b.doubleValue();
+        }
+
+        return 0;
+    }
+
     //减法
-    public static BigDecimal subtract(BigDecimal b,BigDecimal b1){
-        if(b!=null && b1!=null){
+    public static BigDecimal subtract(BigDecimal b, BigDecimal b1) {
+        if (b != null && b1 != null) {
             return b.subtract(b1);
         }
 
         return new BigDecimal(0);
     }
-     //乘法
-    public static BigDecimal multiply(BigDecimal b,BigDecimal b1){
-        if(b!=null && b1!=null){
+
+    //乘法
+    public static BigDecimal multiply(BigDecimal b, BigDecimal b1) {
+        if (b != null && b1 != null) {
             return b.multiply(b1);
         }
 
@@ -33,8 +43,8 @@ public class BigDecimalUtils {
     }
 
     //加法
-    public static BigDecimal add(BigDecimal b,BigDecimal b1){
-        if(b!=null && b1!=null){
+    public static BigDecimal add(BigDecimal b, BigDecimal b1) {
+        if (b != null && b1 != null) {
             return b.add(b1);
         }
 
