@@ -8,6 +8,8 @@ import com.cdkj.token.model.AddressModel;
 import com.cdkj.token.model.BannerModel;
 import com.cdkj.token.model.BillModel;
 import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.model.ConsultListModel;
+import com.cdkj.token.model.ConsultModel;
 import com.cdkj.token.model.ConsultingModel;
 import com.cdkj.token.model.DealDetailModel;
 import com.cdkj.token.model.DealHistoryModel;
@@ -41,8 +43,34 @@ import retrofit2.http.POST;
 
 public interface MyApi {
 
+
+    /**
+     * 获取店铺详情
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ConsultModel>> getConsultDetail(@Field("code") String code, @Field("json") String json);
+
+
+    /**
+     * 获取店铺列表
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ConsultListModel>> getConsultList(@Field("code") String code, @Field("json") String json);
+
+
     /**
      * 注册
+     *
      * @param code
      * @param json
      * @return
@@ -53,6 +81,7 @@ public interface MyApi {
 
     /**
      * 获取用户账户
+     *
      * @param code
      * @param json
      * @return
@@ -63,6 +92,7 @@ public interface MyApi {
 
     /**
      * 获取用户账户
+     *
      * @param code
      * @param json
      * @return
@@ -73,6 +103,7 @@ public interface MyApi {
 
     /**
      * 获取统计信息
+     *
      * @param code
      * @param json
      * @return
@@ -83,6 +114,7 @@ public interface MyApi {
 
     /**
      * 获取用户账单
+     *
      * @param code
      * @param json
      * @return
@@ -93,6 +125,7 @@ public interface MyApi {
 
     /**
      * 获取用户信息详情
+     *
      * @param code
      * @param json
      * @return
@@ -103,6 +136,7 @@ public interface MyApi {
 
     /**
      * 获取轮播图
+     *
      * @param code
      * @param json
      * @return
@@ -113,6 +147,7 @@ public interface MyApi {
 
     /**
      * 获取系统参数
+     *
      * @param code
      * @param json
      * @return
@@ -123,6 +158,7 @@ public interface MyApi {
 
     /**
      * 获取系统参数
+     *
      * @param code
      * @param json
      * @return
@@ -133,6 +169,7 @@ public interface MyApi {
 
     /**
      * 获取系统参数
+     *
      * @param code
      * @param json
      * @return
@@ -143,6 +180,7 @@ public interface MyApi {
 
     /**
      * 获取用户设置
+     *
      * @param code
      * @param json
      * @return
@@ -153,6 +191,7 @@ public interface MyApi {
 
     /**
      * 获取邀请数据
+     *
      * @param code
      * @param json
      * @return
@@ -163,6 +202,7 @@ public interface MyApi {
 
     /**
      * 获取电子货币行情
+     *
      * @param code
      * @param json
      * @return
@@ -173,6 +213,7 @@ public interface MyApi {
 
     /**
      * 获取电子货币行情
+     *
      * @param code
      * @param json
      * @return
@@ -184,6 +225,7 @@ public interface MyApi {
 
     /**
      * 数字货币，平台干预后的价格
+     *
      * @param code
      * @param json
      * @return
@@ -194,6 +236,7 @@ public interface MyApi {
 
     /**
      * 获取法币汇率
+     *
      * @param code
      * @param json
      * @return
@@ -204,6 +247,7 @@ public interface MyApi {
 
     /**
      * 获取法币汇率
+     *
      * @param code
      * @param json
      * @return
@@ -214,6 +258,7 @@ public interface MyApi {
 
     /**
      * 获取货币行情
+     *
      * @param code
      * @param json
      * @return
@@ -224,6 +269,7 @@ public interface MyApi {
 
     /**
      * 获取系统消息
+     *
      * @param code
      * @param json
      * @return
@@ -234,6 +280,7 @@ public interface MyApi {
 
     /**
      * 获取系统资讯
+     *
      * @param code
      * @param json
      * @return
@@ -244,6 +291,7 @@ public interface MyApi {
 
     /**
      * 获取交易
+     *
      * @param code
      * @param json
      * @return
@@ -254,6 +302,7 @@ public interface MyApi {
 
     /**
      * 获取交易
+     *
      * @param code
      * @param json
      * @return
@@ -264,6 +313,7 @@ public interface MyApi {
 
     /**
      * 获取交易
+     *
      * @param code
      * @param json
      * @return
@@ -274,6 +324,7 @@ public interface MyApi {
 
     /**
      * 获取交易
+     *
      * @param code
      * @param json
      * @return
@@ -284,6 +335,7 @@ public interface MyApi {
 
     /**
      * 获取信任列表
+     *
      * @param code
      * @param json
      * @return
@@ -294,6 +346,7 @@ public interface MyApi {
 
     /**
      * 获取推荐列表
+     *
      * @param code
      * @param json
      * @return
@@ -304,6 +357,7 @@ public interface MyApi {
 
     /**
      * 获取汇率
+     *
      * @param code
      * @param json
      * @return
@@ -314,6 +368,7 @@ public interface MyApi {
 
     /**
      * 获取交易结果
+     *
      * @param code
      * @param json
      * @return
@@ -324,6 +379,7 @@ public interface MyApi {
 
     /**
      * 获取订单
+     *
      * @param code
      * @param json
      * @return
@@ -334,6 +390,7 @@ public interface MyApi {
 
     /**
      * 获取订单
+     *
      * @param code
      * @param json
      * @return
@@ -344,6 +401,7 @@ public interface MyApi {
 
     /**
      * 获取地址
+     *
      * @param code
      * @param json
      * @return
@@ -354,6 +412,7 @@ public interface MyApi {
 
     /**
      * 获取版本
+     *
      * @param code
      * @param json
      * @return

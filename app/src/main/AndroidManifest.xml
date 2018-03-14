@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:name="com.cdkj.token.MyApplication"
@@ -30,24 +31,26 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.cdkj.token.MainActivity"
+        <activity
+            android:name="com.cdkj.token.MainActivity"
             android:launchMode="singleTask" />
 
-        <activity android:name="com.cdkj.token.wallet.ExchangeActivity"/>
-        <activity android:name="com.cdkj.token.wallet.ExchangePastActivity"/>
+        <activity android:name="com.cdkj.token.wallet.ExchangeActivity" />
+        <activity android:name="com.cdkj.token.wallet.ExchangePastActivity" />
         <activity android:name="com.cdkj.token.wallet.account.BillActivity" />
         <activity android:name="com.cdkj.token.wallet.account.BillDetailActivity" />
-        <activity android:name="com.cdkj.token.wallet.account.RechargeActivity"/>
-        <activity android:name="com.cdkj.token.wallet.account.WithdrawActivity"/>
+        <activity android:name="com.cdkj.token.wallet.account.RechargeActivity" />
+        <activity android:name="com.cdkj.token.wallet.account.WithdrawActivity" />
 
-        <activity android:name="com.cdkj.token.user.UserSettingActivity"/>
-        <activity android:name="com.cdkj.token.user.UserEmailActivity"/>
+        <activity android:name="com.cdkj.token.user.UserSettingActivity" />
+        <activity android:name="com.cdkj.token.user.UserEmailActivity" />
         <activity android:name="com.cdkj.token.user.UserLanguageActivity" />
         <activity android:name="com.cdkj.token.user.UserPasswordActivity" />
         <activity android:name="com.cdkj.token.user.UserAboutActivity" />
-        <activity android:name="com.cdkj.token.user.login.SignInActivity"
-            android:launchMode="singleTask"/>
-        <activity android:name="com.cdkj.token.user.login.SignUpActivity"/>
+        <activity
+            android:name="com.cdkj.token.user.login.SignInActivity"
+            android:launchMode="singleTask" />
+        <activity android:name="com.cdkj.token.user.login.SignUpActivity" />
 
         //找回密码
         <activity
@@ -100,6 +103,13 @@
         <activity android:name=".consult.StatisticsActivity" />
         <activity android:name=".wallet.account.WithdrawOrderActivity" />
         <activity android:name=".user.UserGoogleActivity" />
+
+        <!--拨打电话-->
+        <activity
+            android:name=".user.CallPhoneActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActivityDialogStyleBottom"
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
 

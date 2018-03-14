@@ -6,14 +6,17 @@ import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.base.BaseRefreshFragment;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
+import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
+import com.cdkj.token.Util.StringUtil;
 import com.cdkj.token.adapter.ConsultAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentConsultBinding;
 import com.cdkj.token.loader.BannerImageLoader;
 import com.cdkj.token.model.BannerModel;
+import com.cdkj.token.model.ConsultListModel;
 import com.cdkj.token.model.ConsultModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youth.banner.BannerConfig;
@@ -77,7 +80,9 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
 
             ConsultModel model = (ConsultModel) mAdapter.getItem(position);
 
-            ConsultActivity.open(mActivity, model.getName(), model.getName(), model.getDate());
+            if (model == null) return;
+
+            ConsultActivity.open(mActivity, model.getCode());
 
         });
     }
@@ -99,20 +104,49 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
     @Override
     protected void getListData(int pageIndex, int limit, boolean canShowDialog) {
 
-        List<ConsultModel> list = new ArrayList<>();
-
-        for (int i = 0; i < 3; i++) {
-            ConsultModel model = new ConsultModel();
-            model.setName("资讯标题" + i);
-            model.setDate((i + 1) + "分钟牵");
-            list.add(model);
-        }
-
-        setData(list);
-
 
         // 刷新轮播图
         getBanner();
+        getConsultListRequest(pageIndex, limit, canShowDialog);
+
+    }
+
+    /**
+     * 获取列表数据
+     *
+     * @param pageIndex
+     * @param limit
+     * @param canShowDialog
+     */
+    private void getConsultListRequest(int pageIndex, int limit, boolean canShowDialog) {
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("limit", limit + "");
+        map.put("start", pageIndex + "");
+        map.put("systemCode", MyConfig.SYSTEMCODE);
+        map.put("companyCode", MyConfig.COMPANYCODE);
+        map.put("orderColumn", "ui_order");
+        map.put("orderDir", "desc");
+
+
+        if (canShowDialog) showLoadingDialog();
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getConsultList("625327", StringUtils.getJsonToString(map));
+
+        call.enqueue(new BaseResponseModelCallBack<ConsultListModel>(mActivity) {
+            @Override
+            protected void onSuccess(ConsultListModel data, String SucMessage) {
+                setData(data.getList());
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+
+
     }
 
     @Override
@@ -144,7 +178,6 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
 
         addCall(call);
 
-        showLoadingDialog();
 
         call.enqueue(new BaseResponseListCallBack<BannerModel>(mActivity) {
 
@@ -160,7 +193,6 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
             }
         });
 

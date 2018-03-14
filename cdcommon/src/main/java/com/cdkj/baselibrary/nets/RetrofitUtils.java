@@ -75,7 +75,7 @@ public class RetrofitUtils {
             switch (SPUtilHelper.getAPPBuildType()){
 
                 case SPUtilHelper.BUILD_TYPE_TEST: // 测试
-                    return MyConfig.BASE_URL_TEST;
+                    return MyConfig.BASE_URL_DEV;
 
                 default: // 研发
                     return MyConfig.BASE_URL_DEV;
@@ -83,7 +83,7 @@ public class RetrofitUtils {
             }
         }else{
             // 线上
-            return MyConfig.BASE_URL_ONLINE;
+            return MyConfig.BASE_URL_DEV;
         }
 
     }

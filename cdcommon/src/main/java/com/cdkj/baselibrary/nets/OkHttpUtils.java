@@ -83,16 +83,18 @@ public class OkHttpUtils {
             "YNUTr/w=\n" +
             "-----END CERTIFICATE-----";
 
-    public OkHttpUtils() {}
+    public OkHttpUtils() {
+    }
 
     private static OkHttpClient client;
 
     /**
      * 获取 OkHttpClient 对象
+     *
      * @return OkHttpClient
      */
     public static OkHttpClient getInstance() {
-        if(client==null){
+        if (client == null) {
 
 
             client = new OkHttpClient.Builder()
@@ -127,7 +129,7 @@ public class OkHttpUtils {
                     LogUtil.I("okhttp: " + URLDecoder.decode(message, "utf-8"));
                 } catch (Exception e) {
                     e.printStackTrace();
-                    LogUtil.I("okhttp日志错误: ");
+                    LogUtil.I("okhttp日志错误: " + message);
                 }
 
             }
@@ -199,12 +201,11 @@ public class OkHttpUtils {
                 String certificateAlias = Integer.toString(index++);
                 keyStore.setCertificateEntry(certificateAlias, certificateFactory.generateCertificate(certificate));
 
-                try
-                {
+                try {
                     if (certificate != null)
                         certificate.close();
                 } catch (IOException e) {
-                   e.printStackTrace();
+                    e.printStackTrace();
                 }
             }
             return keyStore;

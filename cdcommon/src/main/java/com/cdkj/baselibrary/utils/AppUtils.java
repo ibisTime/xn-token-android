@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
+import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
 
@@ -146,6 +147,24 @@ public class AppUtils {
                 });
     }
 
-
+    /**
+     * 调用拨号界面
+     *
+     * @param phone 电话号码
+     *              需要权限
+     *              <uses-permission android:name="android.permission.CALL_PHONE" />
+     */
+    public static void callPhonePage(Activity activity, String phone) {
+        if (activity == null || TextUtils.isEmpty(phone)) {
+            return;
+        }
+        try {
+            Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + phone));
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            activity.startActivity(intent);
+        } catch (Exception e) {
+            LogUtil.E("call phone error" + e);
+        }
+    }
 
 }

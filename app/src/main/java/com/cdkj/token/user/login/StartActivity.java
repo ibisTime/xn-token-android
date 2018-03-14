@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
@@ -27,7 +28,7 @@ import retrofit2.Call;
 @Route(path = "/user/start")
 public class StartActivity extends BaseActivity {
 
-    public static void open(Context context){
+    public static void open(Context context) {
         if (context == null) {
             return;
         }
@@ -48,22 +49,26 @@ public class StartActivity extends BaseActivity {
         }
 
         setContentView(R.layout.activity_start);
-
-//        getQiniu();
-        open();
+//        open();
     }
 
-    private void open(){
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getQiniu();
+    }
+
+    private void open() {
 
         mSubscription.add(Observable.timer(2, TimeUnit.SECONDS)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {//延迟两秒进行跳转
 
-                    if (SPUtilHelper.isLoginNoStart()){
+                    if (SPUtilHelper.isLoginNoStart()) {
                         MainActivity.open(this);
-                    }else {
-                        SignInActivity.open(this,false);
+                    } else {
+                        SignInActivity.open(this, false);
                     }
 
                     finish();
@@ -91,17 +96,35 @@ public class StartActivity extends BaseActivity {
                 if (data == null)
                     return;
 
-                MyConfig.IMGURL = "http://"+data.getCvalue()+"/";
+                MyConfig.IMGURL = "http://" + data.getCvalue() + "/";
 
                 open();
 
             }
 
             @Override
+            protected void onReqFailure(int errorCode, String errorMessage) {
+                open();
+            }
+
+            @Override
+            protected void onNull() {
+                open();
+            }
+
+            @Override
+            protected void onNoNet(String msg) {
+                open();
+            }
+
+            @Override
+            protected void onBuinessFailure(String code, String error) {
+                open();
+            }
+
+            @Override
             protected void onFinish() {
                 disMissLoading();
-
-                open();
             }
         });
     }

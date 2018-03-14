@@ -323,5 +323,10 @@
     <string name="wallet_withdraw_amount_hint2">您最多可以提现</string>
     <string name="call_phone">联系对方</string>
     <string name="want_to_pay">我要支付</string>
+    <string name="store">店铺</string>
+    <string name="kt_total">总量：</string>
+    <string name="kt_ratio">占比：</string>
+    <string name="kt_statistical">空投统计</string>
+    <string name="kt_statistical_2">分发：</string>
 
 </resources>
