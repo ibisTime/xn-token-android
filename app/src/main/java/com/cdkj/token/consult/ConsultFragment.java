@@ -2,9 +2,11 @@ package com.cdkj.token.consult;
 
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
+import android.view.View;
 
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseRefreshFragment;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -68,6 +70,7 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
     @Override
     protected void afterCreate(int pageIndex, int limit) {
         mBinding.refreshLayout.setEnableAutoLoadmore(false);//不能自动加载
+
         setTopTitle(getString(R.string.consult_title));
         setTopTitleLine(true);
 
@@ -145,16 +148,17 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
         call.enqueue(new BaseResponseModelCallBack<KtInfoModel>(mActivity) {
             @Override
             protected void onSuccess(KtInfoModel data, String SucMessage) {
-
                 mHeadBinding.tvKtInfo.setText(getTkText(data));
                 mHeadBinding.progress.setMax(100);
                 mHeadBinding.progress.setProgress(BigDecimalUtils.intValue(data.getUseRate()) * 100);
-
             }
 
 
             @Override
             protected void onFinish() {
+                if (mHeadBinding.llStatistics.getVisibility() == View.INVISIBLE) {  //请求完成后才显示布局
+                    mHeadBinding.llStatistics.setVisibility(View.VISIBLE);
+                }
                 disMissLoading();
             }
         });
@@ -172,8 +176,18 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
     private String getTkText(KtInfoModel data) {
         DecimalFormat df = new DecimalFormat("#######0.########%");
 
-        return getString(R.string.kt_total) + AccountUtil.amountFormatUnit(data.getInitialBalance(), AccountUtil.OGC, OGCSCALE) + "  "
-                + getString(R.string.kt_statistical_2) + AccountUtil.amountFormatUnit(data.getUseBalance(), AccountUtil.OGC, OGCSCALE) + "  " + getString(R.string.kt_ratio) +df.format(BigDecimalUtils.multiply(data.getUseRate(), new BigDecimal(100)).doubleValue());
+        StringBuffer sb = new StringBuffer();
+
+        sb.append(getString(R.string.kt_total));
+        sb.append(AccountUtil.amountFormatUnit(data.getInitialBalance(), AccountUtil.OGC, OGCSCALE));
+        sb.append("  ");
+        sb.append(getString(R.string.kt_statistical_2));
+        sb.append(AccountUtil.amountFormatUnit(data.getUseBalance(), AccountUtil.OGC, OGCSCALE));
+        sb.append("  ");
+        sb.append(getString(R.string.kt_ratio));
+        sb.append(df.format(BigDecimalUtils.multiply(data.getUseRate(), new BigDecimal(100)).doubleValue()));
+
+        return sb.toString();
 
     }
 
@@ -211,6 +225,9 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
 
             @Override
             protected void onFinish() {
+                if (mHeadBinding.llListTitle.getVisibility() == View.INVISIBLE) {
+                    mHeadBinding.llListTitle.setVisibility(View.VISIBLE);
+                }
                 disMissLoading();
             }
         });
@@ -246,7 +263,6 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
         Call call = RetrofitUtils.createApi(MyApi.class).getBanner("805806", StringUtils.getJsonToString(map));
 
         addCall(call);
-
 
         call.enqueue(new BaseResponseListCallBack<BannerModel>(mActivity) {
 

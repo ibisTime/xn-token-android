@@ -327,11 +327,12 @@
     <string name="kt_total">總量：</string>
     <string name="kt_ratio">占比：</string>
     <string name="kt_statistical">空投統計</string>
-    <string name="kt_statistical_2">分發：</string>
+    <string name="kt_statistical_2">已投：</string>
 
 
     <string name="pay_confirm">確認支付</string>
     <string name="pay_amount">支付數量</string>
-
+    <string name="pay_succ">支付成功</string>
+    <string name="pay_fall">支付失敗</string>
 
 </resources>

@@ -72,7 +72,7 @@
 
     <string name="smscode_send_success">驗證碼已經發送請注意查收</string>
     <string name="smscode_send_failure">驗證碼發送失敗</string>
-    <string name="storage_refused">已拒絕BCoin獲取您的內存權限</string>
+    <string name="storage_refused">已拒絕獲取您的內存權限</string>
     <string name="web_create_pic_failure">生成圖片失敗</string>
 
 

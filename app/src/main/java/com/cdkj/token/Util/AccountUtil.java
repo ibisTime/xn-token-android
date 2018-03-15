@@ -30,7 +30,7 @@ public class AccountUtil {
     public static String amountFormatUnit(BigDecimal amount, String coin, int scale) {
 
         if (amount == null || amount.doubleValue() <= 0) {
-            return "0.00";
+            return "0";
         }
 
         return scale(amount.divide(getUnit(coin)).toPlainString(), scale);
@@ -47,7 +47,7 @@ public class AccountUtil {
     public static String amountFormatUnitForShow(BigDecimal amount, String coin, int scale) {
 
         if (amount == null || amount.doubleValue() <= 0) {
-            return "0.00 " + OGC;
+            return "0 " + OGC;
         }
 
         return scale(amount.divide(getUnit(coin)).toPlainString(), scale) + " "+ OGC;

@@ -65,12 +65,13 @@ public class StartActivity extends BaseActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {//延迟两秒进行跳转
 
-                    if (SPUtilHelper.isLoginNoStart()) {
-                        MainActivity.open(this);
-                    } else {
-                        SignInActivity.open(this, false);
-                    }
+//                    if (SPUtilHelper.isLoginNoStart()) {
+//                        MainActivity.open(this);
+//                    } else {
+//                        SignInActivity.open(this, false);
+//                    }
 
+                    MainActivity.open(this);
                     finish();
 
                 }, Throwable::printStackTrace));

@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -83,6 +84,7 @@ public class ConsultActivity extends AbsBaseActivity {
         initListener();
 
         initBanner();
+
         initData();
 
     }
@@ -94,7 +96,12 @@ public class ConsultActivity extends AbsBaseActivity {
         });
 
         mBinding.btnToPay.setOnClickListener(v -> {
-            StorePayActivity.open(this,mStoreCode);
+
+            if (!SPUtilHelper.isLogin(this, false)) {
+                return;
+            }
+
+            StorePayActivity.open(this, mStoreCode);
         });
 
     }
@@ -108,7 +115,7 @@ public class ConsultActivity extends AbsBaseActivity {
             return;
         }
 
-        mStoreCode=getIntent().getStringExtra("code");
+        mStoreCode = getIntent().getStringExtra("code");
 
         getConsultDetails(mStoreCode);
 
@@ -128,7 +135,7 @@ public class ConsultActivity extends AbsBaseActivity {
         RichText.from(model.getDescription()).into(mBinding.tvRichText);
 
 
-        setBannerData(model.getAdvPic());
+        setBannerData(model.getPic());
 
     }
 
@@ -154,7 +161,7 @@ public class ConsultActivity extends AbsBaseActivity {
         mBinding.banner.setImageLoader(new BannerImageLoader());
 
         //设置banner动画效果
-        mBinding.banner.setBannerAnimation(Transformer.DepthPage);
+//        mBinding.banner.setBannerAnimation(Transformer.DepthPage);
         //设置标题集合（当banner样式有显示title时）
 //        banner.setBannerTitles(Arrays.asList(titles));
         //设置自动轮播，默认为true

@@ -126,6 +126,8 @@ public class UserFragment extends BaseLazyFragment {
                     updateUserPhoto(key);
                 }
 
+
+
                 @Override
                 public void onFal(String info) {
                     disMissLoading();

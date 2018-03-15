@@ -85,7 +85,6 @@ public class MainActivity extends AbsBaseActivity {
             if (!SPUtilHelper.isLogin(this, false)) {
                 return;
             }
-
             setShowIndex(WALLET);
 
         });

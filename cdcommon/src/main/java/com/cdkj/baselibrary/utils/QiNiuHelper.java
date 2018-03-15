@@ -180,17 +180,30 @@ public class QiNiuHelper {
 
             @Override
             protected void onReqFailure(int errorCode, String errorMessage) {
-                callBack.onFal("图片上传失败");
+                if (callBack != null) {
+                    callBack.onFal("图片上传失败");
+                }
+            }
+
+            @Override
+            protected void onBuinessFailure(String code, String error) {
+                if (callBack != null) {
+                    callBack.onFal("图片上传失败");
+                }
             }
 
             @Override
             protected void onNull() {
-                callBack.onFal("图片上传失败");
+                if (callBack != null) {
+                    callBack.onFal("图片上传失败");
+                }
             }
 
             @Override
             protected void onNoNet(String msg) {
-                callBack.onFal("图片上传失败");
+                if (callBack != null) {
+                    callBack.onFal("图片上传失败");
+                }
             }
 
             @Override
@@ -290,7 +303,7 @@ public class QiNiuHelper {
                         uploadSingle(new QiNiuCallBack() {
                             @Override
                             public void onSuccess(String key) {
-                                if(listListener!=null){
+                                if (listListener != null) {
                                     listListener.onChange(upLoadListIndex, key);
                                 }
                                 if (upLoadListIndex < dataList.size() - 1) {
@@ -427,7 +440,6 @@ public class QiNiuHelper {
             return BitmapUtils.compressImage(path);
         }
     }
-
 
 
 }

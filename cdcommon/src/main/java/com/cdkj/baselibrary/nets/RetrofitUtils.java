@@ -30,22 +30,23 @@ public class RetrofitUtils {
      */
     private static Retrofit getInstance() {
 //        if (retrofitInstance == null) {
-            retrofitInstance = new Retrofit.Builder()
-                    .baseUrl(getBaseURL())
-                    .client(OkHttpUtils.getInstance())
-                    .addConverterFactory(FastJsonConVerter.create())
-                    .build();
+        retrofitInstance = new Retrofit.Builder()
+                .baseUrl(getBaseURL())
+                .client(OkHttpUtils.getInstance())
+                .addConverterFactory(FastJsonConVerter.create())
+                .build();
 //        }
         return retrofitInstance;
     }
 
     /**
      * 切换环境之后重新初始化Retrofit
+     *
      * @param tag
      */
     @Subscribe
-    public void clearRetrofit(String tag){
-        if (tag.equals(EventTags.BUILD_TYPE)){
+    public void clearRetrofit(String tag) {
+        if (tag.equals(EventTags.BUILD_TYPE)) {
             retrofitInstance = null;
         }
     }
@@ -65,25 +66,24 @@ public class RetrofitUtils {
     }
 
     /**
-     *
      * @return
      */
     public static String getBaseURL() {
 
-        if (MyConfig.IS_DEBUG){
+        if (MyConfig.IS_DEBUG) {
 
-            switch (SPUtilHelper.getAPPBuildType()){
+            switch (SPUtilHelper.getAPPBuildType()) {
 
                 case SPUtilHelper.BUILD_TYPE_TEST: // 测试
-                    return MyConfig.BASE_URL_DEV;
+                    return MyConfig.BASE_URL_TEST;
 
                 default: // 研发
                     return MyConfig.BASE_URL_DEV;
 
             }
-        }else{
+        } else {
             // 线上
-            return MyConfig.BASE_URL_DEV;
+            return MyConfig.BASE_URL_ONLINE;
         }
 
     }

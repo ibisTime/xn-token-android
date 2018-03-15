@@ -260,6 +260,7 @@ public class StorePayActivity extends AbsBaseActivity {
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(this) {
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
+                showToast(getString(R.string.pay_succ));
                 finish();
             }
 

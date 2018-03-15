@@ -71,7 +71,7 @@
 
     <string name="smscode_send_success">验证码已经发送请注意查收</string>
     <string name="smscode_send_failure">验证码发送失败</string>
-    <string name="storage_refused">已拒绝BCoin获取您的内存权限</string>
+    <string name="storage_refused">已拒绝获取您的内存权限</string>
     <string name="web_create_pic_failure">生成图片失败</string>
 
     <string name="no_camera_permission">没有获取到权限，无法使用相机和相册功能</string>
