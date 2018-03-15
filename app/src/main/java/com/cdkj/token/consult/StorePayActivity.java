@@ -23,6 +23,7 @@ import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.SystemUtils;
@@ -225,10 +226,11 @@ public class StorePayActivity extends AbsBaseActivity {
                     return;
                 CoinModel.AccountListBean accountListBean = data.getAccountList().get(0);
 
-                if (accountListBean == null || TextUtils.isEmpty(accountListBean.getAmountString()))
+                if (accountListBean == null || TextUtils.isEmpty(accountListBean.getAmountString()) || TextUtils.isEmpty(accountListBean.getFrozenAmountString()))
                     return;
 
-                mBinding.tvBalance.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getAmountString()), AccountUtil.OGC, OGCSCALE));
+                //总金额 - 冻结金额 =可用金额
+                mBinding.tvBalance.setText(AccountUtil.amountFormatUnitForShow(BigDecimalUtils.subtract(new BigDecimal(accountListBean.getAmountString()), new BigDecimal(accountListBean.getFrozenAmountString())), AccountUtil.OGC, OGCSCALE));
 
             }
 
@@ -249,7 +251,7 @@ public class StorePayActivity extends AbsBaseActivity {
         map.put("toStore", mStoreCode);
         map.put("token", SPUtilHelper.getUserToken());
         map.put("tradePwd", pwd);
-        map.put("transAmount", bigDecimal.multiply(getUnit(AccountUtil.OGC)).toString().split("\\.")[0]);
+        map.put("transAmount", bigDecimal.multiply(getUnit(AccountUtil.OGC)).toPlainString().split("\\.")[0]);
 
         Call call = RetrofitUtils.getBaseAPiService().successRequest("625340", StringUtils.getJsonToString(map));
 

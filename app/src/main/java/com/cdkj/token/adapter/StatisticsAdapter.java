@@ -34,7 +34,7 @@ public class StatisticsAdapter extends BaseQuickAdapter<StatisticsModel, BaseVie
 
         helper.setText(R.id.tv_address_from, item.getTokenFrom());
         helper.setText(R.id.tv_address_to, item.getTokenTo());
-        helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnit(item.getTokenValue(), AccountUtil.OGC, OGCSCALE) + AccountUtil.OGC);
+        helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnit(item.getTokenValue(), AccountUtil.OGC, OGCSCALE) + " " + AccountUtil.OGC);
 
 
     }

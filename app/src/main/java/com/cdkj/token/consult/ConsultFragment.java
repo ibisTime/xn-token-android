@@ -276,6 +276,8 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
                 //banner设置方法全部调用完毕时最后调用
                 mHeadBinding.banner.start();
 
+                mHeadBinding.banner.startAutoPlay();
+
             }
 
             @Override

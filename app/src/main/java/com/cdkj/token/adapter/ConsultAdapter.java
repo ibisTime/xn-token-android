@@ -31,7 +31,7 @@ public class ConsultAdapter extends BaseQuickAdapter<ConsultModel, BaseViewHolde
         helper.setText(R.id.tv_address, getAddress(item));
         helper.setText(R.id.tv_slogan, item.getSlogan());
 
-        ImgUtils.loadImage(mContext, item.getPic(), helper.getView(R.id.img_consult));
+        ImgUtils.loadImage(mContext, item.getAdvPic(), helper.getView(R.id.img_consult));
 
 //        helper.setText(R.id.tv_date,item.getDate()+" 橙袋科技");
 

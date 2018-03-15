@@ -97,7 +97,8 @@ public class StartActivity extends BaseActivity {
                 if (data == null)
                     return;
 
-                MyConfig.IMGURL = "http://" + data.getCvalue() + "/";
+//                MyConfig.IMGURL = "http://" + data.getCvalue() + "/";
+                SPUtilHelper.saveQiniuUrl("http://" + data.getCvalue() + "/");
 
                 open();
 

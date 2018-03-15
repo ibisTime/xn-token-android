@@ -17,6 +17,7 @@ public class MyConfig {
 
     public final static String USERTYPE = "C";//用户类型
 
+    //默认七牛url
     public static String IMGURL = "http://ozfszueqz.bkt.clouddn.com/";
 
     public static boolean IS_DEBUG = true;

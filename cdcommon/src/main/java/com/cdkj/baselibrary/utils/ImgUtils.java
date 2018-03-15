@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.cdkj.baselibrary.R;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.glidetransforms.GlideCircleTransform;
 import com.cdkj.baselibrary.utils.glidetransforms.GlideRoundTransform;
 
@@ -19,124 +19,121 @@ import com.cdkj.baselibrary.utils.glidetransforms.GlideRoundTransform;
  */
 public class ImgUtils {
 
-    public static void loadAvatar(Activity context, String imgid, ImageView img){
-        if (!AppUtils.isActivityExist(context)){
+    public static void loadAvatar(Activity context, String imgid, ImageView img) {
+        if (!AppUtils.isActivityExist(context)) {
             return;
         }
-        if(context==null || img==null) {
+        if (context == null || img == null) {
             return;
         }
-        LogUtil.E("图片"+imgid);
+        LogUtil.E("图片" + imgid);
 
         try {
-            if (imgid.indexOf("http://") != -1){
+            if (imgid.indexOf("http://") != -1) {
                 Glide.with(context).load(imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
-            }else {
-                Glide.with(context).load(MyConfig.IMGURL+imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
+            } else {
+                Glide.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
             }
 
-        }catch (Exception e){
+        } catch (Exception e) {
             LogUtil.E("图片加载错误");
         }
     }
 
-    public static void loadAvatar(Context context, String imgid, ImageView img){
-        if(context==null || img==null) {
+    public static void loadAvatar(Context context, String imgid, ImageView img) {
+        if (context == null || img == null) {
             return;
         }
-        LogUtil.E("图片"+imgid);
+        LogUtil.E("图片" + imgid);
 
         try {
-            if (imgid.indexOf("http://") != -1){
+            if (imgid.indexOf("http://") != -1) {
                 Glide.with(context).load(imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
-            }else {
-                Glide.with(context).load(MyConfig.IMGURL+imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
+            } else {
+                Glide.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             LogUtil.E("图片加载错误");
         }
     }
 
-    public static void loadRoundImage(Context context, String imgid, ImageView img){
-        if(context==null || img==null) {
+    public static void loadRoundImage(Context context, String imgid, ImageView img) {
+        if (context == null || img == null) {
             return;
         }
-        LogUtil.E("图片"+imgid);
+        LogUtil.E("图片" + imgid);
 
         try {
-            Glide.with(context).load(imgid).transform(new GlideRoundTransform(context,15)).into(img);
-        }catch (Exception e){
+            Glide.with(context).load(imgid).transform(new GlideRoundTransform(context, 15)).into(img);
+        } catch (Exception e) {
             LogUtil.E("图片加载错误");
         }
     }
 
-    public static void loadActImg(Activity context,String imgid,ImageView img){
+    public static void loadActImg(Activity context, String imgid, ImageView img) {
 
-        if (!AppUtils.isActivityExist(context)){
+        if (!AppUtils.isActivityExist(context)) {
 
             LogUtil.E("图片加载界面销毁");
             return;
         }
 
-        if(context==null || img==null)
-        {
+        if (context == null || img == null) {
             return;
         }
 
-        LogUtil.E("图片"+imgid);
+        LogUtil.E("图片" + imgid);
 
         try {
             Glide.with(context).load(imgid).placeholder(R.drawable.default_pic).error(R.drawable.default_pic).into(img);
-        }catch (Exception e){
+        } catch (Exception e) {
             LogUtil.E("图片加载错误");
         }
 
     }
 
-    public static void  loadActImgId(Activity context,int imgid,ImageView img){
+    public static void loadActImgId(Activity context, int imgid, ImageView img) {
 
-        if (!AppUtils.isActivityExist(context)){
+        if (!AppUtils.isActivityExist(context)) {
 
             LogUtil.E("图片加载界面销毁");
             return;
         }
 
-        if(context==null || img==null)
-        {
+        if (context == null || img == null) {
             return;
         }
 
-        LogUtil.E("图片"+imgid);
+        LogUtil.E("图片" + imgid);
 
         try {
             Glide.with(context).load(imgid).placeholder(R.drawable.default_pic).error(R.drawable.default_pic).into(img);
-        }catch (Exception e){
+        } catch (Exception e) {
             LogUtil.E("图片加载错误");
         }
 
     }
 
 
-    public static void loadFraImgId(Fragment context, int imgid, ImageView img){
+    public static void loadFraImgId(Fragment context, int imgid, ImageView img) {
 
-        if(context==null || img==null)
-        {
+        if (context == null || img == null) {
             return;
         }
 
-        LogUtil.E("图片"+imgid);
+        LogUtil.E("图片" + imgid);
 
         try {
             Glide.with(context).load(imgid).placeholder(R.drawable.default_pic).error(R.drawable.default_pic).into(img);
-        }catch (Exception e){
+        } catch (Exception e) {
             LogUtil.E("图片加载错误");
         }
 
     }
 
-    public static void loadImage(Context context, String path, ImageView iv){
+    public static void loadImage(Context context, String path, ImageView iv) {
 
-        if(context==null || path==null)
+        if (context == null || path == null)
             return;
 
 
@@ -147,7 +144,7 @@ public class ImgUtils {
         } else {
 
             Glide.with(context)
-                    .load(MyConfig.IMGURL + path.toString())
+                    .load(SPUtilHelper.getQiniuUrl() + path.toString())
                     .into(iv);
         }
 
@@ -155,28 +152,29 @@ public class ImgUtils {
 
     /**
      * 设置头像，头像为空时用昵称首字符作为头像，英文则须大写
-     * @param context 上下文
-     * @param imgUrl 图片URL
-     * @param nickName 用于设置文字头像的用户昵称
+     *
+     * @param context   上下文
+     * @param imgUrl    图片URL
+     * @param nickName  用于设置文字头像的用户昵称
      * @param imgAvatar 图片头像
      * @param txtAvatar 文字头像(取用户昵称的第一个字符)
      */
-    public static void loadAvatar(Context context, String imgUrl, String nickName, ImageView imgAvatar, TextView txtAvatar){
+    public static void loadAvatar(Context context, String imgUrl, String nickName, ImageView imgAvatar, TextView txtAvatar) {
 
         if (context == null || imgUrl == null)
             return;
 
-        if (imgUrl.equals("")){ // 没有头像
+        if (imgUrl.equals("")) { // 没有头像
             // 隐藏图片头像
             imgAvatar.setVisibility(View.GONE);
             // 设置文字头像
             txtAvatar.setVisibility(View.VISIBLE);
 
-            if (nickName.length() > 1){
-                txtAvatar.setText(nickName.substring(0,1).toUpperCase());
+            if (nickName.length() > 1) {
+                txtAvatar.setText(nickName.substring(0, 1).toUpperCase());
             }
 
-        }else {
+        } else {
             // 隐藏文字头像
             txtAvatar.setVisibility(View.GONE);
             // 设置图片头像
@@ -184,7 +182,7 @@ public class ImgUtils {
 
             try {
                 Glide.with(context)
-                        .load(MyConfig.IMGURL+imgUrl)
+                        .load(SPUtilHelper.getQiniuUrl() + imgUrl)
                         .placeholder(R.drawable.photo_default)
                         .error(R.drawable.photo_default)
                         .transform(new GlideCircleTransform(context)).into(imgAvatar);
@@ -199,7 +197,7 @@ public class ImgUtils {
 //
 //                }
 
-            }catch (Exception e){
+            } catch (Exception e) {
                 LogUtil.E("图片加载错误");
             }
         }

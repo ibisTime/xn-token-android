@@ -45,11 +45,6 @@ public class ConsultActivity extends AbsBaseActivity {
 
     private String mStoreCode;
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        mBinding.banner.stopAutoPlay();
-    }
 
     /**
      * 加载activity
@@ -207,7 +202,6 @@ public class ConsultActivity extends AbsBaseActivity {
             }
         });
 
-
     }
 
     /**
@@ -224,6 +218,12 @@ public class ConsultActivity extends AbsBaseActivity {
         mBinding.banner.setImages(bannners);
         mBinding.banner.start();
         mBinding.banner.startAutoPlay();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        mBinding.banner.stopAutoPlay();
     }
 
 }
