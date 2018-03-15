@@ -214,7 +214,7 @@ public class MainActivity extends AbsBaseActivity {
 
             @Override
             protected void onSuccess(VersionModel data, String SucMessage) {
-                if (data == null)
+                if (data != null)
                     return;
 
                 if (!TextUtils.equals(data.getVersion(), getVersionName())) {  //版本号不一致说明有更新

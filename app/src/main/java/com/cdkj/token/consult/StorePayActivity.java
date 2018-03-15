@@ -253,15 +253,15 @@ public class StorePayActivity extends AbsBaseActivity {
         map.put("tradePwd", pwd);
         map.put("transAmount", bigDecimal.multiply(getUnit(AccountUtil.OGC)).toPlainString().split("\\.")[0]);
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("625340", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().stringRequest("625340", StringUtils.getJsonToString(map));
 
         addCall(call);
 
         showLoadingDialog();
 
-        call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(this) {
+        call.enqueue(new BaseResponseModelCallBack<String>(this) {
             @Override
-            protected void onSuccess(IsSuccessModes data, String SucMessage) {
+            protected void onSuccess(String data, String SucMessage) {
                 showToast(getString(R.string.pay_succ));
                 finish();
             }
