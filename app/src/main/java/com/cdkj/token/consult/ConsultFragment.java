@@ -208,7 +208,7 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
         map.put("systemCode", MyConfig.SYSTEMCODE);
         map.put("companyCode", MyConfig.COMPANYCODE);
         map.put("orderColumn", "ui_order");
-        map.put("orderDir", "desc");
+        map.put("orderDir", "asc");
 
 
         if (canShowDialog) showLoadingDialog();

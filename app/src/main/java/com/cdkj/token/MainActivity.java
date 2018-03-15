@@ -1,27 +1,43 @@
 package com.cdkj.token;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.appmanager.EventTags;
+import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
+import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.ConsultFragment;
 import com.cdkj.token.databinding.ActivityMainBinding;
+import com.cdkj.token.model.VersionModel;
+import com.cdkj.token.user.UserAboutActivity;
 import com.cdkj.token.user.UserFragment;
 import com.cdkj.token.wallet.WalletFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+
+import static com.cdkj.token.Util.UpdateUtil.isForceUpload;
+import static com.cdkj.token.Util.UpdateUtil.startWeb;
 
 @Route(path = "/main/page")
 public class MainActivity extends AbsBaseActivity {
@@ -56,8 +72,8 @@ public class MainActivity extends AbsBaseActivity {
     public void afterCreate(Bundle savedInstanceState) {
         initViewPager();
         initListener();
-
         init();
+        getVersion();
     }
 
     @Override
@@ -119,7 +135,7 @@ public class MainActivity extends AbsBaseActivity {
 
     }
 
-    private void setTabDark(){
+    private void setTabDark() {
         mBinding.layoutMainBottom.ivConsult.setImageResource(R.mipmap.main_consult_dark);
         mBinding.layoutMainBottom.tvConsult.setTextColor(ContextCompat.getColor(this, R.color.gray_666666));
 
@@ -166,7 +182,7 @@ public class MainActivity extends AbsBaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Fragment fragment = fragments.get(fragments.size()-1);
+        Fragment fragment = fragments.get(fragments.size() - 1);
         fragment.onActivityResult(requestCode, resultCode, data);
 
     }
@@ -178,4 +194,68 @@ public class MainActivity extends AbsBaseActivity {
             finish();
         });
     }
+
+    /**
+     * 获取最新版本
+     *
+     * @return
+     */
+    private void getVersion() {
+        Map<String, String> map = new HashMap<>();
+        map.put("type", "android-c");
+        map.put("systemCode", MyConfig.SYSTEMCODE);
+        map.put("companyCode", MyConfig.COMPANYCODE);
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        call.enqueue(new BaseResponseModelCallBack<VersionModel>(this) {
+
+            @Override
+            protected void onSuccess(VersionModel data, String SucMessage) {
+                if (data == null)
+                    return;
+
+                if (!TextUtils.equals(data.getVersion(), getVersionName())) {  //版本号不一致说明有更新
+                    showUploadDialog(data);
+                }
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+
+    }
+
+    /**
+     * 显示更新dialog
+     *
+     * @param versionModel
+     */
+    private void showUploadDialog(VersionModel versionModel) {
+
+        if (isFinishing()) {
+            return;
+        }
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle(getStrRes(R.string.tip_update))
+                .setMessage(versionModel.getNote())
+                .setPositiveButton(getStrRes(R.string.confirm), (dialogInterface, i) -> {
+                    startWeb(MainActivity.this, versionModel.getDownloadUrl());
+                    EventBus.getDefault().post(EventTags.AllFINISH);
+                    finish();
+                })
+                .setCancelable(false);
+
+
+        if (isForceUpload(versionModel.getForceUpdate())) { // 强制更新
+            builder.show();
+        } else {
+            builder.setNegativeButton(getStrRes(R.string.cancel), null).show();
+        }
+    }
+
 }

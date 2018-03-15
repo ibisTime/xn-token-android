@@ -41,4 +41,13 @@ public class UpdateUtil {
         ResolveInfo info = pm.resolveActivity(intent, PackageManager.MATCH_DEFAULT_ONLY);
         return !"android".equals(info.activityInfo.packageName);
     }
+
+    /**
+     * 是否强制更新 1 是
+     * @param state
+     * @return
+     */
+    public static boolean isForceUpload(String state) {
+        return TextUtils.equals(state, "1");
+    }
 }

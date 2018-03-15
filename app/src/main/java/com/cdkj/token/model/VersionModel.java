@@ -6,11 +6,10 @@ package com.cdkj.token.model;
 
 public class VersionModel {
 
-
     /**
      * note : v100版本更新说明
      * downloadUrl : http://m.bcoin.im/v100/app-release.apk
-     * forceUpdate : 0
+     * forceUpdate : 0 不强制更新
      * version : 1.0.0
      */
 

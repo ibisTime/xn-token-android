@@ -7,6 +7,7 @@
     <string name="exit_confirm">确认退出？</string>
 
     <string name="tip">提示</string>
+    <string name="tip_update">更新提示</string>
     <string name="confirm">确认</string>
     <string name="attention">注意</string>
     <string name="kick_logout">您的账号已在其他终端登录,重新登录</string>
