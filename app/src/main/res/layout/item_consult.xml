@@ -21,8 +21,8 @@
                 android:layout_width="105dp"
                 android:layout_height="95dp"
                 android:layout_marginLeft="15dp"
-                android:background="@mipmap/default_pic"
-                android:scaleType="centerCrop" />
+                android:scaleType="centerCrop"
+                tools:background="@mipmap/default_pic" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -68,6 +68,12 @@
 
 
         </LinearLayout>
+
+        <View
+            style="@style/style_split_line"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:background="@color/gray_b3b3b3" />
 
 
     </LinearLayout>

@@ -29,7 +29,7 @@ public class AccountUtil {
      */
     public static String amountFormatUnit(BigDecimal amount, String coin, int scale) {
 
-        if (amount == null || amount.doubleValue() <= 0) {
+        if (amount == null) {
             return "0";
         }
 
@@ -46,7 +46,7 @@ public class AccountUtil {
      */
     public static String amountFormatUnitForShow(BigDecimal amount, String coin, int scale) {
 
-        if (amount == null || amount.doubleValue() <= 0) {
+        if (amount == null) {
             return "0 " + OGC;
         }
 
