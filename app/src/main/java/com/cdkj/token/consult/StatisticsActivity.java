@@ -15,6 +15,7 @@ import com.cdkj.token.model.StatisticsListModel;
 import com.cdkj.token.model.StatisticsModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -52,14 +53,14 @@ public class StatisticsActivity extends BaseRefreshActivity<StatisticsModel> {
     }
 
 
-
     @Override
     protected void getListData(int pageIndex, int limit, boolean canShowDialog) {
 
         HashMap map = new HashMap<>();
 
-        map.put("limit",limit+"");
-        map.put("start",pageIndex+"");
+        map.put("limit", limit + "");
+        map.put("start", pageIndex + "");
+
 
         Call call = RetrofitUtils.createApi(MyApi.class).getKtBillList("802107", StringUtils.getJsonToString(map));
 

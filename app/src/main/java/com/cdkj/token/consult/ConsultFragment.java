@@ -185,7 +185,8 @@ public class ConsultFragment extends BaseRefreshFragment<ConsultModel> {
         sb.append(AccountUtil.amountFormatUnit(data.getUseBalance(), AccountUtil.OGC, OGCSCALE));
         sb.append("  ");
         sb.append(getString(R.string.kt_ratio));
-        sb.append(df.format(BigDecimalUtils.multiply(data.getUseRate(), new BigDecimal(100)).doubleValue()));
+//        sb.append(df.format(BigDecimalUtils.multiply(data.getUseRate(), new BigDecimal(100)).doubleValue()));
+        sb.append(df.format(data.getUseRate()));
 
         return sb.toString();
 

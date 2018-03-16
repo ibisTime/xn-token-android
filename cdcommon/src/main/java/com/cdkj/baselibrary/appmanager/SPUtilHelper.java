@@ -66,8 +66,6 @@ public class SPUtilHelper {
         saveUserId("");
         saveUserToken("");
 
-        saveQiniuUrl("");
-
         saveRealName("");
         saveUserName("");
         saveUserPhoto("");

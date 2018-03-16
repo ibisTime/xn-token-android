@@ -50,7 +50,7 @@ public class AccountUtil {
             return "0 " + OGC;
         }
 
-        return scale(amount.divide(getUnit(coin)).toPlainString(), scale) + " "+ OGC;
+        return scale(amount.divide(getUnit(coin)).toPlainString(), scale) + " " + OGC;
 
     }
 
@@ -169,7 +169,8 @@ public class AccountUtil {
 
             case "invite":
                 return StringUtil.getString(R.string.biz_type_invite);
-
+            case "trans":
+                return StringUtil.getString(R.string.biz_type_trans);
             default:
                 return "";
 
