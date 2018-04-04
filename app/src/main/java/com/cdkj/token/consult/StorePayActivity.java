@@ -1,58 +1,35 @@
 package com.cdkj.token.consult;
 
-import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
-import android.widget.Toast;
 
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
-import com.cdkj.baselibrary.appmanager.EventTags;
-import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.dialog.InputDialog;
-import com.cdkj.baselibrary.model.EventBusModel;
-import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.BigDecimalUtils;
-import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.SystemUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
-import com.cdkj.baselibrary.views.MyPickerPopupWindow;
 import com.cdkj.token.R;
 import com.cdkj.token.Util.AccountUtil;
 import com.cdkj.token.Util.EditTextJudgeNumberWatcher;
-import com.cdkj.token.Util.ResponseUtil;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityStorePayBinding;
-import com.cdkj.token.databinding.ActivityWithdrawBinding;
 import com.cdkj.token.model.CoinModel;
-import com.cdkj.token.model.SystemParameterModel;
-import com.cdkj.token.wallet.account.WithdrawActivity;
-import com.cdkj.token.wallet.account.WithdrawOrderActivity;
-import com.uuzuche.lib_zxing.activity.CaptureActivity;
-import com.uuzuche.lib_zxing.activity.CodeUtils;
-
-import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 
-import static com.cdkj.baselibrary.utils.SystemUtils.paste;
 import static com.cdkj.token.Util.AccountUtil.OGCSCALE;
 import static com.cdkj.token.Util.AccountUtil.getUnit;
 
@@ -183,7 +160,7 @@ public class StorePayActivity extends AbsBaseActivity {
                         if (TextUtils.isEmpty(inputDialog.getContentView().getText().toString().trim())) {
                             showToast(getStrRes(R.string.trade_code_hint));
                         } else {
-                            payReuest(inputDialog.getContentView().getText().toString().trim());
+                            payRequest(inputDialog.getContentView().getText().toString().trim());
                             inputDialog.dismiss();
                         }
 
@@ -242,16 +219,18 @@ public class StorePayActivity extends AbsBaseActivity {
 
     }
 
-    public void payReuest(String pwd) {
+    public void payRequest(String pwd) {
 
         if (TextUtils.isEmpty(mStoreCode)) return;
 
         Map<String, String> map = new HashMap<>();
         BigDecimal bigDecimal = new BigDecimal(mBinding.edtAmount.getText().toString().trim());
-        map.put("toStore", mStoreCode);
         map.put("token", SPUtilHelper.getUserToken());
-        map.put("tradePwd", pwd);
+        map.put("formUserId", SPUtilHelper.getUserId());
+        map.put("toStore", mStoreCode);
         map.put("transAmount", bigDecimal.multiply(getUnit(AccountUtil.OGC)).toPlainString().split("\\.")[0]);
+        map.put("currency", AccountUtil.OGC);
+        map.put("tradePwd", pwd);
 
         Call call = RetrofitUtils.getBaseAPiService().stringRequest("625340", StringUtils.getJsonToString(map));
 

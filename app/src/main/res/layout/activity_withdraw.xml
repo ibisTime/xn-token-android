@@ -129,11 +129,13 @@
         </LinearLayout>
 
         <View
+            android:visibility="gone"
             android:background="@color/gray_eeeeee"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
         <LinearLayout
+            android:visibility="gone"
             android:background="@color/white"
             android:gravity="center_vertical"
             android:layout_width="match_parent"
@@ -212,7 +214,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:visibility="gone"
             android:layout_marginTop="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
@@ -259,13 +260,11 @@
         </LinearLayout>
 
         <View
-            android:visibility="gone"
             android:background="@color/gray_eeeeee"
             android:layout_width="match_parent"
             android:layout_height="1dp"/>
 
         <LinearLayout
-            android:visibility="gone"
             android:background="@color/white"
             android:gravity="center_vertical"
             android:layout_width="match_parent"

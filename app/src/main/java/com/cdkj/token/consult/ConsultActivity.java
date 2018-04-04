@@ -7,23 +7,18 @@ import android.os.Bundle;
 import android.text.TextPaint;
 import android.view.View;
 
-import com.cdkj.baselibrary.activitys.WebViewActivity;
-import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
-import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityConsultBinding;
 import com.cdkj.token.loader.BannerImageLoader;
-import com.cdkj.token.model.ConsultListModel;
 import com.cdkj.token.model.ConsultModel;
 import com.cdkj.token.user.CallPhoneActivity;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 import com.zzhoujay.richtext.RichText;
 
 import java.util.HashMap;

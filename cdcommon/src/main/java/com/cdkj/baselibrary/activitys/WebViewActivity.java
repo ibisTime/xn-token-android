@@ -113,8 +113,8 @@ public class WebViewActivity extends AbsBaseActivity {
         setSubLeftImgState(true);
         setTopLineState(true);
 
-        initLayout();
         initData();
+        initLayout();
 
     }
 
@@ -139,6 +139,17 @@ public class WebViewActivity extends AbsBaseActivity {
             public boolean shouldOverrideUrlLoading(WebView view, String url) {
                 view.loadUrl(url);
                 return true;
+            }
+        });
+
+        mBinding.webView.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onPageFinished(WebView view, String url) {
+                super.onPageFinished(view, url);
+                String title = view.getTitle();
+                if (!TextUtils.isEmpty(title)) {
+                    setTopTitle(title);
+                }
             }
         });
 

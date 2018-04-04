@@ -62,9 +62,13 @@ public abstract class BaseRefreshFragment<T> extends BaseLazyFragment {
         }
 
         init();
+        after();
+
 
         return mBinding.getRoot();
     }
+
+
 
     protected boolean canLoadEmptyView() {
         return true;
@@ -95,6 +99,10 @@ public abstract class BaseRefreshFragment<T> extends BaseLazyFragment {
         initRefreshLayout();
 
         afterCreate(mPageIndex, mLimit);
+    }
+
+    public void after(){
+
     }
 
     /**

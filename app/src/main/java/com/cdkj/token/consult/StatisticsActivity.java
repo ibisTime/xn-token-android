@@ -15,11 +15,12 @@ import com.cdkj.token.model.StatisticsListModel;
 import com.cdkj.token.model.StatisticsModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import retrofit2.Call;
+
+import static com.cdkj.token.Util.CoinUtil.getFirstTokenCoin;
 
 /**
  * 交易流水列表
@@ -60,9 +61,9 @@ public class StatisticsActivity extends BaseRefreshActivity<StatisticsModel> {
 
         map.put("limit", limit + "");
         map.put("start", pageIndex + "");
+        map.put("symbol", getFirstTokenCoin());
 
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getKtBillList("802107", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getKtBillList("802307", StringUtils.getJsonToString(map));
 
         addCall(call);
 

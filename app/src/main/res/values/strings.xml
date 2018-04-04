@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_names">OGC钱包</string>
+    <string name="app_name">OGC钱包</string>
 
-    <string name="main_tag_consult">首页</string>
+    <string name="main_tag_consult">应用</string>
     <string name="main_tab_wallet">钱包</string>
     <string name="main_tab_my">我的</string>
     <string name="exit_confirm">确认退出？</string>
@@ -60,6 +60,11 @@
     <string name="bill_type_charge">充币</string>
     <string name="bill_type_withdraw">提现</string>
     <string name="bill_type_autofill">自动补给</string>
+    <string name="bill_type_withdrawfee">取现手续费</string>
+    <string name="bill_type_o2o_in">o2o店铺消费收入</string>
+    <string name="bill_type_o2o_out">o2o店铺消费支出</string>
+    <string name="bill_type_withdrawfrozen">取现冻结</string>
+    <string name="bill_type_withdrawunfrozen">取现解冻</string>
     <string name="bill_type_select">筛选</string>
     <string name="bill_title_all">余额明细</string>
     <string name="bill_title_charge">充值明细</string>
@@ -317,7 +322,7 @@
     <string name="biz_status_yiduibuping">已对账且账不平</string>
     <string name="biz_status_wuxuduizhang">无需对账</string>
     <string name="consult_title">首页</string>
-    <string name="consult_none">暂无资讯</string>
+    <string name="consult_none">暂无商家</string>
     <string name="consult_activity_title">店铺详情</string>
     <string name="consult_statistics_none">暂无流水</string>
     <string name="consult_statistics_title">交易流水</string>
@@ -337,5 +342,9 @@
     <string name="pay_succ">支付成功</string>
     <string name="pay_fall">支付失败</string>
     <string name="biz_type_trans">划转</string>
+
+    <string name="consult_list_title">在线商家</string>
+    <string name="consult_none_title">敬请期待</string>
+
 
 </resources>

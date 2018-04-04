@@ -2,6 +2,7 @@ package com.cdkj.token.api;
 
 import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.api.BaseResponseModel;
+import com.cdkj.baselibrary.model.BaseCoinModel;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.token.model.AddressModel;
@@ -446,5 +447,15 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<VersionModel>> getVersion(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取支持的币种
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseListModel<BaseCoinModel>> getCoinList(@Field("code") String code, @Field("json") String json);
 
 }

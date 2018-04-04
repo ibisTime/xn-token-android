@@ -65,7 +65,7 @@ public class UserAboutActivity extends AbsBaseActivity {
     }
 
     private void init() {
-        mBinding.tvAppName.setText(getStrRes(R.string.app_names));
+        mBinding.tvAppName.setText(getStrRes(R.string.app_name));
         mBinding.tvVersion.setText("v"+getVersionName());
         mBinding.tvFuhao.setText("@");
 

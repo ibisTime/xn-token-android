@@ -5,19 +5,24 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
+import com.cdkj.baselibrary.model.BaseCoinModel;
+import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
 
+import org.litepal.crud.DataSupport;
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -97,10 +102,9 @@ public class StartActivity extends BaseActivity {
                 if (data == null)
                     return;
 
-//                MyConfig.IMGURL = "http://" + data.getCvalue() + "/";
                 SPUtilHelper.saveQiniuUrl("http://" + data.getCvalue() + "/");
 
-                open();
+                getCoinList();
 
             }
 
@@ -127,6 +131,56 @@ public class StartActivity extends BaseActivity {
             @Override
             protected void onFinish() {
                 disMissLoading();
+            }
+        });
+    }
+
+    private void getCoinList(){
+        Map<String, String> map = new HashMap<>();
+        map.put("type", "");
+        map.put("ename", "");
+        map.put("cname", "");
+        map.put("symbol", "");
+        map.put("status", "0"); // 0已发布，1已撤下
+        map.put("contractAddress", "");
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getCoinList("802267", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        call.enqueue(new BaseResponseListCallBack<BaseCoinModel>(this) {
+
+            @Override
+            protected void onSuccess(List<BaseCoinModel> data, String SucMessage) {
+                if (data == null)
+                    return;
+
+                // 如果数据库已有数据，清空重新加载
+                if(DataSupport.isExist(BaseCoinModel.class))
+                    DataSupport.deleteAll(BaseCoinModel.class);
+
+                // 初始化交易界面默认所选择的币
+                data.get(0).setChoose(true);
+                DataSupport.saveAll(data);
+
+                open();
+            }
+
+            @Override
+            protected void onReqFailure(int errorCode, String errorMessage) {
+                super.onReqFailure(errorCode, errorMessage);
+
+                // 如果数据库已有数据，直接加载数据库
+                if(DataSupport.isExist(BaseCoinModel.class)){
+                    open();
+                }else {
+                    ToastUtil.show(StartActivity.this,"无法连接服务器，请检查网络");
+                }
+
+            }
+
+            @Override
+            protected void onFinish() {
             }
         });
     }

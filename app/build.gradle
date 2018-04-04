@@ -6,8 +6,8 @@ android {
         applicationId "com.cdkj.token"
         minSdkVersion 19
         targetSdkVersion 26
-        versionCode 1
-        versionName "1.0.0"
+        versionCode 3
+        versionName "1.2.0"
 
         multiDexEnabled true
 
@@ -80,4 +80,7 @@ dependencies {
 
     // 二维码
     compile 'cn.yipianfengye.android:zxing-library:2.2'
+
+
+
 }

@@ -3,8 +3,8 @@ package com.cdkj.token.adapter;
 import android.support.annotation.Nullable;
 
 import com.cdkj.token.R;
-import com.cdkj.token.model.StatisticsModel;
 import com.cdkj.token.Util.AccountUtil;
+import com.cdkj.token.model.StatisticsModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 

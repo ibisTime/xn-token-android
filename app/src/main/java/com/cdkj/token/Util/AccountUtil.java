@@ -1,7 +1,10 @@
 package com.cdkj.token.Util;
 
 
+import com.cdkj.baselibrary.model.BaseCoinModel;
 import com.cdkj.token.R;
+
+import org.litepal.crud.DataSupport;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -15,22 +18,20 @@ import static java.math.BigDecimal.ROUND_HALF_DOWN;
 public class AccountUtil {
 
     public static BigDecimal UNIT_MIN = new BigDecimal("10");
-    public static BigDecimal UNIT_OGC = UNIT_MIN.pow(8);
 
     public static final String OGC = "OGC";
     public static final int OGCSCALE = 8;
 
     /**
      * 货币单位转换
-     *
      * @param amount
      * @param coin
      * @return
      */
-    public static String amountFormatUnit(BigDecimal amount, String coin, int scale) {
+    public static String amountFormatUnit(BigDecimal amount,String coin, int scale){
 
-        if (amount == null) {
-            return "0";
+        if(amount.equals(new BigDecimal(0))){
+            return "0.00";
         }
 
         return scale(amount.divide(getUnit(coin)).toPlainString(), scale);
@@ -75,21 +76,39 @@ public class AccountUtil {
 
     /**
      * 根据货币获取最小单位
-     *
      * @param coin
      * @return
      */
-    public static BigDecimal getUnit(String coin) {
+    public static BigDecimal getUnit(String coin){
 
-        switch (coin) {
+        for (BaseCoinModel model : DataSupport.findAll(BaseCoinModel.class)){
 
-            case OGC:
-                return UNIT_OGC;
+            if (model.getSymbol().equals(coin)){
+                return UNIT_MIN.pow(model.getUnit());
+            }
 
-            default:
-                return new BigDecimal(0);
         }
 
+        return new BigDecimal(1);
+    }
+
+    /**
+     * 根据货币获取提现手续费
+     * @param coin
+     * @return
+     */
+    public static String getWithdrawFee(String coin){
+
+        for (BaseCoinModel model : DataSupport.findAll(BaseCoinModel.class)){
+
+            if (model.getSymbol().equals(coin)){
+
+                return amountFormatUnit(new BigDecimal(model.getWithdrawFeeString()), coin, 8);
+            }
+
+        }
+
+        return "";
     }
 
 
@@ -138,22 +157,7 @@ public class AccountUtil {
                 return StringUtil.getString(R.string.biz_type_charge);
 
             case "withdraw":
-                return StringUtil.getString(R.string.biz_type_withdraw);
-
-            case "autofill":
-                return StringUtil.getString(R.string.biz_type_autofill);
-
-            case "buy":
-                return StringUtil.getString(R.string.biz_type_buy);
-
-            case "sell":
-                return StringUtil.getString(R.string.biz_type_sell);
-
-            case "tradefrozen":
-                return StringUtil.getString(R.string.biz_type_tradefrozen);
-
-            case "tradeunfrozen":
-                return StringUtil.getString(R.string.biz_type_tradeunfrozen);
+                return StringUtil.getString(R.string.bill_type_withdraw);
 
             case "withdrawfrozen":
                 return StringUtil.getString(R.string.biz_type_withdrawfrozen);
@@ -169,8 +173,13 @@ public class AccountUtil {
 
             case "invite":
                 return StringUtil.getString(R.string.biz_type_invite);
-            case "trans":
-                return StringUtil.getString(R.string.biz_type_trans);
+
+            case "o2o_in":
+                return StringUtil.getString(R.string.bill_type_o2o_in);
+
+            case "o2o_out":
+                return StringUtil.getString(R.string.bill_type_o2o_out);
+
             default:
                 return "";
 

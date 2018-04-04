@@ -8,51 +8,24 @@ import java.math.BigDecimal;
 
 public class KtInfoModel {
 
-
-    /**
-     * address : 0x8E979a7621314e0BA506c54A2482F7F49a99Ef44
-     * balance : 9999980000000000
-     * initialBalance : 10000000000000000
-     * useBalance : 20000000000
-     * useRate : 0.000002
-     */
-
-    private String address;
-    private String balance;
-    private BigDecimal initialBalance;
-    private BigDecimal useBalance;
+    private BigDecimal totalCount;
+    private BigDecimal useCount;
     private BigDecimal useRate;
 
-    public String getAddress() {
-        return address;
+    public BigDecimal getTotalCount() {
+        return totalCount;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setTotalCount(BigDecimal totalCount) {
+        this.totalCount = totalCount;
     }
 
-    public String getBalance() {
-        return balance;
+    public BigDecimal getUseCount() {
+        return useCount;
     }
 
-    public void setBalance(String balance) {
-        this.balance = balance;
-    }
-
-    public BigDecimal getInitialBalance() {
-        return initialBalance;
-    }
-
-    public void setInitialBalance(BigDecimal initialBalance) {
-        this.initialBalance = initialBalance;
-    }
-
-    public BigDecimal getUseBalance() {
-        return useBalance;
-    }
-
-    public void setUseBalance(BigDecimal useBalance) {
-        this.useBalance = useBalance;
+    public void setUseCount(BigDecimal useCount) {
+        this.useCount = useCount;
     }
 
     public BigDecimal getUseRate() {

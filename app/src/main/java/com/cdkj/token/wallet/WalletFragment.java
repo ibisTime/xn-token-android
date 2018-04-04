@@ -13,12 +13,12 @@ import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
+import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.Util.ResponseUtil;
 import com.cdkj.token.adapter.CoinAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentWalletBinding;
@@ -27,11 +27,18 @@ import com.cdkj.token.model.RateModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
+
+import static com.cdkj.baselibrary.appmanager.EventTags.BASE_COIN_LIST;
+import static com.cdkj.baselibrary.appmanager.EventTags.BASE_COIN_LIST_NOTIFY_ALL;
+import static com.cdkj.baselibrary.appmanager.EventTags.BASE_COIN_LIST_NOTIFY_SINGEL;
 
 
 /**
@@ -81,6 +88,17 @@ public class WalletFragment extends BaseLazyFragment {
             }
 
             @Override
+            public void onRefresh(int pageindex, int limit) {
+                EventBusModel model = new EventBusModel();
+                model.setTag(BASE_COIN_LIST);
+                // 是否需要通知所有需要的地方刷新CoinList配置
+                model.setEvBoolean(false);
+                // 不是的话需要告知其需要更新的位置
+                model.setEvInfo("wallet");
+                EventBus.getDefault().post(model);
+            }
+
+            @Override
             public void getListDataRequest(int pageIndex, int limit, boolean isShowDialog) {
 
                 if(TextUtils.isEmpty(SPUtilHelper.getUserToken()))
@@ -107,24 +125,7 @@ public class WalletFragment extends BaseLazyFragment {
 
                         setView(data);
 
-//                        // 筛选配置允许的Coin账户
-//                        List<CoinModel.AccountListBean> coinList = new ArrayList<>();
-//                        // 允许配置的Coin
-//                        List<String> list= Arrays.asList(MyConfig.COIN_TYPE);
-//
-//                        for (CoinModel.AccountListBean bean : data.getAccountList()){
-//
-//                            if (list.contains(bean.getCurrency())){
-//                                coinList.add(bean);
-//                            }
-//                        }
-
-                        if (ResponseUtil.screeningDataWithConfig(data) == null)
-                            return;
-
-                        List<CoinModel.AccountListBean> coinList = (List<CoinModel.AccountListBean>) ResponseUtil.screeningDataWithConfig(data);
-
-                        refreshHelper.setData(coinList , getStrRes(R.string.wallet_none), R.mipmap.order_none);
+                        refreshHelper.setData(data.getAccountList() , getStrRes(R.string.wallet_none), R.mipmap.order_none);
                     }
 
                     @Override
@@ -226,5 +227,23 @@ public class WalletFragment extends BaseLazyFragment {
 
     }
 
+    @Subscribe
+    public void eventBusModel(EventBusModel model) {
+        if (model == null)
+            return;
+
+        switch (model.getTag()){
+
+            // CoinList配置更新通知，单一通知需要验证是否是自己
+            case BASE_COIN_LIST_NOTIFY_SINGEL:
+                if (!model.getEvInfo().equals("wallet"))
+                    return;
+
+            case BASE_COIN_LIST_NOTIFY_ALL:
+                refreshHelper.onMRefresh(1,10,true);
+                break;
+        }
+
+    }
 
 }

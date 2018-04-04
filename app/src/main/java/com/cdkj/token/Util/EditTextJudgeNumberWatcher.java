@@ -9,7 +9,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 /**
- * @Description:EditText内容输入限制最大：小数点前五位，小数点后2位
+ * @Description:EditText内容输入限制最大：小数点前的位数，小数点后的位数
  */
 
 public class EditTextJudgeNumberWatcher implements TextWatcher {

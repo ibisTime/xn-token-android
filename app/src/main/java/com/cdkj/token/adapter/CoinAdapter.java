@@ -2,10 +2,12 @@ package com.cdkj.token.adapter;
 
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
+import android.widget.ImageView;
 
 import com.cdkj.baselibrary.activitys.AuthenticateActivity;
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
+import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.Util.AccountUtil;
 import com.cdkj.token.Util.StringUtil;
@@ -19,6 +21,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.cdkj.token.Util.CoinUtil.getCoinNameWithCurrency;
+import static com.cdkj.token.Util.CoinUtil.getCoinWatermarkWithCurrency;
 import static com.cdkj.token.wallet.account.BillActivity.TYPE_ALL;
 import static com.cdkj.token.wallet.account.BillActivity.TYPE_FROZEN;
 
@@ -37,19 +41,15 @@ public class CoinAdapter extends BaseQuickAdapter<CoinModel.AccountListBean, Bas
         BigDecimal amount;
         BigDecimal frozenAmount;
 
-        switch (item.getCurrency()){
+        helper.setText(R.id.tv_name, getCoinNameWithCurrency(item.getCurrency())+"("+item.getCurrency()+")");
 
-            case "OGC":
-                helper.setText(R.id.tv_name, StringUtil.getString(R.string.property_ogc));
+        amount = new BigDecimal(item.getAmountString());
+        frozenAmount = new BigDecimal(item.getFrozenAmountString());
+        helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), item.getCurrency(), 8));
 
-                amount = new BigDecimal(item.getAmountString());
-                frozenAmount = new BigDecimal(item.getFrozenAmountString());
-                helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), item.getCurrency(), 8));
-
-                helper.setText(R.id.tv_frozen, StringUtil.getString(R.string.freeze)+ AccountUtil.amountFormatUnit(new BigDecimal(item.getFrozenAmountString()), item.getCurrency(), 8));
-                helper.setBackgroundRes(R.id.iv_watermark, R.mipmap.wallet_coin_ogc);
-                break;
-        }
+        helper.setText(R.id.tv_frozen, StringUtil.getString(R.string.freeze)+ AccountUtil.amountFormatUnit(new BigDecimal(item.getFrozenAmountString()),item.getCurrency(), 8));
+        ImageView ivCoin = helper.getView(R.id.iv_watermark);
+        ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(),1), ivCoin);
 
         helper.getView(R.id.ll_recharge).setOnClickListener(v -> {
             RechargeActivity.open(mContext, item);
@@ -63,7 +63,7 @@ public class CoinAdapter extends BaseQuickAdapter<CoinModel.AccountListBean, Bas
                 if (SPUtilHelper.getTradePwdFlag()){
                     WithdrawActivity.open(mContext, item);
                 }else {
-                    PayPwdModifyActivity.open(mContext, SPUtilHelper.getTradePwdFlag(), SPUtilHelper.getUserPhoneNum());
+                    PayPwdModifyActivity.open(mContext,SPUtilHelper.getTradePwdFlag(),SPUtilHelper.getUserPhoneNum());
                 }
             }
 

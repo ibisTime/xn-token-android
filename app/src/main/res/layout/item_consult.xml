@@ -8,72 +8,9 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:paddingBottom="8dp"
-            android:paddingTop="5dp">
-
-            <ImageView
-                android:id="@+id/img_consult"
-                android:layout_width="105dp"
-                android:layout_height="95dp"
-                android:layout_marginLeft="15dp"
-                android:scaleType="centerCrop"
-                tools:background="@mipmap/default_pic" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_title"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="15dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    tools:text="sdfsdfsfsdfsdfsfsdfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsdfsfsdfsfsdfsdfsfsdfsdfsf" />
-
-                <TextView
-                    android:id="@+id/tv_slogan"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="15dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:textColor="@color/gray_999999"
-                    android:textSize="14sp"
-                    tools:text="aaa" />
-
-                <TextView
-                    android:id="@+id/tv_address"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="15dp"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:textColor="@color/gray_999999"
-                    android:textSize="12sp"
-                    tools:text="sdfsdfsf" />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
         <View
-            style="@style/style_split_line"
-            android:layout_marginLeft="0dp"
-            android:layout_marginRight="0dp"
-            android:background="@color/gray_b3b3b3" />
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
 
 
     </LinearLayout>

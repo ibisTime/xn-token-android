@@ -11,6 +11,7 @@ import com.cdkj.baselibrary.utils.LogUtil;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import org.greenrobot.eventbus.EventBus;
+import org.litepal.LitePal;
 
 /**
  * Created by lei on 2017/10/20.
@@ -39,9 +40,14 @@ public class MyApplication extends Application {
         }
         ARouter.init(application); // 尽可能早，推荐在Application中初始化
 
+        initLitePal();
         initZXing();
 
 
+    }
+
+    private void initLitePal() {
+        LitePal.initialize(this);
     }
 
     private void initZXing() {

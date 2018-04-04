@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_names">OGC錢包</string>
+    <string name="app_name">OGC錢包</string>
 
-    <string name="main_tag_consult">首頁</string>
+    <string name="main_tag_consult">應用</string>
     <string name="main_tab_wallet">錢包</string>
     <string name="main_tab_my">我的</string>
     <string name="exit_confirm">確認退出？</string>
@@ -60,6 +60,11 @@
     <string name="bill_type_charge">充幣</string>
     <string name="bill_type_withdraw">提現</string>
     <string name="bill_type_autofill">自動補給</string>
+    <string name="bill_type_withdrawfee">取現手續費</string>
+    <string name="bill_type_o2o_in">o2o店鋪消費收入</string>
+    <string name="bill_type_o2o_out">o2o店鋪消費支出</string>
+    <string name="bill_type_withdrawfrozen">取現凍結</string>
+    <string name="bill_type_withdrawunfrozen">取現解凍</string>
     <string name="bill_type_select">篩選</string>
     <string name="bill_title_all">余額明細</string>
     <string name="bill_title_charge">充值明細</string>
@@ -317,12 +322,12 @@
     <string name="biz_status_yiduibuping">已對賬且賬不平</string>
     <string name="biz_status_wuxuduizhang">無需對賬</string>
     <string name="consult_title">首頁</string>
-    <string name="consult_none">暫無店鋪</string>
-    <string name="consult_activity_title">店鋪详情</string>
+    <string name="consult_none">暫無商家</string>
+    <string name="consult_activity_title">店鋪詳情</string>
     <string name="consult_statistics_none">暫無流水</string>
     <string name="consult_statistics_title">交易流水</string>
     <string name="wallet_withdraw_amount_hint2">您最多可以提現</string>
-    <string name="call_phone">聯係對方</string>
+    <string name="call_phone">聯系對方</string>
     <string name="want_to_pay">我要支付</string>
     <string name="store">店鋪</string>
     <string name="kt_total">總量：</string>
@@ -330,11 +335,16 @@
     <string name="kt_statistical">空投統計</string>
     <string name="kt_statistical_2">已投：</string>
 
-
     <string name="pay_confirm">確認支付</string>
+
     <string name="pay_amount">支付數量</string>
+
     <string name="pay_succ">支付成功</string>
     <string name="pay_fall">支付失敗</string>
     <string name="biz_type_trans">劃轉</string>
+
+    <string name="consult_list_title">在線商家</string>
+    <string name="consult_none_title">敬請期待</string>
+
 
 </resources>

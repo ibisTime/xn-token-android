@@ -42,8 +42,7 @@ public class BillActivity extends BaseRefreshActivity<BillModel.ListBean> {
     private String type = "";
     private String kind = "";
     private String[] types;
-//    private String[] bizType = {"", "charge", "withdraw", "buy", "sell", "tradefee", "withdrawfee", "invite"};
-    private String[] bizType = {"", "charge", "withdraw", "autofill"};
+    private String[] bizType = {"", "charge", "withdraw", "withdrawfee", "o2o_in", "o2o_out"};
     NumberPicker numberPicker;
 
 
@@ -75,9 +74,9 @@ public class BillActivity extends BaseRefreshActivity<BillModel.ListBean> {
 
     private void init() {
 
-//        types = new String[]{getStrRes(R.string.bill_type_all)
-
-        types = new String[]{getStrRes(R.string.bill_type_all), getStrRes(R.string.bill_type_charge), getStrRes(R.string.bill_type_withdraw),getStrRes(R.string.bill_type_autofill)};
+        types = new String[]{getStrRes(R.string.bill_type_all), getStrRes(R.string.bill_type_charge), getStrRes(R.string.bill_type_withdraw),
+                getStrRes(R.string.bill_type_withdrawfee),getStrRes(R.string.bill_type_o2o_in)
+                ,getStrRes(R.string.bill_type_o2o_out)};
 
         if (getIntent() == null)
             return;

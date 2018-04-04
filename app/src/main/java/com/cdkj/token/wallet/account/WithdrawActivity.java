@@ -111,10 +111,14 @@ public class WithdrawActivity extends AbsBaseActivity {
                         Double.parseDouble(model.getFrozenAmountString()), model.getCurrency()));
                 mBinding.tvFee.setText(model.getCurrency());
                 mBinding.tvCurrency.setText(model.getCurrency());
+
+                if (model.getCoinBalance() != null)
                 mBinding.edtAmount.setHint(getString(R.string.wallet_withdraw_amount_hint2)+AccountUtil.sub(Double.parseDouble(model.getCoinBalance()),
                         Double.parseDouble(model.getFrozenAmountString()), model.getCurrency()));
             }
 
+            // 设置提现手续费
+            mBinding.edtCommission.setText(AccountUtil.getWithdrawFee(model.getCurrency()));
         }
     }
 

@@ -23,7 +23,7 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.ConsultFragment;
 import com.cdkj.token.databinding.ActivityMainBinding;
 import com.cdkj.token.model.VersionModel;
-import com.cdkj.token.user.UserAboutActivity;
+import com.cdkj.token.service.CoinListService;
 import com.cdkj.token.user.UserFragment;
 import com.cdkj.token.wallet.WalletFragment;
 
@@ -84,6 +84,8 @@ public class MainActivity extends AbsBaseActivity {
 
     private void init() {
         setShowIndex(CONSULT);
+
+        CoinListService.open(this);
     }
 
 
@@ -193,6 +195,13 @@ public class MainActivity extends AbsBaseActivity {
             EventBus.getDefault().post(EventTags.AllFINISH);
             finish();
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        CoinListService.close(this);
     }
 
     /**
