@@ -100,17 +100,17 @@ public class StartActivity extends BaseActivity {
 
             @Override
             protected void onSuccess(SystemParameterModel data, String SucMessage) {
-                if (data == null)
-                    return;
-
-                SPUtilHelper.saveQiniuUrl("http://" + data.getCvalue() + "/");
-
                 getCoinList();
-
+                SPUtilHelper.saveQiniuUrl("http://" + data.getCvalue() + "/");
             }
 
             @Override
             protected void onNoNet(String msg) {
+                open();
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
                 open();
             }
 
@@ -151,6 +151,7 @@ public class StartActivity extends BaseActivity {
 
                 open();
             }
+
 
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
