@@ -31,7 +31,7 @@ import retrofit2.Call;
 
 /**
  * 修改 设置 资金密码
- * Created by 李先俊 on 2017/6/29.
+ * Created by cdkj on 2017/6/29.
  */
 public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInterface {
 

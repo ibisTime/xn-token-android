@@ -15,11 +15,13 @@ import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cdkj.baselibrary.R;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.databinding.ActivityAppBuildTypeBinding;
+import com.cdkj.baselibrary.nets.RetrofitUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -31,7 +33,7 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
 
     private ActivityAppBuildTypeBinding mBinding;
 
-    public static void open(Context context){
+    public static void open(Context context) {
         if (context == null) {
             return;
         }
@@ -46,7 +48,7 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        if (!MyConfig.IS_DEBUG){
+        if (!MyConfig.IS_DEBUG) {
             finish();
         }
         setTopTitle("环境切换");
@@ -61,14 +63,14 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
         mBinding.llBuildDebug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setBuildType(v,SPUtilHelper.BUILD_TYPE_DEBUG);
+                setBuildType(v, SPUtilHelper.BUILD_TYPE_DEBUG);
             }
         });
 
         mBinding.llBuildTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setBuildType(v,SPUtilHelper.BUILD_TYPE_TEST);
+                setBuildType(v, SPUtilHelper.BUILD_TYPE_TEST);
             }
         });
 
@@ -76,13 +78,13 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
         Glide.with(this).load(R.mipmap.pu).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(mBinding.ivTest);
     }
 
-    public void setBuildType(View view, String type){
+    public void setBuildType(View view, String type) {
 
-        if (SPUtilHelper.getAPPBuildType().equals(type)){
+        if (SPUtilHelper.getAPPBuildType().equals(type)) {
 
             popupWqbb(view, type);
 
-        }else {
+        } else {
             popupMa(view, type);
         }
 
@@ -102,7 +104,7 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
         popupWindow.setTouchable(true);
         popupWindow.setAnimationStyle(R.style.popwin_anim_style);
 
-        switch (type){
+        switch (type) {
             case SPUtilHelper.BUILD_TYPE_DEBUG:
                 tvTip.setText("已经是研发环境了，您还要我怎样?");
                 tvConfirm.setText("对不起，那切换到测试吧");
@@ -126,7 +128,7 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
-                switch (type){
+                switch (type) {
                     case SPUtilHelper.BUILD_TYPE_DEBUG:
                         SPUtilHelper.setAPPBuildType(SPUtilHelper.BUILD_TYPE_TEST);
                         break;
@@ -161,7 +163,7 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
         popupWindow.setTouchable(true);
         popupWindow.setAnimationStyle(R.style.popwin_anim_style);
 
-        switch (type){
+        switch (type) {
             case SPUtilHelper.BUILD_TYPE_DEBUG:
                 tvTip.setText("大佬，您确定要切换到研发环境吗?");
                 break;
@@ -183,7 +185,7 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
             @Override
             public void onClick(View v) {
                 popupWindow.dismiss();
-                switch (type){
+                switch (type) {
                     case SPUtilHelper.BUILD_TYPE_DEBUG:
                         SPUtilHelper.setAPPBuildType(SPUtilHelper.BUILD_TYPE_DEBUG);
                         break;
@@ -204,17 +206,15 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
 
     }
 
-    private void close(){
+    private void close() {
         SPUtilHelper.logOutClear();
         EventBus.getDefault().post(EventTags.AllFINISH);
         finish();
 
         // 初始化Retrofit
-        EventBus.getDefault().post(EventTags.BUILD_TYPE);
+        RetrofitUtils.reSetInstance();
 
-        // 路由跳转开始页面
-        ARouter.getInstance().build("/user/start")
-                .navigation();
+        CdRouteHelper.openStar();
     }
 
 }

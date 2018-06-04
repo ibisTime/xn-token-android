@@ -3,7 +3,7 @@ package com.cdkj.baselibrary.nets;
 
 
 
-import com.cdkj.baselibrary.BaseApplication;
+import com.cdkj.baselibrary.CdApplication;
 
 import java.util.List;
 
@@ -15,7 +15,7 @@ import okhttp3.HttpUrl;
  * 自动管理Cookies
  */
 class CookiesManager implements CookieJar {
-    private final PersistentCookieStore cookieStore = new PersistentCookieStore(BaseApplication.getContext());
+    private final PersistentCookieStore cookieStore = new PersistentCookieStore(CdApplication.getContext());
 
     @Override
     public void saveFromResponse(HttpUrl url, List<Cookie> cookies) {

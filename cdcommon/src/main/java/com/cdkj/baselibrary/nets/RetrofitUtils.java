@@ -16,8 +16,6 @@ import retrofit2.Retrofit;
  */
 public class RetrofitUtils {
 
-    public static String baseURL = null;
-
     private static Retrofit retrofitInstance = null;
 
     private RetrofitUtils() {
@@ -29,27 +27,20 @@ public class RetrofitUtils {
      * @return Retrofit
      */
     private static Retrofit getInstance() {
-//        if (retrofitInstance == null) {
-        retrofitInstance = new Retrofit.Builder()
-                .baseUrl(getBaseURL())
-                .client(OkHttpUtils.getInstance())
-                .addConverterFactory(FastJsonConVerter.create())
-                .build();
-//        }
+        if (retrofitInstance == null) {
+            retrofitInstance = new Retrofit.Builder()
+                    .baseUrl(getBaseURL())
+                    .client(OkHttpUtils.getInstance())
+                    .addConverterFactory(FastJsonConVerter.create())
+                    .build();
+        }
         return retrofitInstance;
     }
 
-    /**
-     * 切换环境之后重新初始化Retrofit
-     *
-     * @param tag
-     */
-    @Subscribe
-    public void clearRetrofit(String tag) {
-        if (tag.equals(EventTags.BUILD_TYPE)) {
-            retrofitInstance = null;
-        }
+    public static void reSetInstance() {
+        retrofitInstance = null;
     }
+
 
     /**
      * 创建Retrofit请求Api

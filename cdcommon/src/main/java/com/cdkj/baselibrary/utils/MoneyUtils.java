@@ -5,7 +5,7 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 
 /**金钱格式化
- * Created by 李先俊 on 2017/8/12.
+ * Created by cdkj on 2017/8/12.
  */
 
 public class MoneyUtils {

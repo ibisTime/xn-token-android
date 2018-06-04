@@ -15,7 +15,7 @@ import java.util.HashMap;
 import retrofit2.Call;
 
 /**
- * Created by 李先俊 on 2017/8/8.
+ * Created by cdkj on 2017/8/8.
  */
 
 public class LoginPresenter {
@@ -58,12 +58,6 @@ public class LoginPresenter {
                 } else {
                     mListener.LoginFailed("0", "登录失败");
                 }
-            }
-
-            @Override
-            protected void onBuinessFailure(String code, String error) {
-                super.onBuinessFailure(code, error);
-                mListener.LoginFailed(code, error);
             }
 
             @Override

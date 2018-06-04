@@ -10,7 +10,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.List;
 
 /**
- * Created by 李先俊 on 2017/8/8.
+ * Created by cdkj on 2017/8/8.
  */
 public interface RefreshInterface<T> {
 

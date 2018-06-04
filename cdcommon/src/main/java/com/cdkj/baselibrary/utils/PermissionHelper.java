@@ -1,7 +1,7 @@
 package com.cdkj.baselibrary.utils;
 
 /**
- * Created by 李先俊 on 2017/8/14.
+ * Created by cdkj on 2017/8/14.
  */
 
 import android.annotation.TargetApi;

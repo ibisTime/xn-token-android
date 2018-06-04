@@ -107,9 +107,8 @@ public class CoinListService extends Service {
             }
 
             @Override
-            protected void onReqFailure(int errorCode, String errorMessage) {
+            protected void onReqFailure(String errorCode, String errorMessage) {
                 super.onReqFailure(errorCode, errorMessage);
-
                 doNotify(isNotifyAll, notifyLocation);
             }
 

@@ -7,9 +7,11 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.model.EventBusModel;
+import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserLanguageBinding;
 
@@ -27,7 +29,7 @@ public class UserLanguageActivity extends AbsBaseActivity {
 
     private ActivityUserLanguageBinding mBinding;
 
-    public static void open(Context context){
+    public static void open(Context context) {
         if (context == null) {
             return;
         }
@@ -51,7 +53,7 @@ public class UserLanguageActivity extends AbsBaseActivity {
 
     }
 
-    private void init(){
+    private void init() {
         Locale locale = getResources().getConfiguration().locale;
 
         setView(locale.getLanguage(), locale.getCountry());
@@ -80,28 +82,30 @@ public class UserLanguageActivity extends AbsBaseActivity {
         });
     }
 
-    private void sendEventBus(String language){
+    private void sendEventBus(String language) {
         SPUtilHelper.saveLanguage(language);
 
         EventBusModel model = new EventBusModel();
         model.setTag(EVENT_REFRESH_LANGUAGE);
         EventBus.getDefault().post(model);
+        //刷新界面
+        MainActivity.open(this);
     }
 
-    private void initView(){
+    private void initView() {
         mBinding.ivSimple.setBackgroundResource(R.mipmap.choice_cancel);
         mBinding.ivEnglish.setBackgroundResource(R.mipmap.choice_cancel);
         mBinding.ivTradition.setBackgroundResource(R.mipmap.choice_cancel);
     }
 
-    private void setView(String language, String country){
+    private void setView(String language, String country) {
         initView();
-        switch (language){
+        switch (language) {
 
             case "zh":
-                if (country.equals("CN")){ // 简体
+                if (country.equals("CN")) { // 简体
                     mBinding.ivSimple.setBackgroundResource(R.mipmap.choice_confirm);
-                }else {
+                } else {
                     mBinding.ivTradition.setBackgroundResource(R.mipmap.choice_confirm);
                 }
                 break;

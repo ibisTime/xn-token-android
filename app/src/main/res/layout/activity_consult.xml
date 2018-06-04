@@ -103,7 +103,7 @@
                     android:layout_marginRight="0dp"
                     android:background="@color/gray_f7f7f7" />
 
-                <TextView
+                <WebView
                     android:id="@+id/tv_richText"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

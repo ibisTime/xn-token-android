@@ -5,7 +5,7 @@ import android.content.Context;
 import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.cdkj.baselibrary.BaseApplication;
+import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
@@ -31,7 +31,7 @@ public class MyApplication extends Application {
 
         application = this;
 
-        BaseApplication.initialize(this);
+        CdApplication.initialize(this);
 
         EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
         if (MyConfig.IS_DEBUG) {

@@ -40,7 +40,6 @@ import retrofit2.Call;
 import static com.cdkj.token.Util.UpdateUtil.isForceUpload;
 import static com.cdkj.token.Util.UpdateUtil.startWeb;
 
-@Route(path = "/main/page")
 public class MainActivity extends AbsBaseActivity {
 
     private ActivityMainBinding mBinding;
@@ -74,7 +73,7 @@ public class MainActivity extends AbsBaseActivity {
         initViewPager();
         initListener();
         init();
-        getVersion();
+//        getVersion();
     }
 
     @Override

@@ -98,7 +98,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         clearCall();
 
-        if (mSubscription != null){
+        if (mSubscription != null) {
             mSubscription.dispose();
             mSubscription.clear();
         }
@@ -125,8 +125,8 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 显示dialog
      */
     public void showLoadingDialog() {
-        if(loadingDialog==null){
-            loadingDialog=new LoadingDialog(this);
+        if (loadingDialog == null) {
+            loadingDialog = new LoadingDialog(this);
         }
         if (loadingDialog != null && !loadingDialog.isShowing()) {
             loadingDialog.showDialog();
@@ -248,6 +248,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 能否通过 EventBUS事件结束
+     *
      * @return
      */
     protected boolean canEvenFinish() {
@@ -280,15 +281,17 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * 获取StringRes
+     *
      * @return StringRes
      */
-    public String getStrRes(int resources){
+    public String getStrRes(int resources) {
 
         return getString(resources);
     }
 
     /**
      * * 获取版本号
+     *
      * @return 当前应用的版本号
      */
     public int getVersionCode() {
@@ -305,6 +308,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * * 获取版本名
+     *
      * @return 当前应用的版本名
      */
     public String getVersionName() {
@@ -325,7 +329,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void setAppLanguage() {
         Locale myLocale;
 
-        switch (SPUtilHelper.getLanguage()){
+        switch (SPUtilHelper.getLanguage()) {
             case ENGLISH:
                 myLocale = Locale.ENGLISH;
                 break;
@@ -349,20 +353,13 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Subscribe
     public void onEvent(EventBusModel model) {
-        if (model.getTag().equals(EVENT_REFRESH_LANGUAGE)){
-
+        if (model.getTag().equals(EVENT_REFRESH_LANGUAGE)) {
             try {
                 setAppLanguage();
-
-                //刷新界面
-                ARouter.getInstance().build("/main/page").navigation();
-                EventBus.getDefault().post(EventTags.AllFINISH);
-
-            }catch (Exception e){
+                finish();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-
-
         }
     }
 }

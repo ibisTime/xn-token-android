@@ -1,7 +1,7 @@
 package com.cdkj.baselibrary.model;
 
 /**
- * Created by 李先俊 on 2017/6/16.
+ * Created by cdkj on 2017/6/16.
  */
 
 public class EventBusModel {

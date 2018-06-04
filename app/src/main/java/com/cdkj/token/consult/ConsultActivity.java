@@ -19,7 +19,6 @@ import com.cdkj.token.loader.BannerImageLoader;
 import com.cdkj.token.model.ConsultModel;
 import com.cdkj.token.user.CallPhoneActivity;
 import com.youth.banner.BannerConfig;
-import com.zzhoujay.richtext.RichText;
 
 import java.util.HashMap;
 import java.util.List;
@@ -122,8 +121,7 @@ public class ConsultActivity extends AbsBaseActivity {
 
         mBinding.tvAddress.setText(getAddress(model));
 
-        RichText.from(model.getDescription()).into(mBinding.tvRichText);
-
+        mBinding.tvRichText.loadData(model.getDescription(),"","");
 
         setBannerData(model.getPic());
 

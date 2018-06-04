@@ -82,6 +82,32 @@ public class BitmapUtils {
     }
 
 
+    //来自luban的压缩算法
+    private static int calculateInSampleSize(BitmapFactory.Options options) {
+        int srcWidth = options.outWidth % 2 == 1 ? options.outWidth + 1 : options.outWidth;
+        int srcHeight = options.outHeight % 2 == 1 ? options.outHeight + 1 : options.outHeight;
+
+        int longSide = Math.max(srcWidth, srcHeight);
+        int shortSide = Math.min(srcWidth, srcHeight);
+
+        float scale = ((float) shortSide / longSide);
+        if (scale <= 1 && scale > 0.5625) {
+            if (longSide < 1664) {
+                return 1;
+            } else if (longSide >= 1664 && longSide < 4990) {
+                return 2;
+            } else if (longSide > 4990 && longSide < 10240) {
+                return 4;
+            } else {
+                return longSide / 1280 == 0 ? 1 : longSide / 1280;
+            }
+        } else if (scale <= 0.5625 && scale > 0.5) {
+            return longSide / 1280 == 0 ? 1 : longSide / 1280;
+        } else {
+            return (int) Math.ceil(longSide / (1280.0 / scale));
+        }
+    }
+
     /*
 * 旋转图片
 * @param angle
@@ -262,7 +288,6 @@ public class BitmapUtils {
             return "";
         }
     }
-
 
 
     public static String getImageWidthHeight(String path) {

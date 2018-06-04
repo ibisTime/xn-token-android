@@ -5,7 +5,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.alibaba.android.arouter.launcher.ARouter;
-import com.cdkj.baselibrary.BaseApplication;
+import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.utils.SPUtils;
 
 /**
@@ -37,10 +37,8 @@ public class SPUtilHelper {
         if (TextUtils.isEmpty(getUserToken())) {
             SPUtilHelper.logOutClear();
             // 路由跳转登录页面
-            ARouter.getInstance().build("/user/login")
-                    .withBoolean("canOpenMain", canopenmain)
-                    .navigation();
-            return false;
+            CdRouteHelper.openLogin(canopenmain);
+
         }
 
         return true;
@@ -82,7 +80,7 @@ public class SPUtilHelper {
      * @param s
      */
     public static void setAPPBuildType(String s) {
-        SPUtils.put(BaseApplication.getContext(), BUILD_TYPE_KEY, s);
+        SPUtils.put(CdApplication.getContext(), BUILD_TYPE_KEY, s);
     }
 
     /**
@@ -91,7 +89,7 @@ public class SPUtilHelper {
      * @param
      */
     public static String getAPPBuildType() {
-        return SPUtils.getString(BaseApplication.getContext(), BUILD_TYPE_KEY, BUILD_TYPE_DEBUG);
+        return SPUtils.getString(CdApplication.getContext(), BUILD_TYPE_KEY, BUILD_TYPE_DEBUG);
     }
 
     /**
@@ -100,14 +98,14 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveLanguage(String s) {
-        SPUtils.put(BaseApplication.getContext(), "language", s);
+        SPUtils.put(CdApplication.getContext(), "language", s);
     }
 
     /**
      * 获取语言
      */
     public static String getLanguage() {
-        return SPUtils.getString(BaseApplication.getContext(), "language", "");
+        return SPUtils.getString(CdApplication.getContext(), "language", "");
     }
 
     /**
@@ -116,7 +114,7 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveUserToken(String s) {
-        SPUtils.put(BaseApplication.getContext(), USERTOKEN, s);
+        SPUtils.put(CdApplication.getContext(), USERTOKEN, s);
     }
 
     /**
@@ -125,7 +123,7 @@ public class SPUtilHelper {
      * @param
      */
     public static String getUserToken() {
-        return SPUtils.getString(BaseApplication.getContext(), USERTOKEN, "");
+        return SPUtils.getString(CdApplication.getContext(), USERTOKEN, "");
     }
 
 
@@ -135,7 +133,7 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveUserId(String s) {
-        SPUtils.put(BaseApplication.getContext(), USERID, s);
+        SPUtils.put(CdApplication.getContext(), USERID, s);
     }
 
     /**
@@ -144,7 +142,7 @@ public class SPUtilHelper {
      * @param
      */
     public static String getUserId() {
-        return SPUtils.getString(BaseApplication.getContext(), USERID, "");
+        return SPUtils.getString(CdApplication.getContext(), USERID, "");
 
     }
 
@@ -154,7 +152,7 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveSecretUserId(String s) {
-        SPUtils.put(BaseApplication.getContext(), SECRET_USERID, s);
+        SPUtils.put(CdApplication.getContext(), SECRET_USERID, s);
     }
 
     /**
@@ -163,7 +161,7 @@ public class SPUtilHelper {
      * @param
      */
     public static String getSecretUserId() {
-        return SPUtils.getString(BaseApplication.getContext(), SECRET_USERID, "");
+        return SPUtils.getString(CdApplication.getContext(), SECRET_USERID, "");
 
     }
 
@@ -174,14 +172,14 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveUserPhoneNum(String s) {
-        SPUtils.put(BaseApplication.getContext(), "user_phone", s);
+        SPUtils.put(CdApplication.getContext(), "user_phone", s);
     }
 
     /**
      * 获取用户手机号
      */
     public static String getUserPhoneNum() {
-        return SPUtils.getString(BaseApplication.getContext(), "user_phone", "");
+        return SPUtils.getString(CdApplication.getContext(), "user_phone", "");
     }
 
     /**
@@ -190,14 +188,14 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveQiniuUrl(String s) {
-        SPUtils.put(BaseApplication.getContext(), "qiniu_url", s);
+        SPUtils.put(CdApplication.getContext(), "qiniu_url", s);
     }
 
     /**
      * 获取七牛url
      */
     public static String getQiniuUrl() {
-        return SPUtils.getString(BaseApplication.getContext(), "qiniu_url", MyConfig.IMGURL);
+        return SPUtils.getString(CdApplication.getContext(), "qiniu_url", MyConfig.IMGURL);
     }
 
     /**
@@ -206,14 +204,14 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveUserName(String s) {
-        SPUtils.put(BaseApplication.getContext(), "user_name", s);
+        SPUtils.put(CdApplication.getContext(), "user_name", s);
     }
 
     /**
      * 获取用户昵称
      */
     public static String getUserName() {
-        return SPUtils.getString(BaseApplication.getContext(), "user_name", "");
+        return SPUtils.getString(CdApplication.getContext(), "user_name", "");
     }
 
     /**
@@ -222,14 +220,14 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveRealName(String s) {
-        SPUtils.put(BaseApplication.getContext(), "real_name", s);
+        SPUtils.put(CdApplication.getContext(), "real_name", s);
     }
 
     /**
      * 获取用户真实姓名
      */
     public static String getRealName() {
-        return SPUtils.getString(BaseApplication.getContext(), "real_name", "");
+        return SPUtils.getString(CdApplication.getContext(), "real_name", "");
     }
 
     /**
@@ -238,14 +236,14 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveTradePwdFlag(boolean s) {
-        SPUtils.put(BaseApplication.getContext(), "trade_pwd", s);
+        SPUtils.put(CdApplication.getContext(), "trade_pwd", s);
     }
 
     /**
      * 获取用户资金密码Flag
      */
     public static boolean getTradePwdFlag() {
-        return SPUtils.getBoolean(BaseApplication.getContext(), "trade_pwd", false);
+        return SPUtils.getBoolean(CdApplication.getContext(), "trade_pwd", false);
     }
 
     /**
@@ -254,14 +252,14 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveGoogleAuthFlag(boolean s) {
-        SPUtils.put(BaseApplication.getContext(), "google_flag", s);
+        SPUtils.put(CdApplication.getContext(), "google_flag", s);
     }
 
     /**
      * 获取用户谷歌验证flag
      */
     public static boolean getGoogleAuthFlag() {
-        return SPUtils.getBoolean(BaseApplication.getContext(), "google_flag", false);
+        return SPUtils.getBoolean(CdApplication.getContext(), "google_flag", false);
     }
 
 
@@ -271,14 +269,14 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveUserPhoto(String s) {
-        SPUtils.put(BaseApplication.getContext(), "user_photo", s);
+        SPUtils.put(CdApplication.getContext(), "user_photo", s);
     }
 
     /**
      * 获取用户昵称
      */
     public static String getUserPhoto() {
-        return SPUtils.getString(BaseApplication.getContext(), "user_photo", "");
+        return SPUtils.getString(CdApplication.getContext(), "user_photo", "");
     }
 
 
@@ -288,14 +286,14 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveUserEmail(String s) {
-        SPUtils.put(BaseApplication.getContext(), "user_email", s);
+        SPUtils.put(CdApplication.getContext(), "user_email", s);
     }
 
     /**
      * 获取用户昵称
      */
     public static String getUserEmail() {
-        return SPUtils.getString(BaseApplication.getContext(), "user_email", "");
+        return SPUtils.getString(CdApplication.getContext(), "user_email", "");
     }
 
 
@@ -305,14 +303,14 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveRate(String c, String s) {
-        SPUtils.put(BaseApplication.getContext(), "rate_" + c, s);
+        SPUtils.put(CdApplication.getContext(), "rate_" + c, s);
     }
 
     /**
      * 获取汇率
      */
     public static String getRate(String c) {
-        return SPUtils.getString(BaseApplication.getContext(), "rate_" + c, "");
+        return SPUtils.getString(CdApplication.getContext(), "rate_" + c, "");
     }
 
     /**
@@ -321,11 +319,11 @@ public class SPUtilHelper {
      * @param coin
      */
     public static void saveMarketCoinTemp(String coin, String lastPrice, String temp) {
-        SPUtils.put(BaseApplication.getContext(), "coin_temp_" + coin, lastPrice + "_" + temp);
+        SPUtils.put(CdApplication.getContext(), "coin_temp_" + coin, lastPrice + "_" + temp);
     }
 
     public static void saveMarketCoinDate(String coin, String lastPrice, String date) {
-        SPUtils.put(BaseApplication.getContext(), "coin_date_" + coin, lastPrice + "_" + date);
+        SPUtils.put(CdApplication.getContext(), "coin_date_" + coin, lastPrice + "_" + date);
     }
 
     /**
@@ -334,11 +332,11 @@ public class SPUtilHelper {
      * @param coin
      */
     public static void saveMarketCoin(String coin, Double lastPrice) {
-        SPUtils.put(BaseApplication.getContext(), "coin_market_" + coin, lastPrice);
+        SPUtils.put(CdApplication.getContext(), "coin_market_" + coin, lastPrice);
     }
 
     public static String getMarketCoin(String coin) {
-        return SPUtils.getString(BaseApplication.getContext(), "coin_market_" + coin, "");
+        return SPUtils.getString(CdApplication.getContext(), "coin_market_" + coin, "");
     }
 
     /**
@@ -347,15 +345,15 @@ public class SPUtilHelper {
      * @param orderId
      */
     public static void savePushOrder(String orderId) {
-        SPUtils.put(BaseApplication.getContext(), "push_order", orderId);
+        SPUtils.put(CdApplication.getContext(), "push_order", orderId);
     }
 
     public static String getPushOrder() {
-        return SPUtils.getString(BaseApplication.getContext(), "push_order", "");
+        return SPUtils.getString(CdApplication.getContext(), "push_order", "");
     }
 
     public static void clearPushOrder() {
-        SPUtils.put(BaseApplication.getContext(), "push_order", "");
+        SPUtils.put(CdApplication.getContext(), "push_order", "");
     }
 
 }

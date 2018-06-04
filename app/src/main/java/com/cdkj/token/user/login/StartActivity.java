@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
@@ -30,7 +31,7 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import retrofit2.Call;
 
-@Route(path = "/user/start")
+@Route(path = CdRouteHelper.APPSTART)
 public class StartActivity extends BaseActivity {
 
     public static void open(Context context) {
@@ -109,22 +110,7 @@ public class StartActivity extends BaseActivity {
             }
 
             @Override
-            protected void onReqFailure(int errorCode, String errorMessage) {
-                open();
-            }
-
-            @Override
-            protected void onNull() {
-                open();
-            }
-
-            @Override
             protected void onNoNet(String msg) {
-                open();
-            }
-
-            @Override
-            protected void onBuinessFailure(String code, String error) {
                 open();
             }
 
@@ -135,7 +121,7 @@ public class StartActivity extends BaseActivity {
         });
     }
 
-    private void getCoinList(){
+    private void getCoinList() {
         Map<String, String> map = new HashMap<>();
         map.put("type", "");
         map.put("ename", "");
@@ -156,7 +142,7 @@ public class StartActivity extends BaseActivity {
                     return;
 
                 // 如果数据库已有数据，清空重新加载
-                if(DataSupport.isExist(BaseCoinModel.class))
+                if (DataSupport.isExist(BaseCoinModel.class))
                     DataSupport.deleteAll(BaseCoinModel.class);
 
                 // 初始化交易界面默认所选择的币
@@ -167,16 +153,14 @@ public class StartActivity extends BaseActivity {
             }
 
             @Override
-            protected void onReqFailure(int errorCode, String errorMessage) {
+            protected void onReqFailure(String errorCode, String errorMessage) {
                 super.onReqFailure(errorCode, errorMessage);
-
                 // 如果数据库已有数据，直接加载数据库
-                if(DataSupport.isExist(BaseCoinModel.class)){
+                if (DataSupport.isExist(BaseCoinModel.class)) {
                     open();
-                }else {
-                    ToastUtil.show(StartActivity.this,"无法连接服务器，请检查网络");
+                } else {
+                    ToastUtil.show(StartActivity.this, "无法连接服务器，请检查网络");
                 }
-
             }
 
             @Override

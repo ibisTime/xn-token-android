@@ -28,7 +28,7 @@ import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 
 /**
- * Created by 李先俊 on 2017/6/8.
+ * Created by cdkj on 2017/6/8.
  */
 
 public class AppUtils {

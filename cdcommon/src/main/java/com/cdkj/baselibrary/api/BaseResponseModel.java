@@ -1,7 +1,7 @@
 package com.cdkj.baselibrary.api;
 
 /**
- * Created by 李先俊 on 2017/6/8.
+ * Created by cdkj on 2017/6/8.
  */
 
 public class BaseResponseModel<T>{

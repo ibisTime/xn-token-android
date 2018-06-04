@@ -13,6 +13,7 @@ import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.activitys.FindPwdActivity;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.interfaces.LoginInterface;
@@ -22,7 +23,7 @@ import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivitySignInBinding;
 
-@Route(path = "/user/login")
+@Route(path = CdRouteHelper.APPLOGIN)
 public class SignInActivity extends AbsBaseActivity implements LoginInterface {
 
     private boolean canOpenMain;

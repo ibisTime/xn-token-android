@@ -1,7 +1,7 @@
 package com.cdkj.baselibrary.model.pay;
 
 /**
- * Created by 李先俊 on 2017/7/31.
+ * Created by cdkj on 2017/7/31.
  */
 
 public class WxPayRequestModel {

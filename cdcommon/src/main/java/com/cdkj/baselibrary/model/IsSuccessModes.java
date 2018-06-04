@@ -1,7 +1,7 @@
 package com.cdkj.baselibrary.model;
 
 /**
- * Created by 李先俊 on 2017/6/12.
+ * Created by cdkj on 2017/6/12.
  */
 
 public class IsSuccessModes {

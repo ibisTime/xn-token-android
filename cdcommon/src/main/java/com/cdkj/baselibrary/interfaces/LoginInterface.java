@@ -3,7 +3,7 @@ package com.cdkj.baselibrary.interfaces;
 import com.cdkj.baselibrary.model.UserLoginModel;
 
 /**
- * Created by 李先俊 on 2017/8/8.
+ * Created by cdkj on 2017/8/8.
  */
 
 public interface LoginInterface {

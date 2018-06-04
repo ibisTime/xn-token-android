@@ -16,7 +16,7 @@ import java.util.HashMap;
 import retrofit2.Call;
 
 /**发送验证码
- * Created by 李先俊 on 2017/8/8.
+ * Created by cdkj on 2017/8/8.
  */
 public class SendPhoneCodePresenter {
 
@@ -66,10 +66,6 @@ public class SendPhoneCodePresenter {
                 }
             }
 
-            @Override
-            protected void onBuinessFailure(String code, String error) {
-                mListener.CodeFailed(code, error);
-            }
 
             @Override
             protected void onFinish() {

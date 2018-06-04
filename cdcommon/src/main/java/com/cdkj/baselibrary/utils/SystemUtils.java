@@ -28,7 +28,7 @@ import java.util.UUID;
 import static android.content.Context.WIFI_SERVICE;
 
 /**
- * Created by 李先俊 on 2017/7/27.
+ * Created by cdkj on 2017/7/27.
  */
 
 public class SystemUtils {

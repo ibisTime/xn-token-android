@@ -33,7 +33,6 @@ import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.WxUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -391,7 +390,7 @@ public class WebViewActivity extends AbsBaseActivity {
         llWx.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WxUtil.shareImg(WebViewActivity.this, false, bitmap);
+//                WxUtil.shareImg(WebViewActivity.this, false, bitmap);
                 popupWindow.dismiss();
             }
         });
@@ -399,7 +398,7 @@ public class WebViewActivity extends AbsBaseActivity {
         llPyq.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                WxUtil.shareImg(WebViewActivity.this, true, bitmap);
+//                WxUtil.shareImg(WebViewActivity.this, true, bitmap);
                 popupWindow.dismiss();
             }
         });
