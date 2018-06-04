@@ -47,17 +47,17 @@ public class BillAdapter extends BaseQuickAdapter<BillModel.ListBean,BaseViewHol
 
         // 当itemPosition为0时，展示日期
         if (helper.getLayoutPosition() == 0){
-            helper.setVisible(R.id.tv_ym, true);
+            helper.setGone(R.id.ll_ym, true);
             helper.setText(R.id.tv_ym, DateUtil.formatStringData(item.getCreateDatetime(),DATE_YM));
         }else { // 当itemPosition不为0但当前item的日期与上一个item不相同时，展示日期，否则不展示
             String month_now = DateUtil.formatStringData(item.getCreateDatetime(),DATE_M);
             String month_last = DateUtil.formatStringData(list.get(helper.getLayoutPosition()-1).getCreateDatetime(),DATE_M);
 
             if (!month_now.equals(month_last)){
-                helper.setVisible(R.id.tv_ym, true);
+                helper.setGone(R.id.ll_ym, true);
                 helper.setText(R.id.tv_ym, DateUtil.formatStringData(item.getCreateDatetime(),DATE_YM));
             }else {
-                helper.setVisible(R.id.tv_ym, false);
+                helper.setGone(R.id.ll_ym, false);
             }
         }
 

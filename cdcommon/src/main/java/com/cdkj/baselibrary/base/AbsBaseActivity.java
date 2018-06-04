@@ -236,13 +236,17 @@ public abstract class AbsBaseActivity extends BaseActivity {
             return;
         }
 
-        ImageView tvSubTitle = (ImageView) mTopTitleView.findViewById(R.id.img_back);
+        TextView tvSubTitle = (TextView) mTopTitleView.findViewById(R.id.tv_back);
+        ImageView ivSubTitle = (ImageView) mTopTitleView.findViewById(R.id.img_back);
         FrameLayout frameLayout = (FrameLayout) mTopTitleView.findViewById(R.id.fram_img_back);
+
         if(isShow){
             tvSubTitle.setVisibility(View.VISIBLE);
+            ivSubTitle.setVisibility(View.VISIBLE);
             frameLayout.setVisibility(View.VISIBLE);
         }else{
             tvSubTitle.setVisibility(View.GONE);
+            ivSubTitle.setVisibility(View.GONE);
             frameLayout.setVisibility(View.GONE);
         }
     }

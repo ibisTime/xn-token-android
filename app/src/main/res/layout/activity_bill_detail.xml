@@ -146,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:gravity="right"
-                        android:textColor="@color/black"
+                        android:textColor="@color/text_color_light"
                         android:textSize="14sp" />
 
                 </LinearLayout>

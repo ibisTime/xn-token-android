@@ -19,6 +19,7 @@ import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.ConsultFragment;
 import com.cdkj.token.databinding.ActivityMainBinding;
@@ -44,8 +45,8 @@ public class MainActivity extends AbsBaseActivity {
 
     private ActivityMainBinding mBinding;
 
-    public static final int CONSULT = 0;
-    public static final int WALLET = 1;
+    public static final int WALLET = 0;
+    public static final int CONSULT = 1;
     public static final int MY = 2;
     private List<Fragment> fragments;
 
@@ -83,6 +84,8 @@ public class MainActivity extends AbsBaseActivity {
 
 
     private void init() {
+        UIStatusBarHelper.translucent(this);
+
         setShowIndex(CONSULT);
 
         CoinListService.open(this);
@@ -157,8 +160,8 @@ public class MainActivity extends AbsBaseActivity {
         //设置fragment数据
         fragments = new ArrayList<>();
 
-        fragments.add(ConsultFragment.getInstance());
         fragments.add(WalletFragment.getInstance());
+        fragments.add(ConsultFragment.getInstance());
         fragments.add(UserFragment.getInstance());
 
         mBinding.pagerMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragments));

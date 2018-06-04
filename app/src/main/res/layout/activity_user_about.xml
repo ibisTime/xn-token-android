@@ -9,7 +9,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:background="@mipmap/app_icon_round"
+            android:background="@mipmap/app_icon"
             android:layout_marginTop="36dp"
             android:layout_width="77dp"
             android:layout_height="77dp" />

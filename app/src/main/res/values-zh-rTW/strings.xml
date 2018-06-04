@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">OGC錢包</string>
+    <string name="app_name">THA</string>
 
-    <string name="main_tag_consult">應用</string>
+    <string name="main_tag_consult">發現</string>
     <string name="main_tab_wallet">錢包</string>
     <string name="main_tab_my">我的</string>
     <string name="exit_confirm">確認退出？</string>
@@ -9,7 +9,7 @@
     <string name="tip">提示</string>
     <string name="tip_update">更新提示</string>
     <string name="confirm">確認</string>
-    <string name="attention">註意</string>
+    <string name="attention">注意</string>
     <string name="kick_logout">您的賬號已在其他終端登錄,重新登錄</string>
 
     <string name="deal">交易</string>
@@ -22,19 +22,19 @@
 
 
     // 錢包
-    <string name="property_eth">以太幣資產(ETH)</string>
-    <string name="property_btc">比特幣資產(BTC)</string>
-    <string name="property_sc">雲儲幣資產(SC)</string>
-    <string name="property_ogc">橙幣資產(OGC)</string>
+    <string name="property_eth">以太幣資産(ETH)</string>
+    <string name="property_btc">比特幣資産(BTC)</string>
+    <string name="property_sc">雲儲幣資産(SC)</string>
+    <string name="property_ogc">橙幣資産(OGC)</string>
     <string name="freeze">凍結</string>
 
-    <string name="wallet_exchange_explain">計算規則:采用銀行櫃臺匯率過去14天的平均值作為匯率參考值,在每壹個交割結算日,若該平均值與系統當前匯率偏差超過0.2,則會采用新的14天平均是做為系統匯率。</string>
+    <string name="wallet_exchange_explain">計算規則:采用銀行櫃台彙率過去14天的平均值作為彙率參考值,在每一個交割結算日,若該平均值與系統當前彙率偏差超過0.2,則會采用新的14天平均是做為系統彙率。</string>
     <string name="wallet_exchange_past_time">時間</string>
-    <string name="wallet_exchange_past_rate">當日匯率</string>
-    <string name="wallet_exchange_past_rate_week">兩周平均匯率</string>
+    <string name="wallet_exchange_past_rate">當日彙率</string>
+    <string name="wallet_exchange_past_rate_week">兩周平均彙率</string>
 
     <string name="wallet_charge_my_address">我的比特幣收款地址</string>
-    <string name="wallet_charge_address_copy">(點擊復制地址)</string>
+    <string name="wallet_charge_address_copy">(點擊複制地址)</string>
     <string name="wallet_charge_address">地址</string>
 
     <string name="wallet_withdraw_balance">可用余額</string>
@@ -49,8 +49,8 @@
     <string name="wallet_withdraw_order_title">提幣訂單</string>
     <string name="wallet_withdraw_order_none">暫無提現記錄</string>
 
-    <string name="wallet_title">我的資產</string>
-    <string name="wallet_assets">總資產折合CNY</string>
+    <string name="wallet_title">我的資産</string>
+    <string name="wallet_assets">總資産(CNY)</string>
     <string name="wallet_frozen_0">凍結0</string>
     <string name="wallet_charge">充幣</string>
     <string name="wallet_withdraw">提幣</string>
@@ -70,7 +70,7 @@
     <string name="bill_title_charge">充值明細</string>
     <string name="bill_title_withdraw">提幣明細</string>
     <string name="bill_title_frozen">凍結明細</string>
-    <string name="bill_none">暫無明細</string>
+    <string name="bill_none">暫無記錄</string>
     <string name="bill_all_none">暫無余額明細</string>
     <string name="bill_charge_none">暫無充值明細</string>
     <string name="bill_withdraw_none">暫無提幣明細</string>
@@ -83,12 +83,14 @@
     <string name="wallet_bill_detail_status">明細狀態</string>
     <string name="wallet_bill_detail_type">明細摘要</string>
 
+    <string name="wallet_title_bill_list">賬單</string>
+
     <string name="wallet_title_charge">充幣</string>
     <string name="wallet_charge_recode">記錄</string>
     <string name="wallet_charge_address_eth">我的以太幣收款地址</string>
     <string name="wallet_charge_address_btc">我的比特幣收款地址</string>
     <string name="wallet_charge_address_sc">我的雲儲幣收款地址</string>
-    <string name="wallet_charge_address_copy_success">地址已復制</string>
+    <string name="wallet_charge_address_copy_success">地址已複制</string>
 
     <string name="wallet_title_withdraw">提幣</string>
     <string name="wallet_withdraw_address_hint">請填寫發送地址</string>
@@ -96,10 +98,10 @@
     <string name="wallet_withdraw_success">提現申請成功</string>
     <string name="wallet_transfer_success">轉賬申請成功</string>
 
-    <string name="wallet_title_exchange">匯率概述</string>
+    <string name="wallet_title_exchange">彙率概述</string>
 
-    <string name="wallet_title_exchange_past">歷史匯率</string>
-    <string name="wallet_title_exchange_past_none">暫無歷史匯率</string>
+    <string name="wallet_title_exchange_past">曆史彙率</string>
+    <string name="wallet_title_exchange_past_none">暫無曆史彙率</string>
 
     <string name="wallet_none">暫無錢包</string>
 
@@ -109,7 +111,7 @@
 
     <string name="popup_scan">掃描二維碼</string>
     <string name="popup_paste">粘貼地址</string>
-    <string name="copy_tip_none">您還沒有復制內容</string>
+    <string name="copy_tip_none">您還沒有複制內容</string>
     <string name="qrcode_parsing_failure">解析二維碼失敗</string>
     <string name="camera_refused">已拒絕打開相機</string>
 
@@ -142,14 +144,18 @@
     <string name="user_language_traditional">中文繁體</string>
 
     <string name="user_title_google">谷歌驗證</string>
-    <string name="user_google_open">已開啟</string>
-    <string name="user_google_close">未開啟</string>
-    <string name="user_google_btn_open">開啟谷歌驗證</string>
+    <string name="user_google_open">已開啓</string>
+    <string name="user_google_close">未開啓</string>
+    <string name="user_google_btn_open">開啓谷歌驗證</string>
     <string name="user_google_btn_close">關閉谷歌驗證</string>
     <string name="user_google_btn_modify">修改谷歌驗證</string>
 
-    <string name="user_title_invite_history">推薦歷史</string>
-    <string name="invite_history_none">暫無推薦歷史</string>
+    <string name="user_title_join">加入社群</string>
+
+    <string name="user_title_wallet">錢包設置</string>
+
+    <string name="user_title_invite_history">推薦曆史</string>
+    <string name="invite_history_none">暫無推薦曆史</string>
 
     <string name="user_title_published">我的廣告</string>
     <string name="user_published_none">暫無發布</string>
@@ -164,13 +170,13 @@
     <string name="user_title_sign_in">登錄</string>
     <string name="user_mobile_hint">請填寫手機號碼</string>
     <string name="user_mobile_format_hint">手機號碼格式不正確</string>
-    <string name="user_password_format_hint">密碼長度不能小於6位</string>
+    <string name="user_password_format_hint">密碼長度不能小于6位</string>
 
     <string name="user_title_trust">受信任的</string>
     <string name="user_trust_none">暫無信任人</string>
 
-    <string name="user_title_sign_up">註冊</string>
-    <string name="user_sign_up_protocol">註冊協議</string>
+    <string name="user_title_sign_up">注冊</string>
+    <string name="user_sign_up_protocol">注冊協議</string>
     <string name="user_nick_hint">請設置您的昵稱</string>
     <string name="user_code_hint">請填寫驗證碼</string>
     <string name="user_code_format_hint">驗證碼格式不正確</string>
@@ -178,8 +184,8 @@
     <string name="user_repassword_hint">請確認密碼</string>
     <string name="user_repassword_two_hint">兩次輸入的密碼不相同</string>
     <string name="user_protocol_hint">請閱讀並同意條款</string>
-    <string name="user_sign_up_success">註冊成功,為您自動登錄</string>
-    <string name="user_sign_up_failure">註冊失敗</string>
+    <string name="user_sign_up_success">注冊成功,為您自動登錄</string>
+    <string name="user_sign_up_failure">注冊失敗</string>
 
     <string name="user_person_deal">和Ta交易過</string>
     <string name="user_person_times">次</string>
@@ -193,7 +199,7 @@
     <string name="user_invite_share_pyq">朋友圈</string>
     <string name="user_invite_title">邀請好友</string>
     <string name="user_invite_title_web">點擊分享</string>
-    <string name="user_invite_title_right">推薦歷史</string>
+    <string name="user_invite_title_right">推薦曆史</string>
 
     <string name="user_sign_in_mobile_hint">請輸入手機號</string>
     <string name="user_sign_in_pwd_hint">請輸入密碼</string>
@@ -208,12 +214,12 @@
     <string name="user_sign_up_code_hint">請輸入驗證碼</string>
     <string name="user_sign_up_send">獲取驗證碼</string>
     <string name="user_sign_up_pwd">新密碼</string>
-    <string name="user_sign_up_pwd_hint">不少於6位</string>
+    <string name="user_sign_up_pwd_hint">不少于6位</string>
     <string name="user_sign_up_repwd">確認密碼</string>
-    <string name="user_sign_up_repwd_hint">不少於6位</string>
+    <string name="user_sign_up_repwd_hint">不少于6位</string>
     <string name="user_sign_up_agree">我已閱讀並同意</string>
-    <string name="user_sign_up_profile">《註冊協議》</string>
-    <string name="user_sign_up_confirm">確認註冊</string>
+    <string name="user_sign_up_profile">《注冊協議》</string>
+    <string name="user_sign_up_confirm">確認注冊</string>
 
     <string name="user_address_add_tag">標簽</string>
     <string name="user_address_add_tag_hint">請輸入標簽</string>
@@ -233,22 +239,22 @@
     <string name="user_email_code_hint">請輸入郵箱驗證碼</string>
 
     <string name="user_google_key">密鑰</string>
-    <string name="user_google_copy">復制</string>
+    <string name="user_google_copy">複制</string>
     <string name="user_google_paste">粘貼</string>
 
     <string name="user_password_old">原密碼</string>
     <string name="user_password_old_hint">請輸入原密碼</string>
     <string name="user_password_new">新密碼</string>
-    <string name="user_password_new_hint">不少於6位</string>
+    <string name="user_password_new_hint">不少于6位</string>
     <string name="user_password_re">確認密碼</string>
-    <string name="user_password_re_hint">不少於6位</string>
+    <string name="user_password_re_hint">不少于6位</string>
     <string name="user_password_title">修改密碼</string>
     <string name="user_password_pwdold_hint">請輸入原密碼</string>
     <string name="user_password_google_hint">請輸入谷歌驗證碼</string>
     <string name="user_password_pwdnew_hint">請輸入新密碼</string>
     <string name="user_password_repwd_hint">請重新輸入密碼</string>
-    <string name="user_password_pwdnew_format_hint">密碼不少於6位</string>
-    <string name="user_password_repwd_format_hint">兩次密碼輸入不壹致</string>
+    <string name="user_password_pwdnew_format_hint">密碼不少于6位</string>
+    <string name="user_password_repwd_format_hint">兩次密碼輸入不一致</string>
     <string name="user_password_success">密碼修改成功</string>
     <string name="user_password_failure">密碼修改失敗</string>
     <string name="user_password_google">谷歌驗證碼</string>
@@ -273,11 +279,11 @@
     <string name="user_address">我的地址</string>
     <string name="user_trust">受信任的</string>
     <string name="user_invite">邀請好友</string>
-    <string name="user_setting">安全中心</string>
+    <string name="user_setting">系統設置</string>
     <string name="user_tip">個性設置</string>
     <string name="user_issue">幫助中心</string>
     <string name="user_services">聯系客服</string>
-    <string name="user_about">關於我們</string>
+    <string name="user_about">關于我們</string>
 
     <string name="user_about_update">更新至最新版本</string>
     <string name="user_about_updated">已經是最新版本</string>
@@ -286,7 +292,7 @@
     <string name="user_invite_url">分享鏈接</string>
     <string name="user_invite_pic">分享二維碼</string>
 
-    <string name="email_code_send_success">驗證碼已經發送至郵箱，請註意查收</string>
+    <string name="email_code_send_success">驗證碼已經發送至郵箱，請注意查收</string>
     <string name="email_code_send_failure">郵箱驗證碼發送失敗</string>
 
     <string name="sms_code_title">手機驗證碼</string>
@@ -345,6 +351,10 @@
 
     <string name="consult_list_title">在線商家</string>
     <string name="consult_none_title">敬請期待</string>
+    <string name="user_wallet_setting">錢包設置</string>
+    <string name="user_join">加入社群</string>
+    <string name="wallet_bill_list_charge">充幣</string>
+    <string name="wallet_bill_list_withdraw">提幣</string>
 
 
 </resources>

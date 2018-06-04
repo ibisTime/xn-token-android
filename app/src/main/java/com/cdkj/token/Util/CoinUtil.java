@@ -20,7 +20,7 @@ public class CoinUtil {
         baseCoinList.addAll(DataSupport.findAll(BaseCoinModel.class));
     }
 
-    public static String getCoinNameWithCurrency(String currency){
+    public static String getCoinCNameWithCurrency(String currency){
         initBaseCoinList();
 
         for (BaseCoinModel model : baseCoinList){
@@ -34,6 +34,22 @@ public class CoinUtil {
         return "";
 
     }
+
+    public static String getCoinENameWithCurrency(String currency){
+        initBaseCoinList();
+
+        for (BaseCoinModel model : baseCoinList){
+
+            if (model.getSymbol().equals(currency)){
+                return model.getEname();
+            }
+
+        }
+
+        return "";
+
+    }
+
 
     /**
      *

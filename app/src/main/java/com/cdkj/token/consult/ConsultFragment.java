@@ -3,7 +3,6 @@ package com.cdkj.token.consult;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.GridLayoutManager;
-import android.util.Log;
 import android.view.View;
 
 import com.cdkj.baselibrary.activitys.WebViewActivity;
@@ -60,15 +59,13 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
 
     @Override
     protected boolean canLoadTopTitleView() {
-        return true;
+        return false;
     }
 
     @Override
     protected void afterCreate(int pageIndex, int limit) {
+        mBinding.refreshLayout.setEnableRefresh(false);
         mBinding.refreshLayout.setEnableAutoLoadmore(false);//不能自动加载
-
-        setTopTitle(getString(R.string.consult_title));
-        setTopTitleLine(true);
 
         initAdapter();
 
@@ -111,12 +108,16 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
     }
 
     private void initListener() {
+        mHeadBinding.flRight.setOnClickListener(view -> {
+            MsgListActivity.open(mActivity);
+        });
+
         mHeadBinding.llStatistics.setOnClickListener(view -> {
             StatisticsActivity.open(mActivity);
         });
 
         mHeadBinding.llMerchant.setOnClickListener(view -> {
-            ConsultListActivity.open(mActivity);
+            NoneActivity.open(mActivity,"merchant");
         });
 
         mHeadBinding.llMall.setOnClickListener(view -> {
@@ -298,8 +299,6 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
         mHeadBinding.banner.setIndicatorGravity(BannerConfig.CENTER);
         //设置banner点击事件
         mHeadBinding.banner.setOnBannerListener(position -> {
-
-            Log.e("position",position+"");
 
             if (bannerData == null || position > bannerData.size()) return;
 

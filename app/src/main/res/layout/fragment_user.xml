@@ -15,23 +15,15 @@
                 android:orientation="vertical"
                 android:background="@mipmap/user_bg"
                 android:layout_width="match_parent"
-                android:layout_height="155dp">
-
-                <TextView
-                    android:gravity="center"
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
-                    android:text="@string/main_tab_my"
-                    android:layout_width="match_parent"
-                    android:layout_weight="1"
-                    android:layout_height="0dp" />
+                android:layout_height="165dp">
 
                 <LinearLayout
-                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="25dp"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_weight="1"
+                    android:layout_height="0dp">
 
                     <RelativeLayout
                         android:id="@+id/rl_photo"
@@ -53,6 +45,7 @@
                             <TextView
                                 android:id="@+id/tv_avatar"
                                 android:gravity="center"
+                                android:visibility="gone"
                                 android:textSize="22sp"
                                 android:textColor="@color/colorPrimary"
                                 android:background="@drawable/corner_user_photo"
@@ -61,7 +54,7 @@
 
                             <ImageView
                                 android:id="@+id/im_avatar"
-                                android:visibility="gone"
+                                android:background="@mipmap/default_photo"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent" />
 
@@ -96,7 +89,6 @@
                     </LinearLayout>
 
                     <ImageView
-                        android:visibility="gone"
                         android:layout_marginRight="15dp"
                         android:background="@mipmap/more_white"
                         android:layout_width="wrap_content"
@@ -106,6 +98,38 @@
                 </LinearLayout>
 
             </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_wallet_set"
+                android:gravity="center_vertical"
+                android:layout_width="match_parent"
+                android:layout_height="50dp">
+
+                <ImageView
+                    android:layout_marginLeft="15dp"
+                    android:background="@mipmap/user_wallet_option"
+                    android:layout_width="15dp"
+                    android:layout_height="15dp" />
+
+                <TextView
+                    android:text="@string/user_wallet_setting"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content" />
+
+                <ImageView
+                    android:layout_marginRight="15dp"
+                    android:background="@mipmap/more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/style_split_line"/>
 
             <LinearLayout
                 android:id="@+id/ll_setting"
@@ -137,26 +161,22 @@
             </LinearLayout>
 
             <View
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@color/gray_eeeeee"
-                android:layout_width="match_parent"
-                android:layout_height="1px"/>
+                style="@style/style_split_line_broad"/>
 
             <LinearLayout
-                android:id="@+id/ll_language"
+                android:id="@+id/ll_join"
                 android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="50dp">
 
                 <ImageView
                     android:layout_marginLeft="15dp"
-                    android:background="@mipmap/user_language"
+                    android:background="@mipmap/user_join"
                     android:layout_width="15dp"
                     android:layout_height="15dp" />
 
                 <TextView
-                    android:text="@string/user_tip_language"
+                    android:text="@string/user_join"
                     android:textSize="14sp"
                     android:textColor="@color/black"
                     android:layout_marginLeft="15dp"
@@ -173,9 +193,7 @@
             </LinearLayout>
 
             <View
-                android:background="@color/gray_f7f7f7"
-                android:layout_width="match_parent"
-                android:layout_height="10dp"/>
+                style="@style/style_split_line_broad"/>
 
             <LinearLayout
                 android:id="@+id/ll_issue"
@@ -208,12 +226,7 @@
             </LinearLayout>
 
             <View
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:background="@color/gray_eeeeee"
-                android:layout_width="match_parent"
-                android:layout_height="1px"/>
-
+                style="@style/style_split_line"/>
 
             <LinearLayout
                 android:id="@+id/ll_about"

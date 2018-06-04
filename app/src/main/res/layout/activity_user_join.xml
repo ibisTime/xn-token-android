@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            style="@style/style_split_line_broad"/>
+
+        <LinearLayout
+            android:id="@+id/ll_facebook"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:text="Facebook"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_facebook"
+                android:textSize="14sp"
+                android:textColor="@color/gray_999999"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/style_split_line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_twitter"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:text="Twitter"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_twitter"
+                android:text="thasddoddfvb"
+                android:textSize="14sp"
+                android:textColor="@color/gray_999999"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/style_split_line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_telegram"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:text="Telegram"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="thasddoddfvb"
+                android:textSize="14sp"
+                android:textColor="@color/gray_999999"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/style_split_line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_qq"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:text="QQ Group"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="667878799"
+                android:textSize="14sp"
+                android:textColor="@color/gray_999999"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/style_split_line"/>
+
+        <LinearLayout
+            android:id="@+id/ll_wechat"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <TextView
+                android:text="Wechat"
+                android:textSize="14sp"
+                android:textColor="@color/black"
+
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:text="667878799"
+                android:textSize="14sp"
+                android:textColor="@color/gray_999999"
+                android:layout_marginLeft="15dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            style="@style/style_split_line"/>
+
+    </LinearLayout>
+</layout>

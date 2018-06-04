@@ -19,7 +19,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/app_icon_round"
+        android:roundIcon="@mipmap/app_icon"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
 
@@ -117,6 +117,11 @@
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".consult.ConsultListActivity" />
         <activity android:name=".consult.NoneActivity" />
+        <activity android:name=".wallet.account.BillListActivity" />
+        <activity android:name=".wallet.AddChoiceActivity" />
+        <activity android:name=".consult.MsgListActivity" />
+        <activity android:name=".user.UserJoinActivity" />
+        <activity android:name=".user.UserWalletActivity" />
 
         <service android:name=".service.CoinListService" />
     </application>

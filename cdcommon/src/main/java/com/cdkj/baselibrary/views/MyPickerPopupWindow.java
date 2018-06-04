@@ -60,6 +60,11 @@ public class MyPickerPopupWindow extends PopupWindow {
         return str[numberPicker.getValue()];
     }
 
+    public String getNumberPicker(View view, String[] str){
+        NumberPicker numberPicker = (NumberPicker) view;
+        return str[numberPicker.getValue()];
+    }
+
     public int getNumberPickerValue(int viewId){
         NumberPicker numberPicker = (NumberPicker) contentView.findViewById(viewId);
         return numberPicker.getValue();
@@ -73,6 +78,8 @@ public class MyPickerPopupWindow extends PopupWindow {
     public void setOnClickListener(int viewId, View.OnClickListener listener){
         View view = getView(viewId);
         view.setOnClickListener(listener);
+
+        dismiss();
     }
 
     /**

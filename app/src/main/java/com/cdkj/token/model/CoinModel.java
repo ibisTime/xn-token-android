@@ -92,6 +92,61 @@ public class CoinModel implements Serializable {
         private String coinAddress;
         private String coinBalance;
 
+        private String amountCNY;
+        private String amountUSD;
+        private String amountHKD;
+        private String priceCNY;
+        private String priceUSD;
+        private String priceHKD;
+
+        public String getAmountCNY() {
+            return amountCNY;
+        }
+
+        public String getAmountUSD() {
+            return amountUSD;
+        }
+
+        public void setAmountUSD(String amountUSD) {
+            this.amountUSD = amountUSD;
+        }
+
+        public String getAmountHKD() {
+            return amountHKD;
+        }
+
+        public void setAmountHKD(String amountHKD) {
+            this.amountHKD = amountHKD;
+        }
+
+        public String getPriceCNY() {
+            return priceCNY;
+        }
+
+        public void setPriceCNY(String priceCNY) {
+            this.priceCNY = priceCNY;
+        }
+
+        public String getPriceUSD() {
+            return priceUSD;
+        }
+
+        public void setPriceUSD(String priceUSD) {
+            this.priceUSD = priceUSD;
+        }
+
+        public String getPriceHKD() {
+            return priceHKD;
+        }
+
+        public void setPriceHKD(String priceHKD) {
+            this.priceHKD = priceHKD;
+        }
+
+        public void setAmountCNY(String amountCNY) {
+            this.amountCNY = amountCNY;
+        }
+
         public String getCoinBalance() {
             return coinBalance;
         }

@@ -21,31 +21,6 @@
             android:weightSum="3">
 
             <LinearLayout
-                android:id="@+id/ll_consult"
-                android:gravity="center"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
-
-                <ImageView
-                    android:id="@+id/iv_consult"
-                    android:src="@mipmap/main_consult_dark"
-                    android:layout_width="19dp"
-                    android:layout_height="19dp" />
-
-                <TextView
-                    android:id="@+id/tv_consult"
-                    android:text="@string/main_tag_consult"
-                    android:textSize="11sp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/gray_666666"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
                 android:id="@+id/ll_wallet"
                 android:gravity="center"
                 android:layout_weight="1"
@@ -62,6 +37,31 @@
                 <TextView
                     android:id="@+id/tv_wallet"
                     android:text="@string/main_tab_wallet"
+                    android:textSize="11sp"
+                    android:layout_marginTop="5dp"
+                    android:textColor="@color/gray_666666"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_consult"
+                android:gravity="center"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:orientation="vertical"
+                android:layout_height="match_parent">
+
+                <ImageView
+                    android:id="@+id/iv_consult"
+                    android:src="@mipmap/main_consult_dark"
+                    android:layout_width="19dp"
+                    android:layout_height="19dp" />
+
+                <TextView
+                    android:id="@+id/tv_consult"
+                    android:text="@string/main_tag_consult"
                     android:textSize="11sp"
                     android:layout_marginTop="5dp"
                     android:textColor="@color/gray_666666"

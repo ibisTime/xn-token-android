@@ -21,9 +21,11 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.CoinAdapter;
 import com.cdkj.token.api.MyApi;
+import com.cdkj.token.consult.MsgListActivity;
 import com.cdkj.token.databinding.FragmentWalletBinding;
 import com.cdkj.token.model.CoinModel;
-import com.cdkj.token.model.RateModel;
+import com.cdkj.token.model.MsgListModel;
+import com.cdkj.token.wallet.account.BillListActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -69,6 +71,26 @@ public class WalletFragment extends BaseLazyFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet, null, false);
 
+        initCallBack();
+
+        init();
+        initListener();
+
+        getMsgRequest();
+
+        return mBinding.getRoot();
+    }
+
+    private void init() {
+        refreshHelper = new RefreshHelper(mActivity, back);
+
+        refreshHelper.init(10);
+        // 刷新
+        refreshHelper.onDefaluteMRefresh(true);
+    }
+
+    private void initCallBack() {
+
         back = new BaseRefreshCallBack() {
             @Override
             public SmartRefreshLayout getRefreshLayout() {
@@ -84,11 +106,18 @@ public class WalletFragment extends BaseLazyFragment {
             @Override
             public BaseQuickAdapter getAdapter(List listData) {
                 adapter = new CoinAdapter(listData);
+                adapter.setOnItemClickListener((adapter1, view, position) -> {
+                    CoinModel.AccountListBean bean = adapter.getItem(position);
+
+                    BillListActivity.open(mActivity, bean);
+                });
                 return adapter;
             }
 
             @Override
             public void onRefresh(int pageindex, int limit) {
+                getMsgRequest();
+
                 EventBusModel model = new EventBusModel();
                 model.setTag(BASE_COIN_LIST);
                 // 是否需要通知所有需要的地方刷新CoinList配置
@@ -100,72 +129,26 @@ public class WalletFragment extends BaseLazyFragment {
 
             @Override
             public void getListDataRequest(int pageIndex, int limit, boolean isShowDialog) {
-
-                if(TextUtils.isEmpty(SPUtilHelper.getUserToken()))
-                    return;
-
-                Map<String, Object> map = new HashMap<>();
-                map.put("currency", "");
-                map.put("userId", SPUtilHelper.getUserId());
-                map.put("token", SPUtilHelper.getUserToken());
-
-                Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getJsonToString(map));
-
-                addCall(call);
-
-                showLoadingDialog();
-
-                call.enqueue(new BaseResponseModelCallBack<CoinModel>(mActivity) {
-
-                    @Override
-                    protected void onSuccess(CoinModel data, String SucMessage) {
-
-                        if (data == null)
-                            return;
-
-                        setView(data);
-
-                        refreshHelper.setData(data.getAccountList() , getStrRes(R.string.wallet_none), R.mipmap.order_none);
-                    }
-
-                    @Override
-                    protected void onFinish() {
-                        disMissLoading();
-                        mBinding.refreshLayout.finishRefresh();
-                    }
-                });
-
+                getListData(pageIndex, limit, isShowDialog);
             }
         };
 
-        refreshHelper = new RefreshHelper(mActivity, back);
-
-        init();
-        initListener();
-
-        // 创建时获取并保存汇率，否则直接打开汇率列表报错
-        getRate();
-
-        return mBinding.getRoot();
-    }
-
-    private void init() {
-
-        refreshHelper.init(10);
-        // 刷新
-        refreshHelper.onDefaluteMRefresh(true);
     }
 
     private void initListener() {
         mBinding.llExchange.setOnClickListener(view -> {
-            ExchangeActivity.open(mActivity);
+            MsgListActivity.open(mActivity);
+        });
+
+        mBinding.llAdd.setOnClickListener(view -> {
+            AddChoiceActivity.open(mActivity);
         });
     }
 
     @Override
     protected void lazyLoad() {
         if (mBinding != null) {
-            getRate();
+            getMsgRequest();
             refreshHelper.onMRefresh(1,10,true);
         }
 
@@ -175,7 +158,7 @@ public class WalletFragment extends BaseLazyFragment {
     public void onResume() {
         super.onResume();
         if (getUserVisibleHint() && mBinding != null) {
-            getRate();
+            getMsgRequest();
             refreshHelper.onMRefresh(1,10,true);
         }
     }
@@ -185,46 +168,79 @@ public class WalletFragment extends BaseLazyFragment {
 
     }
 
-    private void setView(CoinModel data) {
-        mBinding.tvCny.setText(data.getTotalAmountCNY()+"");
-        mBinding.tvUsd.setText(data.getTotalAmountUSD()+"USD");
-        mBinding.tvHkd.setText(data.getTotalAmountHKD()+"HKD");
-    }
+    private void getListData(int pageIndex, int limit, boolean isShowDialog){
+        if(TextUtils.isEmpty(SPUtilHelper.getUserToken()))
+            return;
 
-    /**
-     * 获取汇率
-     */
-    private void getRate() {
-        Map<String, String> map = new HashMap<>();
-        map.put("currency", "USD");
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
+        Map<String, Object> map = new HashMap<>();
+        map.put("currency", "");
+        map.put("userId", SPUtilHelper.getUserId());
+        map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getRate("625280", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getJsonToString(map));
 
         addCall(call);
 
         showLoadingDialog();
 
-        call.enqueue(new BaseResponseModelCallBack<RateModel>(mActivity) {
-
+        call.enqueue(new BaseResponseModelCallBack<CoinModel>(mActivity) {
 
             @Override
-            protected void onSuccess(RateModel data, String SucMessage) {
+            protected void onSuccess(CoinModel data, String SucMessage) {
+
                 if (data == null)
                     return;
 
-                mBinding.tvRate.setText(data.getRate()+"");
+                setView(data);
 
-                SPUtilHelper.saveRate(SPUtilHelper.USD,data.getRate()+"");
+                refreshHelper.setData(data.getAccountList() , getStrRes(R.string.bill_none), R.mipmap.order_none);
             }
 
             @Override
             protected void onFinish() {
                 disMissLoading();
+                mBinding.refreshLayout.finishRefresh();
             }
         });
+    }
 
+    private void setView(CoinModel data) {
+        mBinding.tvCny.setText(data.getTotalAmountCNY()+"");
+    }
+
+    /**
+     * 获取消息列表
+     */
+    public void getMsgRequest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("channelType", "4");
+        map.put("start", "1");
+        map.put("limit", "1");
+        map.put("status", "1");
+        map.put("fromSystemCode", MyConfig.SYSTEMCODE);
+        map.put("toSystemCode", MyConfig.SYSTEMCODE);
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+
+        call.enqueue(new BaseResponseModelCallBack<MsgListModel>(mActivity) {
+            @Override
+            protected void onSuccess(MsgListModel data, String SucMessage) {
+                if (data.getList() == null || data.getList().size() < 1) {
+                    return;
+                }
+
+                mBinding.tvNotice.setText(data.getList().get(0).getSmsTitle());
+            }
+
+
+            @Override
+            protected void onFinish() {
+            }
+        });
     }
 
     @Subscribe

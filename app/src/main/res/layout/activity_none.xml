@@ -18,10 +18,10 @@
             android:layout_height="119dp" />
 
         <TextView
-            android:text="暂未开发，敬请期待！"
+            android:text="敬请期待"
             android:layout_marginTop="28dp"
             android:textSize="17sp"
-            android:textColor="#f48472"
+            android:textColor="@color/gray_999999"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

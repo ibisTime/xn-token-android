@@ -49,10 +49,12 @@ public class NoneActivity extends AbsBaseActivity{
         if (getIntent() == null)
             return;
 
-        if (getIntent().getStringExtra("location").equals("mall")){
-            mBinding.ivNone.setImageResource(R.mipmap.none_mall);
-        }else {
-            mBinding.ivNone.setImageResource(R.mipmap.none_dig);
-        }
+//        if (getIntent().getStringExtra("location").equals("mall")){
+//            mBinding.ivNone.setImageResource(R.mipmap.none_mall);
+//        }else {
+//            mBinding.ivNone.setImageResource(R.mipmap.none_dig);
+//        }else {
+//
+//        }
     }
 }

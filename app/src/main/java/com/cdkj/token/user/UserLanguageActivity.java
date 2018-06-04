@@ -62,21 +62,21 @@ public class UserLanguageActivity extends AbsBaseActivity {
             sendEventBus(SIMPLIFIED);
 
             initView();
-            mBinding.ivSimple.setBackgroundResource(R.mipmap.deal_choose);
+            mBinding.ivSimple.setBackgroundResource(R.mipmap.choice_confirm);
         });
 
         mBinding.llEnglish.setOnClickListener(view -> {
             sendEventBus(ENGLISH);
 
             initView();
-            mBinding.ivEnglish.setBackgroundResource(R.mipmap.deal_choose);
+            mBinding.ivEnglish.setBackgroundResource(R.mipmap.choice_confirm);
         });
 
         mBinding.llTradition.setOnClickListener(view -> {
             sendEventBus(TRADITIONAL);
 
             initView();
-            mBinding.ivTradition.setBackgroundResource(R.mipmap.deal_choose);
+            mBinding.ivTradition.setBackgroundResource(R.mipmap.choice_confirm);
         });
     }
 
@@ -89,9 +89,9 @@ public class UserLanguageActivity extends AbsBaseActivity {
     }
 
     private void initView(){
-        mBinding.ivSimple.setBackgroundResource(R.mipmap.deal_unchoose);
-        mBinding.ivEnglish.setBackgroundResource(R.mipmap.deal_unchoose);
-        mBinding.ivTradition.setBackgroundResource(R.mipmap.deal_unchoose);
+        mBinding.ivSimple.setBackgroundResource(R.mipmap.choice_cancel);
+        mBinding.ivEnglish.setBackgroundResource(R.mipmap.choice_cancel);
+        mBinding.ivTradition.setBackgroundResource(R.mipmap.choice_cancel);
     }
 
     private void setView(String language, String country){
@@ -100,14 +100,14 @@ public class UserLanguageActivity extends AbsBaseActivity {
 
             case "zh":
                 if (country.equals("CN")){ // 简体
-                    mBinding.ivSimple.setBackgroundResource(R.mipmap.deal_choose);
+                    mBinding.ivSimple.setBackgroundResource(R.mipmap.choice_confirm);
                 }else {
-                    mBinding.ivTradition.setBackgroundResource(R.mipmap.deal_choose);
+                    mBinding.ivTradition.setBackgroundResource(R.mipmap.choice_confirm);
                 }
                 break;
 
             case "en":
-                mBinding.ivEnglish.setBackgroundResource(R.mipmap.deal_choose);
+                mBinding.ivEnglish.setBackgroundResource(R.mipmap.choice_confirm);
                 break;
 
         }

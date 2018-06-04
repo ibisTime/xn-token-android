@@ -70,12 +70,16 @@ public class UserFragment extends BaseLazyFragment {
             ImageSelectActivity.launchFragment(this, PHOTOFLAG);
         });
 
+        mBinding.llWalletSet.setOnClickListener(view -> {
+            UserWalletActivity.open(mActivity);
+        });
+
         mBinding.llSetting.setOnClickListener(view -> {
             UserSettingActivity.open(mActivity);
         });
 
-        mBinding.llLanguage.setOnClickListener(view -> {
-            UserLanguageActivity.open(mActivity);
+        mBinding.llJoin.setOnClickListener(view -> {
+            UserJoinActivity.open(mActivity);
         });
 
         mBinding.llIssue.setOnClickListener(view -> {
@@ -214,7 +218,8 @@ public class UserFragment extends BaseLazyFragment {
 
         mBinding.tvNick.setText(data.getNickname());
         mBinding.tvMobile.setText(data.getMobile());
-        ImgUtils.loadAvatar(mActivity, data.getPhoto(), data.getNickname(), mBinding.imAvatar, mBinding.tvAvatar);
+//        ImgUtils.loadAvatar(mActivity, data.getPhoto(), data.getNickname(), mBinding.imAvatar, mBinding.tvAvatar);
+        ImgUtils.loadAvatar(mActivity, data.getPhoto(), mBinding.imAvatar);
 
     }
 

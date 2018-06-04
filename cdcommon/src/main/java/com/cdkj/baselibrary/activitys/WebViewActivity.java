@@ -147,9 +147,9 @@ public class WebViewActivity extends AbsBaseActivity {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 String title = view.getTitle();
-                if (!TextUtils.isEmpty(title)) {
-                    setTopTitle(title);
-                }
+//                if (!TextUtils.isEmpty(title)) {
+//                    setTopTitle(title);
+//                }
             }
         });
 

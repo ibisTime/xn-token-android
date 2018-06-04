@@ -22,6 +22,7 @@ import com.cdkj.token.model.InviteModel;
 import com.cdkj.token.model.KtInfoModel;
 import com.cdkj.token.model.MarketCoinModel;
 import com.cdkj.token.model.MarketModel;
+import com.cdkj.token.model.MsgListModel;
 import com.cdkj.token.model.OrderDetailModel;
 import com.cdkj.token.model.OrderModel;
 import com.cdkj.token.model.RateModel;
@@ -46,6 +47,15 @@ import retrofit2.http.POST;
 
 public interface MyApi {
 
+
+    /**
+     * 获取消息列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<MsgListModel>> getMsgList(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取空投流水

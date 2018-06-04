@@ -19,7 +19,6 @@ import android.widget.TextView;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.databinding.EmptyViewBinding;
 import com.cdkj.baselibrary.databinding.FragmentRecyclerRefreshBinding;
-import com.cdkj.baselibrary.utils.ImgUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshLoadmoreListener;
@@ -295,7 +294,8 @@ public abstract class BaseRefreshFragment<T> extends BaseLazyFragment {
         }
         ImageView img = (ImageView) mTopTitleView.findViewById(R.id.img_right);
         img.setVisibility(View.VISIBLE);
-        ImgUtils.loadFraImgId(this, rid, img);
+        img.setImageResource(rid);
+//        ImgUtils.loadFraImgId(this, rid, img);
         mTopTitleView.findViewById(R.id.fllayout_right).setOnClickListener(listener);
     }
 

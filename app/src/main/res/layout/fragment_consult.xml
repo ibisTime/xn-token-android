@@ -6,8 +6,70 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/gray_f7f7f7"
+        android:background="@color/gray_f8f8f8"
         android:orientation="vertical">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="70dp">
+
+            <FrameLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <View
+                    android:background="#60434343"
+                    android:layout_width="match_parent"
+                    android:layout_height="25dp"/>
+
+            </FrameLayout>
+
+
+
+            <FrameLayout
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/title_height">
+
+                <TextView
+                    android:text="@string/main_tag_consult"
+                    android:layout_gravity="center"
+                    android:textSize="18sp"
+                    android:textColor="@color/text_color"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <FrameLayout
+                    android:id="@+id/fl_right"
+                    android:layout_width="wrap_content"
+                    android:layout_height="44dp"
+                    android:layout_gravity="right|center_vertical">
+
+                    <ImageView
+                        android:src="@mipmap/consult_message"
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center_vertical|right"
+                        android:layout_marginRight="15dp"
+                        />
+
+
+
+                </FrameLayout>
+
+            </FrameLayout>
+
+        </LinearLayout>
+
+
+        <View
+            android:id="@+id/line_bottom"
+            android:layout_gravity="bottom"
+            android:background="@color/gray_dedede"
+            android:layout_width="match_parent"
+            android:layout_height="1px"/>
 
         <com.youth.banner.Banner
             android:id="@+id/banner"
@@ -16,90 +78,98 @@
             app:image_scale_type="fit_xy" />
 
         <LinearLayout
-            android:background="@color/white"
-            android:gravity="center_vertical"
+            android:visibility="gone"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
-
-            <View
-                android:layout_marginLeft="15dp"
-                android:background="@color/colorAccent"
-                android:layout_width="3dp"
-                android:layout_height="11dp"/>
-
-            <TextView
-                android:layout_marginLeft="6dp"
-                android:text="官方服务"
-                android:textColor="@color/black"
-                android:textSize="14sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-
-        </LinearLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/gray_dedede" />
-
-        <LinearLayout
-            android:id="@+id/ll_statistics"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:orientation="vertical">
+            android:layout_height="wrap_content">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="15dp"
+                android:background="@color/white"
                 android:gravity="center_vertical"
-                android:orientation="horizontal">
+                android:layout_width="match_parent"
+                android:layout_height="40dp">
+
+                <View
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/colorAccent"
+                    android:layout_width="3dp"
+                    android:layout_height="11dp"/>
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/kt_statistical"
+                    android:layout_marginLeft="6dp"
+                    android:text="官方服务"
                     android:textColor="@color/black"
-                    android:textSize="13sp" />
-
-                <ImageView
+                    android:textSize="14sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
-                    android:background="@mipmap/more" />
+                    android:layout_height="wrap_content" />
+
 
             </LinearLayout>
 
-            <ProgressBar
-                android:id="@+id/progress"
-                style="?android:attr/progressBarStyleHorizontal"
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="7dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="15dp"
-                android:progressDrawable="@drawable/kt_progress" />
+                android:layout_height="1px"
+                android:background="@color/gray_dedede" />
 
             <LinearLayout
+                android:id="@+id/ll_statistics"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="15dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="15dp">
+                android:background="@color/white"
+                android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/tv_kt_info"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/gray_7a7a7a"
-                    android:textSize="12sp"
-                    tools:text="@string/kt_total" />
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="@string/kt_statistical"
+                        android:textColor="@color/black"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/more" />
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/progress"
+                    style="?android:attr/progressBarStyleHorizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp"
+                    android:progressDrawable="@drawable/kt_progress" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:layout_marginTop="15dp">
+
+                    <TextView
+                        android:id="@+id/tv_kt_info"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/gray_7a7a7a"
+                        android:textSize="12sp"
+                        tools:text="@string/kt_total" />
+
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -153,19 +223,24 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:background="@mipmap/consult_merchant"
+                    android:background="@mipmap/consult_bsb"
                     android:layout_width="33dp"
                     android:layout_height="33dp" />
 
                 <TextView
                     android:layout_marginTop="12dp"
-                    android:text="在线商家"
+                    android:text="币生币"
                     android:textSize="13sp"
                     android:textColor="@color/gray_666666"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
+
+            <View
+                android:background="@color/gray_eeeeee"
+                android:layout_width="1px"
+                android:layout_height="match_parent"/>
 
             <LinearLayout
                 android:id="@+id/ll_mall"
@@ -176,19 +251,24 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:background="@mipmap/consult_mall"
+                    android:background="@mipmap/consult_xq"
                     android:layout_width="33dp"
                     android:layout_height="33dp" />
 
                 <TextView
                     android:layout_marginTop="12dp"
-                    android:text="在线商城"
+                    android:text="THA星球"
                     android:textSize="13sp"
                     android:textColor="@color/gray_666666"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
+
+            <View
+                android:background="@color/gray_eeeeee"
+                android:layout_width="1px"
+                android:layout_height="match_parent"/>
 
             <LinearLayout
                 android:id="@+id/ll_dig"
@@ -199,13 +279,13 @@
                 android:layout_height="match_parent">
 
                 <ImageView
-                    android:background="@mipmap/consult_dig"
+                    android:background="@mipmap/consult_ybb"
                     android:layout_width="33dp"
                     android:layout_height="33dp" />
 
                 <TextView
                     android:layout_marginTop="12dp"
-                    android:text="POS挖矿"
+                    android:text="余币宝"
                     android:textSize="13sp"
                     android:textColor="@color/gray_666666"
                     android:layout_width="wrap_content"

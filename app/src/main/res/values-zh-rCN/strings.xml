@@ -1,7 +1,7 @@
 <resources>
-    <string name="app_name">OGC钱包</string>
+    <string name="app_name">THA</string>
 
-    <string name="main_tag_consult">应用</string>
+    <string name="main_tag_consult">发现</string>
     <string name="main_tab_wallet">钱包</string>
     <string name="main_tab_my">我的</string>
     <string name="exit_confirm">确认退出？</string>
@@ -50,7 +50,7 @@
     <string name="wallet_withdraw_order_none">暂无提现记录</string>
 
     <string name="wallet_title">我的资产</string>
-    <string name="wallet_assets">总资产折合CNY</string>
+    <string name="wallet_assets">总资产(CNY)</string>
     <string name="wallet_frozen_0">冻结0</string>
     <string name="wallet_charge">充币</string>
     <string name="wallet_withdraw">提币</string>
@@ -70,7 +70,7 @@
     <string name="bill_title_charge">充值明细</string>
     <string name="bill_title_withdraw">提币明细</string>
     <string name="bill_title_frozen">冻结明细</string>
-    <string name="bill_none">暂无明细</string>
+    <string name="bill_none">暂无记录</string>
     <string name="bill_all_none">暂无余额明细</string>
     <string name="bill_charge_none">暂无充值明细</string>
     <string name="bill_withdraw_none">暂无提币明细</string>
@@ -82,6 +82,8 @@
     <string name="wallet_bill_detail_date">变动时间</string>
     <string name="wallet_bill_detail_status">明细状态</string>
     <string name="wallet_bill_detail_type">明细摘要</string>
+
+    <string name="wallet_title_bill_list">账单</string>
 
     <string name="wallet_title_charge">充币</string>
     <string name="wallet_charge_recode">记录</string>
@@ -147,6 +149,10 @@
     <string name="user_google_btn_open">开启谷歌验证</string>
     <string name="user_google_btn_close">关闭谷歌验证</string>
     <string name="user_google_btn_modify">修改谷歌验证</string>
+
+    <string name="user_title_join">加入社群</string>
+
+    <string name="user_title_wallet">钱包设置</string>
 
     <string name="user_title_invite_history">推荐历史</string>
     <string name="invite_history_none">暂无推荐历史</string>
@@ -273,7 +279,7 @@
     <string name="user_address">我的地址</string>
     <string name="user_trust">受信任的</string>
     <string name="user_invite">邀请好友</string>
-    <string name="user_setting">安全中心</string>
+    <string name="user_setting">系统设置</string>
     <string name="user_tip">个性设置</string>
     <string name="user_issue">帮助中心</string>
     <string name="user_services">联系客服</string>
@@ -345,6 +351,10 @@
 
     <string name="consult_list_title">在线商家</string>
     <string name="consult_none_title">敬请期待</string>
+    <string name="user_wallet_setting">钱包设置</string>
+    <string name="user_join">加入社群</string>
+    <string name="wallet_bill_list_charge">充币</string>
+    <string name="wallet_bill_list_withdraw">提币</string>
 
 
 </resources>

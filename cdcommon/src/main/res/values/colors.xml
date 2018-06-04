@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#ff7d0e</color>
-    <color name="colorPrimaryDark">#00FFFFFF</color>
-    <color name="colorAccent">#ff7d0e</color>
+    <color name="colorPrimary">#108ee9</color>
+    <color name="colorPrimaryDark">#108ee9</color>
+    <color name="colorAccent">#108ee9</color>
 
     <color name="gray_bg">#f6f6f6</color>
     <color name="title_bg">#0cb8ae</color>
@@ -13,6 +13,7 @@
     <color name="transparent">#00000000</color>
     <color name="text_hint_color">#a1a1a1</color>
     <color name="text_color">#484848</color>
+    <color name="text_color_light">#108ee9</color>
 
     <!--dialog-->
     <color name="dialog_tips_content_txt">#444444</color>
@@ -35,6 +36,7 @@
     <color name="color_content_font">#979797</color>
     <color name="bg_gray">#a1a1a1</color>
     <color name="gray_9f9f9f">#9f9f9f</color>
+    <color name="gray_999999">#999999</color>
     <color name="gray_f7f7f7">#f7f7f7</color>
     <color name="gray_cccccc">#cccccc</color>
     <color name="gray_eeeeee">#eeeeee</color>

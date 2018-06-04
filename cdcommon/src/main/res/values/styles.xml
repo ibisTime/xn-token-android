@@ -77,10 +77,15 @@
     <!--长的分割线styles设置-->
     <style name="style_split_line">
         <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:background">@color/bg_gray</item>
-        <item name="android:layout_marginLeft">15dp</item>
-        <item name="android:layout_marginRight">15dp</item>
+        <item name="android:layout_height">1px</item>
+        <item name="android:background">@color/gray_eeeeee</item>
+    </style>
+
+    <!--长的分割线styles设置-->
+    <style name="style_split_line_broad">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">10dp</item>
+        <item name="android:background">@color/gray_f7f7f7</item>
     </style>
 
     <!--长的分割线styles设置-->
