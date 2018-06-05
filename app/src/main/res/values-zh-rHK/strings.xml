@@ -356,5 +356,9 @@
     <string name="wallet_bill_list_charge">充幣</string>
     <string name="wallet_bill_list_withdraw">提幣</string>
 
+    <string name="create_wallet">创建钱包</string>
+    <string name="put_wallet">导入钱包</string>
+    <string name="please_set_transaction_pass_word">请设置交易密码</string>
+
 
 </resources>

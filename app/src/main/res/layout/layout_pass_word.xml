@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.cdkj.token.views.password.PassWordLayout
+        android:id="@+id/passWordLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tv_tipsinfo"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        app:box_draw_type="rect"
+        app:box_input_color="@color/pass_word_view_bg"
+        app:box_no_input_color="@color/pass_word_view_bg"
+        app:interval_width="15dp"
+        app:is_show_input_line="false"
+        app:item_height="40dp"
+        app:item_width="40dp"
+        app:pass_inputed_type="circle"
+        app:pass_leng="six"
+        app:text_input_color="@color/black" />
+
+</layout>

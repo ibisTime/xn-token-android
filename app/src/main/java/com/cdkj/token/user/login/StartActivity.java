@@ -19,6 +19,7 @@ import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
+import com.cdkj.token.wallet.IntoWalletBeforeActivity;
 
 import org.litepal.crud.DataSupport;
 
@@ -66,7 +67,7 @@ public class StartActivity extends BaseActivity {
 
     private void open() {
 
-        mSubscription.add(Observable.timer(2, TimeUnit.SECONDS)
+        mSubscription.add(Observable.timer(1, TimeUnit.SECONDS)
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {//延迟两秒进行跳转
@@ -77,7 +78,7 @@ public class StartActivity extends BaseActivity {
 //                        SignInActivity.open(this, false);
 //                    }
 
-                    MainActivity.open(this);
+                    IntoWalletBeforeActivity.open(this);
                     finish();
 
                 }, Throwable::printStackTrace));

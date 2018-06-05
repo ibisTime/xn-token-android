@@ -4,8 +4,10 @@ import android.content.Context;
 import android.support.annotation.AttrRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -85,6 +87,10 @@ public class TopTitleLayout extends FrameLayout {
     public void setMidTitle(String text) {
         mTextTitle.setText(text);
         mTextTitle.setVisibility(text != null ? VISIBLE : GONE);
+    }
+    public void setMidTitle(@StringRes int textid) {
+        mTextTitle.setText(textid);
+        mTextTitle.setVisibility(textid != 0 ? VISIBLE : GONE);
     }
 
     public void setLeftImg(@DrawableRes int img) {

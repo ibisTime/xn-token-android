@@ -355,6 +355,11 @@
     <string name="user_join">加入社群</string>
     <string name="wallet_bill_list_charge">充币</string>
     <string name="wallet_bill_list_withdraw">提币</string>
+    <string name="create_wallet">创建钱包</string>
+    <string name="put_wallet">导入钱包</string>
+    <string name="please_set_transaction_pass_word">请设置交易密码</string>
+    <string name="please_check_transaction">请确认交易密码</string>
+    <string name="password_error">两次输入密码不一致</string>
 
 
 </resources>

@@ -76,11 +76,6 @@
         <activity
             android:name="com.cdkj.baselibrary.activitys.ImageSelectActivity"
             android:theme="@style/ActivityDialogStyleBottom" />
-        // RichText
-        <activity
-            android:name="com.cdkj.baselibrary.activitys.RichTextActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
         // 实名认证
         <activity
             android:name="com.cdkj.baselibrary.activitys.AuthenticateActivity"
@@ -124,6 +119,9 @@
         <activity android:name=".user.UserWalletActivity" />
 
         <service android:name=".service.CoinListService" />
+
+        <activity android:name="com.cdkj.token.wallet.IntoWalletBeforeActivity" />
+        <activity android:name=".wallet.create_guide.CreatePassWordActivity" />
     </application>
 
 </manifest>

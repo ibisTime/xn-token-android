@@ -3,13 +3,13 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"
             android:orientation="vertical">
 
             <ImageView
@@ -24,30 +24,32 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="20dp"
                 android:text="THA WALLET"
                 android:textColor="@color/black"
                 android:textSize="18sp" />
 
 
             <Button
+                android:id="@+id/btn_create_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="69dp"
                 android:background="@drawable/btn_blue"
-                android:text="创建钱包"
+                android:text="@string/create_wallet"
                 android:textColor="@color/white" />
 
             <Button
+                android:id="@+id/put_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="30dp"
                 android:background="@drawable/btn_blue"
-                android:text="导入钱包"
+                android:text="@string/put_wallet"
                 android:textColor="@color/white" />
 
             <TextView
@@ -55,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="60dp"
                 android:text="我已阅读并同意服务及隐私条款"
                 android:textColor="@color/blue" />
 

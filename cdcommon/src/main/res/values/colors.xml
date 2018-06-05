@@ -5,9 +5,9 @@
     <color name="colorAccent">#108ee9</color>
 
     <color name="gray_bg">#f6f6f6</color>
-    <color name="title_bg">#0cb8ae</color>
+    <color name="title_bg">#ffffff</color>
     <color name="white">#ffffff</color>
-    <color name="black">#4D4D4D</color>
+    <color name="black">#000000</color>
     <color name="white_50">#82ffffff</color>
     <!--透明度颜色-->
     <color name="transparent">#00000000</color>
@@ -59,4 +59,10 @@
     <color name="lineColor">#ebeaea</color>
     <color name="line_gray_cd">#dedede</color>
     <color name="text_black_cd">#333333</color>
+
+
+    <color name="pass_word_view_bg">#ededed</color>
+
+
+
 </resources>
