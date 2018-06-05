@@ -1,6 +1,7 @@
 package com.cdkj.baselibrary.interfaces;
 
-import android.app.Activity;
+import android.content.Context;
+import android.support.annotation.DrawableRes;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -10,21 +11,22 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import java.util.List;
 
 /**
+ * 根据需求自己定义
  * Created by cdkj on 2017/8/8.
  */
 public interface RefreshInterface<T> {
 
-    SmartRefreshLayout getRefreshLayout();
+    View getRefreshLayout();
 
     RecyclerView getRecyclerView();
 
-    BaseQuickAdapter getAdapter(List<T> listData);
+    RecyclerView.Adapter getAdapter(List<T> listData);
 
-    View getEmptyView(Activity context);
+    View getEmptyView();
 
-    void setErrorTxt(String errorMsg);
+    void showErrorState(String errorMsg,@DrawableRes int errorImg);
 
-    void setErrorImg(int errorImg);
+    void showEmptyState(String errorMsg,@DrawableRes int errorImg);
 
     void onRefresh(int pageindex, int limit);
 
@@ -32,5 +34,6 @@ public interface RefreshInterface<T> {
 
     void getListDataRequest(int pageindex, int limit, boolean isShowDialog);
 
+    void onDestroy();
 
 }

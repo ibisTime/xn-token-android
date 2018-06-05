@@ -1,4 +1,4 @@
-package com.cdkj.token.util;
+package com.cdkj.token.utils;
 
 /**
  * Created by lei on 2018/1/18.

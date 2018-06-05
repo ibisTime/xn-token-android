@@ -18,8 +18,8 @@ import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
-import com.cdkj.token.util.AccountUtil;
-import com.cdkj.token.util.EditTextJudgeNumberWatcher;
+import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityStorePayBinding;
 import com.cdkj.token.model.CoinModel;
@@ -30,8 +30,8 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-import static com.cdkj.token.util.AccountUtil.OGCSCALE;
-import static com.cdkj.token.util.AccountUtil.getUnit;
+import static com.cdkj.token.utils.AccountUtil.OGCSCALE;
+import static com.cdkj.token.utils.AccountUtil.getUnit;
 
 /**
  * 店鋪支付

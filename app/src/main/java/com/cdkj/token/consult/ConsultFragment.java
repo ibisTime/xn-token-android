@@ -14,7 +14,7 @@ import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.util.AccountUtil;
+import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.adapter.ConsultAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentConsultBinding;
@@ -34,8 +34,8 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-import static com.cdkj.token.util.AccountUtil.OGCSCALE;
-import static com.cdkj.token.util.CoinUtil.getFirstTokenCoin;
+import static com.cdkj.token.utils.AccountUtil.OGCSCALE;
+import static com.cdkj.token.utils.CoinUtil.getFirstTokenCoin;
 
 /**
  * 首页

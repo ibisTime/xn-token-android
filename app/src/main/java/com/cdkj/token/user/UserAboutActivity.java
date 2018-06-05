@@ -25,7 +25,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-import static com.cdkj.token.util.UpdateUtil.startWeb;
+import static com.cdkj.token.utils.UpdateUtil.startWeb;
 
 
 /**

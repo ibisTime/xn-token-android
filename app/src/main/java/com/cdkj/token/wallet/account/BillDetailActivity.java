@@ -9,7 +9,7 @@ import android.view.View;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.token.R;
-import com.cdkj.token.util.AccountUtil;
+import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.databinding.ActivityBillDetailBinding;
 import com.cdkj.token.model.BillModel;
 

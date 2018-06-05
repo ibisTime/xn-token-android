@@ -136,7 +136,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/corner_sign_btn"
+                android:background="@drawable/btn_blue"
                 android:gravity="center"
                 android:text="粘贴"
                 android:textColor="@color/white"

@@ -1,4 +1,4 @@
-package com.cdkj.token.util;
+package com.cdkj.token.utils;
 
 import com.cdkj.baselibrary.model.BaseCoinModel;
 

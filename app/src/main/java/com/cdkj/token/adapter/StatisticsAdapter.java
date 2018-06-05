@@ -3,14 +3,14 @@ package com.cdkj.token.adapter;
 import android.support.annotation.Nullable;
 
 import com.cdkj.token.R;
-import com.cdkj.token.util.AccountUtil;
+import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.model.StatisticsModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
-import static com.cdkj.token.util.AccountUtil.OGCSCALE;
+import static com.cdkj.token.utils.AccountUtil.OGCSCALE;
 
 /**
  * Created by lei on 2018/3/7.

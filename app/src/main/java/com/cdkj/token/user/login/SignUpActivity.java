@@ -206,7 +206,7 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
             return;
 
         if (tag.equals(EventTags.CHANGE_CODE_BTN)){
-            mBinding.btnSend.setBackground(ContextCompat.getDrawable(SignUpActivity.this,R.drawable.corner_sign_btn));
+            mBinding.btnSend.setBackground(ContextCompat.getDrawable(SignUpActivity.this,R.drawable.btn_blue));
         }
     }
 

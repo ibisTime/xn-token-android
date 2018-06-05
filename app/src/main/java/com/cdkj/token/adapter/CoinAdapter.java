@@ -5,7 +5,7 @@ import android.widget.ImageView;
 
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.util.AccountUtil;
+import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.model.CoinModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -13,7 +13,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.cdkj.token.util.CoinUtil.getCoinWatermarkWithCurrency;
+import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 
 /**
  * Created by lei on 2017/10/25.

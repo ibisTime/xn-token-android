@@ -160,7 +160,7 @@
                     android:layout_height="30dp"
                     android:layout_marginRight="15dp"
                     android:layout_marginLeft="15dp"
-                    android:background="@drawable/corner_sign_btn"
+                    android:background="@drawable/btn_blue"
                     android:layout_gravity="center_vertical"
                     android:gravity="center"
                     android:text="@string/user_sign_up_send"
@@ -297,7 +297,7 @@
             android:layout_marginTop="42dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:background="@drawable/corner_sign_btn"
+            android:background="@drawable/btn_blue"
             android:layout_width="match_parent"
             android:layout_height="45dp" />
 

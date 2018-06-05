@@ -1,6 +1,6 @@
 package com.cdkj.baselibrary.utils;
 
-import android.app.Activity;
+import android.content.Context;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -17,8 +17,9 @@ import java.util.List;
 /**
  * Created by cdkj on 2017/10/15.
  */
-
 public class RefreshHelper<T> {
+
+    public static int LIMITE = 15;
 
     private RefreshInterface mRefreshInterface;//刷新接口
 
@@ -34,7 +35,7 @@ public class RefreshHelper<T> {
 
     private List<T> mDataList;//数据
 
-    private Activity mContext;
+    private Context mContext;
 
     private View mEmptyView;
 
@@ -63,11 +64,15 @@ public class RefreshHelper<T> {
     }
 
 
-    public RefreshHelper(Activity context, RefreshInterface mRefreshInterface) {
+    public RefreshHelper(Context context, RefreshInterface mRefreshInterface) {
         this.mRefreshInterface = mRefreshInterface;
         this.mContext = context;
     }
 
+
+    public void setPageIndex(int mPageIndex) {
+        this.mPageIndex = mPageIndex;
+    }
 
     /**
      * 初始化
@@ -76,19 +81,21 @@ public class RefreshHelper<T> {
      */
     public void init(int limit) {
 
-        mRefreshLayout = mRefreshInterface.getRefreshLayout();
-        mRecyclerView = mRefreshInterface.getRecyclerView();
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
-
         mPageIndex = 1;//分页从1开始
 
         mLimit = limit;//分页数量
 
         mDataList = new ArrayList<T>();
 
-        mAdapter = mRefreshInterface.getAdapter(mDataList);
+        if (mRefreshInterface != null) {
+            mRefreshLayout = (SmartRefreshLayout) mRefreshInterface.getRefreshLayout();
+            mRecyclerView = mRefreshInterface.getRecyclerView();
 
-        mEmptyView = mRefreshInterface.getEmptyView(mContext);
+            mAdapter = (BaseQuickAdapter) mRefreshInterface.getAdapter(mDataList);
+
+            mEmptyView = mRefreshInterface.getEmptyView();
+            mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext, LinearLayoutManager.VERTICAL, false));
+        }
 
         if (mAdapter != null) {
             View tv = new View(mContext); //先设置 不显示任何东西的 emptyView
@@ -96,7 +103,6 @@ public class RefreshHelper<T> {
             mRecyclerView.setAdapter(mAdapter);
         }
         initRefreshLayout();
-
     }
 
 
@@ -115,7 +121,10 @@ public class RefreshHelper<T> {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) { //刷新
                 onMRefresh(1, mLimit, false);
-                mRefreshInterface.onRefresh(1, mLimit);
+                if (mRefreshInterface != null) {
+                    mRefreshInterface.onRefresh(1, mLimit);
+                }
+
             }
 
             @Override
@@ -124,7 +133,9 @@ public class RefreshHelper<T> {
                     mPageIndex++;
                 }
                 onMLoadMore(mPageIndex, mLimit);
-                mRefreshInterface.onLoadMore(mPageIndex, mLimit);
+                if (mRefreshInterface != null) {
+                    mRefreshInterface.onLoadMore(mPageIndex, mLimit);
+                }
             }
         });
     }
@@ -132,7 +143,9 @@ public class RefreshHelper<T> {
     //执行默认刷新 mPageIndex变为一
     public void onDefaluteMRefresh(boolean isShowDialog) {
         mPageIndex = 1;
-        mRefreshInterface.getListDataRequest(mPageIndex, mLimit, isShowDialog);
+        if (mRefreshInterface != null) {
+            mRefreshInterface.getListDataRequest(mPageIndex, mLimit, isShowDialog);
+        }
     }
 
     //执行默认刷新 mPageIndex++
@@ -140,14 +153,18 @@ public class RefreshHelper<T> {
         if (mDataList.size() > 0) {
             mPageIndex++;
         }
-        mRefreshInterface.getListDataRequest(mPageIndex, mLimit, isShowDialog);
+        if (mRefreshInterface != null) {
+            mRefreshInterface.getListDataRequest(mPageIndex, mLimit, isShowDialog);
+        }
     }
 
     //刷新
     public void onMRefresh(int pageindex, int limit, boolean isShowDialog) {
         mPageIndex = pageindex;
         mLimit = limit;
-        mRefreshInterface.getListDataRequest(pageindex, limit, isShowDialog);
+        if (mRefreshInterface != null) {
+            mRefreshInterface.getListDataRequest(pageindex, limit, isShowDialog);
+        }
 
     }
 
@@ -155,12 +172,14 @@ public class RefreshHelper<T> {
     public void onMLoadMore(int pageIndex, int limit) {
         mPageIndex = pageIndex;
         mLimit = limit;
-        mRefreshInterface.getListDataRequest(pageIndex, limit, false);
+        if (mRefreshInterface != null) {
+            mRefreshInterface.getListDataRequest(pageIndex, limit, false);
+        }
     }
 
 
     //加载错误布局
-    public void loadError(String str) {
+    public void loadError(String str, int img) {
 
         if (mRefreshLayout != null) {
             if (mRefreshLayout.isRefreshing()) { //停止刷新
@@ -172,7 +191,9 @@ public class RefreshHelper<T> {
         }
 
         if (mEmptyView != null && mDataList.isEmpty()) {
-            mRefreshInterface.setErrorTxt(str);
+            if (mRefreshInterface != null) {
+                mRefreshInterface.showErrorState(str, img);
+            }
             if (mAdapter != null) mAdapter.setEmptyView(mEmptyView);
         }
     }
@@ -183,7 +204,7 @@ public class RefreshHelper<T> {
      *
      * @param datas
      */
-    public void setData(List<T> datas, String emptyTxt, int emptyImg) {
+    public void setData(List<T> datas, String emp, int img) {
         if (mRefreshLayout != null) {
             if (mRefreshLayout.isRefreshing()) {
                 mRefreshLayout.finishRefresh();
@@ -194,20 +215,20 @@ public class RefreshHelper<T> {
         }
 
         if (mPageIndex == 1) {         //如果当前加载的是第一页数据
-            if (datas != null) {
+            if (datas != null && datas.size() > 0) {
                 mDataList.clear();
                 mDataList.addAll(datas);
-                if (mAdapter != null) {
-                    mAdapter.notifyDataSetChanged();
-                }
+            } else {
+                mDataList.clear();
             }
-
+            if (mAdapter != null) {
+                mAdapter.notifyDataSetChanged();
+            }
         } else if (mPageIndex > 1) {
             if (datas == null || datas.size() <= 0) {
                 mPageIndex--;
             } else {
                 mDataList.addAll(datas);
-
                 if (mAdapter != null) {
                     mAdapter.notifyDataSetChanged();
                 }
@@ -215,20 +236,20 @@ public class RefreshHelper<T> {
         }
 
         if (mEmptyView != null && mDataList.isEmpty()) {
-            if (mAdapter != null){
-
-                mRefreshInterface.setErrorTxt(emptyTxt);
-                mRefreshInterface.setErrorImg(emptyImg);
-                mAdapter.setEmptyView(mEmptyView);
+            if (mRefreshInterface != null) {
+                mRefreshInterface.showEmptyState(emp, img);
             }
-
+            if (mAdapter != null) mAdapter.setEmptyView(mEmptyView);
         }
     }
 
     /**
      * 防止内存泄漏
      */
-    public void clear() {
+    public void onDestroy() {
+        if (mRefreshInterface != null) {
+            mRefreshInterface.onDestroy();
+        }
         mContext = null;
     }
 

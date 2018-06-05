@@ -113,7 +113,7 @@ public class UserEmailActivity extends AbsBaseActivity {
             return;
 
         if (tag.equals(EventTags.CHANGE_CODE_BTN)){
-            mBinding.btnSend.setBackground(ContextCompat.getDrawable(UserEmailActivity.this,R.drawable.corner_sign_btn));
+            mBinding.btnSend.setBackground(ContextCompat.getDrawable(UserEmailActivity.this,R.drawable.btn_blue));
         }
     }
 

@@ -91,7 +91,7 @@ public class WalletFragment extends BaseLazyFragment {
 
     private void initCallBack() {
 
-        back = new BaseRefreshCallBack() {
+        back = new BaseRefreshCallBack(mActivity) {
             @Override
             public SmartRefreshLayout getRefreshLayout() {
                 mBinding.refreshLayout.setEnableLoadmore(false);

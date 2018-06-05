@@ -57,5 +57,6 @@
     <color name="btn_select">#ff7d0e</color>
     <color name="tablayout_select">#0cb8ae</color>
     <color name="lineColor">#ebeaea</color>
-
+    <color name="line_gray_cd">#dedede</color>
+    <color name="text_black_cd">#333333</color>
 </resources>

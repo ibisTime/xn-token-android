@@ -4,8 +4,8 @@ import android.support.annotation.Nullable;
 
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.token.R;
-import com.cdkj.token.util.AccountUtil;
-import com.cdkj.token.util.StringUtil;
+import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.model.WithdrawOrderModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;

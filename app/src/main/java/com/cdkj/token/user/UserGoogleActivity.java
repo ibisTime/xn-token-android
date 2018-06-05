@@ -78,7 +78,7 @@ public class UserGoogleActivity extends AbsBaseActivity implements SendCodeInter
             return;
 
         if (tag.equals(EventTags.CHANGE_CODE_BTN)){
-            mBinding.btnSend.setBackground(ContextCompat.getDrawable(UserGoogleActivity.this,R.drawable.corner_sign_btn));
+            mBinding.btnSend.setBackground(ContextCompat.getDrawable(UserGoogleActivity.this,R.drawable.btn_blue));
         }
     }
 

@@ -20,7 +20,7 @@ import java.util.List;
 
 import retrofit2.Call;
 
-import static com.cdkj.token.util.CoinUtil.getFirstTokenCoin;
+import static com.cdkj.token.utils.CoinUtil.getFirstTokenCoin;
 
 /**
  * 交易流水列表
