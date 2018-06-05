@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.Util.AccountUtil;
+import com.cdkj.token.util.AccountUtil;
 import com.cdkj.token.model.BillModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -19,7 +19,7 @@ import static com.cdkj.baselibrary.utils.DateUtil.DATE_DAY;
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_HM;
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_M;
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_YM;
-import static com.cdkj.token.Util.CoinUtil.getCoinWatermarkWithCurrency;
+import static com.cdkj.token.util.CoinUtil.getCoinWatermarkWithCurrency;
 
 /**
  * Created by lei on 2017/8/22.

@@ -27,8 +27,8 @@ import com.cdkj.baselibrary.utils.SystemUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.baselibrary.views.MyPickerPopupWindow;
 import com.cdkj.token.R;
-import com.cdkj.token.Util.AccountUtil;
-import com.cdkj.token.Util.EditTextJudgeNumberWatcher;
+import com.cdkj.token.util.AccountUtil;
+import com.cdkj.token.util.EditTextJudgeNumberWatcher;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWithdrawBinding;
 import com.cdkj.token.model.CoinModel;
@@ -45,7 +45,7 @@ import java.util.Map;
 import retrofit2.Call;
 
 import static com.cdkj.baselibrary.utils.SystemUtils.paste;
-import static com.cdkj.token.Util.AccountUtil.getUnit;
+import static com.cdkj.token.util.AccountUtil.getUnit;
 
 /**
  * Created by lei on 2017/10/18.

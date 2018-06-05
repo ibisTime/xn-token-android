@@ -92,7 +92,9 @@
 -keep class com.cdkj.token.model.** { *; }
 
 #fasjson
+-dontwarn com.alibaba.fastjson.**
 -keep class com.alibaba.fastjson.** { *; }
+
 
 #eventBus
 -keepattributes *Annotation*

@@ -38,7 +38,7 @@ android {
 
         debug {
             buildConfigField "boolean", "IS_DEBUG", "true"
-            minifyEnabled true //开启混淆
+            minifyEnabled false //开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
             ndk {

@@ -30,7 +30,7 @@ public class NetHelper {
     public static final String REQUESTOK = "0";   //请求后台成功
 
 
-    public static final String REQUESTFECODE4 = "1004";//重新登录
+    public static final String REQUESTFECODE4 = "4";//重新登录
 
 
     public static final String NET_ERROR = "-1";
