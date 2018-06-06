@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:text="@string/check_your_words"
+                android:textColor="@color/text_black_cd"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="19dp"
+                android:text="@string/words_tip_2" />
+
+            <EditText
+                android:id="@+id/edit_words"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/wallet_words_bg_gray"
+                android:gravity="top"
+                android:lineSpacingExtra="15dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="15dp"
+                android:textColor="@color/black"
+                tools:text="sdfsfds  sdfsfds  sdfsfds  sdfsfds  sdfsfds sdfsfds  fsdfsdfsd  sdfsfsdf  sdfsfsf  sdfsfsf  sdff" />
+
+
+            <Button
+                android:id="@+id/btn_now_check"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/btn_blue"
+                android:text="@string/now_check"
+                android:textColor="@color/white" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</layout>

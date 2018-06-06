@@ -42,7 +42,7 @@
                 android:textColor="@color/white" />
 
             <Button
-                android:id="@+id/put_wallet"
+                android:id="@+id/btn_import_wallet"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="20dp"

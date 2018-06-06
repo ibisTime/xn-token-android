@@ -360,6 +360,26 @@
     <string name="please_set_transaction_pass_word">请设置交易密码</string>
     <string name="please_check_transaction">请确认交易密码</string>
     <string name="password_error">两次输入密码不一致</string>
+    <string name="wallet_create_success">钱包创建成功</string>
+    <string name="Important_hints">重要提示</string>
+    <string name="create_wallet_tip">拥有钱包备份就能完全控制钱包资产，因此强烈建议您在使用钱包前做好备份，并将钱包备份保存到安全的地方。</string>
+    <string name="now_backup">立即备份</string>
+    <string name="next_step">下一步</string>
+    <string name="sure_1">确认</string>
+    <string name="now_check">立即验证</string>
+    <string name="import_wallet">导入钱包</string>
+    <string name="wallet_import_success">钱包导入成功</string>
+    <string name="now_use">立即体验</string>
+    <string name="wallet_create_fail">钱包创建失败</string>
+    <string name="check_words_fail">助记词验证失败，顺序错误</string>
+    <string name="please_input_words">请输入助记词</string>
+    <string name="dont_screenshot">泄露助记词将导致资产丢失，请认真抄写，切勿截屏</string>
+    <string name="wallet_import_fail">钱包导入失败</string>
+    <string name="please_remember_and_save">请记下您的钱包助记词并保存到安全的地方</string>
+    <string name="words_tip_1">钱包助记词用于恢复钱包资产，拥有助记词即可完全控制钱包资产，请务必妥善保管，丢失助记词即丢失钱包资产。THA不存储用户助记词，无法提供找回功能。</string>
+    <string name="words_tip_2">请输入备份的钱包助记词（12个英文单词），按空格分离</string>
+    <string name="check_your_words">验证你的钱包助记词</string>
+    <string name="words_tip_3">根据你记下的助记词，顺序点击，验证你备份的记助词正确无误。</string>
 
 
 </resources>

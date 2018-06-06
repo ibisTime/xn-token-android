@@ -9,7 +9,9 @@ import android.view.View;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityIntoMainBeforeBinding;
+import com.cdkj.token.utils.WalletHelper;
 import com.cdkj.token.wallet.create_guide.CreatePassWordActivity;
+import com.cdkj.token.wallet.import_guide.WalletImportWordsInputActivity;
 
 /**
  * 本地没有钱包时 导入和创建引导钱包界面
@@ -44,11 +46,19 @@ public class IntoWalletBeforeActivity extends AbsBaseLoadActivity {
         initClickListener();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        WalletHelper.clearCache(); //用户回退到这个界面时清除所有数据
+    }
+
     /**
      * 设置点击事件
      */
     private void initClickListener() {
         //创建钱包
         mBinding.btnCreateWallet.setOnClickListener(view -> CreatePassWordActivity.open(this));
+
+        mBinding.btnImportWallet.setOnClickListener(view -> WalletImportWordsInputActivity.open(this));
     }
 }

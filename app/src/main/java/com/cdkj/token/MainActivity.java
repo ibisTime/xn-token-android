@@ -17,6 +17,7 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.api.MyApi;
@@ -25,10 +26,27 @@ import com.cdkj.token.databinding.ActivityMainBinding;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.service.CoinListService;
 import com.cdkj.token.user.UserFragment;
+import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.wallet.WalletFragment;
 
+import org.bitcoinj.core.Utils;
+import org.bitcoinj.crypto.ChildNumber;
+import org.bitcoinj.crypto.DeterministicKey;
+import org.bitcoinj.crypto.HDKeyDerivation;
+import org.bitcoinj.crypto.HDUtils;
+import org.bitcoinj.crypto.MnemonicCode;
+import org.bitcoinj.wallet.DeterministicKeyChain;
+import org.bitcoinj.wallet.DeterministicSeed;
 import org.greenrobot.eventbus.EventBus;
+import org.web3j.crypto.Bip39Wallet;
+import org.web3j.crypto.CipherException;
+import org.web3j.crypto.Credentials;
+import org.web3j.crypto.WalletUtils;
 
+import java.io.File;
+import java.io.IOException;
+import java.math.BigInteger;
+import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -47,6 +65,13 @@ public class MainActivity extends AbsBaseActivity {
     public static final int CONSULT = 1;
     public static final int MY = 2;
     private List<Fragment> fragments;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
+        CoinListService.close(this);
+    }
 
     /**
      * 打开当前页面
@@ -116,8 +141,11 @@ public class MainActivity extends AbsBaseActivity {
 
         });
 
-
     }
+
+
+
+
 
     public void setTabIndex(int index) {
         setTabDark();
@@ -196,13 +224,6 @@ public class MainActivity extends AbsBaseActivity {
             EventBus.getDefault().post(EventTags.AllFINISH);
             finish();
         });
-    }
-
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-        CoinListService.close(this);
     }
 
     /**

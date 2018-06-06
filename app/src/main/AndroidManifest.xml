@@ -122,6 +122,12 @@
 
         <activity android:name="com.cdkj.token.wallet.IntoWalletBeforeActivity" />
         <activity android:name=".wallet.create_guide.CreatePassWordActivity" />
+        <activity android:name=".wallet.create_guide.CreateWalletSuccessActivity" />
+        <activity android:name=".wallet.create_guide.WalletBackupCheckActivity" />
+        <activity android:name=".wallet.create_guide.WalletHelpWordsShowActivity" />
+        <activity android:name=".wallet.import_guide.WalletImportWordsInputActivity" />
+        <activity android:name=".wallet.import_guide.ImportWalletSuccessActivity" />
+        <activity android:name=".wallet.import_guide.ImportCreatePassWordActivity" />
     </application>
 
 </manifest>

@@ -14,15 +14,10 @@ import com.cdkj.baselibrary.R;
 
 public final class LoadingDialog extends Dialog {
 
-    //    private ImageView mInnerImg;
     private ImageView mOuterImg;
     private Animation mAnimation;
     private int mWidth;
     private int mHeight;
-
-    public static LoadingDialog loadingDialog;
-
-//    private android.widget.MediaController mediaController;
 
     public LoadingDialog(Context context) {
         super(context, R.style.LoadingDialogLight);
@@ -61,10 +56,6 @@ public final class LoadingDialog extends Dialog {
 
     private void initView() {
         mOuterImg = (ImageView) findViewById(R.id.loading_outer_img);
-//        mOuterImg = (GifImageView) findViewById(R.id.gif_image);
-//        mOuterImg.setImageResource(R.drawable.loading);
-//        mediaController = new android.widget.MediaController(mContext);
-//        mediaController.setMediaPlayer((GifDrawable) mOuterImg.getDrawable());
     }
 
     public void showDialog() {

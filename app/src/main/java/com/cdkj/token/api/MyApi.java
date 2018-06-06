@@ -78,7 +78,7 @@ public interface MyApi {
      */
     @FormUrlEncoded
     @POST("api")
-    Call<BaseResponseModel<KtInfoModel>> getTkInfo(@Field("code") String code, @Field("json") String json);
+    Call<BaseResponseModel> getTkInfo(@Field("code") String code, @Field("json") String json);
 
 
     /**

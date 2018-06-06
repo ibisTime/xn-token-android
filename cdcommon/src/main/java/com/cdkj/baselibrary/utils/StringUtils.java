@@ -20,6 +20,20 @@ import java.util.regex.Pattern;
 public class StringUtils {
 
 
+    /**
+     * 合并字符串中的连续空格
+     *
+     * @param str
+     * @return
+     */
+    public static String mergeSpace(String str) {
+        String regex = "\\s+";
+        if (!TextUtils.isEmpty(str)) {
+            return str.replaceAll(regex, " ");
+        }
+        return str;
+    }
+
     public static String getJsonToString(Object object) {
 
         if (object == null) {
@@ -52,6 +66,17 @@ public class StringUtils {
 
         if (!TextUtils.isEmpty(s)) {
             strings = Arrays.asList(s.split(sp));
+        }
+
+        return strings;
+    }
+
+    public static ArrayList<String> splitAsArrayList(String s, String sp) {
+
+        ArrayList<String> strings = new ArrayList<>();
+
+        if (!TextUtils.isEmpty(s)) {
+            strings.addAll(Arrays.asList(s.split(sp)));
         }
 
         return strings;
@@ -165,16 +190,6 @@ public class StringUtils {
             }
         }});
 
-    }
-
-
-    /**
-     * 是否设置过资金密码
-     *
-     * @return
-     */
-    public static boolean getIsSetPayPwd(String state) {
-        return !TextUtils.equals("0", state);
     }
 
 

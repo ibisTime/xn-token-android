@@ -20,6 +20,8 @@ import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.wallet.IntoWalletBeforeActivity;
+import com.cdkj.token.wallet.create_guide.WalletBackupCheckActivity;
+import com.cdkj.token.wallet.import_guide.WalletImportWordsInputActivity;
 
 import org.litepal.crud.DataSupport;
 
@@ -78,6 +80,7 @@ public class StartActivity extends BaseActivity {
 //                        SignInActivity.open(this, false);
 //                    }
 
+//                    MainActivity.open(this);
                     IntoWalletBeforeActivity.open(this);
                     finish();
 
