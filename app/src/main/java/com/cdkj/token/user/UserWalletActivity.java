@@ -10,6 +10,7 @@ import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserWalletBinding;
 import com.cdkj.token.wallet.WalletPasswordModifyActivity;
+import com.cdkj.token.wallet.backup_guide.WalletBackupPasswordCheckActivity;
 import com.cdkj.token.wallet.backup_guide.WalletBackupStartActivity;
 
 /**
@@ -45,7 +46,7 @@ public class UserWalletActivity extends AbsBaseActivity {
 
 
     private void initClickListener() {
-        mBinding.llBackUp.setOnClickListener(view -> WalletBackupStartActivity.open(this));
+        mBinding.llBackUp.setOnClickListener(view -> WalletBackupPasswordCheckActivity.open(this));
         mBinding.llModify.setOnClickListener(view -> WalletPasswordModifyActivity.open(this));
     }
 }

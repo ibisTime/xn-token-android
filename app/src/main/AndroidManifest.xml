@@ -130,6 +130,7 @@
         <activity android:name=".wallet.import_guide.ImportCreatePassWordActivity" />
         <activity android:name=".wallet.backup_guide.WalletBackupStartActivity" />
         <activity android:name=".wallet.WalletPasswordModifyActivity" />
+        <activity android:name=".wallet.backup_guide.WalletBackupPasswordCheckActivity" />
     </application>
 
 </manifest>
