@@ -34,7 +34,6 @@ public class ImportCreatePassWordActivity extends AbsBaseLoadActivity {
 
     private String mPassWord;//用户输入的密码
 
-
     private List<String> mWords;
 
 
@@ -100,7 +99,6 @@ public class ImportCreatePassWordActivity extends AbsBaseLoadActivity {
                 }
             }
         });
-
     }
 
     /**

@@ -380,6 +380,11 @@
     <string name="words_tip_2">请输入备份的钱包助记词（12个英文单词），按空格分离</string>
     <string name="check_your_words">验证你的钱包助记词</string>
     <string name="words_tip_3">根据你记下的助记词，顺序点击，验证你备份的记助词正确无误。</string>
+    <string name="update_password_success">密码修改成功</string>
+    <string name="update_password_fail">密码修改失败</string>
+    <string name="modify_password">修改密码</string>
+    <string name="please_set_transaction_password">请设置交易密码</string>
+    <string name="transaction_password_error">交易密码错误</string>
 
 
 </resources>

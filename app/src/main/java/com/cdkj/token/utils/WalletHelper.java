@@ -1,5 +1,7 @@
 package com.cdkj.token.utils;
 
+import android.content.ContentValues;
+
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.model.WalletDBModel;
 
@@ -136,6 +138,32 @@ public class WalletHelper {
      */
     public static boolean isHaveWalletCache() {
         return DataSupport.findAll(WalletDBModel.class).size() > 0;
+    }
+
+    /**
+     * 修改用户钱包密码
+     *
+     * @param password
+     * @return
+     */
+    public static void changeWalletPassWord(String password) {
+        ContentValues values = new ContentValues();
+        values.put("passWord", password);
+        DataSupport.updateAll(WalletDBModel.class, values);
+    }
+
+    /**
+     * 获取用户钱包密码
+     *
+     * @param
+     * @return
+     */
+    public static String getWalletPassword() {
+        try {
+            return DataSupport.findLast(WalletDBModel.class).getPassWord();
+        } catch (Exception e) {
+        }
+        return "";
     }
 
 }

@@ -75,6 +75,8 @@ public class WalletBackupCheckActivity extends AbsBaseLoadActivity {
 
             UITipDialog.showInfo(this, "验证通过");
 
+            finish();
+
         });
     }
 

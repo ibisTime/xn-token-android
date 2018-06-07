@@ -9,6 +9,8 @@ import android.view.View;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserWalletBinding;
+import com.cdkj.token.wallet.WalletPasswordModifyActivity;
+import com.cdkj.token.wallet.backup_guide.WalletBackupStartActivity;
 
 /**
  * Created by cdkj on 2018/5/26.
@@ -18,7 +20,7 @@ public class UserWalletActivity extends AbsBaseActivity {
 
     private ActivityUserWalletBinding mBinding;
 
-    public static void open(Context context){
+    public static void open(Context context) {
         if (context == null) {
             return;
         }
@@ -37,5 +39,13 @@ public class UserWalletActivity extends AbsBaseActivity {
         setTopTitle(getStrRes(R.string.user_title_wallet));
         setSubLeftImgState(true);
 
+        initClickListener();
+
+    }
+
+
+    private void initClickListener() {
+        mBinding.llBackUp.setOnClickListener(view -> WalletBackupStartActivity.open(this));
+        mBinding.llModify.setOnClickListener(view -> WalletPasswordModifyActivity.open(this));
     }
 }
