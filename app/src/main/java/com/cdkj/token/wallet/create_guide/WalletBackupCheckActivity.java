@@ -68,18 +68,8 @@ public class WalletBackupCheckActivity extends AbsBaseLoadActivity {
 
         mBinding.btnNowBackup.setOnClickListener(view -> {
 
-            List<String> words2 = WalletHelper.getHelpWordsList();
-
-            if (mBackupWords.size() != words2.size()) {
-                UITipDialog.showInfo(this, getString(R.string.please_input_words));
-                return;
-            }
-
-            for (int i = 0; i < words2.size(); i++) {
-                if (!TextUtils.equals(words2.get(i), mBackupWords.get(i))) {
-                    UITipDialog.showInfo(this, getString(R.string.check_words_fail));
-                    break;
-                }
+            if(!WalletHelper.checkMnenonic(mBackupWords)){
+                UITipDialog.showInfo(this, getString(R.string.check_words_fail));
             }
 
             UITipDialog.showInfo(this, "验证通过");

@@ -19,6 +19,7 @@ import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
+import com.cdkj.token.utils.WalletHelper;
 import com.cdkj.token.wallet.IntoWalletBeforeActivity;
 import com.cdkj.token.wallet.create_guide.WalletBackupCheckActivity;
 import com.cdkj.token.wallet.import_guide.WalletImportWordsInputActivity;
@@ -32,6 +33,7 @@ import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
 @Route(path = CdRouteHelper.APPSTART)
@@ -70,20 +72,16 @@ public class StartActivity extends BaseActivity {
     private void open() {
 
         mSubscription.add(Observable.timer(1, TimeUnit.SECONDS)
-                .subscribeOn(AndroidSchedulers.mainThread())
+                .subscribeOn(Schedulers.newThread())
+                .map(aLong -> WalletHelper.isHaveWalletCache())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(aLong -> {//延迟两秒进行跳转
-
-//                    if (SPUtilHelper.isLoginNoStart()) {
-//                        MainActivity.open(this);
-//                    } else {
-//                        SignInActivity.open(this, false);
-//                    }
-
-//                    MainActivity.open(this);
-                    IntoWalletBeforeActivity.open(this);
+                .subscribe(ishave -> {//延迟两秒进行跳转
+                    if (ishave) {  //如果已经有了钱包
+                        MainActivity.open(this);
+                    } else {
+                        IntoWalletBeforeActivity.open(this);
+                    }
                     finish();
-
                 }, Throwable::printStackTrace));
     }
 

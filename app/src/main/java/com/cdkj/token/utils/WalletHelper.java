@@ -129,4 +129,13 @@ public class WalletHelper {
         return walletDBModel;
     }
 
+    /**
+     * 判断是否有钱包储存
+     *
+     * @return
+     */
+    public static boolean isHaveWalletCache() {
+        return DataSupport.findAll(WalletDBModel.class).size() > 0;
+    }
+
 }
