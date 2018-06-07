@@ -371,7 +371,7 @@
     <string name="wallet_import_success">钱包导入成功</string>
     <string name="now_use">立即体验</string>
     <string name="wallet_create_fail">钱包创建失败</string>
-    <string name="check_words_fail">助记词验证失败，顺序错误</string>
+    <string name="check_words_fail">助记词验证失败</string>
     <string name="please_input_words">请输入助记词</string>
     <string name="dont_screenshot">泄露助记词将导致资产丢失，请认真抄写，切勿截屏</string>
     <string name="wallet_import_fail">钱包导入失败</string>
