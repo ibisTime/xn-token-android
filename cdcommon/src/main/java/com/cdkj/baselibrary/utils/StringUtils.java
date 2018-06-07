@@ -34,6 +34,20 @@ public class StringUtils {
         return str;
     }
 
+    /**
+     * 合并字符串中的连续空格
+     *
+     * @param str
+     * @return
+     */
+    public static String mergeSpace(String str, String replace) {
+        String regex = "\\s+";
+        if (!TextUtils.isEmpty(str)) {
+            return str.replaceAll(regex, replace);
+        }
+        return str;
+    }
+
     public static String getJsonToString(Object object) {
 
         if (object == null) {

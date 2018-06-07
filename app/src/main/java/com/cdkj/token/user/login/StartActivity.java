@@ -60,13 +60,13 @@ public class StartActivity extends BaseActivity {
         }
 
         setContentView(R.layout.activity_start);
-//        open();
+        open();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getQiniu();
+//        getQiniu();
     }
 
     private void open() {
@@ -107,18 +107,9 @@ public class StartActivity extends BaseActivity {
             }
 
             @Override
-            protected void onNoNet(String msg) {
-                open();
-            }
-
-            @Override
-            protected void onReqFailure(String errorCode, String errorMessage) {
-                open();
-            }
-
-            @Override
             protected void onFinish() {
                 disMissLoading();
+                getCoinList();
             }
         });
     }

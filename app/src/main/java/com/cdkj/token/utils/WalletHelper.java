@@ -1,7 +1,9 @@
 package com.cdkj.token.utils;
 
 import android.content.ContentValues;
+import android.text.TextUtils;
 
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.model.WalletDBModel;
 
@@ -164,6 +166,24 @@ public class WalletHelper {
         } catch (Exception e) {
         }
         return "";
+    }
+
+    /**
+     * 判断用户输入的助记词是否和本地的相同
+     *
+     * @param words
+     * @return
+     */
+    public static boolean checkCacheWords(String words) {
+
+        try {
+            String mwords = DataSupport.findLast(WalletDBModel.class).getHelpcenterEn();
+            return TextUtils.equals(words, mwords);
+
+        } catch (Exception e) {
+
+        }
+        return false;
     }
 
 }

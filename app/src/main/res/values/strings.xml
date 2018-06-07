@@ -387,6 +387,9 @@
     <string name="transaction_password_error">交易密码错误</string>
     <string name="wallet_backup">钱包备份</string>
     <string name="wallet_backup_success">钱包备份成功</string>
+    <string name="i_know">知道了</string>
+    <string name="delete_wallet">删除钱包</string>
+    <string name="please_input_help_words">请输入助记词</string>
 
 
 </resources>

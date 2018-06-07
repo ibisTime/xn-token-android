@@ -131,6 +131,8 @@
         <activity android:name=".wallet.backup_guide.WalletBackupStartActivity" />
         <activity android:name=".wallet.WalletPasswordModifyActivity" />
         <activity android:name=".wallet.backup_guide.WalletBackupPasswordCheckActivity" />
+        <activity android:name=".wallet.delete_guide.WallteDeleteStartActivity" />
+        <activity android:name=".wallet.delete_guide.WalletDeleteWordsInputActivity" />
     </application>
 
 </manifest>
