@@ -133,6 +133,9 @@
         <activity android:name=".wallet.backup_guide.WalletBackupPasswordCheckActivity" />
         <activity android:name=".wallet.delete_guide.WallteDeleteStartActivity" />
         <activity android:name=".wallet.delete_guide.WalletDeleteWordsInputActivity" />
+        <activity android:name=".wallet.export.CoinKeySelectActivity" />
+        <activity android:name=".wallet.export.CoinPrivateKeyShowActivity" />
+        <activity android:name=".wallet.export.WalletExportPasswordCheckActivity" />
     </application>
 
 </manifest>

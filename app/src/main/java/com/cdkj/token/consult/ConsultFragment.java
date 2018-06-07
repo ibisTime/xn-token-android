@@ -74,9 +74,9 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
         initBanner();
 
         // 刷新轮播图
-        getBanner();
-        getListData(pageIndex, 15, true);
-        getKtInfo(true);
+//        getBanner();
+//        getListData(pageIndex, 15, true);
+//        getKtInfo(true);
 
         // 取消上啦加载
         setEnableLoadmore(false);

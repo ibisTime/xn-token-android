@@ -390,6 +390,10 @@
     <string name="i_know">知道了</string>
     <string name="delete_wallet">删除钱包</string>
     <string name="please_input_help_words">请输入助记词</string>
+    <string name="address">地址</string>
+    <string name="private_key">私钥</string>
+    <string name="export_private_key">导出私钥</string>
+    <string name="coin_key_name">以下是%s的地址和私钥，点击可复制</string>
 
 
 </resources>

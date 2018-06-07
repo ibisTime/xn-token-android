@@ -8,9 +8,12 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.model.WalletDBModel;
 
 import org.bitcoinj.core.Utils;
+import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicKey;
 import org.bitcoinj.crypto.HDKeyDerivation;
+import org.bitcoinj.crypto.HDUtils;
 import org.bitcoinj.crypto.MnemonicCode;
+import org.bitcoinj.wallet.DeterministicKeyChain;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.litepal.crud.DataSupport;
 import org.web3j.crypto.Credentials;
@@ -19,6 +22,8 @@ import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.litepal.crud.DataSupport.findLast;
 
 /**
  * 钱包辅助
@@ -30,31 +35,44 @@ public class WalletHelper {
     //助记词分隔符
     public static String HELPWORD_SIGN = ",";
 
+
     /**
-     * 根据单词获取助记词等信息
+     * 根据单词获取ETH助记词等信息
      *
      * @param password
      * @return
      */
     public static WalletDBModel createWalletInfobyPassWord(String password) {
+        // 钱包种子
         DeterministicSeed seed1 = new DeterministicSeed(new SecureRandom(),
                 128, "", Utils.currentTimeSeconds());
 
         // 助记词
         List<String> mnemonicList = seed1.getMnemonicCode();
 
-        // 钱包主秘钥
-        DeterministicKey key = HDKeyDerivation
-                .createMasterPrivateKey(seed1.getSeedBytes());
+        DeterministicKeyChain keyChain1 = DeterministicKeyChain.builder()
+                .seed(seed1).build();
+
+        List<ChildNumber> keyPath = HDUtils.parsePath("M/44H/60H/0H/0/0");
+
+
+        DeterministicKey key1 = keyChain1.getKeyByPath(keyPath, true);
+        BigInteger privKey1 = key1.getPrivKey();
 
         Credentials credentials1 = Credentials
-                .create(key.getPrivKey().toString(16));
+                .create(privKey1.toString(16));
+
+
+        System.out.println("privateKey__2:" + key1.getPrivateKeyAsHex());
+
+        System.out.println("address___2: " + credentials1.getAddress());
 
         WalletDBModel walletDBModel = new WalletDBModel();
         walletDBModel.setAddress(credentials1.getAddress());
         walletDBModel.setPassWord(password);
         walletDBModel.setHelpcenterEn(StringUtils.listToString(mnemonicList, HELPWORD_SIGN)); //储存下来 用，分割
-        walletDBModel.setPrivataeKey(key.getPrivateKeyAsHex());
+        walletDBModel.setPrivataeKey(key1.getPrivateKeyAsHex());
+
 
         return walletDBModel;
     }
@@ -66,7 +84,7 @@ public class WalletHelper {
      * @return
      */
     public static List<String> getHelpWordsList() {
-        WalletDBModel walletDBModel = DataSupport.findLast(WalletDBModel.class);
+        WalletDBModel walletDBModel = findLast(WalletDBModel.class);
         if (walletDBModel == null) {
             return new ArrayList<>();
         }
@@ -108,7 +126,7 @@ public class WalletHelper {
     }
 
     /**
-     * 根据助记词生成私钥和地址
+     * 根据助记词生成ETH私钥和地址
      *
      * @param defaultMnenonic
      */
@@ -117,9 +135,10 @@ public class WalletHelper {
         DeterministicSeed seed = new DeterministicSeed(defaultMnenonic,
                 null, "", Utils.currentTimeSeconds());
 
-        DeterministicKey key = HDKeyDerivation
-                .createMasterPrivateKey(seed.getSeedBytes());
-
+        DeterministicKeyChain keyChain2 = DeterministicKeyChain.builder()
+                .seed(seed).build();
+        List<ChildNumber> keyPath = HDUtils.parsePath("M/44H/60H/0H/0/0");
+        DeterministicKey key = keyChain2.getKeyByPath(keyPath, true);
         BigInteger privKey = key.getPrivKey();
 
         Credentials credentials = Credentials
@@ -130,6 +149,16 @@ public class WalletHelper {
         walletDBModel.setHelpcenterEn(StringUtils.listToString(defaultMnenonic, HELPWORD_SIGN)); //储存下来 用，分割
         walletDBModel.setPrivataeKey(key.getPrivateKeyAsHex());
 
+        return walletDBModel;
+    }
+
+    /**
+     * 获取私钥和地址
+     *
+     * @param
+     */
+    public static WalletDBModel getPrivateKeyAndAddress() {
+        WalletDBModel walletDBModel = DataSupport.findLast(WalletDBModel.class);
         return walletDBModel;
     }
 
@@ -162,7 +191,7 @@ public class WalletHelper {
      */
     public static String getWalletPassword() {
         try {
-            return DataSupport.findLast(WalletDBModel.class).getPassWord();
+            return findLast(WalletDBModel.class).getPassWord();
         } catch (Exception e) {
         }
         return "";
@@ -177,7 +206,7 @@ public class WalletHelper {
     public static boolean checkCacheWords(String words) {
 
         try {
-            String mwords = DataSupport.findLast(WalletDBModel.class).getHelpcenterEn();
+            String mwords = findLast(WalletDBModel.class).getHelpcenterEn();
             return TextUtils.equals(words, mwords);
 
         } catch (Exception e) {

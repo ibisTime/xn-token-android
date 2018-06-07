@@ -131,7 +131,6 @@ public class UserFragment extends BaseLazyFragment {
                 }
 
 
-
                 @Override
                 public void onFal(String info) {
                     disMissLoading();
@@ -175,6 +174,11 @@ public class UserFragment extends BaseLazyFragment {
      * 获取用户信息
      */
     public void getUserInfoRequest() {
+
+        if (true) {
+            return;
+        }
+
         Map<String, String> map = new HashMap<>();
 
         map.put("userId", SPUtilHelper.getUserId());
