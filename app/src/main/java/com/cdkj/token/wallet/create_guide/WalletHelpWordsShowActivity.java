@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.token.R;
@@ -21,11 +22,18 @@ public class WalletHelpWordsShowActivity extends AbsBaseLoadActivity {
 
     private ActivityWalletWordsShowBinding mBinding;
 
-    public static void open(Context context) {
+    private boolean isFromBackup;
+
+    /**
+     * @param context
+     * @param isFromBackup 是否来自备份界面
+     */
+    public static void open(Context context, boolean isFromBackup) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, WalletHelpWordsShowActivity.class);
+        intent.putExtra(CdRouteHelper.DATASIGN, isFromBackup);
         context.startActivity(intent);
     }
 
@@ -43,7 +51,7 @@ public class WalletHelpWordsShowActivity extends AbsBaseLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-
+        isFromBackup = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN, false);
         CommonDialog commonDialog = new CommonDialog(this).builder()
                 .setTitle(getString(com.cdkj.baselibrary.R.string.activity_base_tip)).setContentMsg(getString(R.string.dont_screenshot))
                 .setPositiveBtn(getString(com.cdkj.baselibrary.R.string.activity_base_confirm), null);
@@ -52,7 +60,7 @@ public class WalletHelpWordsShowActivity extends AbsBaseLoadActivity {
 
         mBinding.tvWords.setText(WalletHelper.getHelpWords("    "));
         mBinding.btnNowBackup.setOnClickListener(view -> {
-            WalletBackupCheckActivity.open(this);
+            WalletBackupCheckActivity.open(this, isFromBackup);
             finish();
         });
     }

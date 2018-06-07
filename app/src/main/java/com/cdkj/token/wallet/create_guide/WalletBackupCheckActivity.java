@@ -9,13 +9,18 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
+import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityWalletWordsCheckClickBinding;
 import com.cdkj.token.utils.WalletHelper;
 import com.google.android.flexbox.FlexboxLayout;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -30,14 +35,22 @@ public class WalletBackupCheckActivity extends AbsBaseLoadActivity {
 
     private ActivityWalletWordsCheckClickBinding mBinding;
 
-    private List<TextView> mWordsTextViews = new ArrayList<>();
-    private List<String> mBackupWords = new ArrayList<>();
+    private List<TextView> mWordsTextViews = new ArrayList<>();//储存显示单词的TextView
 
-    public static void open(Context context) {
+    private List<String> mBackupWords = new ArrayList<>();//储存用户点击的单词
+
+    private boolean isFromBackup;
+
+    /**
+     * @param context
+     * @param isFromBackup 是否来自备份界面
+     */
+    public static void open(Context context, boolean isFromBackup) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, WalletBackupCheckActivity.class);
+        intent.putExtra(CdRouteHelper.DATASIGN, isFromBackup);
         context.startActivity(intent);
     }
 
@@ -50,6 +63,7 @@ public class WalletBackupCheckActivity extends AbsBaseLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+        isFromBackup = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN, false);
 
         List<String> words = WalletHelper.getHelpWordsList();
 
@@ -69,13 +83,17 @@ public class WalletBackupCheckActivity extends AbsBaseLoadActivity {
         mBinding.btnNowBackup.setOnClickListener(view -> {
 
             if (!WalletHelper.checkMnenonic(mBackupWords)) {
-                UITipDialog.showInfo(this, getString(R.string.check_words_fail));
+                UITipDialog.showFail(this, getString(R.string.check_words_fail));
                 return;
             }
 
-            UITipDialog.showInfo(this, "验证通过");
-
-            finish();
+            UITipDialog.showSuccess(this, getString(R.string.wallet_backup_success), dialogInterface -> {
+                if (!isFromBackup) {
+                    EventBus.getDefault().post(EventTags.AllFINISH);
+                    MainActivity.open(this);
+                }
+                finish();
+            });
 
         });
     }

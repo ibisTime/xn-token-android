@@ -38,7 +38,7 @@ public class CreateWalletSuccessActivity extends AbsBaseLoadActivity {
     public void afterCreate(Bundle savedInstanceState) {
 
         mBinding.btnNowBackup.setOnClickListener(view -> {
-            WalletHelpWordsShowActivity.open(this);
+            WalletHelpWordsShowActivity.open(this,false);
             finish();
         });
     }

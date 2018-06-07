@@ -37,12 +37,13 @@ public class WalletBackupStartActivity extends AbsBaseLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+        mBaseBinding.titleView.setMidTitle(R.string.wallet_backup);
         initClickListener();
     }
 
     private void initClickListener() {
         mBinding.btnNowBackup.setOnClickListener(view -> {
-            WalletHelpWordsShowActivity.open(this);
+            WalletHelpWordsShowActivity.open(this,true);
             finish();
         });
     }
