@@ -31,27 +31,26 @@ public class CoinAdapter extends BaseQuickAdapter<CoinModel.AccountListBean, Bas
         BigDecimal frozenAmount;
 
         helper.setText(R.id.tv_name, item.getCurrency());
-//        helper.setText(R.id.tv_name, getCoinCNameWithCurrency(item.getCurrency())+"("+item.getCurrency()+")");
 
-        amount = new BigDecimal(item.getAmountString());
-        frozenAmount = new BigDecimal(item.getFrozenAmountString());
-        helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), item.getCurrency(), 8));
-
-        ImageView ivCoin = helper.getView(R.id.iv_watermark);
-        ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(),1), ivCoin);
-
-        if (item.getPriceCNY() == null){
-            helper.setText(R.id.tv_market_price, "≈ 0CNY");
-        }else {
-            helper.setText(R.id.tv_market_price, "≈ " + item.getPriceCNY()+"CNY");
-
-        }
-
-        if (item.getAmountCNY() == null){
-            helper.setText(R.id.tv_amount_cny, "0CNY");
-        }else {
-            helper.setText(R.id.tv_amount_cny, item.getAmountCNY()+"CNY");
-        }
+//        amount = new BigDecimal(item.getAmountString());
+//        frozenAmount = new BigDecimal(item.getFrozenAmountString());
+//        helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), item.getCurrency(), 8));
+//
+//        ImageView ivCoin = helper.getView(R.id.iv_watermark);
+//        ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(),1), ivCoin);
+//
+//        if (item.getPriceCNY() == null){
+//            helper.setText(R.id.tv_market_price, "≈ 0CNY");
+//        }else {
+//            helper.setText(R.id.tv_market_price, "≈ " + item.getPriceCNY()+"CNY");
+//
+//        }
+//
+//        if (item.getAmountCNY() == null){
+//            helper.setText(R.id.tv_amount_cny, "0CNY");
+//        }else {
+//            helper.setText(R.id.tv_amount_cny, item.getAmountCNY()+"CNY");
+//        }
 
 
 

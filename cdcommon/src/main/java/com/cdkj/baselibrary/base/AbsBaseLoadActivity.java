@@ -96,10 +96,10 @@ public abstract class AbsBaseLoadActivity extends BaseActivity {
      */
     protected void setTitleBg() {
         mBaseBinding.titleView.setBackgroundColor(ContextCompat.getColor(this, R.color.title_bg));
-        mBaseBinding.titleView.setLeftTitleColor(R.color.text_black_cd);
+        mBaseBinding.titleView.setLeftTitleColor(R.color.text_color_light);
         mBaseBinding.titleView.setRightTitleColor(R.color.text_black_cd);
         mBaseBinding.titleView.setMidTitleColor(R.color.text_black_cd);
-        mBaseBinding.titleView.setLeftImg(R.drawable.back_black);
+        mBaseBinding.titleView.setLeftImg(R.mipmap.back_blue);
         mBaseBinding.titleView.setLeftTitle(getString(R.string.back));
     }
 

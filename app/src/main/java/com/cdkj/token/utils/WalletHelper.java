@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.text.TextUtils;
 
 import com.cdkj.baselibrary.utils.LogUtil;
+import com.cdkj.baselibrary.utils.SPUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MyApplication;
 import com.cdkj.token.R;
@@ -29,7 +30,7 @@ import java.util.List;
 import static org.litepal.crud.DataSupport.findLast;
 
 /**
- * 钱包辅助
+ * 钱包工具类
  * Created by cdkj on 2018/6/6.
  */
 
@@ -44,7 +45,35 @@ public class WalletHelper {
     public final static String COIN_WAN = "wan";// 币种类型
 
     /**
-     * 获取本地币种
+     * 获取本地配置币种
+     */
+    public static List<LocalCoinModel> getConfigLocalCoinList() {
+
+        String[] coinType = MyApplication.getInstance().getResources().getStringArray(R.array.coins);
+
+        List<LocalCoinModel> localCoinModels = new ArrayList<>();
+
+        String configStr = WalletHelper.getWalletCoinConfig();
+
+        for (String type : coinType) {
+
+            if (configStr.indexOf(type) == -1) {//如果不存在配置 则不添加
+                continue;
+            }
+
+            LocalCoinModel localCoinModel = new LocalCoinModel();
+            localCoinModel.setCoinType(type);
+            localCoinModel.setCoinEName(getCoinENameByType(type));
+            localCoinModel.setCoinCName(getCoinCNameByType(type));
+            localCoinModel.setCoinShortName(getCoinShrotNameByType(type));
+            localCoinModels.add(localCoinModel);
+
+        }
+        return localCoinModels;
+    }
+
+    /**
+     * 获取本地所有币种
      */
     public static List<LocalCoinModel> getLocalCoinList() {
 
@@ -53,10 +82,12 @@ public class WalletHelper {
         List<LocalCoinModel> localCoinModels = new ArrayList<>();
 
         for (String type : coinType) {
+
             LocalCoinModel localCoinModel = new LocalCoinModel();
             localCoinModel.setCoinType(type);
             localCoinModel.setCoinEName(getCoinENameByType(type));
             localCoinModel.setCoinCName(getCoinCNameByType(type));
+            localCoinModel.setCoinShortName(getCoinShrotNameByType(type));
             localCoinModels.add(localCoinModel);
         }
         return localCoinModels;
@@ -69,6 +100,10 @@ public class WalletHelper {
      * @return
      */
     public static int getCoinIconByType(String type) {
+        if (TextUtils.isEmpty(type)) {
+            return R.drawable.default_pic;
+        }
+
         switch (type) {
             case COIN_ETH:
                 return R.drawable.eth_icon;
@@ -86,6 +121,9 @@ public class WalletHelper {
      * @return
      */
     public static String getCoinENameByType(String type) {
+        if (TextUtils.isEmpty(type)) {
+            return "";
+        }
         switch (type) {
             case COIN_ETH:
                 return MyApplication.getInstance().getString(R.string.coin_eth_ename);
@@ -103,6 +141,9 @@ public class WalletHelper {
      * @return
      */
     public static String getCoinCNameByType(String type) {
+        if (TextUtils.isEmpty(type)) {
+            return "";
+        }
         switch (type) {
             case COIN_ETH:
                 return MyApplication.getInstance().getString(R.string.coin_eth_cname);
@@ -111,6 +152,53 @@ public class WalletHelper {
         }
         return "";
 
+    }
+
+    /**
+     * 根据币种类型获取CName
+     *
+     * @param type
+     * @return
+     */
+    public static String getCoinShrotNameByType(String type) {
+        if (TextUtils.isEmpty(type)) {
+            return "";
+        }
+        switch (type) {
+            case COIN_ETH:
+                return "ETH";
+            case COIN_WAN:
+                return "WAN";
+        }
+        return "";
+
+    }
+
+
+    /**
+     * 保存用户币种配置
+     *
+     * @param config 保存数据为币种type组成的字符串用，分割  1,2,3...
+     */
+    public static void saveWalletCoinConfig(String config) {
+        SPUtils.put(MyApplication.getInstance(), "coinConfig", config);
+    }
+
+    /**
+     * 获取用户币种配置
+     */
+    public static String getWalletCoinConfig() {
+        return SPUtils.getString(MyApplication.getInstance(), "coinConfig", "");
+    }
+
+    /**
+     * 查询币种是否在配置中
+     *
+     * @param coinType
+     * @return
+     */
+    public static boolean queryTypeInWalletConfig(String coinType) {
+        return getWalletCoinConfig().indexOf(coinType) != -1;
     }
 
 
@@ -292,5 +380,6 @@ public class WalletHelper {
         }
         return false;
     }
+
 
 }

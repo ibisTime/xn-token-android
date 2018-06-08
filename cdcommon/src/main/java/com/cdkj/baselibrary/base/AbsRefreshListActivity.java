@@ -1,6 +1,7 @@
 package com.cdkj.baselibrary.base;
 
 import android.databinding.DataBindingUtil;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
@@ -41,6 +42,7 @@ public abstract class AbsRefreshListActivity<T> extends AbsBaseLoadActivity {
 
             @Override
             public RecyclerView getRecyclerView() {
+                ((DefaultItemAnimator) mRefreshBinding.rv.getItemAnimator()).setSupportsChangeAnimations(false);
                 return mRefreshBinding.rv;
             }
 

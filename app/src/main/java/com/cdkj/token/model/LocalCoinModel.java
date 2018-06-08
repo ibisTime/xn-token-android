@@ -7,13 +7,17 @@ import org.litepal.crud.DataSupport;
  * Created by cdkj on 2018/6/8.
  */
 
-public class LocalCoinModel{
+public class LocalCoinModel {
+
 
     private String coinEName;//币种英文名称
+
+    private String coinShortName;//币种短名称
 
     private String coinCName;//币种中文名称
 
     private String coinType;//币种类型 用于区分是什么币种
+
 
     public String getCoinEName() {
         return coinEName;
@@ -37,5 +41,13 @@ public class LocalCoinModel{
 
     public void setCoinType(String coinType) {
         this.coinType = coinType;
+    }
+
+    public String getCoinShortName() {
+        return coinShortName;
+    }
+
+    public void setCoinShortName(String coinShortName) {
+        this.coinShortName = coinShortName;
     }
 }

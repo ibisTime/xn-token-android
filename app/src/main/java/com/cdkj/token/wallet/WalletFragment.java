@@ -23,8 +23,11 @@ import com.cdkj.token.adapter.CoinAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.MsgListActivity;
 import com.cdkj.token.databinding.FragmentWalletBinding;
+import com.cdkj.token.model.CoinCofigChange;
 import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.model.MsgListModel;
+import com.cdkj.token.utils.WalletHelper;
 import com.cdkj.token.wallet.account.BillListActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -32,6 +35,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,7 +113,6 @@ public class WalletFragment extends BaseLazyFragment {
                 adapter = new CoinAdapter(listData);
                 adapter.setOnItemClickListener((adapter1, view, position) -> {
                     CoinModel.AccountListBean bean = adapter.getItem(position);
-
                     BillListActivity.open(mActivity, bean);
                 });
                 return adapter;
@@ -130,10 +133,30 @@ public class WalletFragment extends BaseLazyFragment {
 
             @Override
             public void getListDataRequest(int pageIndex, int limit, boolean isShowDialog) {
-                getListData(pageIndex, limit, isShowDialog);
+
+                loadConfigCoinData();
+
+//                getListData(pageIndex, limit, isShowDialog);
             }
         };
 
+    }
+
+    /**
+     * 加载配置币种
+     */
+    private void loadConfigCoinData() {
+        List<CoinModel.AccountListBean> accountListBeans = new ArrayList<>();
+
+        for (LocalCoinModel localCoinModel : WalletHelper.getConfigLocalCoinList()) {
+
+            if (localCoinModel == null) continue;
+            CoinModel.AccountListBean accountListBean = new CoinModel.AccountListBean();
+            accountListBean.setCurrency(localCoinModel.getCoinShortName());
+            accountListBeans.add(accountListBean);
+        }
+
+        refreshHelper.setData(accountListBeans, getStrRes(R.string.bill_none), R.mipmap.order_none);
     }
 
     private void initListener() {
@@ -268,6 +291,15 @@ public class WalletFragment extends BaseLazyFragment {
                 break;
         }
 
+    }
+
+    /**
+     * 币种配置改变
+     *
+     * @param coinCofigChange
+     */
+    public void coinConfigChangeEvent(CoinCofigChange coinCofigChange) {
+        loadConfigCoinData();
     }
 
 }

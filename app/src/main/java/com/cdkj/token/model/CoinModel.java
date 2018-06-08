@@ -99,6 +99,26 @@ public class CoinModel implements Serializable {
         private String priceUSD;
         private String priceHKD;
 
+        private String localCoinType;//本地类型
+        private boolean isChoose;//本地是否配置选中
+
+
+        public boolean isChoose() {
+            return isChoose;
+        }
+
+        public void setChoose(boolean choose) {
+            isChoose = choose;
+        }
+
+        public String getLocalCoinType() {
+            return localCoinType;
+        }
+
+        public void setLocalCoinType(String localCoinType) {
+            this.localCoinType = localCoinType;
+        }
+
         public String getAmountCNY() {
             return amountCNY;
         }

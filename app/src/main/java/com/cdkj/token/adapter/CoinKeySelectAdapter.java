@@ -22,7 +22,7 @@ public class CoinKeySelectAdapter extends BaseQuickAdapter<LocalCoinModel, BaseV
 
     @Override
     protected void convert(BaseViewHolder helper, LocalCoinModel item) {
-        helper.setText(R.id.tv_name, item.getCoinEName() + mContext.getString(R.string.private_key));
+        helper.setText(R.id.tv_name, item.getCoinShortName() + mContext.getString(R.string.private_key));
 
         helper.setImageResource(R.id.img_icon, WalletHelper.getCoinIconByType(item.getCoinType()));
     }

@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.utils.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -30,23 +31,16 @@ public class AddChoiceAdapter extends BaseQuickAdapter<CoinModel.AccountListBean
     @Override
     protected void convert(BaseViewHolder helper, CoinModel.AccountListBean item) {
 
-        helper.setText(R.id.tv_name, item.getCurrency()+"--"+getCoinENameWithCurrency(item.getCurrency()));
+//        helper.setText(R.id.tv_name, item.getCurrency() + "--" + getCoinENameWithCurrency(item.getCurrency()));
+        helper.setText(R.id.tv_name, item.getCurrency());
 
-        ImageView ivCoin = helper.getView(R.id.iv_watermark);
-        ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(),1), ivCoin);
+        helper.setImageResource(R.id.iv_watermark, WalletHelper.getCoinIconByType(item.getLocalCoinType()));
 
-        LinearLayout llChoice = helper.getView(R.id.ll_choice);
-        ImageView ivChoice = helper.getView(R.id.iv_choice);
-        llChoice.setOnClickListener(view -> {
+        if (item.isChoose()) {
+            helper.setImageResource(R.id.iv_choice, R.mipmap.choice_confirm);
+        } else {
+            helper.setImageResource(R.id.iv_choice, R.mipmap.choice_cancel);
+        }
 
-            if (TextUtils.equals(ivChoice.getTag().toString(), "false")){
-                ivChoice.setBackgroundResource(R.mipmap.choice_confirm);
-                ivChoice.setTag("true");
-            }else {
-                ivChoice.setBackgroundResource(R.mipmap.choice_cancel);
-                ivChoice.setTag("false");
-            }
-
-        });
     }
 }

@@ -36,7 +36,7 @@ public class CoinKeySelectActivity extends AbsRefreshListActivity {
     public RecyclerView.Adapter getListAdapter(List listData) {
         CoinKeySelectAdapter selectAdapter = new CoinKeySelectAdapter(listData);
         selectAdapter.setOnItemClickListener((adapter, view, position) -> {
-            CoinPrivateKeyShowActivity.open(CoinKeySelectActivity.this, selectAdapter.getItem(position).getCoinEName());
+            CoinPrivateKeyShowActivity.open(CoinKeySelectActivity.this, selectAdapter.getItem(position).getCoinShortName());
         });
         return selectAdapter;
     }
