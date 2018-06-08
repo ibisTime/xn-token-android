@@ -116,6 +116,11 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public void disMissLoading() {
 
+        if (this == null || isFinishing()) {
+            return;
+        }
+
+
         if (loadingDialog != null && loadingDialog.isShowing()) {
             loadingDialog.closeDialog();
         }
@@ -125,6 +130,9 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 显示dialog
      */
     public void showLoadingDialog() {
+        if (this == null || isFinishing()) {
+            return;
+        }
         if (loadingDialog == null) {
             loadingDialog = new LoadingDialog(this);
         }

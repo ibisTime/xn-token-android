@@ -48,7 +48,7 @@ public class CoinPrivateKeyShowActivity extends AbsBaseLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
         String name = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
-        mBaseBinding.titleView.setMidTitle(name );
+        mBaseBinding.titleView.setMidTitle(name+getString(R.string.private_key));
 
         mBinding.tvCoinName.setText(getString(R.string.coin_key_name, name));
 

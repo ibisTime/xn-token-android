@@ -8,9 +8,13 @@ import android.support.v7.widget.RecyclerView;
 import com.cdkj.baselibrary.base.AbsRefreshListActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.CoinKeySelectAdapter;
+import com.cdkj.token.utils.WalletHelper;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 币种选择
@@ -32,7 +36,7 @@ public class CoinKeySelectActivity extends AbsRefreshListActivity {
     public RecyclerView.Adapter getListAdapter(List listData) {
         CoinKeySelectAdapter selectAdapter = new CoinKeySelectAdapter(listData);
         selectAdapter.setOnItemClickListener((adapter, view, position) -> {
-            CoinPrivateKeyShowActivity.open(CoinKeySelectActivity.this,selectAdapter.getItem(position));
+            CoinPrivateKeyShowActivity.open(CoinKeySelectActivity.this, selectAdapter.getItem(position).getCoinEName());
         });
         return selectAdapter;
     }
@@ -44,11 +48,21 @@ public class CoinKeySelectActivity extends AbsRefreshListActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+        showLoadingDialog();
         mBaseBinding.titleView.setMidTitle(R.string.export_private_key);
         initRefreshHelper(10);
-        List<String> strings = new ArrayList<>();
-        strings.add("ETH私钥");
-        strings.add("WAN私钥");
-        mRefreshHelper.setData(strings, "", 0);
+
+        mSubscription.add(
+                Observable.just("")
+                        .subscribeOn(Schedulers.newThread())
+                        .map(s -> WalletHelper.getLocalCoinList())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .doOnComplete(() -> disMissLoading())
+                        .subscribe(s -> {
+                            mRefreshHelper.setData(s, "", 0);
+                        }, throwable -> {
+
+                        })
+        );
     }
 }

@@ -113,7 +113,6 @@ public class StartActivity extends BaseActivity {
 
             @Override
             protected void onSuccess(SystemParameterModel data, String SucMessage) {
-                getCoinList();
                 SPUtilHelper.saveQiniuUrl("http://" + data.getCvalue() + "/");
             }
 

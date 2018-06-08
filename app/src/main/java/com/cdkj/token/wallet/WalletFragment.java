@@ -44,6 +44,7 @@ import static com.cdkj.baselibrary.appmanager.EventTags.BASE_COIN_LIST_NOTIFY_SI
 
 
 /**
+ * 钱包币种界面
  * Created by lei on 2017/8/21.
  */
 
@@ -149,7 +150,7 @@ public class WalletFragment extends BaseLazyFragment {
     protected void lazyLoad() {
         if (mBinding != null) {
             getMsgRequest();
-            refreshHelper.onMRefresh(1,10,true);
+            refreshHelper.onMRefresh(1, 10, true);
         }
 
     }
@@ -159,7 +160,7 @@ public class WalletFragment extends BaseLazyFragment {
         super.onResume();
         if (getUserVisibleHint() && mBinding != null) {
             getMsgRequest();
-            refreshHelper.onMRefresh(1,10,true);
+            refreshHelper.onMRefresh(1, 10, true);
         }
     }
 
@@ -168,8 +169,15 @@ public class WalletFragment extends BaseLazyFragment {
 
     }
 
-    private void getListData(int pageIndex, int limit, boolean isShowDialog){
-        if(TextUtils.isEmpty(SPUtilHelper.getUserToken()))
+    /**
+     * 获取币种列表
+     *
+     * @param pageIndex
+     * @param limit
+     * @param isShowDialog
+     */
+    private void getListData(int pageIndex, int limit, boolean isShowDialog) {
+        if (TextUtils.isEmpty(SPUtilHelper.getUserToken()))
             return;
 
         Map<String, Object> map = new HashMap<>();
@@ -193,25 +201,25 @@ public class WalletFragment extends BaseLazyFragment {
 
                 setView(data);
 
-                refreshHelper.setData(data.getAccountList() , getStrRes(R.string.bill_none), R.mipmap.order_none);
+                refreshHelper.setData(data.getAccountList(), getStrRes(R.string.bill_none), R.mipmap.order_none);
             }
 
             @Override
             protected void onFinish() {
                 disMissLoading();
-                mBinding.refreshLayout.finishRefresh();
             }
         });
     }
 
     private void setView(CoinModel data) {
-        mBinding.tvCny.setText(data.getTotalAmountCNY()+"");
+        mBinding.tvCny.setText(data.getTotalAmountCNY() + "");
     }
 
     /**
      * 获取消息列表
      */
     public void getMsgRequest() {
+
 
         Map<String, String> map = new HashMap<>();
         map.put("channelType", "4");
@@ -248,7 +256,7 @@ public class WalletFragment extends BaseLazyFragment {
         if (model == null)
             return;
 
-        switch (model.getTag()){
+        switch (model.getTag()) {
 
             // CoinList配置更新通知，单一通知需要验证是否是自己
             case BASE_COIN_LIST_NOTIFY_SINGEL:
@@ -256,7 +264,7 @@ public class WalletFragment extends BaseLazyFragment {
                     return;
 
             case BASE_COIN_LIST_NOTIFY_ALL:
-                refreshHelper.onMRefresh(1,10,true);
+                refreshHelper.onMRefresh(1, 10, true);
                 break;
         }
 

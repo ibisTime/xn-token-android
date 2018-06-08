@@ -5,6 +5,9 @@ import android.text.TextUtils;
 
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.token.MyApplication;
+import com.cdkj.token.R;
+import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.model.WalletDBModel;
 
 import org.bitcoinj.core.Utils;
@@ -33,7 +36,82 @@ import static org.litepal.crud.DataSupport.findLast;
 public class WalletHelper {
 
     //助记词分隔符
-    public static String HELPWORD_SIGN = ",";
+    public final static String HELPWORD_SIGN = ",";
+    public final static String HDPATH = "M/44H/60H/0H/0/0";//生成助记词和解析时使用
+
+
+    public final static String COIN_ETH = "eth";// 币种类型
+    public final static String COIN_WAN = "wan";// 币种类型
+
+    /**
+     * 获取本地币种
+     */
+    public static List<LocalCoinModel> getLocalCoinList() {
+
+        String[] coinType = MyApplication.getInstance().getResources().getStringArray(R.array.coins);
+
+        List<LocalCoinModel> localCoinModels = new ArrayList<>();
+
+        for (String type : coinType) {
+            LocalCoinModel localCoinModel = new LocalCoinModel();
+            localCoinModel.setCoinType(type);
+            localCoinModel.setCoinEName(getCoinENameByType(type));
+            localCoinModel.setCoinCName(getCoinCNameByType(type));
+            localCoinModels.add(localCoinModel);
+        }
+        return localCoinModels;
+    }
+
+    /**
+     * 根据币种类型获取要显示的icon
+     *
+     * @param type
+     * @return
+     */
+    public static int getCoinIconByType(String type) {
+        switch (type) {
+            case COIN_ETH:
+                return R.drawable.eth_icon;
+            case COIN_WAN:
+                return R.drawable.wan_icon;
+        }
+        return R.drawable.default_pic;
+
+    }
+
+    /**
+     * 根据币种类型获取eName
+     *
+     * @param type
+     * @return
+     */
+    public static String getCoinENameByType(String type) {
+        switch (type) {
+            case COIN_ETH:
+                return MyApplication.getInstance().getString(R.string.coin_eth_ename);
+            case COIN_WAN:
+                return MyApplication.getInstance().getString(R.string.coin_wan_ename);
+        }
+        return "";
+
+    }
+
+    /**
+     * 根据币种类型获取CName
+     *
+     * @param type
+     * @return
+     */
+    public static String getCoinCNameByType(String type) {
+        switch (type) {
+            case COIN_ETH:
+                return MyApplication.getInstance().getString(R.string.coin_eth_cname);
+            case COIN_WAN:
+                return MyApplication.getInstance().getString(R.string.coin_wan_came);
+        }
+        return "";
+
+    }
 
 
     /**
@@ -53,7 +131,7 @@ public class WalletHelper {
         DeterministicKeyChain keyChain1 = DeterministicKeyChain.builder()
                 .seed(seed1).build();
 
-        List<ChildNumber> keyPath = HDUtils.parsePath("M/44H/60H/0H/0/0");
+        List<ChildNumber> keyPath = HDUtils.parsePath(HDPATH);
 
 
         DeterministicKey key1 = keyChain1.getKeyByPath(keyPath, true);
@@ -137,7 +215,7 @@ public class WalletHelper {
 
         DeterministicKeyChain keyChain2 = DeterministicKeyChain.builder()
                 .seed(seed).build();
-        List<ChildNumber> keyPath = HDUtils.parsePath("M/44H/60H/0H/0/0");
+        List<ChildNumber> keyPath = HDUtils.parsePath(HDPATH);
         DeterministicKey key = keyChain2.getKeyByPath(keyPath, true);
         BigInteger privKey = key.getPrivKey();
 

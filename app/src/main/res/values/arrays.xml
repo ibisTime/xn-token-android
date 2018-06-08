@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+    <string-array name="coins"> <!--改变后 需要在WalletHelper 里添加相应类型icon显示 cName、eName   如果币种多可以考虑改成引用json的方式-->
+        <item>eth</item>
+        <item>wan</item>
+    </string-array>
+</resources>

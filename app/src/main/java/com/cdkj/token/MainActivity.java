@@ -13,11 +13,9 @@ import android.view.View;
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
-import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.api.MyApi;
@@ -26,32 +24,19 @@ import com.cdkj.token.databinding.ActivityMainBinding;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.service.CoinListService;
 import com.cdkj.token.user.UserFragment;
-import com.cdkj.token.utils.StringUtil;
+import com.cdkj.token.utils.WalletHelper;
 import com.cdkj.token.wallet.WalletFragment;
 
-import org.bitcoinj.core.Utils;
-import org.bitcoinj.crypto.ChildNumber;
-import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.crypto.HDKeyDerivation;
-import org.bitcoinj.crypto.HDUtils;
-import org.bitcoinj.crypto.MnemonicCode;
-import org.bitcoinj.wallet.DeterministicKeyChain;
-import org.bitcoinj.wallet.DeterministicSeed;
 import org.greenrobot.eventbus.EventBus;
-import org.web3j.crypto.Bip39Wallet;
-import org.web3j.crypto.CipherException;
-import org.web3j.crypto.Credentials;
-import org.web3j.crypto.WalletUtils;
 
-import java.io.File;
-import java.io.IOException;
-import java.math.BigInteger;
-import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
 import static com.cdkj.token.utils.UpdateUtil.isForceUpload;
@@ -94,10 +79,30 @@ public class MainActivity extends AbsBaseActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        initViewPager();
+
         initListener();
         init();
+        initViewPager();
+
 //        getVersion();
+    }
+
+    /**
+     * 异步缓存本地币种
+     */
+    private void cacheLocalCoinAcync() {
+//        showLoadingDialog();
+//        mSubscription.add(
+//                Observable.just(WalletHelper.cacheLocalCoin())
+//                        .subscribeOn(Schedulers.newThread())
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .subscribe(s -> {
+//                        }, throwable -> {
+//                        }, () -> {
+//                            disMissLoading();
+//
+//                        })
+//        );
     }
 
     @Override
@@ -126,25 +131,16 @@ public class MainActivity extends AbsBaseActivity {
         });
 
         mBinding.layoutMainBottom.llWallet.setOnClickListener(v -> {
-            if (!SPUtilHelper.isLogin(this, false)) {
-                return;
-            }
             setShowIndex(WALLET);
 
         });
 
         mBinding.layoutMainBottom.llMy.setOnClickListener(v -> {
-            if (!SPUtilHelper.isLogin(this, false)) {
-                return;
-            }
             setShowIndex(MY);
 
         });
 
     }
-
-
-
 
 
     public void setTabIndex(int index) {

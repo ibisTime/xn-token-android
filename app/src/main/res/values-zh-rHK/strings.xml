@@ -393,5 +393,9 @@
     <string name="private_key">私钥</string>
     <string name="export_private_key">导出私钥</string>
     <string name="coin_key_name">以下是%s的地址和私钥，点击可复制</string>
+    <string name="coin_eth_ename">ETH</string>
+    <string name="coin_wan_ename">WAN</string>
+    <string name="coin_eth_cname">以太坊</string>
+    <string name="coin_wan_came">WAN</string>
 
 </resources>
