@@ -4,14 +4,21 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityIntoMainBeforeBinding;
+import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.utils.WalletHelper;
 import com.cdkj.token.wallet.create_guide.CreatePassWordActivity;
 import com.cdkj.token.wallet.import_guide.WalletImportWordsInputActivity;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 本地没有钱包时 导入和创建引导钱包界面
@@ -43,7 +50,23 @@ public class IntoWalletBeforeActivity extends AbsBaseLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+        savaDefaluteCoinConfig();
         initClickListener();
+    }
+
+    /**
+     * 用户第一次进入是进行默认币种保存
+     */
+    private void savaDefaluteCoinConfig() {
+
+        if (!TextUtils.isEmpty(WalletHelper.getWalletCoinConfig())) {  //配置为空时才保存
+            return;
+        }
+        List<String> chooseTypes = new ArrayList<>();
+        for (LocalCoinModel localCoinModel : WalletHelper.getLocalCoinList()) {
+            chooseTypes.add(localCoinModel.getCoinType());
+        }
+        WalletHelper.saveWalletCoinConfig(StringUtils.listToString(chooseTypes, WalletHelper.HELPWORD_SIGN));
     }
 
     @Override

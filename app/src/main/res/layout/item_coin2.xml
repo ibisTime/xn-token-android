@@ -19,8 +19,8 @@
             <ImageView
                 android:id="@+id/iv_watermark"
                 android:layout_marginLeft="15dp"
-                android:layout_width="50dp"
-                android:layout_height="50dp" />
+                android:layout_width="35dp"
+                android:layout_height="35dp" />
 
             <LinearLayout
                 android:layout_marginLeft="20dp"

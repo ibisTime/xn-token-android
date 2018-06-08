@@ -136,6 +136,9 @@
         <activity android:name=".wallet.export.CoinKeySelectActivity" />
         <activity android:name=".wallet.export.CoinPrivateKeyShowActivity" />
         <activity android:name=".wallet.export.WalletExportPasswordCheckActivity" />
+        <activity android:name=".wallet.coin_detail.WalletCoinDetailsActivity" />
+        <activity android:name=".wallet.coin_detail.WalletAddressShowActivity" />
+        <activity android:name=".wallet.coin_detail.WalletTransferActivity" />
     </application>
 
 </manifest>

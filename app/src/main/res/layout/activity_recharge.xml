@@ -2,43 +2,43 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/gray_f7f7f7"
         android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/ll_tip"
-            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
             android:background="#fcf2e4"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_tip"
-                android:text="BTC钱包地址禁止充值除BTC之外的其他资产，任何BTC资产充值将不可找回"
-                android:textColor="@color/colorPrimary"
-                android:textSize="11sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:text="BTC钱包地址禁止充值除BTC之外的其他资产，任何BTC资产充值将不可找回"
+                android:textColor="@color/colorPrimary"
+                android:textSize="11sp" />
 
             <LinearLayout
                 android:id="@+id/ll_close"
-                android:gravity="center"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center">
 
                 <ImageView
-                    android:background="@mipmap/recharge_close"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="15dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:background="@mipmap/recharge_close" />
 
             </LinearLayout>
 
@@ -46,90 +46,90 @@
 
 
         <LinearLayout
-            android:background="@color/white"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/img_QRCode"
-                android:layout_marginTop="56dp"
                 android:layout_width="200dp"
-                android:layout_height="200dp" />
+                android:layout_height="200dp"
+                android:layout_marginTop="56dp" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/ll_copy"
-                android:orientation="horizontal"
-                android:layout_marginTop="30dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_coin"
-                    android:textSize="12sp"
-                    android:textColor="@color/black"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:textSize="12sp" />
 
                 <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="5dp"
                     android:text="@string/wallet_charge_address_copy"
-                    android:textSize="12sp"
                     android:textColor="@color/colorPrimary"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:textSize="12sp" />
 
             </LinearLayout>
 
 
             <View
-                android:layout_marginTop="35dp"
-                android:background="@color/gray_eeeeee"
                 android:layout_width="match_parent"
-                android:layout_height="1dp"/>
+                android:layout_height="1dp"
+                android:layout_marginTop="35dp"
+                android:background="@color/gray_eeeeee" />
         </LinearLayout>
 
 
         <LinearLayout
             android:id="@+id/ll_address"
-            android:background="@color/white"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical">
 
             <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:text="@string/wallet_charge_address"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textColor="@color/black" />
 
             <TextView
                 android:id="@+id/txt_address"
-                android:layout_marginLeft="3dp"
-                android:layout_marginRight="3dp"
-                android:gravity="center"
-                android:textSize="10sp"
-                android:textColor="@color/gray_5e5e5f"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="40dp" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                android:text="sdfsffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+                android:textColor="@color/gray_5e5e5f"
+                android:textSize="10sp" />
 
             <ImageView
-                android:background="@mipmap/more"
-                android:layout_marginRight="15dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/more" />
 
         </LinearLayout>
 

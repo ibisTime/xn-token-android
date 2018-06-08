@@ -192,6 +192,14 @@ public class WalletHelper {
     }
 
     /**
+     * 删除用户币种配置
+     */
+    public static void removeWalletCoinConfig() {
+        SPUtils.remove(MyApplication.getInstance(), "coinConfig");
+    }
+
+
+    /**
      * 查询币种是否在配置中
      *
      * @param coinType
@@ -271,6 +279,7 @@ public class WalletHelper {
      * 清除缓存数据
      */
     public static void clearCache() {
+        removeWalletCoinConfig();
         DataSupport.deleteAll(WalletDBModel.class);
     }
 

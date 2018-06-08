@@ -1,11 +1,8 @@
 package com.cdkj.token.adapter;
 
 import android.support.annotation.Nullable;
-import android.widget.ImageView;
 
-import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.utils.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -14,25 +11,24 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
-
 /**
+ *
  * Created by lei on 2017/10/25.
  */
 
-public class CoinAdapter extends BaseQuickAdapter<CoinModel.AccountListBean, BaseViewHolder> {
+public class CoinDetailsListAdapter extends BaseQuickAdapter<String, BaseViewHolder> {
 
-    public CoinAdapter(@Nullable List<CoinModel.AccountListBean> data) {
+    public CoinDetailsListAdapter(@Nullable List<String> data) {
         super(R.layout.item_coin2, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CoinModel.AccountListBean item) {
+    protected void convert(BaseViewHolder helper, String item) {
         BigDecimal amount;
         BigDecimal frozenAmount;
 
-        helper.setText(R.id.tv_name, item.getCurrency());
-        helper.setImageResource(R.id.iv_watermark, WalletHelper.getCoinIconByType(item.getLocalCoinType()));
+//        helper.setText(R.id.tv_name, item.getCurrency());
+//        helper.setImageResource(R.id.iv_watermark, WalletHelper.getCoinIconByType(item.getLocalCoinType()));
 
 //        amount = new BigDecimal(item.getAmountString());
 //        frozenAmount = new BigDecimal(item.getFrozenAmountString());

@@ -28,7 +28,7 @@ import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.model.MsgListModel;
 import com.cdkj.token.utils.WalletHelper;
-import com.cdkj.token.wallet.account.BillListActivity;
+import com.cdkj.token.wallet.coin_detail.WalletCoinDetailsActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -113,7 +113,10 @@ public class WalletFragment extends BaseLazyFragment {
                 adapter = new CoinAdapter(listData);
                 adapter.setOnItemClickListener((adapter1, view, position) -> {
                     CoinModel.AccountListBean bean = adapter.getItem(position);
-                    BillListActivity.open(mActivity, bean);
+
+                    WalletCoinDetailsActivity.open(mActivity);
+
+//                    BillListActivity.open(mActivity, bean);
                 });
                 return adapter;
             }
@@ -153,6 +156,7 @@ public class WalletFragment extends BaseLazyFragment {
             if (localCoinModel == null) continue;
             CoinModel.AccountListBean accountListBean = new CoinModel.AccountListBean();
             accountListBean.setCurrency(localCoinModel.getCoinShortName());
+            accountListBean.setLocalCoinType(localCoinModel.getCoinType());
             accountListBeans.add(accountListBean);
         }
 
