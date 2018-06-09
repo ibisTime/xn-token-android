@@ -7,13 +7,18 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
+import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.CoinDetailsListAdapter;
 import com.cdkj.token.databinding.ActivityWallteBillBinding;
 import com.cdkj.token.databinding.HeaderBillListBinding;
+import com.cdkj.token.model.LocalCoinModel;
+import com.cdkj.token.model.WalletDBModel;
+import com.cdkj.token.utils.WalletHelper;
 
 import java.util.List;
 
@@ -27,13 +32,19 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
     private ActivityWallteBillBinding mBinding;
 
     private RefreshHelper mRefreshHelper;
+    private HeaderBillListBinding mHeaderBinding;
 
 
-    public static void open(Context context) {
+    /**
+     * @param context
+     * @param localCoinModel
+     */
+    public static void open(Context context, LocalCoinModel localCoinModel) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, WalletCoinDetailsActivity.class);
+        intent.putExtra(CdRouteHelper.DATASIGN, localCoinModel);
         context.startActivity(intent);
     }
 
@@ -47,9 +58,18 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
+        mHeaderBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_bill_list, null, false);
+
         initRefreshHelper();
 
+
         mRefreshHelper.setData(null, "暂无记录", R.mipmap.order_none);
+
+        LocalCoinModel localCoinModel = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
+
+        if (localCoinModel != null) {
+            mHeaderBinding.ivIcon.setImageResource(WalletHelper.getCoinIconByType(localCoinModel.getCoinType()));
+        }
 
         initClickListener();
 
@@ -82,7 +102,7 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
                 CoinDetailsListAdapter coinDetailsListAdapter = new CoinDetailsListAdapter(listData);
 
                 coinDetailsListAdapter.setHeaderAndEmpty(true);
-                HeaderBillListBinding mHeaderBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_bill_list, null, false);
+
                 coinDetailsListAdapter.addHeaderView(mHeaderBinding.getRoot());
 
                 return coinDetailsListAdapter;

@@ -12,6 +12,7 @@
     <!--透明度颜色-->
     <color name="transparent">#00000000</color>
     <color name="text_hint_color">#a1a1a1</color>
+    <color name="pop_black_bg">#3f636363</color>
     <color name="text_color">#484848</color>
     <color name="text_color_light">#108ee9</color>
 

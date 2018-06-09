@@ -207,7 +207,7 @@ public class StorePayActivity extends AbsBaseActivity {
                     return;
 
                 //总金额 - 冻结金额 =可用金额
-                mBinding.tvBalance.setText(AccountUtil.amountFormatUnitForShow(BigDecimalUtils.subtract(new BigDecimal(accountListBean.getAmountString()), new BigDecimal(accountListBean.getFrozenAmountString())), AccountUtil.OGC, OGCSCALE));
+                mBinding.tvBalance.setText(AccountUtil.amountFormatUnitForShowOGC(BigDecimalUtils.subtract(new BigDecimal(accountListBean.getAmountString()), new BigDecimal(accountListBean.getFrozenAmountString())), AccountUtil.OGC, OGCSCALE));
 
             }
 

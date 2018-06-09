@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
+import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.utils.WalletHelper;
@@ -20,19 +21,19 @@ import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
  * Created by lei on 2017/10/25.
  */
 
-public class CoinAdapter extends BaseQuickAdapter<CoinModel.AccountListBean, BaseViewHolder> {
+public class CoinAdapter extends BaseQuickAdapter<LocalCoinModel, BaseViewHolder> {
 
-    public CoinAdapter(@Nullable List<CoinModel.AccountListBean> data) {
+    public CoinAdapter(@Nullable List<LocalCoinModel> data) {
         super(R.layout.item_coin2, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, CoinModel.AccountListBean item) {
+    protected void convert(BaseViewHolder helper, LocalCoinModel item) {
         BigDecimal amount;
         BigDecimal frozenAmount;
 
-        helper.setText(R.id.tv_name, item.getCurrency());
-        helper.setImageResource(R.id.iv_watermark, WalletHelper.getCoinIconByType(item.getLocalCoinType()));
+        helper.setText(R.id.tv_name, item.getCoinShortName() + item.getCoinEName());
+        helper.setImageResource(R.id.iv_watermark, WalletHelper.getCoinIconByType(item.getCoinType()));
 
 //        amount = new BigDecimal(item.getAmountString());
 //        frozenAmount = new BigDecimal(item.getFrozenAmountString());

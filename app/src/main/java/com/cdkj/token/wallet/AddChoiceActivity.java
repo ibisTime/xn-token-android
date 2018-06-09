@@ -89,6 +89,8 @@ public class AddChoiceActivity extends AbsRefreshListActivity {
 
                 EventBus.getDefault().post(new CoinCofigChange());  //通知上级界面配置改变
             }
+
+            WalletHelper.saveFirstConfig(false);
         }
 
         finish();

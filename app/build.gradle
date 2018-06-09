@@ -18,6 +18,7 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
+
     }
     buildTypes {
 //        release {
@@ -89,5 +90,7 @@ dependencies {
     implementation group: 'org.bitcoinj', name: 'bitcoinj-core', version: '0.14.7'
     implementation 'org.web3j:core:3.3.1-android'
     implementation "org.ethereum:ethereumj-core:1.6.+"
+
+    implementation 'com.github.razerdp:BasePopup:1.9.4'
 
 }

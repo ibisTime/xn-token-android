@@ -52,6 +52,7 @@ public class IntoWalletBeforeActivity extends AbsBaseLoadActivity {
     public void afterCreate(Bundle savedInstanceState) {
         savaDefaluteCoinConfig();
         initClickListener();
+        WalletHelper.saveFirstConfig(true);  //第一次
     }
 
     /**

@@ -1,5 +1,8 @@
 package com.cdkj.token.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.litepal.crud.DataSupport;
 
 /**
@@ -7,7 +10,7 @@ import org.litepal.crud.DataSupport;
  * Created by cdkj on 2018/6/8.
  */
 
-public class LocalCoinModel {
+public class LocalCoinModel implements Parcelable {
 
 
     private String coinEName;//币种英文名称
@@ -50,4 +53,39 @@ public class LocalCoinModel {
     public void setCoinShortName(String coinShortName) {
         this.coinShortName = coinShortName;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.coinEName);
+        dest.writeString(this.coinShortName);
+        dest.writeString(this.coinCName);
+        dest.writeString(this.coinType);
+    }
+
+    public LocalCoinModel() {
+    }
+
+    protected LocalCoinModel(Parcel in) {
+        this.coinEName = in.readString();
+        this.coinShortName = in.readString();
+        this.coinCName = in.readString();
+        this.coinType = in.readString();
+    }
+
+    public static final Parcelable.Creator<LocalCoinModel> CREATOR = new Parcelable.Creator<LocalCoinModel>() {
+        @Override
+        public LocalCoinModel createFromParcel(Parcel source) {
+            return new LocalCoinModel(source);
+        }
+
+        @Override
+        public LocalCoinModel[] newArray(int size) {
+            return new LocalCoinModel[size];
+        }
+    };
 }

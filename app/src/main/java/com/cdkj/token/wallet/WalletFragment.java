@@ -112,10 +112,10 @@ public class WalletFragment extends BaseLazyFragment {
             public BaseQuickAdapter getAdapter(List listData) {
                 adapter = new CoinAdapter(listData);
                 adapter.setOnItemClickListener((adapter1, view, position) -> {
-                    CoinModel.AccountListBean bean = adapter.getItem(position);
 
-                    WalletCoinDetailsActivity.open(mActivity);
+                    WalletCoinDetailsActivity.open(mActivity, adapter.getItem(position));
 
+//                    CoinModel.AccountListBean bean = adapter.getItem(position);
 //                    BillListActivity.open(mActivity, bean);
                 });
                 return adapter;
@@ -149,18 +149,7 @@ public class WalletFragment extends BaseLazyFragment {
      * 加载配置币种
      */
     private void loadConfigCoinData() {
-        List<CoinModel.AccountListBean> accountListBeans = new ArrayList<>();
-
-        for (LocalCoinModel localCoinModel : WalletHelper.getConfigLocalCoinList()) {
-
-            if (localCoinModel == null) continue;
-            CoinModel.AccountListBean accountListBean = new CoinModel.AccountListBean();
-            accountListBean.setCurrency(localCoinModel.getCoinShortName());
-            accountListBean.setLocalCoinType(localCoinModel.getCoinType());
-            accountListBeans.add(accountListBean);
-        }
-
-        refreshHelper.setData(accountListBeans, getStrRes(R.string.bill_none), R.mipmap.order_none);
+        refreshHelper.setData(WalletHelper.getConfigLocalCoinList(), getStrRes(R.string.bill_none), R.mipmap.order_none);
     }
 
     private void initListener() {

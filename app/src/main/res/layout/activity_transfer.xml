@@ -50,11 +50,13 @@
         <LinearLayout
             android:id="@+id/ll_address"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:gravity="center_vertical"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -65,9 +67,9 @@
                 android:textSize="14sp" />
 
             <EditText
-                android:id="@+id/edit_address"
+                android:id="@+id/edit_to_address"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
                 android:layout_weight="1"
                 android:background="@null"
@@ -215,6 +217,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/linLayout_gas_choose"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_marginTop="10dp"
@@ -231,7 +234,7 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/edt_commission"
+                android:id="@+id/tv_gas"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginLeft="25dp"
@@ -267,7 +270,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30dp"
+            android:layout_height="wrap_content"
             android:background="@color/white"
             android:gravity="center_vertical">
 
@@ -281,6 +284,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
+                android:paddingBottom="5dp"
+                android:paddingTop="5dp"
                 android:text="@string/service_money_tip"
                 android:textColor="@color/black"
                 android:textSize="10.5sp" />
@@ -288,7 +293,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/btn_withdraw"
+            android:id="@+id/btn_next"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"

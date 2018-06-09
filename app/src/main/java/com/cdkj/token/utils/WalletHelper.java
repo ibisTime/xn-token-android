@@ -3,7 +3,6 @@ package com.cdkj.token.utils;
 import android.content.ContentValues;
 import android.text.TextUtils;
 
-import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.SPUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MyApplication;
@@ -14,19 +13,33 @@ import com.cdkj.token.model.WalletDBModel;
 import org.bitcoinj.core.Utils;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.crypto.HDKeyDerivation;
 import org.bitcoinj.crypto.HDUtils;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.wallet.DeterministicKeyChain;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.litepal.crud.DataSupport;
 import org.web3j.crypto.Credentials;
+import org.web3j.crypto.RawTransaction;
+import org.web3j.crypto.TransactionEncoder;
+import org.web3j.crypto.WalletUtils;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.Web3jFactory;
+import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
+import org.web3j.protocol.core.methods.response.EthSendTransaction;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.utils.Convert;
+import org.web3j.utils.Numeric;
 
+import java.io.IOException;
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
+import static com.cdkj.token.utils.AccountUtil.UNIT_MIN;
 import static org.litepal.crud.DataSupport.findLast;
 
 /**
@@ -37,12 +50,34 @@ import static org.litepal.crud.DataSupport.findLast;
 public class WalletHelper {
 
     //助记词分隔符
-    public final static String HELPWORD_SIGN = ",";
+    public final static String HELPWORD_SIGN = " ";
     public final static String HDPATH = "M/44H/60H/0H/0/0";//生成助记词和解析时使用
+
+    //    public final static String WEB3J_URL = "https://mainnet.infura.io/ZJR3JJlmLyf5mg4A9UxA";//
+    public final static String WEB3J_URL = "https://rinkeby.infura.io/qfyZa8diWhk28tT9Cwft";//
 
 
     public final static String COIN_ETH = "eth";// 币种类型
     public final static String COIN_WAN = "wan";// 币种类型
+
+
+    /**
+     * 是否第一次配置
+     *
+     * @param isFirst
+     */
+    public static void saveFirstConfig(boolean isFirst) {
+        SPUtils.put(MyApplication.getInstance(), "isFirstConfig", isFirst);
+    }
+
+    /**
+     * 是否第一次配置
+     *
+     * @param
+     */
+    public static boolean getFirstConfig() {
+        return SPUtils.getBoolean(MyApplication.getInstance(), "isFirstConfig", true);
+    }
 
     /**
      * 获取本地配置币种
@@ -57,7 +92,7 @@ public class WalletHelper {
 
         for (String type : coinType) {
 
-            if (configStr.indexOf(type) == -1) {//如果不存在配置 则不添加
+            if (!getFirstConfig() && configStr.indexOf(type) == -1) {//如果不存在配置 则不添加
                 continue;
             }
 
@@ -390,5 +425,130 @@ public class WalletHelper {
         return false;
     }
 
+
+    /**
+     * @param walletDBModel 包含私钥 地址等信息
+     * @param toAddress
+     * @throws IOException
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
+    public static EthSendTransaction transfer2(WalletDBModel walletDBModel, String toAddress, String money) throws IOException, ExecutionException, InterruptedException {
+
+
+        Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
+
+        Credentials credentials = WalletUtils.loadBip39Credentials(
+                "", walletDBModel.getHelpcenterEn());
+
+//        Credentials credentials = WalletUtils.loadCredentials(
+//        fromSecret.getPassword(), keystoreFile);
+        //
+        EthGetTransactionCount ethGetTransactionCount = web3j
+                .ethGetTransactionCount(walletDBModel.getAddress(), DefaultBlockParameterName.LATEST)
+                .sendAsync().get();
+        //
+        BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+
+        // TODO 动态获取
+        BigInteger gasLimit = BigInteger.valueOf(21000);
+        //矿工费
+        BigInteger gasPrice = web3j.ethGasPrice().send().getGasPrice();
+
+
+        BigDecimal bb=UNIT_MIN.pow(18);
+        BigDecimal aa=new BigDecimal(money);
+        BigDecimal dd=aa.multiply(bb);
+        BigDecimal ddd=dd;
+        String dddd=ddd.toPlainString();
+        int cc=dd.intValue();
+
+        BigInteger price = new BigInteger("10000000000000000");
+
+        // 本地签名的
+        RawTransaction rawTransaction = RawTransaction.createTransaction(
+                nonce, gasPrice, gasLimit, toAddress,
+                price, "");
+
+        // 签名
+        byte[] signedMessage = TransactionEncoder.signMessage(
+                rawTransaction, credentials);
+
+        String txHash = Numeric.toHexString(signedMessage);
+
+        EthSendTransaction ethSendTransaction = web3j
+                .ethSendRawTransaction(txHash).send(); //sendAsync().get()
+
+        return ethSendTransaction;
+//        if (ethSendTransaction.getError() != null) {
+//            // failure
+//        }
+//        txHash = ethSendTransaction.getTransactionHash();
+    }
+
+    /**
+     * 转账同步请求 需在子线程中操作
+     *
+     * @param to
+     * @param money
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     * @throws IOException
+     */
+
+    public static EthSendTransaction transfer(WalletDBModel walletDBModel, String to, String money) throws ExecutionException, InterruptedException, IOException {
+
+        Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
+        //转账人账户地址
+        String ownAddress = walletDBModel.getAddress();
+        //被转人账户地址
+        String toAddress = to;
+
+        //转账人私钥
+        Credentials credentials = Credentials.create(walletDBModel.getPrivataeKey());
+
+        //        Credentials credentials = WalletUtils.loadCredentials(
+        //                "123",
+        //                "src/main/resources/UTC--2018-03-01T05-53-37.043Z--d1c82c71cc567d63fd53d5b91dcac6156e5b96b3");
+
+        //getNonce（交易的笔数）
+        EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(
+                ownAddress, DefaultBlockParameterName.LATEST).sendAsync().get();
+
+        BigInteger nonce = ethGetTransactionCount.getTransactionCount();
+
+        //设置需要的矿工费
+        BigInteger GAS_PRICE = BigInteger.valueOf(21000);
+        BigInteger GAS_LIMIT = web3j.ethGasPrice().send().getGasPrice();
+
+        //创建交易，这里是转x个以太币
+        BigInteger value = Convert.toWei("1", Convert.Unit.ETHER).toBigInteger();
+
+        RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
+                nonce, GAS_PRICE, GAS_LIMIT, toAddress, value);
+
+        //签名Transaction，这里要对交易做签名
+        byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+
+        String hexValue = Numeric.toHexString(signedMessage);
+
+        //发送交易
+        EthSendTransaction ethSendTransaction =
+                web3j.ethSendRawTransaction(hexValue).sendAsync().get();//sendAsync().get()
+//        String transactionHash = ethSendTransaction.getTransactionHash();
+        //获得到transactionHash后就可以到以太坊的网站上查询这笔交易的状态了
+        return ethSendTransaction;
+    }
+
+
+    /**
+     * 获取手续费（矿工费）
+     */
+    public static BigInteger getGasValue() throws Exception {
+        Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
+        BigInteger GAS_LIMIT = web3j.ethGasPrice().send().getGasPrice();
+        return GAS_LIMIT;
+    }
 
 }

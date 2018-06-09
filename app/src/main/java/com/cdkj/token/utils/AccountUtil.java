@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 import static java.math.BigDecimal.ROUND_HALF_DOWN;
+import static java.math.BigDecimal.ROUND_HALF_EVEN;
 
 /**
  * Created by lei on 2017/10/20.
@@ -21,16 +22,18 @@ public class AccountUtil {
 
     public static final String OGC = "OGC";
     public static final int OGCSCALE = 8;
+    public static final int ETHSCALE = 8;
 
     /**
      * 货币单位转换
+     *
      * @param amount
      * @param coin
      * @return
      */
-    public static String amountFormatUnit(BigDecimal amount,String coin, int scale){
+    public static String amountFormatUnit(BigDecimal amount, String coin, int scale) {
 
-        if(amount.equals(new BigDecimal(0))){
+        if (amount.equals(new BigDecimal(0))) {
             return "0.00";
         }
 
@@ -45,13 +48,30 @@ public class AccountUtil {
      * @param coin
      * @return
      */
-    public static String amountFormatUnitForShow(BigDecimal amount, String coin, int scale) {
+    public static String amountFormatUnitForShowOGC(BigDecimal amount, String coin, int scale) {
 
         if (amount == null) {
             return "0 " + OGC;
         }
 
         return scale(amount.divide(getUnit(coin)).toPlainString(), scale) + " " + OGC;
+
+    }
+
+    /**
+     * 货币单位转换 带单位 ETH
+     *
+     * @param amount
+     * @param
+     * @return
+     */
+    public static String amountFormatUnitForShowETH(BigDecimal amount, int scale) {
+
+        if (amount == null) {
+            return "0 " + "ETH";
+        }
+
+        return amount.divide(UNIT_MIN.pow(18),scale,ROUND_HALF_EVEN ).toPlainString() + " " + "ETH";
 
     }
 
@@ -76,14 +96,15 @@ public class AccountUtil {
 
     /**
      * 根据货币获取最小单位
+     *
      * @param coin
      * @return
      */
-    public static BigDecimal getUnit(String coin){
+    public static BigDecimal getUnit(String coin) {
 
-        for (BaseCoinModel model : DataSupport.findAll(BaseCoinModel.class)){
+        for (BaseCoinModel model : DataSupport.findAll(BaseCoinModel.class)) {
 
-            if (model.getSymbol().equals(coin)){
+            if (model.getSymbol().equals(coin)) {
                 return UNIT_MIN.pow(model.getUnit());
             }
 
@@ -94,14 +115,15 @@ public class AccountUtil {
 
     /**
      * 根据货币获取提现手续费
+     *
      * @param coin
      * @return
      */
-    public static String getWithdrawFee(String coin){
+    public static String getWithdrawFee(String coin) {
 
-        for (BaseCoinModel model : DataSupport.findAll(BaseCoinModel.class)){
+        for (BaseCoinModel model : DataSupport.findAll(BaseCoinModel.class)) {
 
-            if (model.getSymbol().equals(coin)){
+            if (model.getSymbol().equals(coin)) {
 
                 return amountFormatUnit(new BigDecimal(model.getWithdrawFeeString()), coin, 8);
             }
