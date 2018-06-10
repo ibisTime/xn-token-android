@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
+import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.model.CoinModel;
@@ -21,39 +22,34 @@ import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
  * Created by lei on 2017/10/25.
  */
 
-public class CoinAdapter extends BaseQuickAdapter<LocalCoinModel, BaseViewHolder> {
+public class CoinAdapter extends BaseQuickAdapter<BalanceListModel.AccountListBean, BaseViewHolder> {
 
-    public CoinAdapter(@Nullable List<LocalCoinModel> data) {
+    public CoinAdapter(@Nullable List<BalanceListModel.AccountListBean> data) {
         super(R.layout.item_coin2, data);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, LocalCoinModel item) {
-        BigDecimal amount;
-        BigDecimal frozenAmount;
+    protected void convert(BaseViewHolder helper, BalanceListModel.AccountListBean item) {
 
-        helper.setText(R.id.tv_name, item.getCoinShortName() + item.getCoinEName());
-        helper.setImageResource(R.id.iv_watermark, WalletHelper.getCoinIconByType(item.getCoinType()));
+        helper.setText(R.id.tv_name, item.getSymbol() + " - " + WalletHelper.getCoinENameByType(item.getSymbol()));
 
-//        amount = new BigDecimal(item.getAmountString());
-//        frozenAmount = new BigDecimal(item.getFrozenAmountString());
-//        helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), item.getCurrency(), 8));
-//
-//        ImageView ivCoin = helper.getView(R.id.iv_watermark);
-//        ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(),1), ivCoin);
-//
-//        if (item.getPriceCNY() == null){
-//            helper.setText(R.id.tv_market_price, "≈ 0CNY");
-//        }else {
-//            helper.setText(R.id.tv_market_price, "≈ " + item.getPriceCNY()+"CNY");
-//
-//        }
-//
-//        if (item.getAmountCNY() == null){
-//            helper.setText(R.id.tv_amount_cny, "0CNY");
-//        }else {
-//            helper.setText(R.id.tv_amount_cny, item.getAmountCNY()+"CNY");
-//        }
+        helper.setImageResource(R.id.iv_watermark, WalletHelper.getCoinIconByType(item.getSymbol()));
+
+        helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnitForShow(new BigDecimal(item.getBalance()), 8));
+
+
+        if (item.getPriceCNY() == null) {
+            helper.setText(R.id.tv_market_price, "≈ 0CNY");
+        } else {
+            helper.setText(R.id.tv_market_price, "≈ " + item.getPriceCNY() + "CNY");
+        }
+
+
+        if (item.getAmountCNY() == null) {
+            helper.setText(R.id.tv_amount_cny, "0CNY");
+        } else {
+            helper.setText(R.id.tv_amount_cny, item.getAmountCNY() + "CNY");
+        }
 
 
     }

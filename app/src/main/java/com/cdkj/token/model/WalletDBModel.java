@@ -17,6 +17,16 @@ public class WalletDBModel extends DataSupport {
 
     private String address;//地址
 
+    private String coinType;//所属币类型
+
+    public String getCoinType() {
+        return coinType;
+    }
+
+    public void setCoinType(String coinType) {
+        this.coinType = coinType;
+    }
+
     public String getPassWord() {
         return passWord;
     }

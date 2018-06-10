@@ -50,7 +50,7 @@ public class AccountUtil {
      */
     public static String amountFormatUnitForShowOGC(BigDecimal amount, String coin, int scale) {
 
-        if (amount == null) {
+        if (amount == null || amount.compareTo(new BigDecimal(0)) == -1 || amount.compareTo(new BigDecimal(0)) == 0) {
             return "0 " + OGC;
         }
 
@@ -67,11 +67,28 @@ public class AccountUtil {
      */
     public static String amountFormatUnitForShowETH(BigDecimal amount, int scale) {
 
-        if (amount == null) {
+        if (amount == null || amount.compareTo(new BigDecimal(0)) == -1 || amount.compareTo(new BigDecimal(0)) == 0) {
             return "0 " + "ETH";
         }
 
-        return amount.divide(UNIT_MIN.pow(18),scale,ROUND_HALF_EVEN ).toPlainString() + " " + "ETH";
+        return amount.divide(UNIT_MIN.pow(18), scale, ROUND_HALF_EVEN).toPlainString() + " " + "ETH";
+
+    }
+
+    /**
+     * 货币单位转换 带单位 ETH
+     *
+     * @param amount
+     * @param
+     * @return
+     */
+    public static String amountFormatUnitForShow(BigDecimal amount, int scale) {
+
+        if (amount == null || amount.compareTo(new BigDecimal(0)) == -1 || amount.compareTo(new BigDecimal(0)) == 0) {
+            return "0 ";
+        }
+
+        return amount.divide(UNIT_MIN.pow(18), scale, ROUND_HALF_EVEN).toPlainString();
 
     }
 

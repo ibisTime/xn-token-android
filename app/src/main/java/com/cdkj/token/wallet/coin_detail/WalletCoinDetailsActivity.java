@@ -16,10 +16,13 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.CoinDetailsListAdapter;
 import com.cdkj.token.databinding.ActivityWallteBillBinding;
 import com.cdkj.token.databinding.HeaderBillListBinding;
+import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.model.WalletDBModel;
+import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.WalletHelper;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -39,7 +42,7 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
      * @param context
      * @param localCoinModel
      */
-    public static void open(Context context, LocalCoinModel localCoinModel) {
+    public static void open(Context context, BalanceListModel.AccountListBean localCoinModel) {
         if (context == null) {
             return;
         }
@@ -65,11 +68,16 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
 
         mRefreshHelper.setData(null, "暂无记录", R.mipmap.order_none);
 
-        LocalCoinModel localCoinModel = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
+        BalanceListModel.AccountListBean localCoinModel = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
         if (localCoinModel != null) {
-            mHeaderBinding.ivIcon.setImageResource(WalletHelper.getCoinIconByType(localCoinModel.getCoinType()));
+            mHeaderBinding.ivIcon.setImageResource(WalletHelper.getCoinIconByType(localCoinModel.getSymbol()));
+            mHeaderBinding.tvSymbol.setText(localCoinModel.getSymbol());
+            mBaseBinding.titleView.setMidTitle(localCoinModel.getSymbol());
+            mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(localCoinModel.getBalance()), 8));
+
         }
+
 
         initClickListener();
 
@@ -81,7 +89,7 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
             WalletAddressShowActivity.open(this);
         });
 
-        mBinding.linLayoutSendMoney.setOnClickListener(view -> WalletTransferActivity.open(this));
+        mBinding.linLayoutSendMoney.setOnClickListener(view -> WalletTransferActivity.open(this, getIntent().getParcelableExtra(CdRouteHelper.DATASIGN)));
 
     }
 

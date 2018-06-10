@@ -58,7 +58,7 @@ public class WalletHelpWordsShowActivity extends AbsBaseLoadActivity {
 
         commonDialog.show();
 
-        mBinding.tvWords.setText(WalletHelper.getHelpWords("    "));
+        mBinding.tvWords.setText(WalletHelper.getHelpWords());
         mBinding.btnNowBackup.setOnClickListener(view -> {
             WalletBackupCheckActivity.open(this, isFromBackup);
             finish();

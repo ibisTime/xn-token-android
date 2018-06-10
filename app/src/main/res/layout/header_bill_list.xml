@@ -6,70 +6,70 @@
     </data>
 
     <LinearLayout
-        android:background="@color/white"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_height="140dp">
+            android:layout_height="140dp"
+            android:gravity="center"
+            android:orientation="vertical">
 
             <ImageView
                 android:id="@+id/iv_icon"
                 android:layout_width="50dp"
-                android:layout_height="50dp" />
+                android:layout_height="50dp"
+                android:layout_marginTop="10dp" />
 
             <LinearLayout
-                android:layout_marginTop="5dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:gravity="center_vertical">
 
                 <TextView
                     android:id="@+id/tv_amount"
-                    android:text="0.00"
-                    android:textSize="27sp"
-                    android:textColor="@color/text_color"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="0.00"
+                    android:textColor="@color/text_color"
+                    android:textSize="27sp" />
 
                 <TextView
                     android:id="@+id/tv_symbol"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="18sp"
-                    android:textColor="@color/text_color"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
 
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_amount_cny"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="0.00"
-                android:textSize="12sp"
                 android:textColor="@color/text_color_light"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
-        <View
-            style="@style/style_split_line_broad"/>
+        <View style="@style/style_split_line_broad" />
 
         <TextView
-            android:gravity="center_vertical"
-            android:text="交易记录"
-            android:paddingLeft="15dp"
-            android:textColor="@color/gray_999999"
-            android:textSize="12sp"
             android:layout_width="match_parent"
-            android:layout_height="40dp" />
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="交易记录"
+            android:textColor="@color/gray_999999"
+            android:textSize="12sp" />
 
-        <View
-            style="@style/style_split_line"/>
+        <View style="@style/style_split_line" />
 
     </LinearLayout>
 </layout>

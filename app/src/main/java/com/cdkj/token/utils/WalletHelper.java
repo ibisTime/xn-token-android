@@ -25,6 +25,7 @@ import org.web3j.crypto.WalletUtils;
 import org.web3j.protocol.Web3j;
 import org.web3j.protocol.Web3jFactory;
 import org.web3j.protocol.core.DefaultBlockParameterName;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
@@ -46,19 +47,23 @@ import static org.litepal.crud.DataSupport.findLast;
  * 钱包工具类
  * Created by cdkj on 2018/6/6.
  */
-
+//TODO 保存助记词时候需要保存币种(现在默认为ETH)  获取的时候改为根据币种获取
 public class WalletHelper {
 
     //助记词分隔符
     public final static String HELPWORD_SIGN = " ";
     public final static String HDPATH = "M/44H/60H/0H/0/0";//生成助记词和解析时使用
 
-    //    public final static String WEB3J_URL = "https://mainnet.infura.io/ZJR3JJlmLyf5mg4A9UxA";//
+    //        public final static String WEB3J_URL = "https://mainnet.infura.io/ZJR3JJlmLyf5mg4A9UxA";//
     public final static String WEB3J_URL = "https://rinkeby.infura.io/qfyZa8diWhk28tT9Cwft";//
 
 
-    public final static String COIN_ETH = "eth";// 币种类型
-    public final static String COIN_WAN = "wan";// 币种类型
+    //TODO 币种使用枚举类
+    public final static String COIN_ETH = "ETH";// 币种类型 ETH
+    public final static String COIN_WAN = "WAN";// 币种类型 WAN
+
+    //本地币种类型
+    public final static String[] COIN_COUNT = new String[]{COIN_ETH, COIN_WAN};// 币种类型
 
 
     /**
@@ -84,7 +89,7 @@ public class WalletHelper {
      */
     public static List<LocalCoinModel> getConfigLocalCoinList() {
 
-        String[] coinType = MyApplication.getInstance().getResources().getStringArray(R.array.coins);
+        String[] coinType = COIN_COUNT;
 
         List<LocalCoinModel> localCoinModels = new ArrayList<>();
 
@@ -112,7 +117,7 @@ public class WalletHelper {
      */
     public static List<LocalCoinModel> getLocalCoinList() {
 
-        String[] coinType = MyApplication.getInstance().getResources().getStringArray(R.array.coins);
+        String[] coinType = COIN_COUNT;
 
         List<LocalCoinModel> localCoinModels = new ArrayList<>();
 
@@ -280,6 +285,7 @@ public class WalletHelper {
         walletDBModel.setAddress(credentials1.getAddress());
         walletDBModel.setPassWord(password);
         walletDBModel.setHelpcenterEn(StringUtils.listToString(mnemonicList, HELPWORD_SIGN)); //储存下来 用，分割
+        walletDBModel.setCoinType(COIN_ETH);
         walletDBModel.setPrivataeKey(key1.getPrivateKeyAsHex());
 
 
@@ -303,11 +309,16 @@ public class WalletHelper {
     /**
      * 获取保存的助记词列表
      *
-     * @param step 分隔符
      * @return
      */
-    public static String getHelpWords(String step) {
-        return StringUtils.listToString(getHelpWordsList(), step);
+    public static String getHelpWords() {
+
+        WalletDBModel walletDBModel = findLast(WalletDBModel.class);
+        if (walletDBModel == null) {
+            return "";
+        }
+        return walletDBModel.getHelpcenterEn();
+
     }
 
     /**
@@ -358,6 +369,7 @@ public class WalletHelper {
         walletDBModel.setAddress(credentials.getAddress());
         walletDBModel.setHelpcenterEn(StringUtils.listToString(defaultMnenonic, HELPWORD_SIGN)); //储存下来 用，分割
         walletDBModel.setPrivataeKey(key.getPrivateKeyAsHex());
+        walletDBModel.setCoinType(COIN_ETH);
 
         return walletDBModel;
     }
@@ -438,12 +450,11 @@ public class WalletHelper {
 
         Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
 
-        Credentials credentials = WalletUtils.loadBip39Credentials(
-                "", walletDBModel.getHelpcenterEn());
+//        Credentials credentials = WalletUtils.loadBip39Credentials(
+//                "", walletDBModel.getHelpcenterEn());
 
-//        Credentials credentials = WalletUtils.loadCredentials(
-//        fromSecret.getPassword(), keystoreFile);
-        //
+        Credentials credentials = Credentials.create(walletDBModel.getPrivataeKey());
+
         EthGetTransactionCount ethGetTransactionCount = web3j
                 .ethGetTransactionCount(walletDBModel.getAddress(), DefaultBlockParameterName.LATEST)
                 .sendAsync().get();
@@ -455,20 +466,16 @@ public class WalletHelper {
         //矿工费
         BigInteger gasPrice = web3j.ethGasPrice().send().getGasPrice();
 
-
-        BigDecimal bb=UNIT_MIN.pow(18);
-        BigDecimal aa=new BigDecimal(money);
-        BigDecimal dd=aa.multiply(bb);
-        BigDecimal ddd=dd;
-        String dddd=ddd.toPlainString();
-        int cc=dd.intValue();
-
-        BigInteger price = new BigInteger("10000000000000000");
+        BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(18)).toBigInteger(); //需要转账的金额
 
         // 本地签名的
         RawTransaction rawTransaction = RawTransaction.createTransaction(
                 nonce, gasPrice, gasLimit, toAddress,
-                price, "");
+                priceValue, "");
+
+//        RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
+//                nonce, gasPrice, gasLimit, toAddress, price);
+
 
         // 签名
         byte[] signedMessage = TransactionEncoder.signMessage(
@@ -477,13 +484,28 @@ public class WalletHelper {
         String txHash = Numeric.toHexString(signedMessage);
 
         EthSendTransaction ethSendTransaction = web3j
-                .ethSendRawTransaction(txHash).send(); //sendAsync().get()
+                .ethSendRawTransaction(txHash).sendAsync().get(); //sendAsync().get()
 
         return ethSendTransaction;
 //        if (ethSendTransaction.getError() != null) {
 //            // failure
 //        }
 //        txHash = ethSendTransaction.getTransactionHash();
+    }
+
+
+    /**
+     * 根据地址查询余额
+     *
+     * @param address
+     * @return
+     * @throws IOException
+     */
+    public static BigInteger getBalance(String address) throws IOException {
+        Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
+        EthGetBalance ethGetBalance = web3j.ethGetBalance(address, DefaultBlockParameterName.LATEST).send();
+        BigInteger balance = ethGetBalance.getBalance();
+        return balance;
     }
 
     /**
@@ -507,11 +529,8 @@ public class WalletHelper {
 
         //转账人私钥
         Credentials credentials = Credentials.create(walletDBModel.getPrivataeKey());
-
-        //        Credentials credentials = WalletUtils.loadCredentials(
-        //                "123",
-        //                "src/main/resources/UTC--2018-03-01T05-53-37.043Z--d1c82c71cc567d63fd53d5b91dcac6156e5b96b3");
-
+//        Credentials credentials = WalletUtils.loadBip39Credentials(
+//                "", walletDBModel.getHelpcenterEn());
         //getNonce（交易的笔数）
         EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(
                 ownAddress, DefaultBlockParameterName.LATEST).sendAsync().get();
@@ -519,8 +538,8 @@ public class WalletHelper {
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
 
         //设置需要的矿工费
-        BigInteger GAS_PRICE = BigInteger.valueOf(21000);
-        BigInteger GAS_LIMIT = web3j.ethGasPrice().send().getGasPrice();
+        BigInteger GAS_LIMIT = BigInteger.valueOf(21000);
+        BigInteger GAS_PRICE = web3j.ethGasPrice().send().getGasPrice();
 
         //创建交易，这里是转x个以太币
         BigInteger value = Convert.toWei("1", Convert.Unit.ETHER).toBigInteger();

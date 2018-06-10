@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
@@ -23,10 +24,14 @@ import com.cdkj.token.adapter.CoinAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.MsgListActivity;
 import com.cdkj.token.databinding.FragmentWalletBinding;
+import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.CoinCofigChange;
 import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.model.CoinTypeAndAddress;
 import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.model.MsgListModel;
+import com.cdkj.token.model.WalletDBModel;
+import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.utils.WalletHelper;
 import com.cdkj.token.wallet.coin_detail.WalletCoinDetailsActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -90,8 +95,11 @@ public class WalletFragment extends BaseLazyFragment {
         refreshHelper = new RefreshHelper(mActivity, back);
 
         refreshHelper.init(10);
+
+        loadConfigCoinData();
+
         // 刷新
-        refreshHelper.onDefaluteMRefresh(true);
+//        refreshHelper.onDefaluteMRefresh(true);
     }
 
     private void initCallBack() {
@@ -149,7 +157,21 @@ public class WalletFragment extends BaseLazyFragment {
      * 加载配置币种
      */
     private void loadConfigCoinData() {
-        refreshHelper.setData(WalletHelper.getConfigLocalCoinList(), getStrRes(R.string.bill_none), R.mipmap.order_none);
+
+        List<CoinTypeAndAddress> list = new ArrayList<>();
+
+        WalletDBModel walletDBModel = WalletHelper.getPrivateKeyAndAddress();
+
+        for (LocalCoinModel localCoinModel : WalletHelper.getConfigLocalCoinList()) {
+            CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();
+            coinTypeAndAddress.setAddress(walletDBModel.getAddress());
+            coinTypeAndAddress.setSymbol(localCoinModel.getCoinType());
+            list.add(coinTypeAndAddress);
+        }
+
+        getWalletBalanceByAccountList(list);
+
+//        refreshHelper.setData(WalletHelper.getConfigLocalCoinList(), getStrRes(R.string.bill_none), R.mipmap.order_none);
     }
 
     private void initListener() {
@@ -161,6 +183,7 @@ public class WalletFragment extends BaseLazyFragment {
             AddChoiceActivity.open(mActivity);
         });
     }
+
 
     @Override
     protected void lazyLoad() {
@@ -184,6 +207,68 @@ public class WalletFragment extends BaseLazyFragment {
     protected void onInvisible() {
 
     }
+
+
+    /**
+     * 根据账户类型获取钱包余额
+     *
+     * @param accountList <symbol,address>   币种 地址
+     */
+    private void getWalletBalanceByAccountList(List<CoinTypeAndAddress> accountList) {
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("accountList", accountList);
+
+        Call<BaseResponseModel<BalanceListModel>> call = RetrofitUtils.createApi(MyApi.class).getBalanceList("802270", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        call.enqueue(new BaseResponseModelCallBack<BalanceListModel>(mActivity) {
+            @Override
+            protected void onSuccess(BalanceListModel data, String SucMessage) {
+
+                List<BalanceListModel.AccountListBean> accountListBeans = new ArrayList<>();
+
+                for (CoinTypeAndAddress coinTypeAndAddress : accountList) {
+
+                    BalanceListModel.AccountListBean accountListBean = isHaveCoin(data, coinTypeAndAddress.getSymbol()); //返回数据中含有请求的币种
+
+                    if (accountListBean == null) {                              //没有币种 则列表只显示币种名字
+                        accountListBean = new BalanceListModel.AccountListBean();
+                        accountListBean.setSymbol(coinTypeAndAddress.getSymbol());
+                    }
+                    accountListBeans.add(accountListBean);
+                }
+
+                refreshHelper.setData(accountListBeans, getStrRes(R.string.bill_none), R.mipmap.order_none);
+
+            }
+
+            @Override
+            protected void onFinish() {
+
+            }
+        });
+
+    }
+
+    /**
+     * 判断返回的数据里是否有请求的币种信息
+     *
+     * @param data
+     * @param symbol
+     * @return
+     */
+    private BalanceListModel.AccountListBean isHaveCoin(BalanceListModel data, String symbol) {
+
+        for (BalanceListModel.AccountListBean accountListBean : data.getAccountList()) {
+            if (TextUtils.equals(accountListBean.getSymbol(), symbol)) {
+                return accountListBean;
+            }
+        }
+        return null;
+    }
+
 
     /**
      * 获取币种列表

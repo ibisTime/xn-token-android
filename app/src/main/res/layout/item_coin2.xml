@@ -1,84 +1,85 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="vertical"
-        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
 
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="85dp">
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingBottom="15dp"
+            android:paddingTop="15dp">
 
             <ImageView
                 android:id="@+id/iv_watermark"
-                android:layout_marginLeft="15dp"
                 android:layout_width="35dp"
-                android:layout_height="35dp" />
+                android:layout_height="35dp"
+                android:layout_marginLeft="15dp" />
 
             <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="15dp"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_name"
-                        android:textColor="@color/text_color"
-                        android:textStyle="bold"
-                        android:textSize="17sp"
                         android:layout_width="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:layout_height="wrap_content" />
+                        android:textColor="@color/text_color"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:id="@+id/tv_amount"
-                        android:textColor="@color/text_color"
-                        android:textSize="17sp"
-                        android:text="0.00"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="0.00"
+                        android:textColor="@color/text_color"
+                        android:textSize="17sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:id="@+id/tv_market_price"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:text="0.00"
                         android:textColor="@color/gray_999999"
-                        android:textSize="12sp"
-                        android:layout_weight="1"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_amount_cny"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:text="0.00"
                         android:textColor="@color/gray_999999"
-                        android:textSize="12sp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textSize="12sp" />
 
                 </LinearLayout>
-
-
 
 
             </LinearLayout>
@@ -86,8 +87,7 @@
 
         </LinearLayout>
 
-        <View
-            style="@style/style_split_line"/>
+        <View style="@style/style_split_line" />
 
 
     </LinearLayout>
