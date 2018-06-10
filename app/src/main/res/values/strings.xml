@@ -401,6 +401,10 @@
     <string name="get_money">收款</string>
     <string name="service_money_tip">矿工费将在可用余额中扣除，余额不足将从转账金额中扣除</string>
     <string name="transfer">转账</string>
+    <string name="first">优先</string>
+    <string name="ordinary">普通</string>
+    <string name="economics">经济</string>
+    <string name="private_key_copy_success">私钥已复制</string>
 
 
 </resources>

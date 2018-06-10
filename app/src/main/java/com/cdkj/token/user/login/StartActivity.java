@@ -71,7 +71,8 @@ public class StartActivity extends BaseActivity {
 
         setContentView(R.layout.activity_start);
 //        makeMnemonic();
-        open();
+//        open();
+        getQiniu();
     }
 
     @Override

@@ -227,6 +227,8 @@ public class WalletFragment extends BaseLazyFragment {
             @Override
             protected void onSuccess(BalanceListModel data, String SucMessage) {
 
+                mBinding.tvCny.setText(data.getTotalAmountCNY());
+
                 List<BalanceListModel.AccountListBean> accountListBeans = new ArrayList<>();
 
                 for (CoinTypeAndAddress coinTypeAndAddress : accountList) {
@@ -354,7 +356,7 @@ public class WalletFragment extends BaseLazyFragment {
 
     @Subscribe
     public void eventBusModel(EventBusModel model) {
-        if (model == null)
+        if (model == null || true)
             return;
 
         switch (model.getTag()) {

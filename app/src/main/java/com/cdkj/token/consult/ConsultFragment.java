@@ -74,8 +74,8 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
         initBanner();
 
         // 刷新轮播图
-//        getBanner();
-//        getListData(pageIndex, 15, true);
+        getBanner();
+        getListData(pageIndex, 15, true);
 //        getKtInfo(true);
 
         // 取消上啦加载
@@ -85,7 +85,7 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
     @Override
     public void after() {
         // 重新初始化RecyclerView的LayoutManager
-        mBinding.rv.setLayoutManager( new GridLayoutManager(mActivity, 3));
+        mBinding.rv.setLayoutManager(new GridLayoutManager(mActivity, 3));
         mAdapter.onAttachedToRecyclerView(mBinding.rv);
     }
 
@@ -117,15 +117,15 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
         });
 
         mHeadBinding.llMerchant.setOnClickListener(view -> {
-            NoneActivity.open(mActivity,"merchant");
+            NoneActivity.open(mActivity, "merchant");
         });
 
         mHeadBinding.llMall.setOnClickListener(view -> {
-            NoneActivity.open(mActivity,"mall");
+            NoneActivity.open(mActivity, "mall");
         });
 
         mHeadBinding.llDig.setOnClickListener(view -> {
-            NoneActivity.open(mActivity,"dig");
+            NoneActivity.open(mActivity, "dig");
         });
     }
 
@@ -207,7 +207,7 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
         sb.append(AccountUtil.amountFormatUnit(data.getUseCount(), getFirstTokenCoin(), OGCSCALE));
         sb.append("  ");
         sb.append(getString(R.string.kt_ratio));
-        sb.append(data.getUseRate()+"%");
+        sb.append(data.getUseRate() + "%");
 
         return sb.toString();
 

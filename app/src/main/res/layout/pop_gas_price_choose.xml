@@ -46,40 +46,99 @@
                 style="@style/style_split_line"
                 android:layout_marginTop="15dp" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:id="@+id/fraLayout_choose_first"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp"
-                android:text="优先"
-                android:textColor="@color/text_black_cd"
-                android:textSize="14sp" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="优先"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/img_choose_first"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="55dp"
+                    android:src="@drawable/choose"
+                    android:visibility="gone" />
+
+
+            </FrameLayout>
 
             <View style="@style/style_split_line" />
 
-            <TextView
-                android:layout_width="wrap_content"
+
+            <FrameLayout
+                android:id="@+id/fraLayout_choose_ordinary"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp"
-                android:text="普通"
-                android:textColor="@color/text_black_cd"
-                android:textSize="14sp" />
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="普通"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/img_choose_ordinary"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="55dp"
+                    android:src="@drawable/choose"
+                    android:visibility="gone" />
+
+
+            </FrameLayout>
 
             <View style="@style/style_split_line" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="15dp"
-                android:layout_marginTop="15dp"
-                android:text="经济"
-                android:textColor="@color/text_black_cd"
-                android:textSize="14sp" />
 
+            <FrameLayout
+                android:id="@+id/fraLayout_choose_economics"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="15dp"
+                    android:text="经济"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp" />
+
+                <ImageView
+                    android:id="@+id/img_choose_economics"
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="55dp"
+                    android:src="@drawable/choose"
+                    android:visibility="gone" />
+
+
+            </FrameLayout>
 
         </LinearLayout>
 

@@ -30,6 +30,7 @@ import org.web3j.protocol.http.HttpService;
 
 import java.io.IOException;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.concurrent.ExecutionException;
 
 import io.reactivex.Observable;
@@ -46,6 +47,11 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
     private ActivityTransferBinding mBinding;
 
     private final int CODEPERSE = 101;
+
+    private int chooseGasType = GasTypeChoosePop.ORDINARY;//矿工费类型 默认普通
+
+    private BigInteger gasPrice;//矿工费用
+    private BalanceListModel.AccountListBean accountListBean;
 
     public static void open(Context context, BalanceListModel.AccountListBean accountListBean) {
         if (context == null) {
@@ -66,43 +72,47 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        BalanceListModel.AccountListBean localCoinModel = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
+        accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
-        if (localCoinModel != null) {
-            mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(localCoinModel.getBalance()), 8) + localCoinModel.getSymbol());
-            mBaseBinding.titleView.setMidTitle(localCoinModel.getSymbol());
+        if (accountListBean != null) {
+            mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), 8) + accountListBean.getSymbol());
+            mBaseBinding.titleView.setMidTitle(accountListBean.getSymbol());
         }
-
+        
+        gasPrice = WalletHelper.getGasLimit();
 
         mBaseBinding.titleView.setMidTitle(R.string.transfer);
         mBinding.edtAmount.addTextChangedListener(new EditTextJudgeNumberWatcher(mBinding.edtAmount, 15, 8));
+
         initClickListener();
+
+        showLoadingDialog();
 
         mSubscription.add(
                 Observable.just("")
                         .subscribeOn(Schedulers.newThread())
                         .map(s -> WalletHelper.getGasValue())
                         .observeOn(AndroidSchedulers.mainThread())
-                        .subscribe(s -> {
-                            mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShowETH(new BigDecimal(s), 8));
+                        .subscribe(gasPrice -> {
+
+                            this.gasPrice = gasPrice;
+
+                            setShowGasPrice(gasPrice);
+
                         }, throwable -> {
 
-                        })
+                        }, () -> disMissLoading())
         );
 
 
         mBinding.btnNext.setOnClickListener(view -> {
-
-            Observable.just("")
+            mSubscription.add(Observable.just("")
                     .subscribeOn(Schedulers.newThread())
                     .map(s -> {
-                        WalletDBModel w = WalletHelper.getPrivateKeyAndAddress();
-                        LogUtil.E("余额1" + WalletHelper.getBalance(w.getAddress()));
-                        LogUtil.E("余额1" + AccountUtil.amountFormatUnitForShowETH(new BigDecimal(WalletHelper.getBalance(w.getAddress())), 8));
 
-                        LogUtil.E("余额2" + WalletHelper.getBalance(mBinding.editToAddress.getText().toString()));
-                        LogUtil.E("余额2" + AccountUtil.amountFormatUnitForShowETH(new BigDecimal(WalletHelper.getBalance(mBinding.editToAddress.getText().toString())), 8));
-                        return WalletHelper.transfer(w, mBinding.editToAddress.getText().toString(), "0.1");
+                        WalletDBModel w = WalletHelper.getPrivateKeyAndAddress();
+
+                        return WalletHelper.transfer(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), gasPrice);
                     })
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(s -> {
@@ -112,8 +122,17 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
                         LogUtil.E("has2————" + s.getTransactionHash());
                     }, throwable -> {
                         LogUtil.E("has————" + throwable);
-                    });
+                    }));
         });
+    }
+
+    /**
+     * 设置矿工费显示
+     *
+     * @param gasPrice
+     */
+    private void setShowGasPrice(BigInteger gasPrice) {
+        mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(gasPrice), 8) + accountListBean.getSymbol());
     }
 
     private void initClickListener() {
@@ -123,7 +142,26 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
         });
 
         mBinding.linLayoutGasChoose.setOnClickListener(view -> {
-            new GasTypeChoosePop(this).showPopupWindow();
+            new GasTypeChoosePop(this, chooseGasType).setItemClickListener((chooseType, typeString) -> {
+                chooseGasType = chooseType;
+                mBinding.tvChooseType.setText(typeString);
+
+                switch (chooseType) {
+                    case GasTypeChoosePop.FIRST:
+                        setShowGasPrice(gasPrice.multiply(new BigInteger("2")));
+                        break;
+                    case GasTypeChoosePop.ORDINARY:
+                        setShowGasPrice(gasPrice);
+                        break;
+
+                    case GasTypeChoosePop.ECONOMICS:
+                        setShowGasPrice(gasPrice.divide(new BigDecimal(2).toBigInteger()));
+                        break;
+
+                }
+
+
+            }).showPopupWindow();
         });
     }
 

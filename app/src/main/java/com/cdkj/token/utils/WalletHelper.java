@@ -35,6 +35,7 @@ import org.web3j.utils.Numeric;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
@@ -283,11 +284,10 @@ public class WalletHelper {
 
         WalletDBModel walletDBModel = new WalletDBModel();
         walletDBModel.setAddress(credentials1.getAddress());
-        walletDBModel.setPassWord(password);
+        walletDBModel.setPassWord(SHA1encode(password));
         walletDBModel.setHelpcenterEn(StringUtils.listToString(mnemonicList, HELPWORD_SIGN)); //储存下来 用，分割
         walletDBModel.setCoinType(COIN_ETH);
         walletDBModel.setPrivataeKey(key1.getPrivateKeyAsHex());
-
 
         return walletDBModel;
     }
@@ -420,6 +420,15 @@ public class WalletHelper {
     }
 
     /**
+     * 检测旧密码
+     *
+     * @param pwd
+     */
+    public static boolean checkOldPassword(String pwd) {
+        return TextUtils.equals(WalletHelper.SHA1encode(pwd), WalletHelper.getWalletPassword());
+    }
+
+    /**
      * 判断用户输入的助记词是否和本地的相同
      *
      * @param words
@@ -519,7 +528,7 @@ public class WalletHelper {
      * @throws IOException
      */
 
-    public static EthSendTransaction transfer(WalletDBModel walletDBModel, String to, String money) throws ExecutionException, InterruptedException, IOException {
+    public static EthSendTransaction transfer(WalletDBModel walletDBModel, String to, String money, BigInteger GAS_LIMIT) throws ExecutionException, InterruptedException, IOException {
 
         Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
         //转账人账户地址
@@ -529,23 +538,20 @@ public class WalletHelper {
 
         //转账人私钥
         Credentials credentials = Credentials.create(walletDBModel.getPrivataeKey());
-//        Credentials credentials = WalletUtils.loadBip39Credentials(
-//                "", walletDBModel.getHelpcenterEn());
+
         //getNonce（交易的笔数）
         EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(
                 ownAddress, DefaultBlockParameterName.LATEST).sendAsync().get();
 
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
 
-        //设置需要的矿工费
-        BigInteger GAS_LIMIT = BigInteger.valueOf(21000);
         BigInteger GAS_PRICE = web3j.ethGasPrice().send().getGasPrice();
 
         //创建交易，这里是转x个以太币
-        BigInteger value = Convert.toWei("1", Convert.Unit.ETHER).toBigInteger();
+        BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(18)).toBigInteger(); //需要转账的金额
 
         RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
-                nonce, GAS_PRICE, GAS_LIMIT, toAddress, value);
+                nonce, GAS_PRICE, GAS_LIMIT, toAddress, priceValue);
 
         //签名Transaction，这里要对交易做签名
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
@@ -566,8 +572,52 @@ public class WalletHelper {
      */
     public static BigInteger getGasValue() throws Exception {
         Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
-        BigInteger GAS_LIMIT = web3j.ethGasPrice().send().getGasPrice();
-        return GAS_LIMIT;
+        BigInteger gaslimit = BigInteger.valueOf(21000);
+        BigInteger gasPrice = web3j.ethGasPrice().send().getGasPrice();
+        return gasPrice.multiply(gaslimit);
     }
+
+    /**
+     *
+     */
+    public static BigInteger getGasLimit() {
+        BigInteger gaslimit = BigInteger.valueOf(21000);
+        return gaslimit;
+    }
+
+
+    private static final char[] HEX_DIGITS = {'0', '1', '2', '3', '4', '5',
+            '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
+
+    /**
+     * Takes the raw bytes from the digest and formats them correct.
+     *
+     * @param bytes the raw bytes from the digest.
+     * @return the formatted bytes.
+     */
+    private static String getFormattedText(byte[] bytes) {
+        int len = bytes.length;
+        StringBuilder buf = new StringBuilder(len * 2);
+        // 把密文转换成十六进制的字符串形式
+        for (int j = 0; j < len; j++) {
+            buf.append(HEX_DIGITS[(bytes[j] >> 4) & 0x0f]);
+            buf.append(HEX_DIGITS[bytes[j] & 0x0f]);
+        }
+        return buf.toString();
+    }
+
+    public static String SHA1encode(String str) {
+        if (str == null) {
+            return null;
+        }
+        try {
+            MessageDigest messageDigest = MessageDigest.getInstance("SHA1");
+            messageDigest.update(str.getBytes());
+            return getFormattedText(messageDigest.digest());
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
 }

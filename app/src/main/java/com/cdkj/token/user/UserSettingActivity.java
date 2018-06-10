@@ -58,7 +58,7 @@ public class UserSettingActivity extends AbsBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        init();
+//        init();
     }
 
     private void init() {

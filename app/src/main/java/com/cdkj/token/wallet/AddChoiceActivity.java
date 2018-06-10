@@ -129,11 +129,11 @@ public class AddChoiceActivity extends AbsRefreshListActivity {
             accountListBeans.add(accountListBean);
         }
 
-        mRefreshHelper.setData(accountListBeans, getStrRes(R.string.bill_none), R.mipmap.order_none);
 
-
-        if (TextUtils.isEmpty(SPUtilHelper.getUserToken()))
+        if (TextUtils.isEmpty(SPUtilHelper.getUserToken()) || true) {
+            mRefreshHelper.setData(accountListBeans, getStrRes(R.string.bill_none), R.mipmap.order_none);
             return;
+        }
 
         Map<String, Object> map = new HashMap<>();
         map.put("currency", "");
@@ -153,7 +153,7 @@ public class AddChoiceActivity extends AbsRefreshListActivity {
 
                 if (data == null)
                     return;
-
+                accountListBeans.addAll(data.getAccountList());
                 mRefreshHelper.setData(data.getAccountList(), getStrRes(R.string.bill_none), R.mipmap.order_none);
             }
 

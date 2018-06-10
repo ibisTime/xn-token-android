@@ -25,6 +25,7 @@ import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUserBinding;
+import com.cdkj.token.wallet.trusteeship.WalletUserActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -66,7 +67,10 @@ public class UserFragment extends BaseLazyFragment {
 
     private void initListener() {
 
-        mBinding.rlPhoto.setOnClickListener(view -> {
+        mBinding.linLayoutLogo.setOnClickListener(view -> {
+            if (!SPUtilHelper.isLogin(mActivity, false)) {
+                return;
+            }
             ImageSelectActivity.launchFragment(this, PHOTOFLAG);
         });
 
@@ -75,10 +79,22 @@ public class UserFragment extends BaseLazyFragment {
         });
 
         mBinding.llSetting.setOnClickListener(view -> {
+            if (!SPUtilHelper.isLogin(mActivity, false)) {
+                return;
+            }
             UserSettingActivity.open(mActivity);
+        });
+        mBinding.linLayoutUserAccount.setOnClickListener(view -> {
+            if (!SPUtilHelper.isLogin(mActivity, false)) {
+                return;
+            }
+            WalletUserActivity.open(mActivity);
         });
 
         mBinding.llJoin.setOnClickListener(view -> {
+            if (!SPUtilHelper.isLogin(mActivity, false)) {
+                return;
+            }
             UserJoinActivity.open(mActivity);
         });
 

@@ -1,5 +1,6 @@
 package com.cdkj.token.wallet.export;
 
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -8,9 +9,11 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityPrivateKeyShowBinding;
 import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.wallet.coin_detail.WalletAddressShowActivity;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -48,7 +51,7 @@ public class CoinPrivateKeyShowActivity extends AbsBaseLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
         String name = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
-        mBaseBinding.titleView.setMidTitle(name+getString(R.string.private_key));
+        mBaseBinding.titleView.setMidTitle(name + getString(R.string.private_key));
 
         mBinding.tvCoinName.setText(getString(R.string.coin_key_name, name));
 
@@ -64,5 +67,22 @@ public class CoinPrivateKeyShowActivity extends AbsBaseLoadActivity {
                         })
         );
 
+        mBinding.tvAddress.setOnClickListener(view -> {
+            setCopyText(mBinding.tvAddress.getText(), getStrRes(R.string.wallet_charge_address_copy_success));
+        });
+        mBinding.tvPrivateKey.setOnClickListener(view -> {
+            setCopyText(mBinding.tvPrivateKey.getText(), getString(R.string.private_key_copy_success));
+        });
+
+    }
+
+    /**
+     * @param copy
+     * @param str  提示语句
+     */
+    private void setCopyText(CharSequence copy, String str) {
+        ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        cmb.setText(copy); //将内容放入粘贴管理器,在别的地方长按选择"粘贴"即可
+        ToastUtil.show(CoinPrivateKeyShowActivity.this, str);
     }
 }
