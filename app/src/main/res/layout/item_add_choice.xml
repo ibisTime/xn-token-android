@@ -11,6 +11,7 @@
         <View style="@style/style_split_line_broad" />
 
         <LinearLayout
+            android:id="@+id/linLayout_choose"
             android:layout_width="match_parent"
             android:layout_height="73dp"
             android:gravity="center_vertical">

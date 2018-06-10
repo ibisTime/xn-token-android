@@ -12,6 +12,7 @@ import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.AddChoiceAdapter;
+import com.cdkj.token.adapter.AddChoiceAdapter2;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.CoinModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -85,7 +86,7 @@ public class AddChoiceActivity2 extends BaseRefreshActivity {
 
     @Override
     protected BaseQuickAdapter onCreateAdapter(List mDataList) {
-        return new AddChoiceAdapter(mDataList);
+        return new AddChoiceAdapter2(mDataList);
     }
 
     @Override
