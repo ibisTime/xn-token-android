@@ -89,7 +89,7 @@ public class ImportCreatePassWordActivity extends AbsBaseLoadActivity {
                 }
 
                 if (!TextUtils.equals(mPassWord, pwd)) { //两次输入密码不一致
-                    mPassWord = "";
+                    mPassWord = null;
                     mBinding.passWordLayout.passWordLayout.removeAllPwd();
                     mBinding.tvTips.setText(R.string.please_set_transaction_pass_word);
                     UITipDialog.showInfo(ImportCreatePassWordActivity.this, getString(R.string.password_error));
@@ -111,11 +111,13 @@ public class ImportCreatePassWordActivity extends AbsBaseLoadActivity {
         mSubscription.add(
                 Observable.just(paword)
                         .subscribeOn(Schedulers.newThread())
-                        .map(password -> WalletHelper.createWalletInfobyMnenonic(mWords))
-                        .filter(walletDBModel -> walletDBModel != null)
-                        .map(walletDBModel -> {
-                            walletDBModel.setPassWord(paword);
-                            return walletDBModel.save();
+                        .map(s -> WalletHelper.saveWalletPassWord(s))
+                        .map(isSavePass -> {
+                            if (!isSavePass) {
+                                return false;
+                            }
+                            return WalletHelper.createWalletInfobyMnenonic(mWords, WalletHelper.COIN_ETH) &&
+                                    WalletHelper.createWalletInfobyMnenonic(mWords, WalletHelper.COIN_WAN);
                         })
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnComplete(() -> disMissLoading())

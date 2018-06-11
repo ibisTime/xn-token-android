@@ -121,10 +121,8 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
                 return;
             }
 
-
-//            if(AccountUtil.amountFormatUnit(new BigDecimal(accountListBean.getBalance()),8).subtract(new BigInteger(""))
-
             transfer();
+
         });
     }
 
@@ -136,9 +134,10 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
         mSubscription.add(Observable.just("")
                 .subscribeOn(Schedulers.newThread())
                 .map(s -> {
-
-                    WalletDBModel w = WalletHelper.getPrivateKeyAndAddress();
-
+                    WalletDBModel w = WalletHelper.getPrivateKeyAndAddressByCoinType(WalletHelper.COIN_ETH);
+                    if (TextUtils.equals(accountListBean.getSymbol(), WalletHelper.COIN_WAN)) {
+                        return WalletHelper.transferWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), transferGasPrice);
+                    }
                     return WalletHelper.transfer(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), transferGasPrice);
                 })
                 .observeOn(AndroidSchedulers.mainThread())

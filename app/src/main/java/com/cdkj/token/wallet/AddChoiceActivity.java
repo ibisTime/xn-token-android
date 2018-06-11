@@ -125,7 +125,12 @@ public class AddChoiceActivity extends AbsRefreshListActivity {
             CoinModel.AccountListBean accountListBean = new CoinModel.AccountListBean();
             accountListBean.setCurrency(localCoinModel.getCoinShortName() + "-" + localCoinModel.getCoinEName());
             accountListBean.setLocalCoinType(localCoinModel.getCoinType());
-            accountListBean.setChoose(configStr.indexOf(localCoinModel.getCoinType()) != -1);  //判断用户是否配置了币种
+            if (WalletHelper.getFirstConfig()) {
+                accountListBean.setChoose(true);  //第一次配置全部选中
+            } else {
+                accountListBean.setChoose(configStr.indexOf(localCoinModel.getCoinType()) != -1);  //判断用户是否配置了币种
+            }
+
             accountListBeans.add(accountListBean);
         }
 

@@ -58,7 +58,7 @@ public class CoinPrivateKeyShowActivity extends AbsBaseLoadActivity {
         mSubscription.add(
                 Observable.just("")
                         .subscribeOn(Schedulers.io())
-                        .map(s -> WalletHelper.getPrivateKeyAndAddress())
+                        .map(s -> WalletHelper.getPrivateKeyAndAddressByCoinType(WalletHelper.COIN_ETH))
                         .filter(walletDBModel1 -> walletDBModel1 != null)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(walletDBModel1 -> {

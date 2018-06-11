@@ -181,7 +181,7 @@ public class PassWordLayout extends LinearLayout {
      */
     public void addPwd(String pwd) {
         if (mPassList != null && mPassList.size() < maxLength) {
-            mPassList.add(pwd + "");
+            mPassList.add(pwd);
             setNextInput(pwd);
         }
 
@@ -227,7 +227,6 @@ public class PassWordLayout extends LinearLayout {
                         passWordView.startInputState();
                     }
                 }
-
             }
 
             mPassList.clear();

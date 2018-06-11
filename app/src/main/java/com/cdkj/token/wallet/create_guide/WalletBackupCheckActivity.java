@@ -65,7 +65,7 @@ public class WalletBackupCheckActivity extends AbsBaseLoadActivity {
     public void afterCreate(Bundle savedInstanceState) {
         isFromBackup = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN, false);
 
-        List<String> words = WalletHelper.getHelpWordsList();
+        List<String> words = WalletHelper.getHelpWordsListByCoinType(WalletHelper.COIN_ETH);
 
         Collections.shuffle(words);//打乱数组顺序
 

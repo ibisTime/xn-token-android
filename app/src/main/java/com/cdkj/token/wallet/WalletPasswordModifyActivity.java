@@ -82,10 +82,11 @@ public class WalletPasswordModifyActivity extends AbsBaseLoadActivity {
      */
     private void checkOldPassword(String pwd) {
         if (WalletHelper.checkOldPassword(pwd)) {
+            isCheckOldPassWordState = false;
             mBinding.passWordLayout.passWordLayout.removeAllPwd();
             mBinding.tvTips.setText(R.string.please_set_transaction_password);
-            isCheckOldPassWordState = false;
         } else {
+            isCheckOldPassWordState = true;
             mBinding.passWordLayout.passWordLayout.removeAllPwd();
             UITipDialog.showFail(WalletPasswordModifyActivity.this, getString(R.string.transaction_password_error));
         }
@@ -105,7 +106,7 @@ public class WalletPasswordModifyActivity extends AbsBaseLoadActivity {
         }
 
         if (!TextUtils.equals(mPassWord, pwd)) { //两次输入密码不一致
-            mPassWord = "";
+            mPassWord = null;
             mBinding.passWordLayout.passWordLayout.removeAllPwd();
             mBinding.tvTips.setText(R.string.please_set_transaction_pass_word);
             UITipDialog.showInfo(WalletPasswordModifyActivity.this, getString(R.string.password_error));

@@ -110,16 +110,22 @@ public class CreatePassWordActivity extends AbsBaseLoadActivity {
     /**
      * 异步创建助记词并保存
      *
-     * @param paword
+     * @param password
      */
-    public void createMnemonicWordsAsyn(String paword) {
+    public void createMnemonicWordsAsyn(String password) {
         showLoadingDialog();
         mSubscription.add(
-                Observable.just(paword)
+                Observable.just(password)
                         .subscribeOn(Schedulers.newThread())
-                        .map(password -> WalletHelper.createWalletInfobyPassWord(password))
-                        .filter(walletDBModel -> walletDBModel != null)
-                        .map(walletDBModel -> walletDBModel.save())
+                        .map(pass -> WalletHelper.saveWalletPassWord(pass))
+                        .map(isSavePass -> {
+                            if (!isSavePass) {
+                                return false;
+                            }
+                            return WalletHelper.createWalletInfobyPassWord(WalletHelper.COIN_ETH)
+                                    &&
+                                    WalletHelper.createWalletInfobyPassWord(WalletHelper.COIN_WAN);
+                        })
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnComplete(() -> disMissLoading())
                         .subscribe(isSave -> {

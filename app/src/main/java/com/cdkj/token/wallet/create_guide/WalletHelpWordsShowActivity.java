@@ -58,7 +58,7 @@ public class WalletHelpWordsShowActivity extends AbsBaseLoadActivity {
 
         commonDialog.show();
 
-        mBinding.tvWords.setText(WalletHelper.getHelpWords());
+        mBinding.tvWords.setText(WalletHelper.getHelpWordsByCoinType(WalletHelper.COIN_ETH));
         mBinding.btnNowBackup.setOnClickListener(view -> {
             WalletBackupCheckActivity.open(this, isFromBackup);
             finish();

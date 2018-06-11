@@ -160,7 +160,7 @@ public class WalletFragment extends BaseLazyFragment {
 
         List<CoinTypeAndAddress> list = new ArrayList<>();
 
-        WalletDBModel walletDBModel = WalletHelper.getPrivateKeyAndAddress();
+        WalletDBModel walletDBModel = WalletHelper.getPrivateKeyAndAddressByCoinType(WalletHelper.COIN_ETH);
 
         for (LocalCoinModel localCoinModel : WalletHelper.getConfigLocalCoinList()) {
             CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();
@@ -242,7 +242,7 @@ public class WalletFragment extends BaseLazyFragment {
                     accountListBeans.add(accountListBean);
                 }
 
-                refreshHelper.setData(accountListBeans, getStrRes(R.string.bill_none), R.mipmap.order_none);
+                refreshHelper.setData(data.getAccountList(), getStrRes(R.string.bill_none), R.mipmap.order_none);
 
             }
 

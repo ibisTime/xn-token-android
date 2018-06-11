@@ -55,7 +55,7 @@ public class WalletAddressShowActivity extends AbsBaseLoadActivity {
 
 
     private void initQRCodeAndAddress() {
-        WalletDBModel walletDBModel = WalletHelper.getPrivateKeyAndAddress();
+        WalletDBModel walletDBModel = WalletHelper.getPrivateKeyAndAddressByCoinType(WalletHelper.COIN_ETH);
         Bitmap mBitmap = CodeUtils.createImage(walletDBModel.getAddress(), 400, 400, null);
         mBinding.imgQRCode.setImageBitmap(mBitmap);
         mBinding.txtAddress.setText(walletDBModel.getAddress());

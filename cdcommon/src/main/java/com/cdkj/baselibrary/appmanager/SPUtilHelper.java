@@ -38,7 +38,7 @@ public class SPUtilHelper {
             SPUtilHelper.logOutClear();
             // 路由跳转登录页面
             CdRouteHelper.openLogin(canopenmain);
-
+            return false;
         }
 
         return true;

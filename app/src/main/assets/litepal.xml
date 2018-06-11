@@ -2,10 +2,11 @@
 <litepal>
     <dbname value="tha"></dbname>
 
-    <version value="3"></version>
+    <version value="4"></version>
 
     <list>
         <mapping class="com.cdkj.baselibrary.model.BaseCoinModel"></mapping>
         <mapping class="com.cdkj.token.model.WalletDBModel"></mapping><!---->
+        <mapping class="com.cdkj.token.model.WalletInfoDBModel"></mapping><!---->
     </list>
 </litepal>
