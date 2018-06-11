@@ -20,6 +20,13 @@ android {
         }
 
     }
+
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
     buildTypes {
 //        release {
 //            minifyEnabled false
@@ -28,13 +35,13 @@ android {
 
         release {
             buildConfigField "boolean", "IS_DEBUG", "false"
-            minifyEnabled true //开启混淆
+            minifyEnabled false //开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            ndk {
-                // 需要将 x86 架构过滤掉
-                abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
-            }
+//            ndk {
+//                // 需要将 x86 架构过滤掉
+//                abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
+//            }
         }
 
         debug {
@@ -89,7 +96,7 @@ dependencies {
 
     implementation group: 'org.bitcoinj', name: 'bitcoinj-core', version: '0.14.7'
     implementation 'org.web3j:core:3.3.1-android'
-    implementation "org.ethereum:ethereumj-core:1.6.+"
+//    implementation "org.ethereum:ethereumj-core:1.6.+"
 
     implementation 'com.github.razerdp:BasePopup:1.9.4'
 

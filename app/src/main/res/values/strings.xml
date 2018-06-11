@@ -405,6 +405,7 @@
     <string name="ordinary">普通</string>
     <string name="economics">经济</string>
     <string name="private_key_copy_success">私钥已复制</string>
+    <string name="transfer_fail">转账失败</string>
 
 
 </resources>

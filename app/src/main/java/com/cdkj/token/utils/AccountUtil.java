@@ -7,6 +7,7 @@ import com.cdkj.token.R;
 import org.litepal.crud.DataSupport;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 
 import static java.math.BigDecimal.ROUND_HALF_DOWN;
@@ -33,7 +34,7 @@ public class AccountUtil {
      */
     public static String amountFormatUnit(BigDecimal amount, String coin, int scale) {
 
-        if (amount.equals(new BigDecimal(0))) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) == -1 || amount.compareTo(BigDecimal.ZERO) == 0) {
             return "0.00";
         }
 
@@ -50,7 +51,7 @@ public class AccountUtil {
      */
     public static String amountFormatUnitForShowOGC(BigDecimal amount, String coin, int scale) {
 
-        if (amount == null || amount.compareTo(new BigDecimal(0)) == -1 || amount.compareTo(new BigDecimal(0)) == 0) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) == -1 || amount.compareTo(BigDecimal.ZERO) == 0) {
             return "0 " + OGC;
         }
 
@@ -67,7 +68,7 @@ public class AccountUtil {
      */
     public static String amountFormatUnitForShowETH(BigDecimal amount, int scale) {
 
-        if (amount == null || amount.compareTo(new BigDecimal(0)) == -1 || amount.compareTo(new BigDecimal(0)) == 0) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) == -1 || amount.compareTo(BigDecimal.ZERO) == 0) {
             return "0 " + "ETH";
         }
 
@@ -76,7 +77,7 @@ public class AccountUtil {
     }
 
     /**
-     * 货币单位转换 带单位 ETH
+     * 货币单位转换 带单位
      *
      * @param amount
      * @param
@@ -84,12 +85,27 @@ public class AccountUtil {
      */
     public static String amountFormatUnitForShow(BigDecimal amount, int scale) {
 
-        if (amount == null || amount.compareTo(new BigDecimal(0)) == -1 || amount.compareTo(new BigDecimal(0)) == 0) {
-            return "0 ";
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) == -1 || amount.compareTo(BigDecimal.ZERO) == 0) {
+            return "0";
         }
 
         return amount.divide(UNIT_MIN.pow(18), scale, ROUND_HALF_EVEN).toPlainString();
+    }
 
+    /**
+     * 货币单位转换
+     *
+     * @param amount
+     * @param
+     * @return
+     */
+    public static BigInteger amountFormatUnit(BigDecimal amount, int scale) {
+
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) == -1 || amount.compareTo(BigDecimal.ZERO) == 0) {
+            return new BigInteger("0");
+        }
+
+        return amount.divide(UNIT_MIN.pow(18), scale, ROUND_HALF_EVEN).toBigInteger();
     }
 
     /**

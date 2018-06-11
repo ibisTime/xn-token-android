@@ -34,7 +34,7 @@ public class SPUtilHelper {
      * @return
      */
     public static boolean isLogin(Context context, boolean canopenmain) {
-        if (TextUtils.isEmpty(getUserToken())) {
+        if (TextUtils.isEmpty(getUserId())) {
             SPUtilHelper.logOutClear();
             // 路由跳转登录页面
             CdRouteHelper.openLogin(canopenmain);
@@ -50,7 +50,7 @@ public class SPUtilHelper {
      * @return
      */
     public static boolean isLoginNoStart() {
-        if (TextUtils.isEmpty(getUserToken())) {
+        if (TextUtils.isEmpty(getUserId())) {
             return false;
         }
         return true;
