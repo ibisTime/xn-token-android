@@ -3,6 +3,7 @@ package com.cdkj.token.user.login;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
@@ -13,12 +14,14 @@ import com.cdkj.baselibrary.model.BaseCoinModel;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
+import com.cdkj.token.utils.CipherUtils;
 import com.cdkj.token.utils.WalletHelper;
 import com.cdkj.token.wallet.IntoWalletBeforeActivity;
 import com.cdkj.token.wallet.create_guide.WalletBackupCheckActivity;
@@ -31,15 +34,20 @@ import org.bitcoinj.crypto.HDUtils;
 import org.bitcoinj.wallet.DeterministicKeyChain;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.litepal.crud.DataSupport;
+import org.litepal.util.cipher.CipherUtil;
 import org.web3j.crypto.Credentials;
 
 import java.math.BigInteger;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import javax.crypto.Cipher;
+import javax.crypto.NoSuchPaddingException;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -152,7 +160,6 @@ public class StartActivity extends BaseActivity {
                 // 初始化交易界面默认所选择的币
                 data.get(0).setChoose(true);
                 DataSupport.saveAll(data);
-
                 open();
             }
 

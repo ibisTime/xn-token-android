@@ -54,8 +54,7 @@ public class MainActivity extends AbsBaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-
-        CoinListService.close(this);
+//        CoinListService.close(this);
     }
 
     /**
@@ -116,7 +115,7 @@ public class MainActivity extends AbsBaseActivity {
 
         setShowIndex(WALLET);
 
-        CoinListService.open(this);
+//        CoinListService.open(this);
     }
 
 

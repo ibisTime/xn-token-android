@@ -2,6 +2,7 @@ package com.cdkj.token.api;
 
 import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.api.BaseResponseModel;
+import com.cdkj.baselibrary.api.ResponseInListModel;
 import com.cdkj.baselibrary.model.BaseCoinModel;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.model.UserLoginModel;
@@ -21,6 +22,7 @@ import com.cdkj.token.model.DealUserDataModel;
 import com.cdkj.token.model.ExchangeModel;
 import com.cdkj.token.model.InviteModel;
 import com.cdkj.token.model.KtInfoModel;
+import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.MarketCoinModel;
 import com.cdkj.token.model.MarketModel;
 import com.cdkj.token.model.MsgListModel;
@@ -47,7 +49,14 @@ import retrofit2.http.POST;
  */
 
 public interface MyApi {
-
+    /**
+     * 获取本地币种流水
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ResponseInListModel<LocalCoinBill>>> getLocalCoinBillList(@Field("code") String code, @Field("json") String json);
 
     /**
      * 根据币种列表获取相应的币种信息列表

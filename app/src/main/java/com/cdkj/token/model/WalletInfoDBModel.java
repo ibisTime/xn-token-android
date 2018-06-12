@@ -1,5 +1,6 @@
 package com.cdkj.token.model;
 
+import org.litepal.annotation.Encrypt;
 import org.litepal.crud.DataSupport;
 
 /**
@@ -9,16 +10,6 @@ import org.litepal.crud.DataSupport;
 public class WalletInfoDBModel extends DataSupport {
 
     private String walletPassWord; //钱包密码
-
-    private String helpWordsrEn;// 助记词 英文
-
-    public String getHelpWordsrEn() {
-        return helpWordsrEn;
-    }
-
-    public void setHelpWordsrEn(String helpWordsrEn) {
-        this.helpWordsrEn = helpWordsrEn;
-    }
 
     public String getWalletPassWord() {
         return walletPassWord;

@@ -24,20 +24,15 @@ import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.web3j.crypto.WalletUtils;
-import org.web3j.protocol.admin.Admin;
-import org.web3j.protocol.admin.AdminFactory;
-import org.web3j.protocol.core.DefaultBlockParameterName;
-import org.web3j.protocol.core.methods.response.EthGetBalance;
-import org.web3j.protocol.http.HttpService;
 
-import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.concurrent.ExecutionException;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
 
 /**
  * 钱包转账
@@ -51,7 +46,6 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
     private final int CODEPERSE = 101;
 
     private int chooseGasType = GasTypeChoosePop.ORDINARY;//矿工费类型 默认普通
-
     private BigInteger gasPrice;//矿工费用
     private BigInteger transferGasPrice;//计算后转账矿工费用
 
@@ -79,12 +73,12 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
         if (accountListBean != null) {
-            mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), 8) + " " + accountListBean.getSymbol());
+            mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), ETHSCALE) + " " + accountListBean.getSymbol());
             mBaseBinding.titleView.setMidTitle(accountListBean.getSymbol());
         }
 
-        gasPrice = WalletHelper.getGasLimit();
         transferGasPrice = WalletHelper.getGasLimit();
+        gasPrice = WalletHelper.getGasLimit();
 
         mBaseBinding.titleView.setMidTitle(R.string.transfer);
         mBinding.edtAmount.addTextChangedListener(new EditTextJudgeNumberWatcher(mBinding.edtAmount, 15, 8));
@@ -111,13 +105,30 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
             }
 
             try {
-                BigInteger amountBigInteger = new BigDecimal(mBinding.edtAmount.getText().toString().trim()).toBigInteger();
-                if (transferGasPrice.add(amountBigInteger).compareTo(AccountUtil.amountFormatUnit(new BigDecimal(accountListBean.getBalance()), 8)) == 1) {
+
+                if (accountListBean == null) {
+                    UITipDialog.showInfo(this, "可用余额不足");
+                    return;
+                }
+
+                BigInteger amountBigInteger = AccountUtil.bigIntegerFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim())); //转账数量
+
+                if (amountBigInteger.compareTo(BigInteger.ZERO) == 0 || amountBigInteger.compareTo(BigInteger.ZERO) == -1) {
+                    UITipDialog.showInfo(this, "请输入正确的转账数量");
+                    return;
+                }
+
+                BigInteger allBigInteger = transferGasPrice.add(amountBigInteger);//手续费+转账数量
+
+                int checkInt = allBigInteger.compareTo(accountListBean.getBalance()); //比较
+
+                if (checkInt == 1 || checkInt == 0) {
                     UITipDialog.showInfo(this, "可用余额不足");
                     return;
                 }
             } catch (Exception e) {
-                UITipDialog.showInfo(this, "请输入正确的金额");
+                e.printStackTrace();
+                UITipDialog.showInfo(this, "请输入正确的转账数量");
                 return;
             }
 
@@ -141,6 +152,7 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
                     return WalletHelper.transfer(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), transferGasPrice);
                 })
                 .observeOn(AndroidSchedulers.mainThread())
+                .doFinally(() -> disMissLoading())
                 .subscribe(s -> {
                     if (s.getError() != null) {
                         LogUtil.E("has————" + s.getError().getMessage());
@@ -155,7 +167,7 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
                 }, throwable -> {
                     UITipDialog.showFail(WalletTransferActivity.this, getString(R.string.transfer_fail));
                     LogUtil.E("has————" + throwable);
-                }, () -> disMissLoading()));
+                }));
     }
 
     /**
@@ -169,23 +181,23 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
                         .subscribeOn(Schedulers.newThread())
                         .map(s -> WalletHelper.getGasValue())
                         .observeOn(AndroidSchedulers.mainThread())
+                        .doFinally(() -> disMissLoading())
                         .subscribe(gasPrice -> {
                             this.gasPrice = gasPrice;
-                            setShowGasPrice(gasPrice);
+                            setShowGasPrice();
 
                         }, throwable -> {
 
-                        }, () -> disMissLoading())
+                        })
         );
     }
 
     /**
      * 设置矿工费显示
-     *
-     * @param gasPrice
      */
-    private void setShowGasPrice(BigInteger gasPrice) {
-        mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(gasPrice), 8) + " " + accountListBean.getSymbol());
+    private void setShowGasPrice() {
+
+        mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(transferGasPrice).multiply(new BigDecimal(this.gasPrice)), ETHSCALE) + " " + accountListBean.getSymbol());
     }
 
     private void initClickListener() {
@@ -201,19 +213,17 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
 
                 switch (chooseType) {
                     case GasTypeChoosePop.FIRST:
-                        transferGasPrice = gasPrice.multiply(new BigDecimal(2).toBigInteger());
-                        setShowGasPrice(transferGasPrice);
+                        transferGasPrice = WalletHelper.getGasLimit().multiply(new BigDecimal(2).toBigInteger());
                         break;
                     case GasTypeChoosePop.ORDINARY:
-                        transferGasPrice = gasPrice;
+                        transferGasPrice = WalletHelper.getGasLimit();
                         break;
 
                     case GasTypeChoosePop.ECONOMICS:
-                        transferGasPrice = gasPrice.divide(new BigDecimal(2).toBigInteger());
+                        transferGasPrice = WalletHelper.getGasLimit().divide(new BigDecimal(2).toBigInteger());
                         break;
-
                 }
-                setShowGasPrice(transferGasPrice);
+                setShowGasPrice();
 
             }).showPopupWindow();
         });

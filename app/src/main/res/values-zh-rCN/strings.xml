@@ -408,4 +408,5 @@
     <string name="transfer_fail">转账失败</string>
     <string name="sure_1">确认</string>
     <string name="words_tip_2">请输入备份的钱包助记词（12个英文单词），按空格分离</string>
+    <string name="please_open_the_net">请先打开网络</string>
 </resources>

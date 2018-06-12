@@ -36,13 +36,11 @@ import retrofit2.Call;
 /**
  * Created by lei on 2017/8/21.
  */
-
 public class UserFragment extends BaseLazyFragment {
 
     private FragmentUserBinding mBinding;
 
     public final int PHOTOFLAG = 110;
-
 
     /**
      * 获得fragment实例
@@ -191,7 +189,7 @@ public class UserFragment extends BaseLazyFragment {
      */
     public void getUserInfoRequest() {
 
-        if (true) {
+        if (!SPUtilHelper.isLoginNoStart()) {
             return;
         }
 

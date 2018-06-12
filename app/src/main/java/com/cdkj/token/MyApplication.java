@@ -50,6 +50,7 @@ public class MyApplication extends Application {
 
     private void initLitePal() {
         LitePal.initialize(this);
+        LitePal.aesKey("tha_wallet");
     }
 
     private void initZXing() {

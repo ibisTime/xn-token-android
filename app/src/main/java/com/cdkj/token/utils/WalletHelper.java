@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.baselibrary.utils.SPUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MyApplication;
@@ -33,15 +34,27 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.security.InvalidKeyException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import javax.crypto.BadPaddingException;
+import javax.crypto.Cipher;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+import javax.crypto.spec.SecretKeySpec;
+
 import static com.cdkj.token.utils.AccountUtil.UNIT_MIN;
+import static com.cdkj.token.utils.AccountUtil.UNIT_POW;
 import static org.litepal.crud.DataSupport.findLast;
 
 /**
@@ -56,7 +69,14 @@ public class WalletHelper {
 
     //        public final static String WEB3J_URL = "https://mainnet.infura.io/ZJR3JJlmLyf5mg4A9UxA";//
     public final static String WEB3J_URL = "https://rinkeby.infura.io/qfyZa8diWhk28tT9Cwft";//
-    public final static String WEB3J_URL_WAN = "http://47.75.165.70:8546";//
+
+    public final static String WEB3J_URL_WAN = "http://120.26.6.213:8546";//
+
+    public final static String TO_BROWSER_URL = "https://rinkeby.etherscan.io/tx/";//跳向区块链浏览器
+
+    public final static String WAN_TO_BROWSER_URL = "：http://47.104.61.26/block/trans/";//跳向区块链浏览器
+
+    public final static String WALLPASS = "tha_etc";//跳向区块链浏览器
 
 
     //TODO 币种使用枚举类
@@ -257,7 +277,7 @@ public class WalletHelper {
      * @param
      * @return
      */
-    public static boolean createWalletInfobyPassWord(String coinType) {
+    public static boolean createWalletInfobyPassWord(String coinType) throws Exception {
         // 钱包种子
         DeterministicSeed seed1 = new DeterministicSeed(new SecureRandom(),
                 128, "", Utils.currentTimeSeconds());
@@ -284,11 +304,43 @@ public class WalletHelper {
 
         WalletDBModel walletDBModel = new WalletDBModel();
         walletDBModel.setAddress(credentials1.getAddress());
-        walletDBModel.setHelpWordsrEn(StringUtils.listToString(mnemonicList, HELPWORD_SIGN)); //储存下来 用，分割
+        walletDBModel.setHelpWordsrEn(encrypt(StringUtils.listToString(mnemonicList, HELPWORD_SIGN))); //储存下来 用，分割
         walletDBModel.setCoinType(coinType);
-        walletDBModel.setPrivataeKey(key1.getPrivateKeyAsHex());
+        walletDBModel.setPrivataeKey(encrypt(key1.getPrivateKeyAsHex()));
 
         return walletDBModel.save();
+    }
+
+    /**
+     * 加密
+     *
+     * @param privateKeyAsHex
+     * @return
+     * @throws Exception
+     */
+    private static String encrypt(String privateKeyAsHex) {
+        try {
+            return CipherUtils.encrypt(privateKeyAsHex, WALLPASS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return privateKeyAsHex;
+    }
+
+    /**
+     * 解密
+     *
+     * @param privateKeyAsHex
+     * @return
+     * @throws Exception
+     */
+    private static String decrypt(String privateKeyAsHex) {
+        try {
+            return CipherUtils.decrypt(privateKeyAsHex, WALLPASS);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return privateKeyAsHex;
     }
 
 
@@ -330,7 +382,7 @@ public class WalletHelper {
         Cursor cursor = getCursorByCoinTypeSQL(coinType);
         WalletDBModel walletDBModel = new WalletDBModel();
         if (cursor != null && cursor.moveToFirst()) {
-            walletDBModel.setPrivataeKey(cursor.getString(cursor.getColumnIndex("privataekey")));
+            walletDBModel.setPrivataeKey(decrypt(cursor.getString(cursor.getColumnIndex("privataekey"))));
             walletDBModel.setAddress(cursor.getString(cursor.getColumnIndex("address")));
         }
 
@@ -400,8 +452,8 @@ public class WalletHelper {
 
         WalletDBModel walletDBModel = new WalletDBModel();
         walletDBModel.setAddress(credentials.getAddress());
-        walletDBModel.setHelpWordsrEn(StringUtils.listToString(defaultMnenonic, HELPWORD_SIGN)); //储存下来 用，分割
-        walletDBModel.setPrivataeKey(key.getPrivateKeyAsHex());
+        walletDBModel.setHelpWordsrEn(encrypt(StringUtils.listToString(defaultMnenonic, HELPWORD_SIGN))); //储存下来 用，分割
+        walletDBModel.setPrivataeKey(encrypt(key.getPrivateKeyAsHex()));
         walletDBModel.setCoinType(coinType);
 
         return walletDBModel.save();
@@ -425,7 +477,7 @@ public class WalletHelper {
      */
     public static void changeWalletPassWord(String password) {
         ContentValues values = new ContentValues();
-        values.put("walletPassWord", SHA1encode(password));
+        values.put("walletPassWord", EncryptionString(password));
         DataSupport.updateAll(WalletInfoDBModel.class, values);
     }
 
@@ -437,7 +489,7 @@ public class WalletHelper {
      */
     public static boolean saveWalletPassWord(String password) {
         WalletInfoDBModel values = new WalletInfoDBModel();
-        values.setWalletPassWord(SHA1encode(password));
+        values.setWalletPassWord(EncryptionString(password));
         return values.save();
     }
 
@@ -461,7 +513,7 @@ public class WalletHelper {
      * @param pwd
      */
     public static boolean checkOldPassword(String pwd) {
-        return TextUtils.equals(WalletHelper.SHA1encode(pwd), WalletHelper.getWalletPassword());
+        return TextUtils.equals(WalletHelper.EncryptionString(pwd), WalletHelper.getWalletPassword());
     }
 
     /**
@@ -473,7 +525,7 @@ public class WalletHelper {
     public static boolean checkCacheWords(String words) {
 
         try {
-            String mwords = findLast(WalletDBModel.class).getHelpWordsrEn();
+            String mwords = encrypt(findLast(WalletDBModel.class).getHelpWordsrEn());
             return TextUtils.equals(words, mwords);
 
         } catch (Exception e) {
@@ -511,7 +563,7 @@ public class WalletHelper {
         //矿工费
         BigInteger gasPrice = web3j.ethGasPrice().send().getGasPrice();
 
-        BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(18)).toBigInteger(); //需要转账的金额
+        BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(UNIT_POW)).toBigInteger(); //需要转账的金额
 
         // 本地签名的
         RawTransaction rawTransaction = RawTransaction.createTransaction(
@@ -584,7 +636,7 @@ public class WalletHelper {
         BigInteger GAS_PRICE = web3j.ethGasPrice().send().getGasPrice();
 
         //创建交易，这里是转x个以太币
-        BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(18)).toBigInteger(); //需要转账的金额
+        BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(UNIT_POW)).toBigInteger(); //需要转账的金额
 
         RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
                 nonce, GAS_PRICE, GAS_LIMIT, toAddress, priceValue);
@@ -632,11 +684,11 @@ public class WalletHelper {
 
         BigInteger GAS_PRICE = web3j.ethGasPrice().send().getGasPrice();
 
-        //创建交易，这里是转x个以太币
-        BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(18)).toBigInteger(); //需要转账的金额
+        //创建交易
+        BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(UNIT_POW)).toBigInteger(); //需要转账的金额
 
-        RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
-                nonce, GAS_PRICE, GAS_LIMIT, toAddress, priceValue);
+        RawTransaction rawTransaction = RawTransaction.createTransaction(
+                nonce, GAS_PRICE, GAS_LIMIT, toAddress, priceValue, "");
 
         //签名Transaction，这里要对交易做签名
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
@@ -655,11 +707,20 @@ public class WalletHelper {
     /**
      * 获取手续费（矿工费）
      */
-    public static BigInteger getGasValue() throws Exception {
+    public static BigInteger getGasLimitValue() throws Exception {
         Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
         BigInteger gaslimit = BigInteger.valueOf(21000);
         BigInteger gasPrice = web3j.ethGasPrice().send().getGasPrice();
         return gasPrice.multiply(gaslimit);
+    }
+
+    /**
+     * 获取手续费（矿工费）
+     */
+    public static BigInteger getGasValue() throws Exception {
+        Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
+        BigInteger gasPrice = web3j.ethGasPrice().send().getGasPrice();
+        return gasPrice;
     }
 
     /**
@@ -691,7 +752,13 @@ public class WalletHelper {
         return buf.toString();
     }
 
-    public static String SHA1encode(String str) {
+    /**
+     * 对字符串进行加密
+     *
+     * @param str
+     * @return
+     */
+    public static String EncryptionString(String str) {
         if (str == null) {
             return "";
         }

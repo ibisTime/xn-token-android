@@ -1,5 +1,6 @@
 package com.cdkj.token.model;
 
+import org.litepal.annotation.Encrypt;
 import org.litepal.crud.DataSupport;
 
 /**

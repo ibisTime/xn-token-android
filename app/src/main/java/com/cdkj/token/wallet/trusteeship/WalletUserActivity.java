@@ -246,7 +246,10 @@ public class WalletUserActivity extends AbsBaseLoadActivity {
         init();
         initListener();
 
-        getMsgRequest();
+        mBinding.llExchange.setVisibility(View.GONE);
+        mBinding.llAdd.setVisibility(View.GONE);
+
+//        getMsgRequest();
 
         getMsgRequest();
         refreshHelper.onMRefresh(1, 10, true);

@@ -20,6 +20,7 @@ import static java.math.BigDecimal.ROUND_HALF_EVEN;
 public class AccountUtil {
 
     public static BigDecimal UNIT_MIN = new BigDecimal("10");
+    public static final int UNIT_POW = 18;
 
     public static final String OGC = "OGC";
     public static final int OGCSCALE = 8;
@@ -72,7 +73,7 @@ public class AccountUtil {
             return "0 " + "ETH";
         }
 
-        return amount.divide(UNIT_MIN.pow(18), scale, ROUND_HALF_EVEN).toPlainString() + " " + "ETH";
+        return amount.divide(UNIT_MIN.pow(UNIT_POW), scale, ROUND_HALF_EVEN).toPlainString() + " " + "ETH";
 
     }
 
@@ -89,23 +90,23 @@ public class AccountUtil {
             return "0";
         }
 
-        return amount.divide(UNIT_MIN.pow(18), scale, ROUND_HALF_EVEN).toPlainString();
+        return formatDouble(amount.divide(UNIT_MIN.pow(UNIT_POW), scale, ROUND_HALF_EVEN));
     }
 
+
     /**
-     * 货币单位转换
+     * BigInteger
      *
      * @param amount
-     * @param
      * @return
      */
-    public static BigInteger amountFormatUnit(BigDecimal amount, int scale) {
+    public static BigInteger bigIntegerFormat(BigDecimal amount) {
 
-        if (amount == null || amount.compareTo(BigDecimal.ZERO) == -1 || amount.compareTo(BigDecimal.ZERO) == 0) {
-            return new BigInteger("0");
+        if (amount == null) {
+            return BigInteger.ZERO;
         }
 
-        return amount.divide(UNIT_MIN.pow(18), scale, ROUND_HALF_EVEN).toBigInteger();
+        return amount.multiply(UNIT_MIN.pow(UNIT_POW)).toBigInteger();
     }
 
     /**
@@ -167,11 +168,11 @@ public class AccountUtil {
     }
 
 
-    public static String formatDouble(double money) {
-        DecimalFormat df = new DecimalFormat("#######0.000");
+    public static String formatDouble(BigDecimal money) {
+        DecimalFormat df = new DecimalFormat("#######0.########");
         String showMoney = df.format(money);
 
-        return showMoney.substring(0, showMoney.length() - 1);
+        return showMoney;
     }
 
     public static String formatInt(double money) {

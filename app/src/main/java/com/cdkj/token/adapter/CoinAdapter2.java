@@ -22,7 +22,7 @@ import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 public class CoinAdapter2 extends BaseQuickAdapter<CoinModel.AccountListBean, BaseViewHolder> {
 
     public CoinAdapter2(@Nullable List<CoinModel.AccountListBean> data) {
-        super(R.layout.item_coin2, data);
+        super(R.layout.item_coin_bill, data);
     }
 
     @Override
