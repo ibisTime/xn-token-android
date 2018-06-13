@@ -12,6 +12,8 @@ import com.cdkj.token.R;
 import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.model.WalletDBModel;
 import com.cdkj.token.model.WalletInfoDBModel;
+import com.cdkj.token.utils.wan.WanRawTransaction;
+import com.cdkj.token.utils.wan.WanTransactionEncoder;
 
 import org.bitcoinj.core.Utils;
 import org.bitcoinj.crypto.ChildNumber;
@@ -687,11 +689,11 @@ public class WalletHelper {
         //创建交易
         BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(UNIT_POW)).toBigInteger(); //需要转账的金额
 
-        RawTransaction rawTransaction = RawTransaction.createTransaction(
+        WanRawTransaction rawTransaction = WanRawTransaction.createTransaction(
                 nonce, GAS_PRICE, GAS_LIMIT, toAddress, priceValue, "");
 
         //签名Transaction，这里要对交易做签名
-        byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
+        byte[] signedMessage = WanTransactionEncoder.signMessage(rawTransaction, credentials);
 
         String hexValue = Numeric.toHexString(signedMessage);
 
