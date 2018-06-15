@@ -86,7 +86,7 @@ public class AccountUtil {
      */
     public static String amountFormatUnitForShow(BigDecimal amount, int scale) {
 
-        if (amount == null || amount.compareTo(BigDecimal.ZERO) == -1 || amount.compareTo(BigDecimal.ZERO) == 0) {
+        if (amount == null) {
             return "0";
         }
 

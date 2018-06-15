@@ -407,6 +407,9 @@
     <string name="private_key_copy_success">私钥已复制</string>
     <string name="transfer_fail">转账失败</string>
     <string name="please_open_the_net">请先打开网络</string>
+    <string name="please_set_account_moeny_pwd">请先设置资金密码</string>
+    <string name="privacy_agreement">隐私协议</string>
+    <string name="transaction_details">交易详情</string>
 
 
 </resources>

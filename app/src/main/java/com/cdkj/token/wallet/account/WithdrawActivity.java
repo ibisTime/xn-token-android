@@ -2,6 +2,7 @@ package com.cdkj.token.wallet.account;
 
 import android.Manifest;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,11 +13,13 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Toast;
 
+import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.dialog.InputDialog;
+import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -62,7 +65,7 @@ public class WithdrawActivity extends AbsBaseActivity {
     // 是否需要交易密码和谷歌验证 认证账户不需要交易密码和谷歌验证
     private boolean isCerti = true;
 
-    public static void open(Context context, CoinModel.AccountListBean model){
+    public static void open(Context context, CoinModel.AccountListBean model) {
         if (context == null) {
             return;
         }
@@ -89,7 +92,7 @@ public class WithdrawActivity extends AbsBaseActivity {
         setTopTitle(getStrRes(R.string.wallet_title_withdraw));
         setTopLineState(true);
         setSubLeftImgState(true);
-        setSubRightTitleAndClick(getStrRes(R.string.wallet_charge_recode),v -> {
+        setSubRightTitleAndClick(getStrRes(R.string.wallet_charge_recode), v -> {
             WithdrawOrderActivity.open(this, model.getCurrency());
 //            BillActivity.open(this,model.getAccountNumber(),BillActivity.TYPE_WITHDRAW);
         });
@@ -104,17 +107,17 @@ public class WithdrawActivity extends AbsBaseActivity {
         type = getStrRes(R.string.popup_paste);
         types = new String[]{getStrRes(R.string.popup_paste), getStrRes(R.string.popup_scan)};
 
-        if (getIntent() != null){
+        if (getIntent() != null) {
             model = (CoinModel.AccountListBean) getIntent().getSerializableExtra("model");
-            if (model != null){
+            if (model != null) {
                 mBinding.tvBalance.setText(AccountUtil.sub(Double.parseDouble(model.getAmountString()),
                         Double.parseDouble(model.getFrozenAmountString()), model.getCurrency()));
                 mBinding.tvFee.setText(model.getCurrency());
                 mBinding.tvCurrency.setText(model.getCurrency());
 
                 if (model.getCoinBalance() != null)
-                mBinding.edtAmount.setHint(getString(R.string.wallet_withdraw_amount_hint2)+AccountUtil.sub(Double.parseDouble(model.getCoinBalance()),
-                        Double.parseDouble(model.getFrozenAmountString()), model.getCurrency()));
+                    mBinding.edtAmount.setHint(getString(R.string.wallet_withdraw_amount_hint2) + AccountUtil.sub(Double.parseDouble(model.getCoinBalance()),
+                            Double.parseDouble(model.getFrozenAmountString()), model.getCurrency()));
             }
 
             // 设置提现手续费
@@ -122,7 +125,7 @@ public class WithdrawActivity extends AbsBaseActivity {
         }
     }
 
-    private void initListener(){
+    private void initListener() {
 
         mBinding.llAddress.setOnClickListener(this::initPopup);
 
@@ -132,10 +135,19 @@ public class WithdrawActivity extends AbsBaseActivity {
 
         mBinding.btnWithdraw.setOnClickListener(view -> {
 
-            if (check()){
-                if (isCerti){
-                    showInputDialog();
-                }else {
+            if (check()) {
+                if (isCerti) {
+                    if (SPUtilHelper.getTradePwdFlag()) {
+                        showInputDialog();
+                    } else {
+                        UITipDialog.showInfo(WithdrawActivity.this, getString(R.string.please_set_account_moeny_pwd), new DialogInterface.OnDismissListener() {
+                            @Override
+                            public void onDismiss(DialogInterface dialogInterface) {
+                                PayPwdModifyActivity.open(WithdrawActivity.this, SPUtilHelper.getTradePwdFlag(), SPUtilHelper.getUserPhoneNum());
+                            }
+                        });
+                    }
+                } else {
                     withdrawal("");
                 }
 
@@ -157,7 +169,7 @@ public class WithdrawActivity extends AbsBaseActivity {
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (SPUtilHelper.getGoogleAuthFlag()){ // 已开启谷歌验证
+                if (SPUtilHelper.getGoogleAuthFlag()) { // 已开启谷歌验证
                     mBinding.llGoogle.setVisibility(isCerti ? View.VISIBLE : View.GONE);
                     mBinding.lineGoogle.setVisibility(isCerti ? View.VISIBLE : View.GONE);
                 }
@@ -165,7 +177,7 @@ public class WithdrawActivity extends AbsBaseActivity {
             }
         });
 
-        mBinding.edtAmount.addTextChangedListener(new EditTextJudgeNumberWatcher(mBinding.edtAmount,8,8));
+        mBinding.edtAmount.addTextChangedListener(new EditTextJudgeNumberWatcher(mBinding.edtAmount, 8, 8));
     }
 
     //权限处理
@@ -175,19 +187,19 @@ public class WithdrawActivity extends AbsBaseActivity {
     }
 
     private boolean check() {
-        if (TextUtils.isEmpty(mBinding.tvAddress.getText().toString().trim())){
+        if (TextUtils.isEmpty(mBinding.tvAddress.getText().toString().trim())) {
             ToastUtil.show(WithdrawActivity.this, getStrRes(R.string.wallet_withdraw_address_hint));
             return false;
         }
 
-        if (TextUtils.isEmpty(mBinding.edtAmount.getText().toString().trim())){
+        if (TextUtils.isEmpty(mBinding.edtAmount.getText().toString().trim())) {
             ToastUtil.show(WithdrawActivity.this, getStrRes(R.string.wallet_withdraw_amount_hint));
             return false;
         }
 
-        if (isCerti){
-            if (SPUtilHelper.getGoogleAuthFlag()){
-                if (TextUtils.isEmpty(mBinding.edtGoogle.getText().toString())){
+        if (isCerti) {
+            if (SPUtilHelper.getGoogleAuthFlag()) {
+                if (TextUtils.isEmpty(mBinding.edtGoogle.getText().toString())) {
                     showToast(getStrRes(R.string.google_code_hint));
                     return false;
                 }
@@ -198,7 +210,7 @@ public class WithdrawActivity extends AbsBaseActivity {
     }
 
     private void showInputDialog() {
-        if(inputDialog ==null){
+        if (inputDialog == null) {
             inputDialog = new InputDialog(this).builder().setTitle(getStrRes(R.string.trade_code_hint))
                     .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
 
@@ -248,7 +260,7 @@ public class WithdrawActivity extends AbsBaseActivity {
     private void getWithdrawFee() {
         Map<String, String> map = new HashMap<>();
 
-        map.put("ckey", "withdraw_fee_"+model.getCurrency().toLowerCase());
+        map.put("ckey", "withdraw_fee_" + model.getCurrency().toLowerCase());
         map.put("systemCode", MyConfig.SYSTEMCODE);
         map.put("companyCode", MyConfig.COMPANYCODE);
 
@@ -277,6 +289,7 @@ public class WithdrawActivity extends AbsBaseActivity {
 
     /**
      * 提现
+     *
      * @param tradePwd
      */
     private void withdrawal(String tradePwd) {
@@ -292,7 +305,7 @@ public class WithdrawActivity extends AbsBaseActivity {
         map.put("amount", bigDecimal.multiply(getUnit(model.getCurrency())).toString().split("\\.")[0]);
         map.put("payCardNo", mBinding.tvAddress.getText().toString().trim());
         map.put("payCardInfo", model.getCurrency());
-        map.put("applyNote", model.getCurrency()+"提现");
+        map.put("applyNote", model.getCurrency() + "提现");
         map.put("tradePwd", tradePwd);
 
         Call call = RetrofitUtils.getBaseAPiService().successRequest("802750", StringUtils.getJsonToString(map));
@@ -318,27 +331,24 @@ public class WithdrawActivity extends AbsBaseActivity {
 
 
     /**
-     *
      * @param view
      */
     private void initPopup(View view) {
         MyPickerPopupWindow popupWindow = new MyPickerPopupWindow(this, R.layout.popup_picker);
         popupWindow.setNumberPicker(R.id.np_type, types);
 
-        popupWindow.setOnClickListener(R.id.tv_cancel,v -> {
+        popupWindow.setOnClickListener(R.id.tv_cancel, v -> {
             popupWindow.dismiss();
         });
 
-        popupWindow.setOnClickListener(R.id.tv_confirm,v -> {
+        popupWindow.setOnClickListener(R.id.tv_confirm, v -> {
             type = popupWindow.getNumberPicker(R.id.np_type, types);
 
-            if (type.equals(getStrRes(R.string.popup_scan))){
+            if (type.equals(getStrRes(R.string.popup_scan))) {
                 // 是否需要交易密码和谷歌验证 认证账户不需要交易密码和谷歌验证
-                isCerti = true;
                 scan();
-            } else if (type.equals(getStrRes(R.string.popup_paste))){
+            } else if (type.equals(getStrRes(R.string.popup_paste))) {
                 // 是否需要交易密码和谷歌验证 认证账户不需要交易密码和谷歌验证
-                isCerti = true;
                 mBinding.tvAddress.setText(paste(this));
             }
 
@@ -348,7 +358,7 @@ public class WithdrawActivity extends AbsBaseActivity {
         popupWindow.show(view);
     }
 
-    private void scan(){
+    private void scan() {
         permissionHelper = new PermissionHelper(this);
 
         permissionHelper.requestPermissions(new PermissionHelper.PermissionListener() {
@@ -366,15 +376,15 @@ public class WithdrawActivity extends AbsBaseActivity {
     }
 
     @Subscribe
-    public void setAddress(EventBusModel model){
+    public void setAddress(EventBusModel model) {
 
         if (model == null)
             return;
 
-        if (model.getTag().equals(EventTags.ADDRESS_SELECT)){
-            if (model.getEvInt() == 0){ // 地址未认证，需要交易密码
+        if (model.getTag().equals(EventTags.ADDRESS_SELECT)) {
+            if (model.getEvInt() == 0) { // 地址未认证，需要交易密码
                 isCerti = true;
-            }else { // 地址已认证，不需要交易密码
+            } else { // 地址已认证，不需要交易密码
                 isCerti = false;
             }
             mBinding.tvAddress.setText(model.getEvInfo());

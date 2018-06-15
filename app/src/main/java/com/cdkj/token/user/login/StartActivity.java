@@ -3,6 +3,7 @@ package com.cdkj.token.user.login;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -17,6 +18,7 @@ import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
+import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
@@ -76,7 +78,7 @@ public class StartActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
+        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.white));
         setContentView(R.layout.activity_start);
 //        makeMnemonic();
 //        open();

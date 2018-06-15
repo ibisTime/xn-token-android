@@ -122,6 +122,23 @@ public class UITipDialog extends Dialog {
         timerDismiss();
     }
 
+    public static void showInfo(Context context, String info, OnDismissListener listener) {
+        if (tipDialog != null) {
+            tipDialog.dismiss();
+        }
+        if (context == null) return;
+        tipDialog = new UITipDialog.Builder(context)
+                .setIconType(UITipDialog.Builder.ICON_TYPE_INFO)
+                .setTipWord(info)
+                .create();
+        if (listener != null) {
+            tipDialog.setOnDismissListener(listener);
+        }
+        tipDialog.show();
+        timerDismiss();
+    }
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

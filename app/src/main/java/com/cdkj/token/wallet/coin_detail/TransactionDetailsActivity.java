@@ -60,7 +60,7 @@ public class TransactionDetailsActivity extends AbsBaseLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        mBaseBinding.titleView.setMidTitle("交易详情");
+        mBaseBinding.titleView.setMidTitle(getString(R.string.transaction_details));
 
         LocalCoinBill localCoinBill = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         coinType = getIntent().getStringExtra(CdRouteHelper.DATASIGN2);
@@ -71,9 +71,9 @@ public class TransactionDetailsActivity extends AbsBaseLoadActivity {
 
             if (localCoinBill != null) {
                 if (TextUtils.equals(coinType, WalletHelper.COIN_ETH)) {
-                    WebViewActivity.openURL(this, WalletHelper.TO_BROWSER_URL + localCoinBill.getTxHash(), "交易详情");
+                    WebViewActivity.openURL(this, getString(R.string.transaction_details), WalletHelper.TO_BROWSER_URL + localCoinBill.getTxHash());
                 } else if (TextUtils.equals(coinType, WalletHelper.COIN_WAN)) {
-                    WebViewActivity.openURL(this, WalletHelper.WAN_TO_BROWSER_URL + localCoinBill.getTxHash(), "交易详情");
+                    WebViewActivity.openURL(this, getString(R.string.transaction_details), WalletHelper.WAN_TO_BROWSER_URL + localCoinBill.getTxHash());
                 }
             }
         });

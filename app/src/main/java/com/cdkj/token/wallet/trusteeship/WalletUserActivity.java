@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.CoinAdapter2;
 import com.cdkj.token.api.MyApi;
@@ -128,6 +130,8 @@ public class WalletUserActivity extends AbsBaseLoadActivity {
         mBinding.llAdd.setOnClickListener(view -> {
             AddChoiceActivity2.open(this);
         });
+
+        mBinding.linLayoutBack.setOnClickListener(view -> finish());
     }
 
     @Override
@@ -240,7 +244,7 @@ public class WalletUserActivity extends AbsBaseLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-
+        UIStatusBarHelper.translucent(this);
         initCallBack();
 
         init();

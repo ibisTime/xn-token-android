@@ -97,7 +97,9 @@ public class BillListActivity extends AbsBaseActivity {
     }
 
     private void init() {
-        setTopTitle(getStrRes(R.string.wallet_title_bill_list));
+        if (mAccountBean != null) {
+            setTopTitle(mAccountBean.getCurrency());
+        }
         setTopLineState(true);
         setSubLeftImgState(true);
         setSubRightImgAndClick(R.mipmap.bill_filter, v -> {
@@ -112,7 +114,7 @@ public class BillListActivity extends AbsBaseActivity {
 
     private void initView() {
         mHeaderBinding.tvSymbol.setText(mAccountBean.getCurrency());
-        ImgUtils.loadImage(this, getCoinWatermarkWithCurrency(mAccountBean.getCurrency(),1), mHeaderBinding.ivIcon);
+        ImgUtils.loadImage(this, getCoinWatermarkWithCurrency(mAccountBean.getCurrency(), 1), mHeaderBinding.ivIcon);
 
         BigDecimal amount;
         BigDecimal frozenAmount;
@@ -121,12 +123,11 @@ public class BillListActivity extends AbsBaseActivity {
         frozenAmount = new BigDecimal(mAccountBean.getFrozenAmountString());
         mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), mAccountBean.getCurrency(), 8));
 
-        if (mAccountBean.getAmountCNY() == null){
+        if (mAccountBean.getAmountCNY() == null) {
             mHeaderBinding.tvAmountCny.setText("≈ 0CNY");
-        }else {
-            mHeaderBinding.tvAmountCny.setText("≈ "+mAccountBean.getAmountCNY()+"CNY");
+        } else {
+            mHeaderBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountCNY() + "CNY");
         }
-
 
 
     }
@@ -190,10 +191,10 @@ public class BillListActivity extends AbsBaseActivity {
 
     }
 
-    private void getListData(int pageIndex, int limit, boolean isShowDialog){
+    private void getListData(int pageIndex, int limit, boolean isShowDialog) {
         Map<String, String> map = new HashMap<>();
-        map.put("limit", limit+"");
-        map.put("start", pageIndex+"");
+        map.put("limit", limit + "");
+        map.put("start", pageIndex + "");
         map.put("bizType", type);
         map.put("kind", kind);
         map.put("accountNumber", mAccountBean.getAccountNumber());
@@ -227,21 +228,20 @@ public class BillListActivity extends AbsBaseActivity {
     }
 
     /**
-     *
      * @param view
      */
     private void initPopup(View view) {
         MyPickerPopupWindow popupWindow = new MyPickerPopupWindow(this, R.layout.popup_picker);
         popupWindow.setNumberPicker(R.id.np_type, types);
 
-        popupWindow.setOnClickListener(R.id.tv_cancel,v -> {
+        popupWindow.setOnClickListener(R.id.tv_cancel, v -> {
             popupWindow.dismiss();
         });
 
-        popupWindow.setOnClickListener(R.id.tv_confirm,v -> {
+        popupWindow.setOnClickListener(R.id.tv_confirm, v -> {
 
             type = popupWindow.getNumberPicker(R.id.np_type, bizType);
-            getListData(1,10,true);
+            getListData(1, 10, true);
 
             popupWindow.dismiss();
 

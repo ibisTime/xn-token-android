@@ -90,7 +90,7 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
             mHeaderBinding.tvSymbol.setText(accountListBean.getSymbol());
             mBaseBinding.titleView.setMidTitle(accountListBean.getSymbol());
             mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), ETHSCALE));
-            mHeaderBinding.tvAmountCny.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getAmountCNY()), ETHSCALE));
+            mHeaderBinding.tvAmountCny.setText("≈" + accountListBean.getAmountCNY() + " CNY");
 
         }
 

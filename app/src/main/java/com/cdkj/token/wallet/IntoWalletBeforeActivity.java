@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
@@ -53,6 +54,10 @@ public class IntoWalletBeforeActivity extends AbsBaseLoadActivity {
         savaDefaluteCoinConfig();
         initClickListener();
         WalletHelper.saveFirstConfig(true);  //第一次
+
+        mBinding.tvRead.setOnClickListener(view -> {
+            WebViewActivity.openkey(this,getString(R.string.privacy_agreement),"reg_protocol");
+        });
     }
 
     /**

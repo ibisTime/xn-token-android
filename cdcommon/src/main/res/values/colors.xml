@@ -45,7 +45,7 @@
 
 
     <color name="btn_white">#ffffff</color>
-    <color name="btn_blue">#0cb8ae</color>
+    <color name="btn_blue">#108ee9</color>
     <color name="btn_title_bg">#ff6702</color>
 
 
@@ -54,9 +54,9 @@
     <color name="fontColor_hint">#aaaaaa</color>
 
 
-    <color name="btn_select_un">#ff7d0e</color>
-    <color name="btn_select">#ff7d0e</color>
-    <color name="tablayout_select">#0cb8ae</color>
+    <color name="btn_select">#108ee9</color>
+    <color name="btn_select_un">#0c6eb5</color>
+    <color name="tablayout_select">#108ee9</color>
     <color name="lineColor">#ebeaea</color>
     <color name="line_gray_cd">#dedede</color>
     <color name="text_black_cd">#333333</color>

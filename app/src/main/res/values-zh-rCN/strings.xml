@@ -409,4 +409,7 @@
     <string name="sure_1">确认</string>
     <string name="words_tip_2">请输入备份的钱包助记词（12个英文单词），按空格分离</string>
     <string name="please_open_the_net">请先打开网络</string>
+    <string name="please_set_account_moeny_pwd">请先设置资金密码</string>
+    <string name="privacy_agreement">隐私协议</string>
+    <string name="transaction_details">交易详情</string>
 </resources>

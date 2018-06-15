@@ -3,97 +3,113 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:background="@color/gray_f7f7f7"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/gray_f7f7f7"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
-            android:background="@mipmap/wallet_property_bg"
             android:layout_width="match_parent"
-            android:layout_height="185dp">
+            android:layout_height="185dp"
+            android:background="@mipmap/wallet_property_bg"
+            android:orientation="vertical">
+
 
             <FrameLayout
-                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/title_height">
+                android:layout_height="@dimen/title_height"
+                android:layout_marginTop="25dp">
+
+                <LinearLayout
+                    android:id="@+id/linLayout_back"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:src="@mipmap/back_white" />
+
+                </LinearLayout>
 
                 <TextView
-                    android:text="@string/wallet_title"
-                    android:textSize="18sp"
-                    android:textColor="@color/white"
-                    android:layout_gravity="center"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/wallet_title"
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
                 <LinearLayout
                     android:id="@+id/ll_add"
-                    android:layout_gravity="right"
-                    android:gravity="center_vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:gravity="center_vertical">
 
                     <ImageView
-                        android:src="@mipmap/wallet_add"
-                        android:layout_marginRight="15dp"
                         android:layout_width="17dp"
-                        android:layout_height="17dp" />
+                        android:layout_height="17dp"
+                        android:layout_marginRight="15dp"
+                        android:src="@mipmap/wallet_add" />
 
                 </LinearLayout>
 
             </FrameLayout>
-            
 
-            
+
             <LinearLayout
-                android:orientation="vertical"
-                android:gravity="center_horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:gravity="center"
-                    android:layout_marginTop="15dp"
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:gravity="center"
+                    android:orientation="horizontal">
 
                     <ImageView
-                        android:visibility="gone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:background="@mipmap/wallet_property"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:visibility="gone" />
 
                     <TextView
-                        android:text="@string/wallet_assets"
-                        android:textSize="12sp"
-                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="@string/wallet_assets"
+                        android:textColor="@color/white"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_marginTop="10dp"
-                    android:orientation="horizontal"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
                     <TextView
-                        android:text="¥"
-                        android:textSize="35sp"
-                        android:textColor="@color/white"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:text="¥"
+                        android:textColor="@color/white"
+                        android:textSize="35sp" />
 
                     <TextView
                         android:id="@+id/tv_cny"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0.00"
                         android:singleLine="true"
+                        android:text="0.00"
                         android:textColor="@color/white"
                         android:textSize="35sp" />
 
@@ -106,16 +122,16 @@
 
         <LinearLayout
             android:id="@+id/ll_exchange"
-            android:gravity="center_vertical"
-            android:background="@color/white"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:gravity="center_vertical">
 
             <ImageView
-                android:src="@mipmap/wallet_notice"
-                android:layout_marginLeft="15dp"
                 android:layout_width="14dp"
-                android:layout_height="12dp" />
+                android:layout_height="12dp"
+                android:layout_marginLeft="15dp"
+                android:src="@mipmap/wallet_notice" />
 
             <!--android:focusable="true"-->
             <!--android:focusableInTouchMode="true"-->
@@ -126,26 +142,25 @@
 
             <TextView
                 android:id="@+id/tv_notice"
-                android:textSize="15sp"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:textColor="@color/black"
                 android:layout_weight="1"
                 android:singleLine="true"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:textColor="@color/black"
+                android:textSize="15sp" />
 
 
             <ImageView
-                android:layout_marginRight="15dp"
-                android:background="@mipmap/more"
-                android:layout_marginLeft="10dp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/more" />
 
         </LinearLayout>
 
-        <View
-            style="@style/style_split_line_broad"/>
+        <View style="@style/style_split_line_broad" />
 
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"

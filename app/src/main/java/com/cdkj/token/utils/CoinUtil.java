@@ -266,7 +266,7 @@ public class CoinUtil {
         if (isInState(direction)) {
             return "+";
         }
-        return "";
+        return "-";
 
     }
 

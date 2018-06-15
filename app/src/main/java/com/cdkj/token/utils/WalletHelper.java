@@ -76,9 +76,9 @@ public class WalletHelper {
 
     public final static String TO_BROWSER_URL = "https://rinkeby.etherscan.io/tx/";//跳向区块链浏览器
 
-    public final static String WAN_TO_BROWSER_URL = "：http://47.104.61.26/block/trans/";//跳向区块链浏览器
+    public final static String WAN_TO_BROWSER_URL = "http://47.104.61.26/block/trans/";//跳向区块链浏览器
 
-    public final static String WALLPASS = "tha_etc";//跳向区块链浏览器
+    public final static String WALLPASS = "tha_etc";//
 
 
     //TODO 币种使用枚举类
