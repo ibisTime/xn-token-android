@@ -25,13 +25,11 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.MsgListActivity;
 import com.cdkj.token.databinding.FragmentWalletBinding;
 import com.cdkj.token.model.BalanceListModel;
-import com.cdkj.token.model.CoinCofigChange;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.CoinTypeAndAddress;
 import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.model.MsgListModel;
 import com.cdkj.token.model.WalletDBModel;
-import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.utils.WalletHelper;
 import com.cdkj.token.wallet.coin_detail.WalletCoinDetailsActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -223,6 +221,8 @@ public class WalletFragment extends BaseLazyFragment {
 
         addCall(call);
 
+        showLoadingDialog();
+
         call.enqueue(new BaseResponseModelCallBack<BalanceListModel>(mActivity) {
             @Override
             protected void onSuccess(BalanceListModel data, String SucMessage) {
@@ -248,7 +248,7 @@ public class WalletFragment extends BaseLazyFragment {
 
             @Override
             protected void onFinish() {
-
+                disMissLoading();
             }
         });
 
@@ -371,15 +371,6 @@ public class WalletFragment extends BaseLazyFragment {
                 break;
         }
 
-    }
-
-    /**
-     * 币种配置改变
-     *
-     * @param coinCofigChange
-     */
-    public void coinConfigChangeEvent(CoinCofigChange coinCofigChange) {
-        loadConfigCoinData();
     }
 
 }

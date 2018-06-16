@@ -25,7 +25,7 @@ public class CoinAdapter extends BaseQuickAdapter<BalanceListModel.AccountListBe
     @Override
     protected void convert(BaseViewHolder helper, BalanceListModel.AccountListBean item) {
 
-        helper.setText(R.id.tv_name, item.getSymbol() + " - " + WalletHelper.getCoinENameByType(item.getSymbol()));
+        helper.setText(R.id.tv_name, item.getSymbol());
 
         helper.setImageResource(R.id.iv_watermark, WalletHelper.getCoinIconByType(item.getSymbol()));
 

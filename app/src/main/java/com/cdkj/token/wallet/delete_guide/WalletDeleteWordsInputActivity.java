@@ -105,8 +105,8 @@ public class WalletDeleteWordsInputActivity extends AbsBaseLoadActivity {
         }
 
         CommonDialog commonDialog = new CommonDialog(this).builder()
-                .setTitle("删除钱包").setContentMsg("钱包助记词验证通过，确认是否删除钱包？")
-                .setPositiveBtn("确认删除", view -> {
+                .setTitle(getString(R.string.delete_wallet)).setContentMsg(getString(R.string.sure_delete_wallet))
+                .setPositiveBtn(getString(R.string.sure_delete), view -> {
                     WalletHelper.clearCache();
                     IntoWalletBeforeActivity.open(this);
                     EventBus.getDefault().post(EventTags.AllFINISH);

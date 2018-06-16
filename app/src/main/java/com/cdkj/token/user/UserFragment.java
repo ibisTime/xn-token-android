@@ -14,6 +14,7 @@ import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.model.IsSuccessModes;
+import com.cdkj.baselibrary.model.LoginFailureEvent;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -27,6 +28,8 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUserBinding;
 import com.cdkj.token.wallet.trusteeship.WalletUserActivity;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,6 +37,7 @@ import retrofit2.Call;
 
 
 /**
+ * 我的
  * Created by lei on 2017/8/21.
  */
 public class UserFragment extends BaseLazyFragment {
@@ -190,6 +194,7 @@ public class UserFragment extends BaseLazyFragment {
     public void getUserInfoRequest() {
 
         if (!SPUtilHelper.isLoginNoStart()) {
+            setShowData(null);
             return;
         }
 
@@ -219,7 +224,13 @@ public class UserFragment extends BaseLazyFragment {
     }
 
     private void setShowData(UserInfoModel data) {
-        if (data == null) return;
+        if (data == null) {
+            mBinding.tvNick.setText("");
+            mBinding.tvMobile.setText("");
+//        ImgUtils.loadAvatar(mActivity, data.getPhoto(), data.getNickname(), mBinding.imAvatar, mBinding.tvAvatar);
+            mBinding.imAvatar.setImageResource(R.mipmap.default_photo);
+            return;
+        }
 
         SPUtilHelper.saveSecretUserId(data.getSecretUserId());
 
@@ -239,6 +250,13 @@ public class UserFragment extends BaseLazyFragment {
 //        ImgUtils.loadAvatar(mActivity, data.getPhoto(), data.getNickname(), mBinding.imAvatar, mBinding.tvAvatar);
         ImgUtils.loadAvatar(mActivity, data.getPhoto(), mBinding.imAvatar);
 
+    }
+
+
+    //登录失效
+    @Subscribe
+    public void loginFailureEvent(LoginFailureEvent loginFailureEvent) {
+        setShowData(null);
     }
 
 

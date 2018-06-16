@@ -8,7 +8,6 @@ import android.text.TextUtils;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsRefreshListActivity;
-import com.cdkj.baselibrary.base.BaseRefreshActivity;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.RefreshHelper;
@@ -16,13 +15,9 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.AddChoiceAdapter;
 import com.cdkj.token.api.MyApi;
-import com.cdkj.token.model.CoinCofigChange;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.utils.WalletHelper;
-import com.chad.library.adapter.base.BaseQuickAdapter;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -84,10 +79,7 @@ public class AddChoiceActivity extends AbsRefreshListActivity {
             String configStr = StringUtils.listToString(chooseTypes, WalletHelper.HELPWORD_SIGN);
 
             if (!TextUtils.equals(WalletHelper.getWalletCoinConfig(), configStr)) {  //判断配置是否改变
-
                 WalletHelper.saveWalletCoinConfig(configStr);
-
-                EventBus.getDefault().post(new CoinCofigChange());  //通知上级界面配置改变
             }
 
             WalletHelper.saveFirstConfig(false);

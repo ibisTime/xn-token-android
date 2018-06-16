@@ -252,6 +252,7 @@ public class WalletUserActivity extends AbsBaseLoadActivity {
 
         mBinding.llExchange.setVisibility(View.GONE);
         mBinding.llAdd.setVisibility(View.GONE);
+        mBinding.linLayoutBack.setVisibility(View.VISIBLE);
 
 //        getMsgRequest();
 

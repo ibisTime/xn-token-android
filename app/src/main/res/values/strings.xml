@@ -410,6 +410,8 @@
     <string name="please_set_account_moeny_pwd">请先设置资金密码</string>
     <string name="privacy_agreement">隐私协议</string>
     <string name="transaction_details">交易详情</string>
+    <string name="sure_delete_wallet">钱包助记词验证通过，确认是否删除钱包？</string>
+    <string name="sure_delete">确认删除</string>
 
 
 </resources>

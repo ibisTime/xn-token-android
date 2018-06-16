@@ -105,11 +105,11 @@ public class AuthenticateActivity extends AbsBaseActivity {
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
 
-                if(data.isSuccess()){
+                if (data.isSuccess()) {
                     SPUtilHelper.saveRealName(mBinding.edtName.getText().toString().trim());
                     showToast(getString(R.string.activity_authenticate_success));
                     finish();
-                }else{
+                } else {
                     bizNo = data.getBizNo();
                     doVerify(data.getUrl());
                 }

@@ -8,8 +8,11 @@ import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.model.LoginFailureEvent;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.net.ConnectException;
 import java.net.SocketTimeoutException;
@@ -122,6 +125,9 @@ public class NetHelper {
      * @param errorMessage
      */
     public static void onLoginFailure(Context context, String errorMessage) {
+
+        EventBus.getDefault().post(new LoginFailureEvent());//通知登录失效
+
         SPUtilHelper.logOutClear();
         if (context != null) {
             ToastUtil.show(context, errorMessage);

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseRefreshActivity;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -54,6 +55,9 @@ public class MsgListActivity extends BaseRefreshActivity {
         map.put("status", "1");
         map.put("fromSystemCode", MyConfig.SYSTEMCODE);
         map.put("toSystemCode", MyConfig.SYSTEMCODE);
+        map.put("companyCode", MyConfig.SYSTEMCODE);
+        map.put("systemCode", MyConfig.SYSTEMCODE);
+        map.put("token", SPUtilHelper.getUserToken());
 
         Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.getJsonToString(map));
 
