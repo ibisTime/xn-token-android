@@ -92,7 +92,6 @@ public class StartActivity extends BaseActivity {
     }
 
     private void open() {
-
         mSubscription.add(Observable.timer(1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .map(aLong -> WalletHelper.isHaveWalletCache())
@@ -152,15 +151,20 @@ public class StartActivity extends BaseActivity {
 
             @Override
             protected void onSuccess(List<BaseCoinModel> data, String SucMessage) {
-                if (data == null)
+                if (data == null) {
+                    open();
                     return;
+                }
 
                 // 如果数据库已有数据，清空重新加载
-                if (DataSupport.isExist(BaseCoinModel.class))
+                if (DataSupport.isExist(BaseCoinModel.class)) {
                     DataSupport.deleteAll(BaseCoinModel.class);
+                }
 
                 // 初始化交易界面默认所选择的币
-                data.get(0).setChoose(true);
+                if (data.size() > 0) {
+                    data.get(0).setChoose(true);
+                }
                 DataSupport.saveAll(data);
                 open();
             }
@@ -170,91 +174,13 @@ public class StartActivity extends BaseActivity {
             protected void onReqFailure(String errorCode, String errorMessage) {
                 super.onReqFailure(errorCode, errorMessage);
                 // 如果数据库已有数据，直接加载数据库
-                if (DataSupport.isExist(BaseCoinModel.class)) {
-                    open();
-                } else {
-                    ToastUtil.show(StartActivity.this, "无法连接服务器，请检查网络");
-                }
+                open();
             }
 
             @Override
             protected void onFinish() {
             }
         });
-    }
-
-    // 生成助记词
-    private List<String> makeMnemonic() {
-
-        List<String> mnemonicList = null;
-
-        try {
-
-            List<String> defaultMnenonic = new ArrayList<>();
-            defaultMnenonic.add("club");
-            defaultMnenonic.add("baby");
-            defaultMnenonic.add("index");
-            defaultMnenonic.add("hint");
-            defaultMnenonic.add("library");
-            defaultMnenonic.add("vendor");
-            defaultMnenonic.add("judge");
-            defaultMnenonic.add("napkin");
-            defaultMnenonic.add("media");
-            defaultMnenonic.add("bullet");
-            defaultMnenonic.add("action");
-            defaultMnenonic.add("wine");
-
-            // 钱包种子
-            DeterministicSeed seed1 = new DeterministicSeed(new SecureRandom(),
-                    128, "", Utils.currentTimeSeconds());
-
-            // 助记词
-            mnemonicList = seed1.getMnemonicCode();
-
-            DeterministicKeyChain keyChain1 = DeterministicKeyChain.builder()
-                    .seed(seed1).build();
-
-            List<ChildNumber> keyPath = HDUtils.parsePath("M/44H/60H/0H/0/0");
-
-            // DeterministicKey key2 =
-            // keyChain2.getKey(KeyPurpose.RECEIVE_FUNDS);
-            DeterministicKey key1 = keyChain1.getKeyByPath(keyPath, true);
-            BigInteger privKey1 = key1.getPrivKey();
-
-            Credentials credentials1 = Credentials
-                    .create(privKey1.toString(16));
-
-            System.out.println(seed1.getMnemonicCode());
-
-            System.out.println("seed1=" + seed1.toHexString());
-
-            System.out.println("privateKey1:" + key1.getPrivateKeyAsHex());
-
-            System.out.println("address1: " + credentials1.getAddress());
-
-            DeterministicSeed seed2 = new DeterministicSeed(defaultMnenonic,
-                    null, "", Utils.currentTimeSeconds());
-
-            DeterministicKeyChain keyChain2 = DeterministicKeyChain.builder()
-                    .seed(seed2).build();
-
-            DeterministicKey key2 = keyChain2.getKeyByPath(keyPath, true);
-            BigInteger privKey2 = key2.getPrivKey();
-
-            Credentials credentials2 = Credentials
-                    .create(privKey2.toString(16));
-
-            System.out.println("seed2=" + seed2.toHexString());
-
-            System.out.println("privateKey2:" + key2.getPrivateKeyAsHex());
-
-            System.out.println("address2: " + credentials2.getAddress());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return mnemonicList;
     }
 
 }
