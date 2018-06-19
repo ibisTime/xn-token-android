@@ -105,7 +105,7 @@ public class GasTypeChoosePop extends BasePopupWindow implements View.OnClickLis
 
             switch (view.getId()) {
                 case R.id.fraLayout_choose_first:
-                    itemClickListener.onItemClick(FIRST, getContext().getString(R.string.first));
+                    itemClickListener.onItemClick(FIRST, getContext().getString(R.string.priority));
                     break;
                 case R.id.fraLayout_choose_ordinary:
                     itemClickListener.onItemClick(ORDINARY, getContext().getString(R.string.ordinary));

@@ -37,8 +37,6 @@
             android:name="com.cdkj.token.MainActivity"
             android:launchMode="singleTask" />
 
-        <activity android:name="com.cdkj.token.wallet.ExchangeActivity" />
-        <activity android:name="com.cdkj.token.wallet.ExchangePastActivity" />
         <activity android:name="com.cdkj.token.wallet.account.BillActivity" />
         <activity android:name="com.cdkj.token.wallet.account.BillDetailActivity" />
         <activity android:name="com.cdkj.token.wallet.account.RechargeActivity" />

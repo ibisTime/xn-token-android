@@ -195,9 +195,6 @@ public class AccountUtil {
             case "ETH":
                 return StringUtil.getString(R.string.coin_eth);
 
-            case "SC":
-                return StringUtil.getString(R.string.coin_sc);
-
             case "BTC":
                 return StringUtil.getString(R.string.coin_btc);
 
@@ -229,12 +226,6 @@ public class AccountUtil {
 
             case "invite":
                 return StringUtil.getString(R.string.biz_type_invite);
-
-            case "o2o_in":
-                return StringUtil.getString(R.string.bill_type_o2o_in);
-
-            case "o2o_out":
-                return StringUtil.getString(R.string.bill_type_o2o_out);
 
             default:
                 return "";

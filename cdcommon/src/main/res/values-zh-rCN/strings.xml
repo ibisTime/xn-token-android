@@ -4,7 +4,7 @@
 
     <string name="confirm">确定</string>
     <string name="cancel">取消</string>
-
+    <string name="no_camera_permission">没有获取到权限，无法使用相机和相册功能</string>
     <string name="activity_authenticate_title">实名认证</string>
     <string name="activity_authenticate_name_hint">请填写真实姓名</string>
     <string name="activity_authenticate_id_format_hint">请填写正确的身份证号码</string>

@@ -77,10 +77,6 @@ public class RechargeActivity extends AbsBaseActivity {
             case "BTC":
                 mBinding.tvCoin.setText(getStrRes(R.string.wallet_charge_address_btc));
                 break;
-
-            case "SC":
-                mBinding.tvCoin.setText(getStrRes(R.string.wallet_charge_address_sc));
-                break;
         }
     }
 

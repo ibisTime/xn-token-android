@@ -46,7 +46,7 @@ public class BillActivity extends BaseRefreshActivity<BillModel.ListBean> {
     NumberPicker numberPicker;
 
 
-    public static void open(Context context,String accountNumber,String openType) {
+    public static void open(Context context, String accountNumber, String openType) {
         if (context == null) {
             return;
         }
@@ -69,14 +69,13 @@ public class BillActivity extends BaseRefreshActivity<BillModel.ListBean> {
         });
 
         init();
-        getListData(pageIndex,limit,false);
+        getListData(pageIndex, limit, false);
     }
 
     private void init() {
 
         types = new String[]{getStrRes(R.string.bill_type_all), getStrRes(R.string.bill_type_charge), getStrRes(R.string.bill_type_withdraw),
-                getStrRes(R.string.bill_type_withdrawfee),getStrRes(R.string.bill_type_o2o_in)
-                ,getStrRes(R.string.bill_type_o2o_out)};
+                getStrRes(R.string.bill_type_withdrawfee)};
 
         if (getIntent() == null)
             return;
@@ -84,8 +83,8 @@ public class BillActivity extends BaseRefreshActivity<BillModel.ListBean> {
         openType = getIntent().getStringExtra("openType");
         accountNumber = getIntent().getStringExtra("accountNumber");
 
-        if (openType != null){
-            switch (openType){
+        if (openType != null) {
+            switch (openType) {
 
                 case TYPE_ALL: // 默认显示全部流水
                     type = "";
@@ -127,13 +126,13 @@ public class BillActivity extends BaseRefreshActivity<BillModel.ListBean> {
     protected void getListData(int pageIndex, int limit, boolean canShowDialog) {
 
         Map<String, String> map = new HashMap<>();
-        map.put("limit", limit+"");
-        map.put("start", pageIndex+"");
+        map.put("limit", limit + "");
+        map.put("start", pageIndex + "");
 
-        if (type.equals("frozen")){
+        if (type.equals("frozen")) {
             map.put("bizType", "");
             map.put("kind", kind);
-        }else {
+        } else {
             map.put("bizType", type);
             map.put("kind", kind);
         }
@@ -176,8 +175,8 @@ public class BillActivity extends BaseRefreshActivity<BillModel.ListBean> {
 
     @Override
     public String getEmptyInfo() {
-        if (openType != null){
-            switch (openType){
+        if (openType != null) {
+            switch (openType) {
 
                 default: // 默认显示全部流水
                     return getStrRes(R.string.bill_all_none);
@@ -192,7 +191,7 @@ public class BillActivity extends BaseRefreshActivity<BillModel.ListBean> {
                     return getStrRes(R.string.bill_frozen_none);
 
             }
-        }else {
+        } else {
             return getStrRes(R.string.bill_none);
         }
 
@@ -241,7 +240,7 @@ public class BillActivity extends BaseRefreshActivity<BillModel.ListBean> {
 
         tvConfirm.setOnClickListener(v -> {
             popupWindow.dismiss();
-            getListData(1,10,true);
+            getListData(1, 10, true);
         });
 
         // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框

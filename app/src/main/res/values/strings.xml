@@ -18,20 +18,11 @@
 
     <string name="build_type">环境切换</string>
 
-    // 主页
 
-
-    // 钱包
     <string name="property_eth">以太币资产(ETH)</string>
     <string name="property_btc">比特币资产(BTC)</string>
-    <string name="property_sc">云储币资产(SC)</string>
-    <string name="property_ogc">橙币资产(OGC)</string>
     <string name="freeze">冻结</string>
 
-    <string name="wallet_exchange_explain">计算规则:采用银行柜台汇率过去14天的平均值作为汇率参考值,在每一个交割结算日,若该平均值与系统当前汇率偏差超过0.2,则会采用新的14天平均是做为系统汇率。</string>
-    <string name="wallet_exchange_past_time">时间</string>
-    <string name="wallet_exchange_past_rate">当日汇率</string>
-    <string name="wallet_exchange_past_rate_week">两周平均汇率</string>
 
     <string name="wallet_charge_my_address">我的比特币收款地址</string>
     <string name="wallet_charge_address_copy">(点击复制地址)</string>
@@ -43,7 +34,6 @@
     <string name="wallet_withdraw_amount">提币数量</string>
     <string name="wallet_withdraw_free">手续费\u3000</string>
     <string name="wallet_withdraw_tip">手续费将在提现金额中扣除</string>
-    <string name="wallet_withdraw_tip2">温馨提示：部分OGC不可提现，用来支付提现所需矿工费</string>
     <string name="wallet_withdraw_confirm">确认提币</string>
 
     <string name="wallet_withdraw_order_title">提币订单</string>
@@ -59,10 +49,7 @@
     <string name="bill_type_all">全部</string>
     <string name="bill_type_charge">充币</string>
     <string name="bill_type_withdraw">提现</string>
-    <string name="bill_type_autofill">自动补给</string>
     <string name="bill_type_withdrawfee">取现手续费</string>
-    <string name="bill_type_o2o_in">o2o店铺消费收入</string>
-    <string name="bill_type_o2o_out">o2o店铺消费支出</string>
     <string name="bill_type_withdrawfrozen">取现冻结</string>
     <string name="bill_type_withdrawunfrozen">取现解冻</string>
     <string name="bill_type_select">筛选</string>
@@ -89,7 +76,6 @@
     <string name="wallet_charge_recode">记录</string>
     <string name="wallet_charge_address_eth">我的以太币收款地址</string>
     <string name="wallet_charge_address_btc">我的比特币收款地址</string>
-    <string name="wallet_charge_address_sc">我的云储币收款地址</string>
     <string name="wallet_charge_address_copy_success">地址已复制</string>
 
     <string name="wallet_title_withdraw">提币</string>
@@ -98,10 +84,6 @@
     <string name="wallet_withdraw_success">提现申请成功</string>
     <string name="wallet_transfer_success">转账申请成功</string>
 
-    <string name="wallet_title_exchange">汇率概述</string>
-
-    <string name="wallet_title_exchange_past">历史汇率</string>
-    <string name="wallet_title_exchange_past_none">暂无历史汇率</string>
 
     <string name="wallet_none">暂无钱包</string>
 
@@ -190,16 +172,6 @@
     <string name="user_person_deal">和Ta交易过</string>
     <string name="user_person_times">次</string>
 
-    <string name="user_invite_people">成功邀请(人)</string>
-    <string name="user_invite_profit">提成收益</string>
-    <string name="user_invite_confirm">我要推荐</string>
-    <string name="user_invite_activity">活动规则</string>
-    <string name="user_invite_share_title">分享到</string>
-    <string name="user_invite_share_wx">微信</string>
-    <string name="user_invite_share_pyq">朋友圈</string>
-    <string name="user_invite_title">邀请好友</string>
-    <string name="user_invite_title_web">点击分享</string>
-    <string name="user_invite_title_right">推荐历史</string>
 
     <string name="user_sign_in_mobile_hint">请输入手机号</string>
     <string name="user_sign_in_pwd_hint">请输入密码</string>
@@ -268,17 +240,10 @@
     <string name="user_setting_google">谷歌验证</string>
     <string name="user_setting_sign_out">退出登录</string>
 
-    <string name="user_tip_good">自动好评</string>
-    <string name="user_tip_trust">自动加信任</string>
     <string name="user_tip_language">语言设置</string>
 
     <string name="user_address_add">添加新地址</string>
-    <string name="user_buy">我要购买</string>
-    <string name="user_sale">我要出售</string>
-    <string name="user_adv">我的广告</string>
     <string name="user_address">我的地址</string>
-    <string name="user_trust">受信任的</string>
-    <string name="user_invite">邀请好友</string>
     <string name="user_setting">系统设置</string>
     <string name="user_tip">个性设置</string>
     <string name="user_issue">帮助中心</string>
@@ -303,24 +268,16 @@
     <string name="google_code_hint">请输入谷歌验证码</string>
     <string name="google_code_format_hint">请输入正确的谷歌验证码</string>
 
-    <string name="user_about_copyright">2018BCOIN版权所有</string>
+    <string name="user_about_copyright">2018THA版权所有</string>
 
     // Util
     <string name="coin_eth">以太币</string>
     <string name="coin_btc">比特币</string>
-    <string name="coin_sc">云储币</string>
+
     <string name="biz_type_charge">充值</string>
     <string name="biz_type_withdraw">取现</string>
-    <string name="biz_type_autofill">自动补给</string>
-    <string name="biz_type_buy">交易买入</string>
-    <string name="biz_type_sell">交易卖出</string>
-    <string name="biz_type_tradefrozen">交易冻结</string>
-    <string name="biz_type_tradeunfrozen">交易解冻</string>
-    <string name="biz_type_withdrawfrozen">取现冻结</string>
-    <string name="biz_type_withdrawunfrozen">取现解冻</string>
     <string name="biz_type_tradefee">交易手续费</string>
     <string name="biz_type_withdrawfee">提现手续费</string>
-    <string name="biz_type_invite">邀请好友收入</string>
 
     <string name="biz_status_daiduizhang">待对账</string>
     <string name="biz_status_yiduiyiping">已对账且账已平</string>
@@ -401,7 +358,6 @@
     <string name="get_money">收款</string>
     <string name="service_money_tip">矿工费将在可用余额中扣除，余额不足将从转账金额中扣除</string>
     <string name="transfer">转账</string>
-    <string name="first">优先</string>
     <string name="ordinary">普通</string>
     <string name="economics">经济</string>
     <string name="private_key_copy_success">私钥已复制</string>
@@ -454,10 +410,9 @@
     <string name="please_input_transaction_number">请输入转账数量</string>
     <string name="no_record">暂无流水</string>
     <string name="withdraw">收款</string>
-    <string name="no_phone_permission"><![CDATA[没有权限，无法拨打电话，请到设置--->权限管理里授予用户拨打电话权限]]></string>
+    <string name="no_phone_permission">没有权限，无法拨打电话，请到设置--->权限管理里授予用户拨打电话权限</string>
     <string name="system_message">系统公告</string>
     <string name="no_system_message">暂无系统公告</string>
-
 
 
 </resources>
