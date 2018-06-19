@@ -29,7 +29,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:text="手机号"
+                    android:text="@string/activity_find_mobile"
                     android:textColor="@color/fontColor_gray"
                     android:textSize="15sp" />
 
@@ -39,8 +39,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:hint="请输入手机号码"
-                    android:inputType="number"
+                    android:hint="@string/activity_find_mobile_hint"
+                    android:inputType="phone"
                     android:maxLength="11"
                     android:textColor="@color/fontColor_gray"
                     android:textColorHint="@color/fontColor_hint"
@@ -63,7 +63,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center_vertical"
                     android:paddingLeft="15dp"
-                    android:text="手机验证码"
+                    android:text="@string/activity_find_code"
                     android:textColor="@color/fontColor_gray"
                     android:textSize="15sp" />
 

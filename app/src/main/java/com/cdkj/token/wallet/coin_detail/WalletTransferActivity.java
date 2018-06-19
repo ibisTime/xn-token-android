@@ -90,31 +90,31 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
         mBinding.btnNext.setOnClickListener(view -> {
 
             if (TextUtils.isEmpty(mBinding.editToAddress.getText().toString().trim())) {
-                UITipDialog.showInfo(this, "请输入接收地址");
+                UITipDialog.showInfo(this, getString(R.string.please_to_address));
                 return;
             }
 
             if (!WalletUtils.isValidAddress(mBinding.editToAddress.getText().toString().trim())) {
-                UITipDialog.showInfo(this, "无效的接收地址");
+                UITipDialog.showInfo(this, getStrRes(R.string.error_wallet_address));
                 return;
             }
 
             if (TextUtils.isEmpty(mBinding.edtAmount.getText().toString().trim())) {
-                UITipDialog.showInfo(this, "请输入转账数量");
+                UITipDialog.showInfo(this, getString(R.string.please_input_transaction_number));
                 return;
             }
 
             try {
 
                 if (accountListBean == null) {
-                    UITipDialog.showInfo(this, "可用余额不足");
+                    UITipDialog.showInfo(this, getStrRes(R.string.no_balance));
                     return;
                 }
 
                 BigInteger amountBigInteger = AccountUtil.bigIntegerFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim())); //转账数量
 
                 if (amountBigInteger.compareTo(BigInteger.ZERO) == 0 || amountBigInteger.compareTo(BigInteger.ZERO) == -1) {
-                    UITipDialog.showInfo(this, "请输入正确的转账数量");
+                    UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
                     return;
                 }
 
@@ -123,12 +123,12 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
                 int checkInt = allBigInteger.compareTo(accountListBean.getBalance()); //比较
 
                 if (checkInt == 1 || checkInt == 0) {
-                    UITipDialog.showInfo(this, "可用余额不足");
+                    UITipDialog.showInfo(this, getString(R.string.no_balance));
                     return;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
-                UITipDialog.showInfo(this, "请输入正确的转账数量");
+                UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
                 return;
             }
 
@@ -161,7 +161,7 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
                     }
 
                     if (!TextUtils.isEmpty(s.getTransactionHash())) {
-                        UITipDialog.showSuccess(WalletTransferActivity.this, "转账成功，正在同步中", dialogInterface -> finish());
+                        UITipDialog.showSuccess(WalletTransferActivity.this, getString(R.string.transaction_success), dialogInterface -> finish());
                     }
 
                 }, throwable -> {
@@ -247,10 +247,10 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
                     if (WalletUtils.isValidAddress(result)) {
                         mBinding.editToAddress.setText(result);
                     } else {
-                        Toast.makeText(WalletTransferActivity.this, "错误的地址", Toast.LENGTH_LONG).show();
+                        Toast.makeText(WalletTransferActivity.this, R.string.error_wallet_address, Toast.LENGTH_LONG).show();
                     }
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                    Toast.makeText(WalletTransferActivity.this, "解析地址失败", Toast.LENGTH_LONG).show();
+                    Toast.makeText(WalletTransferActivity.this, R.string.resolve_wallet_address_fail, Toast.LENGTH_LONG).show();
                 }
             }
         }

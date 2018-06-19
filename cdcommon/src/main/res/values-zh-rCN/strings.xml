@@ -104,5 +104,16 @@
     <string name="code_down">%d秒后重发</string>
     <string name="resend_code">重发验证码</string>
     <string name="back">返回</string>
+    <string name="save_photo_to">图片已保存至</string>
+    <string name="save_fial">保存失败</string>
+    <string name="load_error">加载错误</string>
+    <string name="choose">选择</string>
+    <string name="please_input_account">请输入帐号</string>
+    <string name="sign_in_success">登录成功</string>
+    <string name="sign_in_fail">登录失败</string>
+    <string name="send_to_friend">发送给朋友</string>
+    <string name="save_to_photo">保存到手机</string>
+    <string name="take_a_photo">拍照</string>
+    <string name="choose_from_album">从手机相册选择</string>
 
 </resources>

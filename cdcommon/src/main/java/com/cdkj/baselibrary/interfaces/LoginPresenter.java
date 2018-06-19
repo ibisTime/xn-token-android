@@ -3,6 +3,8 @@ package com.cdkj.baselibrary.interfaces;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.cdkj.baselibrary.CdApplication;
+import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -32,18 +34,18 @@ public class LoginPresenter {
     public void login(String username, String password, Context context) {
         this.mContext = context;
         if (TextUtils.isEmpty(username)) {
-            ToastUtil.show(context, "请输入帐号");
+            ToastUtil.show(context, CdApplication.getContext().getString(R.string.please_input_account));
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            ToastUtil.show(context, "请输入密码");
+            ToastUtil.show(context, CdApplication.getContext().getString(R.string.activity_find_password_hint));
             return;
         }
-        HashMap<String,String> hashMap=new HashMap<>();
+        HashMap<String, String> hashMap = new HashMap<>();
 
-        hashMap.put("loginName",username);
-        hashMap.put("loginPwd",password);
-        hashMap.put("kind",MyConfig.USERTYPE);
+        hashMap.put("loginName", username);
+        hashMap.put("loginPwd", password);
+        hashMap.put("kind", MyConfig.USERTYPE);
         hashMap.put("systemCode", MyConfig.SYSTEMCODE);
 
         call = RetrofitUtils.getBaseAPiService().userLogin("805050", StringUtils.getJsonToString(hashMap));
@@ -54,9 +56,9 @@ public class LoginPresenter {
             @Override
             protected void onSuccess(UserLoginModel data, String SucMessage) {
                 if (!TextUtils.isEmpty(data.getToken()) && !TextUtils.isEmpty(data.getUserId())) {
-                    mListener.LoginSuccess(data, "登录成功");
+                    mListener.LoginSuccess(data, CdApplication.getContext().getString(R.string.sign_in_success));
                 } else {
-                    mListener.LoginFailed("0", "登录失败");
+                    mListener.LoginFailed("0", CdApplication.getContext().getString(R.string.sign_in_fail));
                 }
             }
 
@@ -69,7 +71,7 @@ public class LoginPresenter {
 
     //处理持有对象
     public void clear() {
-        if(this.call!=null){
+        if (this.call != null) {
             this.call.cancel();
             this.call = null;
         }

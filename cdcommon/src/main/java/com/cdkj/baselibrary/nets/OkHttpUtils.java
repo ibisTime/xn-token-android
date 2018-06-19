@@ -30,9 +30,9 @@ import okio.Buffer;
  */
 public class OkHttpUtils {
 
-    private final static int CONNECT_TIMEOUT = 85;//连接超时
-    private final static int READ_TIMEOUT = 85;//数据返回超时
-    private final static int WRITE_TIMEOUT = 85;//请求超时
+    private final static int CONNECT_TIMEOUT = 20;//连接超时
+    private final static int READ_TIMEOUT = 20;//数据返回超时
+    private final static int WRITE_TIMEOUT = 20;//请求超时
 
     // This should be less than the lowest "normal" upload bandwidth times SOCKET_TIMEOUT_SECS,
     // but not too low or upload speed with long fat networks will suffer.
@@ -101,10 +101,10 @@ public class OkHttpUtils {
                     .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                     .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
                     .writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-                    .retryOnConnectionFailure(true)//允许失败重试
+                    .retryOnConnectionFailure(false)//允许失败重试
                     .cookieJar(new CookiesManager())  //cookie 管理
                     .addInterceptor(getInterceptor(LogUtil.isLog))    //网络日志
-                    .sslSocketFactory(createSSLSocketFactory(), new TrustAllManager())
+//                    .sslSocketFactory(createSSLSocketFactory(), new TrustAllManager())
 //                    .hostnameVerifier(new TrustAllHostnameVerifier())
                     .build();
 //

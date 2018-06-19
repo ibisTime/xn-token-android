@@ -28,7 +28,7 @@ public class ConsultListAdapter extends BaseQuickAdapter<ConsultModel, BaseViewH
         if (item == null) return;
 
         helper.setText(R.id.tv_title, item.getName());
-        helper.setText(R.id.tv_address, "地址: "+getAddress(item));
+        helper.setText(R.id.tv_address, mContext.getString(R.string.address) + ": " + getAddress(item));
         helper.setText(R.id.tv_slogan, item.getSlogan());
 
         ImgUtils.loadImage(mContext, item.getAdvPic(), helper.getView(R.id.img_consult));

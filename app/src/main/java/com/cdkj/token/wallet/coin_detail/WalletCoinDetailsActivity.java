@@ -7,18 +7,16 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.api.ResponseInListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
-import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.NetUtils;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
-import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
@@ -28,8 +26,6 @@ import com.cdkj.token.databinding.ActivityWallteBillBinding;
 import com.cdkj.token.databinding.HeaderBillListBinding;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.LocalCoinBill;
-import com.cdkj.token.model.LocalCoinModel;
-import com.cdkj.token.model.WalletDBModel;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.WalletHelper;
 
@@ -187,7 +183,6 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
 
         Call<BaseResponseModel<ResponseInListModel<LocalCoinBill>>> call = RetrofitUtils.createApi(MyApi.class).getLocalCoinBillList("802271", StringUtils.getJsonToString(map));
 
-
         addCall(call);
 
         if (isShowDialog) showLoadingDialog();
@@ -195,7 +190,12 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
         call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<LocalCoinBill>>(this) {
             @Override
             protected void onSuccess(ResponseInListModel<LocalCoinBill> data, String SucMessage) {
-                mRefreshHelper.setData(data.getList(), "暂无流水", R.mipmap.order_none);
+                mRefreshHelper.setData(data.getList(), getString(R.string.no_record), R.mipmap.order_none);
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+                LogUtil.E("详情错误" + errorMessage);
             }
 
             @Override

@@ -17,10 +17,10 @@ public class MyConfig {
     //默认七牛url
     public static String IMGURL = "http://ozfszueqz.bkt.clouddn.com/";
 
-    public static boolean IS_DEBUG = true;
+    public static boolean IS_DEBUG = false;
 
     // 拍照文件保存路径
-    public static final String CACHDIR = "beikeying";
+    public static final String CACHDIR = "tha_photo";
 
     // 环境访问地址
 //    public static final String BASE_URL_DEV = "http://120.26.6.213:2101/forward-service/"; // 研发

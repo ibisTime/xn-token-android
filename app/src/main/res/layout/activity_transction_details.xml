@@ -73,7 +73,7 @@
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:text="收款地址"
+                        android:text="@string/withdraw_address"
                         android:textColor="@color/txt_gray"
                         android:textSize="14sp" />
 
@@ -98,7 +98,7 @@
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:text="转出地址"
+                        android:text="@string/transfer_out_address"
                         android:textColor="@color/txt_gray"
                         android:textSize="14sp" />
 
@@ -123,7 +123,7 @@
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:text="手续费"
+                        android:text="@string/fees"
                         android:textColor="@color/txt_gray"
                         android:textSize="14sp" />
 
@@ -148,7 +148,7 @@
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:text="区块高度"
+                        android:text="@string/block_height"
                         android:textColor="@color/txt_gray"
                         android:textSize="14sp" />
 
@@ -173,7 +173,7 @@
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:text="交易号"
+                        android:text="@string/transction_code"
                         android:textColor="@color/txt_gray"
                         android:textSize="14sp" />
 
@@ -198,7 +198,7 @@
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:text="交易时间"
+                        android:text="@string/transction_time"
                         android:textColor="@color/txt_gray"
                         android:textSize="14sp" />
 
@@ -220,7 +220,7 @@
                     android:layout_marginTop="0.5dp"
                     android:background="@color/white"
                     android:gravity="center"
-                    android:text="查看更多详情"
+                    android:text="@string/view_more_detials"
                     android:textColor="@color/blue"
                     android:textSize="14sp" />
 

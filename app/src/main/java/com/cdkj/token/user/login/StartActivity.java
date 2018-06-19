@@ -7,6 +7,7 @@ import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
@@ -128,7 +129,6 @@ public class StartActivity extends BaseActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
                 getCoinList();
             }
         });
@@ -169,10 +169,8 @@ public class StartActivity extends BaseActivity {
                 open();
             }
 
-
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
-                super.onReqFailure(errorCode, errorMessage);
                 // 如果数据库已有数据，直接加载数据库
                 open();
             }

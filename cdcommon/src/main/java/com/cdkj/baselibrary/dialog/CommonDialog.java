@@ -106,7 +106,7 @@ public class CommonDialog {
     public CommonDialog setContentMsg(String msg) {
         mIsShowContentMsg = true;
         if (TextUtils.isEmpty(msg)) {
-            mContentMsg.setText("内容");
+            mContentMsg.setText(R.string.content);
         } else {
             mContentMsg.setText(msg);
         }
@@ -140,7 +140,7 @@ public class CommonDialog {
     public CommonDialog setPositiveBtn(String text, final OnPositiveListener onPositiveListener) {
         mIsShowPositiveBtn = true;
         if (TextUtils.isEmpty(text)) {
-            mPositiveBtn.setText("确定");
+            mPositiveBtn.setText(R.string.sure);
         } else {
             mPositiveBtn.setText(text);
         }
@@ -166,7 +166,7 @@ public class CommonDialog {
     public CommonDialog setMiddleBtn(String text, final OnMiddleListener onMiddleListener) {
         mIsShowMiddleBtn = true;
         if (TextUtils.isEmpty(text)) {
-            mMiddleBtn.setText("选择");
+            mMiddleBtn.setText(R.string.choose);
         } else {
             mMiddleBtn.setText(text);
         }
@@ -192,7 +192,7 @@ public class CommonDialog {
     public CommonDialog setNegativeBtn(String text, final OnNegativeListener onNegativeListener) {
         mIsShowNegativeBtn = true;
         if (TextUtils.isEmpty(text)) {
-            mNegativeBtn.setText("取消");
+            mNegativeBtn.setText(R.string.cancel);
         } else {
             mNegativeBtn.setText(text);
         }
@@ -225,7 +225,7 @@ public class CommonDialog {
     public CommonDialog setNegativeBtn(String text, final OnNegativeListener onNegativeListener, boolean isRed) {
         mIsShowNegativeBtn = true;
         if (TextUtils.isEmpty(text)) {
-            mNegativeBtn.setText("取消");
+            mNegativeBtn.setText(R.string.cancel);
         } else {
             mNegativeBtn.setText(text);
         }
@@ -399,7 +399,7 @@ public class CommonDialog {
     public CommonDialog setContentMsgText(String text) {
         mIsShowContentMsg = true;
         if (TextUtils.isEmpty(text)) {
-            mContentMsg.setText("取消");
+            mContentMsg.setText(R.string.cancel);
         } else {
             mContentMsg.setText(text);
         }
@@ -431,7 +431,7 @@ public class CommonDialog {
     public CommonDialog setNegativeBtnText(String text) {
         mIsShowNegativeBtn = true;
         if (TextUtils.isEmpty(text)) {
-            mNegativeBtn.setText("取消");
+            mNegativeBtn.setText(R.string.cancel);
         } else {
             mNegativeBtn.setText(text);
         }
@@ -477,7 +477,7 @@ public class CommonDialog {
     public CommonDialog setMiddleBtnText(String text) {
         mIsShowMiddleBtn = true;
         if (TextUtils.isEmpty(text)) {
-            mMiddleBtn.setText("取消");
+            mMiddleBtn.setText(R.string.cancel);
         } else {
             mMiddleBtn.setText(text);
         }
@@ -523,7 +523,7 @@ public class CommonDialog {
     public CommonDialog setPositiveBtnText(String text) {
         mIsShowPositiveBtn = true;
         if (TextUtils.isEmpty(text)) {
-            mPositiveBtn.setText("取消");
+            mPositiveBtn.setText(R.string.cancel);
         } else {
             mPositiveBtn.setText(text);
         }

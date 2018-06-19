@@ -6,124 +6,117 @@
     </data>
 
     <LinearLayout
-        android:background="@color/white"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
 
-        <View
-            style="@style/style_split_line_broad"/>
+        <View style="@style/style_split_line_broad" />
 
         <LinearLayout
             android:id="@+id/ll_modify"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
 
             <TextView
-                android:text="修改密码"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/modify_password"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <ImageView
-                android:layout_marginRight="15dp"
-                android:background="@mipmap/more"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/more" />
 
         </LinearLayout>
 
-        <View
-            style="@style/style_split_line"/>
+        <View style="@style/style_split_line" />
 
         <LinearLayout
             android:id="@+id/ll_back_up"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
 
             <TextView
-                android:text="钱包备份"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/wallet_backup"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <ImageView
-                android:layout_marginRight="15dp"
-                android:background="@mipmap/more"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/more" />
 
         </LinearLayout>
 
-        <View
-            style="@style/style_split_line"/>
+        <View style="@style/style_split_line" />
 
         <LinearLayout
             android:id="@+id/ll_out"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
 
             <TextView
-                android:text="导出私钥"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/export_private_key"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <ImageView
-                android:layout_marginRight="15dp"
-                android:background="@mipmap/more"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/more" />
 
         </LinearLayout>
 
-        <View
-            style="@style/style_split_line"/>
+        <View style="@style/style_split_line" />
 
         <LinearLayout
             android:id="@+id/ll_delete"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="45dp"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
 
             <TextView
-                android:text="删除钱包"
-                android:textSize="14sp"
-                android:textColor="@color/black"
-
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+
+                android:text="@string/delete_wallet"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <ImageView
-                android:layout_marginRight="15dp"
-                android:background="@mipmap/more"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/more" />
 
         </LinearLayout>
 
-        <View
-            style="@style/style_split_line"/>
+        <View style="@style/style_split_line" />
 
 
     </LinearLayout>

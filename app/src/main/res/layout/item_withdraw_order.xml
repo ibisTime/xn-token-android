@@ -1,87 +1,88 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:orientation="vertical">
 
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_height="0dp">
-            
-            <TextView
-                android:textSize="12sp"
-                android:text="提币金额:"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+            android:gravity="center_vertical">
 
             <TextView
-                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="提币金额:"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
+
+            <TextView
                 android:id="@+id/tv_price"
-                android:text="提币金额"
-                android:layout_marginLeft="3dp"
-                android:textColor="@color/colorAccent"
-                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_weight="1"
+                android:text="提币金额"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_status"
-                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:textColor="@color/colorAccent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            
+                android:textSize="12sp" />
+
         </LinearLayout>
 
         <LinearLayout
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
+            android:layout_height="0dp"
             android:layout_weight="1"
-            android:layout_height="0dp">
+            android:gravity="center_vertical">
 
             <TextView
-                android:textSize="12sp"
-                android:text="手续费:"
-                android:layout_marginLeft="15dp"
-                android:textColor="@color/black"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:text="@string/fees"
+                android:textColor="@color/black"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_fee"
-                android:textSize="12sp"
-                android:layout_marginLeft="3dp"
-                android:text="提币金额"
-                android:textColor="@color/colorAccent"
-                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="3dp"
+                android:layout_weight="1"
+                android:text="@string/extract_amount"
+                android:textColor="@color/colorAccent"
+                android:textSize="12sp" />
 
             <TextView
                 android:id="@+id/tv_date"
-                android:textSize="12sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginRight="15dp"
                 android:textColor="@color/black"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:textSize="12sp" />
 
         </LinearLayout>
 
     </LinearLayout>
 
     <View
-        android:background="@color/gray_eeeeee"
         android:layout_width="match_parent"
-        android:layout_height="1dp"/>
+        android:layout_height="1dp"
+        android:background="@color/gray_eeeeee" />
 
 </LinearLayout>

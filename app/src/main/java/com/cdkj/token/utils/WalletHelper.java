@@ -69,17 +69,31 @@ public class WalletHelper {
     public final static String HELPWORD_SIGN = " ";
     public final static String HDPATH = "M/44H/60H/0H/0/0";//生成助记词和解析时使用
 
-    //        public final static String WEB3J_URL = "https://mainnet.infura.io/ZJR3JJlmLyf5mg4A9UxA";//
-    public final static String WEB3J_URL = "https://rinkeby.infura.io/qfyZa8diWhk28tT9Cwft";//
+    //    public final static String WEB3J_URL = "https://rinkeby.infura.io/qfyZa8diWhk28tT9Cwft";//
+    public final static String WEB3J_URL = "https://mainnet.infura.io/qfyZa8diWhk28tT9Cwft";//
 
-    public final static String WEB3J_URL_WAN = "http://120.26.6.213:8546";//
+    //    public final static String WEB3J_URL_WAN = "http://120.26.6.213:8546";//
+    public final static String WEB3J_URL_WAN = "http://47.75.165.70:8546";//
 
-    public final static String TO_BROWSER_URL = "https://rinkeby.etherscan.io/tx/";//跳向区块链浏览器
+    //    public final static String TO_BROWSER_URL = "https://rinkeby.etherscan.io/tx/";//跳向区块链浏览器
+    public final static String TO_BROWSER_URL = "https://etherscan.io/tx/";//跳向区块链浏览器
 
-    public final static String WAN_TO_BROWSER_URL = "http://47.104.61.26/block/trans/";//跳向区块链浏览器
+    //    public final static String WAN_TO_BROWSER_URL = "http://47.104.61.26/block/trans/";//跳向区块链浏览器
+    public final static String WAN_TO_BROWSER_URL = "https://www.wanscan.org/tx/";//跳向区块链浏览器
 
     public final static String WALLPASS = "tha_etc";//
 
+
+    /*：https://etherscan.io/tx/
+
+交易hash
+以太坊节点地址：https://mainnet.infura.io/qfyZa8diWhk28tT9Cwft
+
+万维区块链浏览器：https://www.wanscan.org/tx/
+
+交易hash
+万维节点地址：http://47.75.165.70:8546
+*/
 
     //TODO 币种使用枚举类
     public final static String COIN_ETH = "ETH";// 币种类型 ETH
@@ -321,11 +335,11 @@ public class WalletHelper {
      * @throws Exception
      */
     private static String encrypt(String privateKeyAsHex) {
-        try {
-            return CipherUtils.encrypt(privateKeyAsHex, WALLPASS);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            return CipherUtils.encrypt(privateKeyAsHex, WALLPASS);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return privateKeyAsHex;
     }
 
@@ -337,11 +351,11 @@ public class WalletHelper {
      * @throws Exception
      */
     private static String decrypt(String privateKeyAsHex) {
-        try {
-            return CipherUtils.decrypt(privateKeyAsHex, WALLPASS);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        try {
+//            return CipherUtils.decrypt(privateKeyAsHex, WALLPASS);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return privateKeyAsHex;
     }
 
@@ -472,7 +486,7 @@ public class WalletHelper {
     }
 
     /**
-     * 修改用户钱包密码
+     * 修改用户钱包密码x`
      *
      * @param password
      * @return

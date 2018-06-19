@@ -109,7 +109,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="谷歌验证码"
+                android:text="@string/google_verification_code"
                 android:textColor="@color/fontColor_gray"
                 android:textSize="14sp" />
 
@@ -122,7 +122,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="请输入谷歌验证码"
+                android:hint="@string/please_input_google_code"
                 android:inputType="number"
                 android:maxLength="6"
                 android:textColor="@color/fontColor_gray"
@@ -138,7 +138,7 @@
                 android:layout_marginRight="15dp"
                 android:background="@drawable/btn_blue"
                 android:gravity="center"
-                android:text="粘贴"
+                android:text="@string/affix"
                 android:textColor="@color/white"
                 android:textSize="12sp" />
 

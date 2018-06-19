@@ -22,7 +22,7 @@
                 android:layout_marginTop="25dp"
                 android:lineSpacingExtra="5dp"
                 android:padding="15dp"
-                android:text="注意！拥有私钥就能完全控制该地址的资产，不要分享给任何人" />
+                android:text="@string/private_key_tip" />
 
             <TextView
                 android:id="@+id/tv_coin_name"

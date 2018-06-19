@@ -173,7 +173,7 @@ public abstract class BaseRefreshFragment<T> extends BaseLazyFragment {
 
         if (canLoadEmptyView() && mEmptyBinding != null) {
             if (TextUtils.isEmpty(str)) {
-                mEmptyBinding.tv.setText("加载错误");
+                mEmptyBinding.tv.setText(R.string.load_error);
             } else {
                 mEmptyBinding.tv.setText(str);
             }

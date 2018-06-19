@@ -194,7 +194,7 @@
 
             <TextView
                 android:layout_marginLeft="6dp"
-                android:text="商业应用"
+                android:text="@string/business_app"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
@@ -229,7 +229,7 @@
 
                 <TextView
                     android:layout_marginTop="12dp"
-                    android:text="币生币"
+                    android:text="@string/coin_to_coin"
                     android:textSize="13sp"
                     android:textColor="@color/gray_666666"
                     android:layout_width="wrap_content"
@@ -257,7 +257,7 @@
 
                 <TextView
                     android:layout_marginTop="12dp"
-                    android:text="THA星球"
+                    android:text="@string/tha_planet"
                     android:textSize="13sp"
                     android:textColor="@color/gray_666666"
                     android:layout_width="wrap_content"
@@ -285,7 +285,7 @@
 
                 <TextView
                     android:layout_marginTop="12dp"
-                    android:text="余币宝"
+                    android:text="@string/ybb"
                     android:textSize="13sp"
                     android:textColor="@color/gray_666666"
                     android:layout_width="wrap_content"

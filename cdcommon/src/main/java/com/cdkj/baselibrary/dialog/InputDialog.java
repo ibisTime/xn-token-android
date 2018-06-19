@@ -71,7 +71,7 @@ public class InputDialog {
     public InputDialog setTitle(String title) {
         mIsShowTitle = true;
         if (TextUtils.isEmpty(title)) {
-            mTitle.setText("提示");
+            mTitle.setText(R.string.prompt);
         } else {
             mTitle.setText(title);
         }
@@ -122,7 +122,7 @@ public class InputDialog {
     public InputDialog setPositiveBtn(String text, final OnPositiveListener onPositiveListener) {
         mIsShowPositiveBtn = true;
         if (TextUtils.isEmpty(text)) {
-            mPositiveBtn.setText("确定");
+            mPositiveBtn.setText(R.string.sure);
         } else {
             mPositiveBtn.setText(text);
         }
@@ -147,7 +147,7 @@ public class InputDialog {
     public InputDialog setNegativeBtn(String text, final OnNegativeListener onNegativeListener) {
         mIsShowNegativeBtn = true;
         if (TextUtils.isEmpty(text)) {
-            mNegativeBtn.setText("取消");
+            mNegativeBtn.setText(R.string.cancel);
         } else {
             mNegativeBtn.setText(text);
         }
@@ -240,7 +240,7 @@ public class InputDialog {
     public InputDialog setTitleText(String text) {
         mIsShowTitle = true;
         if (TextUtils.isEmpty(text)) {
-            mTitle.setText("提示");
+            mTitle.setText(R.string.prompt);
         } else {
             mTitle.setText(text);
         }
@@ -270,7 +270,7 @@ public class InputDialog {
     public InputDialog setContentMsgText(String text) {
         mIsShowContentInput = true;
         if (TextUtils.isEmpty(text)) {
-            mContentInput.setText("取消");
+            mContentInput.setText(R.string.cancel);
         } else {
             mContentInput.setText(text);
         }
@@ -300,7 +300,7 @@ public class InputDialog {
     public InputDialog setNegativeBtnText(String text) {
         mIsShowNegativeBtn = true;
         if (TextUtils.isEmpty(text)) {
-            mNegativeBtn.setText("取消");
+            mNegativeBtn.setText(R.string.cancel);
         } else {
             mNegativeBtn.setText(text);
         }

@@ -91,9 +91,9 @@ public class TransactionDetailsActivity extends AbsBaseLoadActivity {
         mBinding.imgStateIcon.setImageResource(CoinUtil.getStataIconByState(localCoinBill.getDirection()));
 
         if (CoinUtil.isInState(localCoinBill.getDirection())) {
-            mBinding.tvStateString.setText("收款");
+            mBinding.tvStateString.setText(R.string.withdraw);
         } else {
-            mBinding.tvStateString.setText("转账");
+            mBinding.tvStateString.setText(R.string.transfer);
         }
 
         mBinding.tvMoney.setText(getMoneyStateByState(localCoinBill.getDirection()) + AccountUtil.amountFormatUnitForShow(localCoinBill.getValue(), ETHSCALE) + " " + coinType);

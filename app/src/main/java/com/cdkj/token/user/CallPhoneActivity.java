@@ -11,6 +11,7 @@ import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.PermissionHelper;
+import com.cdkj.token.R;
 
 /**
  * 拨打电话
@@ -73,7 +74,7 @@ public class CallPhoneActivity extends BaseActivity {
 
             @Override
             public void doAfterDenied(String... permission) {
-                showSureDialog("没有权限，无法拨打电话，请到设置--->权限管理里授予用户拨打电话权限", view -> finish());
+                showSureDialog(getString(R.string.no_phone_permission), view -> finish());
             }
         }, Manifest.permission.CALL_PHONE);
     }
@@ -93,9 +94,9 @@ public class CallPhoneActivity extends BaseActivity {
         }
 
         CommonDialog commonDialog = new CommonDialog(this).builder()
-                .setTitle("拨打电话").setContentMsg(str)
-                .setPositiveBtn("确定", onPositiveListener)
-                .setNegativeBtn("取消", onNegativeListener, false);
+                .setTitle(getStrRes(R.string.call_phone)).setContentMsg(str)
+                .setPositiveBtn(getStrRes(R.string.sure), onPositiveListener)
+                .setNegativeBtn(getStrRes(R.string.cancel), onNegativeListener, false);
 
         commonDialog.show();
     }
@@ -109,8 +110,8 @@ public class CallPhoneActivity extends BaseActivity {
         }
 
         CommonDialog commonDialog = new CommonDialog(this).builder()
-                .setTitle("提示").setContentMsg(str)
-                .setPositiveBtn("确定", onPositiveListener);
+                .setTitle(getStrRes(R.string.tip)).setContentMsg(str)
+                .setPositiveBtn(getStrRes(R.string.sure), onPositiveListener);
 //        commonDialog.getContentView().setGravity(Gravity.CENTER);
 
         commonDialog.show();

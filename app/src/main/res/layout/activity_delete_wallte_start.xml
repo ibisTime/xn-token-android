@@ -22,7 +22,7 @@
             android:paddingRight="20dp"
             android:paddingTop="25dp"
             android:textColor="@color/blue"
-            android:text="注意！删除钱包前,请务必确认已备份号钱包助记词，否则将丢失您的钱包资产。" />
+            android:text="@string/wallet_delete_tip" />
 
 
         <Button

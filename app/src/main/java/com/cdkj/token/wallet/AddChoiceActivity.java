@@ -46,7 +46,7 @@ public class AddChoiceActivity extends AbsRefreshListActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        mBaseBinding.titleView.setMidTitle("添加资产");
+        mBaseBinding.titleView.setMidTitle(getStrRes(R.string.add_assets));
 
         initRefreshHelper(RefreshHelper.LIMITE);
 

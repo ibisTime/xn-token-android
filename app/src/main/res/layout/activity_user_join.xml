@@ -23,7 +23,7 @@
             android:layout_height="45dp">
 
             <TextView
-                android:text="Facebook"
+                android:text="@string/facebook"
                 android:textSize="14sp"
                 android:textColor="@color/black"
                 android:layout_weight="1"
@@ -52,7 +52,7 @@
             android:layout_height="45dp">
 
             <TextView
-                android:text="Twitter"
+                android:text="@string/twitter"
                 android:textSize="14sp"
                 android:textColor="@color/black"
 
@@ -83,16 +83,15 @@
             android:layout_height="45dp">
 
             <TextView
-                android:text="Telegram"
+                android:text="@string/telegram"
                 android:textSize="14sp"
                 android:textColor="@color/black"
-
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="thasddoddfvb"
+                android:text="@string/thasddoddfvb"
                 android:textSize="14sp"
                 android:textColor="@color/gray_999999"
                 android:layout_marginLeft="15dp"
@@ -113,7 +112,7 @@
             android:layout_height="45dp">
 
             <TextView
-                android:text="QQ Group"
+                android:text="@string/qq_group"
                 android:textSize="14sp"
                 android:textColor="@color/black"
 
@@ -143,7 +142,7 @@
             android:layout_height="45dp">
 
             <TextView
-                android:text="Wechat"
+                android:text="@string/wechat"
                 android:textSize="14sp"
                 android:textColor="@color/black"
 

@@ -13,12 +13,13 @@
     <string name="activity_authenticate_download_confirm">好的</string>
     <string name="activity_authenticate_download_cancel">算了</string>
     <string name="activity_find_title">找回密码</string>
-    <string name="activity_find_mobile_hint">请输入手机号</string>
+    <string name="activity_find_mobile_hint">请输入手机号码</string>
     <string name="activity_find_code_hint">请输入验证码</string>
     <string name="activity_find_google_hint">请输入谷歌验证码</string>
     <string name="activity_find_password_hint">请输入密码</string>
     <string name="activity_find_repassword_hint">请重新输入密码</string>
     <string name="activity_find_password_format_hint">密码不少于6位</string>
+    <string name="password_input_hint">不少于6位</string>
     <string name="activity_find_repassword_format_hint">两次密码输入不一致</string>
     <string name="activity_find_success">密码修改成功</string>
     <string name="activity_find_failure">密码修改失败</string>
@@ -104,5 +105,16 @@
     <string name="code_down">%d秒后重发</string>
     <string name="resend_code">重发验证码</string>
     <string name="back">返回</string>
+    <string name="save_photo_to">图片已保存至</string>
+    <string name="save_fial">保存失败</string>
+    <string name="load_error">加载错误</string>
+    <string name="choose">选择</string>
+    <string name="please_input_account">请输入帐号</string>
+    <string name="sign_in_success">登录成功</string>
+    <string name="sign_in_fail">登录失败</string>
+    <string name="send_to_friend">发送给朋友</string>
+    <string name="save_to_photo">保存到手机</string>
+    <string name="take_a_photo">拍照</string>
+    <string name="choose_from_album">从手机相册选择</string>
 
 </resources>

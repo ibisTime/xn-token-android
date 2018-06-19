@@ -28,7 +28,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="15dp"
                 android:layout_marginTop="15dp"
-                android:text="选择手续费"
+                android:text="@string/choose_fees"
                 android:textColor="@color/text_black_cd"
                 android:textSize="14sp" />
 
@@ -38,7 +38,7 @@
                 android:layout_gravity="center"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:text="选择经济的手续费，可能会导致延长交易确认时间。对时间有要求的交易，请选择优先"
+                android:text="@string/choose_fee_tip"
                 android:textColor="@color/text_black_cd"
                 android:textSize="14sp" />
 
@@ -59,7 +59,7 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:text="优先"
+                    android:text="@string/priority"
                     android:textColor="@color/text_black_cd"
                     android:textSize="14sp" />
 
@@ -92,7 +92,7 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:text="普通"
+                    android:text="@string/ordinary"
                     android:textColor="@color/text_black_cd"
                     android:textSize="14sp" />
 
@@ -124,7 +124,7 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="15dp"
                     android:layout_marginTop="15dp"
-                    android:text="经济"
+                    android:text="@string/economics"
                     android:textColor="@color/text_black_cd"
                     android:textSize="14sp" />
 

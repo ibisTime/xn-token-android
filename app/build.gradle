@@ -49,10 +49,6 @@ android {
             minifyEnabled false //开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
-            ndk {
-                // 需要将 x86 架构过滤掉
-//                abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
-            }
         }
     }
 

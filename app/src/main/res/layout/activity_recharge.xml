@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -23,7 +24,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
-                android:text="BTC钱包地址禁止充值除BTC之外的其他资产，任何BTC资产充值将不可找回"
+                android:text="@string/btc_wallet_tip"
                 android:textColor="@color/colorPrimary"
                 android:textSize="11sp" />
 
@@ -121,7 +122,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
-                android:text="sdfsffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
+                tools:text="sdfsffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff"
                 android:textColor="@color/gray_5e5e5f"
                 android:textSize="10sp" />
 

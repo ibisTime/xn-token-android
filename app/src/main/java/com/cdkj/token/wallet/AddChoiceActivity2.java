@@ -39,7 +39,7 @@ public class AddChoiceActivity2 extends BaseRefreshActivity {
     @Override
     protected void onInit(Bundle savedInstanceState, int pageIndex, int limit) {
 
-        setTopTitle("添加资产");
+        setTopTitle(getString(R.string.add_assets));
         setTopLineState(true);
         setSubLeftImgState(true);
 

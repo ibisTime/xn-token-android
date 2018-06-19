@@ -22,7 +22,7 @@
             android:layout_width="fill_parent"
             android:layout_height="45dp"
             android:gravity="center"
-            android:text="拍照"
+            android:text="@string/take_a_photo"
             android:textColor="#3DA3FF"
             android:textSize="16sp" />
 
@@ -33,7 +33,7 @@
             android:layout_width="fill_parent"
             android:layout_height="45dp"
             android:gravity="center"
-            android:text="从手机相册选择"
+            android:text="@string/choose_from_album"
             android:textColor="#3DA3FF"
             android:textSize="16sp" />
 
@@ -49,7 +49,7 @@
         android:background="@drawable/mydialog_bg"
         android:textColor="@color/black"
         android:gravity="center"
-        android:text="取消"
+        android:text="@string/cancel"
         android:textSize="16sp" />
 
 </LinearLayout>

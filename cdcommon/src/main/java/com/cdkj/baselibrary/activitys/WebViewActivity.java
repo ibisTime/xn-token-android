@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.net.http.SslError;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
@@ -16,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.JavascriptInterface;
+import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -150,7 +152,11 @@ public class WebViewActivity extends AbsBaseActivity {
 //                    setTopTitle(title);
 //                }
             }
+            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();  // 接受所有网站的证书
+            }
         });
+
 
     }
 
@@ -163,9 +169,9 @@ public class WebViewActivity extends AbsBaseActivity {
 
         if (TextUtils.isEmpty(getIntent().getStringExtra("url"))) {
 
-            if (TextUtils.isEmpty(getIntent().getStringExtra("content"))){
+            if (TextUtils.isEmpty(getIntent().getStringExtra("content"))) {
                 getKeyUrl(getIntent().getStringExtra("code"));
-            }else {
+            } else {
                 showContent(getIntent().getStringExtra("content"));
             }
         } else {
@@ -210,12 +216,12 @@ public class WebViewActivity extends AbsBaseActivity {
 
     }
 
-    private void showContent(String content){
-        mBinding.webView.loadData(content , "text/html;charset=UTF-8", "UTF-8");
+    private void showContent(String content) {
+        mBinding.webView.loadData(content, "text/html;charset=UTF-8", "UTF-8");
     }
 
 
-    private void getViewCache(View view){
+    private void getViewCache(View view) {
         view.setDrawingCacheEnabled(true);
         Bitmap tBitmap = view.getDrawingCache();
         // 拷贝图片，否则在setDrawingCacheEnabled(false)以后该图片会被释放掉
@@ -248,12 +254,12 @@ public class WebViewActivity extends AbsBaseActivity {
     public class WebHost {
         public Context context;
 
-        public WebHost(Context context){
+        public WebHost(Context context) {
             this.context = context;
         }
 
         @JavascriptInterface
-        public void acllJs(){ // JS事件映射
+        public void acllJs() { // JS事件映射
             getViewCache(mBinding.webView);
         }
     }
@@ -311,7 +317,7 @@ public class WebViewActivity extends AbsBaseActivity {
         tvSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                popupInvite(view,bitmap);
+                popupInvite(view, bitmap);
                 popupWindow.dismiss();
             }
         });
@@ -332,14 +338,14 @@ public class WebViewActivity extends AbsBaseActivity {
     }
 
 
-    private void keep(final Bitmap bitmap){
+    private void keep(final Bitmap bitmap) {
         permissionHelper = new PermissionHelper(this);
 
         permissionHelper.requestPermissions(new PermissionHelper.PermissionListener() {
             @Override
             public void doAfterGrand(String... permission) {
 
-                ImageSelectActivity.saveImageToGallery(WebViewActivity.this,bitmap);
+                ImageSelectActivity.saveImageToGallery(WebViewActivity.this, bitmap);
             }
 
             @Override
@@ -409,8 +415,6 @@ public class WebViewActivity extends AbsBaseActivity {
         popupWindow.showAtLocation(view, Gravity.CENTER, 0, 50);
 
     }
-
-
 
 
 }

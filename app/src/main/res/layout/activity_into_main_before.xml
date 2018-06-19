@@ -59,7 +59,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="20dp"
                 android:layout_marginTop="60dp"
-                android:text="我已阅读并同意服务及隐私条款"
+                android:text="@string/i_agree_this_terms"
                 android:textColor="@color/blue" />
 
 

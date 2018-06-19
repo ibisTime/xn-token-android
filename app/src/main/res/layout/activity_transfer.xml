@@ -75,7 +75,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="请输入收款地址"
+                android:hint="@string/please_input_withdraw_address"
                 android:textColor="@color/black"
                 android:textColorHint="@color/gray_999999"
                 android:textSize="14sp" />
@@ -114,7 +114,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:text="转账数量"
+                android:text="@string/transfer_number"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -184,7 +184,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
-                android:text="谷歌验证码"
+                android:text="@string/google_verification_code"
                 android:textColor="@color/fontColor_gray"
                 android:textSize="14sp" />
 
@@ -197,7 +197,7 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="请输入谷歌验证码"
+                android:hint="@string/please_input_google_code"
                 android:inputType="number"
                 android:maxLength="6"
                 android:textColor="@color/fontColor_gray"

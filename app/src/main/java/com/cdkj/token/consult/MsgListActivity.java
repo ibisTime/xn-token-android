@@ -10,6 +10,7 @@ import com.cdkj.baselibrary.base.BaseRefreshActivity;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.token.R;
 import com.cdkj.token.adapter.MsgListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.MsgListModel;
@@ -38,7 +39,7 @@ public class MsgListActivity extends BaseRefreshActivity {
     @Override
     protected void onInit(Bundle savedInstanceState, int pageIndex, int limit) {
 
-        setTopTitle("系统公告");
+        setTopTitle(getString(R.string.system_message));
         setTopLineState(true);
         setSubLeftImgState(true);
 
@@ -89,7 +90,7 @@ public class MsgListActivity extends BaseRefreshActivity {
 
     @Override
     public String getEmptyInfo() {
-        return "暂无系统公告";
+        return getString(R.string.no_system_message);
     }
 
     @Override

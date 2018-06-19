@@ -35,7 +35,7 @@ import java.util.Map;
 import retrofit2.Call;
 
 
-public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface{
+public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface {
 
     private boolean agreeState = true;
 
@@ -46,7 +46,7 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
         if (context == null) {
             return;
         }
-        Intent intent= new Intent(context, SignUpActivity.class);
+        Intent intent = new Intent(context, SignUpActivity.class);
         context.startActivity(intent);
     }
 
@@ -65,8 +65,8 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
     public void afterCreate(Bundle savedInstanceState) {
         setTopTitle(getStrRes(R.string.user_title_sign_up));
         setSubLeftImgState(true);
-        if (MyConfig.IS_DEBUG){
-            setSubRightTitleAndClick(getStrRes(R.string.build_type),v -> {
+        if (MyConfig.IS_DEBUG) {
+            setSubRightTitleAndClick(getStrRes(R.string.build_type), v -> {
                 AppBuildTypeActivity.open(this);
             });
         }
@@ -79,80 +79,79 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
     private void initListener() {
 
         mBinding.btnSend.setOnClickListener(view -> {
-            if (check("code")){
-                mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(),"805041","C",this);
+            if (check("code")) {
+                mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(), "805041", "C", this);
             }
         });
 
         mBinding.btnConfirm.setOnClickListener(view -> {
-            if (check("all")){
+            if (check("all")) {
                 signUp();
             }
         });
 
         mBinding.llAgree.setOnClickListener(v -> {
-            if (agreeState){
+            if (agreeState) {
                 agreeState = false;
                 mBinding.ivAgree.setBackgroundResource(R.mipmap.user_sign_unagree);
-            }else {
+            } else {
                 agreeState = true;
                 mBinding.ivAgree.setBackgroundResource(R.mipmap.user_sign_agree);
             }
         });
 
         mBinding.tvClause.setOnClickListener(v -> {
-            WebViewActivity.openkey(this, getStrRes(R.string.user_sign_up_protocol),"reg_protocol");
+            WebViewActivity.openkey(this, getStrRes(R.string.user_sign_up_protocol), "reg_protocol");
         });
 
 
     }
 
-    private boolean check(String type){
-        if (TextUtils.isEmpty(mBinding.edtNick.getText().toString().trim())){
+    private boolean check(String type) {
+        if (TextUtils.isEmpty(mBinding.edtNick.getText().toString().trim())) {
             showToast(getStrRes(R.string.user_nick_hint));
             return false;
         }
 
-        if (TextUtils.isEmpty(mBinding.edtMobile.getText().toString().trim())){
+        if (TextUtils.isEmpty(mBinding.edtMobile.getText().toString().trim())) {
             showToast(getStrRes(R.string.user_mobile_hint));
             return false;
         }
 
-        if(type.equals("all")){
-            if (TextUtils.isEmpty(mBinding.edtCode.getText().toString().trim())){
+        if (type.equals("all")) {
+            if (TextUtils.isEmpty(mBinding.edtCode.getText().toString().trim())) {
                 showToast(getStrRes(R.string.user_code_hint));
                 return false;
             }
-            if (mBinding.edtCode.getText().toString().trim().length() != 4){
+            if (mBinding.edtCode.getText().toString().trim().length() != 4) {
                 showToast(getStrRes(R.string.user_code_format_hint));
                 return false;
             }
 
-            if (TextUtils.isEmpty(mBinding.edtPassword.getText().toString().trim())){
+            if (TextUtils.isEmpty(mBinding.edtPassword.getText().toString().trim())) {
                 showToast(getStrRes(R.string.user_password_hint));
                 return false;
             }
-            if (TextUtils.isEmpty(mBinding.edtRePassword.getText().toString().trim())){
+            if (TextUtils.isEmpty(mBinding.edtRePassword.getText().toString().trim())) {
                 showToast(getStrRes(R.string.user_repassword_hint));
                 return false;
             }
-            if (!mBinding.edtRePassword.getText().toString().trim().equals(mBinding.edtPassword.getText().toString().trim())){
+            if (!mBinding.edtRePassword.getText().toString().trim().equals(mBinding.edtPassword.getText().toString().trim())) {
                 showToast(getStrRes(R.string.user_repassword_two_hint));
                 return false;
             }
 
-            if (!agreeState){
+            if (!agreeState) {
                 showToast(getStrRes(R.string.user_protocol_hint));
                 return false;
             }
         }
 
 
-
         return true;
     }
 
-    private void signUp(){
+    private void signUp() {
         Map<String, Object> map = new HashMap<>();
         map.put("nickname", mBinding.edtNick.getText().toString().trim());
         map.put("kind", "C");
@@ -201,12 +200,12 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
     }
 
     @Subscribe
-    public void changeUi(String tag){
+    public void changeUi(String tag) {
         if (tag == null)
             return;
 
-        if (tag.equals(EventTags.CHANGE_CODE_BTN)){
-            mBinding.btnSend.setBackground(ContextCompat.getDrawable(SignUpActivity.this,R.drawable.btn_blue));
+        if (tag.equals(EventTags.CHANGE_CODE_BTN)) {
+            mBinding.btnSend.setBackgroundResource(R.drawable.btn_blue);
         }
     }
 
@@ -217,7 +216,7 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
         mSubscription.add(AppUtils.startCodeDown(60, mBinding.btnSend));
 
         //改变ui
-        mBinding.btnSend.setBackground(ContextCompat.getDrawable(SignUpActivity.this,R.drawable.corner_sign_btn_gray));
+        mBinding.btnSend.setBackgroundResource(R.drawable.corner_sign_btn_gray);
     }
 
     @Override
