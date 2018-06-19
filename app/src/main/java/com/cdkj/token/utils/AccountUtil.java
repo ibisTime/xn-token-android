@@ -212,20 +212,11 @@ public class AccountUtil {
             case "withdraw":
                 return StringUtil.getString(R.string.bill_type_withdraw);
 
-            case "withdrawfrozen":
-                return StringUtil.getString(R.string.biz_type_withdrawfrozen);
-
-            case "withdrawunfrozen":
-                return StringUtil.getString(R.string.biz_type_withdrawunfrozen);
-
             case "tradefee":
                 return StringUtil.getString(R.string.biz_type_tradefee);
 
             case "withdrawfee":
                 return StringUtil.getString(R.string.biz_type_withdrawfee);
-
-            case "invite":
-                return StringUtil.getString(R.string.biz_type_invite);
 
             default:
                 return "";

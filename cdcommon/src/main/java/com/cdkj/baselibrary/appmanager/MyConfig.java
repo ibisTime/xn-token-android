@@ -15,9 +15,9 @@ public class MyConfig {
     public final static String USERTYPE = "C";//用户类型
 
     //默认七牛url
-    public static String IMGURL = "http://ozfszueqz.bkt.clouddn.com/";
+    public static String IMGURL = "http://pajvine9a.bkt.clouddn.com/";
 
-    public static boolean IS_DEBUG = false;
+    public static boolean IS_DEBUG = true;
 
     // 拍照文件保存路径
     public static final String CACHDIR = "tha_photo";
