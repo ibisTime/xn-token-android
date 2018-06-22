@@ -116,5 +116,5 @@
     <string name="save_to_photo">保存到手机</string>
     <string name="take_a_photo">拍照</string>
     <string name="choose_from_album">从手机相册选择</string>
-
+    <string name="password_input_hint">不少于6位</string>
 </resources>

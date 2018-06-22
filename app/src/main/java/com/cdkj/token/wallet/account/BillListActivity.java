@@ -57,7 +57,7 @@ public class BillListActivity extends AbsBaseActivity {
     private RefreshHelper refreshHelper;
 
     private String type = "";
-    private String kind = "";
+    private String kind = "0";
     private String[] types;
     private String[] bizType = {"", "charge", "withdraw", "withdrawfee"};
 

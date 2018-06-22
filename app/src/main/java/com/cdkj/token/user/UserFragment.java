@@ -13,9 +13,11 @@ import com.cdkj.baselibrary.activitys.ImageSelectActivity;
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
+import com.cdkj.baselibrary.model.BaseCoinModel;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.LoginFailureEvent;
 import com.cdkj.baselibrary.model.UserInfoModel;
+import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.CameraHelper;
@@ -29,8 +31,10 @@ import com.cdkj.token.databinding.FragmentUserBinding;
 import com.cdkj.token.wallet.trusteeship.WalletUserActivity;
 
 import org.greenrobot.eventbus.Subscribe;
+import org.litepal.crud.DataSupport;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -45,6 +49,8 @@ public class UserFragment extends BaseLazyFragment {
     private FragmentUserBinding mBinding;
 
     public final int PHOTOFLAG = 110;
+
+    private boolean isFirstCoinListRequest;//记录是否请求了币种
 
     /**
      * 获得fragment实例
@@ -86,11 +92,19 @@ public class UserFragment extends BaseLazyFragment {
             }
             UserSettingActivity.open(mActivity);
         });
+        //中心化钱包
         mBinding.linLayoutUserAccount.setOnClickListener(view -> {
             if (!SPUtilHelper.isLogin(mActivity, false)) {
                 return;
             }
-            WalletUserActivity.open(mActivity);
+
+            if (isFirstCoinListRequest) {  //如果已经获取过币种 则不再获取
+                WalletUserActivity.open(mActivity);
+            } else {
+                //获取配置币种列表
+                getCoinList();
+            }
+
         });
 
         mBinding.llJoin.setOnClickListener(view -> {
@@ -110,6 +124,60 @@ public class UserFragment extends BaseLazyFragment {
             UserAboutActivity.open(mActivity);
         });
     }
+
+
+    private void getCoinList() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("type", "");
+        map.put("ename", "");
+        map.put("cname", "");
+        map.put("symbol", "");
+        map.put("status", "0"); // 0已发布，1已撤下
+        map.put("contractAddress", "");
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getCoinList("802267", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        showLoadingDialog();
+
+        call.enqueue(new BaseResponseListCallBack<BaseCoinModel>(mActivity) {
+
+            @Override
+            protected void onSuccess(List<BaseCoinModel> data, String SucMessage) {
+                if (data == null) {
+                    WalletUserActivity.open(mActivity);
+                    return;
+                }
+                // 如果数据库已有数据，清空重新加载
+                if (DataSupport.isExist(BaseCoinModel.class)) {
+                    DataSupport.deleteAll(BaseCoinModel.class);
+                }
+
+                // 初始化交易界面默认所选择的币
+                if (data.size() > 0) {
+                    data.get(0).setChoose(true);
+                }
+                DataSupport.saveAll(data);
+                disMissLoading();
+                isFirstCoinListRequest = true;
+                WalletUserActivity.open(mActivity);
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+                super.onReqFailure(errorCode, errorMessage);
+                disMissLoading();
+//                WalletUserActivity.open(mActivity);
+            }
+
+            @Override
+            protected void onFinish() {
+            }
+        });
+    }
+
 
     @Override
     protected void lazyLoad() {

@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.cdkj.baselibrary">
 
     <!--用于访问网络，网络定位需要上网-->
@@ -11,6 +12,7 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
+        tools:replace="android:allowBackup"
         android:allowBackup="false"
         android:supportsRtl="true">
 

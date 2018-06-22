@@ -188,6 +188,11 @@ public class SPUtilHelper {
      * @param s
      */
     public static void saveQiniuUrl(String s) {
+        if (TextUtils.isEmpty(s)) {
+            s = MyConfig.IMGURL;
+        } else {
+            s = "http://" + s + "/";
+        }
         SPUtils.put(CdApplication.getContext(), "qiniu_url", s);
     }
 
@@ -195,7 +200,14 @@ public class SPUtilHelper {
      * 获取七牛url
      */
     public static String getQiniuUrl() {
-        return SPUtils.getString(CdApplication.getContext(), "qiniu_url", MyConfig.IMGURL);
+
+        String url = SPUtils.getString(CdApplication.getContext(), "qiniu_url", MyConfig.IMGURL);
+
+        if (TextUtils.isEmpty(url)) {
+            return MyConfig.IMGURL;
+        }
+
+        return url;
     }
 
     /**

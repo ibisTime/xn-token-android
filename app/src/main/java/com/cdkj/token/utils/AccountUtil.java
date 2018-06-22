@@ -35,7 +35,7 @@ public class AccountUtil {
      */
     public static String amountFormatUnit(BigDecimal amount, String coin, int scale) {
 
-        if (amount == null || amount.compareTo(BigDecimal.ZERO) == -1 || amount.compareTo(BigDecimal.ZERO) == 0) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) == 0) {
             return "0.00";
         }
 
@@ -52,7 +52,7 @@ public class AccountUtil {
      */
     public static String amountFormatUnitForShowOGC(BigDecimal amount, String coin, int scale) {
 
-        if (amount == null || amount.compareTo(BigDecimal.ZERO) == -1 || amount.compareTo(BigDecimal.ZERO) == 0) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) == 0) {
             return "0 " + OGC;
         }
 
@@ -69,7 +69,7 @@ public class AccountUtil {
      */
     public static String amountFormatUnitForShowETH(BigDecimal amount, int scale) {
 
-        if (amount == null || amount.compareTo(BigDecimal.ZERO) == -1 || amount.compareTo(BigDecimal.ZERO) == 0) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) == 0) {
             return "0 " + "ETH";
         }
 

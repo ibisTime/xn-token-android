@@ -1,9 +1,11 @@
 package com.cdkj.token.wallet.coin_detail;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
@@ -11,12 +13,15 @@ import android.widget.Toast;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
+import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityTransferBinding;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.WalletDBModel;
 import com.cdkj.token.pop.GasTypeChoosePop;
+import com.cdkj.token.user.CallPhoneActivity;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.utils.WalletHelper;
@@ -51,6 +56,16 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
 
     private BalanceListModel.AccountListBean accountListBean;
 
+    private PermissionHelper mPermissionHelper;
+
+
+    //需要的权限
+    private String[] needLocationPermissions = {
+            Manifest.permission.CAMERA,
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+    };
+
     public static void open(Context context, BalanceListModel.AccountListBean accountListBean) {
         if (context == null) {
             return;
@@ -71,7 +86,7 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
     public void afterCreate(Bundle savedInstanceState) {
 
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
-
+        mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null) {
             mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), ETHSCALE) + " " + accountListBean.getSymbol());
             mBaseBinding.titleView.setMidTitle(accountListBean.getSymbol());
@@ -135,6 +150,33 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
             transfer();
 
         });
+    }
+
+
+    /**
+     * 相机权限请求
+     */
+    private void permissionRequest() {
+        mPermissionHelper.requestPermissions(new PermissionHelper.PermissionListener() {
+            @Override
+            public void doAfterGrand(String... permission) {
+                Intent intent = new Intent(WalletTransferActivity.this, CaptureActivity.class);
+                startActivityForResult(intent, CODEPERSE);
+            }
+
+            @Override
+            public void doAfterDenied(String... permission) {
+                showToast(getStrRes(R.string.no_camera_permission));
+            }
+        }, needLocationPermissions);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (mPermissionHelper != null) {
+            mPermissionHelper.handleRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
     }
 
     /**
@@ -202,8 +244,7 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
 
     private void initClickListener() {
         mBinding.fraLayoutQRcode.setOnClickListener(view -> {
-            Intent intent = new Intent(this, CaptureActivity.class);
-            startActivityForResult(intent, CODEPERSE);
+            permissionRequest();
         });
 
         mBinding.linLayoutGasChoose.setOnClickListener(view -> {

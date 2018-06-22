@@ -6,12 +6,16 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreateWalletSuccessBinding;
 import com.cdkj.token.databinding.ActivityImportWalletSuccessBinding;
+import com.cdkj.token.utils.WalletHelper;
 import com.cdkj.token.wallet.create_guide.WalletHelpWordsShowActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 创建钱包成功
@@ -50,6 +54,8 @@ public class ImportWalletSuccessActivity extends AbsBaseLoadActivity {
 
     private void initClickListener() {
         mBinding.btnNowUse.setOnClickListener(view -> {
+            WalletHelper.saveWalletFirstCheck(true);
+            EventBus.getDefault().post(EventTags.AllFINISH);
             MainActivity.open(this);
             finish();
         });

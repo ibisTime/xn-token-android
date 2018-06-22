@@ -88,6 +88,7 @@ public class WalletBackupCheckActivity extends AbsBaseLoadActivity {
             }
 
             UITipDialog.showSuccess(this, getString(R.string.wallet_backup_success), dialogInterface -> {
+                WalletHelper.saveWalletFirstCheck(true);
                 if (!isFromBackup) {
                     EventBus.getDefault().post(EventTags.AllFINISH);
                     MainActivity.open(this);

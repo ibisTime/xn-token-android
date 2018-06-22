@@ -4,7 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.cdkj.baselibrary.utils.DateUtil;
+import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.utils.SPUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MyApplication;
@@ -36,24 +36,13 @@ import org.web3j.protocol.http.HttpService;
 import org.web3j.utils.Numeric;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.security.InvalidKeyException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
-
-import javax.crypto.BadPaddingException;
-import javax.crypto.Cipher;
-import javax.crypto.IllegalBlockSizeException;
-import javax.crypto.KeyGenerator;
-import javax.crypto.NoSuchPaddingException;
-import javax.crypto.SecretKey;
-import javax.crypto.spec.SecretKeySpec;
 
 import static com.cdkj.token.utils.AccountUtil.UNIT_MIN;
 import static com.cdkj.token.utils.AccountUtil.UNIT_POW;
@@ -63,45 +52,111 @@ import static org.litepal.crud.DataSupport.findLast;
  * 钱包工具类
  * Created by cdkj on 2018/6/6.
  */
+//TODO 加密方法抽取
 public class WalletHelper {
 
     //助记词分隔符
     public final static String HELPWORD_SIGN = " ";
+
     public final static String HDPATH = "M/44H/60H/0H/0/0";//生成助记词和解析时使用
-
-    //    public final static String WEB3J_URL = "https://rinkeby.infura.io/qfyZa8diWhk28tT9Cwft";//
-    public final static String WEB3J_URL = "https://mainnet.infura.io/qfyZa8diWhk28tT9Cwft";//
-
-    //    public final static String WEB3J_URL_WAN = "http://120.26.6.213:8546";//
-    public final static String WEB3J_URL_WAN = "http://47.75.165.70:8546";//
-
-    //    public final static String TO_BROWSER_URL = "https://rinkeby.etherscan.io/tx/";//跳向区块链浏览器
-    public final static String TO_BROWSER_URL = "https://etherscan.io/tx/";//跳向区块链浏览器
-
-    //    public final static String WAN_TO_BROWSER_URL = "http://47.104.61.26/block/trans/";//跳向区块链浏览器
-    public final static String WAN_TO_BROWSER_URL = "https://www.wanscan.org/tx/";//跳向区块链浏览器
 
     public final static String WALLPASS = "tha_etc";//
 
+    public final static int NODE_DEV = 0; //研发测试环境
+    public final static int NODE_REALSE = 1;//真实环境
 
-    /*：https://etherscan.io/tx/
-
-交易hash
-以太坊节点地址：https://mainnet.infura.io/qfyZa8diWhk28tT9Cwft
-
-万维区块链浏览器：https://www.wanscan.org/tx/
-
-交易hash
-万维节点地址：http://47.75.165.70:8546
-*/
 
     //TODO 币种使用枚举类
     public final static String COIN_ETH = "ETH";// 币种类型 ETH
     public final static String COIN_WAN = "WAN";// 币种类型 WAN
 
+    //TODO 采用配置方式 币种类型、节点地址、币种名称
     //本地币种类型
     public final static String[] COIN_COUNT = new String[]{COIN_ETH, COIN_WAN};// 币种类型
 
+
+    /**
+     * 获取当前节点类型
+     *
+     * @return
+     */
+    public static int getThisNodeType() {
+        return NODE_REALSE;
+    }
+
+    /**
+     * 根据币种和环境类型获取节点url
+     *
+     * @param coinType
+     * @return
+     */
+    public static String getNodeUrlByCoinType(String coinType) {
+
+        if (TextUtils.isEmpty(coinType)) {
+            return "";
+        }
+
+        String devUrl = "";
+        String url = "";
+
+        switch (coinType) {
+            case COIN_ETH:
+                devUrl = "https://rinkeby.infura.io/qfyZa8diWhk28tT9Cwft";
+                url = "https://mainnet.infura.io/qfyZa8diWhk28tT9Cwft";
+                break;
+
+            case COIN_WAN:
+                devUrl = "http://120.26.6.213:8546";
+                url = "http://47.75.165.70:8546";
+                break;
+        }
+
+        switch (getThisNodeType()) {
+            case NODE_DEV:
+                return devUrl;
+            case NODE_REALSE:
+                return url;
+        }
+
+        return url;
+    }
+
+    /**
+     * 根据币种和环境类型获取浏览器url
+     *
+     * @param coinType
+     * @return
+     */
+    public static String getBrowserUrlByCoinType(String coinType) {
+
+        if (TextUtils.isEmpty(coinType)) {
+            return "";
+        }
+
+        String devUrl = "";
+        String url = "";
+
+        switch (coinType) {
+            case COIN_ETH:
+                devUrl = "https://rinkeby.etherscan.io/tx/";
+                url = "https://etherscan.io/tx/";
+                break;
+
+            case COIN_WAN:
+                devUrl = "http://47.104.61.26/block/trans/";
+                url = "https://www.wanscan.org/tx/";
+                break;
+        }
+
+        switch (getThisNodeType()) {
+            case NODE_DEV:
+                return devUrl;
+            case NODE_REALSE:
+                return url;
+        }
+
+        return url;
+    }
 
     /**
      * 是否第一次配置
@@ -277,6 +332,25 @@ public class WalletHelper {
 
 
     /**
+     * 用户是否通过第一次验证（创建或导入钱包时）
+     *
+     * @param isCheck
+     */
+    public static void saveWalletFirstCheck(boolean isCheck) {
+        SPUtils.put(CdApplication.getContext(), "wallet_first_check", isCheck);
+    }
+
+    /**
+     * 用户是否通过第一次验证（创建或导入钱包时）
+     *
+     * @param
+     */
+    public static boolean isWalletFirstCheck() {
+        return SPUtils.getBoolean(CdApplication.getContext(), "wallet_first_check", false);
+    }
+
+
+    /**
      * 查询币种是否在配置中
      *
      * @param coinType
@@ -313,10 +387,6 @@ public class WalletHelper {
         Credentials credentials1 = Credentials
                 .create(privKey1.toString(16));
 
-
-        System.out.println("privateKey__2:" + key1.getPrivateKeyAsHex());
-
-        System.out.println("address___2: " + credentials1.getAddress());
 
         WalletDBModel walletDBModel = new WalletDBModel();
         walletDBModel.setAddress(credentials1.getAddress());
@@ -426,6 +496,7 @@ public class WalletHelper {
      */
     public static void clearCache() {
         removeWalletCoinConfig();
+        saveWalletFirstCheck(false);
         DataSupport.deleteAll(WalletDBModel.class);
         DataSupport.deleteAll(WalletInfoDBModel.class);
     }
@@ -561,7 +632,7 @@ public class WalletHelper {
     public static EthSendTransaction transfer2(WalletDBModel walletDBModel, String toAddress, String money) throws IOException, ExecutionException, InterruptedException {
 
 
-        Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
+        Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_ETH)));
 
 //        Credentials credentials = WalletUtils.loadBip39Credentials(
 //                "", walletDBModel.getHelpWordsrEn());
@@ -615,7 +686,7 @@ public class WalletHelper {
      * @throws IOException
      */
     public static BigInteger getBalance(String address) throws IOException {
-        Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
+        Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_ETH)));
         EthGetBalance ethGetBalance = web3j.ethGetBalance(address, DefaultBlockParameterName.LATEST).send();
         BigInteger balance = ethGetBalance.getBalance();
         return balance;
@@ -634,7 +705,7 @@ public class WalletHelper {
 
     public static EthSendTransaction transfer(WalletDBModel walletDBModel, String to, String money, BigInteger GAS_LIMIT) throws ExecutionException, InterruptedException, IOException {
 
-        Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
+        Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_ETH)));
         //转账人账户地址
         String ownAddress = walletDBModel.getAddress();
         //被转人账户地址
@@ -683,7 +754,7 @@ public class WalletHelper {
 
     public static EthSendTransaction transferWan(WalletDBModel walletDBModel, String to, String money, BigInteger GAS_LIMIT) throws ExecutionException, InterruptedException, IOException {
 
-        Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL_WAN));
+        Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_WAN)));
         //转账人账户地址
         String ownAddress = walletDBModel.getAddress();
         //被转人账户地址
@@ -724,7 +795,7 @@ public class WalletHelper {
      * 获取手续费（矿工费）
      */
     public static BigInteger getGasLimitValue() throws Exception {
-        Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
+        Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_ETH)));
         BigInteger gaslimit = BigInteger.valueOf(21000);
         BigInteger gasPrice = web3j.ethGasPrice().send().getGasPrice();
         return gasPrice.multiply(gaslimit);
@@ -734,7 +805,7 @@ public class WalletHelper {
      * 获取手续费（矿工费）
      */
     public static BigInteger getGasValue() throws Exception {
-        Web3j web3j = Web3jFactory.build(new HttpService(WEB3J_URL));
+        Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_ETH)));
         BigInteger gasPrice = web3j.ethGasPrice().send().getGasPrice();
         return gasPrice;
     }

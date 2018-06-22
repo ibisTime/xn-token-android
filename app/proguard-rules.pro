@@ -216,5 +216,9 @@
 -keep class com.qiniu.**{*;}
 -keep class com.qiniu.**{public <init>();}
 #-ignorewarnings
-
-#-libraryjars libs/xiaomi_sdk.jar
+#
+#-keep class org.web3j.**{*;}
+#-keep class org.web3j.**{public <init>();}
+#
+#-keep class org.web3j.**{*;}
+#-keep class org.web3j.**{public <init>();}

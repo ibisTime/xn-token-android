@@ -39,6 +39,7 @@ import org.bitcoinj.wallet.DeterministicSeed;
 import org.litepal.crud.DataSupport;
 import org.litepal.util.cipher.CipherUtil;
 import org.web3j.crypto.Credentials;
+import org.web3j.crypto.Wallet;
 
 import java.math.BigInteger;
 import java.security.NoSuchAlgorithmException;
@@ -79,11 +80,12 @@ public class StartActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.white));
         setContentView(R.layout.activity_start);
-//        makeMnemonic();
-//        open();
+
         getQiniu();
+
     }
 
     @Override
@@ -92,13 +94,13 @@ public class StartActivity extends BaseActivity {
 //        getQiniu();
     }
 
-    private void open() {
+    private void nextTo() {
         mSubscription.add(Observable.timer(1, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
-                .map(aLong -> WalletHelper.isHaveWalletCache())
+                .map(aLong -> /*WalletHelper.isWalletFirstCheck() &&*/ WalletHelper.isHaveWalletCache())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(ishave -> {//延迟两秒进行跳转
-                    if (ishave) {  //如果已经有了钱包
+                    if (ishave) {  //如果已经有了钱包 并且通过验证
                         MainActivity.open(this);
                     } else {
                         IntoWalletBeforeActivity.open(this);
@@ -124,55 +126,18 @@ public class StartActivity extends BaseActivity {
 
             @Override
             protected void onSuccess(SystemParameterModel data, String SucMessage) {
-                SPUtilHelper.saveQiniuUrl("http://" + data.getCvalue() + "/");
+                SPUtilHelper.saveQiniuUrl(data.getCvalue());
+                nextTo();
             }
 
             @Override
-            protected void onFinish() {
-                getCoinList();
-            }
-        });
-    }
+            protected void onNoNet(String msg) {
 
-    private void getCoinList() {
-        Map<String, String> map = new HashMap<>();
-        map.put("type", "");
-        map.put("ename", "");
-        map.put("cname", "");
-        map.put("symbol", "");
-        map.put("status", "0"); // 0已发布，1已撤下
-        map.put("contractAddress", "");
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getCoinList("802267", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-        call.enqueue(new BaseResponseListCallBack<BaseCoinModel>(this) {
-
-            @Override
-            protected void onSuccess(List<BaseCoinModel> data, String SucMessage) {
-                if (data == null) {
-                    open();
-                    return;
-                }
-
-                // 如果数据库已有数据，清空重新加载
-                if (DataSupport.isExist(BaseCoinModel.class)) {
-                    DataSupport.deleteAll(BaseCoinModel.class);
-                }
-
-                // 初始化交易界面默认所选择的币
-                if (data.size() > 0) {
-                    data.get(0).setChoose(true);
-                }
-                DataSupport.saveAll(data);
-                open();
             }
 
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
-                // 如果数据库已有数据，直接加载数据库
-                open();
+                nextTo();
             }
 
             @Override

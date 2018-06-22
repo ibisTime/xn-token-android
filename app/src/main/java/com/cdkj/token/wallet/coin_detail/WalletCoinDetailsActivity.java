@@ -77,8 +77,6 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
 
         mHeaderBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_bill_list, null, false);
 
-        initRefreshHelper();
-
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
         if (accountListBean != null) {
@@ -89,7 +87,7 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
             mHeaderBinding.tvAmountCny.setText("≈" + accountListBean.getAmountCNY() + " CNY");
 
         }
-
+        initRefreshHelper();
 
         initClickListener();
 
@@ -137,7 +135,12 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
             @Override
             public RecyclerView.Adapter getAdapter(List listData) {
 
-                CoinDetailsListAdapter coinDetailsListAdapter = new CoinDetailsListAdapter(listData);
+                String coinSymbol = "";
+                if (accountListBean != null) {
+                    coinSymbol = accountListBean.getSymbol();
+                }
+
+                CoinDetailsListAdapter coinDetailsListAdapter = new CoinDetailsListAdapter(listData, coinSymbol);
 
                 coinDetailsListAdapter.setHeaderAndEmpty(true);
 

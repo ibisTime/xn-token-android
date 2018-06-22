@@ -70,11 +70,7 @@ public class TransactionDetailsActivity extends AbsBaseLoadActivity {
         mBinding.tvViewMore.setOnClickListener(view -> {
 
             if (localCoinBill != null) {
-                if (TextUtils.equals(coinType, WalletHelper.COIN_ETH)) {
-                    WebViewActivity.openURL(this, getString(R.string.transaction_details), WalletHelper.TO_BROWSER_URL + localCoinBill.getTxHash());
-                } else if (TextUtils.equals(coinType, WalletHelper.COIN_WAN)) {
-                    WebViewActivity.openURL(this, getString(R.string.transaction_details), WalletHelper.WAN_TO_BROWSER_URL + localCoinBill.getTxHash());
-                }
+                WebViewActivity.openURL(this, getString(R.string.transaction_details), WalletHelper.getBrowserUrlByCoinType(coinType) + localCoinBill.getTxHash());
             }
         });
     }
