@@ -78,7 +78,7 @@
     <style name="style_split_line">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">1px</item>
-        <item name="android:background">@color/gray_eeeeee</item>
+        <item name="android:background">@color/gray_dee0e5</item>
     </style>
 
     <!--长的分割线styles设置-->

@@ -21,7 +21,9 @@ import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.databinding.ActivityAppBuildTypeBinding;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -48,7 +50,7 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        if (!MyConfig.IS_DEBUG) {
+        if (!LogUtil.isLog) {
             finish();
         }
         setTopTitle("环境切换");
@@ -208,7 +210,7 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
 
     private void close() {
         SPUtilHelper.logOutClear();
-        EventBus.getDefault().post(EventTags.AllFINISH);
+        EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
         finish();
 
         // 初始化Retrofit

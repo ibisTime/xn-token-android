@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreateWalletSuccessBinding;
@@ -55,7 +56,7 @@ public class ImportWalletSuccessActivity extends AbsBaseLoadActivity {
     private void initClickListener() {
         mBinding.btnNowUse.setOnClickListener(view -> {
             WalletHelper.saveWalletFirstCheck(true);
-            EventBus.getDefault().post(EventTags.AllFINISH);
+            EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
             MainActivity.open(this);
             finish();
         });

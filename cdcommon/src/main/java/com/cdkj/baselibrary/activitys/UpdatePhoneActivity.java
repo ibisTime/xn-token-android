@@ -120,12 +120,7 @@ public class UpdatePhoneActivity extends AbsBaseActivity implements SendCodeInte
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
                 if (data.isSuccess()) {
-
                     showToast(getString(R.string.activity_mobile_modify_success));
-
-                    EventBusModel eventBusModel=new EventBusModel();      //刷新上一页数据
-                    eventBusModel.setTag(EventTags.CHANGEPHONENUMBER_REFRESH);
-                    eventBusModel.setEvInfo(mBinding.edtPhoneNew.getText().toString());
                    finish();
                 }
             }

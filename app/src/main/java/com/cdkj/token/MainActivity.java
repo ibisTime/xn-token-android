@@ -14,8 +14,10 @@ import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.api.MyApi;
@@ -23,9 +25,12 @@ import com.cdkj.token.consult.ConsultFragment;
 import com.cdkj.token.databinding.ActivityMainBinding;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.service.CoinListService;
+import com.cdkj.token.user.UserAboutActivity;
 import com.cdkj.token.user.UserFragment;
+import com.cdkj.token.user.UserFragment2;
 import com.cdkj.token.utils.WalletHelper;
 import com.cdkj.token.wallet.WalletFragment;
+import com.cdkj.token.wallet.WalletFragment_2;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -51,12 +56,6 @@ public class MainActivity extends AbsBaseActivity {
     public static final int MY = 2;
     private List<Fragment> fragments;
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-//        CoinListService.close(this);
-    }
-
     /**
      * 打开当前页面
      *
@@ -78,31 +77,12 @@ public class MainActivity extends AbsBaseActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-
         initListener();
         init();
         initViewPager();
-
-//        getVersion();
+        getVersion();
     }
 
-    /**
-     * 异步缓存本地币种
-     */
-    private void cacheLocalCoinAcync() {
-//        showLoadingDialog();
-//        mSubscription.add(
-//                Observable.just(WalletHelper.cacheLocalCoin())
-//                        .subscribeOn(Schedulers.newThread())
-//                        .observeOn(AndroidSchedulers.mainThread())
-//                        .subscribe(s -> {
-//                        }, throwable -> {
-//                        }, () -> {
-//                            disMissLoading();
-//
-//                        })
-//        );
-    }
 
     @Override
     protected boolean canLoadTopTitleView() {
@@ -112,12 +92,10 @@ public class MainActivity extends AbsBaseActivity {
 
     private void init() {
         UIStatusBarHelper.translucent(this);
-
         setShowIndex(WALLET);
 
 //        CoinListService.open(this);
     }
-
 
     /**
      * 初始化事件
@@ -136,7 +114,6 @@ public class MainActivity extends AbsBaseActivity {
 
         mBinding.layoutMainBottom.llMy.setOnClickListener(v -> {
             setShowIndex(MY);
-
         });
 
     }
@@ -181,9 +158,9 @@ public class MainActivity extends AbsBaseActivity {
         //设置fragment数据
         fragments = new ArrayList<>();
 
-        fragments.add(WalletFragment.getInstance());
+        fragments.add(WalletFragment_2.getInstance());
         fragments.add(ConsultFragment.getInstance());
-        fragments.add(UserFragment.getInstance());
+        fragments.add(UserFragment2.getInstance());
 
         mBinding.pagerMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragments));
         mBinding.pagerMain.setOffscreenPageLimit(fragments.size());
@@ -216,7 +193,7 @@ public class MainActivity extends AbsBaseActivity {
     @Override
     public void onBackPressed() {
         showDoubleWarnListen(getStrRes(R.string.exit_confirm), view -> {
-            EventBus.getDefault().post(EventTags.AllFINISH);
+            EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
             finish();
         });
     }
@@ -243,7 +220,7 @@ public class MainActivity extends AbsBaseActivity {
                 if (data == null)
                     return;
 
-                if (!TextUtils.equals(data.getVersion(), getVersionName())) {  //版本号不一致说明有更新
+                if (!TextUtils.equals(data.getVersion(), AppUtils.getAppVersionName(MainActivity.this))) {  //版本号不一致说明有更新
                     showUploadDialog(data);
                 }
             }
@@ -271,7 +248,7 @@ public class MainActivity extends AbsBaseActivity {
                 .setMessage(versionModel.getNote())
                 .setPositiveButton(getStrRes(R.string.confirm), (dialogInterface, i) -> {
                     startWeb(MainActivity.this, versionModel.getDownloadUrl());
-                    EventBus.getDefault().post(EventTags.AllFINISH);
+                    EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
                     finish();
                 })
                 .setCancelable(false);
@@ -284,4 +261,9 @@ public class MainActivity extends AbsBaseActivity {
         }
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+//        CoinListService.close(this);
+    }
 }

@@ -10,8 +10,10 @@ import android.view.View;
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
@@ -66,7 +68,7 @@ public class UserAboutActivity extends AbsBaseActivity {
 
     private void init() {
         mBinding.tvAppName.setText(getStrRes(R.string.app_name));
-        mBinding.tvVersion.setText("v"+getVersionName());
+        mBinding.tvVersion.setText("v"+ AppUtils.getAppVersionName(this));
         mBinding.tvFuhao.setText("@");
 
         mBinding.tvUpdate.setOnClickListener(view -> {
@@ -97,7 +99,7 @@ public class UserAboutActivity extends AbsBaseActivity {
                 if (data == null)
                     return;
 
-                if (data.getVersion().equals(getVersionName())) {
+                if (data.getVersion().equals(AppUtils.getAppVersionName(UserAboutActivity.this))) {
                     mBinding.tvUpdate.setText(getString(R.string.user_about_updated));
                 }else {
                     msg = data.getNote();
@@ -123,7 +125,7 @@ public class UserAboutActivity extends AbsBaseActivity {
                 .setPositiveButton(getStrRes(R.string.confirm), (dialogInterface, i) -> {
 
                     startWeb(UserAboutActivity.this, url);
-                    EventBus.getDefault().post(EventTags.AllFINISH);
+                    EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
                     finish();
 
                 })

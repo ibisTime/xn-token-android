@@ -2,10 +2,10 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:orientation="vertical"
         android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:background="@color/gray_f7f7f7"
-        android:layout_height="match_parent">
+        android:orientation="vertical">
 
         <View
             android:layout_width="match_parent"
@@ -13,30 +13,29 @@
 
         <LinearLayout
             android:id="@+id/ll_trade_pwd"
-            android:background="@color/white"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="50dp">
+            android:layout_height="50dp"
+            android:background="@color/white"
+            android:gravity="center_vertical">
 
             <TextView
-                android:text="@string/user_setting_trade_pwd"
-                android:textSize="14sp"
-                android:textColor="@color/black"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content" />
+                android:text="@string/user_setting_trade_pwd"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
             <ImageView
-                android:layout_marginRight="15dp"
-                android:background="@mipmap/more"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/more" />
 
         </LinearLayout>
 
-        <View
-            style="@style/style_split_line_broad"/>
+        <View style="@style/style_split_line_broad" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -61,11 +60,11 @@
 
                 <TextView
                     android:id="@+id/tv_identity"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:layout_marginRight="15dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -99,11 +98,11 @@
 
                 <TextView
                     android:id="@+id/tv_mail"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:layout_marginRight="15dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -114,19 +113,19 @@
             </LinearLayout>
 
             <View
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="1px"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/gray_eeeeee" />
+                android:background="@color/gray_eeeeee"
+                android:visibility="gone" />
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"
@@ -139,11 +138,11 @@
 
                 <TextView
                     android:id="@+id/tv_mobile"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:layout_marginRight="15dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -207,11 +206,11 @@
 
                 <TextView
                     android:id="@+id/tv_google"
-                    android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:layout_marginRight="15dp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
                 <ImageView
                     android:layout_width="wrap_content"
@@ -225,10 +224,10 @@
 
         <LinearLayout
             android:id="@+id/ll_language"
-            android:layout_marginTop="10dp"
-            android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/white"
             android:gravity="center_vertical">
 
             <TextView
@@ -236,7 +235,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
-                android:text="语言设置"
+                android:text="@string/user_title_language"
                 android:textColor="@color/black"
                 android:textSize="14sp" />
 
@@ -250,17 +249,17 @@
 
         <Button
             android:id="@+id/btn_confirm"
-            android:text="@string/user_setting_sign_out"
-            android:textColor="@color/white"
-            android:textSize="16sp"
-            android:layout_marginTop="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:layout_gravity="center"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
+            android:layout_marginTop="60dp"
             android:background="@drawable/btn_blue"
             android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="45dp" />
+            android:text="@string/user_setting_sign_out"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
 
 
     </LinearLayout>

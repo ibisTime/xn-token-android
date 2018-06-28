@@ -1,0 +1,245 @@
+<resources>
+
+    <string name="app_name">tha </string>
+    <string name="main_tag_consult"> found </string>
+    <string name="main_tab_wallet"> wallet </string>
+    <string name="main_tab_my"> my </string>
+    <string name="exit_confirm"> confirm exit?</string>
+    <string name="tip"> hint </string>
+    <string name="tip_update"> update hint </string>
+    <string name="confirm"> confirm to</string>
+
+    <string name="attention"> note </string>
+
+    <string name="kick_logout"> your account is already logged in at another terminal, log on again </string>
+    <string name="deal"> trading </string>
+    <string name="good"> praise </string>
+
+    <string name="trust"> trust </string>
+
+    <string name="build_type"> Environment switch</string>
+    <string name="property_eth">Ethernet Currency Asset (ETH) </string>
+    <string name="property_btc"> Bitcoin asset (BTC) </string>
+
+    <string name="freeze"> frozen </string>
+    <string name="wallet_charge_my_address"> my bit-currency billing address </string>
+    <string name="wallet_charge_address_copy"> (click Copy address) </string>
+
+    <string name="wallet_charge_address"> address </string>
+
+
+    <string name="wallet_frozen_0"> frozen 0 </string>
+    <string name="wallet_charge"> coin-filled </string>
+    <string name="wallet_withdraw"> coin </string>
+
+    <string name="wallet_bill"> Bill </string>
+    <string name="bill_type_all"> all </string>
+    <string name="bill_type_charge"> coin-filled </string>
+    <string name="bill_type_withdraw"> now </string>
+    <string name="bill_type_withdrawfee"> The Handling fee is</string>
+
+    <string name="bill_type_withdrawfrozen"> frozen is</string>
+
+    <string name="bill_type_withdrawunfrozen"> the to unfreeze</string>
+    <string name="bill_type_select"> filter to</string>
+    <string name="bill_title_all"> balance detail </string>
+    <string name="bill_title_charge"> recharge detail </string>
+    <string name="bill_title_withdraw"> coin detail </string>
+    <string name="bill_title_frozen"> frozen detail </string>
+    <string name="bill_none"> no record </string>
+    <string name="bill_all_none"> no balance details </string>
+    <string name="bill_charge_none"> no recharge details </string>
+    <string name="bill_withdraw_none">No currency details</string>
+    <string name="wallet_none"> no wallet </string>
+    <string name="market_quantity"> quantity </string>
+
+
+    <string name="deal_type_select_tip">Please select the transaction type</string>
+
+    <string name="popup_scan"> Scan two-dimensional code </string>
+
+    <string name="popup_paste"> paste address </string>
+
+    <string name="copy_tip_none"> You content copied have not the</string>
+
+    <string name="qrcode_parsing_failure"> code failure parse to two-dimensional</string>
+
+    <string name="camera_refused">camera has open refused the to</string>
+    <string name="order_status_daishenpi"> pending approval </string>
+    <string name="order_status_butongguo"> approval does not pass </string>
+    <string name="order_status_daiguangbo"> approved for broadcast </string>
+    <string name="order_status_guangbozhong"> Radio </string>
+    <string name="order_status_shibai"> broadcast failed </string>
+
+    <string name="order_status_chenggong"> broadcast successfully </string>It's mine
+    <string name="address_attestation">been certified has</string>
+
+    <string name="address_unattestation">certified is not</string>
+    <string name="user_title_address_add">add address</string>
+    <string name="user_title_address_add_success">add address successfully</string>
+
+    <string name="user_google_btn_close"> close Google verification </string>
+
+    <string name="user_google_btn_modify">Google modify to validation</string>
+
+    <string name="user_title_join">Join community</string>
+
+    <string name="user_title_wallet"> Wallet settings </string>
+    <string name="user_title_invite_history"> recommended history </string>
+
+    <string name="invite_history_none">No history recommended</string>
+    <string name="user_title_published"> my ad </string>
+
+    <string name="user_published_none"> no release </string>
+    <string name="user_title_setting"> security settings </string>
+
+    <string name="user_identity_success"> You have passed the real-name authentication </string>
+
+    <string name="user_title_person"> personal homepage </string>
+
+    <string name="user_title_tip"> personality settings </string>
+    <string name="user_title_sign_in"> login </string>
+    <string name="user_mobile_hint"> Please fill in the mobile number </string>
+    <string name="user_mobile_format_hint"> mobile number format is incorrect </string>
+
+    <string name="user_password_format_hint">The be cannot length less password than 6 bits</string>
+
+    <string name="user_title_trust"> trusted </string>
+    <string name="user_trust_none">and no person trust</string>
+
+    <string name="user_sign_in_mobile_hint">Please enter mobile number your</string>
+    <string name="user_sign_in_pwd_hint">Enter password your</string>
+    <string name="user_sign_in_confirm"> Confirm login </string>
+
+    <string name="user_sign_in_forget"> forgot password? </string>
+    <string name="user_sign_up_nick"> nickname </string>
+    <string name="user_sign_up_nick_hint">nickname please set your</string>
+    <string name="user_sign_up_mobile"> mobile number </string>
+    <string name="user_sign_up_mobile_hint">Please enter mobile number your</string>
+    <string name="user_sign_up_code"> Mobile verification Code </string>
+    <string name="user_sign_up_code_hint">Please code enter the verification</string>
+    <string name="user_sign_up_send">Authenticode Get</string>
+    <string name="user_sign_up_pwd"> new password </string>
+    <string name="user_sign_up_pwd_hint"> not less than 6-bit </string>
+    <string name="user_sign_up_repwd"> Confirm password </string>
+    <string name="user_sign_up_repwd_hint"> not less than 6-bit </string>
+    <string name="user_sign_up_agree"> I\'ve read and agreed to </string>
+    <string name="user_sign_up_profile"> registration Agreement </string>
+    <string name="user_sign_up_confirm"> Confirm registration </string>
+    <string name="user_password_new_hint"> not less than 6-bit </string>
+    <string name="user_password_re"> Confirm password </string>
+    <string name="user_password_re_hint"> not less than 6-bit </string>
+    <string name="user_password_title">modify password the to</string>
+    <string name="user_password_pwdold_hint">Please enter original password the</string>
+    <string name="user_password_google_hint">Google Please authentication code enter</string>
+    <string name="user_password_pwdnew_hint">Please a enter new password</string>
+
+    <string name="user_password_repwd_hint"> Please password re-enter the</string>
+    <string name="user_password_pwdnew_format_hint"> password not less than 6-bit </string>
+    <string name="user_password_repwd_format_hint"> two times password input inconsistency </string>
+    <string name="user_password_success"> Password modified successfully </string>
+    <string name="user_password_failure"> password modification failed </string>
+    <string name="user_password_google"> Google verification code </string>
+
+    <string name="user_password_google_paste"> paste </string>
+    <string name="user_setting_trade_pwd"> capital password </string>
+    <string name="user_setting_identity"> real name authentication </string>
+    <string name="user_setting_mail"> binding mailbox </string>
+
+    <string name="sms_code_send">Authenticode Get</string>
+    <string name="sms_code_hint">Authentication Please SMS code enter the</string>
+    <string name="trade_code_hint">Please capital enter password the</string>
+    <string name="google_code_title"> Google verification code </string>
+    <string name="google_code_hint">Google Please authentication code enter</string>
+
+    <string name="google_code_format_hint">Google Please code correct enter the verification</string>
+
+    <string name="user_about_copyright">2018tha All rights reserved </string>
+    <string name="coin_eth"> Ethernet currency </string>
+
+    <string name="coin_btc"> bit currency </string>
+    <string name="biz_type_charge"> recharge </string>
+    <string name="biz_type_withdraw"> take the present </string>
+    <string name="biz_type_tradefee"> transaction fees </string>
+
+    <string name="biz_type_withdrawfee"> a fee </string>
+    <string name="biz_status_daiduizhang"> to be reconciled </string>
+    <string name="biz_status_yiduiyiping"> account and been been flat. has has reconciled the
+</string>
+    <string name="biz_status_zhangbuping"> account account adjusted approval be for is not the to</string>
+
+    <string name="biz_status_yiduibuping"> account and been has is reconciled the uneven</string>
+
+    <string name="biz_status_wuxuduizhang"> no reconciliation required</string>
+
+    <string name="consult_list_title"> online merchant </string>
+
+    <string name="consult_none_title"> Please look forward to the </string>
+
+    <string name="user_wallet_setting"> Wallet settings </string>
+
+    <string name="user_join">Join community</string>
+
+    <string name="wallet_bill_list_charge"> coin-filled </string>
+    <string name="wallet_bill_list_withdraw"> coin </string>
+    <string name="create_wallet">create to wallet</string>
+    <string name="put_wallet"> import wallet </string>
+    <string name="please_set_transaction_pass_word"> Please password set the trading</string>
+    <string name="please_check_transaction">Please confirm password the transaction</string>
+    <string name="password_error"> Two input passwords inconsistent </string>
+    <string name="wallet_create_success"> Wallet creation Success </string>
+    <string name="important_hints">Important tip</string>
+    <string name="create_wallet_tip">a assets backup control fully has to wallet wallet, so it is
+    highly recommended that you do a backup before using your wallet and keep your wallet back in a
+    safe place.</string>
+    <string name="now_backup"> now back up </string>
+    <string name="next_step"> next </string>
+    <string name="sure_1"> confirm to</string>
+    <string name="now_check"> validate </string>
+
+    <string name="please_input_help_words"> Please a enter mnemonic word
+</string>
+    <string name="address"> address </string>
+    <string name="private_key"> private key </string>
+    <string name="export_private_key">export key private the to</string>
+    <string name="coin_key_name"> below is the address and private key for%s, click to copy the </string>
+    <string name="coin_eth_ename">ethereum </string>
+    <string name="coin_wan_ename">wancoin </string>
+    <string name="coin_eth_cname"> ether Square </string>
+    <string name="coin_wan_came">wan </string>
+    <string name="get_money"> collection </string>
+    <string name="service_money_tip"> The miners\'fees will be deducted from the available balances and the balance will be deducted from the transfer amount </string>
+    <string name="transfer"> transfer </string>
+    <string name="ordinary"> normal </string>
+    <string name="economics"> economy </string>
+    <string name="private_key_copy_success"> private key replicated </string>
+    <string name="transfer_fail"> transfer failure </string>
+    <string name="please_open_the_net"> Please first network open the
+</string>
+    <string name="please_set_account_moeny_pwd"> Please first money password set the
+</string>
+    <string name="privacy_agreement"> Privacy protocol </string>
+    <string name="transfer_out_address"> address and out turn
+</string>
+    <string name="fees"> handling fee </string>
+    <string name="block_height"> block height </string>
+    <string name="transction_code"> transaction number </string>
+    <string name="transction_time"> transaction time </string>
+    <string name="view_more_detials"> See more details </string>
+    <string name="affix"> paste </string>
+    <string name="btc_wallet_tip">BTC wallet address prohibits recharging other than BTC assets, any BTC asset recharge will not be retrieved </string>
+    <string name="private_key_tip"> Note!
+    An asset that has a private key that completely controls the address and does not share it with anyone </string>
+    <string name="please_waite"> Please look forward to the </string>
+    <string name="i_agree_this_terms"> I have read and agree to the terms of service and privacy </string>
+    <string name="wallet_delete_tip"> Note! Before deleting the wallet, be sure to confirm that the back up number wallet is in the mnemonic, or you will lose your wallet assets.
+    </string>
+    <string name="add_assets"> add assets to</string>
+    <string name="error_wallet_address"> wrong address </string>
+    <string name="resolve_wallet_address_fail"> address failure resolve to</string>
+    <string name="transaction_success"> transfer successful, synchronizing </string>
+    <string name="please_correct_transaction_number"> Please correct enter number of the transfers</string>
+
+</resources>
+
+

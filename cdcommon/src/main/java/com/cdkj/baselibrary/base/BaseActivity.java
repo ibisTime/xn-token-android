@@ -27,6 +27,7 @@ import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.dialog.LoadingDialog;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.utils.ToastUtil;
 
@@ -246,11 +247,9 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     @Subscribe
-    public void finishAll(String i) {
-        if (TextUtils.equals(EventTags.AllFINISH, i)) {
-            if (canEvenFinish()) {
-                this.finish();
-            }
+    public void finishAll(AllFinishEvent allFinishEvent) {
+        if (canEvenFinish()) {
+            this.finish();
         }
     }
 
@@ -263,29 +262,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         return true;
     }
 
-    /**
-     * 设置状态栏颜色（5.0以上系统）
-     *
-     * @param stateTitleColor
-     */
-    public void setStateTitleColor(int stateTitleColor) {
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {//5.0以上系统实现状态栏颜色改变
-            try {
-                Window window = getWindow();
-                //取消设置透明状态栏,使 ContentView 内容不再沉浸到状态栏下
-                if (window != null) {
-                    window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                    //需要设置这个 flag 才能调用 setStatusBarColor 来设置状态栏颜色
-                    window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-                    //设置状态栏颜色
-                    window.setStatusBarColor(stateTitleColor);
-                }
-            } catch (Exception e) {
-
-            }
-        }
-    }
 
     /**
      * 获取StringRes
@@ -293,59 +269,23 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @return StringRes
      */
     public String getStrRes(int resources) {
-
         return getString(resources);
-    }
-
-    /**
-     * * 获取版本号
-     *
-     * @return 当前应用的版本号
-     */
-    public int getVersionCode() {
-        try {
-            PackageManager manager = this.getPackageManager();
-            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
-            int versionCode = info.versionCode;
-            return versionCode;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return 0;
-        }
-    }
-
-    /**
-     * * 获取版本名
-     *
-     * @return 当前应用的版本名
-     */
-    public String getVersionName() {
-        try {
-            PackageManager manager = this.getPackageManager();
-            PackageInfo info = manager.getPackageInfo(this.getPackageName(), 0);
-            String versionCode = info.versionName;
-            return versionCode;
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "未能检测出当前版本";
-        }
     }
 
     /**
      * 设置APP使用的语言
      */
     public void setAppLanguage() {
+
         Locale myLocale;
 
         switch (SPUtilHelper.getLanguage()) {
             case ENGLISH:
                 myLocale = Locale.ENGLISH;
                 break;
-
             case TRADITIONAL:
                 myLocale = Locale.TRADITIONAL_CHINESE;
                 break;
-
             default:
                 myLocale = Locale.SIMPLIFIED_CHINESE;
                 break;
@@ -356,7 +296,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         Configuration conf = res.getConfiguration();
         conf.locale = myLocale;
         res.updateConfiguration(conf, dm);
-
     }
 
     @Subscribe

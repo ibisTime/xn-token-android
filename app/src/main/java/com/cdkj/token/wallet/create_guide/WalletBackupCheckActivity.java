@@ -13,6 +13,7 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
@@ -90,7 +91,7 @@ public class WalletBackupCheckActivity extends AbsBaseLoadActivity {
             UITipDialog.showSuccess(this, getString(R.string.wallet_backup_success), dialogInterface -> {
                 WalletHelper.saveWalletFirstCheck(true);
                 if (!isFromBackup) {
-                    EventBus.getDefault().post(EventTags.AllFINISH);
+                    EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
                     MainActivity.open(this);
                 }
                 finish();

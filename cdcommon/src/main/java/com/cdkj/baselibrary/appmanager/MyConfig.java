@@ -13,8 +13,6 @@ public class MyConfig {
     //默认七牛url
     public static String IMGURL = "http://pajvine9a.bkt.clouddn.com/";
 
-    public static boolean IS_DEBUG = false;
-
     // 拍照文件保存路径
     public static final String CACHDIR = "tha_photo";
 

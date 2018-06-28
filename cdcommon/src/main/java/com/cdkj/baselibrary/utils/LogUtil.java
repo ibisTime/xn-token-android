@@ -10,10 +10,9 @@ import com.cdkj.baselibrary.appmanager.MyConfig;
  */
 public class LogUtil {
 
-    // 上线时需关闭Log
-    public static Boolean isLog = MyConfig.IS_DEBUG;
+    public static Boolean isLog = false;
 
-    private static final String TAG = "LOG_YITU";
+    private static final String TAG = "LOG_THA";
 
     public static void I(String msg) {
         if (isLog) {

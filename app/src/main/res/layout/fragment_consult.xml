@@ -10,36 +10,35 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="70dp">
+            android:layout_height="70dp"
+            android:orientation="vertical">
 
             <FrameLayout
-                android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:background="@color/white">
 
                 <View
-                    android:background="#60434343"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"/>
+                    android:layout_height="25dp"
+                    android:background="#60434343" />
 
             </FrameLayout>
 
 
-
             <FrameLayout
-                android:background="@color/white"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/title_height">
+                android:layout_height="@dimen/title_height"
+                android:background="@color/white">
 
                 <TextView
-                    android:text="@string/main_tag_consult"
-                    android:layout_gravity="center"
-                    android:textSize="18sp"
-                    android:textColor="@color/text_color"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="@string/main_tag_consult"
+                    android:textColor="@color/text_color"
+                    android:textSize="18sp" />
 
                 <FrameLayout
                     android:id="@+id/fl_right"
@@ -48,13 +47,11 @@
                     android:layout_gravity="right|center_vertical">
 
                     <ImageView
-                        android:src="@mipmap/consult_message"
                         android:layout_width="17dp"
                         android:layout_height="17dp"
                         android:layout_gravity="center_vertical|right"
                         android:layout_marginRight="15dp"
-                        />
-
+                        android:src="@mipmap/consult_message" />
 
 
                 </FrameLayout>
@@ -66,10 +63,10 @@
 
         <View
             android:id="@+id/line_bottom"
-            android:layout_gravity="bottom"
-            android:background="@color/gray_dedede"
             android:layout_width="match_parent"
-            android:layout_height="1px"/>
+            android:layout_height="1px"
+            android:layout_gravity="bottom"
+            android:background="@color/gray_dedede" />
 
         <com.youth.banner.Banner
             android:id="@+id/banner"
@@ -78,30 +75,30 @@
             app:image_scale_type="fit_xy" />
 
         <LinearLayout
-            android:visibility="gone"
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <LinearLayout
-                android:background="@color/white"
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
 
                 <View
-                    android:layout_marginLeft="15dp"
-                    android:background="@color/colorAccent"
                     android:layout_width="3dp"
-                    android:layout_height="11dp"/>
+                    android:layout_height="11dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@color/colorAccent" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
                     android:text="官方服务"
                     android:textColor="@color/black"
-                    android:textSize="14sp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="14sp" />
 
 
             </LinearLayout>
@@ -181,24 +178,19 @@
             android:background="@color/gray_f7f7f7" />
 
         <LinearLayout
-            android:background="@color/white"
-            android:gravity="center_vertical"
             android:layout_width="match_parent"
-            android:layout_height="40dp">
+            android:layout_height="40dp"
+            android:background="@color/white"
+            android:gravity="center_vertical">
 
-            <View
-                android:layout_marginLeft="15dp"
-                android:background="@color/colorAccent"
-                android:layout_width="3dp"
-                android:layout_height="11dp"/>
 
             <TextView
-                android:layout_marginLeft="6dp"
-                android:text="@string/business_app"
-                android:textColor="@color/black"
-                android:textSize="14sp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="6dp"
+                android:text="推荐应用"
+                android:textColor="@color/black"
+                android:textSize="14sp" />
 
 
         </LinearLayout>
@@ -209,87 +201,87 @@
             android:background="@color/gray_dedede" />
 
         <LinearLayout
-            android:background="@color/white"
-            android:orientation="horizontal"
             android:layout_width="match_parent"
-            android:layout_height="95dp">
+            android:layout_height="95dp"
+            android:background="@color/white"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/ll_merchant"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:background="@mipmap/consult_bsb"
                     android:layout_width="33dp"
-                    android:layout_height="33dp" />
+                    android:layout_height="33dp"
+                    android:background="@mipmap/consult_bsb" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="@string/coin_to_coin"
-                    android:textSize="13sp"
                     android:textColor="@color/gray_666666"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
             <View
-                android:background="@color/gray_eeeeee"
                 android:layout_width="1px"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:background="@color/gray_eeeeee" />
 
             <LinearLayout
                 android:id="@+id/ll_mall"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:background="@mipmap/consult_xq"
                     android:layout_width="33dp"
-                    android:layout_height="33dp" />
+                    android:layout_height="33dp"
+                    android:background="@mipmap/consult_xq" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="@string/tha_planet"
-                    android:textSize="13sp"
                     android:textColor="@color/gray_666666"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 
             <View
-                android:background="@color/gray_eeeeee"
                 android:layout_width="1px"
-                android:layout_height="match_parent"/>
+                android:layout_height="match_parent"
+                android:background="@color/gray_eeeeee" />
 
             <LinearLayout
                 android:id="@+id/ll_dig"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
-                    android:background="@mipmap/consult_ybb"
                     android:layout_width="33dp"
-                    android:layout_height="33dp" />
+                    android:layout_height="33dp"
+                    android:background="@mipmap/consult_ybb" />
 
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_marginTop="12dp"
                     android:text="@string/ybb"
-                    android:textSize="13sp"
                     android:textColor="@color/gray_666666"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="13sp" />
 
             </LinearLayout>
 

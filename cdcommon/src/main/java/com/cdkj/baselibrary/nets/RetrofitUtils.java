@@ -2,11 +2,9 @@ package com.cdkj.baselibrary.nets;
 
 
 import com.cdkj.baselibrary.api.BaseApiServer;
-import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-
-import org.greenrobot.eventbus.Subscribe;
+import com.cdkj.baselibrary.utils.LogUtil;
 
 import retrofit2.Retrofit;
 
@@ -61,7 +59,7 @@ public class RetrofitUtils {
      */
     public static String getBaseURL() {
 
-        if (MyConfig.IS_DEBUG) {
+        if (LogUtil.isLog) {
 
             switch (SPUtilHelper.getAPPBuildType()) {
 

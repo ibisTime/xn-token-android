@@ -29,14 +29,14 @@ public class MyApplication extends Application {
         super.onCreate();
 
         application = this;
-
+        LogUtil.isLog = BuildConfig.IS_DEBUG;
         CdApplication.initialize(this);
 
         EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
 
-        MyConfig.IS_DEBUG = BuildConfig.IS_DEBUG;
 
-        if (MyConfig.IS_DEBUG) {
+
+        if ( LogUtil.isLog) {
             ARouter.openLog();     // 打印日志
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }

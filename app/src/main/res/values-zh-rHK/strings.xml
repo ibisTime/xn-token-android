@@ -322,7 +322,7 @@
     <string name="please_check_transaction">请确认交易密码</string>
     <string name="password_error">两次输入密码不一致</string>
     <string name="wallet_create_success">钱包创建成功</string>
-    <string name="Important_hints">重要提示</string>
+    <string name="important_hints">重要提示</string>
     <string name="create_wallet_tip">拥有钱包备份就能完全控制钱包资产，因此强烈建议您在使用钱包前做好备份，并将钱包备份保存到安全的地方。</string>
     <string name="now_backup">立即备份</string>
     <string name="next_step">下一步</string>

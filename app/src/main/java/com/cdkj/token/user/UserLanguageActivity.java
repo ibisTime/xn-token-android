@@ -69,7 +69,6 @@ public class UserLanguageActivity extends AbsBaseActivity {
 
         mBinding.llEnglish.setOnClickListener(view -> {
             sendEventBus(ENGLISH);
-
             initView();
             mBinding.ivEnglish.setBackgroundResource(R.mipmap.choice_confirm);
         });

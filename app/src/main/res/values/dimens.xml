@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="user_fragment_card_cornerradius">5dp</dimen>
+    <dimen name="user_fragment_card_elevation">3dp</dimen>
+    <dimen name="user_fragment_item_img_width">18dp</dimen>
+    <dimen name="user_fragment_item_img_height">18dp</dimen>
+</resources>

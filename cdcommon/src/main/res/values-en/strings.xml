@@ -1,0 +1,69 @@
+<resources>
+    <string name="activity_find_code_hint"> Please code enter the verification</string>
+
+    <string name="activity_find_google_hint">Google Please authentication code enter
+</string>
+    <string name="activity_find_password_hint">Enter password your
+</string>
+    <string name="activity_find_repassword_hint"> Please password re-enter the
+</string>
+    <string name="activity_find_password_format_hint"> password not less than 6-bit </string>
+    <string name="activity_find_repassword_format_hint"> two times password input inconsistency </string>
+    <string name="activity_find_success"> Password modified successfully </string>
+    <string name="activity_find_failure"> password modification failed </string>
+    <string name="activity_image_unknow_error"> Unknown error </string>
+    <string name="activity_image_tip"> hint </string>
+    <string name="activity_image_no_camera">There available camera is no
+</string>
+    <string name="activity_image_confirm">determine to
+</string>
+    <string name="activity_image_no_cdcard"> memory card does not exist </string>
+    <string name="activity_image_getimg_failure"> Picture acquisition failed </string>
+    <string name="activity_image_system_tip"> system hint </string>
+    <string name="activity_image_system_content">access camera does have not to your, storage space,
+    and this feature is not available. Please go to apply permission settings to open permissions.</string>
+
+    <string name="activity_find_password"> new password </string>
+    <string name="activity_find_repassword"> Confirm password </string>
+    <string name="activity_find_google_paste"> paste </string>
+    <string name="activity_find_google"> Google verification code </string>
+    <string name="activity_find_send">Authenticode Get
+</string>
+    <string name="activity_paypwd_pwd"> capital password </string>
+
+    <string name="activity_mobile_mobile"> new phone number </string>
+    <string name="user_invite_share_title">share the to to</string>
+    <string name="user_invite_share_wx"> micro-letter </string>
+
+    <string name="user_invite_share_pyq"> Friends Circle </string>
+    <string name="smscode_send_success"> verification code has been sent please note check </string>
+    <string name="smscode_send_failure"> authentication code send failed </string>
+    <string name="storage_refused">access denied has memory permissions to your</string>
+
+    <string name="web_create_pic_failure">a failed generate picture to</string>
+    <string name="sure">determine to</string>
+    <string name="do_fall">Operation failed</string>
+    <string name="show_big_photo">image large to view
+</string>
+    <string name="delete"> delete </string>
+    <string name="delete_succ"> Delete succeeded </string>
+    <string name="prompt"> hint </string>
+    <string name="sure_"> indeed is</string>
+
+    <string name="resend_code"> re-issued authentication code </string>
+    <string name="back"> returns </string>
+    <string name="save_photo_to"> The picture has been saved to the </string>
+    <string name="save_fial"> save failed </string>
+    <string name="load_error"> load Error </string>
+    <string name="choose"> select </string>
+    <string name="please_input_account"> Please account enter number the
+</string>
+    <string name="sign_in_success"> Login succeeded </string>
+    <string name="sign_in_fail"> Login failed </string>
+    <string name="send_to_friend"> a friend is sent to
+</string>
+    <string name="save_to_photo"> Save to mobile </string>
+    <string name="take_a_photo"> take a picture of </string>
+
+    <string name="choose_from_album"> from mobile albums Select </string>
+</resources>

@@ -176,11 +176,6 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
                     showToast(getString(R.string.activity_paypwd_modify_sucess));
                 } else {
                     showToast(getString(R.string.activity_paypwd_set_success));
-
-                    EventBusModel eventBusModel = new EventBusModel();
-                    eventBusModel.setTag(EventTags.CHANGE_PAY_PWD_REFRESH);
-                    EventBus.getDefault().post(eventBusModel);
-
                 }
 
                 SPUtilHelper.saveTradePwdFlag(true);

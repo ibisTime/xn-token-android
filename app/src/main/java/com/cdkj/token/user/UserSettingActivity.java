@@ -16,6 +16,7 @@ import com.cdkj.baselibrary.activitys.UpdatePhoneActivity;
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserSettingBinding;
 import com.cdkj.token.databinding.PopupGoogleBinding;
@@ -120,7 +121,7 @@ public class UserSettingActivity extends AbsBaseActivity {
 
         mBinding.btnConfirm.setOnClickListener(view -> {
             SPUtilHelper.logOutClear();
-            EventBus.getDefault().post(EventTags.AllFINISH);
+            EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
 
             SignInActivity.open(UserSettingActivity.this,false);
             finish();

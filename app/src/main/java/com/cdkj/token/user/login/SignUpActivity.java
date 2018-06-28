@@ -16,10 +16,12 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
@@ -65,7 +67,7 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
     public void afterCreate(Bundle savedInstanceState) {
         setTopTitle(getStrRes(R.string.user_title_sign_up));
         setSubLeftImgState(true);
-        if (MyConfig.IS_DEBUG) {
+        if (LogUtil.isLog) {
             setSubRightTitleAndClick(getStrRes(R.string.build_type), v -> {
                 AppBuildTypeActivity.open(this);
             });
@@ -181,8 +183,7 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
                     SPUtilHelper.saveUserName(mBinding.edtNick.getText().toString().trim());
                     SPUtilHelper.saveUserPhoneNum(mBinding.edtMobile.getText().toString().trim());
 
-                    EventBus.getDefault().post(EventTags.AllFINISH);
-                    EventBus.getDefault().post(EventTags.MAINFINISH);
+                    EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
 
                     MainActivity.open(SignUpActivity.this);
                     finish();

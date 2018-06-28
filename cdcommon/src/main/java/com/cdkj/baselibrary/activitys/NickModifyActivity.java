@@ -101,9 +101,6 @@ public class NickModifyActivity extends AbsBaseActivity {
 
                     showToast(getString(R.string.activity_nick_success));
 
-                    EventBusModel eventBusModel=new EventBusModel();      //刷新上一页数据
-                    eventBusModel.setTag(EventTags.CHANGENICK_REFRESH);
-                    eventBusModel.setEvInfo(mBinding.edtNickname.getText().toString());
                     finish();
                 }
             }

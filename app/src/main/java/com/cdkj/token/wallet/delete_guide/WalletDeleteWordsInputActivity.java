@@ -11,6 +11,7 @@ import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityWalletWordsCheckInputBinding;
@@ -109,7 +110,7 @@ public class WalletDeleteWordsInputActivity extends AbsBaseLoadActivity {
                 .setPositiveBtn(getString(R.string.sure_delete), view -> {
                     WalletHelper.clearCache();
                     IntoWalletBeforeActivity.open(this);
-                    EventBus.getDefault().post(EventTags.AllFINISH);
+                    EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
                     finish();
                 })
                 .setNegativeBtn(getString(com.cdkj.baselibrary.R.string.activity_base_cancel), null, false);

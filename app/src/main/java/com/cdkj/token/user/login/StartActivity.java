@@ -95,7 +95,7 @@ public class StartActivity extends BaseActivity {
     }
 
     private void nextTo() {
-        mSubscription.add(Observable.timer(1, TimeUnit.SECONDS)
+        mSubscription.add(Observable.timer(0, TimeUnit.SECONDS)
                 .subscribeOn(Schedulers.newThread())
                 .map(aLong -> /*WalletHelper.isWalletFirstCheck() &&*/ WalletHelper.isHaveWalletCache())
                 .observeOn(AndroidSchedulers.mainThread())
