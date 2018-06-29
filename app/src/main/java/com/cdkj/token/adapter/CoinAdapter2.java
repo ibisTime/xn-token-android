@@ -22,38 +22,37 @@ import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 public class CoinAdapter2 extends BaseQuickAdapter<CoinModel.AccountListBean, BaseViewHolder> {
 
     public CoinAdapter2(@Nullable List<CoinModel.AccountListBean> data) {
-        super(R.layout.item_coin_bill, data);
+//        super(R.layout.item_coin_bill, data);
+        super(R.layout.item_coin_assets, data);
     }
 
     @Override
     protected void convert(BaseViewHolder helper, CoinModel.AccountListBean item) {
+
+
+        helper.setText(R.id.tv_coin_name, item.getCurrency());
+
         BigDecimal amount;
         BigDecimal frozenAmount;
-
-        helper.setText(R.id.tv_name, item.getCurrency());
-//        helper.setText(R.id.tv_name, getCoinCNameWithCurrency(item.getCurrency())+"("+item.getCurrency()+")");
-
         amount = new BigDecimal(item.getAmountString());
         frozenAmount = new BigDecimal(item.getFrozenAmountString());
         helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), item.getCurrency(), 8));
 
-        ImageView ivCoin = helper.getView(R.id.iv_watermark);
-        ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(),1), ivCoin);
+        ImageView ivCoin = helper.getView(R.id.img_coin_logo);
 
-        if (item.getPriceCNY() == null){
+        ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(), 1), ivCoin);
+
+        if (item.getPriceCNY() == null) {
             helper.setText(R.id.tv_market_price, "≈ 0CNY");
-        }else {
-            helper.setText(R.id.tv_market_price, "≈ " + item.getPriceCNY()+"CNY");
-
+        } else {
+            helper.setText(R.id.tv_market_price, "≈ " + item.getPriceCNY() + "CNY");
         }
 
-        if (item.getAmountCNY() == null){
+        if (item.getAmountCNY() == null) {
             helper.setText(R.id.tv_amount_cny, "0CNY");
-        }else {
-            helper.setText(R.id.tv_amount_cny, item.getAmountCNY()+"CNY");
+        } else {
+            helper.setText(R.id.tv_amount_cny, item.getAmountCNY() + "CNY");
         }
-
-
 
 
     }

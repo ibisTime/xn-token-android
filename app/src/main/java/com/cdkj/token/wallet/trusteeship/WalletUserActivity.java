@@ -105,13 +105,13 @@ public class WalletUserActivity extends AbsBaseLoadActivity {
             public void onRefresh(int pageindex, int limit) {
                 getMsgRequest();
 
-                EventBusModel model = new EventBusModel();
-                model.setTag(BASE_COIN_LIST);
+//                EventBusModel model = new EventBusModel();
+//                model.setTag(BASE_COIN_LIST);
                 // 是否需要通知所有需要的地方刷新CoinList配置
-                model.setEvBoolean(false);
+//                model.setEvBoolean(false);
                 // 不是的话需要告知其需要更新的位置
-                model.setEvInfo("wallet");
-                EventBus.getDefault().post(model);
+//                model.setEvInfo("wallet");
+//                EventBus.getDefault().post(model);
             }
 
             @Override

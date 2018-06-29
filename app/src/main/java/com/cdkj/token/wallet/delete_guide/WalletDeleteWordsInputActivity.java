@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -15,9 +14,8 @@ import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityWalletWordsCheckInputBinding;
-import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.IntoWalletBeforeActivity;
-import com.cdkj.token.wallet.import_guide.ImportCreatePassWordActivity;
 
 import org.greenrobot.eventbus.EventBus;
 

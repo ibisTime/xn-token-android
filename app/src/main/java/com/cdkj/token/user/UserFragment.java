@@ -189,10 +189,10 @@ public class UserFragment extends BaseLazyFragment {
     @Override
     public void onResume() {
         super.onResume();
-        if (!SPUtilHelper.getUserId().equals("")) {
-            // 已登陆时初始化登录用户的用户信息
-            getUserInfoRequest();
-        }
+//        if (!SPUtilHelper.getUserId().equals("")) {
+//            // 已登陆时初始化登录用户的用户信息
+//            getUserInfoRequest();
+//        }
 
     }
 
@@ -317,7 +317,6 @@ public class UserFragment extends BaseLazyFragment {
         mBinding.tvMobile.setText(data.getMobile());
 //        ImgUtils.loadAvatar(mActivity, data.getPhoto(), data.getNickname(), mBinding.imAvatar, mBinding.tvAvatar);
         ImgUtils.loadAvatar(mActivity, data.getPhoto(), mBinding.imAvatar);
-
     }
 
 

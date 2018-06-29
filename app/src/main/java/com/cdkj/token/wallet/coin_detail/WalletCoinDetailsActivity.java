@@ -27,7 +27,7 @@ import com.cdkj.token.databinding.HeaderBillListBinding;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.utils.AccountUtil;
-import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

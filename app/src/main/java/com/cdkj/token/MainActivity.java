@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
-import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -24,12 +23,7 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.ConsultFragment;
 import com.cdkj.token.databinding.ActivityMainBinding;
 import com.cdkj.token.model.VersionModel;
-import com.cdkj.token.service.CoinListService;
-import com.cdkj.token.user.UserAboutActivity;
-import com.cdkj.token.user.UserFragment;
 import com.cdkj.token.user.UserFragment2;
-import com.cdkj.token.utils.WalletHelper;
-import com.cdkj.token.wallet.WalletFragment;
 import com.cdkj.token.wallet.WalletFragment_2;
 
 import org.greenrobot.eventbus.EventBus;
@@ -39,9 +33,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
 import static com.cdkj.token.utils.UpdateUtil.isForceUpload;

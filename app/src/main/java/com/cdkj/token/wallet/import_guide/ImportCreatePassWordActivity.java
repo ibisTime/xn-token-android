@@ -13,7 +13,8 @@ import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreatePassWordBinding;
-import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.model.WalletDBModel2;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.password.PassWordLayout;
 
 import java.util.ArrayList;
@@ -111,13 +112,10 @@ public class ImportCreatePassWordActivity extends AbsBaseLoadActivity {
         mSubscription.add(
                 Observable.just(paword)
                         .subscribeOn(Schedulers.newThread())
-                        .map(s -> WalletHelper.saveWalletPassWord(s))
                         .map(isSavePass -> {
-                            if (!isSavePass) {
-                                return false;
-                            }
-                            return WalletHelper.createWalletInfobyMnenonic(mWords, WalletHelper.COIN_ETH) &&
-                                    WalletHelper.createWalletInfobyMnenonic(mWords, WalletHelper.COIN_WAN);
+                            WalletDBModel2 dbModel2 = WalletHelper.createEthAndWanPrivateKeybyMnenonic(mWords); //TODO 导入缺少BTC
+                            dbModel2.setWalletPassWord(WalletHelper.encrypt(paword));
+                            return dbModel2.save();
                         })
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnComplete(() -> disMissLoading())

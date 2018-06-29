@@ -3,13 +3,32 @@ package com.cdkj.token.wallet;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
+import com.cdkj.baselibrary.dialog.CommonDialog;
+import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
+import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
+import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.RefreshHelper;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
+import com.cdkj.token.adapter.CoinAdapter2;
+import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentWallet2Binding;
+import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.views.CardChangeLayout;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
 
 /**
  * Created by cdkj on 2018/6/28.
@@ -18,6 +37,8 @@ import com.cdkj.token.databinding.FragmentWallet2Binding;
 public class WalletFragment_2 extends BaseLazyFragment {
 
     private FragmentWallet2Binding mBinding;
+
+    private RefreshHelper mRefreshHelper;
 
 
     public static WalletFragment_2 getInstance() {
@@ -34,7 +55,77 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet_2, null, false);
 
+        initRefresh();
+
+        mBinding.cardChangeLayout.setChangeCallBack(new CardChangeLayout.ChangeCallBack() {
+            @Override
+            public boolean onChangeBefor(int index) {
+
+                boolean isHasInfo = SPUtilHelper.isHasUserWalletInfo();
+
+                if (!isHasInfo) {
+                    showDoubleWarnListen("请创建或导入钱包", view -> {
+                        IntoWalletBeforeActivity.open(mActivity);
+                    });
+                }
+
+                return isHasInfo;
+            }
+
+            @Override
+            public void onChange(int index) {
+                changeLayoutByIndex(index);
+            }
+        });
+
+        mRefreshHelper.onDefaluteMRefresh(true);
+
         return mBinding.getRoot();
+    }
+
+    /**
+     * 改变布局
+     *
+     * @param index 在Layout中的索引
+     */
+    private void changeLayoutByIndex(int index) {
+        switch (index) {
+            case 0:
+                mBinding.imgChange.setImageResource(R.drawable.change_red);
+                mBinding.imgTransfer.setImageResource(R.drawable.transfer_red);
+                break;
+            case 1:
+                mBinding.imgChange.setImageResource(R.drawable.change_blue);
+                mBinding.imgTransfer.setImageResource(R.drawable.transfer_blue);
+                break;
+        }
+    }
+
+    private void initRefresh() {
+        mRefreshHelper = new RefreshHelper(mActivity, new BaseRefreshCallBack(mActivity) {
+            @Override
+            public View getRefreshLayout() {
+                mBinding.refreshLayout.setEnableLoadmore(false);//禁止上拉
+                return mBinding.refreshLayout;
+            }
+
+            @Override
+            public RecyclerView getRecyclerView() {
+                return mBinding.rv;
+            }
+
+            @Override
+            public RecyclerView.Adapter getAdapter(List listData) {
+                return new CoinAdapter2(listData);
+            }
+
+            @Override
+            public void getListDataRequest(int pageindex, int limit, boolean isShowDialog) {
+                getListData(pageindex, limit, isShowDialog);
+            }
+        });
+
+        mRefreshHelper.init(10);
     }
 
     @Override
@@ -45,5 +136,49 @@ public class WalletFragment_2 extends BaseLazyFragment {
     @Override
     protected void onInvisible() {
 
+    }
+
+
+    private void getListData(int pageIndex, int limit, boolean isShowDialog) {
+        if (TextUtils.isEmpty(SPUtilHelper.getUserToken()))
+            return;
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("currency", "");
+        map.put("userId", SPUtilHelper.getUserId());
+        map.put("token", SPUtilHelper.getUserToken());
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        showLoadingDialog();
+
+        call.enqueue(new BaseResponseModelCallBack<CoinModel>(mActivity) {
+            @Override
+            protected void onSuccess(CoinModel data, String SucMessage) {
+//                mRefreshHelper.reLoadAdapter();
+                mRefreshHelper.setData(data.getAccountList(), getStrRes(R.string.bill_none), R.mipmap.order_none);
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+    }
+
+    protected void showDoubleWarnListen(String str, CommonDialog.OnPositiveListener onPositiveListener) {
+
+        if (mActivity == null || mActivity.isFinishing()) {
+            return;
+        }
+
+        CommonDialog commonDialog = new CommonDialog(mActivity).builder()
+                .setTitle(getString(com.cdkj.baselibrary.R.string.activity_base_tip)).setContentMsg(str)
+                .setPositiveBtn(getString(com.cdkj.baselibrary.R.string.activity_base_confirm), onPositiveListener)
+                .setNegativeBtn(getString(com.cdkj.baselibrary.R.string.activity_base_cancel), null, false);
+
+        commonDialog.show();
     }
 }

@@ -109,6 +109,24 @@ public class SPUtilHelper {
     }
 
     /**
+     * 数据库是否有当前用户钱包信息
+     *
+     * @param has
+     */
+    public static void saveIsHasUserWalletInfo(boolean has) {
+        SPUtils.put(CdApplication.getContext(), "db_has_user_coin", has);
+    }
+
+    /**
+     * 数据库是否有当前用户钱包信息
+     *
+     * @return
+     */
+    public static boolean isHasUserWalletInfo() {
+        return SPUtils.getBoolean(CdApplication.getContext(), "db_has_user_coin", false);
+    }
+
+    /**
      * 设置用户token
      *
      * @param s

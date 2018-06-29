@@ -4,58 +4,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.util.Log;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
-import com.cdkj.baselibrary.model.BaseCoinModel;
-import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
-import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
-import com.cdkj.token.utils.CipherUtils;
-import com.cdkj.token.utils.WalletHelper;
-import com.cdkj.token.wallet.IntoWalletBeforeActivity;
-import com.cdkj.token.wallet.create_guide.WalletBackupCheckActivity;
-import com.cdkj.token.wallet.import_guide.WalletImportWordsInputActivity;
 
-import org.bitcoinj.core.Utils;
-import org.bitcoinj.crypto.ChildNumber;
-import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.crypto.HDUtils;
-import org.bitcoinj.wallet.DeterministicKeyChain;
-import org.bitcoinj.wallet.DeterministicSeed;
-import org.litepal.crud.DataSupport;
-import org.litepal.util.cipher.CipherUtil;
-import org.web3j.crypto.Credentials;
-import org.web3j.crypto.Wallet;
-
-import java.math.BigInteger;
-import java.security.NoSuchAlgorithmException;
-import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
-import javax.crypto.Cipher;
-import javax.crypto.NoSuchPaddingException;
-
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
 @Route(path = CdRouteHelper.APPSTART)
@@ -95,17 +64,13 @@ public class StartActivity extends BaseActivity {
     }
 
     private void nextTo() {
-        mSubscription.add(Observable.timer(0, TimeUnit.SECONDS)
-                .subscribeOn(Schedulers.newThread())
-                .map(aLong -> /*WalletHelper.isWalletFirstCheck() &&*/ WalletHelper.isHaveWalletCache())
+        mSubscription.add(Observable.timer(2, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(ishave -> {//延迟两秒进行跳转
-                    if (ishave) {  //如果已经有了钱包 并且通过验证
-                        MainActivity.open(this);
-                    } else {
-                        IntoWalletBeforeActivity.open(this);
+                .subscribe(isLogin -> {//延迟两秒进行跳转
+                    if (!SPUtilHelper.isLogin(this, false)) {
+                        finish();
                     }
-                    finish();
+                    MainActivity.open(this);
                 }, Throwable::printStackTrace));
     }
 

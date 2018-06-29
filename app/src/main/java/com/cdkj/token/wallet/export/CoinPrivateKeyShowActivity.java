@@ -12,8 +12,7 @@ import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityPrivateKeyShowBinding;
-import com.cdkj.token.utils.WalletHelper;
-import com.cdkj.token.wallet.coin_detail.WalletAddressShowActivity;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;

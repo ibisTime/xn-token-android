@@ -1,21 +1,14 @@
 package com.cdkj.token.adapter;
 
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 
-import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.CoinModel;
-import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
-
-import static com.cdkj.token.utils.CoinUtil.getCoinENameWithCurrency;
-import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 
 /**
  * Created by cdkj on 2018/5/25.

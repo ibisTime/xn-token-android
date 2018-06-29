@@ -11,6 +11,8 @@ public class WalletDBModel extends DataSupport {
 
     private String privataeKey;//私钥
 
+    private String userId;//私钥
+
     private String helpWordsrEn;// 助记词 英文
 
     private String address;//地址

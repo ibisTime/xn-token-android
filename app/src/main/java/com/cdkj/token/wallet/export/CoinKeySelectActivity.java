@@ -8,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.cdkj.baselibrary.base.AbsRefreshListActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.CoinKeySelectAdapter;
-import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.util.List;
 

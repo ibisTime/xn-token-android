@@ -9,31 +9,12 @@ import android.view.View;
 
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.utils.LogUtil;
-import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreatePassWordBinding;
-import com.cdkj.token.model.WalletDBModel;
-import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.model.WalletDBModel2;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.password.PassWordLayout;
-
-import org.bitcoinj.core.Utils;
-import org.bitcoinj.crypto.ChildNumber;
-import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.crypto.HDKeyDerivation;
-import org.bitcoinj.crypto.HDUtils;
-import org.bitcoinj.crypto.MnemonicCode;
-import org.bitcoinj.wallet.DeterministicKeyChain;
-import org.bitcoinj.wallet.DeterministicSeed;
-import org.litepal.crud.DataSupport;
-import org.spongycastle.jcajce.provider.digest.MD5;
-import org.web3j.crypto.Credentials;
-
-import java.math.BigInteger;
-import java.security.SecureRandom;
-import java.util.ArrayList;
-import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -117,14 +98,13 @@ public class CreatePassWordActivity extends AbsBaseLoadActivity {
         mSubscription.add(
                 Observable.just(password)
                         .subscribeOn(Schedulers.newThread())
-                        .map(pass -> WalletHelper.saveWalletPassWord(pass))
                         .map(isSavePass -> {
-                            if (!isSavePass) {
-                                return false;
-                            }
-                            return WalletHelper.createWalletInfobyPassWord(WalletHelper.COIN_ETH)
-                                    &&
-                                    WalletHelper.createWalletInfobyPassWord(WalletHelper.COIN_WAN);
+
+                            WalletDBModel2 walletDBModel2 = WalletHelper.createEthPrivateKey();
+
+                            walletDBModel2.setWalletPassWord(WalletHelper.encrypt(password));  //TODO 缺少BTC
+
+                            return walletDBModel2.save(); //
                         })
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnComplete(() -> disMissLoading())
@@ -143,112 +123,5 @@ public class CreatePassWordActivity extends AbsBaseLoadActivity {
 
     }
 
-
-/*    public void test2() {
-
-        // 钱包种子
-        DeterministicSeed seed1 = new DeterministicSeed(new SecureRandom(),
-                128, "", Utils.currentTimeSeconds());
-
-        // 助记词
-        List<String> mnemonicList = seed1.getMnemonicCode();
-
-        DeterministicKeyChain keyChain1 = DeterministicKeyChain.builder()
-                .seed(seed1).build();
-
-        List<ChildNumber> keyPath = HDUtils.parsePath("M/44H/60H/0H/0/0");
-
-        // DeterministicKey key2 =
-        // keyChain2.getKey(KeyPurpose.RECEIVE_FUNDS);
-        DeterministicKey key1 = keyChain1.getKeyByPath(keyPath, true);
-        BigInteger privKey1 = key1.getPrivKey();
-
-        Credentials credentials1 = Credentials
-                .create(privKey1.toString(16));
-
-        System.out.println(seed1.getMnemonicCode());
-
-        System.out.println("seed1=" + seed1.toHexString());
-
-        System.out.println("privateKey1:" + key1.getPrivateKeyAsHex());
-
-        System.out.println("address1: " + credentials1.getAddress());
-
-    }
-
-
-    // 生成助记词
-    private List<String> makeMnemonic() {
-
-        List<String> mnemonicList = null;
-
-        try {
-
-            List<String> defaultMnenonic = new ArrayList<>();
-            defaultMnenonic.add("assume");
-            defaultMnenonic.add("arrive");
-            defaultMnenonic.add("acid");
-            defaultMnenonic.add("apple");
-            defaultMnenonic.add("badge");
-            defaultMnenonic.add("small");
-            defaultMnenonic.add("logic");
-            defaultMnenonic.add("right");
-            defaultMnenonic.add("say");
-            defaultMnenonic.add("smile");
-            defaultMnenonic.add("shy");
-            defaultMnenonic.add("trouble");
-
-            // 钱包种子
-            DeterministicSeed seed1 = new DeterministicSeed(new SecureRandom(),
-                    128, "", Utils.currentTimeSeconds());
-
-            // 助记词
-            mnemonicList = seed1.getMnemonicCode();
-
-            DeterministicKeyChain keyChain1 = DeterministicKeyChain.builder()
-                    .seed(seed1).build();
-
-            List<ChildNumber> keyPath = HDUtils.parsePath("M/44H/60H/0H/0/0");
-
-            // DeterministicKey key2 =
-            // keyChain2.getKey(KeyPurpose.RECEIVE_FUNDS);
-            DeterministicKey key1 = keyChain1.getKeyByPath(keyPath, true);
-            BigInteger privKey1 = key1.getPrivKey();
-
-            Credentials credentials1 = Credentials
-                    .create(privKey1.toString(16));
-
-            System.out.println(seed1.getMnemonicCode());
-
-            System.out.println("seed1=" + seed1.toHexString());
-
-            System.out.println("privateKey1:" + key1.getPrivateKeyAsHex());
-
-            System.out.println("address1: " + credentials1.getAddress());
-
-            DeterministicSeed seed2 = new DeterministicSeed(defaultMnenonic,
-                    null, "", Utils.currentTimeSeconds());
-
-            DeterministicKeyChain keyChain2 = DeterministicKeyChain.builder()
-                    .seed(seed2).build();
-
-            DeterministicKey key2 = keyChain2.getKeyByPath(keyPath, true);
-            BigInteger privKey2 = key2.getPrivKey();
-
-            Credentials credentials2 = Credentials
-                    .create(privKey2.toString(16));
-
-            System.out.println("seed2=" + seed2.toHexString());
-
-            System.out.println("privateKey2:" + key2.getPrivateKeyAsHex());
-
-            System.out.println("address2: " + credentials2.getAddress());
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return mnemonicList;
-    }*/
 
 }

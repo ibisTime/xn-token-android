@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.cdkj.token.R;
 import com.cdkj.token.model.LocalCoinModel;
-import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 

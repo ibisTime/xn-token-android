@@ -17,7 +17,7 @@ import com.cdkj.token.adapter.AddChoiceAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.LocalCoinModel;
-import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;

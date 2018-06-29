@@ -9,15 +9,12 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityRechargeBinding;
-import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.WalletDBModel;
-import com.cdkj.token.utils.WalletHelper;
-import com.cdkj.token.wallet.account.BillActivity;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 /**

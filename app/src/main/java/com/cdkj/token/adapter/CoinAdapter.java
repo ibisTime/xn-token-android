@@ -5,7 +5,7 @@ import android.support.annotation.Nullable;
 import com.cdkj.token.R;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.utils.AccountUtil;
-import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 

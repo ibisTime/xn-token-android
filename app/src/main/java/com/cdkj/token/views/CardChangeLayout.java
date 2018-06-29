@@ -1,43 +1,78 @@
 package com.cdkj.token.views;
 
+import android.animation.Animator;
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
 import android.content.Context;
-import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
+import android.support.v4.view.GestureDetectorCompat;
+import android.support.v4.view.ViewCompat;
+import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
+import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.LinearInterpolator;
 import android.widget.FrameLayout;
 
 import com.cdkj.baselibrary.utils.DisplayHelper;
+import com.cdkj.baselibrary.utils.LogUtil;
 
 /**
  * 布局切换
  * Created by cdkj on 2018/6/28.
  */
-
 public class CardChangeLayout extends FrameLayout {
 
-    private View view1;
-    private View view2;
+    private View childView;
+    private View childView2;
 
+    private boolean isTryChildView2;//当前捕获的View 是不是顶层View  view2
+
+    /* 拖拽工具类 */
+    private final ViewDragHelper mDragHelper;
+    private GestureDetectorCompat gestureDetector;
     private static final int VEL_THRESHOLD = 500; // 滑动速度的阈值，超过这个绝对值认为是左右
     private static final int DISTANCE_THRESHOLD = 250; // 单位是像素，当左右滑动速度不够时，通过这个阈值来判定是应该左滑还是右滑动
 
-    private boolean isView2;
+    private int margin;  //子View margin
+
+    private int viewRightInterval;//上下层right View间隔
+
+    public ChangeCallBack changeCallBack;
+    private AnimatorSet animatorSetsuofang;
+
+    private float scale = 0.8f;
+
+    public ChangeCallBack getChangeCallBack() {
+        return changeCallBack;
+    }
+
+    public void setChangeCallBack(ChangeCallBack changeCallBack) {
+        this.changeCallBack = changeCallBack;
+    }
 
     public CardChangeLayout(@NonNull Context context) {
         this(context, null);
     }
 
     public CardChangeLayout(@NonNull Context context, @Nullable AttributeSet attrs) {
-        this(context, null, 0);
+        this(context, attrs, 0);
     }
 
     public CardChangeLayout(@NonNull Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
+        mDragHelper = ViewDragHelper
+                .create(this, 10f, new DragHelperCallback());
+        gestureDetector = new GestureDetectorCompat(context,
+                new YScrollDetector());
+        //组合动画
+        animatorSetsuofang = new AnimatorSet();
+
+        margin = DisplayHelper.dp2px(getContext(), 15);
+        viewRightInterval = DisplayHelper.dp2px(getContext(), 20);
 
     }
 
@@ -45,47 +80,228 @@ public class CardChangeLayout extends FrameLayout {
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
-        view1 = getChildAt(0);
-        view2 = getChildAt(1);
+        childView = getChildAt(0);
+        childView2 = getChildAt(1);
+        LogUtil.E("onFinishInflate 调用");
     }
+
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-        super.onLayout(changed, left, top, right, bottom);
 
-        //设置缩放
-        for (int i = 0; i < getChildCount(); i++) {
-            View view = getChildAt(i);
-            float scale = (float) (view.getWidth() - DisplayHelper.dp2px(getContext(), 40 * (getChildCount() - i))) / (float) (view.getWidth());
-            view.setPivotX(view.getWidth() / 2f);
-            view.setPivotY(view.getHeight() / 2f);
-            view.setScaleX(scale);
-            view.setScaleY(scale);
+        LogUtil.E("onlayout调用");
 
-            if (i == 0) {
-                view.setTranslationX(50);
+        int childCount = getChildCount();
+
+        for (int i = 0; i < childCount; i++) {
+            View childView = getChildAt(i);
+
+            childView.layout(0 + margin, 0, childView.getMeasuredWidth() - margin - viewRightInterval, childView.getMeasuredHeight());
+
+            if (i != childCount - 1) {  //不是最后一个View都进行缩放
+                childView.setPivotX(childView.getWidth() / 2f);  //
+                childView.setPivotY(childView.getHeight() / 2f);
+                childView.setScaleX(scale);
+                childView.setScaleY(scale);
+                if (!animatorSetsuofang.isRunning()) {
+                    childView.setTranslationX(viewRightInterval + viewRightInterval * scale + margin);
+                }
             }
+
         }
+
+
     }
 
     @Override
     public void computeScroll() {
+        LogUtil.E("滚动");
+        if (mDragHelper.continueSettling(true)) {
+            ViewCompat.postInvalidateOnAnimation(this);
+        } else {
 
+            if (childView.getLeft() == margin && childView2.getLeft() == margin || animatorSetsuofang.isRunning()) {  //第一次绘制
+                return;
+            }
+
+            if (changeCallBack != null) {
+                if (!changeCallBack.onChangeBefor(isTryChildView2 ? 0 : 1)) {
+                    if (mDragHelper.smoothSlideViewTo(isTryChildView2 ? childView2 : childView, margin, 0)) {  //回弹效果
+                        ViewCompat.postInvalidateOnAnimation(CardChangeLayout.this);
+                    }
+                    return;
+                }
+            }
+            if (isTryChildView2) {
+                if (childView2.getLeft() < 0) {
+                    startAnimator(childView2, childView);
+                }
+            } else {
+                if (childView.getLeft() < 0) {
+
+                    startAnimator(childView, childView2);
+                }
+            }
+
+        }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    /**
+     * 移动和缩放动画
+     *
+     * @param topView
+     * @param bottomView
+     */
+    void startAnimator(View topView, View bottomView) {
+
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(bottomView, "scaleX", scale, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(bottomView, "scaleY", scale, 1f);
+        ObjectAnimator translationX = ObjectAnimator.ofFloat(bottomView, "translationX", (float) (viewRightInterval + viewRightInterval * 1 + margin), 0f);
+        ObjectAnimator valueAnimator = (ObjectAnimator) ObjectAnimator.ofFloat(topView, "translationX", topView.getLeft(), 0);
+        bottomView.setPivotX(bottomView.getWidth() / 2f);  //
+        bottomView.setPivotY(bottomView.getHeight() / 2f);
+        animatorSetsuofang.setDuration(130);
+        animatorSetsuofang.setInterpolator(new LinearInterpolator());
+
+        animatorSetsuofang.addListener(new Animator.AnimatorListener() {
+            @Override
+            public void onAnimationStart(Animator animator) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animator animator) {
+                updateViewLayout(bottomView, bottomView.getLayoutParams());   //更新布局
+                if (changeCallBack != null) {
+                    changeCallBack.onChange(topView == childView2 ? 0 : 1);
+                }
+            }
+
+            @Override
+            public void onAnimationCancel(Animator animator) {
+            }
+
+            @Override
+            public void onAnimationRepeat(Animator animator) {
+            }
+        });
+        animatorSetsuofang.play(scaleX).with(scaleY);
+        animatorSetsuofang.playTogether(valueAnimator, translationX);
+
+        bringChildToFront(bottomView);
+        animatorSetsuofang.start();
+    }
+
+
+    /* touch事件的拦截与处理都交给mDraghelper来处理 */
     @Override
-    public boolean onTouchEvent(MotionEvent event) {
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
 
-        View v = getChildAt(getChildCount() - 1); //获取表面View
+        boolean yScroll = gestureDetector.onTouchEvent(ev);
+        boolean shouldIntercept = mDragHelper.shouldInterceptTouchEvent(ev);
+        int action = ev.getActionMasked();
 
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                view2.setTranslationZ(0);
-                break;
+        if (action == MotionEvent.ACTION_DOWN) {
+            mDragHelper.processTouchEvent(ev);
+        }
+
+        return shouldIntercept && yScroll;
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent e) {
+        // 统一交给mDragHelper处理，由DragHelperCallback实现拖动效果
+        try {
+            mDragHelper.processTouchEvent(e);
+        } catch (Exception e1) {
         }
 
         return true;
+    }
+
+
+    /**
+     * 这是拖拽效果的主要逻辑
+     */
+    private class DragHelperCallback extends ViewDragHelper.Callback {
+
+
+        @Override
+        public void onViewPositionChanged(View changedView, int left, int top, //坐标发生变化时
+                                          int dx, int dy) {
+
+        }
+
+        @Override
+        public void onViewDragStateChanged(int state) {
+            super.onViewDragStateChanged(state);
+        }
+
+        @Override
+        public boolean tryCaptureView(View child, int pointerId) {  //捕获子View
+            if (animatorSetsuofang.isRunning() || mDragHelper.continueSettling(true) || childView.getLeft() < 0 || child.getLeft() < 0) { //在动画中或中禁止捕获
+                return false;
+            }
+            isTryChildView2 = child == childView2;
+            return true;
+        }
+
+        @Override
+        public int getViewVerticalDragRange(View child) {
+            // 这个用来控制拖拽过程中松手后，自动滑行的速度，暂时给一个随意的数值
+            return 1;
+        }
+
+        @Override
+        public void onViewReleased(View releasedChild, float xvel, float yvel) {   //松手 当前被捕获的View释放之后回调
+
+            int finalLeft = margin; // 默认是粘到最顶端
+
+            if (xvel < -VEL_THRESHOLD || releasedChild.getLeft() < -DISTANCE_THRESHOLD) {
+                finalLeft = -releasedChild.getMeasuredWidth();
+            }
+
+            if (mDragHelper.smoothSlideViewTo(releasedChild, finalLeft, 0)) {  //回弹效果
+                ViewCompat.postInvalidateOnAnimation(CardChangeLayout.this);
+            }
+        }
+
+        @Override
+        public int clampViewPositionVertical(View child, int top, int dy) {  //可移动范围
+            return 0;
+        }
+
+        @Override
+        public int clampViewPositionHorizontal(View child, int left, int dx) {
+            return left;
+        }
+
+
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        if (animatorSetsuofang != null) {
+            animatorSetsuofang.addListener(null);
+        }
+    }
+
+    class YScrollDetector extends GestureDetector.SimpleOnGestureListener {
+
+        @Override
+        public boolean onScroll(MotionEvent e1, MotionEvent e2, float dx,
+                                float dy) {
+            // 垂直滑动时dx>dy，才被认定是左右拖动
+            return Math.abs(dx) > Math.abs(dy);
+        }
+    }
+
+    public interface ChangeCallBack {
+
+        boolean onChangeBefor(int index);
+
+        void onChange(int index);
     }
 
 

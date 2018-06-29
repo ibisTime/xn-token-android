@@ -2,17 +2,10 @@ package com.cdkj.token.wallet.backup_guide;
 
 import android.content.Context;
 import android.content.Intent;
-import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
 
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.token.R;
-import com.cdkj.token.databinding.ActivityCreatePassWordBinding;
-import com.cdkj.token.utils.WalletHelper;
-import com.cdkj.token.views.password.PassWordLayout;
 import com.cdkj.token.wallet.AbsWalletPassWordCheckActivity;
 
 /**

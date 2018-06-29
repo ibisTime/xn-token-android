@@ -12,9 +12,8 @@ import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityIntoMainBeforeBinding;
-import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.LocalCoinModel;
-import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.create_guide.CreatePassWordActivity;
 import com.cdkj.token.wallet.import_guide.WalletImportWordsInputActivity;
 
@@ -56,7 +55,7 @@ public class IntoWalletBeforeActivity extends AbsBaseLoadActivity {
         WalletHelper.saveFirstConfig(true);  //第一次
 
         mBinding.tvRead.setOnClickListener(view -> {
-            WebViewActivity.openkey(this,getString(R.string.privacy_agreement),"reg_protocol");
+            WebViewActivity.openkey(this, getString(R.string.privacy_agreement), "reg_protocol");
         });
     }
 
@@ -89,5 +88,10 @@ public class IntoWalletBeforeActivity extends AbsBaseLoadActivity {
         mBinding.btnCreateWallet.setOnClickListener(view -> CreatePassWordActivity.open(this));
 
         mBinding.btnImportWallet.setOnClickListener(view -> WalletImportWordsInputActivity.open(this));
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

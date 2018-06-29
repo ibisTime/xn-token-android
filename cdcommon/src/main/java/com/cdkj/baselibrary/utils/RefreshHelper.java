@@ -199,6 +199,11 @@ public class RefreshHelper<T> {
     }
 
 
+    public void reLoadAdapter() {
+        mDataList.clear();
+        mAdapter = (BaseQuickAdapter) mRefreshInterface.getAdapter(mDataList);
+    }
+
     /**
      * 设置加载数据 实现分页逻辑
      *

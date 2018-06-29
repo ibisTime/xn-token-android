@@ -30,7 +30,7 @@ import com.cdkj.token.model.CoinTypeAndAddress;
 import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.model.MsgListModel;
 import com.cdkj.token.model.WalletDBModel;
-import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.coin_detail.WalletCoinDetailsActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

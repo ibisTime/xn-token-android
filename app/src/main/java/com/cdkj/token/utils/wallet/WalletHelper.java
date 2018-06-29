@@ -1,4 +1,4 @@
-package com.cdkj.token.utils;
+package com.cdkj.token.utils.wallet;
 
 import android.content.ContentValues;
 import android.database.Cursor;
@@ -11,7 +11,7 @@ import com.cdkj.token.MyApplication;
 import com.cdkj.token.R;
 import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.model.WalletDBModel;
-import com.cdkj.token.model.WalletInfoDBModel;
+import com.cdkj.token.model.WalletDBModel2;
 import com.cdkj.token.utils.wan.WanRawTransaction;
 import com.cdkj.token.utils.wan.WanTransactionEncoder;
 
@@ -362,12 +362,12 @@ public class WalletHelper {
 
 
     /**
-     * 根据单词获取ETH助记词等信息
+     * 创建Eth币种私钥 、地址、助记词
      *
      * @param
      * @return
      */
-    public static boolean createWalletInfobyPassWord(String coinType) throws Exception {
+    public static WalletDBModel2 createEthPrivateKey() throws Exception {
         // 钱包种子
         DeterministicSeed seed1 = new DeterministicSeed(new SecureRandom(),
                 128, "", Utils.currentTimeSeconds());
@@ -380,21 +380,23 @@ public class WalletHelper {
 
         List<ChildNumber> keyPath = HDUtils.parsePath(HDPATH);
 
-
         DeterministicKey key1 = keyChain1.getKeyByPath(keyPath, true);
         BigInteger privKey1 = key1.getPrivKey();
 
         Credentials credentials1 = Credentials
                 .create(privKey1.toString(16));
 
+        WalletDBModel2 walletDBModel = new WalletDBModel2();
 
-        WalletDBModel walletDBModel = new WalletDBModel();
-        walletDBModel.setAddress(credentials1.getAddress());
         walletDBModel.setHelpWordsrEn(encrypt(StringUtils.listToString(mnemonicList, HELPWORD_SIGN))); //储存下来 用，分割
-        walletDBModel.setCoinType(coinType);
-        walletDBModel.setPrivataeKey(encrypt(key1.getPrivateKeyAsHex()));
 
-        return walletDBModel.save();
+        walletDBModel.setEthAddress(credentials1.getAddress());
+        walletDBModel.setEthPrivataeKey(encrypt(key1.getPrivateKeyAsHex()));
+
+        walletDBModel.setWanAddress(credentials1.getAddress());
+        walletDBModel.setWanPrivataeKey(encrypt(key1.getPrivateKeyAsHex()));
+
+        return walletDBModel;
     }
 
     /**
@@ -404,7 +406,7 @@ public class WalletHelper {
      * @return
      * @throws Exception
      */
-    private static String encrypt(String privateKeyAsHex) {
+    public static String encrypt(String privateKeyAsHex) {
 //        try {
 //            return CipherUtils.encrypt(privateKeyAsHex, WALLPASS);
 //        } catch (Exception e) {
@@ -498,7 +500,6 @@ public class WalletHelper {
         removeWalletCoinConfig();
         saveWalletFirstCheck(false);
         DataSupport.deleteAll(WalletDBModel.class);
-        DataSupport.deleteAll(WalletInfoDBModel.class);
     }
 
 
@@ -519,11 +520,11 @@ public class WalletHelper {
     }
 
     /**
-     * 根据助记词生成ETH私钥和地址
+     * 根据助记词生成ETH WAN 私钥和地址
      *
      * @param defaultMnenonic
      */
-    public static boolean createWalletInfobyMnenonic(List<String> defaultMnenonic, String coinType) {
+    public static WalletDBModel2 createEthAndWanPrivateKeybyMnenonic(List<String> defaultMnenonic) {
 
         DeterministicSeed seed = new DeterministicSeed(defaultMnenonic,
                 null, "", Utils.currentTimeSeconds());
@@ -537,13 +538,17 @@ public class WalletHelper {
         Credentials credentials = Credentials
                 .create(privKey.toString(16));
 
-        WalletDBModel walletDBModel = new WalletDBModel();
-        walletDBModel.setAddress(credentials.getAddress());
+        WalletDBModel2 walletDBModel = new WalletDBModel2();
         walletDBModel.setHelpWordsrEn(encrypt(StringUtils.listToString(defaultMnenonic, HELPWORD_SIGN))); //储存下来 用，分割
-        walletDBModel.setPrivataeKey(encrypt(key.getPrivateKeyAsHex()));
-        walletDBModel.setCoinType(coinType);
 
-        return walletDBModel.save();
+        walletDBModel.setEthAddress(credentials.getAddress());
+        walletDBModel.setEthPrivataeKey(encrypt(key.getPrivateKeyAsHex()));
+
+        walletDBModel.setWanAddress(credentials.getAddress());
+        walletDBModel.setWanPrivataeKey(encrypt(key.getPrivateKeyAsHex()));
+
+
+        return walletDBModel;
     }
 
 
@@ -562,23 +567,14 @@ public class WalletHelper {
      * @param password
      * @return
      */
-    public static void changeWalletPassWord(String password) {
+    public static void changeWalletPassWord(String password, String userId) {
+//        DataSupport.findBySQL("update WalletDBModel2 set walletPassWord =?  where userId = ?", password, userId);
         ContentValues values = new ContentValues();
-        values.put("walletPassWord", EncryptionString(password));
-        DataSupport.updateAll(WalletInfoDBModel.class, values);
+        values.put("walletPassWord", encrypt(password));
+        DataSupport.updateAll(WalletDBModel2.class, values, "userId = ?", userId);
+
     }
 
-    /**
-     * 保存用户钱包密码
-     *
-     * @param password
-     * @return
-     */
-    public static boolean saveWalletPassWord(String password) {
-        WalletInfoDBModel values = new WalletInfoDBModel();
-        values.setWalletPassWord(EncryptionString(password));
-        return values.save();
-    }
 
     /**
      * 获取用户钱包密码
@@ -586,21 +582,30 @@ public class WalletHelper {
      * @param
      * @return
      */
-    public static String getWalletPassword() {
-        try {
-            return findLast(WalletInfoDBModel.class).getWalletPassWord();
-        } catch (Exception e) {
+    public static String getWalletPasswordByUserId(String uerId) {
+
+        Cursor cursor = getUserInfoCursorByUserId(uerId);
+
+        if (cursor != null && cursor.moveToFirst()) {
+            String password = cursor.getString(cursor.getColumnIndex("walletPassWord"));
+            return decrypt(password);
         }
+
         return "";
     }
+
+    public static Cursor getUserInfoCursorByUserId(String userId) {
+        return DataSupport.findBySQL("select * from WalletDBModel2 where userId=?", userId);
+    }
+
 
     /**
      * 检测旧密码
      *
      * @param pwd
      */
-    public static boolean checkOldPassword(String pwd) {
-        return TextUtils.equals(WalletHelper.EncryptionString(pwd), WalletHelper.getWalletPassword());
+    public static boolean checkOldPasswordByUserId(String pwd, String userId) {
+        return TextUtils.equals(pwd, WalletHelper.getWalletPasswordByUserId(userId));
     }
 
     /**

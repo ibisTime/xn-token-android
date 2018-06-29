@@ -4,21 +4,18 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
-import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityTransctionDetailsBinding;
-import com.cdkj.token.databinding.ActivityTransferBinding;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.CoinUtil;
-import com.cdkj.token.utils.WalletHelper;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import static com.cdkj.baselibrary.utils.DateUtil.DEFAULT_DATE_FMT;
 import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
