@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -81,7 +82,7 @@ public class WalletDeleteWordsInputActivity extends AbsBaseLoadActivity {
                             .doOnComplete(() -> disMissLoading())
 
                             .subscribe(isPass -> {
-                                if (isPass && WalletHelper.checkCacheWords(StringUtils.mergeSpace(mBinding.editWords.getText().toString().trim(), WalletHelper.HELPWORD_SIGN))) {
+                                if (isPass && WalletHelper.checkCacheWords(StringUtils.mergeSpace(mBinding.editWords.getText().toString().trim(), WalletHelper.HELPWORD_SIGN), SPUtilHelper.getUserId())) {
                                     showSureDialog();
                                 } else {
                                     UITipDialog.showFail(WalletDeleteWordsInputActivity.this, getString(R.string.check_words_fail));

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -203,6 +204,7 @@
             android:background="@color/black" />
 
         <LinearLayout
+            android:id="@+id/linLayout_bulletin"
             android:layout_width="match_parent"
             android:layout_height="35dp"
             android:paddingLeft="10dp"
@@ -219,6 +221,25 @@
                 android:layout_height="12dp"
                 android:layout_gravity="center_vertical"
                 android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/tv_bulletin"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:textColor="@color/text_black_cd"
+                android:textSize="12sp"
+                tools:text="这是一条公告" />
+
+            <ImageView
+                android:id="@+id/img_close"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_gravity="center_vertical"
+                android:src="@drawable/close" />
 
 
         </LinearLayout>

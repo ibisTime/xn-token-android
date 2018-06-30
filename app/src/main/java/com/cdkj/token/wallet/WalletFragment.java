@@ -27,10 +27,7 @@ import com.cdkj.token.databinding.FragmentWalletBinding;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.CoinTypeAndAddress;
-import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.model.MsgListModel;
-import com.cdkj.token.model.WalletDBModel;
-import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.coin_detail.WalletCoinDetailsActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -158,14 +155,14 @@ public class WalletFragment extends BaseLazyFragment {
 
         List<CoinTypeAndAddress> list = new ArrayList<>();
 
-        WalletDBModel walletDBModel = WalletHelper.getPrivateKeyAndAddressByCoinType(WalletHelper.COIN_ETH);
-
-        for (LocalCoinModel localCoinModel : WalletHelper.getConfigLocalCoinList()) {
-            CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();
-            coinTypeAndAddress.setAddress(walletDBModel.getAddress());
-            coinTypeAndAddress.setSymbol(localCoinModel.getCoinType());
-            list.add(coinTypeAndAddress);
-        }
+//        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(WalletHelper.COIN_ETH);
+//
+//        for (LocalCoinModel localCoinModel : WalletHelper.getConfigLocalCoinList()) {
+//            CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();
+//            coinTypeAndAddress.setAddress(walletDBModel.getAddress());
+//            coinTypeAndAddress.setSymbol(localCoinModel.getCoinType());
+//            list.add(coinTypeAndAddress);
+//        }
 
         getWalletBalanceByAccountList(list);
 

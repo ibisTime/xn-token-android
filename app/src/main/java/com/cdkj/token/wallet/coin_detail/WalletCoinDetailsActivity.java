@@ -104,7 +104,9 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
     private void initClickListener() {
 
         mBinding.linLayoutGetmoney.setOnClickListener(view -> {
-            WalletAddressShowActivity.open(this);
+            if(accountListBean!=null){
+                WalletAddressShowActivity.open(this,accountListBean.getSymbol());
+            }
         });
 
         mBinding.linLayoutSendMoney.setOnClickListener(view -> {

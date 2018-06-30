@@ -7,12 +7,13 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreatePassWordBinding;
-import com.cdkj.token.model.WalletDBModel2;
+import com.cdkj.token.model.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.password.PassWordLayout;
 
@@ -98,11 +99,13 @@ public class CreatePassWordActivity extends AbsBaseLoadActivity {
         mSubscription.add(
                 Observable.just(password)
                         .subscribeOn(Schedulers.newThread())
-                        .map(isSavePass -> {
+                        .map(pass -> {
 
-                            WalletDBModel2 walletDBModel2 = WalletHelper.createEthPrivateKey();
+                            WalletDBModel walletDBModel2 = WalletHelper.createEthPrivateKey();
 
-                            walletDBModel2.setWalletPassWord(WalletHelper.encrypt(password));  //TODO 缺少BTC
+                            walletDBModel2.setWalletPassWord(WalletHelper.encrypt(pass));  //TODO 缺少BTC
+
+                            walletDBModel2.setUserId(SPUtilHelper.getUserId());
 
                             return walletDBModel2.save(); //
                         })

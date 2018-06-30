@@ -18,6 +18,7 @@ import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
+import com.cdkj.token.wallet.IntoWalletBeforeActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -71,6 +72,7 @@ public class StartActivity extends BaseActivity {
                         finish();
                     }
                     MainActivity.open(this);
+                    finish();
                 }, Throwable::printStackTrace));
     }
 

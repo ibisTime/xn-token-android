@@ -92,5 +92,7 @@ dependencies {
 //    implementation "org.ethereum:ethereumj-core:1.6.+"
 
     implementation 'com.github.razerdp:BasePopup:1.9.4'
+    /*debug 数据库调试*/
+    debugImplementation 'com.amitshekhar.android:debug-db:1.0.1'
 
 }

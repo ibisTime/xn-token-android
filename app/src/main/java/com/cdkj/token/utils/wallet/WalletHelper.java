@@ -1,6 +1,5 @@
 package com.cdkj.token.utils.wallet;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 
@@ -11,7 +10,6 @@ import com.cdkj.token.MyApplication;
 import com.cdkj.token.R;
 import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.model.WalletDBModel;
-import com.cdkj.token.model.WalletDBModel2;
 import com.cdkj.token.utils.wan.WanRawTransaction;
 import com.cdkj.token.utils.wan.WanTransactionEncoder;
 
@@ -46,7 +44,8 @@ import java.util.concurrent.ExecutionException;
 
 import static com.cdkj.token.utils.AccountUtil.UNIT_MIN;
 import static com.cdkj.token.utils.AccountUtil.UNIT_POW;
-import static org.litepal.crud.DataSupport.findLast;
+import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_SQL;
+import static com.cdkj.token.utils.wallet.WalletDBColumn.UPDATE_PWD_SQL;
 
 /**
  * 钱包工具类
@@ -69,6 +68,7 @@ public class WalletHelper {
     //TODO 币种使用枚举类
     public final static String COIN_ETH = "ETH";// 币种类型 ETH
     public final static String COIN_WAN = "WAN";// 币种类型 WAN
+    public final static String COIN_BTC = "BTC";// 币种类型 BTC
 
     //TODO 采用配置方式 币种类型、节点地址、币种名称
     //本地币种类型
@@ -99,7 +99,7 @@ public class WalletHelper {
         String devUrl = "";
         String url = "";
 
-        switch (coinType) {
+        switch (coinType.toUpperCase()) {
             case COIN_ETH:
                 devUrl = "https://rinkeby.infura.io/qfyZa8diWhk28tT9Cwft";
                 url = "https://mainnet.infura.io/qfyZa8diWhk28tT9Cwft";
@@ -136,7 +136,7 @@ public class WalletHelper {
         String devUrl = "";
         String url = "";
 
-        switch (coinType) {
+        switch (coinType.toUpperCase()) {
             case COIN_ETH:
                 devUrl = "https://rinkeby.etherscan.io/tx/";
                 url = "https://etherscan.io/tx/";
@@ -236,7 +236,7 @@ public class WalletHelper {
             return R.drawable.default_pic;
         }
 
-        switch (type) {
+        switch (type.toUpperCase()) {
             case COIN_ETH:
                 return R.drawable.eth_icon;
             case COIN_WAN:
@@ -256,7 +256,7 @@ public class WalletHelper {
         if (TextUtils.isEmpty(type)) {
             return "";
         }
-        switch (type) {
+        switch (type.toUpperCase()) {
             case COIN_ETH:
                 return MyApplication.getInstance().getString(R.string.coin_eth_ename);
             case COIN_WAN:
@@ -276,7 +276,7 @@ public class WalletHelper {
         if (TextUtils.isEmpty(type)) {
             return "";
         }
-        switch (type) {
+        switch (type.toUpperCase()) {
             case COIN_ETH:
                 return MyApplication.getInstance().getString(R.string.coin_eth_cname);
             case COIN_WAN:
@@ -296,7 +296,7 @@ public class WalletHelper {
         if (TextUtils.isEmpty(type)) {
             return "";
         }
-        switch (type) {
+        switch (type.toUpperCase().toUpperCase()) {
             case COIN_ETH:
                 return "ETH";
             case COIN_WAN:
@@ -367,7 +367,7 @@ public class WalletHelper {
      * @param
      * @return
      */
-    public static WalletDBModel2 createEthPrivateKey() throws Exception {
+    public static WalletDBModel createEthPrivateKey() throws Exception {
         // 钱包种子
         DeterministicSeed seed1 = new DeterministicSeed(new SecureRandom(),
                 128, "", Utils.currentTimeSeconds());
@@ -386,15 +386,15 @@ public class WalletHelper {
         Credentials credentials1 = Credentials
                 .create(privKey1.toString(16));
 
-        WalletDBModel2 walletDBModel = new WalletDBModel2();
+        WalletDBModel walletDBModel = new WalletDBModel();
 
         walletDBModel.setHelpWordsrEn(encrypt(StringUtils.listToString(mnemonicList, HELPWORD_SIGN))); //储存下来 用，分割
 
-        walletDBModel.setEthAddress(credentials1.getAddress());
-        walletDBModel.setEthPrivataeKey(encrypt(key1.getPrivateKeyAsHex()));
+        walletDBModel.setEthAddress(encrypt(credentials1.getAddress()));
+        walletDBModel.setEthPrivateKey(encrypt(key1.getPrivateKeyAsHex()));
 
-        walletDBModel.setWanAddress(credentials1.getAddress());
-        walletDBModel.setWanPrivataeKey(encrypt(key1.getPrivateKeyAsHex()));
+        walletDBModel.setWanAddress(encrypt(credentials1.getAddress()));
+        walletDBModel.setWanPrivateKey(encrypt(key1.getPrivateKeyAsHex()));
 
         return walletDBModel;
     }
@@ -435,62 +435,130 @@ public class WalletHelper {
     /**
      * 根据币种获取保存的助记词列表
      *
-     * @param coinType
+     * @param userId
      * @return
      */
-    public static List<String> getHelpWordsListByCoinType(String coinType) {
+    public static List<String> getHelpWordsListByUserId(String userId) {
 
-        Cursor cursor = getCursorByCoinTypeSQL(coinType);
+        Cursor cursor = getUserInfoCursorByUserId(userId);
 
-        if (cursor != null && cursor.moveToFirst()) {
+        try {
+            if (cursor != null && cursor.moveToFirst()) {
 
-            return StringUtils.splitAsList(cursor.getString(cursor.getColumnIndex("helpwordsren")), HELPWORD_SIGN);
+                return StringUtils.splitAsList(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.HELPWORDSREN))), HELPWORD_SIGN);
+            }
+
+        } catch (Exception e) {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
 
         return new ArrayList<>();
     }
 
-    /**
-     * 根据币种类型获取数据库Cursor
-     *
-     * @param coinType
-     * @return
-     */
-    private static Cursor getCursorByCoinTypeSQL(String coinType) {
-        return DataSupport.findBySQL("select * from WalletDBModel where coinType=?", coinType);
-    }
 
     /**
-     * 获取私钥和地址
+     * 根据用户Id获取用户钱包信息 （私钥 助记词等）
      *
-     * @param coinType
+     * @param userId
      * @return
      */
-    public static WalletDBModel getPrivateKeyAndAddressByCoinType(String coinType) {
-        Cursor cursor = getCursorByCoinTypeSQL(coinType);
+    public static WalletDBModel getUserWalletInfoByUsreId(String userId) {
+
+        Cursor cursor = getUserInfoCursorByUserId(userId);
+
         WalletDBModel walletDBModel = new WalletDBModel();
-        if (cursor != null && cursor.moveToFirst()) {
-            walletDBModel.setPrivataeKey(decrypt(cursor.getString(cursor.getColumnIndex("privataekey"))));
-            walletDBModel.setAddress(cursor.getString(cursor.getColumnIndex("address")));
-        }
 
+        try {
+            if (cursor != null && cursor.moveToFirst()) {
+
+                walletDBModel.setUserId(userId);
+
+                walletDBModel.setWalletPassWord(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.WALLETPASSWORD))));
+                walletDBModel.setHelpWordsrEn(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.HELPWORDSREN))));
+
+                walletDBModel.setBtcAddress(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.BTCADDRESS))));
+                walletDBModel.setBtcPrivateKey(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.BTCPRIVATEKEY))));
+
+                walletDBModel.setEthAddress(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.ETHADDRESS))));
+                walletDBModel.setEthPrivateKey(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.ETHPRIVATEKEY))));
+
+
+                walletDBModel.setWanAddress(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.WANADDRESS))));
+                walletDBModel.setWanPrivateKey(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.WANPRIVATEKEY))));
+
+
+            }
+        } catch (Exception e) {
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
         return walletDBModel;
     }
 
     /**
-     * 获取保存的助记词列表
+     * 检测数据库是否有userId 用户数据
      *
+     * @param userId
      * @return
      */
-    public static String getHelpWordsByCoinType(String coinType) {
-        Cursor cursor = getCursorByCoinTypeSQL(coinType);
-
-        if (cursor != null && cursor.moveToFirst()) {
-            return cursor.getString(cursor.getColumnIndex("helpwordsren"));
+    public static boolean checkHasUserInfo(String userId) {
+        Cursor cursor = getUserInfoCursorByUserId(userId);
+        boolean ishas = cursor != null && cursor.moveToFirst();
+        if (cursor != null) {
+            cursor.close();
         }
+        return ishas;
+    }
 
+    /**
+     * 根据币种类型获取币种私钥
+     *
+     * @param walletDBModel2
+     * @param coinType
+     * @return
+     */
+    public static String getPrivateKeyByCoinType(WalletDBModel walletDBModel2, String coinType) {
+
+        if (walletDBModel2 == null || TextUtils.isEmpty(coinType)) {
+            return "";
+        }
+        switch (coinType.toUpperCase()) {
+            case COIN_ETH:
+                return walletDBModel2.getEthPrivateKey();
+            case COIN_WAN:
+                return walletDBModel2.getWanPrivateKey();
+            case COIN_BTC:
+                return walletDBModel2.getBtcPrivateKey();
+        }
         return "";
+    }
 
+    /**
+     * 根据币种类型获取币种私钥
+     *
+     * @param walletDBModel2
+     * @param coinType
+     * @return
+     */
+    public static String getAddressByCoinType(WalletDBModel walletDBModel2, String coinType) {
+
+        if (walletDBModel2 == null || TextUtils.isEmpty(coinType)) {
+            return "";
+        }
+        switch (coinType) {
+            case COIN_ETH:
+                return walletDBModel2.getEthAddress();
+            case COIN_WAN:
+                return walletDBModel2.getWanAddress();
+            case COIN_BTC:
+                return walletDBModel2.getBtcAddress();
+        }
+        return "";
     }
 
     /**
@@ -499,7 +567,6 @@ public class WalletHelper {
     public static void clearCache() {
         removeWalletCoinConfig();
         saveWalletFirstCheck(false);
-        DataSupport.deleteAll(WalletDBModel.class);
     }
 
 
@@ -524,7 +591,7 @@ public class WalletHelper {
      *
      * @param defaultMnenonic
      */
-    public static WalletDBModel2 createEthAndWanPrivateKeybyMnenonic(List<String> defaultMnenonic) {
+    public static WalletDBModel createEthAndWanPrivateKeybyMnenonic(List<String> defaultMnenonic) {
 
         DeterministicSeed seed = new DeterministicSeed(defaultMnenonic,
                 null, "", Utils.currentTimeSeconds());
@@ -538,14 +605,14 @@ public class WalletHelper {
         Credentials credentials = Credentials
                 .create(privKey.toString(16));
 
-        WalletDBModel2 walletDBModel = new WalletDBModel2();
+        WalletDBModel walletDBModel = new WalletDBModel();
         walletDBModel.setHelpWordsrEn(encrypt(StringUtils.listToString(defaultMnenonic, HELPWORD_SIGN))); //储存下来 用，分割
 
         walletDBModel.setEthAddress(credentials.getAddress());
-        walletDBModel.setEthPrivataeKey(encrypt(key.getPrivateKeyAsHex()));
+        walletDBModel.setEthPrivateKey(encrypt(key.getPrivateKeyAsHex()));
 
         walletDBModel.setWanAddress(credentials.getAddress());
-        walletDBModel.setWanPrivataeKey(encrypt(key.getPrivateKeyAsHex()));
+        walletDBModel.setWanPrivateKey(encrypt(key.getPrivateKeyAsHex()));
 
 
         return walletDBModel;
@@ -553,25 +620,25 @@ public class WalletHelper {
 
 
     /**
-     * 判断是否有钱包储存
-     *
-     * @return
-     */
-    public static boolean isHaveWalletCache() {
-        return DataSupport.findAll(WalletDBModel.class).size() > 0;
-    }
-
-    /**
      * 修改用户钱包密码x`
      *
      * @param password
      * @return
      */
-    public static void changeWalletPassWord(String password, String userId) {
-//        DataSupport.findBySQL("update WalletDBModel2 set walletPassWord =?  where userId = ?", password, userId);
-        ContentValues values = new ContentValues();
-        values.put("walletPassWord", encrypt(password));
-        DataSupport.updateAll(WalletDBModel2.class, values, "userId = ?", userId);
+    public static boolean changeWalletPassWord(String password, String userId) {
+
+        Cursor cursor = DataSupport.findBySQL(UPDATE_PWD_SQL, password, userId);
+
+        boolean isUpdate = cursor != null && cursor.moveToFirst();
+        if (cursor != null) {
+            cursor.close();
+        }
+        return isUpdate;
+
+
+//        ContentValues values = new ContentValues();
+//        values.put("walletPassWord", encrypt(password));
+//        DataSupport.updateAll(WalletDBModel2.class, values, "userid = ?", userId);
 
     }
 
@@ -586,16 +653,28 @@ public class WalletHelper {
 
         Cursor cursor = getUserInfoCursorByUserId(uerId);
 
-        if (cursor != null && cursor.moveToFirst()) {
-            String password = cursor.getString(cursor.getColumnIndex("walletPassWord"));
-            return decrypt(password);
+        try {
+            if (cursor != null && cursor.moveToFirst()) {
+                String password = cursor.getString(cursor.getColumnIndex(WalletDBColumn.WALLETPASSWORD));
+                return decrypt(password);
+            }
+        } catch (Exception e) {
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
         }
+
 
         return "";
     }
 
     public static Cursor getUserInfoCursorByUserId(String userId) {
-        return DataSupport.findBySQL("select * from WalletDBModel2 where userId=?", userId);
+        if (TextUtils.isEmpty(userId)) {
+            return null;
+        }
+        return DataSupport.findBySQL(FINDUSER_SQL, userId);
     }
 
 
@@ -614,15 +693,14 @@ public class WalletHelper {
      * @param words
      * @return
      */
-    public static boolean checkCacheWords(String words) {
+    public static boolean checkCacheWords(String words, String userId) {
 
-        try {
-            String mwords = encrypt(findLast(WalletDBModel.class).getHelpWordsrEn());
-            return TextUtils.equals(words, mwords);
+        WalletDBModel walletDBModel = getUserWalletInfoByUsreId(userId);
 
-        } catch (Exception e) {
-
+        if (walletDBModel != null) {
+            return TextUtils.equals(walletDBModel.getHelpWordsrEn(), words);
         }
+
         return false;
     }
 
@@ -642,10 +720,10 @@ public class WalletHelper {
 //        Credentials credentials = WalletUtils.loadBip39Credentials(
 //                "", walletDBModel.getHelpWordsrEn());
 
-        Credentials credentials = Credentials.create(walletDBModel.getPrivataeKey());
+        Credentials credentials = Credentials.create(walletDBModel.getEthPrivateKey());
 
         EthGetTransactionCount ethGetTransactionCount = web3j
-                .ethGetTransactionCount(walletDBModel.getAddress(), DefaultBlockParameterName.LATEST)
+                .ethGetTransactionCount(walletDBModel.getEthAddress(), DefaultBlockParameterName.LATEST)
                 .sendAsync().get();
         //
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
@@ -712,12 +790,12 @@ public class WalletHelper {
 
         Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_ETH)));
         //转账人账户地址
-        String ownAddress = walletDBModel.getAddress();
+        String ownAddress = walletDBModel.getEthAddress();
         //被转人账户地址
         String toAddress = to;
 
         //转账人私钥
-        Credentials credentials = Credentials.create(walletDBModel.getPrivataeKey());
+        Credentials credentials = Credentials.create(walletDBModel.getEthPrivateKey());
 
         //getNonce（交易的笔数）
         EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(
@@ -761,12 +839,12 @@ public class WalletHelper {
 
         Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_WAN)));
         //转账人账户地址
-        String ownAddress = walletDBModel.getAddress();
+        String ownAddress = walletDBModel.getWanAddress();
         //被转人账户地址
         String toAddress = to;
 
         //转账人私钥
-        Credentials credentials = Credentials.create(walletDBModel.getPrivataeKey());
+        Credentials credentials = Credentials.create(walletDBModel.getWanPrivateKey());
 
         //getNonce（交易的笔数）
         EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.dialog.CommonDialog;
@@ -22,6 +23,8 @@ import com.cdkj.token.adapter.CoinAdapter2;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentWallet2Binding;
 import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.model.MsgListModel;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.CardChangeLayout;
 
 import java.util.HashMap;
@@ -57,11 +60,32 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
         initRefresh();
 
+        initCardChangeListener();
+
+        initClickListener();
+
+        mRefreshHelper.onDefaluteMRefresh(true);
+        getMsgRequest();
+        return mBinding.getRoot();
+    }
+
+    private void initClickListener() {
+
+        mBinding.imgClose.setOnClickListener(view -> {
+            mBinding.linLayoutBulletin.setVisibility(View.GONE);
+        });
+
+    }
+
+    /**
+     * 布局改变监听
+     */
+    void initCardChangeListener() {
         mBinding.cardChangeLayout.setChangeCallBack(new CardChangeLayout.ChangeCallBack() {
             @Override
             public boolean onChangeBefor(int index) {
 
-                boolean isHasInfo = SPUtilHelper.isHasUserWalletInfo();
+                boolean isHasInfo = WalletHelper.checkHasUserInfo(SPUtilHelper.getUserId());
 
                 if (!isHasInfo) {
                     showDoubleWarnListen("请创建或导入钱包", view -> {
@@ -77,10 +101,6 @@ public class WalletFragment_2 extends BaseLazyFragment {
                 changeLayoutByIndex(index);
             }
         });
-
-        mRefreshHelper.onDefaluteMRefresh(true);
-
-        return mBinding.getRoot();
     }
 
     /**
@@ -131,6 +151,11 @@ public class WalletFragment_2 extends BaseLazyFragment {
     @Override
     protected void lazyLoad() {
 
+        if (mBinding == null) {
+            return;
+        }
+
+        getMsgRequest();
     }
 
     @Override
@@ -167,6 +192,45 @@ public class WalletFragment_2 extends BaseLazyFragment {
             }
         });
     }
+
+
+    /**
+     * 获取消息列表
+     */
+    public void getMsgRequest() {
+
+
+        Map<String, String> map = new HashMap<>();
+        map.put("channelType", "4");
+        map.put("start", "1");
+        map.put("limit", "1");
+        map.put("status", "1");
+        map.put("fromSystemCode", MyConfig.SYSTEMCODE);
+        map.put("toSystemCode", MyConfig.SYSTEMCODE);
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+
+        call.enqueue(new BaseResponseModelCallBack<MsgListModel>(mActivity) {
+            @Override
+            protected void onSuccess(MsgListModel data, String SucMessage) {
+                if (data.getList() == null || data.getList().size() < 1) {
+                    mBinding.tvBulletin.setVisibility(View.GONE);
+                    return;
+                }
+                mBinding.tvBulletin.setVisibility(View.VISIBLE);
+                mBinding.tvBulletin.setText(data.getList().get(0).getSmsTitle());
+            }
+
+
+            @Override
+            protected void onFinish() {
+            }
+        });
+    }
+
 
     protected void showDoubleWarnListen(String str, CommonDialog.OnPositiveListener onPositiveListener) {
 

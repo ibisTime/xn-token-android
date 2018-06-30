@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.LogUtil;
@@ -185,7 +186,8 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
         mSubscription.add(Observable.just("")
                 .subscribeOn(Schedulers.newThread())
                 .map(s -> {
-                    WalletDBModel w = WalletHelper.getPrivateKeyAndAddressByCoinType(WalletHelper.COIN_ETH);
+                    WalletDBModel w = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+
                     if (TextUtils.equals(accountListBean.getSymbol(), WalletHelper.COIN_WAN)) {
                         return WalletHelper.transferWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), transferGasPrice);
                     }

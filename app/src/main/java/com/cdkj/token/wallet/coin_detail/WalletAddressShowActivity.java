@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
@@ -25,11 +27,15 @@ public class WalletAddressShowActivity extends AbsBaseLoadActivity {
 
     private ActivityRechargeBinding mBinding;
 
-    public static void open(Context context) {
+    private String coinType;
+
+    public static void open(Context context, String coinType) {
         if (context == null) {
             return;
         }
-        context.startActivity(new Intent(context, WalletAddressShowActivity.class));
+        Intent intent = new Intent(context, WalletAddressShowActivity.class);
+        intent.putExtra(CdRouteHelper.DATASIGN, coinType);
+        context.startActivity(intent);
     }
 
     @Override
@@ -46,17 +52,22 @@ public class WalletAddressShowActivity extends AbsBaseLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
         mBaseBinding.titleView.setMidTitle(R.string.get_money);
+
+        if (getIntent() != null) {
+            coinType = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
+        }
+
         initQRCodeAndAddress();
         initListener();
     }
 
 
     private void initQRCodeAndAddress() {
-        WalletDBModel walletDBModel = WalletHelper.getPrivateKeyAndAddressByCoinType(WalletHelper.COIN_ETH);
-        Bitmap mBitmap = CodeUtils.createImage(walletDBModel.getAddress(), 400, 400, null);
+        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+        String address = WalletHelper.getAddressByCoinType(walletDBModel, coinType);
+        Bitmap mBitmap = CodeUtils.createImage(address, 400, 400, null);
         mBinding.imgQRCode.setImageBitmap(mBitmap);
-        mBinding.txtAddress.setText(walletDBModel.getAddress());
-
+        mBinding.txtAddress.setText(address);
     }
 
     private void initListener() {

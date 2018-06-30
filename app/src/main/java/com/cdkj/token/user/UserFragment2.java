@@ -1,5 +1,7 @@
 package com.cdkj.token.user;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,13 +9,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cdkj.baselibrary.activitys.ImageSelectActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
+import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.CameraHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.baselibrary.utils.QiNiuHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
@@ -31,6 +38,8 @@ public class UserFragment2 extends BaseLazyFragment {
 
     private FragmentUser2Binding mBinding;
 
+    public final int PHOTOFLAG = 110;
+
     public static UserFragment2 getInstance() {
         UserFragment2 fragment = new UserFragment2();
         Bundle bundle = new Bundle();
@@ -44,7 +53,17 @@ public class UserFragment2 extends BaseLazyFragment {
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_user2, null, false);
 
+        initClickListener();
+
         return mBinding.getRoot();
+    }
+
+
+    private void initClickListener() {
+
+        mBinding.imgLogo.setOnClickListener(view -> {
+            ImageSelectActivity.launchFragment(this, PHOTOFLAG);
+        });
     }
 
     @Override
@@ -105,8 +124,77 @@ public class UserFragment2 extends BaseLazyFragment {
 
 
     private void setShowData(UserInfoModel data) {
+        if (data == null) {
+            mBinding.tvNickName.setText("");
+            mBinding.tvPhoneNumber.setText("");
+            mBinding.imgLogo.setImageResource(R.mipmap.default_photo);
+            return;
+        }
 
+        if (data.getNickname() == null)
+            return;
+
+        mBinding.tvNickName.setText(data.getNickname());
+        mBinding.tvPhoneNumber.setText(data.getMobile());
+//        ImgUtils.loadAvatar(mActivity, data.getPhoto(), data.getNickname(), mBinding.imAvatar, mBinding.tvAvatar);
+        ImgUtils.loadAvatar(mActivity, data.getPhoto(), mBinding.imgLogo);
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode != Activity.RESULT_OK || data == null) {
+            return;
+        }
+        if (requestCode == PHOTOFLAG) {
+            showLoadingDialog();
+            String path = data.getStringExtra(CameraHelper.staticPath);
+            new QiNiuHelper(mActivity).uploadSinglePic(new QiNiuHelper.QiNiuCallBack() {
+                @Override
+                public void onSuccess(String key) {
+                    updateUserPhoto(key);
+                }
+
+
+                @Override
+                public void onFal(String info) {
+                    disMissLoading();
+                    ToastUtil.show(mActivity, info);
+                }
+            }, path);
+
+        }
+    }
+
+    /**
+     * 更新用户头像
+     *
+     * @param key
+     */
+    private void updateUserPhoto(final String key) {
+        Map<String, String> map = new HashMap<>();
+        map.put("photo", key);
+        map.put("userId", SPUtilHelper.getUserId());
+        map.put("token", SPUtilHelper.getUserToken());
+
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805080", StringUtils.getJsonToString(map));
+        addCall(call);
+
+        call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(mActivity) {
+            @Override
+            protected void onSuccess(IsSuccessModes data, String SucMessage) {
+                if (data.isSuccess()) {
+                    getUserInfoRequest();
+                }
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+    }
+
 
 }

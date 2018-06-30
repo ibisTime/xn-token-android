@@ -67,7 +67,7 @@
                                 android:orientation="vertical">
 
                                 <TextView
-                                    android:id="@+id/nick_name"
+                                    android:id="@+id/tv_nick_name"
                                     android:layout_width="wrap_content"
                                     android:layout_height="0dp"
                                     android:layout_weight="1"
@@ -90,6 +90,7 @@
                                         android:src="@drawable/phone" />
 
                                     <TextView
+                                        android:id="@+id/tv_phone_number"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="10dp"
@@ -105,6 +106,7 @@
                             </LinearLayout>
 
                             <ImageView
+                                android:id="@+id/img_logo"
                                 android:layout_width="65dp"
                                 android:layout_height="65dp"
                                 android:layout_gravity="center_vertical"

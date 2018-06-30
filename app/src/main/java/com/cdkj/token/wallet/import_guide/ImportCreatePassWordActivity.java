@@ -8,12 +8,13 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreatePassWordBinding;
-import com.cdkj.token.model.WalletDBModel2;
+import com.cdkj.token.model.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.password.PassWordLayout;
 
@@ -113,8 +114,9 @@ public class ImportCreatePassWordActivity extends AbsBaseLoadActivity {
                 Observable.just(paword)
                         .subscribeOn(Schedulers.newThread())
                         .map(isSavePass -> {
-                            WalletDBModel2 dbModel2 = WalletHelper.createEthAndWanPrivateKeybyMnenonic(mWords); //TODO 导入缺少BTC
+                            WalletDBModel dbModel2 = WalletHelper.createEthAndWanPrivateKeybyMnenonic(mWords); //TODO 导入缺少BTC
                             dbModel2.setWalletPassWord(WalletHelper.encrypt(paword));
+                            dbModel2.setUserId(SPUtilHelper.getUserId());
                             return dbModel2.save();
                         })
                         .observeOn(AndroidSchedulers.mainThread())

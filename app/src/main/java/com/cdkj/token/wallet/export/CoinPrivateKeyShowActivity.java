@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
@@ -29,14 +30,14 @@ public class CoinPrivateKeyShowActivity extends AbsBaseLoadActivity {
 
     /**
      * @param context
-     * @param coinName
+     * @param coinType
      */
-    public static void open(Context context, String coinName) {
+    public static void open(Context context, String coinType) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, CoinPrivateKeyShowActivity.class);
-        intent.putExtra(CdRouteHelper.DATASIGN, coinName);
+        intent.putExtra(CdRouteHelper.DATASIGN, coinType);
         context.startActivity(intent);
     }
 
@@ -49,7 +50,10 @@ public class CoinPrivateKeyShowActivity extends AbsBaseLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        String name = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
+        String type = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
+
+        String name = WalletHelper.getCoinENameByType(type);
+
         mBaseBinding.titleView.setMidTitle(name + getString(R.string.private_key));
 
         mBinding.tvCoinName.setText(getString(R.string.coin_key_name, name));
@@ -57,12 +61,12 @@ public class CoinPrivateKeyShowActivity extends AbsBaseLoadActivity {
         mSubscription.add(
                 Observable.just("")
                         .subscribeOn(Schedulers.io())
-                        .map(s -> WalletHelper.getPrivateKeyAndAddressByCoinType(WalletHelper.COIN_ETH))
+                        .map(s -> WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId()))
                         .filter(walletDBModel1 -> walletDBModel1 != null)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(walletDBModel1 -> {
-                            mBinding.tvAddress.setText(walletDBModel1.getAddress());
-                            mBinding.tvPrivateKey.setText(walletDBModel1.getPrivataeKey());
+                            mBinding.tvAddress.setText(WalletHelper.getAddressByCoinType(walletDBModel1, type));
+                            mBinding.tvPrivateKey.setText(WalletHelper.getPrivateKeyByCoinType(walletDBModel1, type));
                         })
         );
 

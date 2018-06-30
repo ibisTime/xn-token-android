@@ -7,10 +7,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityWalletWordsShowBinding;
+import com.cdkj.token.model.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 /**
@@ -57,8 +59,12 @@ public class WalletHelpWordsShowActivity extends AbsBaseLoadActivity {
                 .setPositiveBtn(getString(com.cdkj.baselibrary.R.string.activity_base_confirm), null);
 
         commonDialog.show();
+        WalletDBModel walletDBModel2 = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
 
-        mBinding.tvWords.setText(WalletHelper.getHelpWordsByCoinType(WalletHelper.COIN_ETH));
+        if (walletDBModel2 != null) {
+            mBinding.tvWords.setText(walletDBModel2.getHelpWordsrEn());
+        }
+
         mBinding.btnNowBackup.setOnClickListener(view -> {
             WalletBackupCheckActivity.open(this, isFromBackup);
             finish();
