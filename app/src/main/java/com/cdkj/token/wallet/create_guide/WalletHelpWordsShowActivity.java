@@ -12,7 +12,7 @@ import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityWalletWordsShowBinding;
-import com.cdkj.token.model.WalletDBModel;
+import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 /**

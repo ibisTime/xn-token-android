@@ -1,4 +1,4 @@
-package com.cdkj.token.model;
+package com.cdkj.token.model.db;
 
 import org.litepal.crud.DataSupport;
 

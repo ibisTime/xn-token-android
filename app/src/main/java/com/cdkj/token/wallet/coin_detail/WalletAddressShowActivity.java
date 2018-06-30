@@ -15,7 +15,7 @@ import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityRechargeBinding;
-import com.cdkj.token.model.WalletDBModel;
+import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 

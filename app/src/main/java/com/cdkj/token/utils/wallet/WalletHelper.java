@@ -1,5 +1,6 @@
 package com.cdkj.token.utils.wallet;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 
@@ -9,7 +10,8 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MyApplication;
 import com.cdkj.token.R;
 import com.cdkj.token.model.LocalCoinModel;
-import com.cdkj.token.model.WalletDBModel;
+import com.cdkj.token.model.db.UserChooseCoinDBModel;
+import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wan.WanRawTransaction;
 import com.cdkj.token.utils.wan.WanTransactionEncoder;
 
@@ -44,8 +46,9 @@ import java.util.concurrent.ExecutionException;
 
 import static com.cdkj.token.utils.AccountUtil.UNIT_MIN;
 import static com.cdkj.token.utils.AccountUtil.UNIT_POW;
+import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_COIN_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_SQL;
-import static com.cdkj.token.utils.wallet.WalletDBColumn.UPDATE_PWD_SQL;
+import static com.cdkj.token.utils.wallet.WalletDBColumn.WALLETPASSWORD;
 
 /**
  * 钱包工具类
@@ -159,52 +162,6 @@ public class WalletHelper {
     }
 
     /**
-     * 是否第一次配置
-     *
-     * @param isFirst
-     */
-    public static void saveFirstConfig(boolean isFirst) {
-        SPUtils.put(MyApplication.getInstance(), "isFirstConfig", isFirst);
-    }
-
-    /**
-     * 是否第一次配置
-     *
-     * @param
-     */
-    public static boolean getFirstConfig() {
-        return SPUtils.getBoolean(MyApplication.getInstance(), "isFirstConfig", true);
-    }
-
-    /**
-     * 获取本地配置币种
-     */
-    public static List<LocalCoinModel> getConfigLocalCoinList() {
-
-        String[] coinType = COIN_COUNT;
-
-        List<LocalCoinModel> localCoinModels = new ArrayList<>();
-
-        String configStr = WalletHelper.getWalletCoinConfig();
-
-        for (String type : coinType) {
-
-            if (!getFirstConfig() && configStr.indexOf(type) == -1) {//如果不存在配置 则不添加
-                continue;
-            }
-
-            LocalCoinModel localCoinModel = new LocalCoinModel();
-            localCoinModel.setCoinType(type);
-            localCoinModel.setCoinEName(getCoinENameByType(type));
-            localCoinModel.setCoinCName(getCoinCNameByType(type));
-            localCoinModel.setCoinShortName(getCoinShrotNameByType(type));
-            localCoinModels.add(localCoinModel);
-
-        }
-        return localCoinModels;
-    }
-
-    /**
      * 获取本地所有币种
      */
     public static List<LocalCoinModel> getLocalCoinList() {
@@ -308,30 +265,6 @@ public class WalletHelper {
 
 
     /**
-     * 保存用户币种配置
-     *
-     * @param config 保存数据为币种type组成的字符串用，分割  1,2,3...
-     */
-    public static void saveWalletCoinConfig(String config) {
-        SPUtils.put(MyApplication.getInstance(), "coinConfig", config);
-    }
-
-    /**
-     * 获取用户币种配置
-     */
-    public static String getWalletCoinConfig() {
-        return SPUtils.getString(MyApplication.getInstance(), "coinConfig", "");
-    }
-
-    /**
-     * 删除用户币种配置
-     */
-    public static void removeWalletCoinConfig() {
-        SPUtils.remove(MyApplication.getInstance(), "coinConfig");
-    }
-
-
-    /**
      * 用户是否通过第一次验证（创建或导入钱包时）
      *
      * @param isCheck
@@ -351,13 +284,69 @@ public class WalletHelper {
 
 
     /**
-     * 查询币种是否在配置中
+     * 根据userId获取用户选择的币种
      *
-     * @param coinType
-     * @return
+     * @return userId
      */
-    public static boolean queryTypeInWalletConfig(String coinType) {
-        return getWalletCoinConfig().indexOf(coinType) != -1;
+    public static String getUserChooseCoinString(String userId) {
+        if (TextUtils.isEmpty(userId)) {
+            return "";
+        }
+        Cursor cursor = DataSupport.findBySQL(FINDUSER_COIN_SQL, userId);
+
+        String string = "";
+
+        if (cursor != null && cursor.moveToFirst()) {
+
+            try {
+                string = cursor.getString(cursor.getColumnIndex(WalletDBColumn.CHOOSECOINIDS));
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                cursor.close();
+            }
+        }
+
+        return string;
+    }
+
+    /**
+     * 根据userId获取用户选择的币种
+     *
+     * @return userId
+     */
+    public static void updateUserChooseCoinString(String coins, String userId) {
+        ContentValues values = new ContentValues();
+        values.put(WalletDBColumn.CHOOSECOINIDS, coins);
+        DataSupport.updateAll(UserChooseCoinDBModel.class, values, WalletDBColumn.USERID + " = ?", userId);
+    }
+
+
+    /**
+     * 用户是否第一次选择
+     *
+     * @return userId
+     */
+    public static boolean checkUserIsFirstChoose(String userId) {
+        if (TextUtils.isEmpty(userId)) {
+            return false;
+        }
+        Cursor cursor = DataSupport.findBySQL(FINDUSER_COIN_SQL, userId);
+
+        int choose = 0;
+
+        if (cursor != null && cursor.moveToFirst()) {
+
+            try {
+                choose = cursor.getInt(cursor.getColumnIndex(WalletDBColumn.ISCHOOSED));
+            } catch (Exception e) {
+
+            } finally {
+                cursor.close();
+            }
+        }
+
+        return choose == 1;
     }
 
 
@@ -475,7 +464,7 @@ public class WalletHelper {
 
                 walletDBModel.setUserId(userId);
 
-                walletDBModel.setWalletPassWord(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.WALLETPASSWORD))));
+                walletDBModel.setWalletPassWord(decrypt(cursor.getString(cursor.getColumnIndex(WALLETPASSWORD))));
                 walletDBModel.setHelpWordsrEn(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.HELPWORDSREN))));
 
                 walletDBModel.setBtcAddress(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.BTCADDRESS))));
@@ -565,7 +554,6 @@ public class WalletHelper {
      * 清除缓存数据
      */
     public static void clearCache() {
-        removeWalletCoinConfig();
         saveWalletFirstCheck(false);
     }
 
@@ -626,20 +614,9 @@ public class WalletHelper {
      * @return
      */
     public static boolean changeWalletPassWord(String password, String userId) {
-
-        Cursor cursor = DataSupport.findBySQL(UPDATE_PWD_SQL, password, userId);
-
-        boolean isUpdate = cursor != null && cursor.moveToFirst();
-        if (cursor != null) {
-            cursor.close();
-        }
-        return isUpdate;
-
-
-//        ContentValues values = new ContentValues();
-//        values.put("walletPassWord", encrypt(password));
-//        DataSupport.updateAll(WalletDBModel2.class, values, "userid = ?", userId);
-
+        ContentValues values = new ContentValues();
+        values.put(WALLETPASSWORD, encrypt(password));
+        return DataSupport.updateAll(WalletDBModel.class, values, "userid = ?", userId) > 0;
     }
 
 
@@ -655,7 +632,7 @@ public class WalletHelper {
 
         try {
             if (cursor != null && cursor.moveToFirst()) {
-                String password = cursor.getString(cursor.getColumnIndex(WalletDBColumn.WALLETPASSWORD));
+                String password = cursor.getString(cursor.getColumnIndex(WALLETPASSWORD));
                 return decrypt(password);
             }
         } catch (Exception e) {

@@ -29,7 +29,6 @@ public class CoinAdapter2 extends BaseQuickAdapter<CoinModel.AccountListBean, Ba
     @Override
     protected void convert(BaseViewHolder helper, CoinModel.AccountListBean item) {
 
-
         helper.setText(R.id.tv_coin_name, item.getCurrency());
 
         BigDecimal amount;

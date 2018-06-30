@@ -14,7 +14,7 @@ import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreatePassWordBinding;
-import com.cdkj.token.model.WalletDBModel;
+import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.password.PassWordLayout;
 

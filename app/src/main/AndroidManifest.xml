@@ -113,7 +113,7 @@
         <activity android:name=".consult.ConsultListActivity" />
         <activity android:name=".consult.NoneActivity" />
         <activity android:name=".wallet.account.BillListActivity" />
-        <activity android:name=".wallet.AddChoiceActivity" />
+        <activity android:name=".wallet.AddChoiceCoinActivity" />
         <activity android:name=".consult.MsgListActivity" />
         <activity android:name=".user.UserJoinActivity" />
         <activity android:name=".user.UserWalletActivity" />

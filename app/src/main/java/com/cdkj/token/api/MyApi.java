@@ -3,7 +3,7 @@ package com.cdkj.token.api;
 import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.api.ResponseInListModel;
-import com.cdkj.baselibrary.model.BaseCoinModel;
+import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.token.model.AddressModel;
@@ -21,7 +21,6 @@ import com.cdkj.token.model.DealResultModel;
 import com.cdkj.token.model.DealUserDataModel;
 import com.cdkj.token.model.ExchangeModel;
 import com.cdkj.token.model.InviteModel;
-import com.cdkj.token.model.KtInfoModel;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.MarketCoinModel;
 import com.cdkj.token.model.MarketModel;
@@ -487,6 +486,6 @@ public interface MyApi {
      */
     @FormUrlEncoded
     @POST("api")
-    Call<BaseResponseListModel<BaseCoinModel>> getCoinList(@Field("code") String code, @Field("json") String json);
+    Call<BaseResponseListModel<LocalCoinDbModel>> getCoinList(@Field("code") String code, @Field("json") String json);
 
 }

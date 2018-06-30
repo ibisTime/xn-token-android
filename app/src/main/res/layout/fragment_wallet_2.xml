@@ -5,7 +5,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -51,282 +51,11 @@
                 android:src="@drawable/open_scan" />
 
             <ImageView
+                android:id="@+id/img_add_coin"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:src="@drawable/add_black" />
-        </LinearLayout>
-
-
-        <com.cdkj.token.views.CardChangeLayout
-            android:id="@+id/cardChangeLayout"
-            android:layout_width="match_parent"
-            android:layout_height="150dp">
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="8dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/wallet_orange_bg" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:orientation="vertical">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="50dp"
-                            android:text="秘钥钱包(CNY)"
-                            android:textColor="@color/white"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="8dp"
-                            android:src="@drawable/question" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="35dp"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/money_sing"
-                            android:textColor="@color/white" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0.00"
-                            android:textColor="@color/white"
-                            android:textSize="28sp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:cardCornerRadius="8dp">
-
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/wallet_blue_bg" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginTop="70dp"
-                        android:text="@string/money_sing"
-                        android:textColor="@color/white" />
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="个人钱包(CNY)"
-                                android:textColor="@color/white"
-                                android:textSize="14sp" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="8dp"
-                                android:src="@drawable/question" />
-
-
-                        </LinearLayout>
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="0.00"
-                            android:textColor="@color/white"
-                            android:textSize="28sp" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-
-        </com.cdkj.token.views.CardChangeLayout>
-
-
-        <View
-            android:layout_width="10dp"
-            android:layout_height="10dp"
-            android:layout_marginBottom="2dp"
-            android:layout_marginTop="6dp"
-            android:background="@color/black" />
-
-        <LinearLayout
-            android:id="@+id/linLayout_bulletin"
-            android:layout_width="match_parent"
-            android:layout_height="35dp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp">
-
-            <ImageView
-                android:layout_width="60dp"
-                android:layout_height="15dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/bulletin" />
-
-            <View
-                android:layout_width="2dp"
-                android:layout_height="12dp"
-                android:layout_gravity="center_vertical"
-                android:background="@color/black" />
-
-            <TextView
-                android:id="@+id/tv_bulletin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="1"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:textColor="@color/text_black_cd"
-                android:textSize="12sp"
-                tools:text="这是一条公告" />
-
-            <ImageView
-                android:id="@+id/img_close"
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:layout_gravity="center_vertical"
-                android:src="@drawable/close" />
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
-
-            <android.support.v7.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="1dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="3dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    android:paddingBottom="12dp"
-                    android:paddingTop="12dp">
-
-                    <ImageView
-                        android:id="@+id/img_change"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/change_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="闪兑"
-                        android:textColor="@color/text_black_cd"
-                        android:textSize="15sp" />
-
-                </LinearLayout>
-
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="1dp"
-                android:layout_marginRight="15dp"
-                android:layout_marginTop="1dp"
-                android:layout_weight="1"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="3dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal"
-                    android:paddingBottom="12dp"
-                    android:paddingTop="12dp">
-
-                    <ImageView
-                        android:id="@+id/img_transfer"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:src="@drawable/transfer_blue" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:text="一键划转"
-                        android:textColor="@color/text_black_cd"
-                        android:textSize="15sp" />
-
-
-                </LinearLayout>
-
-
-            </android.support.v7.widget.CardView>
-
 
         </LinearLayout>
 
@@ -335,9 +64,7 @@
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginTop="10dp"
             android:layout_weight="1"
-            android:background="@color/white"
             app:srlAccentColor="@android:color/tertiary_text_dark"
             app:srlEnablePreviewInEditMode="true"
             app:srlPrimaryColor="@color/white">
@@ -347,18 +74,307 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/rv"
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:overScrollMode="never" />
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <com.cdkj.token.views.CardChangeLayout
+                        android:id="@+id/cardChangeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:cardCornerRadius="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/wallet_orange_bg" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="40dp"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginLeft="50dp"
+                                        android:text="秘钥钱包(CNY)"
+                                        android:textColor="@color/white"
+                                        android:textSize="14sp" />
+
+                                    <ImageView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center_vertical"
+                                        android:layout_marginLeft="8dp"
+                                        android:src="@drawable/question" />
+
+
+                                </LinearLayout>
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="35dp"
+                                    android:gravity="center_vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="@string/money_sing"
+                                        android:textColor="@color/white" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="0.00"
+                                        android:textColor="@color/white"
+                                        android:textSize="28sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:cardCornerRadius="8dp">
+
+                            <ImageView
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:background="@drawable/wallet_blue_bg" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="50dp"
+                                    android:layout_marginTop="70dp"
+                                    android:text="@string/money_sing"
+                                    android:textColor="@color/white" />
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="40dp"
+                                    android:orientation="vertical">
+
+                                    <LinearLayout
+                                        android:layout_width="match_parent"
+                                        android:layout_height="wrap_content"
+                                        android:orientation="horizontal">
+
+                                        <TextView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:text="个人钱包(CNY)"
+                                            android:textColor="@color/white"
+                                            android:textSize="14sp" />
+
+                                        <ImageView
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_gravity="center_vertical"
+                                            android:layout_marginLeft="8dp"
+                                            android:src="@drawable/question" />
+
+
+                                    </LinearLayout>
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="0.00"
+                                        android:textColor="@color/white"
+                                        android:textSize="28sp" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </android.support.v7.widget.CardView>
+
+
+                    </com.cdkj.token.views.CardChangeLayout>
+
+
+                    <View
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginBottom="2dp"
+                        android:layout_marginTop="6dp"
+                        android:background="@color/black" />
+
+                    <LinearLayout
+                        android:id="@+id/linLayout_bulletin"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
+
+                        <ImageView
+                            android:layout_width="60dp"
+                            android:layout_height="15dp"
+                            android:layout_gravity="center_vertical"
+                            android:src="@drawable/bulletin" />
+
+                        <View
+                            android:layout_width="2dp"
+                            android:layout_height="12dp"
+                            android:layout_gravity="center_vertical"
+                            android:background="@color/black" />
+
+                        <TextView
+                            android:id="@+id/tv_bulletin"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_weight="1"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
+                            android:textColor="@color/text_black_cd"
+                            android:textSize="12sp"
+                            tools:text="这是一条公告" />
+
+                        <ImageView
+                            android:id="@+id/img_close"
+                            android:layout_width="16dp"
+                            android:layout_height="16dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="10dp"
+                            android:src="@drawable/close" />
+
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="horizontal">
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="3dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:orientation="horizontal"
+                                android:paddingBottom="12dp"
+                                android:paddingTop="12dp">
+
+                                <ImageView
+                                    android:id="@+id/img_change"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/change_blue" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:text="闪兑"
+                                    android:textColor="@color/text_black_cd"
+                                    android:textSize="15sp" />
+
+                            </LinearLayout>
+
+
+                        </android.support.v7.widget.CardView>
+
+                        <android.support.v7.widget.CardView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="1dp"
+                            android:layout_marginRight="15dp"
+                            android:layout_marginTop="1dp"
+                            android:layout_weight="1"
+                            app:cardCornerRadius="5dp"
+                            app:cardElevation="3dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="center_horizontal"
+                                android:orientation="horizontal"
+                                android:paddingBottom="12dp"
+                                android:paddingTop="12dp">
+
+                                <ImageView
+                                    android:id="@+id/img_transfer"
+                                    android:layout_width="25dp"
+                                    android:layout_height="25dp"
+                                    android:src="@drawable/transfer_blue" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:text="一键划转"
+                                    android:textColor="@color/text_black_cd"
+                                    android:textSize="15sp" />
+
+
+                            </LinearLayout>
+
+
+                        </android.support.v7.widget.CardView>
+
+
+                    </LinearLayout>
+
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:overScrollMode="never" />
+
+                </LinearLayout>
+
+            </ScrollView>
 
             <com.scwang.smartrefresh.layout.footer.ClassicsFooter
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
-
 
     </LinearLayout>
 </layout>

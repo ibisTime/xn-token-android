@@ -10,6 +10,8 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
+import com.cdkj.token.model.db.LocalCoinDbModel;
+import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -18,14 +20,17 @@ import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
-import com.cdkj.token.wallet.IntoWalletBeforeActivity;
+
+import org.litepal.crud.DataSupport;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
 @Route(path = CdRouteHelper.APPSTART)
@@ -54,7 +59,7 @@ public class StartActivity extends BaseActivity {
         UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.white));
         setContentView(R.layout.activity_start);
 
-        getQiniu();
+        getCoinList();
 
     }
 
@@ -65,7 +70,7 @@ public class StartActivity extends BaseActivity {
     }
 
     private void nextTo() {
-        mSubscription.add(Observable.timer(2, TimeUnit.SECONDS)
+        mSubscription.add(Observable.timer(1, TimeUnit.SECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(isLogin -> {//延迟两秒进行跳转
                     if (!SPUtilHelper.isLogin(this, false)) {
@@ -74,6 +79,73 @@ public class StartActivity extends BaseActivity {
                     MainActivity.open(this);
                     finish();
                 }, Throwable::printStackTrace));
+    }
+
+
+    private void getCoinList() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("type", "");
+        map.put("ename", "");
+        map.put("cname", "");
+        map.put("symbol", "");
+        map.put("status", "0"); // 0已发布，1已撤下
+        map.put("contractAddress", "");
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getCoinList("802267", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+
+        call.enqueue(new BaseResponseListCallBack<LocalCoinDbModel>(this) {
+
+            @Override
+            protected void onSuccess(List<LocalCoinDbModel> data, String SucMessage) {
+                saveCoinAsync(data);
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+                getQiniu();
+            }
+            @Override
+            protected void onNoNet(String msg) {
+
+            }
+
+            @Override
+            protected void onFinish() {
+            }
+        });
+    }
+
+    /**
+     * 异步缓存币种
+     *
+     * @param data
+     */
+    private void saveCoinAsync(List<LocalCoinDbModel> data) {
+        if (data == null) {
+            getQiniu();
+            return;
+        }
+        mSubscription.add(Observable.just(data)
+                .subscribeOn(Schedulers.newThread())
+                .map(localCoinDbModels -> {
+                    // 如果数据库已有数据，清空重新加载
+                    if (DataSupport.isExist(LocalCoinDbModel.class)) {
+                        DataSupport.deleteAll(LocalCoinDbModel.class);
+                    }
+                    DataSupport.saveAll(localCoinDbModels);
+                    return 0;
+                })
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(s -> {
+                    getQiniu();
+                }, throwable -> {
+                    getQiniu();
+                }));
+
     }
 
     /**

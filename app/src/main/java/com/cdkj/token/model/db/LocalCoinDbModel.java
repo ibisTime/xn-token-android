@@ -1,14 +1,14 @@
-package com.cdkj.baselibrary.model;
+package com.cdkj.token.model.db;
 
 import org.litepal.crud.DataSupport;
 
 import java.math.BigDecimal;
 
 /**
+ * 本地缓存币种model
  * Created by lei on 2018/3/14.
  */
-
-public class BaseCoinModel extends DataSupport implements Cloneable {
+public class LocalCoinDbModel extends DataSupport implements Cloneable {
 
 
     /**
@@ -49,8 +49,8 @@ public class BaseCoinModel extends DataSupport implements Cloneable {
     private String updater;
     private String updateDatetime;
     private String remark;
-    private boolean choose = false;
-    private boolean isShowTip = false;
+
+    private boolean choose;//用户是否选中
 
     public String getWithdrawFeeString() {
         return withdrawFeeString;
@@ -58,14 +58,6 @@ public class BaseCoinModel extends DataSupport implements Cloneable {
 
     public void setWithdrawFeeString(String withdrawFeeString) {
         this.withdrawFeeString = withdrawFeeString;
-    }
-
-    public boolean isShowTip() {
-        return isShowTip;
-    }
-
-    public void setShowTip(boolean showTip) {
-        isShowTip = showTip;
     }
 
     public boolean isChoose() {

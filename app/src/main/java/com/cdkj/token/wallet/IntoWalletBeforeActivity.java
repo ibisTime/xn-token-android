@@ -50,28 +50,11 @@ public class IntoWalletBeforeActivity extends AbsBaseLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        savaDefaluteCoinConfig();
         initClickListener();
-        WalletHelper.saveFirstConfig(true);  //第一次
 
         mBinding.tvRead.setOnClickListener(view -> {
             WebViewActivity.openkey(this, getString(R.string.privacy_agreement), "reg_protocol");
         });
-    }
-
-    /**
-     * 用户第一次进入是进行默认币种保存
-     */
-    private void savaDefaluteCoinConfig() {
-
-        if (!TextUtils.isEmpty(WalletHelper.getWalletCoinConfig())) {  //配置为空时才保存
-            return;
-        }
-        List<String> chooseTypes = new ArrayList<>();
-        for (LocalCoinModel localCoinModel : WalletHelper.getLocalCoinList()) {
-            chooseTypes.add(localCoinModel.getCoinType());
-        }
-        WalletHelper.saveWalletCoinConfig(StringUtils.listToString(chooseTypes, WalletHelper.HELPWORD_SIGN));
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.cdkj.token.wallet;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -71,8 +72,14 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
     private void initClickListener() {
 
+        //公告关闭
         mBinding.imgClose.setOnClickListener(view -> {
             mBinding.linLayoutBulletin.setVisibility(View.GONE);
+        });
+
+        //添加自选
+        mBinding.imgAddCoin.setOnClickListener(view -> {
+            AddChoiceCoinActivity.open(mActivity);
         });
 
     }
@@ -144,6 +151,16 @@ public class WalletFragment_2 extends BaseLazyFragment {
                 getListData(pageindex, limit, isShowDialog);
             }
         });
+
+        mBinding.rv.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
+
+        mBinding.rv.setNestedScrollingEnabled(false);
+
 
         mRefreshHelper.init(10);
     }

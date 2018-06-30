@@ -175,7 +175,7 @@ public class WalletFragment extends BaseLazyFragment {
         });
 
         mBinding.llAdd.setOnClickListener(view -> {
-            AddChoiceActivity.open(mActivity);
+            AddChoiceCoinActivity.open(mActivity);
         });
     }
 

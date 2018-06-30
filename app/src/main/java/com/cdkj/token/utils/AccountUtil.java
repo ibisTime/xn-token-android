@@ -1,7 +1,7 @@
 package com.cdkj.token.utils;
 
 
-import com.cdkj.baselibrary.model.BaseCoinModel;
+import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.R;
 
 import org.litepal.crud.DataSupport;
@@ -136,7 +136,7 @@ public class AccountUtil {
      */
     public static BigDecimal getUnit(String coin) {
 
-        for (BaseCoinModel model : DataSupport.findAll(BaseCoinModel.class)) {
+        for (LocalCoinDbModel model : DataSupport.findAll(LocalCoinDbModel.class)) {
 
             if (model.getSymbol().equals(coin)) {
                 return UNIT_MIN.pow(model.getUnit());
@@ -155,7 +155,7 @@ public class AccountUtil {
      */
     public static String getWithdrawFee(String coin) {
 
-        for (BaseCoinModel model : DataSupport.findAll(BaseCoinModel.class)) {
+        for (LocalCoinDbModel model : DataSupport.findAll(LocalCoinDbModel.class)) {
 
             if (model.getSymbol().equals(coin)) {
 

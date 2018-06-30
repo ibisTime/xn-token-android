@@ -7,9 +7,11 @@ package com.cdkj.token.utils.wallet;
 
 public class WalletDBColumn {
 
-    public static final String FINDUSER_SQL = "select * from WalletDBModel where " + WalletDBColumn.USERID + "=?";
+    //查找用户钱包数据
+    public static final String FINDUSER_SQL = "select * from walletdbmodel where " + WalletDBColumn.USERID + "=?";
 
-    public static final String UPDATE_PWD_SQL = "update WalletDBModel set " + WalletDBColumn.WALLETPASSWORD + "=?  where " + WalletDBColumn.USERID + " = ?";
+    //查找用户选择币种
+    public static final String FINDUSER_COIN_SQL = "select * from userchoosecoindbmodel where " + WalletDBColumn.USERID + "=?";
 
     public static final String USERID = "userid";
 
@@ -28,6 +30,10 @@ public class WalletDBColumn {
     public static final String WANADDRESS = "wanaddress";
 
     public static final String WANPRIVATEKEY = "wanprivatekey";
+
+    public static final String CHOOSECOINIDS = "choosecoins";
+
+    public static final String ISCHOOSED = "ischoosed";
 
 
 }

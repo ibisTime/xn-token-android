@@ -2,10 +2,11 @@
 <litepal>
     <dbname value="tha"></dbname>
 
-    <version value="8"></version>
+    <version value="11"></version>
 
     <list>
-        <mapping class="com.cdkj.baselibrary.model.BaseCoinModel"></mapping>
-        <mapping class="com.cdkj.token.model.WalletDBModel"></mapping><!---->
+        <mapping class="com.cdkj.token.model.db.LocalCoinDbModel"></mapping><!--缓存币种-->
+        <mapping class="com.cdkj.token.model.db.WalletDBModel"></mapping><!--钱包数据-->
+        <mapping class="com.cdkj.token.model.db.UserChooseCoinDBModel"></mapping><!--自选币种-->
     </list>
 </litepal>

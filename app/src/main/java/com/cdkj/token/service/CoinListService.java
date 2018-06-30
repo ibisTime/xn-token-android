@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 
-import com.cdkj.baselibrary.model.BaseCoinModel;
+import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -88,16 +88,16 @@ public class CoinListService extends Service {
 
         call = RetrofitUtils.createApi(MyApi.class).getCoinList("802267", StringUtils.getJsonToString(map));
 
-        call.enqueue(new BaseResponseListCallBack<BaseCoinModel>(this) {
+        call.enqueue(new BaseResponseListCallBack<LocalCoinDbModel>(this) {
 
             @Override
-            protected void onSuccess(List<BaseCoinModel> data, String SucMessage) {
+            protected void onSuccess(List<LocalCoinDbModel> data, String SucMessage) {
                 if (data == null)
                     return;
 
                 // 如果数据库已有数据，清空重新加载
-                if(DataSupport.isExist(BaseCoinModel.class))
-                    DataSupport.deleteAll(BaseCoinModel.class);
+                if(DataSupport.isExist(LocalCoinDbModel.class))
+                    DataSupport.deleteAll(LocalCoinDbModel.class);
 
                 // 初始化交易界面默认所选择的币
                 data.get(0).setChoose(true);

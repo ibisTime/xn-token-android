@@ -33,7 +33,7 @@ public class CardChangeLayout extends FrameLayout {
     /* 拖拽工具类 */
     private final ViewDragHelper mDragHelper;
     private GestureDetectorCompat gestureDetector;
-    private static final int VEL_THRESHOLD = 500; // 滑动速度的阈值，超过这个绝对值认为是左右
+    private static final int VEL_THRESHOLD = 200; // 滑动速度的阈值，超过这个绝对值认为是左右
     private static final int DISTANCE_THRESHOLD = 250; // 单位是像素，当左右滑动速度不够时，通过这个阈值来判定是应该左滑还是右滑动
 
     private int margin;  //子View margin
@@ -193,6 +193,12 @@ public class CardChangeLayout extends FrameLayout {
     }
 
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        getParent().requestDisallowInterceptTouchEvent(true);
+        return super.dispatchTouchEvent(ev);
+    }
+
     /* touch事件的拦截与处理都交给mDraghelper来处理 */
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
@@ -284,6 +290,7 @@ public class CardChangeLayout extends FrameLayout {
         super.onDetachedFromWindow();
         if (animatorSetsuofang != null) {
             animatorSetsuofang.addListener(null);
+            animatorSetsuofang.cancel();
         }
     }
 

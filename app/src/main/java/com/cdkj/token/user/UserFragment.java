@@ -13,7 +13,7 @@ import com.cdkj.baselibrary.activitys.ImageSelectActivity;
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
-import com.cdkj.baselibrary.model.BaseCoinModel;
+import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.LoginFailureEvent;
 import com.cdkj.baselibrary.model.UserInfoModel;
@@ -142,17 +142,17 @@ public class UserFragment extends BaseLazyFragment {
 
         showLoadingDialog();
 
-        call.enqueue(new BaseResponseListCallBack<BaseCoinModel>(mActivity) {
+        call.enqueue(new BaseResponseListCallBack<LocalCoinDbModel>(mActivity) {
 
             @Override
-            protected void onSuccess(List<BaseCoinModel> data, String SucMessage) {
+            protected void onSuccess(List<LocalCoinDbModel> data, String SucMessage) {
                 if (data == null) {
                     WalletUserActivity.open(mActivity);
                     return;
                 }
                 // 如果数据库已有数据，清空重新加载
-                if (DataSupport.isExist(BaseCoinModel.class)) {
-                    DataSupport.deleteAll(BaseCoinModel.class);
+                if (DataSupport.isExist(LocalCoinDbModel.class)) {
+                    DataSupport.deleteAll(LocalCoinDbModel.class);
                 }
 
                 // 初始化交易界面默认所选择的币

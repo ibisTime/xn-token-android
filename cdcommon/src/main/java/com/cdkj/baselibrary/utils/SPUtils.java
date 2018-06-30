@@ -7,17 +7,16 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-/**SharedPreferences工具类
+/**
+ * SharedPreferences工具类
  * Created by Administrator on 2016-04-21.
  */
-public class SPUtils
-{
-
+public class SPUtils {
 
     /**
      * 保存在手机里面的文件名
      */
-    public static final String FILE_NAME = "share_eth";
+    public static final String FILE_NAME = "share_tha";
 
     /**
      * 保存数据的方法，我们需要拿到保存数据的具体类型，然后根据类型调用不同的保存方法
@@ -26,9 +25,8 @@ public class SPUtils
      * @param key
      * @param object
      */
-    public static void put(Context context, String key, Object object)
-    {
-        if(context==null || object==null) {
+    public static void put(Context context, String key, Object object) {
+        if (context == null || object == null) {
             return;
         }
 
@@ -53,21 +51,20 @@ public class SPUtils
         SharedPreferencesCompat.apply(editor);
     }
 
-    public static Integer getInt(Context context, String key, Integer defaultObject){
+    public static Integer getInt(Context context, String key, Integer defaultObject) {
 
-        if(context==null) {
+        if (context == null) {
             return defaultObject;
         }
 
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
-        return sp.getInt(key,  defaultObject);
+        return sp.getInt(key, defaultObject);
     }
 
-        public static Long getLong(Context context, String key, Long defaultObject){
+    public static Long getLong(Context context, String key, Long defaultObject) {
 
-        if(context==null)
-        {
+        if (context == null) {
             return defaultObject;
         }
 
@@ -78,10 +75,9 @@ public class SPUtils
     }
 
 
-    public static Boolean getBoolean(Context context, String key, Boolean defaultObject){
+    public static Boolean getBoolean(Context context, String key, Boolean defaultObject) {
 
-        if(context==null)
-        {
+        if (context == null) {
             return defaultObject;
         }
 
@@ -90,10 +86,9 @@ public class SPUtils
         return sp.getBoolean(key, defaultObject);
     }
 
-    public static String getString(Context context, String key, String defaultObject){
+    public static String getString(Context context, String key, String defaultObject) {
 
-        if(context==null)
-        {
+        if (context == null) {
             return defaultObject;
         }
 
@@ -110,25 +105,19 @@ public class SPUtils
      * @param defaultObject
      * @return
      */
-    public static Object get(Context context, String key, Object defaultObject)
-    {
+    public static Object get(Context context, String key, Object defaultObject) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
 
-        if (defaultObject instanceof String)
-        {
+        if (defaultObject instanceof String) {
             return sp.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer)
-        {
+        } else if (defaultObject instanceof Integer) {
             return sp.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean)
-        {
+        } else if (defaultObject instanceof Boolean) {
             return sp.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float)
-        {
+        } else if (defaultObject instanceof Float) {
             return sp.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long)
-        {
+        } else if (defaultObject instanceof Long) {
             return sp.getLong(key, (Long) defaultObject);
         }
 
@@ -137,11 +126,11 @@ public class SPUtils
 
     /**
      * 移除某个key值已经对应的值
+     *
      * @param context
      * @param key
      */
-    public static void remove(Context context, String key)
-    {
+    public static void remove(Context context, String key) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -151,10 +140,10 @@ public class SPUtils
 
     /**
      * 清除所有数据
+     *
      * @param context
      */
-    public static void clear(Context context)
-    {
+    public static void clear(Context context) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -164,12 +153,12 @@ public class SPUtils
 
     /**
      * 查询某个key是否已经存在
+     *
      * @param context
      * @param key
      * @return
      */
-    public static boolean contains(Context context, String key)
-    {
+    public static boolean contains(Context context, String key) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         return sp.contains(key);
@@ -181,8 +170,7 @@ public class SPUtils
      * @param context
      * @return
      */
-    public static Map<String, ?> getAll(Context context)
-    {
+    public static Map<String, ?> getAll(Context context) {
         SharedPreferences sp = context.getSharedPreferences(FILE_NAME,
                 Context.MODE_PRIVATE);
         return sp.getAll();
@@ -192,10 +180,8 @@ public class SPUtils
      * 创建一个解决SharedPreferencesCompat.apply方法的一个兼容类
      *
      * @author zhy
-     *
      */
-    private static class SharedPreferencesCompat
-    {
+    private static class SharedPreferencesCompat {
         private static final Method sApplyMethod = findApplyMethod();
 
         /**
@@ -203,15 +189,12 @@ public class SPUtils
          *
          * @return
          */
-        @SuppressWarnings({ "unchecked", "rawtypes" })
-        private static Method findApplyMethod()
-        {
-            try
-            {
+        @SuppressWarnings({"unchecked", "rawtypes"})
+        private static Method findApplyMethod() {
+            try {
                 Class clz = SharedPreferences.Editor.class;
                 return clz.getMethod("apply");
-            } catch (NoSuchMethodException e)
-            {
+            } catch (NoSuchMethodException e) {
             }
 
             return null;
@@ -222,21 +205,15 @@ public class SPUtils
          *
          * @param editor
          */
-        public static void apply(SharedPreferences.Editor editor)
-        {
-            try
-            {
-                if (sApplyMethod != null)
-                {
+        public static void apply(SharedPreferences.Editor editor) {
+            try {
+                if (sApplyMethod != null) {
                     sApplyMethod.invoke(editor);
                     return;
                 }
-            } catch (IllegalArgumentException e)
-            {
-            } catch (IllegalAccessException e)
-            {
-            } catch (InvocationTargetException e)
-            {
+            } catch (IllegalArgumentException e) {
+            } catch (IllegalAccessException e) {
+            } catch (InvocationTargetException e) {
             }
             editor.commit();
         }

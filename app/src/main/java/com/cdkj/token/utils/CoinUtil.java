@@ -2,7 +2,7 @@ package com.cdkj.token.utils;
 
 import android.text.TextUtils;
 
-import com.cdkj.baselibrary.model.BaseCoinModel;
+import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.R;
 
 import org.litepal.crud.DataSupport;
@@ -15,18 +15,18 @@ import java.util.List;
  */
 
 public class CoinUtil {
-    static List<BaseCoinModel> baseCoinList = new ArrayList<>();
+    static List<LocalCoinDbModel> baseCoinList = new ArrayList<>();
 
 
     private static void initBaseCoinList() {
         baseCoinList.clear();
-        baseCoinList.addAll(DataSupport.findAll(BaseCoinModel.class));
+        baseCoinList.addAll(DataSupport.findAll(LocalCoinDbModel.class));
     }
 
     public static String getCoinCNameWithCurrency(String currency) {
         initBaseCoinList();
 
-        for (BaseCoinModel model : baseCoinList) {
+        for (LocalCoinDbModel model : baseCoinList) {
 
             if (model.getSymbol().equals(currency)) {
                 return model.getCname();
@@ -41,7 +41,7 @@ public class CoinUtil {
     public static String getCoinENameWithCurrency(String currency) {
         initBaseCoinList();
 
-        for (BaseCoinModel model : baseCoinList) {
+        for (LocalCoinDbModel model : baseCoinList) {
 
             if (model.getSymbol().equals(currency)) {
                 return model.getEname();
@@ -62,7 +62,7 @@ public class CoinUtil {
     public static String getCoinWatermarkWithCurrency(String currency, int position) {
         initBaseCoinList();
 
-        for (BaseCoinModel model : baseCoinList) {
+        for (LocalCoinDbModel model : baseCoinList) {
 
             if (model.getSymbol().equals(currency)) {
                 if (position == 0) {
@@ -91,7 +91,7 @@ public class CoinUtil {
     public static String getFirstTokenCoin() {
         initBaseCoinList();
 
-        for (BaseCoinModel model : baseCoinList) {
+        for (LocalCoinDbModel model : baseCoinList) {
 
             // type = 1: Token币
             if (model.getType().equals("1")) {
@@ -131,9 +131,9 @@ public class CoinUtil {
     public static String[] getTokenCoinArray() {
         initBaseCoinList();
 
-        List<BaseCoinModel> list = new ArrayList<>();
+        List<LocalCoinDbModel> list = new ArrayList<>();
 
-        for (BaseCoinModel model : baseCoinList) {
+        for (LocalCoinDbModel model : baseCoinList) {
 
             // type = 1: Token币
             if (model.getType().equals("1")) {
@@ -160,9 +160,9 @@ public class CoinUtil {
     public static String[] getNotTokenCoinArray() {
         initBaseCoinList();
 
-        List<BaseCoinModel> list = new ArrayList<>();
+        List<LocalCoinDbModel> list = new ArrayList<>();
 
-        for (BaseCoinModel model : baseCoinList) {
+        for (LocalCoinDbModel model : baseCoinList) {
 
             // type = 1: Token币，type = 0: 非Token币
             if (model.getType().equals("0")) {
@@ -186,17 +186,17 @@ public class CoinUtil {
      *
      * @return
      */
-    public static List<BaseCoinModel> getAllCoinList() {
+    public static List<LocalCoinDbModel> getAllCoinList() {
         initBaseCoinList();
 
-        List<BaseCoinModel> list = new ArrayList<>();
+        List<LocalCoinDbModel> list = new ArrayList<>();
 
         for (int i = 0; i < baseCoinList.size(); i++) {
             // type = 0: 非Token币
             if (!baseCoinList.get(i).getType().equals("")) {
-                BaseCoinModel model = new BaseCoinModel();
+                LocalCoinDbModel model = new LocalCoinDbModel();
                 try {
-                    model = (BaseCoinModel) baseCoinList.get(i).clone();
+                    model = (LocalCoinDbModel) baseCoinList.get(i).clone();
                 } catch (CloneNotSupportedException e) {
                     e.printStackTrace();
                 }
@@ -215,18 +215,18 @@ public class CoinUtil {
      *
      * @return
      */
-    public static List<BaseCoinModel> getNotTokenCoinList() {
+    public static List<LocalCoinDbModel> getNotTokenCoinList() {
         initBaseCoinList();
 
-        List<BaseCoinModel> list = new ArrayList<>();
+        List<LocalCoinDbModel> list = new ArrayList<>();
 
         for (int i = 0; i < baseCoinList.size(); i++) {
             // type = 0: 非Token币
             if (baseCoinList.get(i).getType().equals("0")) {
 
-                BaseCoinModel model = new BaseCoinModel();
+                LocalCoinDbModel model = new LocalCoinDbModel();
                 try {
-                    model = (BaseCoinModel) baseCoinList.get(i).clone();
+                    model = (LocalCoinDbModel) baseCoinList.get(i).clone();
                 } catch (CloneNotSupportedException e) {
                     e.printStackTrace();
                 }
