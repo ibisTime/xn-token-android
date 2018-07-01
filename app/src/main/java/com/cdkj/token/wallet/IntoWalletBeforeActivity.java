@@ -73,8 +73,4 @@ public class IntoWalletBeforeActivity extends AbsBaseLoadActivity {
         mBinding.btnImportWallet.setOnClickListener(view -> WalletImportWordsInputActivity.open(this));
     }
 
-    @Override
-    public void onBackPressed() {
-
-    }
 }

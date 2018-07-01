@@ -1,6 +1,7 @@
 package com.cdkj.token.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.cdkj.baselibrary.utils.ImgUtils;
@@ -13,6 +14,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.math.BigDecimal;
 import java.util.List;
 
+import static com.cdkj.token.utils.AccountUtil.ALLSCALE;
 import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 
 /**
@@ -31,11 +33,12 @@ public class CoinAdapter2 extends BaseQuickAdapter<CoinModel.AccountListBean, Ba
 
         helper.setText(R.id.tv_coin_name, item.getCurrency());
 
-        BigDecimal amount;
-        BigDecimal frozenAmount;
-        amount = new BigDecimal(item.getAmountString());
-        frozenAmount = new BigDecimal(item.getFrozenAmountString());
-        helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), item.getCurrency(), 8));
+        if (!TextUtils.isEmpty(item.getAmountString()) && !TextUtils.isEmpty(item.getFrozenAmountString())) {
+            BigDecimal amount = new BigDecimal(item.getAmountString());
+            BigDecimal frozenAmount = new BigDecimal(item.getFrozenAmountString());
+            helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), item.getCurrency(), 8));
+        }
+
 
         ImageView ivCoin = helper.getView(R.id.img_coin_logo);
 

@@ -419,4 +419,7 @@
     <string name="system_message">系统公告</string>
     <string name="no_system_message">暂无系统公告</string>
     <string name="priority">优先</string>
+    <string name="please_create_or_import_wallet">请创建或导入钱包</string>
+    <string name="no_assets">暂无资产</string>
+    <string name="my_private_wallet">秘钥钱包(CNY)</string>
 </resources>

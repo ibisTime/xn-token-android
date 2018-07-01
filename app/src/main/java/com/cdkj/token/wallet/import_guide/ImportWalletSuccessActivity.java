@@ -45,9 +45,7 @@ public class ImportWalletSuccessActivity extends AbsBaseLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-
         initClickListener();
-
     }
 
     private void initClickListener() {

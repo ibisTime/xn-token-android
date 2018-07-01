@@ -45,6 +45,10 @@ public class CardChangeLayout extends FrameLayout {
 
     private float scale = 0.8f;
 
+    public static final int TOPVIEW = 1;
+    public static final int BOTTOMVIEW = 0;
+
+
     public ChangeCallBack getChangeCallBack() {
         return changeCallBack;
     }
@@ -119,7 +123,6 @@ public class CardChangeLayout extends FrameLayout {
         if (mDragHelper.continueSettling(true)) {
             ViewCompat.postInvalidateOnAnimation(this);
         } else {
-
             if (childView.getLeft() == margin && childView2.getLeft() == margin || animatorSetsuofang.isRunning()) {  //第一次绘制
                 return;
             }
@@ -153,7 +156,7 @@ public class CardChangeLayout extends FrameLayout {
      * @param bottomView
      */
     void startAnimator(View topView, View bottomView) {
-
+        animatorSetsuofang = new AnimatorSet();
         ObjectAnimator scaleX = ObjectAnimator.ofFloat(bottomView, "scaleX", scale, 1f);
         ObjectAnimator scaleY = ObjectAnimator.ofFloat(bottomView, "scaleY", scale, 1f);
         ObjectAnimator translationX = ObjectAnimator.ofFloat(bottomView, "translationX", (float) (viewRightInterval + viewRightInterval * 1 + margin), 0f);
@@ -163,7 +166,7 @@ public class CardChangeLayout extends FrameLayout {
         animatorSetsuofang.setDuration(130);
         animatorSetsuofang.setInterpolator(new LinearInterpolator());
 
-        animatorSetsuofang.addListener(new Animator.AnimatorListener() {
+        valueAnimator.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
 
@@ -173,7 +176,7 @@ public class CardChangeLayout extends FrameLayout {
             public void onAnimationEnd(Animator animator) {
                 updateViewLayout(bottomView, bottomView.getLayoutParams());   //更新布局
                 if (changeCallBack != null) {
-                    changeCallBack.onChange(topView == childView2 ? 0 : 1);
+                    changeCallBack.onChange(topView == childView2 ? BOTTOMVIEW : TOPVIEW);
                 }
             }
 

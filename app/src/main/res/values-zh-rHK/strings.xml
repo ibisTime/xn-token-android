@@ -417,4 +417,8 @@
     <string name="no_phone_permission">CDATA[没有权限，无法拨打电话，请到设置--->权限管理里授予用户拨打电话权限</string>
     <string name="system_message">系统公告</string>
     <string name="no_system_message">暂无系统公告</string>
+    <string name="please_create_or_import_wallet">请创建或导入钱包</string>
+    <string name="no_assets">暂无资产</string>
+    <string name="my_wallet">个人钱包(CNY)</string>
+    <string name="my_private_wallet">秘钥钱包(CNY)</string>
 </resources>

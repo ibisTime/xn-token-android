@@ -25,6 +25,7 @@ public class AccountUtil {
     public static final String OGC = "OGC";
     public static final int OGCSCALE = 8;
     public static final int ETHSCALE = 8;
+    public static final int ALLSCALE = 8;
 
     /**
      * 货币单位转换

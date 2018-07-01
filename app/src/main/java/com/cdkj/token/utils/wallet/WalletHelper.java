@@ -10,6 +10,7 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MyApplication;
 import com.cdkj.token.R;
 import com.cdkj.token.model.LocalCoinModel;
+import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.UserChooseCoinDBModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wan.WanRawTransaction;
@@ -72,10 +73,6 @@ public class WalletHelper {
     public final static String COIN_ETH = "ETH";// 币种类型 ETH
     public final static String COIN_WAN = "WAN";// 币种类型 WAN
     public final static String COIN_BTC = "BTC";// 币种类型 BTC
-
-    //TODO 采用配置方式 币种类型、节点地址、币种名称
-    //本地币种类型
-    public final static String[] COIN_COUNT = new String[]{COIN_ETH, COIN_WAN};// 币种类型
 
 
     /**
@@ -161,26 +158,6 @@ public class WalletHelper {
         return url;
     }
 
-    /**
-     * 获取本地所有币种
-     */
-    public static List<LocalCoinModel> getLocalCoinList() {
-
-        String[] coinType = COIN_COUNT;
-
-        List<LocalCoinModel> localCoinModels = new ArrayList<>();
-
-        for (String type : coinType) {
-
-            LocalCoinModel localCoinModel = new LocalCoinModel();
-            localCoinModel.setCoinType(type);
-            localCoinModel.setCoinEName(getCoinENameByType(type));
-            localCoinModel.setCoinCName(getCoinCNameByType(type));
-            localCoinModel.setCoinShortName(getCoinShrotNameByType(type));
-            localCoinModels.add(localCoinModel);
-        }
-        return localCoinModels;
-    }
 
     /**
      * 根据币种类型获取要显示的icon
@@ -288,7 +265,7 @@ public class WalletHelper {
      *
      * @return userId
      */
-    public static String getUserChooseCoinString(String userId) {
+    public static String getUserChooseCoinSymbolString(String userId) {
         if (TextUtils.isEmpty(userId)) {
             return "";
         }
@@ -311,7 +288,7 @@ public class WalletHelper {
     }
 
     /**
-     * 根据userId获取用户选择的币种
+     * 根据userId更新用户选择的币种
      *
      * @return userId
      */
@@ -321,13 +298,18 @@ public class WalletHelper {
         DataSupport.updateAll(UserChooseCoinDBModel.class, values, WalletDBColumn.USERID + " = ?", userId);
     }
 
+    //获取本地所有缓存币种
+    public static List<LocalCoinDbModel> getLocalCoinList() {
+        return DataSupport.findAll(LocalCoinDbModel.class);
+    }
+
 
     /**
-     * 用户是否第一次选择
+     * 用户是否添加过自选 添加返回true
      *
      * @return userId
      */
-    public static boolean checkUserIsFirstChoose(String userId) {
+    public static boolean userIsCoinChoosed(String userId) {
         if (TextUtils.isEmpty(userId)) {
             return false;
         }
@@ -495,7 +477,7 @@ public class WalletHelper {
      * @param userId
      * @return
      */
-    public static boolean checkHasUserInfo(String userId) {
+    public static boolean isUserAddedWallet(String userId) {
         Cursor cursor = getUserInfoCursorByUserId(userId);
         boolean ishas = cursor != null && cursor.moveToFirst();
         if (cursor != null) {

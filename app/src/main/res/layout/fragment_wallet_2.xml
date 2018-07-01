@@ -29,11 +29,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="总资产(CNY)"
+                    android:text="@string/wallet_assets"
                     android:textColor="@color/gray_333333"
                     android:textSize="10sp" />
 
                 <TextView
+                    android:id="@+id/tv_all_wallet_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="￥0.00"
@@ -47,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginRight="15dp"
+                android:layout_marginRight="5dp"
                 android:src="@drawable/open_scan" />
 
             <ImageView
@@ -55,7 +56,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/add_black" />
+                android:paddingBottom="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="10dp"
+                android:src="@drawable/add_black"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -76,7 +82,8 @@
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -114,7 +121,7 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginLeft="50dp"
-                                        android:text="秘钥钱包(CNY)"
+                                        android:text="@string/my_private_wallet"
                                         android:textColor="@color/white"
                                         android:textSize="14sp" />
 
@@ -141,6 +148,7 @@
                                         android:textColor="@color/white" />
 
                                     <TextView
+                                        android:id="@+id/tv_pri_wallet_amount"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="0.00"
@@ -191,7 +199,7 @@
                                         <TextView
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                            android:text="个人钱包(CNY)"
+                                            android:text="@string/my_wallet"
                                             android:textColor="@color/white"
                                             android:textSize="14sp" />
 
@@ -206,6 +214,7 @@
                                     </LinearLayout>
 
                                     <TextView
+                                        android:id="@+id/tv_wallet_amount"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:text="0.00"
@@ -263,7 +272,7 @@
                             tools:text="这是一条公告" />
 
                         <ImageView
-                            android:id="@+id/img_close"
+                            android:id="@+id/img_bulletin_close"
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:layout_gravity="center_vertical"
@@ -309,7 +318,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="15dp"
-                                    android:text="闪兑"
+                                    android:text="@string/transfer_change"
                                     android:textColor="@color/text_black_cd"
                                     android:textSize="15sp" />
 
@@ -346,7 +355,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="15dp"
-                                    android:text="一键划转"
+                                    android:text="@string/fast_transfer"
                                     android:textColor="@color/text_black_cd"
                                     android:textSize="15sp" />
 
@@ -361,10 +370,11 @@
 
 
                     <android.support.v7.widget.RecyclerView
-                        android:id="@+id/rv"
+                        android:id="@+id/rv_wallet"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:overScrollMode="never" />
+
 
                 </LinearLayout>
 

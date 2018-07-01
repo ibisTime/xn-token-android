@@ -15,11 +15,12 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.AddChoiceAdapter;
 import com.cdkj.token.api.MyApi;
-import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.model.AddCoinChangeEvent;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.UserChooseCoinDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
+import org.greenrobot.eventbus.EventBus;
 import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
@@ -86,8 +87,9 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
             }
             if (!TextUtils.equals(chooseCoins, chooseTypes.toString())) { //配置改变 保存用户选择
                 WalletHelper.updateUserChooseCoinString(chooseTypes.toString(), SPUtilHelper.getUserId());
-            }
 
+                EventBus.getDefault().post(new AddCoinChangeEvent());   //通知上级界面刷新
+            }
         }
 
         finish();
@@ -160,19 +162,19 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
 
         List<LocalCoinDbModel> dbModels = new ArrayList<>();
 
-        chooseCoins = WalletHelper.getUserChooseCoinString(SPUtilHelper.getUserId());
+        chooseCoins = WalletHelper.getUserChooseCoinSymbolString(SPUtilHelper.getUserId());
 
         StringBuffer chooseBuf = new StringBuffer();
 
         for (LocalCoinDbModel coinDbModel : coinDbModels) {                     //请求的币种和用户选择币种比对
             if (coinDbModel == null) continue;
 
-            if (!WalletHelper.checkUserIsFirstChoose(SPUtilHelper.getUserId())) { //第一次配置全部选中
+            if (!WalletHelper.userIsCoinChoosed(SPUtilHelper.getUserId())) { //第一次配置全部选中
                 coinDbModel.setChoose(true);
                 chooseBuf.append(coinDbModel.getSymbol());
                 chooseBuf.append(",");
             } else {
-                coinDbModel.setChoose(chooseCoins.indexOf(coinDbModel.getSymbol()) != -1);  //判断用户是否配置了币种
+                coinDbModel.setChoose(TextUtils.indexOf(chooseCoins, coinDbModel.getSymbol()) != -1);  //判断用户是否配置了币种
             }
 
             dbModels.add(coinDbModel);
@@ -190,7 +192,7 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
      * @param chooseBuf
      */
     private void checkFirstChooseAndSave(StringBuffer chooseBuf) {
-        if (!WalletHelper.checkUserIsFirstChoose(SPUtilHelper.getUserId())) { //第一次配置 保存
+        if (!WalletHelper.userIsCoinChoosed(SPUtilHelper.getUserId())) { //第一次配置 保存
             chooseCoins = chooseBuf.toString();
             UserChooseCoinDBModel userChooseCoinDBModel = new UserChooseCoinDBModel();
             userChooseCoinDBModel.setChooseCoins(chooseCoins);

@@ -65,6 +65,14 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<BalanceListModel>> getBalanceList(@Field("code") String code, @Field("json") String json);
+ /**
+     * 根据币种列表获取相应的币种信息列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<CoinModel>> getBalanceList2(@Field("code") String code, @Field("json") String json);
 
 
     /**

@@ -20,9 +20,12 @@ import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
+import com.cdkj.token.model.db.UserChooseCoinDBModel;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.litepal.crud.DataSupport;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -108,6 +111,7 @@ public class StartActivity extends BaseActivity {
             protected void onReqFailure(String errorCode, String errorMessage) {
                 getQiniu();
             }
+
             @Override
             protected void onNoNet(String msg) {
 
@@ -147,6 +151,8 @@ public class StartActivity extends BaseActivity {
                 }));
 
     }
+
+
 
     /**
      * 获取七牛服务器链接
