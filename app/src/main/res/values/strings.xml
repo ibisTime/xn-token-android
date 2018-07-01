@@ -149,7 +149,7 @@
 
     <string name="user_title_tip">个性设置</string>
 
-    <string name="user_title_sign_in">登录</string>
+    <string name="user_title_sign_in">登  录</string>
     <string name="user_mobile_hint">请填写手机号码</string>
     <string name="user_mobile_format_hint">手机号码格式不正确</string>
     <string name="user_password_format_hint">密码长度不能小于6位</string>

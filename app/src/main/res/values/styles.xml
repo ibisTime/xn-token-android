@@ -49,4 +49,10 @@
         </attr>
     </declare-styleable>
 
+    <!---->
+    <declare-styleable name="sign_edit_clear_layout">
+        <attr name="hint_text" format="string"></attr>//输入框输入状态颜色
+
+    </declare-styleable>
+
 </resources>

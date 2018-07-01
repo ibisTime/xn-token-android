@@ -49,7 +49,8 @@
         <activity android:name="com.cdkj.token.user.UserAboutActivity" />
         <activity
             android:name="com.cdkj.token.user.login.SignInActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name="com.cdkj.token.user.login.SignUpActivity" />
 
         //找回密码

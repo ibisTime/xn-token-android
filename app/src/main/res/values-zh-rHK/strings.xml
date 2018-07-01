@@ -153,7 +153,7 @@
 
     <string name="user_title_tip">個性設置</string>
 
-    <string name="user_title_sign_in">登錄</string>
+    <string name="user_title_sign_in">登  錄</string>
     <string name="user_mobile_hint">請填寫手機號碼</string>
     <string name="user_mobile_format_hint">手機號碼格式不正確</string>
     <string name="user_password_format_hint">密碼長度不能小于6位</string>

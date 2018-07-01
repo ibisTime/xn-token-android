@@ -19,6 +19,7 @@ import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.interfaces.LoginInterface;
 import com.cdkj.baselibrary.interfaces.LoginPresenter;
 import com.cdkj.baselibrary.model.UserLoginModel;
+import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivitySignInBinding;
@@ -40,8 +41,8 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
         if (context == null) {
             return;
         }
-        Intent intent= new Intent(context, SignInActivity.class);
-        intent.putExtra("canOpenMain",canOpenMain);
+        Intent intent = new Intent(context, SignInActivity.class);
+        intent.putExtra("canOpenMain", canOpenMain);
         context.startActivity(intent);
     }
 
@@ -51,35 +52,38 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
         return mBinding.getRoot();
     }
 
+    @Override
+    protected boolean canLoadTopTitleView() {
+        return false;
+    }
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+        UIStatusBarHelper.translucent(this);
         setTopTitle(getStrRes(R.string.user_title_sign_in));
         setTopLineState(true);
         setSubLeftImgState(true);
-        setSubRightTitleAndClick(getStrRes(R.string.user_title_sign_up),v -> {
+        setSubRightTitleAndClick(getStrRes(R.string.user_title_sign_up), v -> {
             SignUpActivity.open(SignInActivity.this);
         });
-
 
         mPresenter = new LoginPresenter(this);
 
         init();
         initListener();
-        initSignInBtn();
     }
 
     private void init() {
         if (getIntent() == null)
             return;
 
-        canOpenMain = getIntent().getBooleanExtra("canOpenMain",false);
+        canOpenMain = getIntent().getBooleanExtra("canOpenMain", false);
     }
 
     private void initListener() {
         //登录
         mBinding.btnConfirm.setOnClickListener(v -> {
-            if (check()){
+            if (check()) {
                 mPresenter.login(mBinding.edtUsername.getText().toString(), mBinding.edtPassword.getText().toString(), this);
             }
 
@@ -91,16 +95,16 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
         });
     }
 
-    private boolean check(){
-        if (TextUtils.isEmpty(mBinding.edtUsername.getText().toString().trim())){
+    private boolean check() {
+        if (TextUtils.isEmpty(mBinding.edtUsername.getText().toString().trim())) {
             showToast(getStrRes(R.string.user_mobile_hint));
             return false;
         }
-        if (mBinding.edtUsername.getText().toString().trim().length() != 11){
+        if (mBinding.edtUsername.getText().toString().trim().length() != 11) {
             showToast(getStrRes(R.string.user_mobile_format_hint));
             return false;
         }
-        if (mBinding.edtPassword.getText().toString().trim().length() < 6){
+        if (mBinding.edtPassword.getText().toString().trim().length() < 6) {
             showToast(getStrRes(R.string.user_password_format_hint));
             return false;
         }
@@ -108,65 +112,6 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
         return true;
     }
 
-    private void initSignInBtn() {
-
-        mBinding.edtPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (mBinding.edtUsername.getText().toString().length() == 11){
-                    if (mBinding.edtPassword.getText().toString().length() >= 6){
-                        // 可以登录
-                        mBinding.btnConfirm.setTextColor(ContextCompat.getColor(SignInActivity.this,R.color.white));
-                    }else {
-                        // 不可登录
-                        mBinding.btnConfirm.setTextColor(ContextCompat.getColor(SignInActivity.this,R.color.white_80));
-                    }
-                }else {
-                    // 不可登录
-                    mBinding.btnConfirm.setTextColor(ContextCompat.getColor(SignInActivity.this,R.color.white_80));
-                }
-            }
-        });
-
-        mBinding.edtUsername.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                if (mBinding.edtUsername.getText().toString().length() == 11){
-                    if (mBinding.edtPassword.getText().toString().length() >= 6){
-                        // 可以登录
-                        mBinding.btnConfirm.setTextColor(ContextCompat.getColor(SignInActivity.this,R.color.white));
-                    }else {
-                        // 不可登录
-                        mBinding.btnConfirm.setTextColor(ContextCompat.getColor(SignInActivity.this,R.color.white_80));
-                    }
-                }else {
-                    // 不可登录
-                    mBinding.btnConfirm.setTextColor(ContextCompat.getColor(SignInActivity.this,R.color.white_80));
-                }
-            }
-        });
-
-    }
 
     @Override
     public void LoginSuccess(UserLoginModel user, String msg) {
@@ -207,25 +152,24 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
 
     @Override
     protected boolean canFinish() {
-        if(canOpenMain){
+        if (canOpenMain) {
             MainActivity.open(this);
             finish();
             return false;
-        }else{
+        } else {
             return true;
         }
     }
 
     @Override
     public void onBackPressed() {
-        if(canOpenMain){
+        if (canOpenMain) {
             MainActivity.open(this);
             finish();
-        }else{
+        } else {
             super.onBackPressed();
         }
     }
-
 
 
 }
