@@ -87,8 +87,7 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
             }
             if (!TextUtils.equals(chooseCoins, chooseTypes.toString())) { //配置改变 保存用户选择
                 WalletHelper.updateUserChooseCoinString(chooseTypes.toString(), SPUtilHelper.getUserId());
-
-                EventBus.getDefault().post(new AddCoinChangeEvent());   //通知上级界面刷新
+                EventBus.getDefault().postSticky(new AddCoinChangeEvent());   //通知上级界面刷新
             }
         }
 

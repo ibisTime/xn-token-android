@@ -66,6 +66,8 @@ public class WalletFragment_2 extends BaseLazyFragment {
     private RefreshHelper mRefreshHelper;
     private List<CoinTypeAndAddress> mChooseCoinList;
 
+    private boolean isPrivateWallet;//当前是否是私密钱包
+
 
     @Nullable
     @Override
@@ -80,7 +82,8 @@ public class WalletFragment_2 extends BaseLazyFragment {
         initClickListener();
 
         getMsgRequest();
-        getWalletAssetsData(true);
+
+        getWalletAssetsData(true, false);
         return mBinding.getRoot();
     }
 
@@ -138,19 +141,22 @@ public class WalletFragment_2 extends BaseLazyFragment {
      * @param index 在Layout中的索引
      */
     private void changeLayoutByIndex(int index) {
-        LogUtil.E("布局改变" + index);
+
+
         switch (index) {
             case BOTTOMVIEW:                                         //私密钱包
+                isPrivateWallet = true;
                 mBinding.imgAddCoin.setVisibility(View.VISIBLE);
                 mBinding.imgChange.setImageResource(R.drawable.change_red);
                 mBinding.imgTransfer.setImageResource(R.drawable.transfer_red);
-                getPriWalletAssetsData(true);
+                getPriWalletAssetsData(true, true);
                 break;
             case TOPVIEW:                                         //个人钱包
+                isPrivateWallet = false;
                 mBinding.imgAddCoin.setVisibility(View.GONE);
                 mBinding.imgChange.setImageResource(R.drawable.change_blue);
                 mBinding.imgTransfer.setImageResource(R.drawable.transfer_blue);
-                getWalletAssetsData(false);
+                getWalletAssetsData(false, true);
                 break;
         }
     }
@@ -171,6 +177,16 @@ public class WalletFragment_2 extends BaseLazyFragment {
             @Override
             public RecyclerView.Adapter getAdapter(List listData) {
                 return new WalletBalanceAdapter(listData);
+            }
+
+            @Override
+            public void onRefresh(int pageindex, int limit) {
+                if (isPrivateWallet) {
+                    getWalletAssetsData(false, false);
+                } else {
+                    getPriWalletAssetsData(true, false);
+                }
+
             }
 
             @Override
@@ -214,7 +230,7 @@ public class WalletFragment_2 extends BaseLazyFragment {
      *
      * @param isRequstPrivateWallet 是否同时请求私钥钱包数据
      */
-    private void getWalletAssetsData(boolean isRequstPrivateWallet) {
+    private void getWalletAssetsData(boolean isRequstPrivateWallet, boolean isShowDialog) {
 
         if (TextUtils.isEmpty(SPUtilHelper.getUserToken()))
             return;
@@ -228,7 +244,9 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
         addCall(call);
 
-        showLoadingDialog();
+        if (isShowDialog) {
+            showLoadingDialog();
+        }
 
         call.enqueue(new BaseResponseModelCallBack<CoinModel>(mActivity) {
             @Override
@@ -237,10 +255,11 @@ public class WalletFragment_2 extends BaseLazyFragment {
                 mRefreshHelper.setPageIndex(1);
                 mRefreshHelper.setData(transformToAdapterData(data), getString(R.string.no_assets), R.mipmap.order_none);
 
-                if (isRequstPrivateWallet && WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId())) {  //没有添加钱包不用请求私钥钱包数据
-                    getPriWalletAssetsData(false);
-                }
+                countAllWalletAmount();
 
+                if (isRequstPrivateWallet && WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId())) {  //没有添加钱包不用请求私钥钱包数据
+                    getPriWalletAssetsData(false, true);
+                }
             }
 
             @Override
@@ -251,7 +270,9 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                if (isShowDialog) {
+                    disMissLoading();
+                }
             }
         });
     }
@@ -262,7 +283,7 @@ public class WalletFragment_2 extends BaseLazyFragment {
      *
      * @param isSetRecyclerData 是否设置recyclerData
      */
-    private void getPriWalletAssetsData(boolean isSetRecyclerData) {
+    private void getPriWalletAssetsData(boolean isSetRecyclerData, boolean isShowDialog) {
 
         if (mChooseCoinList.isEmpty()) {
             mChooseCoinList = getChooseCoinList();
@@ -275,7 +296,10 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
         addCall(call);
 
-        showLoadingDialog();
+        if (isShowDialog) {
+            showLoadingDialog();
+        }
+
 
         call.enqueue(new BaseResponseModelCallBack<BalanceListModel>(mActivity) {
             @Override
@@ -298,7 +322,9 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                if (isShowDialog) {
+                    disMissLoading();
+                }
             }
         });
     }
@@ -472,7 +498,7 @@ public class WalletFragment_2 extends BaseLazyFragment {
     @Subscribe
     public void addCoinChangeEvent(AddCoinChangeEvent ad) {
         mChooseCoinList.clear();
-        getPriWalletAssetsData(true);
+        getPriWalletAssetsData(true, true);
     }
 
 }

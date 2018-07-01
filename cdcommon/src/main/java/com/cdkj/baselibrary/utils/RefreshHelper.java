@@ -181,6 +181,18 @@ public class RefreshHelper<T> {
     //加载错误布局
     public void loadError(String str, int img) {
 
+        refreshLayoutStop();
+
+        if (mEmptyView != null && mDataList.isEmpty()) {
+            if (mRefreshInterface != null) {
+                mRefreshInterface.showErrorState(str, img);
+            }
+            if (mAdapter != null) mAdapter.setEmptyView(mEmptyView);
+        }
+    }
+
+    //停止加载和刷新布局动画
+    void refreshLayoutStop() {
         if (mRefreshLayout != null) {
             if (mRefreshLayout.isRefreshing()) { //停止刷新
                 mRefreshLayout.finishRefresh();
@@ -188,13 +200,6 @@ public class RefreshHelper<T> {
             if (mRefreshLayout.isLoading()) {//停止加载
                 mRefreshLayout.finishLoadmore();
             }
-        }
-
-        if (mEmptyView != null && mDataList.isEmpty()) {
-            if (mRefreshInterface != null) {
-                mRefreshInterface.showErrorState(str, img);
-            }
-            if (mAdapter != null) mAdapter.setEmptyView(mEmptyView);
         }
     }
 
@@ -210,14 +215,8 @@ public class RefreshHelper<T> {
      * @param datas
      */
     public void setData(List<T> datas, String emp, int img) {
-        if (mRefreshLayout != null) {
-            if (mRefreshLayout.isRefreshing()) {
-                mRefreshLayout.finishRefresh();
-            }
-            if (mRefreshLayout.isLoading()) {
-                mRefreshLayout.finishLoadmore();
-            }
-        }
+
+        refreshLayoutStop();
 
         if (mPageIndex == 1) {         //如果当前加载的是第一页数据
             if (datas != null && datas.size() > 0) {
