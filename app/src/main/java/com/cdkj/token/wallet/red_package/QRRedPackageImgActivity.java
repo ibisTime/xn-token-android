@@ -7,7 +7,7 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
-
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.token.R;
@@ -20,12 +20,14 @@ import org.greenrobot.eventbus.EventBus;
 public class QRRedPackageImgActivity extends AbsBaseLoadActivity {
 
     ActivityQrredPackageImgBinding mBinding;
+    private String currentCode;
 
-    public static void open(Context context) {
+    public static void open(Context context, String redPackageCode) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, QRRedPackageImgActivity.class);
+        intent.putExtra(CdRouteHelper.DATASIGN, redPackageCode);
         context.startActivity(intent);
     }
 
@@ -42,12 +44,21 @@ public class QRRedPackageImgActivity extends AbsBaseLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+        if (getIntent() != null) {
+            currentCode = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
+        }
         mBinding.llOther.setOnClickListener(view -> {
             EventBus.getDefault().post(new RedPackageEventBusBean());
             finish();
         });
+//        http://m.thadev.hichengdai.com/redPacket/receive.html?code=RP201806292144024227306&inviteCode=11&lang=cn
 
-        Bitmap bitmap = CodeUtils.createImage("adad", 500, 500, null);
+        String uri = "http://m.thadev.hichengdai.com/redPacket/receive.html";
+        uri += "?code=" + currentCode;//红包码
+        uri += "&inviteCode=11" + currentCode;//???
+        uri += "&lang=ZN-CN";//国际化
+
+        Bitmap bitmap = CodeUtils.createImage(uri, 500, 500, null);
         mBinding.ivQrImg.setImageBitmap(bitmap);
         UITipDialog.showSuccess(this, getString(R.string.red_package_send_success));
     }

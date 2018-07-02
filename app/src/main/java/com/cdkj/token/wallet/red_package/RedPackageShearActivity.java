@@ -96,7 +96,7 @@ public class RedPackageShearActivity extends AbsBaseLoadActivity {
 
     private void initOnclick() {
         mBinding.llOpen.setOnClickListener(view -> {
-            QRRedPackageImgActivity.open(this);
+            QRRedPackageImgActivity.open(this,currentCode);
         });
         mBinding.rllTop.ivBack.setOnClickListener(view -> {
             finish();
