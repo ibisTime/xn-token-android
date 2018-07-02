@@ -7,5 +7,17 @@ package com.cdkj.token.model;
 
 public class RedPackageHistoryBean {
 
-    int redType;
+    /**
+     * code : RP201807030219147307239
+     */
+
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
 }

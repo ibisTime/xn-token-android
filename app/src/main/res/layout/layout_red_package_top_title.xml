@@ -1,35 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/rll_view"
-    android:layout_width="match_parent"
-    android:layout_height="45dp"
-    android:background="@color/red"
-    android:gravity="center_vertical">
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-
-    <ImageView
-        android:id="@+id/iv_back"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:src="@mipmap/icon_left_arrow" />
-
-    <TextView
-        android:id="@+id/tv_top_title"
+    <RelativeLayout
+        android:id="@+id/rll_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="我的糖包"
-        android:textColor="@color/white" />
+        android:layout_height="45dp"
+        android:gravity="center_vertical">
 
-    <TextView
-        android:id="@+id/tv_top_right_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="我的糖包"
-        android:textColor="@color/white" />
-</RelativeLayout>
+
+        <ImageView
+            android:id="@+id/iv_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:src="@mipmap/icon_left_arrow" />
+
+        <TextView
+            android:id="@+id/tv_top_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="我的糖包"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tv_top_right_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="我的糖包"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+</layout>
 

@@ -43,6 +43,7 @@
     <color name="red_text">#FFB968</color>
     <color name="red_text_shear">#BD7E2E</color>
     <color name="red">#F55E52</color>
+    <color name="transparent">#09000000</color>
 
 
 </resources>

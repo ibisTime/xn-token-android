@@ -1,10 +1,13 @@
 package com.cdkj.token.wallet.red_package;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
@@ -26,10 +29,14 @@ import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivitySendRedPackageBinding;
 import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.model.RedPackageEventBusBean;
 import com.cdkj.token.model.RedPackageHistoryBean;
 import com.cdkj.token.utils.AccountUtil;
 
+import org.greenrobot.eventbus.Subscribe;
+
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,6 +55,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
     private InputDialog inputDialog;
     boolean isTradepwdFlag = false;//是否设置过支付密码
     private String mobile;
+    private String tradePwd;
 
     public static void open(Context context) {
         if (context == null) {
@@ -72,6 +80,8 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+        mBinding.etNumber.setEnabled(false);
+        mBinding.etSendNumber.setEnabled(false);
         initOnClick();
         getUserInfoRequest();
     }
@@ -85,44 +95,116 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
         mBinding.llType.setOnClickListener(view -> {
         });
         mBinding.tvRedType.setOnClickListener(view -> {
+
             if (redType == 1) {
                 redType = 0;
-                mBinding.tvRedType.setText("改为拼手气红包");
+                mBinding.tvRedType.setText(R.string.red_package_set_hand);
+                mBinding.etNumber.setHint(R.string.red_package_please_sing_number);
             } else if (redType == 0) {
                 redType = 1;
-                mBinding.tvRedType.setText("改为普通红包");
+                mBinding.tvRedType.setText(R.string.red_package_set_ordinary);
+                mBinding.etNumber.setHint(R.string.red_package_please_total_number);
             }
+            setTotalNumber();
         });
         mBinding.llType.setOnClickListener(view -> {
             getWalletAssetsData();
         });
+        //
+        mBinding.etSendNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                setTotalNumber();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                setTotalNumber();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        mBinding.etNumber.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+//                setTotalNumber();
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                setTotalNumber();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+    /**
+     * 设置币种
+     */
+    private void setTotalNumber() {
+        String etNumber = mBinding.etNumber.getText().toString().trim();
+        String etSendNumber = mBinding.etSendNumber.getText().toString().trim();
+
+        if (TextUtils.isEmpty(etNumber) || TextUtils.isEmpty(etSendNumber)) {
+            return;
+        }
+
+        if (TextUtils.isEmpty(currencyType)) {
+            UITipDialog.showFail(SendRedPackageActivity.this, getString(R.string.red_package_please_type));
+            return;
+        }
+
+        if (redType == 1) {
+            //拼手气红包  就是输入的币的数量
+            mBinding.tvSumNumber.setText(etNumber + "");
+            mBinding.tvSumType.setText(getString(R.string.red_package_unit) + currencyType);
+        } else {
+            //普通红包就是输入的币的数量乘以发的包数
+            double v1 = Double.parseDouble(etNumber);
+            double v2 = Double.parseDouble(etSendNumber);
+            if (v1 <= 0 || v2 <= 0) {
+                return;
+            }
+            double total = v1 * v2;
+            DecimalFormat df = new DecimalFormat("#######0.###");
+            String showMoney = df.format(total);
+            mBinding.tvSumNumber.setText(showMoney);
+            mBinding.tvSumType.setText(getString(R.string.red_package_unit) + currencyType);
+        }
     }
 
     private void checkData() {
         if (TextUtils.isEmpty(currencyType)) {
-            ToastUtil.show(this, "请选择代币");
+            ToastUtil.show(this, getString(R.string.red_package_please_type));
             return;
         }
 
         String money_et = mBinding.etNumber.getText().toString();
         if (TextUtils.isEmpty(money_et)) {
-            ToastUtil.show(this, "请输入要发的数量");
+            ToastUtil.show(this, getString(R.string.red_package_piease_send_number));
             return;
         }
         moneyNumber = Double.parseDouble(money_et);
         if (moneyNumber < 0.001) {
-            ToastUtil.show(this, "数量最小为0.001个");
+            ToastUtil.show(this, getString(R.string.red_package_min_numer));
             return;
         }
 
         String number_et = mBinding.etSendNumber.getText().toString();
         if (TextUtils.isEmpty(number_et)) {
-            ToastUtil.show(this, "请输入要发红包数量");
+            ToastUtil.show(this, getString(R.string.red_package_pleas_number));
             return;
         }
         sendNumber = Integer.parseInt(number_et);
         if (sendNumber < 1) {
-            ToastUtil.show(this, "红包个数最少为1个");
+            ToastUtil.show(this, getString(R.string.red_package_min_number));
             return;
         }
         //去请求数据
@@ -136,7 +218,6 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
      */
     private void sendDatas() {
         showLoadingDialog();
-
         Map<String, String> map = new HashMap<>();
         map.put("userId", SPUtilHelper.getUserId());
         map.put("symbol", currencyType);//币种
@@ -144,12 +225,19 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
         map.put("count", moneyNumber + "");
         map.put("sendNum", sendNumber + "");
         map.put("greeting", mBinding.etGreeting.getText().toString().trim());
+        map.put("tradePwd", tradePwd);//支付密码
         Call<BaseResponseModel<RedPackageHistoryBean>> baseResponseModelCall = RetrofitUtils.createApi(MyApi.class).sendRedPackage("623000", StringUtils.getJsonToString(map));
         baseResponseModelCall.enqueue(new BaseResponseModelCallBack<RedPackageHistoryBean>(this) {
             @Override
             protected void onSuccess(RedPackageHistoryBean data, String SucMessage) {
                 //发送成功
-                RedPackageShearActivity.open(SendRedPackageActivity.this);
+                RedPackageShearActivity.open(SendRedPackageActivity.this, data.getCode());
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+//                super.onReqFailure(errorCode, errorMessage);
+                UITipDialog.showFail(SendRedPackageActivity.this, errorMessage);
             }
 
             @Override
@@ -163,26 +251,24 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
     private void showInputDialog() {
         //判断有没有设置过支付密码
         if (!isTradepwdFlag) {
-
-            showDoubleWarnListen("请先设置支付密码", view -> {
+            showDoubleWarnListen(getString(R.string.red_package_please_set_type), view -> {
                 //跳转设置支付界面
                 PayPwdModifyActivity.open(this, false, mobile);
             });
             return;
         }
-
         if (inputDialog == null) {
             inputDialog = new InputDialog(this).builder().setTitle(getStrRes(R.string.trade_code_hint))
                     .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
-
-                        if (TextUtils.isEmpty(inputDialog.getContentView().getText().toString().trim())) {
+                        tradePwd = inputDialog.getContentView().getText().toString().trim();
+                        if (TextUtils.isEmpty(tradePwd)) {
                             showToast(getStrRes(R.string.trade_code_hint));
                         } else {
                             //  payRequest(inputDialog.getContentView().getText().toString().trim());
                             //判断密码
+                            sendDatas();
                             inputDialog.dismiss();
                         }
-
                     })
                     .setNegativeBtn(getStrRes(R.string.cancel), null)
                     .setContentMsg("");
@@ -216,24 +302,27 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
             protected void onSuccess(CoinModel data, String SucMessage) {
 
                 if (data.getAccountList() == null || data.getAccountList().size() == 0) {
-                    UITipDialog.showInfo(SendRedPackageActivity.this, "暂无可用币种");
+                    UITipDialog.showInfo(SendRedPackageActivity.this, getString(R.string.red_package_empty_type));
                     return;
                 }
-
                 //条件选择器
                 OptionsPickerView pvOptions = new OptionsPickerBuilder(SendRedPackageActivity.this, new OnOptionsSelectListener() {
+                    @SuppressLint("SetTextI18n")
                     @Override
                     public void onOptionsSelect(int options1, int options2, int options3, View v) {
                         CoinModel.AccountListBean accountListBean = data.getAccountList().get(options1);
                         String name = accountListBean.getCurrency();
                         currencyType = name;
-//                        accountListBean.get
+                        mBinding.etNumber.setEnabled(true);
+                        mBinding.etSendNumber.setEnabled(true);
+                        setTotalNumber();
+
                         mBinding.tvType.setText(name);
                         if (!TextUtils.isEmpty(accountListBean.getAmountString()) && !TextUtils.isEmpty(accountListBean.getFrozenAmountString())) {
                             BigDecimal amount = new BigDecimal(accountListBean.getAmountString());
                             BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
                             String yue = AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), 8);
-                            mBinding.tvBalance.setText("持有" + name + "总量" + yue);
+                            mBinding.tvBalance.setText(getString(R.string.red_package_have) + name + getString(R.string.red_package_total) + yue);
                         }
                     }
                 }).build();
@@ -314,5 +403,10 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
             return;
         ImgUtils.loadAvatar(this, data.getPhoto(), mBinding.imgLogo);
 
+    }
+
+    @Subscribe()
+    public void onMessageEvent(RedPackageEventBusBean event) {
+        finish();
     }
 }

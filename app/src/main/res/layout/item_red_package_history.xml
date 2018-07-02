@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
     android:gravity="center_vertical"
     android:orientation="vertical"
     android:paddingLeft="15dp"
@@ -17,8 +18,7 @@
         <ImageView
             android:id="@+id/iv_user_head"
             android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:src="@mipmap/icon_open_bg" />
+            android:layout_height="70dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,14 +42,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="kaloa"
+                    tools:text="kaloa"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/tv_b_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0.001ETC"
+                    tools:text="0.001ETC"
                     android:textColor="@color/red" />
 
             </LinearLayout>
@@ -65,15 +65,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="06-19 10:25" />
+                    tools:text="06-19 10:25" />
 
                 <TextView
                     android:id="@+id/tv_rmb_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
-                    android:text="kaloa"
-                    android:textColor="@color/red" />
+                    tools:text="5"
+                    android:textSize="12sp" />
 
             </LinearLayout>
         </LinearLayout>

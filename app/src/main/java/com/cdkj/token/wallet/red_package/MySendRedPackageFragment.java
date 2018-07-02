@@ -9,19 +9,19 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.cdkj.baselibrary.api.BaseResponseListModel;
+import com.cdkj.baselibrary.api.BaseResponseModel;
+import com.cdkj.baselibrary.api.ResponseInListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsRefreshListFragment;
-import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
+import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.token.R;
 import com.cdkj.token.adapter.MySendRedPackageAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.MySendRedPackageBean;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +32,7 @@ import retrofit2.Call;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MySendRedPackageFragment extends AbsRefreshListFragment<MySendRedPackageBean> {
+public class MySendRedPackageFragment extends AbsRefreshListFragment<MySendRedPackageBean.ListBean> {
 
     private Boolean isFirstRequest;
 
@@ -66,11 +66,10 @@ public class MySendRedPackageFragment extends AbsRefreshListFragment<MySendRedPa
         if (isFirstRequest) {
             mRefreshHelper.onDefaluteMRefresh(true);
         }
-
     }
 
     @Override
-    public RecyclerView.Adapter getListAdapter(List<MySendRedPackageBean> listData) {
+    public RecyclerView.Adapter getListAdapter(List<MySendRedPackageBean.ListBean> listData) {
         MySendRedPackageAdapter mAdapter = new MySendRedPackageAdapter(listData);
         return mAdapter;
     }
@@ -83,12 +82,6 @@ public class MySendRedPackageFragment extends AbsRefreshListFragment<MySendRedPa
     private void initData(int pageindex, int limit, boolean isShowDialog) {
 
 
-        ArrayList<MySendRedPackageBean> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            data.add(new MySendRedPackageBean());
-        }
-        mRefreshHelper.setData(data, "暂无订单数据", 0);
-
         if (isShowDialog) {
             showLoadingDialog();
         }
@@ -98,29 +91,22 @@ public class MySendRedPackageFragment extends AbsRefreshListFragment<MySendRedPa
 //        map.put("symbol", "");//币种
 //        map.put("statusList", "");//红包状态
 //        map.put("type", "");//红包类型
-        map.put("start", pageindex+"");//红包类型
+        map.put("start", pageindex + "");//红包类型
         map.put("limit", limit + "");
-        Call<BaseResponseListModel<MySendRedPackageBean>> sendRedPackage = RetrofitUtils.createApi(MyApi.class).getSendRedPackage("623005", StringUtils.getJsonToString(map));
-        addCall(sendRedPackage);
-        sendRedPackage.enqueue(new BaseResponseListCallBack<MySendRedPackageBean>(mActivity) {
-            @Override
-            protected void onSuccess(List<MySendRedPackageBean> data, String SucMessage) {
-                mRefreshHelper.setData(data, "暂无订单数据", 0);
 
-            }
-
+        Call<BaseResponseModel<ResponseInListModel<MySendRedPackageBean.ListBean>>> call = RetrofitUtils.createApi(MyApi.class).getSendRedPackage("623005", StringUtils.getJsonToString(map));
+        addCall(call);
+        call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<MySendRedPackageBean.ListBean>>(mActivity) {
             @Override
-            protected void onReqFailure(String errorCode, String errorMessage) {
-                super.onReqFailure(errorCode, errorMessage);
-                UITipDialog.showFail(mActivity, "请求接口错误");
+            protected void onSuccess(ResponseInListModel<MySendRedPackageBean.ListBean> data, String SucMessage) {
+                mRefreshHelper.setData(data.getList(), getString(R.string.red_package_send_empty), 0);
             }
 
             @Override
             protected void onFinish() {
                 disMissLoading();
+
             }
         });
-
     }
-
 }

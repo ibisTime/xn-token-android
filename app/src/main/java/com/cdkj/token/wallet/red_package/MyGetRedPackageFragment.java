@@ -9,19 +9,20 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.cdkj.baselibrary.api.BaseResponseListModel;
+import com.cdkj.baselibrary.api.BaseResponseModel;
+import com.cdkj.baselibrary.api.ResponseInListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsRefreshListFragment;
 import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
+import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.token.R;
 import com.cdkj.token.adapter.MyGetRedPackageAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.MyGetRedPackageBean;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,7 +33,7 @@ import retrofit2.Call;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyGetRedPackageFragment extends AbsRefreshListFragment<MyGetRedPackageBean> {
+public class MyGetRedPackageFragment extends AbsRefreshListFragment<MyGetRedPackageBean.ListBean> {
 
     private Boolean isFirstRequest;
 
@@ -67,28 +68,20 @@ public class MyGetRedPackageFragment extends AbsRefreshListFragment<MyGetRedPack
         if (isFirstRequest) {
             mRefreshHelper.onDefaluteMRefresh(true);
         }
-
     }
 
     @Override
-    public RecyclerView.Adapter getListAdapter(List<MyGetRedPackageBean> listData) {
+    public RecyclerView.Adapter getListAdapter(List<MyGetRedPackageBean.ListBean> listData) {
         MyGetRedPackageAdapter mAdapter = new MyGetRedPackageAdapter(listData);
         return mAdapter;
     }
 
     @Override
     public void getListRequest(int pageindex, int limit, boolean isShowDialog) {
-        initData(pageindex,limit,isShowDialog);
+        initData(pageindex, limit, isShowDialog);
     }
 
     private void initData(int pageindex, int limit, boolean isShowDialog) {
-
-
-        ArrayList<MyGetRedPackageBean> data = new ArrayList<>();
-        for (int i = 0; i < 10; i++) {
-            data.add(new MyGetRedPackageBean());
-        }
-        mRefreshHelper.setData(data, "暂无订单数据", 0);
 
         if (isShowDialog) {
             showLoadingDialog();
@@ -96,21 +89,20 @@ public class MyGetRedPackageFragment extends AbsRefreshListFragment<MyGetRedPack
 
         Map<String, String> map = new HashMap<>();
         map.put("userId", SPUtilHelper.getUserId());
-        map.put("start", pageindex+"");
+        map.put("start", pageindex + "");
         map.put("limit", limit + "");
-        Call<BaseResponseListModel<MyGetRedPackageBean>> sendRedPackage = RetrofitUtils.createApi(MyApi.class).getGetRedPackage("623007", StringUtils.getJsonToString(map));
-        addCall(sendRedPackage);
-        sendRedPackage.enqueue(new BaseResponseListCallBack<MyGetRedPackageBean>(mActivity) {
+        Call<BaseResponseModel<ResponseInListModel<MyGetRedPackageBean.ListBean>>> getRedPackage = RetrofitUtils.createApi(MyApi.class).getGetRedPackage("623007", StringUtils.getJsonToString(map));
+        addCall(getRedPackage);
+        getRedPackage.enqueue(new BaseResponseModelCallBack<ResponseInListModel<MyGetRedPackageBean.ListBean>>(mActivity) {
             @Override
-            protected void onSuccess(List<MyGetRedPackageBean> data, String SucMessage) {
-                mRefreshHelper.setData(data, "暂无订单数据", 0);
-
+            protected void onSuccess(ResponseInListModel<MyGetRedPackageBean.ListBean> data, String SucMessage) {
+                mRefreshHelper.setData(data.getList(), getString(R.string.red_package_get_empty), 0);
             }
 
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
-                super.onReqFailure(errorCode, errorMessage);
-                UITipDialog.showFail(mActivity, "请求接口错误");
+//                super.onReqFailure(errorCode, errorMessage);
+                UITipDialog.showFail(mActivity, getString(R.string.api_error));
             }
 
             @Override
@@ -118,7 +110,6 @@ public class MyGetRedPackageFragment extends AbsRefreshListFragment<MyGetRedPack
                 disMissLoading();
             }
         });
-
     }
 
 }

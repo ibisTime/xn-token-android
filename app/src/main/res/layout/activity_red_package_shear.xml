@@ -4,7 +4,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@mipmap/icon_red_bg_ac">
+        android:background="@mipmap/icon_red_bg_ac"
+        android:orientation="vertical">
+
+        <include
+            android:id="@+id/rll_top"
+            layout="@layout/layout_red_package_top_title" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -20,6 +25,7 @@
             android:paddingRight="40dp">
 
             <ImageView
+                android:id="@+id/img_logo"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
                 android:layout_marginTop="45dp"

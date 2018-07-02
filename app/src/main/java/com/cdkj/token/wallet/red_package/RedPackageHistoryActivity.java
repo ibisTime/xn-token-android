@@ -31,14 +31,12 @@ public class RedPackageHistoryActivity extends AbsBaseLoadActivity {
 
     @Override
     public View addMainView() {
-//        activity_red_package_history
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_red_package_history, null, false);
         return mBinding.getRoot();
     }
 
     @Override
     public void onBackPressed() {
-//        super.onBackPressed();
         finish();
     }
 
@@ -82,51 +80,4 @@ public class RedPackageHistoryActivity extends AbsBaseLoadActivity {
         mBinding.viewpager.setCurrentItem(0, true);
 
     }
-
-//    @Override
-//    public void afterCreate(Bundle savedInstanceState) {
-//        mBaseBinding.titleView.setMidTitle("我的糖包");
-////        RedPackageHistoryAdapter
-//        initRefreshHelper(10);
-//        mRefreshHelper.onDefaluteMRefresh(true);
-//        mRefreshBinding.refreshLayout.setOnRefreshListener(new OnRefreshListener() {
-//            @Override
-//            public void onRefresh(RefreshLayout refreshlayout) {
-//                //刷新监听
-//                Log.i("pppppp", "onRefresh: 刷新了");
-//            }
-//        });
-//    }
-//
-//    @Override
-//    public RecyclerView.Adapter getListAdapter(List<RedPackageHistoryBean> listData) {
-//        RedPackageHistoryAdapter mAdapter = new RedPackageHistoryAdapter(listData);
-//        View headView = View.inflate(this, R.layout.layout_red_package_title, null);
-//        mAdapter.addHeaderView(headView);
-//        RadioButton radio_left = headView.findViewById(R.id.radio_left);
-//        RadioButton radio_right = headView.findViewById(R.id.radio_right);
-//        radio_left.setOnCheckedChangeListener((compoundButton, b) -> {
-//            loadDataType = 0;
-//            mRefreshHelper.onDefaluteMRefresh(true);
-//
-//        });
-//        radio_right.setOnCheckedChangeListener((compoundButton, b) -> {
-//            loadDataType = 1;
-//            mRefreshHelper.onDefaluteMRefresh(true);
-//        });
-//        mAdapter.setHeaderAndEmpty(true);
-//        return mAdapter;
-//    }
-//
-//    @Override
-//    public void getListRequest(int pageindex, int limit, boolean isShowDialog) {
-//        initDatas(pageindex, limit, isShowDialog);
-//    }
-//
-//    private void initDatas(int pageindex, int limit, boolean isShowDialog) {
-////        if (isShowDialog) {
-////            showLoadingDialog();
-////        }
-//
-//    }
 }

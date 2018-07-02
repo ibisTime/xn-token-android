@@ -175,7 +175,6 @@ public class AccountUtil {
 
         return showMoney;
     }
-
     public static String formatInt(double money) {
         DecimalFormat df = new DecimalFormat("#######0.000");
         String showMoney = df.format(money);

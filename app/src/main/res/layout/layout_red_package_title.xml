@@ -25,7 +25,7 @@
                 android:button="@null"
                 android:checked="true"
                 android:gravity="center"
-                android:text="抢到糖包"
+                android:text="@string/get_red_package"
                 android:textColor="@drawable/common_radiobtn_select_text_color" />
 
             <RadioButton
@@ -36,7 +36,7 @@
                 android:button="@null"
                 android:checked="false"
                 android:gravity="center"
-                android:text="历史订单"
+                android:text="@string/send_red_package2"
                 android:textColor="@drawable/common_radiobtn_select_text_color" />
 
         </RadioGroup>
