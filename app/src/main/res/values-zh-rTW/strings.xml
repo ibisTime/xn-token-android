@@ -433,4 +433,8 @@
     <string name="register">注册！</string>
     <string name="find_pwd_sure">确 定</string>
     <string name="find_pwd">找回密码！</string>
+    <string name="me_red_package">我的糖包</string>
+    <string name="send_red_package">发糖果</string>
+    <string name="send_you_red_package">给您发送了一个红包</string>
+    <string name="defaut_red_package_mesg">糖包一响,黄金万两</string>
 </resources>

@@ -1,5 +1,7 @@
 package com.cdkj.token.model;
 
+import com.contrarywind.interfaces.IPickerViewData;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -54,7 +56,7 @@ public class CoinModel implements Serializable {
         this.accountList = accountList;
     }
 
-    public static class AccountListBean implements Serializable {
+    public static class AccountListBean implements Serializable,IPickerViewData {
         /**
          * accountNumber : A201711212030187096126
          * userId : U201711212030187015235
@@ -301,6 +303,11 @@ public class CoinModel implements Serializable {
 
         public void setCoinAddress(String coinAddress) {
             this.coinAddress = coinAddress;
+        }
+
+        @Override
+        public String getPickerViewText() {
+            return currency;
         }
     }
 }

@@ -14,7 +14,6 @@ import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.adapter.ConsultAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentConsultBinding;
@@ -22,6 +21,8 @@ import com.cdkj.token.loader.BannerImageLoader;
 import com.cdkj.token.model.BannerModel;
 import com.cdkj.token.model.ConsultModel;
 import com.cdkj.token.model.KtInfoModel;
+import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.wallet.red_package.SendRedPackageActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -38,7 +39,7 @@ import static com.cdkj.token.utils.AccountUtil.OGCSCALE;
 import static com.cdkj.token.utils.CoinUtil.getFirstTokenCoin;
 
 /**
- * 首页
+ * 应用 发现
  * Created by lei on 2018/3/6.
  */
 
@@ -117,7 +118,9 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
         });
 
         mHeadBinding.llMerchant.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, "merchant");
+            //跳转到红包
+            SendRedPackageActivity.open(mActivity);
+//            NoneActivity.open(mActivity, "merchant");
         });
 
         mHeadBinding.llMall.setOnClickListener(view -> {
