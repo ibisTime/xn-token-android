@@ -63,7 +63,6 @@ public class SPUtilHelper {
     public static void logOutClear() {
         saveUserId("");
         saveUserToken("");
-
         saveRealName("");
         saveUserName("");
         saveUserPhoto("");
@@ -106,6 +105,55 @@ public class SPUtilHelper {
      */
     public static String getLanguage() {
         return SPUtils.getString(CdApplication.getContext(), "language", "");
+    }
+
+    /**
+     * 设置本地货币类型（CNY USD）
+     *
+     * @param s
+     */
+    public static void saveLocalCoinType(String s) {
+        SPUtils.put(CdApplication.getContext(), "local_coin_type", s);
+    }
+
+    /**
+     * 设置本地货币类型（CNY USD）
+     */
+    public static String getLocalCoinType() {
+        return SPUtils.getString(CdApplication.getContext(), "local_coin_type", "CNY");
+    }
+
+    /**
+     * 设置用户选择的国家
+     *
+     * @param s
+     */
+    public static void saveCountry(String s) {
+        SPUtils.put(CdApplication.getContext(), "country", s);
+    }
+
+    /**
+     * 获取国家
+     */
+    public static String getCountry() {
+        return SPUtils.getString(CdApplication.getContext(), "country", "中国");
+    }
+
+    /**
+     * 设置用户选择的国家
+     *
+     * @param s
+     */
+
+    public static void saveCountryCode(String s) {
+        SPUtils.put(CdApplication.getContext(), "country_code", s);
+    }
+
+    /**
+     * 获取国家编号
+     */
+    public static String getCountryCode() {
+        return SPUtils.getString(CdApplication.getContext(), "country_code", "0086");
     }
 
     /**
@@ -306,66 +354,6 @@ public class SPUtilHelper {
      */
     public static String getUserEmail() {
         return SPUtils.getString(CdApplication.getContext(), "user_email", "");
-    }
-
-
-    /**
-     * 设置汇率
-     *
-     * @param s
-     */
-    public static void saveRate(String c, String s) {
-        SPUtils.put(CdApplication.getContext(), "rate_" + c, s);
-    }
-
-    /**
-     * 获取汇率
-     */
-    public static String getRate(String c) {
-        return SPUtils.getString(CdApplication.getContext(), "rate_" + c, "");
-    }
-
-    /**
-     * 设置行情Coin情况
-     *
-     * @param coin
-     */
-    public static void saveMarketCoinTemp(String coin, String lastPrice, String temp) {
-        SPUtils.put(CdApplication.getContext(), "coin_temp_" + coin, lastPrice + "_" + temp);
-    }
-
-    public static void saveMarketCoinDate(String coin, String lastPrice, String date) {
-        SPUtils.put(CdApplication.getContext(), "coin_date_" + coin, lastPrice + "_" + date);
-    }
-
-    /**
-     * 设置行情Coin情况
-     *
-     * @param coin
-     */
-    public static void saveMarketCoin(String coin, Double lastPrice) {
-        SPUtils.put(CdApplication.getContext(), "coin_market_" + coin, lastPrice);
-    }
-
-    public static String getMarketCoin(String coin) {
-        return SPUtils.getString(CdApplication.getContext(), "coin_market_" + coin, "");
-    }
-
-    /**
-     * 设置需要打开的订单
-     *
-     * @param orderId
-     */
-    public static void savePushOrder(String orderId) {
-        SPUtils.put(CdApplication.getContext(), "push_order", orderId);
-    }
-
-    public static String getPushOrder() {
-        return SPUtils.getString(CdApplication.getContext(), "push_order", "");
-    }
-
-    public static void clearPushOrder() {
-        SPUtils.put(CdApplication.getContext(), "push_order", "");
     }
 
 }

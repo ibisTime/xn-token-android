@@ -3,6 +3,8 @@ package com.cdkj.token.api;
 import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.api.ResponseInListModel;
+import com.cdkj.token.model.CountryCodeMode;
+import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.token.model.AddressModel;
@@ -51,6 +53,15 @@ import retrofit2.http.POST;
  */
 
 public interface MyApi {
+    /**
+     * 获取国家列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseListModel<CountryCodeMode>> getCountryList(@Field("code") String code, @Field("json") String json);
+
     /**
      * 获取本地币种流水
      *

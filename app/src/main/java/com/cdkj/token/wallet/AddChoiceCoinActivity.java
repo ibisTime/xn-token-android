@@ -17,7 +17,7 @@ import com.cdkj.token.adapter.AddChoiceAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.AddCoinChangeEvent;
 import com.cdkj.token.model.db.LocalCoinDbModel;
-import com.cdkj.token.model.db.UserChooseCoinDBModel;
+import com.cdkj.token.model.db.UserConfigDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.greenrobot.eventbus.EventBus;
@@ -193,7 +193,7 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
     private void checkFirstChooseAndSave(StringBuffer chooseBuf) {
         if (!WalletHelper.userIsCoinChoosed(SPUtilHelper.getUserId())) { //第一次配置 保存
             chooseCoins = chooseBuf.toString();
-            UserChooseCoinDBModel userChooseCoinDBModel = new UserChooseCoinDBModel();
+            UserConfigDBModel userChooseCoinDBModel = new UserConfigDBModel();
             userChooseCoinDBModel.setChooseCoins(chooseCoins);
             userChooseCoinDBModel.setUserId(SPUtilHelper.getUserId());
             userChooseCoinDBModel.setIsChoosed(1);

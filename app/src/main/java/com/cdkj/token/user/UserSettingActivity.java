@@ -33,7 +33,7 @@ public class UserSettingActivity extends AbsBaseActivity {
 
     private ActivityUserSettingBinding mBinding;
 
-    public static void open(Context context){
+    public static void open(Context context) {
         if (context == null) {
             return;
         }
@@ -64,18 +64,18 @@ public class UserSettingActivity extends AbsBaseActivity {
 
     private void init() {
         mBinding.tvMail.setText(SPUtilHelper.getUserEmail());
-        if (SPUtilHelper.getRealName() != null && SPUtilHelper.getRealName().length()>1){
+        if (SPUtilHelper.getRealName() != null && SPUtilHelper.getRealName().length() > 1) {
             String name = "";
-            for (int i = 1; i< SPUtilHelper.getRealName().length(); i++){
+            for (int i = 1; i < SPUtilHelper.getRealName().length(); i++) {
                 name += "*";
             }
-            mBinding.tvIdentity.setText(name+ SPUtilHelper.getRealName().substring(SPUtilHelper.getRealName().length()-1, SPUtilHelper.getRealName().length()));
+            mBinding.tvIdentity.setText(name + SPUtilHelper.getRealName().substring(SPUtilHelper.getRealName().length() - 1, SPUtilHelper.getRealName().length()));
         }
-        mBinding.tvMobile.setText(SPUtilHelper.getUserPhoneNum().substring(0,3)+"****"+ SPUtilHelper.getUserPhoneNum().substring(SPUtilHelper.getUserPhoneNum().length()-4, SPUtilHelper.getUserPhoneNum().length()));
+         mBinding.tvMobile.setText(SPUtilHelper.getUserPhoneNum().substring(0, 3) + "****" + SPUtilHelper.getUserPhoneNum().substring(SPUtilHelper.getUserPhoneNum().length() - 4, SPUtilHelper.getUserPhoneNum().length()));
 
         if (!SPUtilHelper.getGoogleAuthFlag()) { // 未打开谷歌验证
             mBinding.tvGoogle.setText(getStrRes(R.string.user_google_close));
-        }else {
+        } else {
             mBinding.tvGoogle.setText(getStrRes(R.string.user_google_open));
         }
     }
@@ -86,9 +86,9 @@ public class UserSettingActivity extends AbsBaseActivity {
         });
 
         mBinding.llIdentity.setOnClickListener(view -> {
-            if (SPUtilHelper.getRealName() == null || SPUtilHelper.getRealName().equals("")){
+            if (SPUtilHelper.getRealName() == null || SPUtilHelper.getRealName().equals("")) {
                 AuthenticateActivity.open(this);
-            }else {
+            } else {
                 showToast(getStrRes(R.string.user_identity_success));
             }
         });
@@ -108,7 +108,7 @@ public class UserSettingActivity extends AbsBaseActivity {
         mBinding.llGoogle.setOnClickListener(view -> {
             if (!SPUtilHelper.getGoogleAuthFlag()) { // 未打开谷歌验证
                 UserGoogleActivity.open(this, "open");
-            }else {
+            } else {
                 popupType(view);
             }
         });
@@ -120,11 +120,12 @@ public class UserSettingActivity extends AbsBaseActivity {
 
 
         mBinding.btnConfirm.setOnClickListener(view -> {
-            SPUtilHelper.logOutClear();
-            EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
-
-            SignInActivity.open(UserSettingActivity.this,false);
-            finish();
+            showDoubleWarnListen(getStrRes(R.string.user_setting_sign_out) + "?", view1 -> {
+                SPUtilHelper.logOutClear();
+                EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
+                SignInActivity.open(UserSettingActivity.this, false);
+                finish();
+            });
         });
     }
 

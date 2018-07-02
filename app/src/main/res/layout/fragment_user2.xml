@@ -143,7 +143,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
                                 android:layout_weight="1"
-                                android:text="账户与安全"
+                                android:text="@string/accounts_and_security"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
@@ -186,7 +186,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="15dp"
                                     android:layout_weight="1"
-                                    android:text="本地货币"
+                                    android:text="@string/local_coin"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
 
@@ -203,6 +203,7 @@
                                 android:layout_marginLeft="48dp" />
 
                             <LinearLayout
+                                android:id="@+id/language_change"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
                                 android:gravity="center_vertical">
@@ -218,7 +219,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="15dp"
                                     android:layout_weight="1"
-                                    android:text="语言"
+                                    android:text="@string/language"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
 
@@ -250,6 +251,7 @@
 
 
                             <LinearLayout
+                                android:id="@+id/join_us"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
                                 android:gravity="center_vertical">
@@ -265,7 +267,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="15dp"
                                     android:layout_weight="1"
-                                    android:text="加入社群"
+                                    android:text="@string/user_join"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
 
@@ -282,6 +284,7 @@
                                 android:layout_marginLeft="48dp" />
 
                             <LinearLayout
+                                android:id="@+id/wallet_tool"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
                                 android:gravity="center_vertical">
@@ -297,7 +300,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="15dp"
                                     android:layout_weight="1"
-                                    android:text="钱包工具"
+                                    android:text="@string/wallet_tool"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
 
@@ -310,6 +313,7 @@
                             </LinearLayout>
 
                             <LinearLayout
+                                android:id="@+id/helper"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
                                 android:gravity="center_vertical">
@@ -325,7 +329,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="15dp"
                                     android:layout_weight="1"
-                                    android:text="帮助中心"
+                                    android:text="@string/user_issue"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
 
@@ -342,6 +346,7 @@
                                 android:layout_marginLeft="48dp" />
 
                             <LinearLayout
+                                android:id="@+id/about_us"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
                                 android:gravity="center_vertical">
@@ -357,7 +362,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_marginLeft="15dp"
                                     android:layout_weight="1"
-                                    android:text="关于我们"
+                                    android:text="@string/user_about"
                                     android:textColor="@color/black"
                                     android:textSize="14sp" />
 

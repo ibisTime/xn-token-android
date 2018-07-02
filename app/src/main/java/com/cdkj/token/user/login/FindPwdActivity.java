@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
@@ -20,6 +22,7 @@ import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityFindPasswordBinding;
+import com.cdkj.token.user.CountryCodeListActivity;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -78,22 +81,30 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
             mPhoneNumber = getIntent().getStringExtra("phonenumber");
         }
 
-//        mBinding.llGoogle.setVisibility(SPUtilHelper.getGoogleAuthFlag() ? View.VISIBLE : View.GONE);
-//        mBinding.lineGoogle.setVisibility(SPUtilHelper.getGoogleAuthFlag() ? View.VISIBLE : View.GONE);
-
-//        if (!TextUtils.isEmpty(mPhoneNumber)) {
-//            mBinding.edtPhone.setText(mPhoneNumber);
-//            mBinding.edtPhone.setSelection(mBinding.edtPhone.getText().toString().length());
-//        }
-
         initListener();
+
+        mBinding.edtPassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        mBinding.edtRePassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        mBinding.edtMobile.getEditText().setInputType(InputType.TYPE_CLASS_PHONE);
+
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mBinding.tvCountryName.setText(SPUtilHelper.getCountry());
+        mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+    }
+
 
     /**
      *
      */
     private void initListener() {
-
+        //国家区号选择
+        mBinding.linLayoutCountryCode.setOnClickListener(view -> {
+            CountryCodeListActivity.open(this);
+        });
         mBinding.tvFinish.setOnClickListener(view -> finish());
 
         //发送验证码

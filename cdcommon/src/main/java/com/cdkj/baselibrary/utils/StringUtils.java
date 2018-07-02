@@ -21,6 +21,28 @@ public class StringUtils {
 
 
     /**
+     * 区号显示转换 0086 -》  +86
+     *
+     * @param code
+     * @return
+     */
+    public static String transformShowCountryCode(String code) {
+        if (TextUtils.isEmpty(code) || code.length() < 2) return "";
+        return "+" + code.substring(2, code.length());
+    }
+
+    /**
+     * 手机号显示转换 132*****1111
+     *
+     * @param phone
+     * @return
+     */
+    public static String ttransformShowPhone(String phone) {
+        return phone;
+    }
+
+
+    /**
      * 合并字符串中的连续空格
      *
      * @param str

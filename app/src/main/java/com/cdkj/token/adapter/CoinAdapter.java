@@ -33,16 +33,16 @@ public class CoinAdapter extends BaseQuickAdapter<BalanceListModel.AccountListBe
 
 
         if (item.getPriceCNY() == null) {
-            helper.setText(R.id.tv_market_price, "≈ 0CNY");
+            helper.setText(R.id.tv_market_price, "≈ 0" + WalletHelper.getShowLocalCoinType());
         } else {
-            helper.setText(R.id.tv_market_price, "≈ " + item.getPriceCNY() + "CNY");
+            helper.setText(R.id.tv_market_price, "≈ " + item.getPriceCNY() + WalletHelper.getShowLocalCoinType());
         }
 
 
         if (item.getAmountCNY() == null) {
-            helper.setText(R.id.tv_amount_cny, "0CNY");
+            helper.setText(R.id.tv_amount_cny, "0" + WalletHelper.getShowLocalCoinType());
         } else {
-            helper.setText(R.id.tv_amount_cny, item.getAmountCNY() + "CNY");
+            helper.setText(R.id.tv_amount_cny, item.getAmountCNY() + WalletHelper.getShowLocalCoinType());
         }
 
 

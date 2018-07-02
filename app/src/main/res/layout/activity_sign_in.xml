@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -76,6 +77,7 @@
                     app:cardElevation="5dp">
 
                     <LinearLayout
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
@@ -84,26 +86,47 @@
                         android:orientation="vertical">
 
                         <TextView
-
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="@string/welcom_back"
                             android:textColor="@color/text_black_cd"
                             android:textSize="30sp" />
 
-                        <TextView
-                            android:layout_width="wrap_content"
+                        <LinearLayout
+                            android:id="@+id/linLayout_country_code"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="40dp"
-                            android:text="@string/chain"
-                            android:textColor="#888888"
-                            android:textSize="14sp" />
+                            android:layout_marginTop="30dp"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal"
+                            android:paddingBottom="10dp"
+                            android:paddingTop="10dp">
 
-                        <com.cdkj.token.views.SignInEditClearLayout
+                            <TextView
+                              android:id="@+id/tv_country_name"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                tools:text="@string/chain"
+                                android:textColor="#888888"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="15dp"
+                                android:layout_height="15dp"
+                                android:src="@mipmap/more" />
+
+
+                        </LinearLayout>
+
+
+                        <com.cdkj.token.views.SignInEditClearCountryCodeLayout
                             android:id="@+id/edt_username"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
                             app:hint_text="@string/user_sign_in_mobile_hint" />
+
 
                         <com.cdkj.token.views.SignInEditClearLayout
                             android:id="@+id/edt_password"

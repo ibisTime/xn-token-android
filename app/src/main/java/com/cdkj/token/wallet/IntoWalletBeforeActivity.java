@@ -4,21 +4,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
-import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityIntoMainBeforeBinding;
-import com.cdkj.token.model.LocalCoinModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.create_guide.CreatePassWordActivity;
 import com.cdkj.token.wallet.import_guide.WalletImportWordsInputActivity;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 本地没有钱包时 导入和创建引导钱包界面

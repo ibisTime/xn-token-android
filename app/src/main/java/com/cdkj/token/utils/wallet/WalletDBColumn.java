@@ -9,15 +9,16 @@ public class WalletDBColumn {
 
     //查找用户钱包数据
     public static final String FINDUSER_SQL = "select * from walletdbmodel where " + WalletDBColumn.USERID + "=?";
-
     //查找用户选择币种
-    public static final String FINDUSER_COIN_SQL = "select * from userchoosecoindbmodel where " + WalletDBColumn.USERID + "=?";
+    public static final String FINDUSER_COIN_SQL = "select * from userconfigdbmodel where " + WalletDBColumn.USERID + "=?";
+    //删除用户钱包
+    public static final String FIND_USER_SQL = WalletDBColumn.USERID + "=?";
 
     public static final String USERID = "userid";
 
     public static final String WALLETPASSWORD = "walletpassword";
 
-    public static final String HELPWORDSREN = "helpwordsren";
+    public static final String HELPWORDSEN = "helpwordsen";
 
     public static final String BTCADDRESS = "btcaddress";
 

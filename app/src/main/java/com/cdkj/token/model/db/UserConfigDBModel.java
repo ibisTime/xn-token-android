@@ -3,15 +3,16 @@ package com.cdkj.token.model.db;
 import org.litepal.crud.DataSupport;
 
 /**
- * 用户选择币种
+ * 用户配置表 （自选币种 本地货币货币）
  * Created by cdkj on 2018/6/30.
  */
 
-public class UserChooseCoinDBModel extends DataSupport {
+public class UserConfigDBModel extends DataSupport {
 
     public String userId;
 
     public String chooseCoins;  //用户选择的币种用，分割
+
 
     public int isChoosed;//用户是否进行过选择 0 没有 1有
 

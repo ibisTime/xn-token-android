@@ -52,7 +52,7 @@ public class CoinPrivateKeyShowActivity extends AbsBaseLoadActivity {
     public void afterCreate(Bundle savedInstanceState) {
         String type = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
 
-        String name = WalletHelper.getCoinENameByType(type);
+        String name = "";
 
         mBaseBinding.titleView.setMidTitle(name + getString(R.string.private_key));
 

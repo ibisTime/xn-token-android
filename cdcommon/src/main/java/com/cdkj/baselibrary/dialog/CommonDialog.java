@@ -357,8 +357,10 @@ public class CommonDialog {
     }
 
     public void show() {
-        setLayout();
-        mDialog.show();
+        if (!mDialog.isShowing()) {
+            setLayout();
+            mDialog.show();
+        }
     }
 
     /**

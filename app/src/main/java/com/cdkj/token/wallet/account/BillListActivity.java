@@ -26,6 +26,7 @@ import com.cdkj.token.databinding.ActivityBillListBinding;
 import com.cdkj.token.databinding.HeaderBillListBinding;
 import com.cdkj.token.model.BillModel;
 import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -116,17 +117,15 @@ public class BillListActivity extends AbsBaseActivity {
         mHeaderBinding.tvSymbol.setText(mAccountBean.getCurrency());
         ImgUtils.loadImage(this, getCoinWatermarkWithCurrency(mAccountBean.getCurrency(), 1), mHeaderBinding.ivIcon);
 
-        BigDecimal amount;
-        BigDecimal frozenAmount;
 
-        amount = new BigDecimal(mAccountBean.getAmountString());
-        frozenAmount = new BigDecimal(mAccountBean.getFrozenAmountString());
+        BigDecimal amount = new BigDecimal(mAccountBean.getAmountString());
+        BigDecimal  frozenAmount = new BigDecimal(mAccountBean.getFrozenAmountString());
         mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), mAccountBean.getCurrency(), 8));
 
         if (mAccountBean.getAmountCNY() == null) {
-            mHeaderBinding.tvAmountCny.setText("≈ 0CNY");
+            mHeaderBinding.tvAmountCny.setText("≈ 0"+WalletHelper.getShowLocalCoinType());
         } else {
-            mHeaderBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountCNY() + "CNY");
+            mHeaderBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountCNY() + WalletHelper.getShowLocalCoinType());
         }
 
 

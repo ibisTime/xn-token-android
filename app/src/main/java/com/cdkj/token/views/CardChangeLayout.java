@@ -114,7 +114,6 @@ public class CardChangeLayout extends FrameLayout {
 
         }
 
-
     }
 
     @Override
@@ -248,7 +247,7 @@ public class CardChangeLayout extends FrameLayout {
 
         @Override
         public boolean tryCaptureView(View child, int pointerId) {  //捕获子View
-            if (animatorSetsuofang.isRunning() || mDragHelper.continueSettling(true) || childView.getLeft() < 0 || child.getLeft() < 0) { //在动画中或中禁止捕获
+            if (animatorSetsuofang.isRunning() || mDragHelper.continueSettling(true) || childView.getLeft() < 0 || childView2.getLeft() < 0) { //在动画中或中禁止捕获
                 return false;
             }
             isTryChildView2 = child == childView2;
@@ -258,7 +257,7 @@ public class CardChangeLayout extends FrameLayout {
         @Override
         public int getViewVerticalDragRange(View child) {
             // 这个用来控制拖拽过程中松手后，自动滑行的速度，暂时给一个随意的数值
-            return 1;
+            return 10;
         }
 
         @Override

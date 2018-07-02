@@ -13,10 +13,10 @@ import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityWalletWordsCheckInputBinding;
 import com.cdkj.token.utils.wallet.WalletHelper;
-import com.cdkj.token.wallet.IntoWalletBeforeActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -72,7 +72,7 @@ public class WalletDeleteWordsInputActivity extends AbsBaseLoadActivity {
                     Observable.just(StringUtils.mergeSpace(mBinding.editWords.getText().toString().trim()))
                             .subscribeOn(Schedulers.newThread())
                             .map(s -> {
-                                words = StringUtils.splitAsArrayList(s, " ");
+                                words = StringUtils.splitAsArrayList(s, WalletHelper.HELPWORD_SPACE);
                                 return words;
                             })
                             .map(wds -> WalletHelper.checkMnenonic(wds))
@@ -82,7 +82,7 @@ public class WalletDeleteWordsInputActivity extends AbsBaseLoadActivity {
                             .doOnComplete(() -> disMissLoading())
 
                             .subscribe(isPass -> {
-                                if (isPass && WalletHelper.checkCacheWords(StringUtils.mergeSpace(mBinding.editWords.getText().toString().trim(), WalletHelper.HELPWORD_SIGN), SPUtilHelper.getUserId())) {
+                                if (isPass && WalletHelper.checkCacheWords(mBinding.editWords.getText().toString().trim(), SPUtilHelper.getUserId())) {
                                     showSureDialog();
                                 } else {
                                     UITipDialog.showFail(WalletDeleteWordsInputActivity.this, getString(R.string.check_words_fail));
@@ -107,10 +107,13 @@ public class WalletDeleteWordsInputActivity extends AbsBaseLoadActivity {
         CommonDialog commonDialog = new CommonDialog(this).builder()
                 .setTitle(getString(R.string.delete_wallet)).setContentMsg(getString(R.string.sure_delete_wallet))
                 .setPositiveBtn(getString(R.string.sure_delete), view -> {
-                    WalletHelper.clearCache();
-                    IntoWalletBeforeActivity.open(this);
-                    EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
-                    finish();
+                    if (WalletHelper.deleteUserWallet(SPUtilHelper.getUserId())) {
+                        UITipDialog.showSuccess(WalletDeleteWordsInputActivity.this, getString(R.string.wallet_delete_success), dialogInterface -> {
+                            EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
+                            MainActivity.open(WalletDeleteWordsInputActivity.this); //回到主页
+                            finish();
+                        });
+                    }
                 })
                 .setNegativeBtn(getString(com.cdkj.baselibrary.R.string.activity_base_cancel), null, false);
 
