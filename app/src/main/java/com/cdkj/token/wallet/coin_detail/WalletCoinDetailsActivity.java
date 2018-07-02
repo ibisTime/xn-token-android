@@ -27,6 +27,7 @@ import com.cdkj.token.databinding.ActivityWallteBillBinding;
 import com.cdkj.token.databinding.HeaderBillListBinding;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.LocalCoinBill;
+import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
@@ -50,14 +51,14 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
 
     private RefreshHelper mRefreshHelper;
     private HeaderBillListBinding mHeaderBinding;
-    private BalanceListModel.AccountListBean accountListBean;
+    private WalletBalanceModel accountListBean;
 
 
     /**
      * @param context
      * @param localCoinModel
      */
-    public static void open(Context context, BalanceListModel.AccountListBean localCoinModel) {
+    public static void open(Context context, WalletBalanceModel localCoinModel) {
         if (context == null) {
             return;
         }
@@ -81,17 +82,24 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
         if (accountListBean != null) {
-            mHeaderBinding.ivIcon.setImageResource(WalletHelper.getCoinIconByType(accountListBean.getSymbol()));
-            mHeaderBinding.tvSymbol.setText(accountListBean.getSymbol());
-            mBaseBinding.titleView.setMidTitle(accountListBean.getSymbol());
-            mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), ETHSCALE));
+            mHeaderBinding.ivIcon.setImageResource(WalletHelper.getCoinIconByType(accountListBean.getCoinName()));
+            mHeaderBinding.tvSymbol.setText(accountListBean.getCoinName());
+            mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
+            mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), ETHSCALE));
 
             if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-                mHeaderBinding.tvAmountCny.setText("≈" + accountListBean.getAmountCNY() + " " + WalletHelper.getShowLocalCoinType());
+                if (TextUtils.isEmpty(accountListBean.getAmountCny())) {
+                    mHeaderBinding.tvAmountCny.setText("≈0" + "" + WalletHelper.getShowLocalCoinType());
+                } else {
+                    mHeaderBinding.tvAmountCny.setText("≈" + accountListBean.getAmountCny() + " " + WalletHelper.getShowLocalCoinType());
+                }
             } else if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
-                mHeaderBinding.tvAmountCny.setText("≈" + accountListBean.getAmountUSD() + " " + WalletHelper.getShowLocalCoinType());
+                if (TextUtils.isEmpty(accountListBean.getAmountUSD())) {
+                    mHeaderBinding.tvAmountCny.setText("≈0" + " " + WalletHelper.getShowLocalCoinType());
+                } else {
+                    mHeaderBinding.tvAmountCny.setText("≈" + accountListBean.getAmountUSD() + " " + WalletHelper.getShowLocalCoinType());
+                }
             }
-
 
         }
         initRefreshHelper();
@@ -112,7 +120,7 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
 
         mBinding.linLayoutGetmoney.setOnClickListener(view -> {
             if (accountListBean != null) {
-                WalletAddressShowActivity.open(this, accountListBean.getSymbol());
+                WalletAddressShowActivity.open(this, accountListBean.getCoinName());
             }
         });
 
@@ -146,7 +154,7 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
 
                 String coinSymbol = "";
                 if (accountListBean != null) {
-                    coinSymbol = accountListBean.getSymbol();
+                    coinSymbol = accountListBean.getCoinName();
                 }
 
                 CoinDetailsListAdapter coinDetailsListAdapter = new CoinDetailsListAdapter(listData, coinSymbol);
@@ -158,7 +166,7 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
                 coinDetailsListAdapter.setOnItemClickListener((adapter, view, position) -> {
                     String coinType = "";
                     if (accountListBean != null) {
-                        coinType = accountListBean.getSymbol();
+                        coinType = accountListBean.getCoinName();
                     }
                     TransactionDetailsActivity.open(WalletCoinDetailsActivity.this, coinDetailsListAdapter.getItem(position), coinType);
                 });
@@ -188,7 +196,7 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
         if (accountListBean == null) return;
 
         Map<String, String> map = new HashMap<>();
-        map.put("symbol", accountListBean.getSymbol());
+        map.put("symbol", accountListBean.getCoinName());
         map.put("address", accountListBean.getAddress());
         map.put("start", pageindex + "");
         map.put("limit", limit + "");

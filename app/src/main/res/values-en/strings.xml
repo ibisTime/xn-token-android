@@ -255,6 +255,8 @@
     <string name="wallet_tool">钱包工具</string>
     <string name="wallet_delete_success">钱包删除成功</string>
     <string name="wallet_assets">总资产(%s)</string>
+    <string name="assets">资产</string>
+    <string name="my_coin_address">我的%s收款地址</string>
 
 </resources>
 

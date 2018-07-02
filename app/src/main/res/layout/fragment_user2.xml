@@ -171,6 +171,7 @@
 
 
                             <LinearLayout
+                                android:id="@+id/linLayout_local_coin"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
                                 android:gravity="center_vertical">

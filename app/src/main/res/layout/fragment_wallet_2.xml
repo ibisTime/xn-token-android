@@ -50,7 +50,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp"
-                android:src="@drawable/open_scan" />
+                android:src="@drawable/open_scan"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/img_add_coin"
@@ -233,13 +234,28 @@
 
                     </com.cdkj.token.views.CardChangeLayout>
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
 
-                    <View
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
-                        android:layout_marginBottom="2dp"
-                        android:layout_marginTop="6dp"
-                        android:background="@color/black" />
+                        <com.cdkj.token.views.OvalBlueView
+                            android:id="@+id/blue_point"
+                            android:layout_width="25dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="center" />
+
+                        <View
+                            android:id="@+id/gray_point"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:background="@drawable/gray_point" />
+                    </LinearLayout>
+
 
                     <LinearLayout
                         android:id="@+id/linLayout_bulletin"
@@ -304,6 +320,7 @@
                             app:cardElevation="3dp">
 
                             <LinearLayout
+                                android:id="@+id/linLayout_transfer_change"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"
@@ -341,6 +358,7 @@
                             app:cardElevation="3dp">
 
                             <LinearLayout
+                                android:id="@+id/linLayout_fast_transfer"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:gravity="center_horizontal"

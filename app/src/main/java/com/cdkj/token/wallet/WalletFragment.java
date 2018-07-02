@@ -116,7 +116,7 @@ public class WalletFragment extends BaseLazyFragment {
                 adapter = new CoinAdapter(listData);
                 adapter.setOnItemClickListener((adapter1, view, position) -> {
 
-                    WalletCoinDetailsActivity.open(mActivity, adapter.getItem(position));
+//                    WalletCoinDetailsActivity.open(mActivity, adapter.getItem(position));
 
 //                    CoinModel.AccountListBean bean = adapter.getItem(position);
 //                    BillListActivity.open(mActivity, bean);

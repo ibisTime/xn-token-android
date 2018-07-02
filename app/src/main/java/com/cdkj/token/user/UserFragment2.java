@@ -67,6 +67,11 @@ public class UserFragment2 extends BaseLazyFragment {
 
     private void initClickListener() {
 
+        //本地货币
+        mBinding.linLayoutLocalCoin.setOnClickListener(view -> {
+            LocalCoinTypeChooseActivity.open(mActivity);
+        });
+
         //更换头像
         mBinding.imgLogo.setOnClickListener(view -> {
             ImageSelectActivity.launchFragment(this, PHOTOFLAG);

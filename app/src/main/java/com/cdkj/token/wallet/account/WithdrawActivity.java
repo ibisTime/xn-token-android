@@ -30,6 +30,7 @@ import com.cdkj.baselibrary.utils.SystemUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.baselibrary.views.MyPickerPopupWindow;
 import com.cdkj.token.R;
+import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.api.MyApi;
@@ -56,7 +57,7 @@ import static com.cdkj.token.utils.AccountUtil.getUnit;
 
 public class WithdrawActivity extends AbsBaseActivity {
 
-    private CoinModel.AccountListBean model;
+    private WalletBalanceModel model;
     private PermissionHelper permissionHelper;
 
     private InputDialog inputDialog;
@@ -65,7 +66,7 @@ public class WithdrawActivity extends AbsBaseActivity {
     // 是否需要交易密码和谷歌验证 认证账户不需要交易密码和谷歌验证
     private boolean isCerti = true;
 
-    public static void open(Context context, CoinModel.AccountListBean model) {
+    public static void open(Context context, WalletBalanceModel model) {
         if (context == null) {
             return;
         }
@@ -93,7 +94,7 @@ public class WithdrawActivity extends AbsBaseActivity {
         setTopLineState(true);
         setSubLeftImgState(true);
         setSubRightTitleAndClick(getStrRes(R.string.wallet_charge_recode), v -> {
-            WithdrawOrderActivity.open(this, model.getCurrency());
+            WithdrawOrderActivity.open(this, model.getCoinName());
 //            BillActivity.open(this,model.getAccountNumber(),BillActivity.TYPE_WITHDRAW);
         });
 
@@ -108,20 +109,20 @@ public class WithdrawActivity extends AbsBaseActivity {
         types = new String[]{getStrRes(R.string.popup_paste), getStrRes(R.string.popup_scan)};
 
         if (getIntent() != null) {
-            model = (CoinModel.AccountListBean) getIntent().getSerializableExtra("model");
+            model = getIntent().getParcelableExtra("model");
             if (model != null) {
                 mBinding.tvBalance.setText(AccountUtil.sub(Double.parseDouble(model.getAmountString()),
-                        Double.parseDouble(model.getFrozenAmountString()), model.getCurrency()));
-                mBinding.tvFee.setText(model.getCurrency());
-                mBinding.tvCurrency.setText(model.getCurrency());
+                        Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()));
+                mBinding.tvFee.setText(model.getCoinName());
+                mBinding.tvCurrency.setText(model.getCoinName());
 
                 if (model.getCoinBalance() != null)
                     mBinding.edtAmount.setHint(getString(R.string.wallet_withdraw_amount_hint2) + AccountUtil.sub(Double.parseDouble(model.getCoinBalance()),
-                            Double.parseDouble(model.getFrozenAmountString()), model.getCurrency()));
+                            Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()));
             }
 
             // 设置提现手续费
-            mBinding.edtCommission.setText(AccountUtil.getWithdrawFee(model.getCurrency()));
+            mBinding.edtCommission.setText(AccountUtil.getWithdrawFee(model.getCoinName()));
         }
     }
 
@@ -260,7 +261,7 @@ public class WithdrawActivity extends AbsBaseActivity {
     private void getWithdrawFee() {
         Map<String, String> map = new HashMap<>();
 
-        map.put("ckey", "withdraw_fee_" + model.getCurrency().toLowerCase());
+        map.put("ckey", "withdraw_fee_" + model.getCoinName().toLowerCase());
         map.put("systemCode", MyConfig.SYSTEMCODE);
         map.put("companyCode", MyConfig.COMPANYCODE);
 
@@ -302,10 +303,10 @@ public class WithdrawActivity extends AbsBaseActivity {
         map.put("applyUser", SPUtilHelper.getUserId());
         map.put("systemCode", MyConfig.SYSTEMCODE);
         map.put("accountNumber", model.getAccountNumber());
-        map.put("amount", bigDecimal.multiply(getUnit(model.getCurrency())).toString().split("\\.")[0]);
+        map.put("amount", bigDecimal.multiply(getUnit(model.getCoinName())).toString().split("\\.")[0]);
         map.put("payCardNo", mBinding.tvAddress.getText().toString().trim());
-        map.put("payCardInfo", model.getCurrency());
-        map.put("applyNote", model.getCurrency() + "提现");
+        map.put("payCardInfo", model.getCoinName());
+        map.put("applyNote", model.getCoinName() + getString(R.string.bill_type_withdraw));
         map.put("tradePwd", tradePwd);
 
         Call call = RetrofitUtils.getBaseAPiService().successRequest("802750", StringUtils.getJsonToString(map));

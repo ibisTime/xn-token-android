@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.MyConfig;
@@ -19,6 +20,7 @@ import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.views.MyPickerPopupWindow;
 import com.cdkj.token.R;
+import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.adapter.BillListAdapter;
 import com.cdkj.token.api.MyApi;
@@ -51,7 +53,7 @@ public class BillListActivity extends AbsBaseActivity {
     private ActivityBillListBinding mBinding;
     private HeaderBillListBinding mHeaderBinding;
 
-    private CoinModel.AccountListBean mAccountBean;
+    private WalletBalanceModel mAccountBean;
     private BillListAdapter mBillAdapter;
 
     private BaseRefreshCallBack back;
@@ -62,12 +64,11 @@ public class BillListActivity extends AbsBaseActivity {
     private String[] types;
     private String[] bizType = {"", "charge", "withdraw", "withdrawfee"};
 
-    public static void open(Context context, CoinModel.AccountListBean mAccountBean) {
+    public static void open(Context context, WalletBalanceModel mAccountBean) {
         if (context == null) {
             return;
         }
         context.startActivity(new Intent(context, BillListActivity.class)
-//                .putExtra("openType", openType)
                 .putExtra("mAccountBean", mAccountBean));
     }
 
@@ -88,7 +89,7 @@ public class BillListActivity extends AbsBaseActivity {
         if (getIntent() == null)
             return;
 
-        mAccountBean = (CoinModel.AccountListBean) getIntent().getSerializableExtra("mAccountBean");
+        mAccountBean =  getIntent().getParcelableExtra("mAccountBean");
 
         initCallBack();
 
@@ -99,7 +100,7 @@ public class BillListActivity extends AbsBaseActivity {
 
     private void init() {
         if (mAccountBean != null) {
-            setTopTitle(mAccountBean.getCurrency());
+            setTopTitle(mAccountBean.getCoinName());
         }
         setTopLineState(true);
         setSubLeftImgState(true);
@@ -114,19 +115,30 @@ public class BillListActivity extends AbsBaseActivity {
     }
 
     private void initView() {
-        mHeaderBinding.tvSymbol.setText(mAccountBean.getCurrency());
-        ImgUtils.loadImage(this, getCoinWatermarkWithCurrency(mAccountBean.getCurrency(), 1), mHeaderBinding.ivIcon);
+        mHeaderBinding.tvSymbol.setText(mAccountBean.getCoinName());
+        ImgUtils.loadImage(this, getCoinWatermarkWithCurrency(mAccountBean.getCoinName(), 1), mHeaderBinding.ivIcon);
 
 
         BigDecimal amount = new BigDecimal(mAccountBean.getAmountString());
         BigDecimal  frozenAmount = new BigDecimal(mAccountBean.getFrozenAmountString());
-        mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), mAccountBean.getCurrency(), 8));
+        mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), mAccountBean.getCoinName(), 8));
 
-        if (mAccountBean.getAmountCNY() == null) {
-            mHeaderBinding.tvAmountCny.setText("≈ 0"+WalletHelper.getShowLocalCoinType());
-        } else {
-            mHeaderBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountCNY() + WalletHelper.getShowLocalCoinType());
+
+        if(TextUtils.equals(WalletHelper.getShowLocalCoinType(),WalletHelper.LOCAL_COIN_CNY)){
+            if (mAccountBean.getAmountCny() == null) {
+                mHeaderBinding.tvAmountCny.setText("≈ 0"+WalletHelper.getShowLocalCoinType());
+            } else {
+                mHeaderBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountCny() + WalletHelper.getShowLocalCoinType());
+            }
+
+        }else{
+            if (mAccountBean.getAmountUSD() == null) {
+                mHeaderBinding.tvAmountCny.setText("≈ 0"+WalletHelper.getShowLocalCoinType());
+            } else {
+                mHeaderBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountUSD() + WalletHelper.getShowLocalCoinType());
+            }
         }
+
 
 
     }

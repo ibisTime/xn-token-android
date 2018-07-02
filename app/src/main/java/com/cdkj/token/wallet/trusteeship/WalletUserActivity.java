@@ -96,7 +96,7 @@ public class WalletUserActivity extends AbsBaseLoadActivity {
                 adapter.setOnItemClickListener((adapter1, view, position) -> {
                     CoinModel.AccountListBean bean = adapter.getItem(position);
 
-                    BillListActivity.open(WalletUserActivity.this, bean);
+//                    BillListActivity.open(WalletUserActivity.this, bean);
                 });
                 return adapter;
             }

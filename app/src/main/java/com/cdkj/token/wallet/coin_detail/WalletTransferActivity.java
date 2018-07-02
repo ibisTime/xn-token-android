@@ -19,6 +19,7 @@ import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityTransferBinding;
 import com.cdkj.token.model.BalanceListModel;
+import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.pop.GasTypeChoosePop;
 import com.cdkj.token.utils.AccountUtil;
@@ -53,7 +54,7 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
     private BigInteger gasPrice;//矿工费用
     private BigInteger transferGasPrice;//计算后转账矿工费用
 
-    private BalanceListModel.AccountListBean accountListBean;
+    private WalletBalanceModel accountListBean;
 
     private PermissionHelper mPermissionHelper;
 
@@ -87,8 +88,8 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null) {
-            mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), ETHSCALE) + " " + accountListBean.getSymbol());
-            mBaseBinding.titleView.setMidTitle(accountListBean.getSymbol());
+            mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), ETHSCALE) + " " + accountListBean.getCoinName());
+            mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
         }
 
         transferGasPrice = WalletHelper.getGasLimit();
@@ -134,7 +135,7 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
 
                 BigInteger allBigInteger = transferGasPrice.add(amountBigInteger);//手续费+转账数量
 
-                int checkInt = allBigInteger.compareTo(accountListBean.getBalance()); //比较
+                int checkInt = allBigInteger.compareTo(new BigDecimal(accountListBean.getCoinName()).toBigInteger()); //比较
 
                 if (checkInt == 1 || checkInt == 0) {
                     UITipDialog.showInfo(this, getString(R.string.no_balance));
@@ -188,7 +189,7 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
                 .map(s -> {
                     WalletDBModel w = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
 
-                    if (TextUtils.equals(accountListBean.getSymbol(), WalletHelper.COIN_WAN)) {
+                    if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_WAN)) {
                         return WalletHelper.transferWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), transferGasPrice);
                     }
                     return WalletHelper.transfer(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), transferGasPrice);
@@ -239,7 +240,7 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
      */
     private void setShowGasPrice() {
 
-        mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(transferGasPrice).multiply(new BigDecimal(this.gasPrice)), ETHSCALE) + " " + accountListBean.getSymbol());
+        mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(transferGasPrice).multiply(new BigDecimal(this.gasPrice)), ETHSCALE) + " " + accountListBean.getCoinName());
     }
 
     private void initClickListener() {

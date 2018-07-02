@@ -144,6 +144,7 @@
         <activity android:name=".wallet.AddChoiceActivity2" />
         <activity android:name=".wallet.coin_detail.TransactionDetailsActivity" />
         <activity android:name=".user.CountryCodeListActivity" />
+        <activity android:name=".user.LocalCoinTypeChooseActivity" />
     </application>
 
 </manifest>

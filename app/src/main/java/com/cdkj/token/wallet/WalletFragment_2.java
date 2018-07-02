@@ -1,5 +1,6 @@
 package com.cdkj.token.wallet;
 
+import android.animation.ObjectAnimator;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,6 +27,7 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.WalletBalanceAdapter;
 import com.cdkj.token.api.MyApi;
+import com.cdkj.token.consult.NoneActivity;
 import com.cdkj.token.databinding.FragmentWallet2Binding;
 import com.cdkj.token.model.AddCoinChangeEvent;
 import com.cdkj.token.model.BalanceListModel;
@@ -38,6 +40,8 @@ import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.CardChangeLayout;
+import com.cdkj.token.wallet.account.BillListActivity;
+import com.cdkj.token.wallet.coin_detail.WalletCoinDetailsActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -77,10 +81,7 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet_2, null, false);
 
-        mBinding.tvAllAssets.setText(getString(R.string.wallet_assets, WalletHelper.getShowLocalCoinType()));
-        mBinding.tvMyWallet.setText(getString(R.string.my_wallet, WalletHelper.getShowLocalCoinType()));
-        mBinding.tvMyPrivateWallet.setText(getString(R.string.my_private_wallet, WalletHelper.getShowLocalCoinType()));
-
+        initViewState();
 
         mChooseCoinList = new ArrayList<>();
 
@@ -96,6 +97,15 @@ public class WalletFragment_2 extends BaseLazyFragment {
         return mBinding.getRoot();
     }
 
+    /**
+     * 初始化View 状态
+     */
+    void initViewState() {
+        mBinding.tvAllAssets.setText(getString(R.string.wallet_assets, WalletHelper.getShowLocalCoinType()));
+        mBinding.tvMyWallet.setText(getString(R.string.my_wallet, WalletHelper.getShowLocalCoinType()));
+        mBinding.tvMyPrivateWallet.setText(getString(R.string.my_private_wallet, WalletHelper.getShowLocalCoinType()));
+    }
+
     public static WalletFragment_2 getInstance() {
         WalletFragment_2 fragment = new WalletFragment_2();
         Bundle bundle = new Bundle();
@@ -105,6 +115,16 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
 
     private void initClickListener() {
+
+        //一键划转
+        mBinding.linLayoutFastTransfer.setOnClickListener(view -> {
+            NoneActivity.open(mActivity, "");
+        });
+
+        //闪兑
+        mBinding.linLayoutTransferChange.setOnClickListener(view -> {
+            NoneActivity.open(mActivity, "");
+        });
 
         //公告关闭
         mBinding.imgBulletinClose.setOnClickListener(view -> {
@@ -154,6 +174,10 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
         switch (index) {
             case BOTTOMVIEW:                                         //私密钱包
+
+                ObjectAnimator.ofFloat(mBinding.bluePoint, "TranslationX", 0, 35).setDuration(120).start();
+                ObjectAnimator.ofFloat(mBinding.grayPoint, "TranslationX", 0, -28).setDuration(120).start();
+
                 isPrivateWallet = true;
                 mBinding.imgAddCoin.setVisibility(View.VISIBLE);
                 mBinding.imgChange.setImageResource(R.drawable.change_red);
@@ -161,6 +185,10 @@ public class WalletFragment_2 extends BaseLazyFragment {
                 getPriWalletAssetsData(true, true);
                 break;
             case TOPVIEW:                                         //个人钱包
+
+                ObjectAnimator.ofFloat(mBinding.bluePoint, "TranslationX", 35, 0).setDuration(120).start();
+                ObjectAnimator.ofFloat(mBinding.grayPoint, "TranslationX", -28, 0).setDuration(120).start();
+
                 isPrivateWallet = false;
                 mBinding.imgAddCoin.setVisibility(View.GONE);
                 mBinding.imgChange.setImageResource(R.drawable.change_blue);
@@ -185,15 +213,29 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
             @Override
             public RecyclerView.Adapter getAdapter(List listData) {
-                return new WalletBalanceAdapter(listData);
+
+                WalletBalanceAdapter walletBalanceAdapter = new WalletBalanceAdapter(listData);
+
+                walletBalanceAdapter.setOnItemClickListener((adapter, view, position) -> {
+
+                    if (isPrivateWallet) {
+                        WalletCoinDetailsActivity.open(mActivity, walletBalanceAdapter.getItem(position));
+                    } else {
+                        BillListActivity.open(mActivity, walletBalanceAdapter.getItem(position));
+                    }
+
+                });
+
+                return walletBalanceAdapter;
             }
 
             @Override
             public void onRefresh(int pageindex, int limit) {
                 if (isPrivateWallet) {
-                    getWalletAssetsData(false, false);
-                } else {
                     getPriWalletAssetsData(true, false);
+                } else {
+                    getWalletAssetsData(false, false);
+
                 }
 
             }
@@ -447,6 +489,18 @@ public class WalletFragment_2 extends BaseLazyFragment {
             walletBalanceModel.setMarketPriceUSD(accountListBean.getPriceUSD());
 
             walletBalanceModel.setAmountCny(accountListBean.getAmountCNY());
+
+            walletBalanceModel.setAddress(accountListBean.getCoinAddress());
+
+            walletBalanceModel.setAccountNumber(accountListBean.getAccountNumber());
+
+            walletBalanceModel.setAmountString(accountListBean.getAmountString());
+
+            walletBalanceModel.setCoinBalance(accountListBean.getCoinBalance());
+
+            walletBalanceModel.setFrozenAmountString(accountListBean.getFrozenAmountString());
+
+
             walletBalanceModels.add(walletBalanceModel);
         }
 
@@ -472,6 +526,10 @@ public class WalletFragment_2 extends BaseLazyFragment {
             walletBalanceModel.setMarketPriceUSD(accountListBean.getPriceUSD());
 
             walletBalanceModel.setAmountCny(accountListBean.getAmountCNY());
+
+            walletBalanceModel.setAddress(accountListBean.getAddress());
+
+            walletBalanceModel.setCoinBalance(accountListBean.getBalance()+"");
 
             walletBalanceModels.add(walletBalanceModel);
         }

@@ -2,15 +2,15 @@
 <layout>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#ffffff">
+        android:background="#ffffff"
+        android:orientation="vertical">
 
         <View
-            android:background="@color/gray_dedede"
             android:layout_width="match_parent"
-            android:layout_height="1dp"/>
+            android:layout_height="1dp"
+            android:background="@color/gray_dedede" />
 
         <RadioGroup
             android:id="@+id/rg_menu"
@@ -22,76 +22,76 @@
 
             <LinearLayout
                 android:id="@+id/ll_wallet"
-                android:gravity="center"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/iv_wallet"
-                    android:src="@mipmap/main_wallet_dark"
                     android:layout_width="19dp"
-                    android:layout_height="19dp" />
+                    android:layout_height="19dp"
+                    android:src="@mipmap/main_wallet_dark" />
 
                 <TextView
                     android:id="@+id/tv_wallet"
-                    android:text="@string/main_tab_wallet"
-                    android:textSize="11sp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/gray_666666"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/assets"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_consult"
-                android:gravity="center"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/iv_consult"
-                    android:src="@mipmap/main_consult_dark"
                     android:layout_width="19dp"
-                    android:layout_height="19dp" />
+                    android:layout_height="19dp"
+                    android:src="@mipmap/main_consult_dark" />
 
                 <TextView
                     android:id="@+id/tv_consult"
-                    android:text="@string/main_tag_consult"
-                    android:textSize="11sp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/gray_666666"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/main_tag_consult"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/ll_my"
-                android:gravity="center"
-                android:layout_weight="1"
                 android:layout_width="0dp"
-                android:orientation="vertical"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/iv_my"
-                    android:src="@mipmap/main_my_dark"
                     android:layout_width="19dp"
-                    android:layout_height="19dp" />
+                    android:layout_height="19dp"
+                    android:src="@mipmap/main_my_dark" />
 
                 <TextView
                     android:id="@+id/tv_my"
-                    android:text="@string/main_tab_my"
-                    android:textSize="11sp"
-                    android:layout_marginTop="5dp"
-                    android:textColor="@color/gray_666666"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/main_tab_my"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="11sp" />
 
             </LinearLayout>
 
