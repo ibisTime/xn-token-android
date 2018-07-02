@@ -2,8 +2,6 @@ package com.cdkj.baselibrary.appmanager;
 
 
 public class MyConfig {
-    // 法币币种
-    public final static String CURRENCY = "CNY";
 
     public final static String COMPANYCODE = "CD-TOKEN00018";
     public final static String SYSTEMCODE = "CD-TOKEN00018";

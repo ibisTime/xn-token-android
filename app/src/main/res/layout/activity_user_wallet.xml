@@ -71,7 +71,8 @@
             android:layout_height="45dp"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:paddingRight="15dp"
+            android:visibility="gone">
 
             <TextView
                 android:layout_width="0dp"

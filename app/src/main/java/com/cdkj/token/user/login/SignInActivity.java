@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -15,10 +16,12 @@ import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.interfaces.LoginInterface;
 import com.cdkj.baselibrary.interfaces.LoginPresenter;
 import com.cdkj.baselibrary.model.UserLoginModel;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivitySignInBinding;
+import com.cdkj.token.user.CountryCodeListActivity;
 
 @Route(path = CdRouteHelper.APPLOGIN)
 public class SignInActivity extends AbsBaseActivity implements LoginInterface {
@@ -62,7 +65,20 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
         mPresenter = new LoginPresenter(this);
 
         init();
+        initEditInputType();
         initListener();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mBinding.tvCountryName.setText(SPUtilHelper.getCountry());
+        mBinding.edtUsername.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+    }
+
+    private void initEditInputType() {
+        mBinding.edtUsername.getEditText().setInputType(InputType.TYPE_CLASS_PHONE);
+        mBinding.edtPassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
     }
 
     private void init() {
@@ -86,8 +102,14 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
             FindPwdActivity.open(this, mBinding.edtUsername.getText().toString().trim());
         });
 
+        //注册
         mBinding.tvToSignUp.setOnClickListener(view -> {
             SignUpActivity.open(this);
+        });
+
+        //国家区号选择
+        mBinding.linLayoutCountryCode.setOnClickListener(view -> {
+            CountryCodeListActivity.open(this);
         });
     }
 

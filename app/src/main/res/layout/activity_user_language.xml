@@ -11,6 +11,7 @@
             android:layout_height="10dp" />
 
         <LinearLayout
+            android:id="@+id/ll_simple"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -30,24 +31,13 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1" />
 
-
-            <LinearLayout
-                android:id="@+id/ll_simple"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:gravity="center">
-
-                <ImageView
-                    android:id="@+id/iv_simple"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@mipmap/deal_unchoose" />
-
-            </LinearLayout>
-
+            <ImageView
+                android:id="@+id/iv_simple"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/deal_unchoose" />
         </LinearLayout>
 
         <View
@@ -58,6 +48,7 @@
             android:background="@color/gray_eeeeee" />
 
         <LinearLayout
+            android:id="@+id/ll_tradition"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -78,22 +69,14 @@
                 android:layout_weight="1" />
 
 
-            <LinearLayout
-                android:id="@+id/ll_tradition"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:gravity="center">
+            <ImageView
+                android:id="@+id/iv_tradition"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/deal_unchoose" />
 
-                <ImageView
-                    android:id="@+id/iv_tradition"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@mipmap/deal_unchoose" />
-
-            </LinearLayout>
 
         </LinearLayout>
 
@@ -106,6 +89,7 @@
             android:visibility="gone" />
 
         <LinearLayout
+            android:id="@+id/ll_english"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:background="@color/white"
@@ -126,22 +110,14 @@
                 android:layout_weight="1" />
 
 
-            <LinearLayout
-                android:id="@+id/ll_english"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="10dp"
-                android:gravity="center">
+            <ImageView
+                android:id="@+id/iv_english"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@mipmap/deal_unchoose" />
 
-                <ImageView
-                    android:id="@+id/iv_english"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:background="@mipmap/deal_unchoose" />
-
-            </LinearLayout>
 
         </LinearLayout>
 

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -15,10 +16,10 @@
 
 
             <ImageView
-                android:layout_marginTop="10dp"
                 android:id="@+id/tv_finish"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:paddingBottom="10dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
@@ -34,14 +35,42 @@
                 android:textColor="@color/text_black_cd"
                 android:textSize="30sp" />
 
+            <LinearLayout
+                android:id="@+id/linLayout_country_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="30dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
 
-            <com.cdkj.token.views.SignInEditClearLayout
+                <TextView
+                    android:id="@+id/tv_country_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textColor="#888888"
+                    android:textSize="14sp"
+                    tools:text="@string/chain" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:src="@mipmap/more" />
+
+
+            </LinearLayout>
+
+
+            <com.cdkj.token.views.SignInEditClearCountryCodeLayout
                 android:id="@+id/edt_mobile"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="76dp"
                 app:hint_text="@string/user_sign_in_mobile_hint" />
 
             <com.cdkj.token.views.SignInEditClearCodeLayout

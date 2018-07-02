@@ -155,6 +155,9 @@ public class MainActivity extends AbsBaseActivity {
 
         mBinding.pagerMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragments));
         mBinding.pagerMain.setOffscreenPageLimit(fragments.size());
+
+        mBinding.pagerMain.setCurrentItem(0);
+
     }
 
 

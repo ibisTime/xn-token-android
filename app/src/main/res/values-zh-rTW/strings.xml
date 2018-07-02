@@ -43,7 +43,7 @@
     <string name="wallet_withdraw_order_none">暫無提現記錄</string>
 
     <string name="wallet_title">我的資産</string>
-    <string name="wallet_assets">總資産(CNY)</string>
+    <string name="wallet_assets">總資産(%s)</string>
     <string name="wallet_frozen_0">凍結0</string>
     <string name="wallet_charge">充幣</string>
     <string name="wallet_withdraw">提幣</string>
@@ -86,7 +86,6 @@
     <string name="wallet_withdraw_amount_hint">請輸入數量</string>
     <string name="wallet_withdraw_success">提現申請成功</string>
     <string name="wallet_transfer_success">轉賬申請成功</string>
-
 
 
     <string name="wallet_none">暫無錢包</string>
@@ -417,15 +416,15 @@
     <string name="system_message">系统公告</string>
     <string name="no_system_message">暂无系统公告</string>
     <string name="priority">优先</string>
-    <string name="my_wallet">个人钱包(CNY)</string>
+    <string name="my_wallet">个人钱包(%s)</string>
     <string name="fast_transfer">一键划转</string>
     <string name="transfer_change">闪兑</string>
     <string name="accounts_and_security">账户与安全</string>
     <string name="local_coin">本地货币</string>
     <string name="language">语言</string>
-    <string name="please_create_or_import_wallet">请创建或导入钱包</string>
+    <string name="please_create_or_import_wallet">请先创建或导入钱包</string>
     <string name="no_assets">暂无资产</string>
-    <string name="my_private_wallet">秘钥钱包(CNY)</string>
+    <string name="my_private_wallet">秘钥钱包(%s)</string>
     <string name="welcom_back">欢迎回来！</string>
     <string name="chain">中国</string>
     <string name="now_register">立即注册</string>
@@ -433,4 +432,8 @@
     <string name="register">注册！</string>
     <string name="find_pwd_sure">确 定</string>
     <string name="find_pwd">找回密码！</string>
+    <string name="no_country">暂无国家</string>
+    <string name="choose_country">选择国家</string>
+    <string name="wallet_tool">钱包工具</string>
+    <string name="wallet_delete_success">钱包删除成功</string>
 </resources>

@@ -143,6 +143,7 @@
         <activity android:name=".wallet.trusteeship.WalletUserActivity" />
         <activity android:name=".wallet.AddChoiceActivity2" />
         <activity android:name=".wallet.coin_detail.TransactionDetailsActivity" />
+        <activity android:name=".user.CountryCodeListActivity" />
     </application>
 
 </manifest>

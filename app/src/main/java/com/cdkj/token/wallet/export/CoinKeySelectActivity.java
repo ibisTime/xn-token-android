@@ -36,7 +36,7 @@ public class CoinKeySelectActivity extends AbsRefreshListActivity {
     public RecyclerView.Adapter getListAdapter(List listData) {
         CoinKeySelectAdapter selectAdapter = new CoinKeySelectAdapter(listData);
         selectAdapter.setOnItemClickListener((adapter, view, position) -> {
-            CoinPrivateKeyShowActivity.open(CoinKeySelectActivity.this,selectAdapter.getItem(position).getCoinType());
+//            CoinPrivateKeyShowActivity.open(CoinKeySelectActivity.this, selectAdapter.getItem(position).getCoinType());
         });
         return selectAdapter;
     }
@@ -51,7 +51,8 @@ public class CoinKeySelectActivity extends AbsRefreshListActivity {
         showLoadingDialog();
         mBaseBinding.titleView.setMidTitle(R.string.export_private_key);
         initRefreshHelper(10);
-
+        mRefreshBinding.refreshLayout.setEnableRefresh(false);
+        mRefreshBinding.refreshLayout.setEnableLoadmore(false);
         mSubscription.add(
                 Observable.just("")
                         .subscribeOn(Schedulers.newThread())

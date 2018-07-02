@@ -8,6 +8,7 @@ import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -45,15 +46,15 @@ public class CoinAdapter2 extends BaseQuickAdapter<CoinModel.AccountListBean, Ba
         ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(), 1), ivCoin);
 
         if (item.getPriceCNY() == null) {
-            helper.setText(R.id.tv_market_price, "≈ 0CNY");
+            helper.setText(R.id.tv_market_price, "≈ 0"+WalletHelper.getShowLocalCoinType());
         } else {
-            helper.setText(R.id.tv_market_price, "≈ " + item.getPriceCNY() + "CNY");
+            helper.setText(R.id.tv_market_price, "≈ " + item.getPriceCNY() + WalletHelper.getShowLocalCoinType());
         }
 
         if (item.getAmountCNY() == null) {
-            helper.setText(R.id.tv_amount_cny, "0CNY");
+            helper.setText(R.id.tv_amount_cny, "0"+WalletHelper.getShowLocalCoinType());
         } else {
-            helper.setText(R.id.tv_amount_cny, item.getAmountCNY() + "CNY");
+            helper.setText(R.id.tv_amount_cny, item.getAmountCNY() + WalletHelper.getShowLocalCoinType());
         }
 
 

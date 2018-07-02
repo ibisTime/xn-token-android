@@ -7,6 +7,6 @@
     <list>
         <mapping class="com.cdkj.token.model.db.LocalCoinDbModel"></mapping><!--缓存币种-->
         <mapping class="com.cdkj.token.model.db.WalletDBModel"></mapping><!--钱包数据-->
-        <mapping class="com.cdkj.token.model.db.UserChooseCoinDBModel"></mapping><!--自选币种-->
+        <mapping class="com.cdkj.token.model.db.UserConfigDBModel"></mapping><!--自选币种-->
     </list>
 </litepal>

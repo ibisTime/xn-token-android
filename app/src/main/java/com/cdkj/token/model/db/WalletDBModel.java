@@ -8,11 +8,9 @@ import org.litepal.crud.DataSupport;
  */
 public class WalletDBModel extends DataSupport {
 
-
-    public String userId;//私钥
-    public String helpWordsrEn;// 助记词 英文
+    public String userId;
+    public String helpWordsEn;// 助记词 英文
     public String walletPassWord;
-
 
     public String btcAddress;//地址
     public String btcPrivateKey;//私钥
@@ -32,12 +30,12 @@ public class WalletDBModel extends DataSupport {
         this.userId = userId;
     }
 
-    public String getHelpWordsrEn() {
-        return helpWordsrEn;
+    public String getHelpWordsEn() {
+        return helpWordsEn;
     }
 
-    public void setHelpWordsrEn(String helpWordsrEn) {
-        this.helpWordsrEn = helpWordsrEn;
+    public void setHelpWordsEn(String helpWordsEn) {
+        this.helpWordsEn = helpWordsEn;
     }
 
     public String getWalletPassWord() {

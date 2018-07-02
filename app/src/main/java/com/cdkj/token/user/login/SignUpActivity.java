@@ -21,13 +21,13 @@ import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
-import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivitySignUpBinding;
+import com.cdkj.token.user.CountryCodeListActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -45,7 +45,6 @@ import retrofit2.Call;
 
 public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface {
 
-    private boolean agreeState = true;
 
     private SendPhoneCodePresenter mPresenter;
     private ActivitySignUpBinding mBinding;
@@ -82,13 +81,26 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
 
         mPresenter = new SendPhoneCodePresenter(this);
 
-        mBinding.edtCode.getSendCodeBtn().setInputType(InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD);
+        mBinding.edtPassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        mBinding.edtRePassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        mBinding.edtMobile.getEditText().setInputType(InputType.TYPE_CLASS_PHONE);
 
         initListener();
     }
 
-    private void initListener() {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mBinding.tvCountryName.setText(SPUtilHelper.getCountry());
+        mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+    }
 
+
+    private void initListener() {
+        //国家区号选择
+        mBinding.linLayoutCountryCode.setOnClickListener(view -> {
+            CountryCodeListActivity.open(this);
+        });
         mBinding.tvFinish.setOnClickListener(view -> finish());
 
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(view -> {
@@ -117,10 +129,6 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
                 showToast(getStrRes(R.string.user_code_hint));
                 return false;
             }
-            if (mBinding.edtCode.getText().toString().trim().length() != 4) {
-                showToast(getStrRes(R.string.user_code_format_hint));
-                return false;
-            }
 
             if (TextUtils.isEmpty(mBinding.edtPassword.getText().toString().trim())) {
                 showToast(getStrRes(R.string.user_password_hint));
@@ -135,10 +143,6 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
                 return false;
             }
 
-            if (!agreeState) {
-                showToast(getStrRes(R.string.user_protocol_hint));
-                return false;
-            }
         }
 
 
@@ -149,13 +153,14 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
         Map<String, Object> map = new HashMap<>();
 //        map.put("nickname", mBinding.edtNick.getText().toString().trim());
         map.put("kind", "C");
-        map.put("userRefereeKind", "C");
+//        map.put("userRefereeKind", "C");
 //        map.put("userReferee", mBinding.edtReferee.getText().toString().trim());
         map.put("mobile", mBinding.edtMobile.getText().toString().trim());
         map.put("loginPwd", mBinding.edtPassword.getText().toString().trim());
         map.put("smsCaptcha", mBinding.edtCode.getText().toString().trim());
         map.put("systemCode", MyConfig.SYSTEMCODE);
         map.put("companyCode", MyConfig.COMPANYCODE);
+        map.put("interCode", SPUtilHelper.getCountryCode());
 
         Call call = RetrofitUtils.createApi(MyApi.class).signUp("805041", StringUtils.getJsonToString(map));
 

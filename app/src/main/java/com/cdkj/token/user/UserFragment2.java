@@ -10,8 +10,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.activitys.ImageSelectActivity;
+import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
+import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -24,6 +26,8 @@ import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
+import com.cdkj.token.utils.wallet.WalletHelper;
+import com.cdkj.token.wallet.IntoWalletBeforeActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -39,6 +43,8 @@ public class UserFragment2 extends BaseLazyFragment {
     private FragmentUser2Binding mBinding;
 
     public final int PHOTOFLAG = 110;
+
+    private CommonDialog commonDialog;
 
     public static UserFragment2 getInstance() {
         UserFragment2 fragment = new UserFragment2();
@@ -61,9 +67,37 @@ public class UserFragment2 extends BaseLazyFragment {
 
     private void initClickListener() {
 
+        //更换头像
         mBinding.imgLogo.setOnClickListener(view -> {
             ImageSelectActivity.launchFragment(this, PHOTOFLAG);
         });
+        //账户与安全
+        mBinding.linLayoutUserAccount.setOnClickListener(view -> UserSettingActivity.open(mActivity));
+
+        //语言
+        mBinding.languageChange.setOnClickListener(view -> UserLanguageActivity.open(mActivity));
+
+        //加入社群
+        mBinding.joinUs.setOnClickListener(view -> UserJoinActivity.open(mActivity));
+        //钱包工具
+        mBinding.walletTool.setOnClickListener(view -> {
+            boolean isHasInfo = WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId());
+            if (!isHasInfo) {
+                showDoubleWarnListen(getString(R.string.please_create_or_import_wallet), view1 -> {
+                    IntoWalletBeforeActivity.open(mActivity);
+                });
+                return;
+            }
+            UserWalletActivity.open(mActivity);
+        });
+
+        //帮助中心
+        mBinding.helper.setOnClickListener(view -> WebViewActivity.openkey(mActivity, getStrRes(R.string.user_issue), "questions"));
+
+        //关于我没
+        mBinding.aboutUs.setOnClickListener(view -> UserAboutActivity.open(mActivity));
+
+
     }
 
     @Override
@@ -196,5 +230,34 @@ public class UserFragment2 extends BaseLazyFragment {
         });
     }
 
+    /**
+     * 显示确认取消dialog
+     *
+     * @param str
+     * @param onPositiveListener
+     */
+    protected void showDoubleWarnListen(String str, CommonDialog.OnPositiveListener onPositiveListener) {
+
+        if (mActivity == null || mActivity.isFinishing()) {
+            return;
+        }
+
+        if (commonDialog == null) {
+            commonDialog = new CommonDialog(mActivity).builder()
+                    .setTitle(getString(com.cdkj.baselibrary.R.string.activity_base_tip)).setContentMsg(str)
+                    .setPositiveBtn(getString(com.cdkj.baselibrary.R.string.activity_base_confirm), onPositiveListener)
+                    .setNegativeBtn(getString(com.cdkj.baselibrary.R.string.activity_base_cancel), null, false);
+        }
+
+        commonDialog.show();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (commonDialog != null) {
+            commonDialog.closeDialog();
+        }
+        super.onDestroy();
+    }
 
 }

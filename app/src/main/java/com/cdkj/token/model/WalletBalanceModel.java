@@ -11,8 +11,18 @@ public class WalletBalanceModel {
     private String coinImgUrl;
     private String coinName;
     private String amount;
-    private String marketPrice;
+    private String marketPriceCNY;
+    private String marketPriceUSD;
     private String amountCny;
+    private String amountUSD;
+
+    public String getAmountUSD() {
+        return amountUSD;
+    }
+
+    public void setAmountUSD(String amountUSD) {
+        this.amountUSD = amountUSD;
+    }
 
     public String getCoinImgUrl() {
         return coinImgUrl;
@@ -38,12 +48,20 @@ public class WalletBalanceModel {
         this.amount = amount;
     }
 
-    public String getMarketPrice() {
-        return marketPrice;
+    public String getMarketPriceCNY() {
+        return marketPriceCNY;
     }
 
-    public void setMarketPrice(String marketPrice) {
-        this.marketPrice = marketPrice;
+    public void setMarketPriceCNY(String marketPriceCNY) {
+        this.marketPriceCNY = marketPriceCNY;
+    }
+
+    public String getMarketPriceUSD() {
+        return marketPriceUSD;
+    }
+
+    public void setMarketPriceUSD(String marketPriceUSD) {
+        this.marketPriceUSD = marketPriceUSD;
     }
 
     public String getAmountCny() {

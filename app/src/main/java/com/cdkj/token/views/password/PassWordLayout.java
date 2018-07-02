@@ -188,7 +188,7 @@ public class PassWordLayout extends LinearLayout {
         if (pwdChangeListener != null) {
             if (mPassList.size() < maxLength) {
                 pwdChangeListener.onChange(getPassString());
-            } else {
+            } else if (mPassList.size() == maxLength) {
                 pwdChangeListener.onFinished(getPassString());
             }
         }
@@ -245,13 +245,10 @@ public class PassWordLayout extends LinearLayout {
      * @return pwd
      */
     public String getPassString() {
-
         StringBuffer passString = new StringBuffer();
-
         for (String i : mPassList) {
             passString.append(i);
         }
-
         return passString.toString();
     }
 

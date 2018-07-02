@@ -62,7 +62,7 @@ public class WalletHelpWordsShowActivity extends AbsBaseLoadActivity {
         WalletDBModel walletDBModel2 = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
 
         if (walletDBModel2 != null) {
-            mBinding.tvWords.setText(walletDBModel2.getHelpWordsrEn());
+            mBinding.tvWords.setText(walletDBModel2.getHelpWordsEn());
         }
 
         mBinding.btnNowBackup.setOnClickListener(view -> {

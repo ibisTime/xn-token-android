@@ -114,7 +114,7 @@ public class WalletPasswordModifyActivity extends AbsBaseLoadActivity {
 
         } else {               //两次密码输入一致
             try {
-                WalletHelper.changeWalletPassWord(mPassWord, SPUtilHelper.getUserId());
+                WalletHelper.updateWalletPassWord(mPassWord, SPUtilHelper.getUserId());
                 UITipDialog.showSuccess(WalletPasswordModifyActivity.this, getString(R.string.update_password_success), dialogInterface -> {
                     finish();
                 });

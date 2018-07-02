@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 
 import com.cdkj.token.R;
@@ -98,5 +99,8 @@ public class SignInEditClearLayout extends LinearLayout {
         return mBinding.edit.getText().toString();
     }
 
+    public EditText getEditText() {
+        return mBinding.edit;
+    }
 
 }

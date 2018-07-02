@@ -112,21 +112,10 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
             MsgListActivity.open(mActivity);
         });
 
-        mHeadBinding.llStatistics.setOnClickListener(view -> {
-            StatisticsActivity.open(mActivity);
-        });
-
         mHeadBinding.llMerchant.setOnClickListener(view -> {
             NoneActivity.open(mActivity, "merchant");
         });
 
-        mHeadBinding.llMall.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, "mall");
-        });
-
-        mHeadBinding.llDig.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, "dig");
-        });
     }
 
 
@@ -145,73 +134,12 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
 
     @Override
     protected void onMRefresh(int pageIndex, int limit) {
-        getKtInfo(false);
+
         // 刷新轮播图
         getBanner();
         getListData(pageIndex, limit, false);
     }
 
-
-    /**
-     * 获取空投数据信息
-     */
-    private void getKtInfo(boolean canShowDialog) {
-
-        Map<String, String> map = new HashMap<>();
-        map.put("currency", getFirstTokenCoin());
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getTkInfo("802906", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-        if (canShowDialog) showLoadingDialog();
-
-        call.enqueue(new BaseResponseModelCallBack<KtInfoModel>(mActivity) {
-            @Override
-            protected void onSuccess(KtInfoModel data, String SucMessage) {
-
-                mHeadBinding.tvKtInfo.setText(getTkText(data));
-                mHeadBinding.progress.setMax(100);
-                mHeadBinding.progress.setProgress(BigDecimalUtils.intValue(data.getUseRate()));
-            }
-
-
-            @Override
-            protected void onFinish() {
-                if (mHeadBinding.llStatistics.getVisibility() == View.INVISIBLE) {  //请求完成后才显示布局
-                    mHeadBinding.llStatistics.setVisibility(View.VISIBLE);
-                }
-                disMissLoading();
-            }
-        });
-
-
-    }
-
-    /**
-     * 获取空投数据显示文本
-     *
-     * @param data
-     * @return
-     */
-    @NonNull
-    private String getTkText(KtInfoModel data) {
-        DecimalFormat df = new DecimalFormat("#######0.########");
-
-        StringBuffer sb = new StringBuffer();
-
-        sb.append(getString(R.string.kt_total));
-        sb.append(AccountUtil.amountFormatUnit(data.getTotalCount(), getFirstTokenCoin(), OGCSCALE));
-        sb.append("  ");
-        sb.append(getString(R.string.kt_statistical_2));
-        sb.append(AccountUtil.amountFormatUnit(data.getUseCount(), getFirstTokenCoin(), OGCSCALE));
-        sb.append("  ");
-        sb.append(getString(R.string.kt_ratio));
-        sb.append(data.getUseRate() + "%");
-
-        return sb.toString();
-
-    }
 
 
     /**

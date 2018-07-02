@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.api.BaseResponseModel;
@@ -84,7 +85,13 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
             mHeaderBinding.tvSymbol.setText(accountListBean.getSymbol());
             mBaseBinding.titleView.setMidTitle(accountListBean.getSymbol());
             mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), ETHSCALE));
-            mHeaderBinding.tvAmountCny.setText("≈" + accountListBean.getAmountCNY() + " CNY");
+
+            if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
+                mHeaderBinding.tvAmountCny.setText("≈" + accountListBean.getAmountCNY() + " " + WalletHelper.getShowLocalCoinType());
+            } else if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
+                mHeaderBinding.tvAmountCny.setText("≈" + accountListBean.getAmountUSD() + " " + WalletHelper.getShowLocalCoinType());
+            }
+
 
         }
         initRefreshHelper();
@@ -104,8 +111,8 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
     private void initClickListener() {
 
         mBinding.linLayoutGetmoney.setOnClickListener(view -> {
-            if(accountListBean!=null){
-                WalletAddressShowActivity.open(this,accountListBean.getSymbol());
+            if (accountListBean != null) {
+                WalletAddressShowActivity.open(this, accountListBean.getSymbol());
             }
         });
 
