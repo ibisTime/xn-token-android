@@ -486,9 +486,13 @@ public class WalletFragment_2 extends BaseLazyFragment {
             walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getCurrency(), 1));
 
             walletBalanceModel.setMarketPriceCNY(accountListBean.getPriceCNY());
+
             walletBalanceModel.setMarketPriceUSD(accountListBean.getPriceUSD());
 
+            walletBalanceModel.setAmountUSD(accountListBean.getAmountUSD());
+
             walletBalanceModel.setAmountCny(accountListBean.getAmountCNY());
+
 
             walletBalanceModel.setAddress(accountListBean.getCoinAddress());
 
@@ -524,6 +528,8 @@ public class WalletFragment_2 extends BaseLazyFragment {
             walletBalanceModel.setMarketPriceCNY(accountListBean.getPriceCNY());
 
             walletBalanceModel.setMarketPriceUSD(accountListBean.getPriceUSD());
+
+            walletBalanceModel.setAmountUSD(accountListBean.getAmountUSD());
 
             walletBalanceModel.setAmountCny(accountListBean.getAmountCNY());
 

@@ -89,7 +89,7 @@ public class BillListActivity extends AbsBaseActivity {
         if (getIntent() == null)
             return;
 
-        mAccountBean =  getIntent().getParcelableExtra("mAccountBean");
+        mAccountBean = getIntent().getParcelableExtra("mAccountBean");
 
         initCallBack();
 
@@ -118,27 +118,27 @@ public class BillListActivity extends AbsBaseActivity {
         mHeaderBinding.tvSymbol.setText(mAccountBean.getCoinName());
         ImgUtils.loadImage(this, getCoinWatermarkWithCurrency(mAccountBean.getCoinName(), 1), mHeaderBinding.ivIcon);
 
+        if (!TextUtils.isEmpty(mAccountBean.getAmountString()) || !TextUtils.isEmpty(mAccountBean.getFrozenAmountString())) {
+            BigDecimal amount = new BigDecimal(mAccountBean.getAmountString());
+            BigDecimal frozenAmount = new BigDecimal(mAccountBean.getFrozenAmountString());
+            mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), mAccountBean.getCoinName(), 8));
+        }
 
-        BigDecimal amount = new BigDecimal(mAccountBean.getAmountString());
-        BigDecimal  frozenAmount = new BigDecimal(mAccountBean.getFrozenAmountString());
-        mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), mAccountBean.getCoinName(), 8));
 
-
-        if(TextUtils.equals(WalletHelper.getShowLocalCoinType(),WalletHelper.LOCAL_COIN_CNY)){
+        if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
             if (mAccountBean.getAmountCny() == null) {
-                mHeaderBinding.tvAmountCny.setText("≈ 0"+WalletHelper.getShowLocalCoinType());
+                mHeaderBinding.tvAmountCny.setText("≈ 0" + WalletHelper.getShowLocalCoinType());
             } else {
                 mHeaderBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountCny() + WalletHelper.getShowLocalCoinType());
             }
 
-        }else{
+        } else {
             if (mAccountBean.getAmountUSD() == null) {
-                mHeaderBinding.tvAmountCny.setText("≈ 0"+WalletHelper.getShowLocalCoinType());
+                mHeaderBinding.tvAmountCny.setText("≈ 0" + WalletHelper.getShowLocalCoinType());
             } else {
                 mHeaderBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountUSD() + WalletHelper.getShowLocalCoinType());
             }
         }
-
 
 
     }

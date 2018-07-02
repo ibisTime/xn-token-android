@@ -14,14 +14,14 @@
             android:background="@color/white"
             android:orientation="horizontal"
             android:paddingBottom="10dp"
+            android:paddingRight="10dp"
             android:paddingTop="10dp">
 
             <ImageView
                 android:id="@+id/img_coin_logo"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_marginLeft="10dp"
-                 />
+                android:layout_marginLeft="10dp" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -51,6 +51,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
+                        android:gravity="right"
                         android:shadowColor="@color/black"
                         android:textColor="@color/text_black_cd"
                         android:textSize="14sp"
@@ -82,6 +83,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
+                        android:gravity="right"
                         android:shadowColor="@color/black"
                         android:textColor="@color/gray_999999"
                         android:textSize="12sp"
