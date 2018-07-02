@@ -72,16 +72,6 @@ public class UserGoogleActivity extends AbsBaseActivity implements SendCodeInter
 
     }
 
-    @Subscribe
-    public void changeUi(String tag){
-        if (tag == null)
-            return;
-
-        if (tag.equals(EventTags.CHANGE_CODE_BTN)){
-            mBinding.btnSend.setBackground(ContextCompat.getDrawable(UserGoogleActivity.this,R.drawable.btn_blue));
-        }
-    }
-
     //获取验证码相关
     @Override
     public void CodeSuccess(String msg) {

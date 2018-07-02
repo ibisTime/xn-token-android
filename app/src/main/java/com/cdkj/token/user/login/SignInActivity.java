@@ -5,14 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
-import android.text.Editable;
 import android.text.TextUtils;
-import android.text.TextWatcher;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.cdkj.baselibrary.activitys.FindPwdActivity;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
@@ -60,12 +56,8 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
         UIStatusBarHelper.translucent(this);
-        setTopTitle(getStrRes(R.string.user_title_sign_in));
         setTopLineState(true);
         setSubLeftImgState(true);
-        setSubRightTitleAndClick(getStrRes(R.string.user_title_sign_up), v -> {
-            SignUpActivity.open(SignInActivity.this);
-        });
 
         mPresenter = new LoginPresenter(this);
 
@@ -92,6 +84,10 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
         //找回密码
         mBinding.tvForget.setOnClickListener(v -> {
             FindPwdActivity.open(this, mBinding.edtUsername.getText().toString().trim());
+        });
+
+        mBinding.tvToSignUp.setOnClickListener(view -> {
+            SignUpActivity.open(this);
         });
     }
 

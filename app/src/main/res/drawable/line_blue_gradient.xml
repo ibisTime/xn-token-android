@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <corners android:radius="5dp" />
-
-
     <gradient
-        android:endColor="#2871FB"
+        android:endColor="#83C7FF"
         android:startColor="@color/app_btn_blue" />
 </shape>

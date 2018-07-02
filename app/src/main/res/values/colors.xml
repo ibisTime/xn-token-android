@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#108ee9</color>
-    <color name="colorPrimaryDark">#108ee9</color>
-    <color name="colorAccent">#108ee9</color>
+    <color name="colorPrimary">#007AFF</color>
+    <color name="colorPrimaryDark">#007AFF</color>
+    <color name="colorAccent">#007AFF</color>
 
 
     <color name="gray_5e5e5f">#5e5e5f</color>
@@ -26,7 +26,8 @@
 
     <color name="green">#2ac64c</color>
 
-    <color name="blue">#108ee9</color>
+    <color name="blue">#007AFF</color>
+    <color name="text_blue">#007AFF</color>
 
     <color name="yellow">#fff9eb</color>
 
@@ -34,8 +35,10 @@
 
     <color name="oragne">#ff7d0e</color>
 
-    <color name="pass_view_rect_input">#3DA3FF</color>
+    <color name="pass_view_rect_input">#007AFF</color>
     <color name="regi_line_color">#c8c8c8</color>
+
+    <color name="app_btn_blue">#0848DF</color>
 
 
 </resources>

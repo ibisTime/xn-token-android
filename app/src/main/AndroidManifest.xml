@@ -55,7 +55,7 @@
 
         //找回密码
         <activity
-            android:name="com.cdkj.baselibrary.activitys.FindPwdActivity"
+            android:name=".user.login.FindPwdActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         //修改手机号

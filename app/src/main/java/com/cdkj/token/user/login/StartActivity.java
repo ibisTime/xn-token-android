@@ -78,6 +78,7 @@ public class StartActivity extends BaseActivity {
                 .subscribe(isLogin -> {//延迟两秒进行跳转
                     if (!SPUtilHelper.isLogin(this, false)) {
                         finish();
+                        return;
                     }
                     MainActivity.open(this);
                     finish();
@@ -151,7 +152,6 @@ public class StartActivity extends BaseActivity {
                 }));
 
     }
-
 
 
     /**

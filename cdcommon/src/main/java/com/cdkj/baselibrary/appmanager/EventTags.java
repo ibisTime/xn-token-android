@@ -7,7 +7,6 @@ package com.cdkj.baselibrary.appmanager;
 public class EventTags {
     // 刷新语言
     public final static String EVENT_REFRESH_LANGUAGE = "8";
-    public final static String CHANGE_CODE_BTN = "change_code_btn";
     // 提币地址选择
     public final static String ADDRESS_SELECT = "address_select";
     //

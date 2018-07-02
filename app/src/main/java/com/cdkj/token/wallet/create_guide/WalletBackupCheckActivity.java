@@ -110,7 +110,7 @@ public class WalletBackupCheckActivity extends AbsBaseLoadActivity {
 
         textView.setText(word);
 
-        textView.setBackgroundResource(R.drawable.btn_gray);
+        textView.setBackgroundResource(R.drawable.gray);
 
         textView.setTextColor(ContextCompat.getColor(this, R.color.black));
 
@@ -144,7 +144,7 @@ public class WalletBackupCheckActivity extends AbsBaseLoadActivity {
             textView.setTextColor(ContextCompat.getColor(this, R.color.white));
             mBackupWords.add(textView.getText().toString());
         } else {
-            textView.setBackgroundResource(R.drawable.btn_gray);
+            textView.setBackgroundResource(R.drawable.gray);
             textView.setTextColor(ContextCompat.getColor(this, R.color.black));
             mBackupWords.remove(textView.getText().toString());
         }

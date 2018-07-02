@@ -82,8 +82,8 @@
     <string name="wallet_charge_address_copy_success">地址已复制</string>
 
     <string name="wallet_title_withdraw">提币</string>
-    <string name="wallet_withdraw_address_hint">请填写发送地址</string>
-    <string name="wallet_withdraw_amount_hint">请填写数量</string>
+    <string name="wallet_withdraw_address_hint">请输入发送地址</string>
+    <string name="wallet_withdraw_amount_hint">请输入数量</string>
     <string name="wallet_withdraw_success">提现申请成功</string>
     <string name="wallet_transfer_success">转账申请成功</string>
 
@@ -116,7 +116,7 @@
 
     <string name="user_title_address_add">添加地址</string>
     <string name="user_title_address_add_success">添加地址成功</string>
-    <string name="user_address_tag_hint">请填写地址标签</string>
+    <string name="user_address_tag_hint">请输入地址标签</string>
     <string name="user_address_hint">请输入地址</string>
 
     <string name="user_title_address">地址管理</string>
@@ -154,7 +154,7 @@
     <string name="user_title_tip">个性设置</string>
 
     <string name="user_title_sign_in">登  录</string>
-    <string name="user_mobile_hint">请填写手机号码</string>
+    <string name="user_mobile_hint">请输入手机号码</string>
     <string name="user_mobile_format_hint">手机号码格式不正确</string>
     <string name="user_password_format_hint">密码长度不能小于6位</string>
 
@@ -164,9 +164,9 @@
     <string name="user_title_sign_up">注册</string>
     <string name="user_sign_up_protocol">注册协议</string>
     <string name="user_nick_hint">请设置您的昵称</string>
-    <string name="user_code_hint">请填写验证码</string>
+    <string name="user_code_hint">请输入验证码</string>
     <string name="user_code_format_hint">验证码格式不正确</string>
-    <string name="user_password_hint">请填写密码</string>
+    <string name="user_password_hint">请输入密码</string>
     <string name="user_repassword_hint">请确认密码</string>
     <string name="user_repassword_two_hint">两次输入的密码不相同</string>
     <string name="user_protocol_hint">请阅读并同意条款</string>
@@ -422,4 +422,11 @@
     <string name="please_create_or_import_wallet">请创建或导入钱包</string>
     <string name="no_assets">暂无资产</string>
     <string name="my_private_wallet">秘钥钱包(CNY)</string>
+    <string name="welcom_back">欢迎回来！</string>
+    <string name="chain">中国</string>
+    <string name="now_register">立即注册</string>
+    <string name="no_account">还没账号？</string>
+    <string name="register">注册！</string>
+    <string name="find_pwd_sure">确 定</string>
+    <string name="find_pwd">找回密码！</string>
 </resources>

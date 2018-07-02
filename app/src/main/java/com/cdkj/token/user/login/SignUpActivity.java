@@ -5,12 +5,13 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 
+import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.activitys.AppBuildTypeActivity;
-import com.cdkj.baselibrary.activitys.WebViewActivity;
-import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
@@ -29,11 +30,16 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivitySignUpBinding;
 
 import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
 import retrofit2.Call;
 
 
@@ -54,7 +60,7 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
 
     @Override
     protected boolean canLoadTopTitleView() {
-        return true;
+        return false;
     }
 
     @Override
@@ -62,6 +68,7 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_sign_up, null, false);
         return mBinding.getRoot();
     }
+
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
@@ -75,12 +82,16 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
 
         mPresenter = new SendPhoneCodePresenter(this);
 
+        mBinding.edtCode.getSendCodeBtn().setInputType(InputType.TYPE_TEXT_VARIATION_WEB_PASSWORD);
+
         initListener();
     }
 
     private void initListener() {
 
-        mBinding.btnSend.setOnClickListener(view -> {
+        mBinding.tvFinish.setOnClickListener(view -> finish());
+
+        mBinding.edtCode.getSendCodeBtn().setOnClickListener(view -> {
             if (check("code")) {
                 mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(), "805041", "C", this);
             }
@@ -92,28 +103,9 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
             }
         });
 
-        mBinding.llAgree.setOnClickListener(v -> {
-            if (agreeState) {
-                agreeState = false;
-                mBinding.ivAgree.setBackgroundResource(R.mipmap.user_sign_unagree);
-            } else {
-                agreeState = true;
-                mBinding.ivAgree.setBackgroundResource(R.mipmap.user_sign_agree);
-            }
-        });
-
-        mBinding.tvClause.setOnClickListener(v -> {
-            WebViewActivity.openkey(this, getStrRes(R.string.user_sign_up_protocol), "reg_protocol");
-        });
-
-
     }
 
     private boolean check(String type) {
-        if (TextUtils.isEmpty(mBinding.edtNick.getText().toString().trim())) {
-            showToast(getStrRes(R.string.user_nick_hint));
-            return false;
-        }
 
         if (TextUtils.isEmpty(mBinding.edtMobile.getText().toString().trim())) {
             showToast(getStrRes(R.string.user_mobile_hint));
@@ -155,10 +147,10 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
 
     private void signUp() {
         Map<String, Object> map = new HashMap<>();
-        map.put("nickname", mBinding.edtNick.getText().toString().trim());
+//        map.put("nickname", mBinding.edtNick.getText().toString().trim());
         map.put("kind", "C");
         map.put("userRefereeKind", "C");
-        map.put("userReferee", mBinding.edtReferee.getText().toString().trim());
+//        map.put("userReferee", mBinding.edtReferee.getText().toString().trim());
         map.put("mobile", mBinding.edtMobile.getText().toString().trim());
         map.put("loginPwd", mBinding.edtPassword.getText().toString().trim());
         map.put("smsCaptcha", mBinding.edtCode.getText().toString().trim());
@@ -180,7 +172,7 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
 
                     SPUtilHelper.saveUserId(data.getUserId());
                     SPUtilHelper.saveUserToken(data.getToken());
-                    SPUtilHelper.saveUserName(mBinding.edtNick.getText().toString().trim());
+//                    SPUtilHelper.saveUserName(mBinding.edtNick.getText().toString().trim());
                     SPUtilHelper.saveUserPhoneNum(mBinding.edtMobile.getText().toString().trim());
 
                     EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
@@ -200,24 +192,13 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
         });
     }
 
-    @Subscribe
-    public void changeUi(String tag) {
-        if (tag == null)
-            return;
-
-        if (tag.equals(EventTags.CHANGE_CODE_BTN)) {
-            mBinding.btnSend.setBackgroundResource(R.drawable.btn_blue);
-        }
-    }
 
     //获取验证码相关
     @Override
     public void CodeSuccess(String msg) {
         //启动倒计时
-        mSubscription.add(AppUtils.startCodeDown(60, mBinding.btnSend));
+        mSubscription.add(startCodeDown(60, mBinding.edtCode.getSendCodeBtn(), R.drawable.btn_code_blue_bg, R.drawable.gray));
 
-        //改变ui
-        mBinding.btnSend.setBackgroundResource(R.drawable.corner_sign_btn_gray);
     }
 
     @Override
@@ -243,4 +224,54 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
             mPresenter = null;
         }
     }
+
+
+    /**
+     * @param count
+     * @param btn
+     * @param enableTrueRes  可以点击样式
+     * @param enableFalseRes 不可以点击样式
+     * @return
+     */
+    public Disposable startCodeDown(final int count, final Button btn, final int enableTrueRes, final int enableFalseRes) {
+        return Observable.interval(0, 1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())    // 创建一个按照给定的时间间隔发射从0开始的整数序列
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .take(count)//只发射开始的N项数据或者一定时间内的数据
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        btn.setEnabled(false);
+                        btn.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.code_down, count));
+                    }
+                })
+                .subscribe(new Consumer<Long>() {
+                               @Override
+                               public void accept(Long aLong) throws Exception {
+                                   btn.setEnabled(false);
+                                   btn.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.code_down, count - aLong));
+                                   btn.setBackgroundResource(enableFalseRes);
+                                   btn.setTextColor(ContextCompat.getColor(SignUpActivity.this, R.color.white));
+                               }
+                           }, new Consumer<Throwable>() {
+                               @Override
+                               public void accept(Throwable throwable) throws Exception {
+                                   btn.setEnabled(true);
+                                   btn.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.code_down, count));
+                                   btn.setBackgroundResource(enableTrueRes);
+                                   btn.setTextColor(ContextCompat.getColor(SignUpActivity.this, R.color.btn_blue));
+                               }
+                           }, new Action() {
+                               @Override
+                               public void run() throws Exception {
+                                   btn.setEnabled(true);
+                                   btn.setTextColor(ContextCompat.getColor(SignUpActivity.this, R.color.btn_blue));
+                                   btn.setText(com.cdkj.baselibrary.R.string.resend_code);
+                                   btn.setBackgroundResource(enableTrueRes);
+                               }
+                           }
+                );
+    }
+
+
 }

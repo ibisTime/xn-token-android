@@ -10,31 +10,32 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.cdkj.token.R;
-import com.cdkj.token.databinding.LayoutEditClearBinding;
+import com.cdkj.token.databinding.LayoutEditClearSendCodeBinding;
 
 /**
- * 清除按钮  下划线 获取验证码 EditText
+ * 清除按钮  下划线 EditText
  * Created by cdkj on 2018/7/1.
  */
 
-public class SignInEditClearLayout extends LinearLayout {
+public class SignInEditClearCodeLayout extends LinearLayout {
 
-    public LayoutEditClearBinding mBinding;
+    public LayoutEditClearSendCodeBinding mBinding;
 
     private String hintText;
 
-    public SignInEditClearLayout(Context context) {
+    public SignInEditClearCodeLayout(Context context) {
         this(context, null);
     }
 
-    public SignInEditClearLayout(Context context, @Nullable AttributeSet attrs) {
+    public SignInEditClearCodeLayout(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SignInEditClearLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SignInEditClearCodeLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.sign_edit_clear_layout);
@@ -46,7 +47,7 @@ public class SignInEditClearLayout extends LinearLayout {
 
     private void init() {
 
-        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.layout_edit_clear, this, true);
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.layout_edit_clear_send_code, this, true);
 
         mBinding.edit.setHint(hintText);
 
@@ -98,5 +99,13 @@ public class SignInEditClearLayout extends LinearLayout {
         return mBinding.edit.getText().toString();
     }
 
+    /**
+     * 获取发送验证码
+     *
+     * @return
+     */
+    public Button getSendCodeBtn() {
+        return mBinding.btnSend;
+    }
 
 }

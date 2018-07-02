@@ -107,15 +107,6 @@ public class UserEmailActivity extends AbsBaseActivity {
         return true;
     }
 
-    @Subscribe
-    public void changeUi(String tag){
-        if (tag == null)
-            return;
-
-        if (tag.equals(EventTags.CHANGE_CODE_BTN)){
-            mBinding.btnSend.setBackground(ContextCompat.getDrawable(UserEmailActivity.this,R.drawable.btn_blue));
-        }
-    }
 
     /**
      * 修改邮箱
