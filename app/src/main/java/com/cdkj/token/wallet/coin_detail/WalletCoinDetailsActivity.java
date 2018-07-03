@@ -17,6 +17,7 @@ import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.NetUtils;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -39,6 +40,7 @@ import java.util.Map;
 import retrofit2.Call;
 
 import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
+import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 
 /**
  * 钱包币种 详情
@@ -82,10 +84,16 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
         if (accountListBean != null) {
-            mHeaderBinding.ivIcon.setImageResource(WalletHelper.getCoinIconByType(accountListBean.getCoinName()));
+
+            ImgUtils.loadActImg(WalletCoinDetailsActivity.this, getCoinWatermarkWithCurrency(accountListBean.getCoinName(), 1), mHeaderBinding.ivIcon);
+
             mHeaderBinding.tvSymbol.setText(accountListBean.getCoinName());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
-            mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), ETHSCALE));
+
+            if (!TextUtils.isEmpty(accountListBean.getCoinBalance())) {
+                mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), ETHSCALE));
+
+            }
 
             if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
                 if (TextUtils.isEmpty(accountListBean.getAmountCny())) {
@@ -131,7 +139,9 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
                 return;
             }
 
-            WalletTransferActivity.open(this, getIntent().getParcelableExtra(CdRouteHelper.DATASIGN));
+            if (accountListBean == null) return;
+
+            WalletTransferActivity.open(this, accountListBean);
             ;
         });
 

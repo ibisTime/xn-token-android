@@ -5,6 +5,7 @@ import android.widget.ImageView;
 
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.baselibrary.utils.MoneyUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.MySendRedPackageBean;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -24,10 +25,10 @@ public class MySendRedPackageAdapter extends BaseQuickAdapter<MySendRedPackageBe
 
     @Override
     protected void convert(BaseViewHolder helper, MySendRedPackageBean.ListBean item) {
-        helper.setText(R.id.tv_user_name, mContext.getString(R.string.red_package_form_user) + item.getSendUserNickname());
+        helper.setText(R.id.tv_user_name, item.getSendUserNickname());
         helper.setText(R.id.tv_b_money, item.getTotalCount() + item.getSymbol());
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getCreateDateTime(), DateUtil.DATE_MMddHHmm));
-        helper.setText(R.id.tv_rmb_money, item.getTotalCountCNY() + "");
+        helper.setText(R.id.tv_rmb_money, MoneyUtils.MONEYSING + item.getTotalCountCNY() + "");
         ImageView iv_user_head = helper.getView(R.id.iv_user_head);
         ImgUtils.loadAvatar(mContext, item.getSendUserPhoto(), iv_user_head);
     }

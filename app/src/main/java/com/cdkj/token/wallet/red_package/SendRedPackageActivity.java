@@ -38,6 +38,7 @@ import org.greenrobot.eventbus.Subscribe;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
@@ -56,6 +57,9 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
     boolean isTradepwdFlag = false;//是否设置过支付密码
     private String mobile;
     private String tradePwd;
+
+    private List<CoinModel.AccountListBean> cAccountListBeans;//币种列表
+    private OptionsPickerView coinPickerView;
 
     public static void open(Context context) {
         if (context == null) {
@@ -84,6 +88,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
         mBinding.etSendNumber.setEnabled(false);
         initOnClick();
         getUserInfoRequest();
+        getWalletAssetsData(false);
     }
 
     private void initOnClick() {
@@ -108,7 +113,11 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
             setTotalNumber();
         });
         mBinding.llType.setOnClickListener(view -> {
-            getWalletAssetsData();
+            if (cAccountListBeans != null && !cAccountListBeans.isEmpty()) {
+                getWalletAssetsData(true);
+            } else {
+                showCoinSelectPickView();
+            }
         });
         //
         mBinding.etSendNumber.addTextChangedListener(new TextWatcher() {
@@ -152,6 +161,11 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
         String etNumber = mBinding.etNumber.getText().toString().trim();
         String etSendNumber = mBinding.etSendNumber.getText().toString().trim();
 
+        mBinding.tvSumType.setText(getString(R.string.red_package_unit) + currencyType);
+
+        //拼手气红包  就是输入的币的数量
+        mBinding.tvSumNumber.setText(TextUtils.isEmpty(etNumber) ? "0" : etNumber);
+
         if (TextUtils.isEmpty(etNumber) || TextUtils.isEmpty(etSendNumber)) {
             return;
         }
@@ -161,11 +175,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
             return;
         }
 
-        if (redType == 1) {
-            //拼手气红包  就是输入的币的数量
-            mBinding.tvSumNumber.setText(etNumber + "");
-            mBinding.tvSumType.setText(getString(R.string.red_package_unit) + currencyType);
-        } else {
+        if (redType != 1) {
             //普通红包就是输入的币的数量乘以发的包数
             double v1 = Double.parseDouble(etNumber);
             double v2 = Double.parseDouble(etSendNumber);
@@ -176,7 +186,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
             DecimalFormat df = new DecimalFormat("#######0.###");
             String showMoney = df.format(total);
             mBinding.tvSumNumber.setText(showMoney);
-            mBinding.tvSumType.setText(getString(R.string.red_package_unit) + currencyType);
+
         }
     }
 
@@ -282,7 +292,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
     /**
      * 获取币种
      */
-    private void getWalletAssetsData() {
+    private void getWalletAssetsData(boolean isShowPickerView) {
 
         if (TextUtils.isEmpty(SPUtilHelper.getUserToken()))
             return;
@@ -300,36 +310,12 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
         call.enqueue(new BaseResponseModelCallBack<CoinModel>(this) {
             @Override
             protected void onSuccess(CoinModel data, String SucMessage) {
-
-                if (data.getAccountList() == null || data.getAccountList().size() == 0) {
-                    UITipDialog.showInfo(SendRedPackageActivity.this, getString(R.string.red_package_empty_type));
-                    return;
+                cAccountListBeans = data.getAccountList();
+                if (isShowPickerView) {
+                    showCoinSelectPickView();
+                } else {
+                    setShowSelectCoinInfo(0); //默认显示第一个币种信息
                 }
-                //条件选择器
-                OptionsPickerView pvOptions = new OptionsPickerBuilder(SendRedPackageActivity.this, new OnOptionsSelectListener() {
-                    @SuppressLint("SetTextI18n")
-                    @Override
-                    public void onOptionsSelect(int options1, int options2, int options3, View v) {
-                        CoinModel.AccountListBean accountListBean = data.getAccountList().get(options1);
-                        String name = accountListBean.getCurrency();
-                        currencyType = name;
-                        mBinding.etNumber.setEnabled(true);
-                        mBinding.etSendNumber.setEnabled(true);
-                        setTotalNumber();
-
-                        mBinding.tvType.setText(name);
-                        if (!TextUtils.isEmpty(accountListBean.getAmountString()) && !TextUtils.isEmpty(accountListBean.getFrozenAmountString())) {
-                            BigDecimal amount = new BigDecimal(accountListBean.getAmountString());
-                            BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
-                            String yue = AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), 8);
-                            mBinding.tvBalance.setText(getString(R.string.red_package_have) + name + getString(R.string.red_package_total) + yue);
-                        }
-                    }
-                }).build();
-
-                pvOptions.setPicker(data.getAccountList());
-                pvOptions.show();
-
             }
 
             @Override
@@ -343,6 +329,52 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
                 disMissLoading();
             }
         });
+    }
+
+    /**
+     * 显示选择pickView
+     */
+    private void showCoinSelectPickView() {
+        if (cAccountListBeans == null || cAccountListBeans.size() == 0) {
+            UITipDialog.showInfo(SendRedPackageActivity.this, getString(R.string.red_package_empty_type));
+            return;
+        }
+        if (coinPickerView == null) {
+            //条件选择器
+            coinPickerView = new OptionsPickerBuilder(SendRedPackageActivity.this, new OnOptionsSelectListener() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onOptionsSelect(int options1, int options2, int options3, View v) {
+                    setShowSelectCoinInfo(options1);
+                }
+            }).build();
+        }
+
+
+        coinPickerView.setPicker(cAccountListBeans);
+        coinPickerView.show();
+    }
+
+    void setShowSelectCoinInfo(int options1) {
+
+        if (options1 < 0 || cAccountListBeans == null || options1 > cAccountListBeans.size()) {
+            return;
+        }
+
+        CoinModel.AccountListBean accountListBean = cAccountListBeans.get(options1);
+        String name = accountListBean.getCurrency();
+        currencyType = name;
+        mBinding.etNumber.setEnabled(true);
+        mBinding.etSendNumber.setEnabled(true);
+        setTotalNumber();
+
+        mBinding.tvType.setText(name);
+        if (!TextUtils.isEmpty(accountListBean.getAmountString()) && !TextUtils.isEmpty(accountListBean.getFrozenAmountString())) {
+            BigDecimal amount = new BigDecimal(accountListBean.getAmountString());
+            BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
+            String yue = AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), 8);
+            mBinding.tvBalance.setText(getString(R.string.red_package_have) + name + getString(R.string.red_package_total) + yue);
+        }
     }
 
 

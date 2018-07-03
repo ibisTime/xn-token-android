@@ -23,9 +23,9 @@ public class WalletBalanceModel implements Parcelable {
 
     private String address;
 
-    private String coinBalance;
-    private String frozenAmountString;
-    private String amountString;
+    private String coinBalance="0";
+    private String frozenAmountString="0";
+    private String amountString="0";
 
     public String getCoinBalance() {
         return coinBalance;

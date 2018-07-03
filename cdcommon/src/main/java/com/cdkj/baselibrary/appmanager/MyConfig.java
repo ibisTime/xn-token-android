@@ -19,5 +19,7 @@ public class MyConfig {
 
     public static final String BASE_URL_TEST = "http://120.26.6.213:2101/forward-service/"; // 测试
 
-    public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
+    public static final String BASE_URL_ONLINE = "http://120.26.6.213:2101/forward-service/"; // 测试
+
+//    public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
 }

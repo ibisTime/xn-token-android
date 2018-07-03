@@ -1,12 +1,17 @@
 package com.cdkj.token.consult;
 
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.GridLayoutManager;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.base.BaseRefreshFragment;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -43,7 +48,7 @@ import static com.cdkj.token.utils.CoinUtil.getFirstTokenCoin;
  * Created by lei on 2018/3/6.
  */
 
-public class ConsultFragment extends BaseRefreshFragment<String> {
+public class ConsultFragment extends BaseLazyFragment {
 
     private FragmentConsultBinding mHeadBinding;
     private List<BannerModel> bannerData = new ArrayList<>();
@@ -58,54 +63,18 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
         return fragment;
     }
 
-    @Override
-    protected boolean canLoadTopTitleView() {
-        return false;
-    }
 
+    @Nullable
     @Override
-    protected void afterCreate(int pageIndex, int limit) {
-        mBinding.refreshLayout.setEnableRefresh(false);
-        mBinding.refreshLayout.setEnableAutoLoadmore(false);//不能自动加载
-
-        initAdapter();
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        mHeadBinding = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.fragment_consult, null, false);
 
         initListener();
 
         initBanner();
 
-        // 刷新轮播图
-        getBanner();
-        getListData(pageIndex, 15, true);
-//        getKtInfo(true);
+        return mHeadBinding.getRoot();
 
-        // 取消上啦加载
-        setEnableLoadmore(false);
-    }
-
-    @Override
-    public void after() {
-        // 重新初始化RecyclerView的LayoutManager
-        mBinding.rv.setLayoutManager(new GridLayoutManager(mActivity, 3));
-        mAdapter.onAttachedToRecyclerView(mBinding.rv);
-    }
-
-    /**
-     * 初始化适配器
-     */
-    private void initAdapter() {
-        mHeadBinding = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.fragment_consult, null, false);
-        mAdapter.setHeaderAndEmpty(true);
-        mAdapter.addHeaderView(mHeadBinding.getRoot());
-        mAdapter.setOnItemClickListener((adapter, view, position) -> {
-
-            ConsultModel model = (ConsultModel) mAdapter.getItem(position);
-
-            if (model == null) return;
-
-            ConsultActivity.open(mActivity, model.getCode());
-
-        });
     }
 
     private void initListener() {
@@ -114,9 +83,18 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
         });
 
         mHeadBinding.llMerchant.setOnClickListener(view -> {
+            NoneActivity.open(mActivity, "");
+        });
+        mHeadBinding.fraLayoutYbg.setOnClickListener(view -> {
+            NoneActivity.open(mActivity, "");
+        });
+        mHeadBinding.fraLayoutLhlc.setOnClickListener(view -> {
+            NoneActivity.open(mActivity, "");
+        });
+
+        mHeadBinding.fraRed.setOnClickListener(view -> {
             //跳转到红包
             SendRedPackageActivity.open(mActivity);
-//            NoneActivity.open(mActivity, "merchant");
         });
 
     }
@@ -126,53 +104,6 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
     public void onDestroy() {
         super.onDestroy();
         mHeadBinding.banner.stopAutoPlay();
-    }
-
-
-    @Override
-    protected void getListData(int pageIndex, int limit, boolean canShowDialog) {
-        getConsultListRequest(pageIndex, limit, canShowDialog);
-
-    }
-
-    @Override
-    protected void onMRefresh(int pageIndex, int limit) {
-
-        // 刷新轮播图
-        getBanner();
-        getListData(pageIndex, limit, false);
-    }
-
-
-
-    /**
-     * 获取可变列表数据
-     *
-     * @param pageIndex
-     * @param limit
-     * @param canShowDialog
-     */
-    private void getConsultListRequest(int pageIndex, int limit, boolean canShowDialog) {
-
-        List<String> list = new ArrayList<>();
-        list.add("");
-        setData(list);
-
-    }
-
-    @Override
-    protected BaseQuickAdapter onCreateAdapter(List<String> mDataList) {
-        return new ConsultAdapter(mDataList);
-    }
-
-    @Override
-    public String getEmptyInfo() {
-        return getString(R.string.consult_none);
-    }
-
-    @Override
-    public int getEmptyImg() {
-        return R.mipmap.order_none;
     }
 
 
@@ -243,5 +174,31 @@ public class ConsultFragment extends BaseRefreshFragment<String> {
 
         // 设置在操作Banner时listView事件不触发
 //        mHeadBinding.banner.setOnPageChangeListener(new MyPageChangeListener());
+    }
+
+    @Override
+    protected void lazyLoad() {
+        if (mHeadBinding == null) {
+            return;
+        }
+        // 刷新轮播图
+        getBanner();
+    }
+
+    @Override
+    protected void onInvisible() {
+        if (mHeadBinding == null) {
+            return;
+        }
+        mHeadBinding.banner.stopAutoPlay();
+    }
+
+    @Override
+    public void onDestroyView() {
+        if (mHeadBinding == null) {
+            return;
+        }
+        mHeadBinding.banner.stopAutoPlay();
+        super.onDestroyView();
     }
 }

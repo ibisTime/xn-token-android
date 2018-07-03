@@ -101,7 +101,7 @@
     <string name="please_choose_browser">请选择浏览器</string>
     <string name="no_browser">没有可用浏览器</string>
     <string name="open_browser_error">打开浏览器出现错误</string>
-    <string name="code_down">重新获取%d</string>
+    <string name="code_down">重新获取(%d)</string>
     <string name="resend_code">重发验证码</string>
     <string name="back">返回</string>
     <string name="save_photo_to">图片已保存至</string>

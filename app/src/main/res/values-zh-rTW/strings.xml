@@ -436,22 +436,22 @@
     <string name="choose_country">选择国家</string>
     <string name="wallet_tool">钱包工具</string>
     <string name="wallet_delete_success">钱包删除成功</string>
-    <string name="me_red_package">我的糖包</string>
-    <string name="send_red_package">发糖果</string>
+    <string name="me_red_package">我的红包</string>
+    <string name="send_red_package">发红包</string>
     <string name="send_you_red_package">给您发送了一个红包</string>
-    <string name="defaut_red_package_mesg">糖包一响,黄金万两</string>
-    <string name="my_red_package">我的糖包</string>
-    <string name="get_red_package">抢到糖包</string>
-    <string name="send_red_package2">发出糖包</string>
+    <string name="defaut_red_package_mesg">红包一响,黄金万两</string>
+    <string name="my_red_package">我的红包</string>
+    <string name="get_red_package">抢到红包</string>
+    <string name="send_red_package2">发出红包</string>
     <string name="sub_total_red_package">总共发送</string>
     <string name="red_package_db">代币</string>
     <string name="red_package_sub_total">代币总额</string>
     <string name="red_package_unit">枚</string>
-    <string name="red_package_number">糖果个数</string>
+    <string name="red_package_number">红包个数</string>
     <string name="red_package_number_unit">个</string>
     <string name="red_package_msg">请输入祝福语</string>
-    <string name="red_package_set">塞进糖包</string>
-    <string name="red_package_send">发糖果</string>
+    <string name="red_package_set">塞进红包</string>
+    <string name="red_package_send">发红包</string>
     <string name="red_package_have">持有</string>
     <string name="red_package_total">总量</string>
     <string name="red_package_empty_type">暂无可用币种</string>
@@ -466,7 +466,7 @@
     <string name="red_package_please_sing_number">请输入单个数量</string>
     <string name="red_package_please_total_number">请输入总数量</string>
     <string name="red_package_please_number">请输入数量</string>
-    <string name="red_package_my">我的糖包</string>
+    <string name="red_package_my">我的红包</string>
     <string name="red_package_get_empty">暂无抢到的红包</string>
     <string name="api_error">请求接口错误</string>
     <string name="red_package_send_empty">暂无发送记录</string>
@@ -474,4 +474,6 @@
     <string name="red_package_send_success">发送成功,请扫描二维码抢红包</string>
     <string name="assets">资产</string>
     <string name="my_coin_address">我的%s收款地址</string>
+    <string name="red_pg">发红包</string>
+    <string name="my_red_package_title">我的红包</string>
 </resources>

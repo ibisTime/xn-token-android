@@ -111,7 +111,7 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSendCOdePresenter.sendCodeRequest(mBinding.edtCode.getText().toString(), "805063", MyConfig.USERTYPE, FindPwdActivity.this);
+                mSendCOdePresenter.sendCodeRequest(mBinding.edtMobile.getText().toString(), "805063", MyConfig.USERTYPE, FindPwdActivity.this);
             }
         });
 
@@ -176,6 +176,8 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
 //        hashMap.put("googleCaptcha", mBinding.edtGoogle.getText().toString());
         hashMap.put("systemCode", MyConfig.SYSTEMCODE);
         hashMap.put("companyCode", MyConfig.COMPANYCODE);
+        hashMap.put("companyCode", MyConfig.COMPANYCODE);
+        hashMap.put("interCode", SPUtilHelper.getCountryCode());
 
         Call call = RetrofitUtils.getBaseAPiService().successRequest("805063", StringUtils.getJsonToString(hashMap));
 

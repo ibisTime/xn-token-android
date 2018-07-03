@@ -12,7 +12,7 @@ public class RedPackageDetialsBean {
      * bestHandCount : 0.0
      * code : RP201807030322159095779
      * createDateTime : Jul 3, 2018 3:22:15 AM
-     * greeting : 糖包一响,黄金万两
+     * greeting : 红包一响,黄金万两
      * isReceived : 0
      * receivedCount : 0.0
      * receivedNum : 0.0

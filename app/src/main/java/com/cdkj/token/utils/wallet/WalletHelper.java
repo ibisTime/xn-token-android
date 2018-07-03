@@ -3,10 +3,10 @@ package com.cdkj.token.utils.wallet;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
-import android.widget.TextView;
 
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
+import com.cdkj.baselibrary.utils.MoneyUtils;
 import com.cdkj.baselibrary.utils.SPUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
@@ -52,9 +52,9 @@ import io.reactivex.schedulers.Schedulers;
 
 import static com.cdkj.token.utils.AccountUtil.UNIT_MIN;
 import static com.cdkj.token.utils.AccountUtil.UNIT_POW;
-import static com.cdkj.token.utils.wallet.WalletDBColumn.FIND_USER_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_COIN_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_SQL;
+import static com.cdkj.token.utils.wallet.WalletDBColumn.FIND_USER_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.WALLETPASSWORD;
 
 /**
@@ -83,6 +83,24 @@ public class WalletHelper {
     public final static String LOCAL_COIN_CNY = "CNY";// 币种显示类型 人民币
     public final static String LOCAL_COIN_USD = "USD";// 币种显示类型 美元
 
+    public final static String LOCAL_COIN_USD_SYMBOL = "$";// 币种显示类型 美元
+    public final static String LOCAL_COIN_CNY_SYMBOL = MoneyUtils.MONEYSING;// 币种显示类型 美元
+
+    /**
+     * 根据本地货币获取显示货币符号
+     *
+     * @param localCoin
+     * @return
+     */
+
+    public static String getMoneySymbol(String localCoin) {
+        if (TextUtils.equals(localCoin, WalletHelper.LOCAL_COIN_CNY)) {
+            return LOCAL_COIN_CNY_SYMBOL;
+        } else if (TextUtils.equals(localCoin, WalletHelper.LOCAL_COIN_USD)) {
+            return LOCAL_COIN_USD_SYMBOL;
+        }
+        return LOCAL_COIN_CNY_SYMBOL;
+    }
 
     /**
      * 获取当前节点类型

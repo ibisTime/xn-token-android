@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="我的糖包"
+                android:text="@string/my_red_package_title"
                 android:textColor="@color/white" />
 
 

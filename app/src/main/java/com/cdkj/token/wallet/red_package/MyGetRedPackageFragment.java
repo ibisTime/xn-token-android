@@ -33,7 +33,7 @@ import retrofit2.Call;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class MyGetRedPackageFragment extends AbsRefreshListFragment<MyGetRedPackageBean.ListBean> {
+public class MyGetRedPackageFragment extends AbsRefreshListFragment<MyGetRedPackageBean> {
 
     private Boolean isFirstRequest;
 
@@ -71,7 +71,7 @@ public class MyGetRedPackageFragment extends AbsRefreshListFragment<MyGetRedPack
     }
 
     @Override
-    public RecyclerView.Adapter getListAdapter(List<MyGetRedPackageBean.ListBean> listData) {
+    public RecyclerView.Adapter getListAdapter(List<MyGetRedPackageBean> listData) {
         MyGetRedPackageAdapter mAdapter = new MyGetRedPackageAdapter(listData);
         return mAdapter;
     }
@@ -91,11 +91,13 @@ public class MyGetRedPackageFragment extends AbsRefreshListFragment<MyGetRedPack
         map.put("userId", SPUtilHelper.getUserId());
         map.put("start", pageindex + "");
         map.put("limit", limit + "");
-        Call<BaseResponseModel<ResponseInListModel<MyGetRedPackageBean.ListBean>>> getRedPackage = RetrofitUtils.createApi(MyApi.class).getGetRedPackage("623007", StringUtils.getJsonToString(map));
-        addCall(getRedPackage);
-        getRedPackage.enqueue(new BaseResponseModelCallBack<ResponseInListModel<MyGetRedPackageBean.ListBean>>(mActivity) {
+        Call<BaseResponseModel<ResponseInListModel<MyGetRedPackageBean>>> call = RetrofitUtils.createApi(MyApi.class).getGetRedPackage("623007", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<MyGetRedPackageBean>>(mActivity) {
             @Override
-            protected void onSuccess(ResponseInListModel<MyGetRedPackageBean.ListBean> data, String SucMessage) {
+            protected void onSuccess(ResponseInListModel<MyGetRedPackageBean> data, String SucMessage) {
                 mRefreshHelper.setData(data.getList(), getString(R.string.red_package_get_empty), 0);
             }
 
@@ -110,6 +112,7 @@ public class MyGetRedPackageFragment extends AbsRefreshListFragment<MyGetRedPack
                 disMissLoading();
             }
         });
+
     }
 
 }

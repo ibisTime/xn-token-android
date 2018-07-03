@@ -27,6 +27,7 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.WalletBalanceAdapter;
 import com.cdkj.token.api.MyApi;
+import com.cdkj.token.consult.MsgListActivity;
 import com.cdkj.token.consult.NoneActivity;
 import com.cdkj.token.databinding.FragmentWallet2Binding;
 import com.cdkj.token.model.AddCoinChangeEvent;
@@ -44,6 +45,7 @@ import com.cdkj.token.wallet.account.BillListActivity;
 import com.cdkj.token.wallet.coin_detail.WalletCoinDetailsActivity;
 
 import org.greenrobot.eventbus.Subscribe;
+import org.spongycastle.asn1.esf.SPuri;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -56,6 +58,8 @@ import retrofit2.Call;
 
 import static com.cdkj.token.utils.AccountUtil.ALLSCALE;
 import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
+import static com.cdkj.token.utils.wallet.WalletHelper.LOCAL_COIN_CNY_SYMBOL;
+import static com.cdkj.token.utils.wallet.WalletHelper.LOCAL_COIN_USD_SYMBOL;
 import static com.cdkj.token.views.CardChangeLayout.BOTTOMVIEW;
 import static com.cdkj.token.views.CardChangeLayout.TOPVIEW;
 
@@ -98,12 +102,16 @@ public class WalletFragment_2 extends BaseLazyFragment {
     }
 
     /**
-     * 初始化View 状态
+     * 初始化View 状态 本地货币类型
      */
     void initViewState() {
         mBinding.tvAllAssets.setText(getString(R.string.wallet_assets, WalletHelper.getShowLocalCoinType()));
         mBinding.tvMyWallet.setText(getString(R.string.my_wallet, WalletHelper.getShowLocalCoinType()));
         mBinding.tvMyPrivateWallet.setText(getString(R.string.my_private_wallet, WalletHelper.getShowLocalCoinType()));
+
+        mBinding.tvWalletSymbol.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()));
+        mBinding.tvPrivateWalletSymbol.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()));
+
     }
 
     public static WalletFragment_2 getInstance() {
@@ -115,6 +123,10 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
 
     private void initClickListener() {
+
+        mBinding.tvBulletin.setOnClickListener(view -> {
+            MsgListActivity.open(mActivity);
+        });
 
         //一键划转
         mBinding.linLayoutFastTransfer.setOnClickListener(view -> {
@@ -460,7 +472,9 @@ public class WalletFragment_2 extends BaseLazyFragment {
         }
         BigDecimal wallAmount = new BigDecimal(mBinding.tvWalletAmount.getText().toString());
         BigDecimal priWallAmount = new BigDecimal(mBinding.tvPriWalletAmount.getText().toString());
-        mBinding.tvAllWalletAmount.setText(getString(R.string.money_sing) + BigDecimalUtils.add(wallAmount, priWallAmount).toPlainString());
+
+        mBinding.tvAllWalletAmount.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()) + BigDecimalUtils.add(wallAmount, priWallAmount).toPlainString());
+
     }
 
     /**
@@ -535,7 +549,7 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
             walletBalanceModel.setAddress(accountListBean.getAddress());
 
-            walletBalanceModel.setCoinBalance(accountListBean.getBalance()+"");
+            walletBalanceModel.setCoinBalance(accountListBean.getBalance() + "");
 
             walletBalanceModels.add(walletBalanceModel);
         }

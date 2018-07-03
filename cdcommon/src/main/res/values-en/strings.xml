@@ -64,7 +64,7 @@
 </string>
     <string name="save_to_photo"> Save to mobile </string>
     <string name="take_a_photo"> take a picture of </string>
-    <string name="code_down">%d秒后重发</string>
+    <string name="code_down">重新获取(%d)</string>
     <string name="choose_from_album"> from mobile albums Select </string>
 
 </resources>

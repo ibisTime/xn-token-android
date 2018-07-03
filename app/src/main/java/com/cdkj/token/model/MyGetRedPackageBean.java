@@ -1,7 +1,5 @@
 package com.cdkj.token.model;
 
-import java.util.List;
-
 /**
  * @author qi
  * @updateDts 2018/7/2
@@ -11,106 +9,126 @@ public class MyGetRedPackageBean {
 
 
     /**
-     * list : [{"bestHandCount":0,"code":"RP201807030335590066003","createDateTime":"Jul 3, 2018 3:35:59 AM","greeting":"糖包一响,黄金万两","receivedCount":0,"receivedNum":0,"sendNum":3,"singleCount":0,"status":"0","symbol":"WAN","totalCount":0.03,"type":"1","userId":"U201807021702422559546"},{"bestHandCount":0,"code":"RP201807030333149149364","createDateTime":"Jul 3, 2018 3:33:14 AM","greeting":"糖包一响,黄金万两","receivedCount":0,"receivedNum":0,"sendNum":2,"singleCount":0,"status":"0","symbol":"WAN","totalCount":0.01,"type":"1","userId":"U201807021702422559546"},{"bestHandCount":0,"code":"RP201807030332433712842","createDateTime":"Jul 3, 2018 3:32:43 AM","greeting":"糖包一响,黄金万两","receivedCount":0,"receivedNum":0,"sendNum":3,"singleCount":0,"status":"0","symbol":"WAN","totalCount":0.03,"type":"1","userId":"U201807021702422559546"},{"bestHandCount":0,"code":"RP201807030326394547422","createDateTime":"Jul 3, 2018 3:26:39 AM","greeting":"糖包一响,黄金万两哈哈","receivedCount":0,"receivedNum":0,"sendNum":2,"singleCount":0,"status":"0","symbol":"WAN","totalCount":0.03,"type":"1","userId":"U201807021702422559546"},{"bestHandCount":0,"code":"RP201807030326236744520","createDateTime":"Jul 3, 2018 3:26:23 AM","greeting":"糖包一响,黄金万两","receivedCount":0,"receivedNum":0,"sendNum":2,"singleCount":0,"status":"0","symbol":"WAN","totalCount":0.03,"type":"1","userId":"U201807021702422559546"},{"bestHandCount":0,"code":"RP201807030322159095779","createDateTime":"Jul 3, 2018 3:22:15 AM","greeting":"糖包一响,黄金万两","receivedCount":0,"receivedNum":0,"sendNum":3,"singleCount":0,"status":"0","symbol":"WAN","totalCount":0.03,"type":"1","userId":"U201807021702422559546"},{"bestHandCount":0,"code":"RP201807030305350296811","createDateTime":"Jul 3, 2018 3:05:35 AM","greeting":"糖包一响,黄金万两","receivedCount":0,"receivedNum":0,"sendNum":3,"singleCount":0,"status":"0","symbol":"WAN","totalCount":0.03,"type":"1","userId":"U201807021702422559546"},{"bestHandCount":0,"code":"RP201807030304056568418","createDateTime":"Jul 3, 2018 3:04:05 AM","greeting":"糖包一响,黄金万两","receivedCount":0,"receivedNum":0,"sendNum":3,"singleCount":0,"status":"0","symbol":"WAN","totalCount":0.03,"type":"1","userId":"U201807021702422559546"},{"bestHandCount":0,"code":"RP201807030230473633217","createDateTime":"Jul 3, 2018 2:30:47 AM","greeting":"糖包一响,黄金万两","receivedCount":0,"receivedNum":0,"sendNum":3,"singleCount":0,"status":"0","symbol":"WAN","totalCount":0.03,"type":"1","userId":"U201807021702422559546"},{"bestHandCount":0,"code":"RP201807030230289875241","createDateTime":"Jul 3, 2018 2:30:28 AM","greeting":"糖包一响,黄金万两","receivedCount":0,"receivedNum":0,"sendNum":3,"singleCount":0,"status":"0","symbol":"WAN","totalCount":0.03,"type":"1","userId":"U201807021702422559546"}]
-     * pageNO : 1.0
-     * pageSize : 10.0
-     * start : 0.0
-     * totalCount : 33.0
-     * totalPage : 4.0
+     * id : 51
+     * userId : U201807031658173735279
+     * redPacketCode : RP201807031743244882018
+     * count : 1.615
+     * createDatetime : Jul 3, 2018 5:44:05 PM
+     * countCNY : 0
+     * redPacketInfo : {"code":"RP201807031743244882018","userId":"U201807031719257548694","symbol":"LXT","type":"1","totalCount":4,"singleCount":0,"greeting":"红包一响,黄金万两","sendNum":3,"receivedNum":1,"receivedCount":1.615,"lastReceivedDatetime":"Jul 3, 2018 5:44:05 PM","bestHandUser":"U201807031658173735279","bestHandCount":1.615,"createDateTime":"Jul 3, 2018 5:43:24 PM","status":"1","sendUserNickname":"THA9999","totalCountCNY":0}
      */
 
-    private double pageNO;
-    private double pageSize;
-    private double start;
-    private double totalCount;
-    private double totalPage;
-    private List<ListBean> list;
+    private String id;
+    private String userId;
+    private String redPacketCode;
+    private double count;
+    private String createDatetime;
+    private int countCNY;
+    private RedPacketInfoBean redPacketInfo;
 
-    public double getPageNO() {
-        return pageNO;
+    public String getId() {
+        return id;
     }
 
-    public void setPageNO(double pageNO) {
-        this.pageNO = pageNO;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public double getPageSize() {
-        return pageSize;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setPageSize(double pageSize) {
-        this.pageSize = pageSize;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public double getStart() {
-        return start;
+    public String getRedPacketCode() {
+        return redPacketCode;
     }
 
-    public void setStart(double start) {
-        this.start = start;
+    public void setRedPacketCode(String redPacketCode) {
+        this.redPacketCode = redPacketCode;
     }
 
-    public double getTotalCount() {
-        return totalCount;
+    public double getCount() {
+        return count;
     }
 
-    public void setTotalCount(double totalCount) {
-        this.totalCount = totalCount;
+    public void setCount(double count) {
+        this.count = count;
     }
 
-    public double getTotalPage() {
-        return totalPage;
+    public String getCreateDatetime() {
+        return createDatetime;
     }
 
-    public void setTotalPage(double totalPage) {
-        this.totalPage = totalPage;
+    public void setCreateDatetime(String createDatetime) {
+        this.createDatetime = createDatetime;
     }
 
-    public List<ListBean> getList() {
-        return list;
+    public int getCountCNY() {
+        return countCNY;
     }
 
-    public void setList(List<ListBean> list) {
-        this.list = list;
+    public void setCountCNY(int countCNY) {
+        this.countCNY = countCNY;
     }
 
-    public static class ListBean {
+    public RedPacketInfoBean getRedPacketInfo() {
+        return redPacketInfo;
+    }
 
+    public void setRedPacketInfo(RedPacketInfoBean redPacketInfo) {
+        this.redPacketInfo = redPacketInfo;
+    }
+
+    public static class RedPacketInfoBean {
         /**
-         * code : RP201807030422332791158
-         * userId : U201807021702422559546
-         * symbol : WAN
+         * code : RP201807031743244882018
+         * userId : U201807031719257548694
+         * symbol : LXT
          * type : 1
-         * totalCount : 0.03
-         * singleCount : 0.0
-         * greeting : 糖包一响,黄金万两
-         * sendNum : 2.0
-         * receivedNum : 0.0
-         * receivedCount : 0.0
-         * bestHandCount : 0.0
-         * createDateTime : Jul 3, 2018 4:22:33 AM
-         * status : 0
-         * sendUserPhoto : ANDROID_1530559246149_362_442.jpg
-         * sendUserNickname : THA8237
-         * totalCountCNY : 0.0
+         * totalCount : 4
+         * singleCount : 0
+         * greeting : 红包一响,黄金万两
+         * sendNum : 3
+         * receivedNum : 1
+         * receivedCount : 1.615
+         * lastReceivedDatetime : Jul 3, 2018 5:44:05 PM
+         * bestHandUser : U201807031658173735279
+         * bestHandCount : 1.615
+         * createDateTime : Jul 3, 2018 5:43:24 PM
+         * status : 1
+         * sendUserNickname : THA9999
+         * totalCountCNY : 0
          */
 
         private String code;
         private String userId;
         private String symbol;
         private String type;
-        private double totalCount;
-        private double singleCount;
+        private int totalCount;
+        private int singleCount;
         private String greeting;
-        private double sendNum;
-        private double receivedNum;
+        private int sendNum;
+        private int receivedNum;
         private double receivedCount;
+        private String lastReceivedDatetime;
+        private String bestHandUser;
         private double bestHandCount;
         private String createDateTime;
         private String status;
-        private String sendUserPhoto;
         private String sendUserNickname;
-        private double totalCountCNY;
+        private String sendUserPhoto;
+        private int totalCountCNY;
+
+        public String getSendUserPhoto() {
+            return sendUserPhoto;
+        }
+
+        public void setSendUserPhoto(String sendUserPhoto) {
+            this.sendUserPhoto = sendUserPhoto;
+        }
 
         public String getCode() {
             return code;
@@ -144,19 +162,19 @@ public class MyGetRedPackageBean {
             this.type = type;
         }
 
-        public double getTotalCount() {
+        public int getTotalCount() {
             return totalCount;
         }
 
-        public void setTotalCount(double totalCount) {
+        public void setTotalCount(int totalCount) {
             this.totalCount = totalCount;
         }
 
-        public double getSingleCount() {
+        public int getSingleCount() {
             return singleCount;
         }
 
-        public void setSingleCount(double singleCount) {
+        public void setSingleCount(int singleCount) {
             this.singleCount = singleCount;
         }
 
@@ -168,19 +186,19 @@ public class MyGetRedPackageBean {
             this.greeting = greeting;
         }
 
-        public double getSendNum() {
+        public int getSendNum() {
             return sendNum;
         }
 
-        public void setSendNum(double sendNum) {
+        public void setSendNum(int sendNum) {
             this.sendNum = sendNum;
         }
 
-        public double getReceivedNum() {
+        public int getReceivedNum() {
             return receivedNum;
         }
 
-        public void setReceivedNum(double receivedNum) {
+        public void setReceivedNum(int receivedNum) {
             this.receivedNum = receivedNum;
         }
 
@@ -190,6 +208,22 @@ public class MyGetRedPackageBean {
 
         public void setReceivedCount(double receivedCount) {
             this.receivedCount = receivedCount;
+        }
+
+        public String getLastReceivedDatetime() {
+            return lastReceivedDatetime;
+        }
+
+        public void setLastReceivedDatetime(String lastReceivedDatetime) {
+            this.lastReceivedDatetime = lastReceivedDatetime;
+        }
+
+        public String getBestHandUser() {
+            return bestHandUser;
+        }
+
+        public void setBestHandUser(String bestHandUser) {
+            this.bestHandUser = bestHandUser;
         }
 
         public double getBestHandCount() {
@@ -216,14 +250,6 @@ public class MyGetRedPackageBean {
             this.status = status;
         }
 
-        public String getSendUserPhoto() {
-            return sendUserPhoto;
-        }
-
-        public void setSendUserPhoto(String sendUserPhoto) {
-            this.sendUserPhoto = sendUserPhoto;
-        }
-
         public String getSendUserNickname() {
             return sendUserNickname;
         }
@@ -232,11 +258,11 @@ public class MyGetRedPackageBean {
             this.sendUserNickname = sendUserNickname;
         }
 
-        public double getTotalCountCNY() {
+        public int getTotalCountCNY() {
             return totalCountCNY;
         }
 
-        public void setTotalCountCNY(double totalCountCNY) {
+        public void setTotalCountCNY(int totalCountCNY) {
             this.totalCountCNY = totalCountCNY;
         }
     }

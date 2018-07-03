@@ -44,6 +44,7 @@
             android:orientation="vertical">
 
             <LinearLayout
+                android:visibility="gone"
                 android:id="@+id/ll_identity"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"

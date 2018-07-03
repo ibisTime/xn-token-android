@@ -543,7 +543,7 @@ public interface MyApi {
     */
    @FormUrlEncoded
    @POST("api")
-   Call<BaseResponseModel<ResponseInListModel<MyGetRedPackageBean.ListBean>>> getGetRedPackage(@Field("code") String code, @Field("json") String json);
+   Call<BaseResponseModel<ResponseInListModel<MyGetRedPackageBean>>> getGetRedPackage(@Field("code") String code, @Field("json") String json);
 
    /**
     * 红包详情

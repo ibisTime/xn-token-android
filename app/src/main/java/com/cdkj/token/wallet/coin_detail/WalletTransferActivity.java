@@ -66,7 +66,7 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
 
-    public static void open(Context context, BalanceListModel.AccountListBean accountListBean) {
+    public static void open(Context context, WalletBalanceModel accountListBean) {
         if (context == null) {
             return;
         }
@@ -87,7 +87,7 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
 
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
-        if (accountListBean != null) {
+        if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
             mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), ETHSCALE) + " " + accountListBean.getCoinName());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
         }
@@ -104,24 +104,24 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
 
         mBinding.btnNext.setOnClickListener(view -> {
 
-            if (TextUtils.isEmpty(mBinding.editToAddress.getText().toString().trim())) {
-                UITipDialog.showInfo(this, getString(R.string.please_to_address));
-                return;
-            }
-
-            if (!WalletUtils.isValidAddress(mBinding.editToAddress.getText().toString().trim())) {
-                UITipDialog.showInfo(this, getStrRes(R.string.error_wallet_address));
-                return;
-            }
-
-            if (TextUtils.isEmpty(mBinding.edtAmount.getText().toString().trim())) {
-                UITipDialog.showInfo(this, getString(R.string.please_input_transaction_number));
-                return;
-            }
+//            if (TextUtils.isEmpty(mBinding.editToAddress.getText().toString().trim())) {
+//                UITipDialog.showInfo(this, getString(R.string.please_to_address));
+//                return;
+//            }
+//
+//            if (!WalletUtils.isValidAddress(mBinding.editToAddress.getText().toString().trim())) {
+//                UITipDialog.showInfo(this, getStrRes(R.string.error_wallet_address));
+//                return;
+//            }
+//
+//            if (TextUtils.isEmpty(mBinding.edtAmount.getText().toString().trim())) {
+//                UITipDialog.showInfo(this, getString(R.string.please_input_transaction_number));
+//                return;
+//            }
 
             try {
 
-                if (accountListBean == null) {
+                if (accountListBean == null || TextUtils.isEmpty(accountListBean.getCoinBalance())) {
                     UITipDialog.showInfo(this, getStrRes(R.string.no_balance));
                     return;
                 }
@@ -135,7 +135,7 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
 
                 BigInteger allBigInteger = transferGasPrice.add(amountBigInteger);//手续费+转账数量
 
-                int checkInt = allBigInteger.compareTo(new BigDecimal(accountListBean.getCoinName()).toBigInteger()); //比较
+                int checkInt = allBigInteger.compareTo(new BigDecimal(accountListBean.getCoinBalance()).toBigInteger()); //比较
 
                 if (checkInt == 1 || checkInt == 0) {
                     UITipDialog.showInfo(this, getString(R.string.no_balance));
