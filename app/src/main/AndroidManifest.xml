@@ -5,7 +5,6 @@
 
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -16,7 +15,7 @@
     <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
-        android:name="com.cdkj.token.MyApplication"
+        android:name=".MyApplication"
         android:allowBackup="false"
         android:icon="@mipmap/app_icon"
         android:label="@string/app_name"
@@ -24,35 +23,30 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:allowBackup">
-
-        <activity android:name="com.cdkj.token.user.login.StartActivity">
+        <activity android:name=".user.login.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
-            android:name="com.cdkj.token.MainActivity"
+            android:name=".MainActivity"
             android:launchMode="singleTask" />
-
-        <activity android:name="com.cdkj.token.wallet.account.BillActivity" />
-        <activity android:name="com.cdkj.token.wallet.account.BillDetailActivity" />
-        <activity android:name="com.cdkj.token.wallet.account.RechargeActivity" />
-        <activity android:name="com.cdkj.token.wallet.account.WithdrawActivity" />
-
-        <activity android:name="com.cdkj.token.user.UserSettingActivity" />
-        <activity android:name="com.cdkj.token.user.UserEmailActivity" />
-        <activity android:name="com.cdkj.token.user.UserLanguageActivity" />
-        <activity android:name="com.cdkj.token.user.UserPasswordActivity" />
-        <activity android:name="com.cdkj.token.user.UserAboutActivity" />
+        <activity android:name=".wallet.account.BillActivity" />
+        <activity android:name=".wallet.account.BillDetailActivity" />
+        <activity android:name=".wallet.account.RechargeActivity" />
+        <activity android:name=".wallet.account.WithdrawActivity" />
+        <activity android:name=".user.UserSettingActivity" />
+        <activity android:name=".user.UserEmailActivity" />
+        <activity android:name=".user.UserLanguageActivity" />
+        <activity android:name=".user.UserPasswordActivity" />
+        <activity android:name=".user.UserAboutActivity" />
         <activity
-            android:name="com.cdkj.token.user.login.SignInActivity"
+            android:name=".user.login.SignInActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name="com.cdkj.token.user.login.SignUpActivity" />
-
+        <activity android:name=".user.login.SignUpActivity" />
         //找回密码
         <activity
             android:name=".user.login.FindPwdActivity"
@@ -121,7 +115,7 @@
 
         <service android:name=".service.CoinListService" />
 
-        <activity android:name="com.cdkj.token.wallet.IntoWalletBeforeActivity" />
+        <activity android:name=".wallet.IntoWalletBeforeActivity" />
         <activity android:name=".wallet.create_guide.CreatePassWordActivity" />
         <activity android:name=".wallet.create_guide.CreateWalletSuccessActivity" />
         <activity android:name=".wallet.create_guide.WalletBackupCheckActivity" />
@@ -143,7 +137,13 @@
         <activity android:name=".wallet.trusteeship.WalletUserActivity" />
         <activity android:name=".wallet.AddChoiceActivity2" />
         <activity android:name=".wallet.coin_detail.TransactionDetailsActivity" />
+        <activity android:name=".wallet.red_package.SendRedPackageActivity" />
+        <activity android:name=".wallet.red_package.RedPackageShearActivity" />
+        <activity android:name=".wallet.red_package.RedPackageHistoryActivity" />
         <activity android:name=".user.CountryCodeListActivity" />
+        <activity
+            android:name=".wallet.red_package.QRRedPackageImgActivity"
+            android:theme="@style/ActivityDialogStyleBottom"></activity>
         <activity android:name=".user.LocalCoinTypeChooseActivity" />
     </application>
 

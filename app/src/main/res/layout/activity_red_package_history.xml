@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.cdkj.token.wallet.red_package.RedPackageHistoryActivity">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/red"
+            android:gravity="center_vertical">
+
+            <ImageView
+                android:id="@+id/iv_back"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:src="@mipmap/icon_left_arrow" />
+
+            <TextView
+                android:id="@+id/tv_top_title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="我的糖包"
+                android:textColor="@color/white" />
+
+
+        </RelativeLayout>
+
+        <include
+            android:id="@+id/top_layout"
+            layout="@layout/layout_red_package_title" />
+
+
+        <com.cdkj.token.views.EnabledViewpager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+    </LinearLayout>
+</layout>

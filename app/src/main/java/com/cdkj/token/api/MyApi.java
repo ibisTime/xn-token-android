@@ -3,8 +3,6 @@ package com.cdkj.token.api;
 import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.api.ResponseInListModel;
-import com.cdkj.token.model.CountryCodeMode;
-import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.token.model.AddressModel;
@@ -15,6 +13,7 @@ import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.ConsultListModel;
 import com.cdkj.token.model.ConsultModel;
 import com.cdkj.token.model.ConsultingModel;
+import com.cdkj.token.model.CountryCodeMode;
 import com.cdkj.token.model.DealDetailModel;
 import com.cdkj.token.model.DealHistoryModel;
 import com.cdkj.token.model.DealModel;
@@ -26,9 +25,13 @@ import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.MarketCoinModel;
 import com.cdkj.token.model.MarketModel;
 import com.cdkj.token.model.MsgListModel;
+import com.cdkj.token.model.MyGetRedPackageBean;
+import com.cdkj.token.model.MySendRedPackageBean;
 import com.cdkj.token.model.OrderDetailModel;
 import com.cdkj.token.model.OrderModel;
 import com.cdkj.token.model.RateModel;
+import com.cdkj.token.model.RedPackageDetialsBean;
+import com.cdkj.token.model.RedPackageHistoryBean;
 import com.cdkj.token.model.StatisticsListModel;
 import com.cdkj.token.model.SystemMessageModel;
 import com.cdkj.token.model.SystemParameterListModel;
@@ -38,6 +41,7 @@ import com.cdkj.token.model.UserRefereeModel;
 import com.cdkj.token.model.UserSettingModel;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.model.WithdrawOrderModel;
+import com.cdkj.token.model.db.LocalCoinDbModel;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -75,8 +79,7 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<BalanceListModel>> getBalanceList(@Field("code") String code, @Field("json") String json);
-
-    /**
+ /**
      * 根据币种列表获取相应的币种信息列表
      *
      * @return
@@ -496,15 +499,62 @@ public interface MyApi {
     @POST("api")
     Call<BaseResponseModel<VersionModel>> getVersion(@Field("code") String code, @Field("json") String json);
 
+     /**
+    * 获取支持的币种
+    *
+    * @param code
+    * @param json
+    * @return
+    */
+   @FormUrlEncoded
+   @POST("api")
+   Call<BaseResponseListModel<LocalCoinDbModel>> getCoinList(@Field("code") String code, @Field("json") String json);
+
+
+   /**
+    * 发红包
+    *
+    * @param code
+    * @param json
+    * @return
+    */
+   @FormUrlEncoded
+   @POST("api")
+   Call<BaseResponseModel<RedPackageHistoryBean>> sendRedPackage(@Field("code") String code, @Field("json") String json);
+
+
     /**
-     * 获取支持的币种
-     *
-     * @param code
-     * @param json
-     * @return
-     */
-    @FormUrlEncoded
-    @POST("api")
-    Call<BaseResponseListModel<LocalCoinDbModel>> getCoinList(@Field("code") String code, @Field("json") String json);
+    * 获取我发送的红包数据
+    *
+    * @param code
+    * @param json
+    * @return
+    */
+   @FormUrlEncoded
+   @POST("api")
+   Call<BaseResponseModel<ResponseInListModel<MySendRedPackageBean.ListBean>>> getSendRedPackage(@Field("code") String code, @Field("json") String json);
+
+   /**
+    * 获取我抢的红包数据
+    *
+    * @param code
+    * @param json
+    * @return
+    */
+   @FormUrlEncoded
+   @POST("api")
+   Call<BaseResponseModel<ResponseInListModel<MyGetRedPackageBean.ListBean>>> getGetRedPackage(@Field("code") String code, @Field("json") String json);
+
+   /**
+    * 红包详情
+    *
+    * @param code
+    * @param json
+    * @return
+    */
+   @FormUrlEncoded
+   @POST("api")
+   Call<BaseResponseModel<RedPackageDetialsBean>> getRedPackageDetails(@Field("code") String code, @Field("json") String json);
+
 
 }
