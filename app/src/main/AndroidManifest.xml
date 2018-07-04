@@ -135,9 +135,9 @@
         <activity android:name=".wallet.trusteeship.WalletUserActivity" />
         <activity android:name=".wallet.AddChoiceActivity2" />
         <activity android:name=".wallet.coin_detail.TransactionDetailsActivity" />
-        <activity android:name=".wallet.red_package.SendRedPackageActivity"
-            android:windowSoftInputMode="adjustPan"
-            />
+        <activity
+            android:name=".wallet.red_package.SendRedPackageActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".wallet.red_package.RedPackageShearActivity" />
         <activity android:name=".wallet.red_package.RedPackageHistoryActivity" />
         <activity android:name=".user.CountryCodeListActivity" />

@@ -85,7 +85,7 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
 
         if (accountListBean != null) {
 
-            ImgUtils.loadActImg(WalletCoinDetailsActivity.this, getCoinWatermarkWithCurrency(accountListBean.getCoinName(), 1), mHeaderBinding.ivIcon);
+            ImgUtils.loadAvatar(WalletCoinDetailsActivity.this,accountListBean.getCoinImgUrl(), mHeaderBinding.ivIcon);
 
             mHeaderBinding.tvSymbol.setText(accountListBean.getCoinName());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());

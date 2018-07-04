@@ -145,7 +145,7 @@ public class ConsultFragment extends BaseLazyFragment {
     private void initBanner() {
 
         //设置banner样式
-        mHeadBinding.banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
+        mHeadBinding.banner.setBannerStyle(BannerConfig.CENTER);
         //设置图片加载器
         mHeadBinding.banner.setImageLoader(new BannerImageLoader());
 

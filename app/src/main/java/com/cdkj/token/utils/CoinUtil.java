@@ -15,38 +15,15 @@ import java.util.List;
  */
 
 public class CoinUtil {
-    static List<LocalCoinDbModel> baseCoinList = new ArrayList<>();
 
-
-    private static void initBaseCoinList() {
-        baseCoinList.clear();
-        baseCoinList.addAll(DataSupport.findAll(LocalCoinDbModel.class));
-    }
-
-    public static String getCoinCNameWithCurrency(String currency) {
-        initBaseCoinList();
-
-        for (LocalCoinDbModel model : baseCoinList) {
-
-            if (model.getSymbol().equals(currency)) {
-                return model.getCname();
-            }
-
-        }
-
-        return "";
-
-    }
 
     public static String getCoinENameWithCurrency(String currency) {
-        initBaseCoinList();
 
-        for (LocalCoinDbModel model : baseCoinList) {
+        for (LocalCoinDbModel model : DataSupport.findAll(LocalCoinDbModel.class)) {
 
             if (model.getSymbol().equals(currency)) {
                 return model.getEname();
             }
-
         }
 
         return "";
@@ -60,9 +37,8 @@ public class CoinUtil {
      * @return
      */
     public static String getCoinWatermarkWithCurrency(String currency, int position) {
-        initBaseCoinList();
 
-        for (LocalCoinDbModel model : baseCoinList) {
+        for (LocalCoinDbModel model : DataSupport.findAll(LocalCoinDbModel.class)) {
 
             if (model.getSymbol().equals(currency)) {
                 if (position == 0) {
@@ -74,7 +50,6 @@ public class CoinUtil {
                 } else {
                     return model.getPic3();
                 }
-
             }
 
         }
@@ -89,9 +64,8 @@ public class CoinUtil {
      * @return
      */
     public static String getFirstTokenCoin() {
-        initBaseCoinList();
 
-        for (LocalCoinDbModel model : baseCoinList) {
+        for (LocalCoinDbModel model : DataSupport.findAll(LocalCoinDbModel.class)) {
 
             // type = 1: Token币
             if (model.getType().equals("1")) {
@@ -105,141 +79,7 @@ public class CoinUtil {
 
     }
 
-    /**
-     * 获取所有币种的简称并组装成数组
-     *
-     * @return
-     */
-    public static String[] getAllCoinArray() {
-        initBaseCoinList();
 
-        String[] coin = new String[baseCoinList.size()];
-
-        for (int i = 0; i < baseCoinList.size(); i++) {
-            coin[i] = baseCoinList.get(i).getSymbol();
-        }
-
-        return coin;
-
-    }
-
-    /**
-     * 获取Token币种的简称并组装成数组
-     *
-     * @return
-     */
-    public static String[] getTokenCoinArray() {
-        initBaseCoinList();
-
-        List<LocalCoinDbModel> list = new ArrayList<>();
-
-        for (LocalCoinDbModel model : baseCoinList) {
-
-            // type = 1: Token币
-            if (model.getType().equals("1")) {
-                list.add(model);
-            }
-
-        }
-
-        String[] coin = new String[list.size()];
-
-        for (int i = 0; i < list.size(); i++) {
-            coin[i] = list.get(i).getSymbol();
-        }
-
-        return coin;
-
-    }
-
-    /**
-     * 获取 非 Token币种的简称并组装成数组
-     *
-     * @return
-     */
-    public static String[] getNotTokenCoinArray() {
-        initBaseCoinList();
-
-        List<LocalCoinDbModel> list = new ArrayList<>();
-
-        for (LocalCoinDbModel model : baseCoinList) {
-
-            // type = 1: Token币，type = 0: 非Token币
-            if (model.getType().equals("0")) {
-                list.add(model);
-            }
-
-        }
-
-        String[] coin = new String[list.size()];
-
-        for (int i = 0; i < list.size(); i++) {
-            coin[i] = list.get(i).getSymbol();
-        }
-
-        return coin;
-
-    }
-
-    /**
-     * 获取所有币种的简称并组装成集合
-     *
-     * @return
-     */
-    public static List<LocalCoinDbModel> getAllCoinList() {
-        initBaseCoinList();
-
-        List<LocalCoinDbModel> list = new ArrayList<>();
-
-        for (int i = 0; i < baseCoinList.size(); i++) {
-            // type = 0: 非Token币
-            if (!baseCoinList.get(i).getType().equals("")) {
-                LocalCoinDbModel model = new LocalCoinDbModel();
-                try {
-                    model = (LocalCoinDbModel) baseCoinList.get(i).clone();
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
-
-                list.add(model);
-            }
-
-        }
-
-        return list;
-
-    }
-
-    /**
-     * 获取 非 Token币种的简称并组装成集合
-     *
-     * @return
-     */
-    public static List<LocalCoinDbModel> getNotTokenCoinList() {
-        initBaseCoinList();
-
-        List<LocalCoinDbModel> list = new ArrayList<>();
-
-        for (int i = 0; i < baseCoinList.size(); i++) {
-            // type = 0: 非Token币
-            if (baseCoinList.get(i).getType().equals("0")) {
-
-                LocalCoinDbModel model = new LocalCoinDbModel();
-                try {
-                    model = (LocalCoinDbModel) baseCoinList.get(i).clone();
-                } catch (CloneNotSupportedException e) {
-                    e.printStackTrace();
-                }
-                list.add(model);
-
-            }
-
-
-        }
-
-        return list;
-
-    }
 
 
     /**

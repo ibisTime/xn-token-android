@@ -20,7 +20,7 @@ import com.cdkj.baselibrary.utils.glidetransforms.GlideRoundTransform;
  */
 public class ImgUtils {
 
-    public static void loadAvatar(Activity context, String imgid, ImageView img) {
+    public static void loadLogo(Activity context, String imgid, ImageView img) {
         if (!AppUtils.isActivityExist(context)) {
             return;
         }
@@ -49,7 +49,7 @@ public class ImgUtils {
     }
 
     public static void loadAvatar(Context context, String imgid, ImageView img) {
-        if (context == null|| img == null){
+        if (context == null || img == null) {
             return;
         }
         LogUtil.E("图片" + imgid);

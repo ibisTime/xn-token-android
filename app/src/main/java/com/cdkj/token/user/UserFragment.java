@@ -315,8 +315,7 @@ public class UserFragment extends BaseLazyFragment {
 
         mBinding.tvNick.setText(data.getNickname());
         mBinding.tvMobile.setText(data.getMobile());
-//        ImgUtils.loadAvatar(mActivity, data.getPhoto(), data.getNickname(), mBinding.imAvatar, mBinding.tvAvatar);
-        ImgUtils.loadAvatar(mActivity, data.getPhoto(), mBinding.imAvatar);
+        ImgUtils.loadLogo(mActivity, data.getPhoto(), mBinding.imAvatar);
     }
 
 

@@ -453,7 +453,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
         }
         if (data.getNickname() == null)
             return;
-        ImgUtils.loadAvatar(this, data.getPhoto(), mBinding.imgLogo);
+        ImgUtils.loadLogo(this, data.getPhoto(), mBinding.imgLogo);
 
     }
 

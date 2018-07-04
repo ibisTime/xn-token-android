@@ -83,7 +83,7 @@ public class RedPackageShearActivity extends AbsBaseLoadActivity {
 
                 mBinding.tvUserName.setText(data.getSendUserNickname());
                 mBinding.tvMasg.setText(data.getGreeting());
-                ImgUtils.loadAvatar(RedPackageShearActivity.this, data.getSendUserPhoto(), mBinding.imgLogo);
+                ImgUtils.loadLogo(RedPackageShearActivity.this, data.getSendUserPhoto(), mBinding.imgLogo);
             }
 
             @Override

@@ -177,8 +177,7 @@ public class UserFragment2 extends BaseLazyFragment {
 
         mBinding.tvNickName.setText(data.getNickname());
         mBinding.tvPhoneNumber.setText(StringUtils.ttransformShowPhone(data.getMobile()));
-//        ImgUtils.loadAvatar(mActivity, data.getPhoto(), data.getNickname(), mBinding.imAvatar, mBinding.tvAvatar);
-        ImgUtils.loadAvatar(mActivity, data.getPhoto(), mBinding.imgLogo);
+        ImgUtils.loadLogo(mActivity, data.getPhoto(), mBinding.imgLogo);
 
         LogUtil.E(StringUtils.ttransformShowPhone("1234"));
         LogUtil.E(StringUtils.ttransformShowPhone("12345"));

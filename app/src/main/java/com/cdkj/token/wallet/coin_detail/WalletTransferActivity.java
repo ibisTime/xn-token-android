@@ -104,20 +104,20 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
 
         mBinding.btnNext.setOnClickListener(view -> {
 
-//            if (TextUtils.isEmpty(mBinding.editToAddress.getText().toString().trim())) {
-//                UITipDialog.showInfo(this, getString(R.string.please_to_address));
-//                return;
-//            }
-//
-//            if (!WalletUtils.isValidAddress(mBinding.editToAddress.getText().toString().trim())) {
-//                UITipDialog.showInfo(this, getStrRes(R.string.error_wallet_address));
-//                return;
-//            }
-//
-//            if (TextUtils.isEmpty(mBinding.edtAmount.getText().toString().trim())) {
-//                UITipDialog.showInfo(this, getString(R.string.please_input_transaction_number));
-//                return;
-//            }
+            if (TextUtils.isEmpty(mBinding.editToAddress.getText().toString().trim())) {
+                UITipDialog.showInfo(this, getString(R.string.please_to_address));
+                return;
+            }
+
+            if (!WalletUtils.isValidAddress(mBinding.editToAddress.getText().toString().trim())) {
+                UITipDialog.showInfo(this, getStrRes(R.string.error_wallet_address));
+                return;
+            }
+
+            if (TextUtils.isEmpty(mBinding.edtAmount.getText().toString().trim())) {
+                UITipDialog.showInfo(this, getString(R.string.please_input_transaction_number));
+                return;
+            }
 
             try {
 
