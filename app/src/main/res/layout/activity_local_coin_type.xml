@@ -18,7 +18,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:text="人民币"
+                android:text="@string/CNY"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 
@@ -52,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
-                android:text="美元"
+                android:text="@string/USD"
                 android:textColor="@color/black"
                 android:textSize="12sp" />
 

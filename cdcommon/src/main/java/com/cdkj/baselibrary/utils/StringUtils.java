@@ -38,6 +38,20 @@ public class StringUtils {
      * @return
      */
     public static String ttransformShowPhone(String phone) {
+
+        if (TextUtils.isEmpty(phone)) {
+            return "";
+        }
+
+        if (phone.length() > 8) {
+            return phone.substring(0, 3) + "****" + phone.substring(7, phone.length());
+        }
+
+        if (phone.length() > 3) {
+            int midLeng = phone.length() / 2;
+            return phone.substring(0, midLeng - 1) + "**" + phone.substring(midLeng + 1, phone.length());
+        }
+
         return phone;
     }
 

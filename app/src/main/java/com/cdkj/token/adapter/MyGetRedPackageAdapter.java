@@ -6,6 +6,7 @@ import android.widget.ImageView;
 
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.baselibrary.utils.MoneyUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.MyGetRedPackageBean;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -28,9 +29,9 @@ public class MyGetRedPackageAdapter extends BaseQuickAdapter<MyGetRedPackageBean
         if (item == null || item.getRedPacketInfo() == null) return;
 
         helper.setText(R.id.tv_user_name, item.getRedPacketInfo().getSendUserNickname());
-        helper.setText(R.id.tv_b_money, item.getRedPacketInfo().getTotalCount() + item.getRedPacketInfo().getSymbol());
+        helper.setText(R.id.tv_b_money, item.getCount() + item.getRedPacketInfo().getSymbol());
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getRedPacketInfo().getCreateDateTime(), DateUtil.DATE_MMddHHmm));
-        helper.setText(R.id.tv_rmb_money, item.getRedPacketInfo().getTotalCountCNY() + "");
+        helper.setText(R.id.tv_rmb_money, MoneyUtils.MONEYSING + item.getRedPacketInfo().getTotalCountCNY());
         ImageView iv_user_head = helper.getView(R.id.iv_user_head);
 
         ImgUtils.loadAvatar(mContext, item.getRedPacketInfo().getSendUserPhoto(), iv_user_head);

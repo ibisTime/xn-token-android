@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -36,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="Koala"
+                tools:text="Koala"
                 android:textColor="@color/red_text" />
 
             <TextView
@@ -51,7 +52,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
-                android:text="@string/defaut_red_package_mesg"
+                tools:text="@string/defaut_red_package_mesg"
                 android:textColor="@color/red_text"
                 android:textSize="20sp" />
 
@@ -67,7 +68,7 @@
                     android:id="@+id/tv_open_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="分享"
+                    android:text="@string/share"
                     android:textColor="@color/red_text_shear"
                     android:textSize="20dp" />
 

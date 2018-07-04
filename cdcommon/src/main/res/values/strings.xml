@@ -1,7 +1,5 @@
 <resources>
-    <string name="money_sing">￥</string>
 
-    <string name="confirm">确定</string>
     <string name="cancel">取消</string>
 
     <string name="activity_authenticate_title">实名认证</string>

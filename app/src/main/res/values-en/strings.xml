@@ -174,127 +174,313 @@
 
     <string name="consult_list_title"> online merchant </string>
 
-    <string name="consult_none_title"> Please look forward to the </string>
+    <string name="wallet_withdraw_balance">Available balance </string>
+    <string name="wallet_withdraw_address">receive address </string>
+    <string name="wallet_withdraw_address_input_hint">Please paste the address or scan code entry </string>
+    <string name="wallet_withdraw_amount">withdraw amount </string>
+    <string name="wallet_withdraw_free">withdraw fee\u3000</string>
+    <string name="wallet_withdraw_tip">The withdraw fee will be deducted from the cash amount </string>
+    <string name="wallet_withdraw_confirm"> Withdraw confirm </string>
+    <string name="wallet_withdraw_order_title">Withdraw order </string>
+    <string name="wallet_withdraw_order_none">no withdraw records </string>
+    <string name="wallet_title">My assets</string>
+    <string name="bill_frozen_none">No frozen details</string>
+    <string name="wallet_title_bill_detail">billing details </string>
+    <string name="wallet_bill_detail_before">Amount before the change</string>
+    <string name="wallet_bill_detail_after">Amount after Change</string>
+    <string name="wallet_bill_detail_date">Change date </string>
+    <string name="wallet_bill_detail_status">Detail status </string>
+    <string name="wallet_bill_detail_type">Detail summary </string>
+    <string name="wallet_title_bill_list">billing </string>
+    <string name="wallet_title_charge">Top up </string>
+    <string name="wallet_charge_record">record </string>
 
-    <string name="user_wallet_setting"> Wallet settings </string>
+    <string name="wallet_charge_address_copy_success">Address has been copied</string>
+    <string name="wallet_title_withdraw">withdraw </string>
+    <string name="wallet_withdraw_address_hint">Please input the sending address </string>
+    <string name="wallet_withdraw_success"> withdraw the application successfully </string>
+    <string name="wallet_transfer_success">Transfer application successfully </string>
+    <string name="user_address_tag_hint">Please input the address tag </string>
+    <string name="user_address_hint">Please input the address </string>
+    <string name="user_title_address">address management </string>
+    <string name="user_address_none">No address </string>
+    <string name="user_address_delete_confirm">Are you sure you want to delete this address? </string>
+    <string name="user_address_delete_success">delete successfully </string>
+    <string name="user_title_language">language settings </string>
+    <string name="user_language_simplified">Chinese simplified </string>
+    <string name="user_language_traditional">Chinese Traditional </string>
+    <string name="user_title_google">Google Verification</string>
+    <string name="user_google_open"> is turned on </string>
+    <string name="user_google_close">not open </string>
+    <string name="user_google_btn_open">Open Google Verification</string>
+    <string name="user_title_sign_up">registration </string>
+    <string name="user_sign_up_protocol">Registration Agreement </string>
+    <string name="user_nick_hint">Please set your username </string>
 
-    <string name="user_join">Join community</string>
+    <string name="user_code_hint">Please input the verification code </string>
+    <string name="user_code_format_hint">The format of the verification code is incorrect </string>
+    <string name="user_password_hint">Please input a password</string>
+    <string name="user_repassword_hint">Please confirm the password </string>
+    <string name="user_repassword_two_hint">The passwords must be same </string>
+    <string name="user_protocol_hint">Please read and agree to the terms </string>
+    <string name="user_sign_up_success"> registration is successful, log in automatically for you </string>
+    <string name="user_sign_up_failure"> registration failed </string>
 
-    <string name="wallet_bill_list_charge"> coin-filled </string>
-    <string name="wallet_bill_list_withdraw"> coin </string>
-    <string name="create_wallet">create to wallet</string>
-    <string name="put_wallet"> import wallet </string>
-    <string name="please_set_transaction_pass_word"> Please password set the trading</string>
-    <string name="please_check_transaction">Please confirm password the transaction</string>
-    <string name="password_error"> Two input passwords inconsistent </string>
-    <string name="wallet_create_success"> Wallet creation Success </string>
-    <string name="important_hints">Important tip</string>
-    <string name="create_wallet_tip">a assets backup control fully has to wallet wallet, so it is
-    highly recommended that you do a backup before using your wallet and keep your wallet back in a
-    safe place.</string>
-    <string name="now_backup"> now back up </string>
-    <string name="next_step"> next </string>
-    <string name="sure_1"> confirm to</string>
-    <string name="now_check"> validate </string>
 
-    <string name="please_input_help_words"> Please a enter mnemonic word
-</string>
-    <string name="address"> address </string>
+    <string name="user_address_add_address">withdraw address </string>
+    <string name="user_address_add_code"> verification code </string>
+    <string name="user_address_add_code_hint">Please input the verification code </string>
+    <string name="user_address_add_is_default">Set this account as an authentication account </string>
+    <string name="user_address_add_tip"> withdraw the funds to the authentication account and no longer input the fund password, Google verification code </string>
+    <string name="user_title_email_bind">bind mailbox</string>
+    <string name="user_title_email_modify"> modify the mailbox </string>
+    <string name="user_email_bind_success">binding success </string>
+    <string name="user_email_modify_success">modifying success </string>
+    <string name="user_email">mailbox </string>
+    <string name="user_email_hint">Please input the mailbox </string>
+    <string name="user_email_code">mailbox verification code </string>
+    <string name="user_email_code_hint">Please input the email verification code </string>
+
+
+    <string name="user_google_key">key </string>
+    <string name="user_google_copy">copy </string>
+    <string name="user_google_paste">paste</string>
+
+
+    <string name="user_password_old">old password </string>
+    <string name="user_password_old_hint">Please input the old password </string>
+    <string name="user_password_new"> new password </string>
+    <string name="user_setting_mobile"> modify the phone number </string>
+    <string name="user_setting_password"> modify the login password </string>
+    <string name="user_setting_google">Google Verification</string>
+    <string name="user_setting_sign_out"> log out </string>
+    <string name="user_tip_language">language settings </string>
+    <string name="user_address_add">Add a new address</string>
+    <string name="user_address">My address </string>
+    <string name="user_setting">System Settings </string>
+    <string name="user_tip"> personality settings </string>
+    <string name="user_issue">Help center</string>
+    <string name="user_services">Contact customer service</string>
+    <string name="user_about">about us</string>
+    <string name="user_about_update">update to the latest version </string>
+    <string name="user_about_updated"> is already the latest version </string>
+
+
+    <string name="user_sign_up_referee">referee mobile phone </string>
+    <string name="user_sign_up_referee_hint">referee mobile phone number (optional) </string>
+    <string name="user_invite_url"> share link </string>
+    <string name="user_invite_pic">Share QR code</string>
+
+
+    <string name="email_code_send_success"> verification code has been sent to the email, please check </string>
+    <string name="email_code_send_failure">Mailbox verification code failed to send </string>
+    <string name="sms_code_title">Mobile Verification Code </string>
+    <string name="consult_title">Home </string>
+
+    <string name="consult_statistics_none">No flow </string>
+    <string name="consult_statistics_title">transaction flow </string>
+    <string name="wallet_withdraw_amount_hint2">You can withdraw up to </string>
+    <string name="wallet_withdraw_amount_hint">Please enter the quantity </string>
+    <string name="call_phone">Contact the other party </string>
+    <string name="want_to_pay"> I want to pay </string>
+
+    <string name="pay_confirm">confirm payment </string>
+
+    <string name="pay_amount">payment amount </string>
+
+    <string name="pay_succ">payment success </string>
+    <string name="pay_fall">payment failed </string>
+    <string name="biz_type_trans">transaction </string>
+
+
+    <string name="consult_none_title"> Stay tuned </string>
+    <string name="user_wallet_setting">wallet settings </string>
+    <string name="user_join">Join the community</string>
+    <string name="wallet_bill_list_charge">charge </string>
+    <string name="wallet_bill_list_withdraw">withdraw </string>
+    <string name="create_wallet">Create a wallet</string>
+    <string name="put_wallet">Import wallet </string>
+    <string name="please_set_transaction_pass_word">Please set the transaction password </string>
+    <string name="please_check_transaction">Please confirm the transaction password </string>
+    <string name="password_error">Inconsistent input passwords </string>
+    <string name="wallet_create_success">wallet created successfully</string>
+    <string name="important_hints">Important </string>
+    <string name="create_wallet_tip">With wallet backup, you have full control over your wallet assets, so it\'s highly recommended that you make a backup before using your wallet and save your wallet backup to a safe place. </string>
+    <string name="now_backup">Back up now </string>
+    <string name="next_step">Next </string>
+    <string name="sure_1">confirm </string>
+    <string name="now_check">check now </string>
+
+
+    <string name="import_wallet">Import wallet </string>
+    <string name="wallet_import_success">wallet import success </string>
+    <string name="now_use">use now </string>
+    <string name="wallet_create_fail">wallet creation failed</string>
+    <string name="check_words_fail"> mnemonic verification failed</string>
+    <string name="please_input_words">Please input the mnemonic </string>
+    <string name="dont_screenshot">Leaking the mnemonic will result in the loss of assets, please y copy carefully, do not screen </string>
+    <string name="wallet_import_fail">wallet import failed</string>
+    <string name="please_remember_and_save">Please remember your wallet mnemonic </string>
+    <string name="words_tip_1">The wallet mnemonic is used to restore the wallet assets. With the mnemonic, you can completely control the wallet assets. Please keep it safe. If you lose your mnemonic, you will lose your wallet assets. THA does not store user mnemonics and cannot provide a retrieval function. </string>
+    <string name="words_tip_2">Please input the backup wallet mnemonic (12 English words), separated by space </string>
+    <string name="check_your_words">Verify your wallet mnemonic </string>
+    <string name="words_tip_3">According to the mnemonics you wrote down, click in the order to verify that the backup mnemonics you made are correct. </string>
+    <string name="update_password_success"> password modified successfully </string>
+    <string name="update_password_fail"> password modification failed </string>
+    <string name="modify_password"> modify password </string>
+    <string name="please_set_transaction_password">Please set the transaction password </string>
+    <string name="transaction_password_error">transaction password error </string>
+    <string name="wallet_backup">wallet backup </string>
+    <string name="wallet_backup_success">wallet backup success </string>
+    <string name="i_know">know </string>
+    <string name="delete_wallet">delete wallet</string>
+    <string name="please_input_help_words">Please input the mnemonic words </string>
+    <string name="address">address </string>
     <string name="private_key"> private key </string>
-    <string name="export_private_key">export key private the to</string>
-    <string name="coin_key_name"> below is the address and private key for%s, click to copy the </string>
-    <string name="coin_eth_ename">ethereum </string>
-    <string name="coin_wan_ename">wancoin </string>
-    <string name="coin_eth_cname"> ether Square </string>
-    <string name="coin_wan_came">wan </string>
-    <string name="get_money"> collection </string>
-    <string name="service_money_tip"> The miners\'fees will be deducted from the available balances and the balance will be deducted from the transfer amount </string>
-    <string name="transfer"> transfer </string>
-    <string name="ordinary"> normal </string>
-    <string name="economics"> economy </string>
-    <string name="private_key_copy_success"> private key replicated </string>
-    <string name="transfer_fail"> transfer failure </string>
-    <string name="please_open_the_net"> Please first network open the
-</string>
-    <string name="please_set_account_moeny_pwd"> Please first money password set the
-</string>
-    <string name="privacy_agreement"> Privacy protocol </string>
-    <string name="transfer_out_address"> address and out turn
-</string>
-    <string name="fees"> handling fee </string>
-    <string name="block_height"> block height </string>
-    <string name="transction_code"> transaction number </string>
-    <string name="transction_time"> transaction time </string>
-    <string name="view_more_detials"> See more details </string>
-    <string name="affix"> paste </string>
-    <string name="btc_wallet_tip">BTC wallet address prohibits recharging other than BTC assets, any BTC asset recharge will not be retrieved </string>
-    <string name="private_key_tip"> Note!
-    An asset that has a private key that completely controls the address and does not share it with anyone </string>
-    <string name="please_waite"> Please look forward to the </string>
-    <string name="i_agree_this_terms"> I have read and agree to the terms of service and privacy </string>
-    <string name="wallet_delete_tip"> Note! Before deleting the wallet, be sure to confirm that the back up number wallet is in the mnemonic, or you will lose your wallet assets.
-    </string>
-    <string name="add_assets"> add assets to</string>
-    <string name="error_wallet_address"> wrong address </string>
-    <string name="resolve_wallet_address_fail"> address failure resolve to</string>
-    <string name="transaction_success"> transfer successful, synchronizing </string>
-    <string name="please_correct_transaction_number"> Please correct enter number of the transfers</string>
-    <string name="please_create_or_import_wallet">请先创建或导入钱包</string>
-    <string name="no_assets">暂无资产</string>
-    <string name="my_wallet">个人钱包(%s)</string>
-    <string name="my_private_wallet">秘钥钱包(%s)</string>
-    <string name="welcom_back">欢迎回来！</string>
-    <string name="chain">中国</string>
-    <string name="now_register">立即注册</string>
-    <string name="no_account">还没账号？</string>
-    <string name="register">注册！</string>
-    <string name="find_pwd_sure">确 定</string>
-    <string name="find_pwd">找回密码！</string>
-    <string name="me_red_package">我的红包</string>
-    <string name="send_red_package">发红包</string>
-    <string name="send_you_red_package">给您发送了一个红包</string>
-    <string name="defaut_red_package_mesg">红包一响,黄金万两</string>
-    <string name="no_country">暂无国家</string>
-    <string name="choose_country">选择国家</string>
-    <string name="wallet_tool">钱包工具</string>
-    <string name="wallet_delete_success">钱包删除成功</string>
-    <string name="wallet_assets">总资产(%s)</string>
-    <string name="assets">资产</string>
-    <string name="my_coin_address">我的%s收款地址</string>
-    <string name="my_red_package">我的红包</string>
-    <string name="get_red_package">抢到红包</string>
-    <string name="send_red_package2">发出红包</string>
-    <string name="sub_total_red_package">总共发送</string>
-    <string name="red_package_db">代币</string>
-    <string name="red_package_sub_total">代币总额</string>
-    <string name="red_package_unit">枚</string>
-    <string name="red_package_number">红包个数</string>
-    <string name="red_package_number_unit">个</string>
-    <string name="red_package_msg">请输入祝福语</string>
-    <string name="red_package_set">塞进红包</string>
-    <string name="red_package_send">发红包</string>
-    <string name="red_package_have">持有</string>
-    <string name="red_package_total">总量</string>
-    <string name="red_package_empty_type">暂无可用币种</string>
-    <string name="red_package_please_set_type">请先设置支付密码</string>
-    <string name="red_package_min_number">红包个数最少为1个</string>
-    <string name="red_package_pleas_number">请输入要发红包数量</string>
-    <string name="red_package_min_numer">数量最小为0.001个</string>
-    <string name="red_package_piease_send_number">请输入要发的数量</string>
-    <string name="red_package_please_type">请选择代币</string>
-    <string name="red_package_set_hand">改为拼手气红包</string>
-    <string name="red_package_set_ordinary">改为普通红包</string>
-    <string name="red_package_please_sing_number">请输入单个数量</string>
-    <string name="red_package_please_total_number">请输入总数量</string>
-    <string name="red_package_please_number">请输入数量</string>
-    <string name="red_package_my">我的红包</string>
-    <string name="red_package_get_empty">暂无抢到的红包</string>
-    <string name="api_error">请求接口错误</string>
-    <string name="red_package_send_empty">暂无发送记录</string>
-    <string name="red_package_form_user">来自</string>
-    <string name="red_package_send_success">发送成功,请扫描二维码抢红包</string>
-    <string name="red_pg">发红包</string>
-    <string name="my_red_package_title">我的红包</string>
+    <string name="export_private_key">export private key </string>
+    <string name="coin_key_name">The following is the address and private key of %s, click to copy </string>
+    <string name="coin_eth_ename">Ethereum</string>
+    <string name="coin_wan_ename">Wancoin</string>
+    <string name="coin_eth_cname">Ethereum </string>
+    <string name="coin_wan_came">WAN</string>
+    <string name="get_money">receive money </string>
+    <string name="service_money_tip">Transaction Fees will be deducted from the available balance, and the insufficient balance will be deducted from the transfer amount </string>
+    <string name="transfer">transfer </string>
+    <string name="ordinary"> ordinary </string>
+    <string name="economics">economic </string>
+    <string name="private_key_copy_success"> private key has been copied </string>
+    <string name="transfer_fail">Transfer failed </string>
+    <string name="please_open_the_net">Please open the network first</string>
+    <string name="please_set_account_money_password">Please set the funding password first </string>
+    <string name="privacy_agreement"> privacy agreement </string>
+    <string name="transaction_details"> transaction details </string>
+
+
+    <string name="sure_delete_wallet">pass the wallet mnemonic verification, confirm whether to delete the wallet? </string>
+    <string name="sure_delete">Confirm delete </string>
+    <string name="choose_fees">Select a fee </string>
+    <string name="choose_fee_tip">Selecting an economic fee may result in an extended transaction confirmation time. For transactions that require time, please choose prioritized fee</string>
+    <string name="priority">Priority </string>
+    <string name="extract_amount">to raise the amount of money </string>
+    <string name="transaction_record">transaction record </string>
+    <string name="business_app">Business Application</string>
+    <string name="coin_to_coin">coin coin </string>
+    <string name="tha_planet">THA Planet </string>
+    <string name="ybb">Yubi Bao</string>
+    <string name="facebook">Facebook</string>
+    <string name="twitter">Twitter</string>
+    <string name="telegram">Telegram</string>
+    <string name="thasddoddfvb">thasddoddfvb</string>
+    <string name="qq_group">QQ Group</string>
+    <string name="wechat">Wechat</string>
+    <string name="transfer_number"> transfer amount </string>
+    <string name="google_verification_code">Google Verification Code </string>
+    <string name="please_input_google_code">Please input Google verification code</string>
+    <string name="please_input_withdraw_address">Please input the payment address </string>
+    <string name="withdraw_address">receipt address </string>
+    <string name="transfer_out_address"> transfer address </string>
+    <string name="fees"> fee</string>
+    <string name="block_height">block height </string>
+    <string name="transction_code">transaction number </string>
+    <string name="transction_time">transaction time </string>
+    <string name="view_more_detials">View more details</string>
+    <string name="affix">paste</string>
+    <string name="btc_wallet_tip">BTC wallet prohibits recharging of assets other than BTC, any BTC asset recharge will not be retrieved</string>
+    <string name="private_key_tip">Attention! Have a private key to fully control the assets of the address, do not share it with anyone </string>
+    <string name="please_wait"> Stay tuned </string>
+    <string name="i_agree_this_terms">I have read and agree to the Service and Privacy Policy</string>
+    <string name="wallet_delete_tip">Note! Before deleting your wallet, be sure to check the backup wallet mnemonic, otherwise your wallet assets will be lost. </string>
+    <string name="add_assets">Add assets </string>
+    <string name="error_wallet_address">Wrong address</string>
+    <string name="resolve_wallet_address_fail">Failed to resolve address</string>
+    <string name="transaction_success">Transfer is successful, is being synchronized </string>
+    <string name="please_correct_transaction_number">Please input the correct amount of transfer </string>
+    <string name="please_to_address">Please input the receiving address </string>
+
+
+    <string name="no_balance">Insufficient available balance </string>
+    <string name="please_input_transaction_number">Please input the transfer amount </string>
+    <string name="no_record">no record </string>
+    <string name="withdraw">receive </string>
+    <string name="no_phone_permission"> do not have permission, can\'t make a call, please go to Settings--->Permission Management to grant users the right to call </string>
+    <string name="system_message"> system announcement </string>
+    <string name="no_system_message">No system announcement </string>
+    <string name="my_wallet">My wallet </string>
+    <string name="fast_transfer"> one-click transfer </string>
+    <string name="transfer_change">flash </string>
+    <string name="accounts_and_security">Account and Security</string>
+    <string name="local_coin">local currency </string>
+    <string name="language">language </string>
+    <string name="please_create_or_import_wallet">Please create or import a wallet first</string>
+    <string name="no_assets">no assets </string>
+    <string name="my_private_wallet"> secret key wallet  </string>
+    <string name="welcome_back">Welcome back! </string>
+    <string name="chain">China</string>
+    <string name="now_register">Register now</string>
+    <string name="no_account">No account yet? </string>
+    <string name="register">Register! </string>
+    <string name="find_pwd_sure">Confirm </string>
+    <string name="find_pwd">find the password! </string>
+    <string name="no_country">No country </string>
+    <string name="choose_country">Select a country </string>
+    <string name="wallet_tool">wallet tool </string>
+    <string name="wallet_delete_success">wallet deleted successfully</string>
+    <string name="send_red_package">sent red packet</string>
+    <string name="send_you_red_package"> sent you a red packet </string>
+    <string name="defaut_red_package_mesg"> red packet rings, money rises </string>
+
+
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="my_red_package">My red packets</string>
+    <string name="get_red_package"> received packets </string>
+    <string name="send_red_package2"> sent a red packet </string>
+    <string name="sub_total_red_package"> total send amount</string>
+    <string name="red_package_db">token </string>
+    <string name="red_package_sub_total">Token amount </string>
+    <string name="red_package_unit">Amount </string>
+    <string name="red_package_number">Number  </string>
+
+
+    <string name="red_package_msg">Best wishes</string>
+    <string name="red_package_set"> Prepare red packet </string>
+    <string name="red_package_send">Send red packet</string>
+    <string name="red_package_have">hold </string>
+    <string name="red_package_total"> total </string>
+    <string name="red_package_empty_type">No currency available</string>
+    <string name="red_package_please_set_type">Please set the payment password first</string>
+    <string name="red_package_min_number">The minimum number of red packets is 1 </string>
+    <string name="red_package_pleas_number">Please input the number of red packets to be sent</string>
+    <string name="red_package_min_numer">The minimum amount is 0.001 </string>
+    <string name="red_package_piease_send_number">Please input the quantity to be sent</string>
+    <string name="red_package_please_type">Please select tokens</string>
+    <string name="red_package_set_hand"> changed to a lucky red packets </string>
+    <string name="red_package_set_ordinary"> changed to ordinary red packets </string>
+    <string name="red_package_please_sing_number">Please input quantity</string>
+    <string name="red_package_please_total_number">Please input the total quantity </string>
+    <string name="red_package_please_number">Please input the quantity </string>
+    <string name="red_package_my">My Sugar Pack</string>
+    <string name="red_package_get_empty">None </string>
+    <string name="api_error">Request interface error </string>
+    <string name="red_package_send_empty">No record sent </string>
+    <string name="red_package_form_user">from </string>
+    <string name="red_package_send_success">Successfully sent, please scan the QR code to get the red packet</string>
+    <string name="assets">assets</string>
+    <string name="my_coin_address">My %s collection address </string>
+    <string name="red_pg">sugar package </string>
+    <string name="wallet_charge_recode">recode</string>
+    <string name="user_language_english">English</string>
+    <string name="me_red_package">my red packet</string>
+
+    <string name="red_package_number_unit">  </string>
+    <string name="CNY">CNY</string>
+    <string name="USD">USD</string>
+    <string name="sen_red_packet_note">红包一响,黄金万两</string>
+    <string name="red_package_sub_single">token single</string>
+    <string name="wallet_assets">TOTAL ASSETS(%s)</string>
+    <string name="my_red_package_title">My red packets</string>
+    <string name="red_package_mxn_number">红包个数最多为100个</string>
+    <string name="red_package_max_numer">总额最多为10000000枚</string>
+    <string name="share">share</string>
 
 </resources>
 

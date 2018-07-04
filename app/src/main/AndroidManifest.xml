@@ -89,7 +89,6 @@
                     android:scheme="orangecoin" />
             </intent-filter>
         </activity>
-        <activity android:name=".consult.ConsultActivity" />
         <activity android:name=".consult.StatisticsActivity" />
         <activity android:name=".wallet.account.WithdrawOrderActivity" />
         <activity android:name=".user.UserGoogleActivity" />
@@ -105,7 +104,6 @@
             android:name=".consult.StorePayActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".consult.ConsultListActivity" />
         <activity android:name=".consult.NoneActivity" />
         <activity android:name=".wallet.account.BillListActivity" />
         <activity android:name=".wallet.AddChoiceCoinActivity" />
@@ -137,7 +135,9 @@
         <activity android:name=".wallet.trusteeship.WalletUserActivity" />
         <activity android:name=".wallet.AddChoiceActivity2" />
         <activity android:name=".wallet.coin_detail.TransactionDetailsActivity" />
-        <activity android:name=".wallet.red_package.SendRedPackageActivity" />
+        <activity android:name=".wallet.red_package.SendRedPackageActivity"
+            android:windowSoftInputMode="adjustPan"
+            />
         <activity android:name=".wallet.red_package.RedPackageShearActivity" />
         <activity android:name=".wallet.red_package.RedPackageHistoryActivity" />
         <activity android:name=".user.CountryCodeListActivity" />

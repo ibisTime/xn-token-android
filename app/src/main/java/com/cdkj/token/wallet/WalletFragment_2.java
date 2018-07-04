@@ -187,8 +187,8 @@ public class WalletFragment_2 extends BaseLazyFragment {
         switch (index) {
             case BOTTOMVIEW:                                         //私密钱包
 
-                ObjectAnimator.ofFloat(mBinding.bluePoint, "TranslationX", 0, 35).setDuration(120).start();
-                ObjectAnimator.ofFloat(mBinding.grayPoint, "TranslationX", 0, -28).setDuration(120).start();
+                ObjectAnimator.ofFloat(mBinding.bluePoint, "TranslationX", 0, 35).setDuration(80).start();
+                ObjectAnimator.ofFloat(mBinding.grayPoint, "TranslationX", 0, -28).setDuration(80).start();
 
                 isPrivateWallet = true;
                 mBinding.imgAddCoin.setVisibility(View.VISIBLE);
@@ -198,8 +198,8 @@ public class WalletFragment_2 extends BaseLazyFragment {
                 break;
             case TOPVIEW:                                         //个人钱包
 
-                ObjectAnimator.ofFloat(mBinding.bluePoint, "TranslationX", 35, 0).setDuration(120).start();
-                ObjectAnimator.ofFloat(mBinding.grayPoint, "TranslationX", -28, 0).setDuration(120).start();
+                ObjectAnimator.ofFloat(mBinding.bluePoint, "TranslationX", 35, 0).setDuration(80).start();
+                ObjectAnimator.ofFloat(mBinding.grayPoint, "TranslationX", -28, 0).setDuration(80).start();
 
                 isPrivateWallet = false;
                 mBinding.imgAddCoin.setVisibility(View.GONE);
@@ -247,7 +247,6 @@ public class WalletFragment_2 extends BaseLazyFragment {
                     getPriWalletAssetsData(true, false);
                 } else {
                     getWalletAssetsData(false, false);
-
                 }
 
             }
@@ -275,11 +274,10 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
     @Override
     protected void lazyLoad() {
-
         if (mBinding == null) {
             return;
         }
-
+        getWalletAssetsData(true, true);
         getMsgRequest();
     }
 
@@ -336,13 +334,12 @@ public class WalletFragment_2 extends BaseLazyFragment {
             protected void onReqFailure(String errorCode, String errorMessage) {
                 super.onReqFailure(errorCode, errorMessage);
                 mRefreshHelper.loadError(errorMessage, 0);
+                disMissLoading();
             }
 
             @Override
             protected void onFinish() {
-                if (isShowDialog) {
-                    disMissLoading();
-                }
+                disMissLoading();
             }
         });
     }
@@ -353,6 +350,7 @@ public class WalletFragment_2 extends BaseLazyFragment {
      *
      * @param isSetRecyclerData 是否设置recyclerData
      */
+
     private void getPriWalletAssetsData(boolean isSetRecyclerData, boolean isShowDialog) {
 
         if (mChooseCoinList.isEmpty()) {
@@ -400,9 +398,7 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
             @Override
             protected void onFinish() {
-                if (isShowDialog) {
-                    disMissLoading();
-                }
+                disMissLoading();
             }
         });
     }
@@ -447,14 +443,26 @@ public class WalletFragment_2 extends BaseLazyFragment {
                 continue;
             }
 
-            CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();    //0 ETH 1BTC 2WAN         通过币种和type 添加地址
+            CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();    //0 公链币（ETH BTC WAN） 1 ethtoken（ETH） 2 wantoken（WAN）        通过币种和type 添加地址
 
             if (TextUtils.equals(localCoinDbModel.getType(), "0")) {
-                coinTypeAndAddress.setAddress(walletDBModel.getEthAddress());
+
+                if (TextUtils.equals(WalletHelper.COIN_BTC, localCoinDbModel.getSymbol())) {
+                    coinTypeAndAddress.setAddress(walletDBModel.getBtcAddress());
+                } else if (TextUtils.equals(WalletHelper.COIN_ETH, localCoinDbModel.getSymbol())) {
+                    coinTypeAndAddress.setAddress(walletDBModel.getEthAddress());
+                } else if (TextUtils.equals(WalletHelper.COIN_WAN, localCoinDbModel.getSymbol())) {
+                    coinTypeAndAddress.setAddress(walletDBModel.getWanAddress());
+                }
+
             } else if (TextUtils.equals(localCoinDbModel.getType(), "1")) {
-                coinTypeAndAddress.setAddress(walletDBModel.getBtcAddress());
+
+                coinTypeAndAddress.setAddress(walletDBModel.getEthAddress());
+
             } else if (TextUtils.equals(localCoinDbModel.getType(), "2")) {
+
                 coinTypeAndAddress.setAddress(walletDBModel.getWanAddress());
+
             }
             coinTypeAndAddress.setSymbol(localCoinDbModel.getSymbol());
             chooseCoinList.add(coinTypeAndAddress);
@@ -478,7 +486,7 @@ public class WalletFragment_2 extends BaseLazyFragment {
     }
 
     /**
-     * 转换为adapter数据
+     * 转换为adapter数据 （我的钱包）
      *
      * @param data
      * @return
@@ -525,6 +533,12 @@ public class WalletFragment_2 extends BaseLazyFragment {
         return walletBalanceModels;
     }
 
+    /**
+     * 转换为adapter数据 （秘钥钱包）
+     *
+     * @param data
+     * @return
+     */
     @NonNull
     private List<WalletBalanceModel> transformToAdapterData(BalanceListModel data) {
         List<WalletBalanceModel> walletBalanceModels = new ArrayList<>();

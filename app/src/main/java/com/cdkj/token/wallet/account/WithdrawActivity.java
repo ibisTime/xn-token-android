@@ -141,7 +141,7 @@ public class WithdrawActivity extends AbsBaseActivity {
                     if (SPUtilHelper.getTradePwdFlag()) {
                         showInputDialog();
                     } else {
-                        UITipDialog.showInfo(WithdrawActivity.this, getString(R.string.please_set_account_moeny_pwd), new DialogInterface.OnDismissListener() {
+                        UITipDialog.showInfo(WithdrawActivity.this, getString(R.string.please_set_account_money_password), new DialogInterface.OnDismissListener() {
                             @Override
                             public void onDismiss(DialogInterface dialogInterface) {
                                 PayPwdModifyActivity.open(WithdrawActivity.this, SPUtilHelper.getTradePwdFlag(), SPUtilHelper.getUserPhoneNum());

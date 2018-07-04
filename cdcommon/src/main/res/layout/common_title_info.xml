@@ -61,7 +61,7 @@
                     android:layout_gravity="center_vertical"
                     android:textColor="@color/text_color_light"
                     android:textSize="14sp"
-                    android:text="返回" />
+                    android:text="@string/back" />
             </FrameLayout>
 
             <FrameLayout

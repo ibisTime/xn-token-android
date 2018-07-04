@@ -21,7 +21,7 @@ public class MyGetRedPackageBean {
     private String id;
     private String userId;
     private String redPacketCode;
-    private double count;
+    private String count;
     private String createDatetime;
     private int countCNY;
     private RedPacketInfoBean redPacketInfo;
@@ -50,11 +50,11 @@ public class MyGetRedPackageBean {
         this.redPacketCode = redPacketCode;
     }
 
-    public double getCount() {
+    public String getCount() {
         return count;
     }
 
-    public void setCount(double count) {
+    public void setCount(String count) {
         this.count = count;
     }
 

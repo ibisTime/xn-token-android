@@ -69,12 +69,7 @@ public class QRRedPackageImgActivity extends AbsBaseLoadActivity {
 
         Bitmap bitmap = CodeUtils.createImage(uri, 500, 500, null);
         mBinding.ivQrImg.setImageBitmap(bitmap);
-        UITipDialog.showSuccess(this, getString(R.string.red_package_send_success));
     }
 
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        //屏蔽按键
-        return true;
-    }
+
 }

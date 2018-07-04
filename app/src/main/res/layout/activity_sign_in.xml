@@ -88,7 +88,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/welcom_back"
+                            android:text="@string/welcome_back"
                             android:textColor="@color/text_black_cd"
                             android:textSize="30sp" />
 

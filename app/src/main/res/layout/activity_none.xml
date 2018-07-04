@@ -18,7 +18,7 @@
             android:layout_height="119dp" />
 
         <TextView
-            android:text="@string/please_waite"
+            android:text="@string/please_wait"
             android:layout_marginTop="28dp"
             android:textSize="17sp"
             android:textColor="@color/gray_999999"

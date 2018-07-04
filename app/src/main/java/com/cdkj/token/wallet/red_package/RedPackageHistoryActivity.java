@@ -3,11 +3,13 @@ package com.cdkj.token.wallet.red_package;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityRedPackageHistoryBinding;
 
@@ -42,6 +44,9 @@ public class RedPackageHistoryActivity extends AbsBaseLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+
+        UIStatusBarHelper.translucent(this, Color.parseColor("#F55E52"));
+
         mBinding.ivBack.setOnClickListener(view -> {
             finish();
         });

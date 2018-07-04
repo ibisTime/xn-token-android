@@ -20,12 +20,14 @@ import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.CameraHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.QiNiuHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
+import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.IntoWalletBeforeActivity;
 
@@ -174,9 +176,15 @@ public class UserFragment2 extends BaseLazyFragment {
             return;
 
         mBinding.tvNickName.setText(data.getNickname());
-        mBinding.tvPhoneNumber.setText(data.getMobile());
+        mBinding.tvPhoneNumber.setText(StringUtils.ttransformShowPhone(data.getMobile()));
 //        ImgUtils.loadAvatar(mActivity, data.getPhoto(), data.getNickname(), mBinding.imAvatar, mBinding.tvAvatar);
         ImgUtils.loadAvatar(mActivity, data.getPhoto(), mBinding.imgLogo);
+
+        LogUtil.E(StringUtils.ttransformShowPhone("1234"));
+        LogUtil.E(StringUtils.ttransformShowPhone("12345"));
+        LogUtil.E(StringUtils.ttransformShowPhone("123456"));
+        LogUtil.E(StringUtils.ttransformShowPhone("1234567"));
+        LogUtil.E(StringUtils.ttransformShowPhone("12345678"));
 
     }
 

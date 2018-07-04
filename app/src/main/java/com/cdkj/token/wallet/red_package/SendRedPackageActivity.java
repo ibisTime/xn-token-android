@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -25,6 +26,7 @@ import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
+import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivitySendRedPackageBinding;
@@ -84,6 +86,9 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+
+        UIStatusBarHelper.translucent(this, Color.parseColor("#FFFFA55D"));
+
         mBinding.etNumber.setEnabled(false);
         mBinding.etSendNumber.setEnabled(false);
         initOnClick();
@@ -105,10 +110,12 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
                 redType = 0;
                 mBinding.tvRedType.setText(R.string.red_package_set_hand);
                 mBinding.etNumber.setHint(R.string.red_package_please_sing_number);
+                mBinding.tvSendNumTip.setText(R.string.red_package_sub_single);
             } else if (redType == 0) {
                 redType = 1;
                 mBinding.tvRedType.setText(R.string.red_package_set_ordinary);
                 mBinding.etNumber.setHint(R.string.red_package_please_total_number);
+                mBinding.tvSendNumTip.setText(R.string.red_package_sub_total);
             }
             setTotalNumber();
         });
@@ -207,16 +214,29 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
             return;
         }
 
+        if (moneyNumber > 1000000) {
+            ToastUtil.show(this, getString(R.string.red_package_max_numer));
+            return;
+        }
+
         String number_et = mBinding.etSendNumber.getText().toString();
         if (TextUtils.isEmpty(number_et)) {
             ToastUtil.show(this, getString(R.string.red_package_pleas_number));
             return;
         }
+
         sendNumber = Integer.parseInt(number_et);
+
         if (sendNumber < 1) {
             ToastUtil.show(this, getString(R.string.red_package_min_number));
             return;
         }
+
+        if (sendNumber > 100) {
+            ToastUtil.show(this, getString(R.string.red_package_mxn_number));
+            return;
+        }
+
         //去请求数据
         showInputDialog();
 

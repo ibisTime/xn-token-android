@@ -70,7 +70,12 @@ public class MySendRedPackageFragment extends AbsRefreshListFragment<MySendRedPa
 
     @Override
     public RecyclerView.Adapter getListAdapter(List<MySendRedPackageBean.ListBean> listData) {
+
         MySendRedPackageAdapter mAdapter = new MySendRedPackageAdapter(listData);
+
+        mAdapter.setOnItemClickListener((adapter, view, position) -> {
+            RedPackageShearActivity.open(mActivity,mAdapter.getItem(position).getCode());
+        });
         return mAdapter;
     }
 

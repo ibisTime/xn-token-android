@@ -3,6 +3,7 @@ package com.cdkj.baselibrary.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -29,7 +30,7 @@ public class ImgUtils {
         LogUtil.E("图片" + imgid);
 
         try {
-            if (imgid.indexOf("http://") != -1) {
+            if (isHaveHttp(imgid)) {
                 Glide.with(context).load(imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
             } else {
                 Glide.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
@@ -40,14 +41,21 @@ public class ImgUtils {
         }
     }
 
+    static boolean isHaveHttp(String imgid) {
+        if (TextUtils.isEmpty(imgid)) {
+            return false;
+        }
+        return TextUtils.indexOf(imgid, "http://") != -1 && TextUtils.indexOf(imgid, "http://") != -1;
+    }
+
     public static void loadAvatar(Context context, String imgid, ImageView img) {
-        if (context == null || img == null) {
+        if (context == null|| img == null){
             return;
         }
         LogUtil.E("图片" + imgid);
 
         try {
-            if (imgid.indexOf("http://") != -1) {
+            if (isHaveHttp(imgid)) {
                 Glide.with(context).load(imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
             } else {
                 Glide.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
@@ -58,7 +66,7 @@ public class ImgUtils {
     }
 
     public static void loadRoundImage(Context context, String imgid, ImageView img) {
-        if (context == null || img == null) {
+        if (context == null) {
             return;
         }
         LogUtil.E("图片" + imgid);
