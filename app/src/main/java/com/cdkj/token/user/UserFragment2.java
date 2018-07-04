@@ -179,12 +179,6 @@ public class UserFragment2 extends BaseLazyFragment {
         mBinding.tvPhoneNumber.setText(StringUtils.ttransformShowPhone(data.getMobile()));
         ImgUtils.loadLogo(mActivity, data.getPhoto(), mBinding.imgLogo);
 
-        LogUtil.E(StringUtils.ttransformShowPhone("1234"));
-        LogUtil.E(StringUtils.ttransformShowPhone("12345"));
-        LogUtil.E(StringUtils.ttransformShowPhone("123456"));
-        LogUtil.E(StringUtils.ttransformShowPhone("1234567"));
-        LogUtil.E(StringUtils.ttransformShowPhone("12345678"));
-
     }
 
     @Override

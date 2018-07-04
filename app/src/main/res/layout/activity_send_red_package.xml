@@ -105,7 +105,6 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
-
                     android:background="@drawable/red_bg_rodun"
                     android:gravity="center_vertical">
 

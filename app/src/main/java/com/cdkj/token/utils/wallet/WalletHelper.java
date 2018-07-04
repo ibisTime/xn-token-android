@@ -50,6 +50,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+import static com.cdkj.baselibrary.appmanager.MyConfig.NODE_DEV;
+import static com.cdkj.baselibrary.appmanager.MyConfig.NODE_REALSE;
+import static com.cdkj.baselibrary.appmanager.MyConfig.getThisNodeType;
 import static com.cdkj.token.utils.AccountUtil.UNIT_MIN;
 import static com.cdkj.token.utils.AccountUtil.UNIT_POW;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_COIN_SQL;
@@ -70,9 +73,6 @@ public class WalletHelper {
     public final static String HDPATH = "M/44H/60H/0H/0/0";//生成助记词和解析时使用
 
     public final static String WALLPASS = "tha_etc";//
-
-    public final static int NODE_DEV = 0; //研发测试环境
-    public final static int NODE_REALSE = 1;//真实环境
 
 
     //TODO 币种使用枚举类
@@ -100,15 +100,6 @@ public class WalletHelper {
             return LOCAL_COIN_USD_SYMBOL;
         }
         return LOCAL_COIN_CNY_SYMBOL;
-    }
-
-    /**
-     * 获取当前节点类型
-     *
-     * @return
-     */
-    public static int getThisNodeType() {
-        return NODE_REALSE;
     }
 
     /**

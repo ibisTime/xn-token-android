@@ -29,12 +29,7 @@ public class CountryCodeListAdapter extends BaseQuickAdapter<CountryCodeMode, Ba
 
     @Override
     protected void convert(BaseViewHolder helper, CountryCodeMode item) {
-
-        if (TextUtils.equals(SPUtilHelper.getLanguage(), ENGLISH)) {
-            helper.setText(R.id.tv_country, item.getInterName() + "     " + transformShowCountryCode(item.getInterCode()));
-        } else {
-            helper.setText(R.id.tv_country, item.getChineseName() + "     " + transformShowCountryCode(item.getInterCode()));
-        }
+        helper.setText(R.id.tv_country, item.getInterName() + " " + item.getChineseName() + "     " + transformShowCountryCode(item.getInterCode()));
     }
 
     public String getSelectCountryName(int postion) {
