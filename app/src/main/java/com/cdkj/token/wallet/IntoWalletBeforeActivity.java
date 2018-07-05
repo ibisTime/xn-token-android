@@ -46,9 +46,9 @@ public class IntoWalletBeforeActivity extends AbsBaseLoadActivity {
     public void afterCreate(Bundle savedInstanceState) {
         initClickListener();
 
-        mBinding.tvRead.setOnClickListener(view -> {
-            WebViewActivity.openkey(this, getString(R.string.privacy_agreement), "reg_protocol");
-        });
+//        mBinding.tvRead.setOnClickListener(view -> {
+//            WebViewActivity.openkey(this, getString(R.string.privacy_agreement), "reg_protocol");
+//        });
     }
 
     @Override

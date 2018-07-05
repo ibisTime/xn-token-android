@@ -1,10 +1,10 @@
 <resources>
 
-    <string name="app_name">tha </string>
-    <string name="main_tag_consult"> found </string>
+    <string name="app_name">THA</string>
+    <string name="main_tag_consult">Discover</string>
     <string name="main_tab_wallet"> wallet </string>
-    <string name="main_tab_my"> my </string>
-    <string name="exit_confirm"> confirm exit?</string>
+    <string name="main_tab_my">My</string>
+    <string name="exit_confirm">confirm exit?</string>
     <string name="tip"> hint </string>
     <string name="tip_update"> update hint </string>
     <string name="confirm"> confirm to</string>
@@ -210,8 +210,8 @@
     <string name="user_language_simplified">Chinese simplified </string>
     <string name="user_language_traditional">Chinese Traditional </string>
     <string name="user_title_google">Google Verification</string>
-    <string name="user_google_open"> is turned on </string>
-    <string name="user_google_close">not open </string>
+    <string name="user_google_open">Is turned on </string>
+    <string name="user_google_close">Not open </string>
     <string name="user_google_btn_open">Open Google Verification</string>
     <string name="user_title_sign_up">registration </string>
     <string name="user_sign_up_protocol">Registration Agreement </string>
@@ -261,7 +261,7 @@
     <string name="user_tip"> personality settings </string>
     <string name="user_issue">Help center</string>
     <string name="user_services">Contact customer service</string>
-    <string name="user_about">about us</string>
+    <string name="user_about">About us</string>
     <string name="user_about_update">update to the latest version </string>
     <string name="user_about_updated"> is already the latest version </string>
 
@@ -405,15 +405,15 @@
     <string name="no_phone_permission"> do not have permission, can\'t make a call, please go to Settings--->Permission Management to grant users the right to call </string>
     <string name="system_message"> system announcement </string>
     <string name="no_system_message">No system announcement </string>
-    <string name="my_wallet">My wallet </string>
+    <string name="my_wallet">My wallet(%s) </string>
     <string name="fast_transfer"> one-click transfer </string>
     <string name="transfer_change">flash </string>
     <string name="accounts_and_security">Account and Security</string>
-    <string name="local_coin">local currency </string>
-    <string name="language">language </string>
+    <string name="local_coin">Local currency </string>
+    <string name="language">Language </string>
     <string name="please_create_or_import_wallet">Please create or import a wallet first</string>
     <string name="no_assets">no assets </string>
-    <string name="my_private_wallet"> secret key wallet  </string>
+    <string name="my_private_wallet"> secret key wallet(%s)</string>
     <string name="welcome_back">Welcome back! </string>
     <string name="chain">China</string>
     <string name="now_register">Register now</string>
@@ -423,7 +423,7 @@
     <string name="find_pwd">find the password! </string>
     <string name="no_country">No country </string>
     <string name="choose_country">Select a country </string>
-    <string name="wallet_tool">wallet tool </string>
+    <string name="wallet_tool">Wallet tool </string>
     <string name="wallet_delete_success">wallet deleted successfully</string>
     <string name="send_red_package">sent red packet</string>
     <string name="send_you_red_package"> sent you a red packet </string>
@@ -458,15 +458,15 @@
     <string name="red_package_please_sing_number">Please input quantity</string>
     <string name="red_package_please_total_number">Please input the total quantity </string>
     <string name="red_package_please_number">Please input the quantity </string>
-    <string name="red_package_my">My Sugar Pack</string>
+    <string name="red_package_my">My red pack</string>
     <string name="red_package_get_empty">None </string>
     <string name="api_error">Request interface error </string>
     <string name="red_package_send_empty">No record sent </string>
     <string name="red_package_form_user">from </string>
     <string name="red_package_send_success">Successfully sent, please scan the QR code to get the red packet</string>
-    <string name="assets">assets</string>
+    <string name="assets">Assets</string>
     <string name="my_coin_address">My %s collection address </string>
-    <string name="red_pg">sugar package </string>
+    <string name="red_pg">Red package </string>
     <string name="wallet_charge_recode">recode</string>
     <string name="user_language_english">English</string>
     <string name="me_red_package">my red packet</string>
@@ -474,13 +474,30 @@
     <string name="red_package_number_unit">  </string>
     <string name="CNY">CNY</string>
     <string name="USD">USD</string>
-    <string name="sen_red_packet_note">红包一响,黄金万两</string>
+
     <string name="red_package_sub_single">token single</string>
-    <string name="wallet_assets">TOTAL ASSETS(%s)</string>
+    <string name="wallet_assets">Total Assets(%s)</string>
     <string name="my_red_package_title">My red packets</string>
-    <string name="red_package_mxn_number">红包个数最多为100个</string>
-    <string name="red_package_max_numer">总额最多为10000000枚</string>
+
+    <string name="red_package_mxn_number">the maximum amount of red packets is 500</string>
+    <string name="red_package_max_numer">the maximum total amount is 10000000</string>
+    <string name="sen_red_packet_note">packets come,coins sound</string>
+
     <string name="share">share</string>
+    <string name="us_web">官网</string>
+    <string name="email_address">邮箱地址</string>
+    <string name="sina_">新浪微博</string>
+    <string name="telegram_address">https://t.me/THAWallet.en</string>
+    <string name="waite_content_1">THA Users can receive apprentice through the invitation system, and instruct apprentice according to the task, thus obtain the calculation force. In addition, the apprentice uses THA Wallet to purchase quantitative financial products or Yubibao, masters can obtain a certain percentage of the Apprentice reward.</string>
+    <string name="waite_title_1">Global Master and Apprentice Initiative: </string>
+    <string name="waite_content_2">Yubibao is the digital currency value-added service and demand digital money management service product of THA wallet. It is easy to operate, has low threshold, without handling fees,  and are available with access, so that you can manage your digital assets with more flexibility. </string>
+    <string name="wait_title_2">Yubibao:</string>
+    <string name="waite_content_3">THA Wallet provides users with a variety of quality management products, users can use Bitcoin, Ethernet and other digital currencies to buy money products and gain income.</string>
+    <string name="waite_title_3">Quantitative Finance: </string>
+    <string name="consult_1">Global Master and Apprentice Initiative</string>
+    <string name="yibibao">Yubibao</string>
+    <string name="lianghualicai">Quantitative Finance:</string>
+    <string name="recommend_application">Recommend Applications</string>
 
 </resources>
 

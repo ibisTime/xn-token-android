@@ -78,7 +78,7 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
 
     private void initEditInputType() {
         mBinding.edtUsername.getEditText().setInputType(InputType.TYPE_CLASS_PHONE);
-        mBinding.edtPassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        mBinding.edtPassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
     }
 
     private void init() {
@@ -118,10 +118,7 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
             showToast(getStrRes(R.string.user_mobile_hint));
             return false;
         }
-        if (mBinding.edtUsername.getText().toString().trim().length() != 11) {
-            showToast(getStrRes(R.string.user_mobile_format_hint));
-            return false;
-        }
+
         if (mBinding.edtPassword.getText().toString().trim().length() < 6) {
             showToast(getStrRes(R.string.user_password_format_hint));
             return false;
@@ -185,7 +182,7 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
             MainActivity.open(this);
             finish();
         } else {
-            super.onBackPressed();
+            finish();
         }
     }
 

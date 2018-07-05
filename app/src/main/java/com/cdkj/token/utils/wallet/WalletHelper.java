@@ -53,6 +53,7 @@ import io.reactivex.schedulers.Schedulers;
 import static com.cdkj.baselibrary.appmanager.MyConfig.NODE_DEV;
 import static com.cdkj.baselibrary.appmanager.MyConfig.NODE_REALSE;
 import static com.cdkj.baselibrary.appmanager.MyConfig.getThisNodeType;
+import static com.cdkj.baselibrary.utils.StringUtils.SPACE_SYMBOL;
 import static com.cdkj.token.utils.AccountUtil.UNIT_MIN;
 import static com.cdkj.token.utils.AccountUtil.UNIT_POW;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_COIN_SQL;
@@ -68,7 +69,7 @@ import static com.cdkj.token.utils.wallet.WalletDBColumn.WALLETPASSWORD;
 public class WalletHelper {
 
     //助记词分隔符
-    public final static String HELPWORD_SPACE = " ";
+    public final static String HELPWORD_SPACE_SYMBOL = ",";
 
     public final static String HDPATH = "M/44H/60H/0H/0/0";//生成助记词和解析时使用
 
@@ -334,7 +335,7 @@ public class WalletHelper {
 
         WalletDBModel walletDBModel = new WalletDBModel();
 
-        walletDBModel.setHelpWordsEn(encrypt(StringUtils.listToString(mnemonicList, HELPWORD_SPACE))); //储存下来 用，分割
+        walletDBModel.setHelpWordsEn(encrypt(StringUtils.listToString(mnemonicList, HELPWORD_SPACE_SYMBOL))); //储存下来 用，分割
 
         walletDBModel.setEthAddress(encrypt(credentials1.getAddress()));
         walletDBModel.setEthPrivateKey(encrypt(key1.getPrivateKeyAsHex()));
@@ -390,8 +391,7 @@ public class WalletHelper {
 
         try {
             if (cursor != null && cursor.moveToFirst()) {
-
-                return StringUtils.splitAsList(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.HELPWORDSEN))), HELPWORD_SPACE);
+                return StringUtils.splitAsList(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.HELPWORDSEN))), HELPWORD_SPACE_SYMBOL);
             }
 
         } catch (Exception e) {
@@ -562,7 +562,7 @@ public class WalletHelper {
                 .create(privKey.toString(16));
 
         WalletDBModel walletDBModel = new WalletDBModel();
-        walletDBModel.setHelpWordsEn(encrypt(StringUtils.listToString(defaultMnenonic, HELPWORD_SPACE))); //储存下来 用，分割
+        walletDBModel.setHelpWordsEn(encrypt(StringUtils.listToString(defaultMnenonic, HELPWORD_SPACE_SYMBOL))); //储存下来 用，分割
 
         walletDBModel.setEthAddress(credentials.getAddress());
         walletDBModel.setEthPrivateKey(encrypt(key.getPrivateKeyAsHex()));
@@ -640,10 +640,10 @@ public class WalletHelper {
      */
     public static boolean checkCacheWords(String words, String userId) {
 
-        WalletDBModel walletDBModel = getUserWalletInfoByUsreId(userId);
+        List<String> wordsList = getHelpWordsListByUserId(userId);
 
-        if (walletDBModel != null) {
-            return TextUtils.equals(walletDBModel.getHelpWordsEn(), words);
+        if (wordsList != null) {
+            return TextUtils.equals(StringUtils.listToString(wordsList, SPACE_SYMBOL), words);
         }
 
         return false;
@@ -832,8 +832,8 @@ public class WalletHelper {
     /**
      * 获取手续费（矿工费）
      */
-    public static BigInteger getGasValue() throws Exception {
-        Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_ETH)));
+    public static BigInteger getGasValue(String coinType) throws Exception {
+        Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(coinType)));
         BigInteger gasPrice = web3j.ethGasPrice().send().getGasPrice();
         return gasPrice;
     }

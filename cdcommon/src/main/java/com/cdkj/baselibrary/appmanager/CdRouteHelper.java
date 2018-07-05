@@ -10,6 +10,8 @@ import com.alibaba.android.arouter.launcher.ARouter;
 public class CdRouteHelper {
     //跳转到登录页面
     public static final String APPLOGIN = "/app/login";
+
+    public static final String APP_COUNTRY_SELECT = "/app/country_select";
     //启动页
     public static final String APPSTART = "/app/start";
     //找回登录密码
@@ -38,6 +40,18 @@ public class CdRouteHelper {
     }
 
     /**
+     * 打开登录界面
+     *
+     * @param isSave 选择后是否保存到本地
+     */
+    public static void openCountrySelect(boolean isSave) {
+        ARouter.getInstance().build(APP_COUNTRY_SELECT)
+                .withBoolean(DATASIGN, isSave)
+                .greenChannel()                                       //不使用任何拦截器
+                .navigation();
+    }
+
+    /**
      * 打开找回登录密码界面
      *
      * @param phoneNum 用户手机号码
@@ -50,7 +64,6 @@ public class CdRouteHelper {
 
     /**
      * 路由跳转开始页面
-     *
      */
     public static void openStar() {
         // 路由跳转开始页面

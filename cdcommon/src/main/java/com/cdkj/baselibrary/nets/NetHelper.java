@@ -8,6 +8,7 @@ import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.model.LoginFailureEvent;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.ToastUtil;
@@ -126,15 +127,16 @@ public class NetHelper {
      */
     public static void onLoginFailure(Context context, String errorMessage) {
 
-        EventBus.getDefault().post(new LoginFailureEvent());//通知登录失效
-
         SPUtilHelper.logOutClear();
+
         if (context != null) {
             ToastUtil.show(context, errorMessage);
         }
-        // 路由跳转登录页面
 
-        CdRouteHelper.openLogin(false);
+        EventBus.getDefault().post(new AllFinishEvent());//登录失效
+
+        // 路由跳转登录页面
+        CdRouteHelper.openLogin(true);
     }
 
 

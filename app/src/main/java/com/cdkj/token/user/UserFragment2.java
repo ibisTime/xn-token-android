@@ -67,6 +67,8 @@ public class UserFragment2 extends BaseLazyFragment {
     }
 
 
+
+
     private void initClickListener() {
 
         //本地货币
@@ -101,7 +103,7 @@ public class UserFragment2 extends BaseLazyFragment {
         //帮助中心
         mBinding.helper.setOnClickListener(view -> WebViewActivity.openkey(mActivity, getStrRes(R.string.user_issue), "questions"));
 
-        //关于我没
+        //关于我们
         mBinding.aboutUs.setOnClickListener(view -> UserAboutActivity.open(mActivity));
 
 

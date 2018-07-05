@@ -56,9 +56,8 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
     private int redType = 1;//红包类型 0=定额红包 1=拼手气红包  默认是拼手气红包
     private String currencyType;//币种类型名称
     private InputDialog inputDialog;
-    boolean isTradepwdFlag = false;//是否设置过支付密码
     private String mobile;
-    private String tradePwd;
+    private String tradePwd; //用户输入的密码
 
     private List<CoinModel.AccountListBean> cAccountListBeans;//币种列表
     private OptionsPickerView coinPickerView;
@@ -91,6 +90,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
 
         mBinding.etNumber.setEnabled(false);
         mBinding.etSendNumber.setEnabled(false);
+        showUIState();
         initOnClick();
         getUserInfoRequest();
         getWalletAssetsData(false);
@@ -106,17 +106,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
         });
         mBinding.tvRedType.setOnClickListener(view -> {
 
-            if (redType == 1) {
-                redType = 0;
-                mBinding.tvRedType.setText(R.string.red_package_set_hand);
-                mBinding.etNumber.setHint(R.string.red_package_please_sing_number);
-                mBinding.tvSendNumTip.setText(R.string.red_package_sub_single);
-            } else if (redType == 0) {
-                redType = 1;
-                mBinding.tvRedType.setText(R.string.red_package_set_ordinary);
-                mBinding.etNumber.setHint(R.string.red_package_please_total_number);
-                mBinding.tvSendNumTip.setText(R.string.red_package_sub_total);
-            }
+            showUIState();
             setTotalNumber();
         });
         mBinding.llType.setOnClickListener(view -> {
@@ -159,6 +149,23 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
 
             }
         });
+    }
+
+    /**
+     * 普通红包和拼手气红包状态修改
+     */
+    private void showUIState() {
+        if (redType == 1) {
+            redType = 0;
+            mBinding.tvRedType.setText(R.string.red_package_set_hand);
+            mBinding.etNumber.setHint(R.string.red_package_please_sing_number);
+            mBinding.tvSendNumTip.setText(R.string.red_package_sub_single);
+        } else if (redType == 0) {
+            redType = 1;
+            mBinding.tvRedType.setText(R.string.red_package_set_ordinary);
+            mBinding.etNumber.setHint(R.string.red_package_please_total_number);
+            mBinding.tvSendNumTip.setText(R.string.red_package_sub_total);
+        }
     }
 
     /**
@@ -232,7 +239,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
             return;
         }
 
-        if (sendNumber > 100) {
+        if (sendNumber > 500) {
             ToastUtil.show(this, getString(R.string.red_package_mxn_number));
             return;
         }
@@ -280,7 +287,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
 
     private void showInputDialog() {
         //判断有没有设置过支付密码
-        if (!isTradepwdFlag) {
+        if (!SPUtilHelper.getTradePwdFlag()) {
             showDoubleWarnListen(getString(R.string.red_package_please_set_type), view -> {
                 //跳转设置支付界面
                 PayPwdModifyActivity.open(this, false, mobile);
@@ -419,12 +426,10 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
 
         call.enqueue(new BaseResponseModelCallBack<UserInfoModel>(this) {
 
-
             @Override
             protected void onSuccess(UserInfoModel data, String SucMessage) {
                 if (data == null)
                     return;
-                isTradepwdFlag = data.isTradepwdFlag();
                 SPUtilHelper.saveSecretUserId(data.getSecretUserId());
                 SPUtilHelper.saveUserPhoto(data.getPhoto());
                 SPUtilHelper.saveUserEmail(data.getEmail());

@@ -20,7 +20,9 @@
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:singleLine="true"
                 android:text="@string/red_package_send"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
@@ -31,7 +33,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="right|center_vertical"
                 android:layout_marginRight="15dp"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:singleLine="true"
                 android:text="@string/red_package_my"
                 android:textColor="@color/white" />
 
@@ -153,7 +157,7 @@
 
                     <EditText
                         android:id="@+id/et_number"
-                        android:layout_width="100dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:background="@null"
@@ -195,10 +199,12 @@
                         android:layout_height="wrap_content"
                         android:layout_marginRight="10dp"
                         android:background="@drawable/red_bg_line_rodun"
+                        android:ellipsize="end"
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="5dp"
+                        android:singleLine="true"
                         android:text="@string/red_package_set_ordinary"
                         android:textColor="@color/white" />
 
@@ -229,7 +235,7 @@
 
                     <EditText
                         android:id="@+id/et_send_number"
-                        android:layout_width="100dp"
+                        android:layout_width="110dp"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right|center_vertical"
                         android:layout_marginRight="10dp"

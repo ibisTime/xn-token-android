@@ -79,7 +79,7 @@ public class UserGoogleActivity extends AbsBaseActivity implements SendCodeInter
         mSubscription.add(AppUtils.startCodeDown(60, mBinding.btnSend));
 
         //改变ui
-        mBinding.btnSend.setBackground(ContextCompat.getDrawable(this,R.drawable.corner_sign_btn_gray));
+        mBinding.btnSend.setBackgroundResource(R.drawable.corner_sign_btn_gray);
     }
 
     @Override

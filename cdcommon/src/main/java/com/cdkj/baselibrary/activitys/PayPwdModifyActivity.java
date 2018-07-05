@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.R;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
@@ -23,6 +24,7 @@ import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 
 import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -56,6 +58,12 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
         context.startActivity(intent);
     }
 
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        mBinding.tvCountryName.setText(SPUtilHelper.getCountry());
+//        mBinding.tvCountryCode.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+//    }
 
     @Override
     public View addMainView() {
@@ -89,6 +97,13 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
      * 设置事件
      */
     private void setListener() {
+//        mBinding.linLayoutCountryCode.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                CdRouteHelper.openCountrySelect(false);
+//            }
+//        });
+
 //发送验证码
         mBinding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,8 +132,8 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
                     showToast(getString(R.string.activity_paypwd_code_hint));
                     return;
                 }
-                if (SPUtilHelper.getGoogleAuthFlag()){
-                    if (TextUtils.isEmpty(mBinding.edtGoogle.getText().toString())){
+                if (SPUtilHelper.getGoogleAuthFlag()) {
+                    if (TextUtils.isEmpty(mBinding.edtGoogle.getText().toString())) {
                         showToast(getString(R.string.activity_paypwd_google_hint));
                         return;
                     }
@@ -221,4 +236,10 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
             mSendCoodePresenter = null;
         }
     }
+
+//    @Subscribe
+//    public void countrySelectEvent(){
+//        mBinding.tvCountryName.setText(SPUtilHelper.getCountry());
+//        mBinding.tvCountryCode.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+//    }
 }

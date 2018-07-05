@@ -11,13 +11,10 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.EventTags;
-import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.databinding.ActivityAppBuildTypeBinding;
@@ -26,6 +23,9 @@ import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
+
+import static com.cdkj.baselibrary.appmanager.MyConfig.BUILD_TYPE_DEBUG;
+import static com.cdkj.baselibrary.appmanager.MyConfig.BUILD_TYPE_TEST;
 
 /**
  * Created by lei on 2017/12/1.
@@ -65,14 +65,14 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
         mBinding.llBuildDebug.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setBuildType(v, SPUtilHelper.BUILD_TYPE_DEBUG);
+                setBuildType(v, BUILD_TYPE_DEBUG);
             }
         });
 
         mBinding.llBuildTest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                setBuildType(v, SPUtilHelper.BUILD_TYPE_TEST);
+                setBuildType(v, BUILD_TYPE_TEST);
             }
         });
 
@@ -107,12 +107,12 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
         popupWindow.setAnimationStyle(R.style.popwin_anim_style);
 
         switch (type) {
-            case SPUtilHelper.BUILD_TYPE_DEBUG:
+            case BUILD_TYPE_DEBUG:
                 tvTip.setText("已经是研发环境了，您还要我怎样?");
                 tvConfirm.setText("对不起，那切换到测试吧");
                 break;
 
-            case SPUtilHelper.BUILD_TYPE_TEST:
+            case BUILD_TYPE_TEST:
                 tvTip.setText("已经是测试环境了，您还要我怎样?");
                 tvConfirm.setText("对不起，那切换到研发吧");
                 break;
@@ -131,12 +131,12 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
             public void onClick(View v) {
                 popupWindow.dismiss();
                 switch (type) {
-                    case SPUtilHelper.BUILD_TYPE_DEBUG:
-                        SPUtilHelper.setAPPBuildType(SPUtilHelper.BUILD_TYPE_TEST);
+                    case BUILD_TYPE_DEBUG:
+                        SPUtilHelper.setAPPBuildType(BUILD_TYPE_TEST);
                         break;
 
-                    case SPUtilHelper.BUILD_TYPE_TEST:
-                        SPUtilHelper.setAPPBuildType(SPUtilHelper.BUILD_TYPE_DEBUG);
+                    case BUILD_TYPE_TEST:
+                        SPUtilHelper.setAPPBuildType(BUILD_TYPE_DEBUG);
                         break;
                 }
 
@@ -166,11 +166,11 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
         popupWindow.setAnimationStyle(R.style.popwin_anim_style);
 
         switch (type) {
-            case SPUtilHelper.BUILD_TYPE_DEBUG:
+            case BUILD_TYPE_DEBUG:
                 tvTip.setText("大佬，您确定要切换到研发环境吗?");
                 break;
 
-            case SPUtilHelper.BUILD_TYPE_TEST:
+            case BUILD_TYPE_TEST:
                 tvTip.setText("大佬，您确定要切换到测试环境吗?");
                 break;
         }
@@ -188,12 +188,12 @@ public class AppBuildTypeActivity extends AbsBaseActivity {
             public void onClick(View v) {
                 popupWindow.dismiss();
                 switch (type) {
-                    case SPUtilHelper.BUILD_TYPE_DEBUG:
-                        SPUtilHelper.setAPPBuildType(SPUtilHelper.BUILD_TYPE_DEBUG);
+                    case BUILD_TYPE_DEBUG:
+                        SPUtilHelper.setAPPBuildType(BUILD_TYPE_DEBUG);
                         break;
 
-                    case SPUtilHelper.BUILD_TYPE_TEST:
-                        SPUtilHelper.setAPPBuildType(SPUtilHelper.BUILD_TYPE_TEST);
+                    case BUILD_TYPE_TEST:
+                        SPUtilHelper.setAPPBuildType(BUILD_TYPE_TEST);
                         break;
                 }
 

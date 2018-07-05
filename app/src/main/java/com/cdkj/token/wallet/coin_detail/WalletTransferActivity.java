@@ -217,12 +217,15 @@ public class WalletTransferActivity extends AbsBaseLoadActivity {
      * 获取燃料费用
      */
     private void getGasPriceValue() {
+        if (accountListBean == null) {
+            return;
+        }
         showLoadingDialog();
 
         mSubscription.add(
                 Observable.just("")
                         .subscribeOn(Schedulers.newThread())
-                        .map(s -> WalletHelper.getGasValue())
+                        .map(s -> WalletHelper.getGasValue(accountListBean.getCoinName()))
                         .observeOn(AndroidSchedulers.mainThread())
                         .doFinally(() -> disMissLoading())
                         .subscribe(gasPrice -> {

@@ -226,7 +226,7 @@ public class InputDialog {
         setLayout();
         mDialog.show();
         // 只用下面这一行弹出对话框时需要点击输入框才能弹出软键盘
-        mDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+//        mDialog.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
         // 加上下面这一行弹出对话框时软键盘随之弹出
         mDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }

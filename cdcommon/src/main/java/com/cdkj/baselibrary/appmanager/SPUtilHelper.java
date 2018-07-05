@@ -4,9 +4,10 @@ package com.cdkj.baselibrary.appmanager;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.utils.SPUtils;
+
+import static com.cdkj.baselibrary.appmanager.MyConfig.BUILD_TYPE_DEBUG;
 
 /**
  * SPUtils 工具辅助类
@@ -14,19 +15,11 @@ import com.cdkj.baselibrary.utils.SPUtils;
 
 public class SPUtilHelper {
 
-    public static final String USD = "USD";
-    public static final String HKD = "HKD";
 
     private static final String USERTOKEN = "user_toke";
     private static final String USERID = "user_id";
     private static final String SECRET_USERID = "secret_user_id";
-    private static final String LOCATIONINFO = "location_info";
-
-    // app运行环境
     public static final String BUILD_TYPE_KEY = "build_type";
-    public static final String BUILD_TYPE_TEST = "build_type_test";
-    public static final String BUILD_TYPE_DEBUG = "build_type_debug";
-    public static final String BUILD_TYPE_RELEASE = "build_type_release";
 
     /**
      * 判断用户是否登录

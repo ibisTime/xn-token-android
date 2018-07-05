@@ -73,7 +73,7 @@
     <string name="wallet_title_bill_list">账单</string>
 
     <string name="wallet_title_charge">充币</string>
-    <string name="wallet_charge_recode" >记录</string>
+    <string name="wallet_charge_recode">记录</string>
     <string name="wallet_charge_address_copy_success">地址已复制</string>
 
     <string name="wallet_title_withdraw">提币</string>
@@ -166,7 +166,6 @@
     <string name="user_protocol_hint">请阅读并同意条款</string>
     <string name="user_sign_up_success">注册成功,为您自动登录</string>
     <string name="user_sign_up_failure">注册失败</string>
-
 
 
     <string name="user_sign_in_mobile_hint">请输入手机号</string>
@@ -399,15 +398,15 @@
     <string name="no_phone_permission">没有权限，无法拨打电话，请到设置--->权限管理里授予用户拨打电话权限</string>
     <string name="system_message">系统公告</string>
     <string name="no_system_message">暂无系统公告</string>
-    <string name="my_wallet">个人钱包(%s)</string>
-    <string name="fast_transfer" >一键划转</string>
+    <string name="my_wallet">个人账户(%s)</string>
+    <string name="fast_transfer">一键划转</string>
     <string name="transfer_change">闪兑</string>
     <string name="accounts_and_security">账户与安全</string>
     <string name="local_coin">本地货币</string>
     <string name="language">语言</string>
     <string name="please_create_or_import_wallet">请先创建或导入钱包</string>
     <string name="no_assets">暂无资产</string>
-    <string name="my_private_wallet">秘钥钱包(%s)</string>
+    <string name="my_private_wallet">私钥钱包(%s)</string>
     <string name="chain">中国</string>
     <string name="now_register">立即注册</string>
     <string name="no_account">还没账号？</string>
@@ -429,8 +428,8 @@
     <string name="get_red_package">抢到红包</string>
     <string name="send_red_package2">发出红包</string>
     <string name="sub_total_red_package">总共发送</string>
-    <string name="red_package_db">代币</string>
-    <string name="red_package_sub_total">代币总额</string>
+    <string name="red_package_db">代币类型</string>
+    <string name="red_package_sub_total">代币总量</string>
     <string name="red_package_unit">枚</string>
     <string name="red_package_number">红包个数</string>
     <string name="red_package_number_unit">个</string>
@@ -461,7 +460,7 @@
     <string name="my_coin_address">我的%s收款地址</string>
     <string name="red_pg">发红包</string>
     <string name="my_red_package_title">我的红包</string>
-    <string name="red_package_mxn_number">红包个数最多为100个</string>
+    <string name="red_package_mxn_number">红包个数最多为500个</string>
     <string name="red_package_max_numer">总额最多为10000000枚</string>
     <string name="share">分享</string>
     <string name="welcome_back">欢迎回来！</string>
@@ -470,7 +469,21 @@
     <string name="CNY">人民币</string>
     <string name="USD">美元</string>
     <string name="sen_red_packet_note">红包一响,黄金万两</string>
-    <string name="red_package_sub_single">代币单量</string>
+    <string name="red_package_sub_single">单个数量</string>
+    <string name="us_web">官网</string>
+    <string name="email_address">邮箱地址</string>
+    <string name="sina_">新浪微博</string>
+    <string name="telegram_address">https://t.me/THAWallet.cn</string>
+    <string name="waite_content_1">THA用户可以通过邀请制收取徒弟，并根据任务引导来教育徒弟，从而获得算力。另外，徒弟使用THA钱包购买量化理财或余币宝，师父可获得徒弟一定比例的收益奖励。</string>
+    <string name="waite_title_1">全球师徒首创玩法:</string>
+    <string name="waite_content_2">余币宝是THA Wallet旗下的数字货币增值服务和活期数字货币管理服务产品。特点是操作简便、低门槛、零手续费、可随取随用，让您更灵活的管理数字资产。</string>
+    <string name="wait_title_2">余币宝：</string>
+    <string name="waite_content_3">THA Wallet为用户提供多种类型的优质理财产品，用户可以使用比特币、以太坊等数字货币购买理财产品而获得收益。</string>
+    <string name="waite_title_3">量化理财：</string>
+    <string name="consult_1">首创玩法</string>
+    <string name="yibibao">余币宝</string>
+    <string name="lianghualicai">量化理财</string>
+    <string name="recommend_application">推荐应用</string>
 
 
 </resources>

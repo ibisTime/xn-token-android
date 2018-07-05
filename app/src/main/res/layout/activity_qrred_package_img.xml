@@ -22,7 +22,7 @@
                 android:layout_margin="10dp"
                 android:background="@color/white"
                 android:padding="5dp"
-                tools:src="@mipmap/ic_launcher" />
+                 />
         </FrameLayout>
 
 

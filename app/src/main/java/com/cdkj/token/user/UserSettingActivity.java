@@ -59,19 +59,19 @@ public class UserSettingActivity extends AbsBaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-//        init();
+        init();
     }
 
     private void init() {
         mBinding.tvMail.setText(SPUtilHelper.getUserEmail());
-        if (SPUtilHelper.getRealName() != null && SPUtilHelper.getRealName().length() > 1) {
-            String name = "";
-            for (int i = 1; i < SPUtilHelper.getRealName().length(); i++) {
-                name += "*";
-            }
-            mBinding.tvIdentity.setText(name + SPUtilHelper.getRealName().substring(SPUtilHelper.getRealName().length() - 1, SPUtilHelper.getRealName().length()));
-        }
-         mBinding.tvMobile.setText(SPUtilHelper.getUserPhoneNum().substring(0, 3) + "****" + SPUtilHelper.getUserPhoneNum().substring(SPUtilHelper.getUserPhoneNum().length() - 4, SPUtilHelper.getUserPhoneNum().length()));
+//        if (SPUtilHelper.getRealName() != null && SPUtilHelper.getRealName().length() > 1) {
+//            String name = "";
+//            for (int i = 1; i < SPUtilHelper.getRealName().length(); i++) {
+//                name += "*";
+//            }
+//            mBinding.tvIdentity.setText(name + SPUtilHelper.getRealName().substring(SPUtilHelper.getRealName().length() - 1, SPUtilHelper.getRealName().length()));
+//        }
+//         mBinding.tvMobile.setText(SPUtilHelper.getUserPhoneNum().substring(0, 3) + "****" + SPUtilHelper.getUserPhoneNum().substring(SPUtilHelper.getUserPhoneNum().length() - 4, SPUtilHelper.getUserPhoneNum().length()));
 
         if (!SPUtilHelper.getGoogleAuthFlag()) { // 未打开谷歌验证
             mBinding.tvGoogle.setText(getStrRes(R.string.user_google_close));
@@ -85,13 +85,13 @@ public class UserSettingActivity extends AbsBaseActivity {
             PayPwdModifyActivity.open(this, SPUtilHelper.getTradePwdFlag(), SPUtilHelper.getUserPhoneNum());
         });
 
-        mBinding.llIdentity.setOnClickListener(view -> {
-            if (SPUtilHelper.getRealName() == null || SPUtilHelper.getRealName().equals("")) {
-                AuthenticateActivity.open(this);
-            } else {
-                showToast(getStrRes(R.string.user_identity_success));
-            }
-        });
+//        mBinding.llIdentity.setOnClickListener(view -> {
+//            if (SPUtilHelper.getRealName() == null || SPUtilHelper.getRealName().equals("")) {
+//                AuthenticateActivity.open(this);
+//            } else {
+//                showToast(getStrRes(R.string.user_identity_success));
+//            }
+//        });
 
         mBinding.llMail.setOnClickListener(view -> {
             UserEmailActivity.open(this, SPUtilHelper.getUserEmail());

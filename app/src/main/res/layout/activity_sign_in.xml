@@ -33,7 +33,7 @@
                     android:layout_gravity="bottom"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
-                    android:background="@color/white"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="3dp">
 
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:background="@color/white"
+                    app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="5dp">
 

@@ -13,11 +13,13 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.api.BaseResponseModel;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.BigDecimalUtils;
@@ -44,6 +46,7 @@ import com.cdkj.token.views.CardChangeLayout;
 import com.cdkj.token.wallet.account.BillListActivity;
 import com.cdkj.token.wallet.coin_detail.WalletCoinDetailsActivity;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.spongycastle.asn1.esf.SPuri;
 
@@ -130,12 +133,12 @@ public class WalletFragment_2 extends BaseLazyFragment {
 
         //一键划转
         mBinding.linLayoutFastTransfer.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, "");
+            NoneActivity.open(mActivity, NoneActivity.ONE_CLICK);
         });
 
         //闪兑
         mBinding.linLayoutTransferChange.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, "");
+            NoneActivity.open(mActivity, NoneActivity.FLASH);
         });
 
         //公告关闭
@@ -157,6 +160,19 @@ public class WalletFragment_2 extends BaseLazyFragment {
         mBinding.cardChangeLayout.setChangeCallBack(new CardChangeLayout.ChangeCallBack() {
             @Override
             public boolean onChangeBefor(int index) {
+
+                if (!SPUtilHelper.isLoginNoStart()) {
+
+                    EventBus.getDefault().post(new AllFinishEvent());
+
+                    CdRouteHelper.openLogin(true);
+
+                    if (mActivity != null) {
+                        mActivity.finish();
+                    }
+
+                    return false;
+                }
 
                 boolean isHasInfo = WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId());
 
@@ -592,10 +608,10 @@ public class WalletFragment_2 extends BaseLazyFragment {
             @Override
             protected void onSuccess(MsgListModel data, String SucMessage) {
                 if (data.getList() == null || data.getList().size() < 1) {
-                    mBinding.tvBulletin.setVisibility(View.GONE);
+                    mBinding.linLayoutBulletin.setVisibility(View.GONE);
                     return;
                 }
-                mBinding.tvBulletin.setVisibility(View.VISIBLE);
+                mBinding.linLayoutBulletin.setVisibility(View.VISIBLE);
                 mBinding.tvBulletin.setText(data.getList().get(0).getSmsTitle());
             }
 

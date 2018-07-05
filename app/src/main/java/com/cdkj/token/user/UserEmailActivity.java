@@ -133,7 +133,7 @@ public class UserEmailActivity extends AbsBaseActivity {
                         //启动倒计时
                         mSubscription.add(AppUtils.startCodeDown(60, mBinding.btnSend));
                         //改变ui
-                        mBinding.btnSend.setBackground(ContextCompat.getDrawable(UserEmailActivity.this,R.drawable.corner_sign_btn_gray));
+                        mBinding.btnSend.setBackgroundResource(R.drawable.corner_sign_btn_gray);
                     }else{
                         showToast(getString(R.string.email_code_send_failure));
                     }

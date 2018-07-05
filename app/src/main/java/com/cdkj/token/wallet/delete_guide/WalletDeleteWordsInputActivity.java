@@ -72,7 +72,7 @@ public class WalletDeleteWordsInputActivity extends AbsBaseLoadActivity {
                     Observable.just(StringUtils.mergeSpace(mBinding.editWords.getText().toString().trim()))
                             .subscribeOn(Schedulers.newThread())
                             .map(s -> {
-                                words = StringUtils.splitAsArrayList(s, WalletHelper.HELPWORD_SPACE);
+                                words = StringUtils.splitAsArrayList(s, StringUtils.SPACE_SYMBOL);
                                 return words;
                             })
                             .map(wds -> WalletHelper.checkMnenonic(wds))
@@ -82,7 +82,7 @@ public class WalletDeleteWordsInputActivity extends AbsBaseLoadActivity {
                             .doOnComplete(() -> disMissLoading())
 
                             .subscribe(isPass -> {
-                                if (isPass && WalletHelper.checkCacheWords(mBinding.editWords.getText().toString().trim(), SPUtilHelper.getUserId())) {
+                                if (isPass && WalletHelper.checkCacheWords(StringUtils.mergeSpace(mBinding.editWords.getText().toString().trim()), SPUtilHelper.getUserId())) {
                                     showSureDialog();
                                 } else {
                                     UITipDialog.showFail(WalletDeleteWordsInputActivity.this, getString(R.string.check_words_fail));

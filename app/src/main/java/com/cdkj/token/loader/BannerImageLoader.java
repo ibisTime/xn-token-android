@@ -21,7 +21,7 @@ public class BannerImageLoader extends ImageLoader {
 
             Glide.with(context)
                     .load(SPUtilHelper.getQiniuUrl() + banner.getPic())
-                    .centerCrop()
+//                    .centerCrop()
                     .into(imageView);
 
             return;
@@ -30,13 +30,13 @@ public class BannerImageLoader extends ImageLoader {
         if (path.toString().indexOf("http") != -1) {
             Glide.with(context)
                     .load(path.toString())
-                    .centerCrop()
+//                    .centerCrop()
                     .into(imageView);
         } else {
 
             Glide.with(context)
                     .load(SPUtilHelper.getQiniuUrl() + path.toString())
-                    .centerCrop()
+//                    .centerCrop()
                     .into(imageView);
         }
 

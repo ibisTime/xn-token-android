@@ -24,7 +24,9 @@
                 android:background="@drawable/common_radiobtn_select_left"
                 android:button="@null"
                 android:checked="true"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:singleLine="true"
                 android:text="@string/get_red_package"
                 android:textColor="@drawable/common_radiobtn_select_text_color" />
 
@@ -35,7 +37,9 @@
                 android:background="@drawable/common_radiobtn_select_right"
                 android:button="@null"
                 android:checked="false"
+                android:ellipsize="end"
                 android:gravity="center"
+                android:singleLine="true"
                 android:text="@string/send_red_package2"
                 android:textColor="@drawable/common_radiobtn_select_text_color" />
 

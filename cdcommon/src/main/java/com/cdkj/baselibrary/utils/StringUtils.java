@@ -19,6 +19,7 @@ import java.util.regex.Pattern;
 
 public class StringUtils {
 
+    public static String SPACE_SYMBOL = " ";
 
     /**
      * 区号显示转换 0086 -》  +86
@@ -65,7 +66,7 @@ public class StringUtils {
     public static String mergeSpace(String str) {
         String regex = "\\s+";
         if (!TextUtils.isEmpty(str)) {
-            return str.replaceAll(regex, " ");
+            return str.replaceAll(regex, SPACE_SYMBOL);
         }
         return str;
     }

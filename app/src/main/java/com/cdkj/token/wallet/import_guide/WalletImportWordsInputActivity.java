@@ -58,7 +58,7 @@ public class WalletImportWordsInputActivity extends AbsBaseLoadActivity {
 
             if (TextUtils.isEmpty(mBinding.editWords.getText().toString())) {
 
-                UITipDialog.showInfo(this,getString(R.string.please_input_help_words));
+                UITipDialog.showInfo(this, getString(R.string.please_input_help_words));
 
                 return;
             }
@@ -68,7 +68,7 @@ public class WalletImportWordsInputActivity extends AbsBaseLoadActivity {
                     Observable.just(StringUtils.mergeSpace(mBinding.editWords.getText().toString().trim()))
                             .subscribeOn(Schedulers.newThread())
                             .map(s -> {
-                                words = StringUtils.splitAsArrayList(s, " ");
+                                words = StringUtils.splitAsArrayList(s, StringUtils.SPACE_SYMBOL);
                                 return words;
                             })
                             .map(wds -> WalletHelper.checkMnenonic(wds))

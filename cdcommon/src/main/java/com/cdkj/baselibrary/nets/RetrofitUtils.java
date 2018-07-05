@@ -8,6 +8,9 @@ import com.cdkj.baselibrary.utils.LogUtil;
 
 import retrofit2.Retrofit;
 
+import static com.cdkj.baselibrary.appmanager.MyConfig.BUILD_TYPE_TEST;
+import static com.cdkj.baselibrary.appmanager.MyConfig.getBaseURL;
+
 /**
  * 服务器api
  * Created by Administrator on 2016/9/1.
@@ -54,27 +57,5 @@ public class RetrofitUtils {
         return createApi(BaseApiServer.class);
     }
 
-    /**
-     * @return
-     */
-    public static String getBaseURL() {
-
-        if (LogUtil.isLog) {
-
-            switch (SPUtilHelper.getAPPBuildType()) {
-
-                case SPUtilHelper.BUILD_TYPE_TEST: // 测试
-                    return MyConfig.BASE_URL_TEST;
-
-                default: // 研发
-                    return MyConfig.BASE_URL_DEV;
-
-            }
-        } else {
-            // 线上
-            return MyConfig.BASE_URL_ONLINE;
-        }
-
-    }
 
 }

@@ -78,18 +78,20 @@ public class ConsultFragment extends BaseLazyFragment {
     }
 
     private void initListener() {
+        //消息
         mHeadBinding.flRight.setOnClickListener(view -> {
             MsgListActivity.open(mActivity);
         });
 
+        //首创玩法
         mHeadBinding.llMerchant.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, "");
+            NoneActivity.open(mActivity, NoneActivity.FIRST_CREATE);
         });
-        mHeadBinding.fraLayoutYbg.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, "");
+        mHeadBinding.fraLayoutYbb.setOnClickListener(view -> {
+            NoneActivity.open(mActivity, NoneActivity.YBB);
         });
         mHeadBinding.fraLayoutLhlc.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, "");
+            NoneActivity.open(mActivity, NoneActivity.LHLC);
         });
 
         mHeadBinding.fraRed.setOnClickListener(view -> {
@@ -150,7 +152,7 @@ public class ConsultFragment extends BaseLazyFragment {
         mHeadBinding.banner.setImageLoader(new BannerImageLoader());
 
         //设置banner动画效果
-        mHeadBinding.banner.setBannerAnimation(Transformer.DepthPage);
+//        mHeadBinding.banner.setBannerAnimation(Transformer.DepthPage);
         //设置标题集合（当banner样式有显示title时）
 //        banner.setBannerTitles(Arrays.asList(titles));
         //设置自动轮播，默认为true
@@ -165,7 +167,7 @@ public class ConsultFragment extends BaseLazyFragment {
             if (bannerData == null || position > bannerData.size()) return;
 
             if (bannerData.get(position).getUrl() != null) {
-                if (bannerData.get(position).getUrl().indexOf("http") != -1) {
+                if (bannerData.get(position).getUrl().indexOf("http://") != -1 || bannerData.get(position).getUrl().indexOf("https://") != -1) {
                     WebViewActivity.openURL(mActivity, "", bannerData.get(position).getUrl());
                 }
             }

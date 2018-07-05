@@ -44,11 +44,11 @@
             android:orientation="vertical">
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/ll_identity"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="0dp"

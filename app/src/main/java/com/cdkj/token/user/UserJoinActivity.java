@@ -18,7 +18,7 @@ public class UserJoinActivity extends AbsBaseActivity {
 
     private ActivityUserJoinBinding mBinding;
 
-    public static void open(Context context){
+    public static void open(Context context) {
         if (context == null) {
             return;
         }
@@ -37,7 +37,7 @@ public class UserJoinActivity extends AbsBaseActivity {
         setTopTitle(getStrRes(R.string.user_title_join));
         setSubLeftImgState(true);
 
-        mBinding.tvFacebook.setText("@thahoffchaj");
-        mBinding.tvTwitter.setText("@thasddoddfvb");
+        mBinding.tvFacebook.setText("@THAWallet");
+        mBinding.tvTwitter.setText("@THAWallet");
     }
 }

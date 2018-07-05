@@ -10,10 +10,15 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityWalletWordsShowBinding;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
+
+import java.util.List;
+
+import static com.cdkj.baselibrary.utils.StringUtils.SPACE_SYMBOL;
 
 /**
  * 助记词显示
@@ -59,10 +64,11 @@ public class WalletHelpWordsShowActivity extends AbsBaseLoadActivity {
                 .setPositiveBtn(getString(com.cdkj.baselibrary.R.string.activity_base_confirm), null);
 
         commonDialog.show();
-        WalletDBModel walletDBModel2 = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
 
-        if (walletDBModel2 != null) {
-            mBinding.tvWords.setText(walletDBModel2.getHelpWordsEn());
+        List<String> wordList = WalletHelper.getHelpWordsListByUserId(SPUtilHelper.getUserId());
+
+        if (wordList != null) {
+            mBinding.tvWords.setText(StringUtils.listToString(wordList, SPACE_SYMBOL));
         }
 
         mBinding.btnNowBackup.setOnClickListener(view -> {

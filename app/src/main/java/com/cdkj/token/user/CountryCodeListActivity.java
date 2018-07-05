@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.api.BaseResponseListModel;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsRefreshListActivity;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
@@ -27,7 +29,7 @@ import retrofit2.Call;
  * 国家区号列表
  * Created by cdkj on 2018/7/2.
  */
-
+@Route(path = CdRouteHelper.APP_COUNTRY_SELECT)
 public class CountryCodeListActivity extends AbsRefreshListActivity {
 
     public static void open(Context context) {
@@ -37,6 +39,7 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
         Intent intent = new Intent(context, CountryCodeListActivity.class);
         context.startActivity(intent);
     }
+
 
 
     @Override

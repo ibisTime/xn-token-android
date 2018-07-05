@@ -23,8 +23,8 @@
                     android:id="@+id/tv_top_title_abs"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="70dp"
-                    android:layout_marginRight="70dp"
+                    android:layout_marginLeft="75dp"
+                    android:layout_marginRight="75dp"
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:textColor="@color/black"
@@ -42,6 +42,7 @@
             </LinearLayout>
 
             <FrameLayout
+                android:layout_marginRight="5dp"
                 android:id="@+id/fram_img_back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"

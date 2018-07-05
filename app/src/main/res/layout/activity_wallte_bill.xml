@@ -49,29 +49,6 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="@color/white"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="13dp"
-                    android:layout_height="16dp"
-                    android:src="@mipmap/bill_charge" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:text="@string/transfer"
-                    android:textColor="@color/text_color_light"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/linLayout_getmoney"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
                 android:background="@color/colorPrimary"
                 android:gravity="center">
 
@@ -84,8 +61,32 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="6dp"
-                    android:text="@string/get_money"
+                    android:text="@string/transfer"
                     android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linLayout_getmoney"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/white"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:src="@mipmap/bill_charge" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:background="@color/white"
+                    android:text="@string/get_money"
+                    android:textColor="@color/text_color_light"
                     android:textSize="16sp" />
 
             </LinearLayout>

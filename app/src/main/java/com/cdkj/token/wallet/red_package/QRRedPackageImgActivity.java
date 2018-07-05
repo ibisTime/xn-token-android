@@ -10,6 +10,7 @@ import android.view.KeyEvent;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
+import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -55,19 +56,7 @@ public class QRRedPackageImgActivity extends AbsBaseLoadActivity {
             EventBus.getDefault().post(new RedPackageEventBusBean());
             finish();
         });
-//        http://m.thadev.hichengdai.com/redPacket/receive.html?code=RP201806292144024227306&inviteCode=11&lang=cn
-
-        String uri = "http://m.thadev.hichengdai.com/redPacket/receive.html";
-        uri += "?code=" + redPackageCode;//红包码
-        uri += "&inviteCode=" + SPUtilHelper.getSecretUserId();//
-
-        if (TextUtils.equals(SPUtilHelper.getLanguage(), ENGLISH)) {
-            uri += "&lang=en";//国际化
-        } else {
-            uri += "&lang=cn";
-        }
-
-        Bitmap bitmap = CodeUtils.createImage(uri, 500, 500, null);
+        Bitmap bitmap = CodeUtils.createImage(MyConfig.getRedPacketShareUrl(redPackageCode, SPUtilHelper.getSecretUserId()), 500, 500, null);
         mBinding.ivQrImg.setImageBitmap(bitmap);
     }
 

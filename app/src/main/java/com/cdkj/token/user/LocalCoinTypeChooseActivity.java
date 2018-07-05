@@ -47,7 +47,7 @@ public class LocalCoinTypeChooseActivity extends AbsBaseActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        setTitle(getString(R.string.local_coin));
+        setTopTitle(getString(R.string.local_coin));
 
         if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
             mBinding.imgCny.setBackgroundResource(R.mipmap.choice_confirm);

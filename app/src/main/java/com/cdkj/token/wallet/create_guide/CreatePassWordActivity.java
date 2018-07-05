@@ -10,6 +10,7 @@ import android.view.View;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreatePassWordBinding;
@@ -68,6 +69,7 @@ public class CreatePassWordActivity extends AbsBaseLoadActivity {
 
             @Override
             public void onFinished(String pwd) {
+
                 if (TextUtils.isEmpty(mPassWord)) {
                     mPassWord = pwd;
                     mBinding.passWordLayout.passWordLayout.removeAllPwd();
