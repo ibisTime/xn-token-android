@@ -196,7 +196,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:background="@drawable/consult_menu_1" />
+                            android:background="@drawable/red_packet" />
 
                         <TextView
                             android:layout_width="wrap_content"

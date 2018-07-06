@@ -466,7 +466,7 @@
     <string name="red_package_send_success">Successfully sent, please scan the QR code to get the red packet</string>
     <string name="assets">Assets</string>
     <string name="my_coin_address">My %s collection address </string>
-    <string name="red_pg">Red package </string>
+    <string name="red_pg">Red packet </string>
     <string name="wallet_charge_recode">recode</string>
     <string name="user_language_english">English</string>
     <string name="me_red_package">my red packet</string>
