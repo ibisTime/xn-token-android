@@ -24,33 +24,35 @@ import com.cdkj.baselibrary.utils.DisplayHelper;
  */
 public class CardChangeLayout extends FrameLayout {
 
-    private View childBottomView;
-    private View childTopView;
+    private View childBottomView; //底部View
+    private View childTopView;//顶部View
 
     private boolean isTryChildTopView;//当前捕获的View 是不是顶层View
 
     /* 拖拽工具类 */
     private final ViewDragHelper mDragHelper;
-    private GestureDetectorCompat gestureDetector;
+    private GestureDetectorCompat gestureDetector;//手势辅助
     private static final int VEL_THRESHOLD = 200; // 滑动速度的阈值，超过这个绝对值认为是左右
     private static final int DISTANCE_THRESHOLD = 250; // 单位是像素，当左右滑动速度不够时，通过这个阈值来判定是应该左滑还是右滑动
 
-    private int margin;  //子View margin
+    private int margin;  //子View  左右margin
 
-    private int viewRightInterval;//上下层right View间隔
+    private int viewRightMargin; // 顶部View右边距
 
     public ChangeCallBack changeCallBack;
-    private AnimatorSet animatorSetsuofang;
+
+    private AnimatorSet animatorSet;
+
+    private int animatorDuration = 250; //动画执行时长 毫秒
 
     private float viewScaleSize = 0.8f; //底部View缩放比例
+
+    private float buttomViewRightTranslationX; //底部View向右移动距离
+
 
     public static final int TOPVIEW = 1;
     public static final int BOTTOMVIEW = 0;
 
-
-    public ChangeCallBack getChangeCallBack() {
-        return changeCallBack;
-    }
 
     public void setChangeCallBack(ChangeCallBack changeCallBack) {
         this.changeCallBack = changeCallBack;
@@ -73,30 +75,36 @@ public class CardChangeLayout extends FrameLayout {
                 new YScrollDetector());
 
         margin = DisplayHelper.dp2px(getContext(), 15);
-        viewRightInterval = DisplayHelper.dp2px(getContext(), 20);
+        viewRightMargin = DisplayHelper.dp2px(getContext(), 20);
 
+        buttomViewRightTranslationX = viewRightMargin + viewRightMargin * viewScaleSize + margin; // 底部View向右移动距离
     }
-
 
     @Override
     protected void onFinishInflate() {
         super.onFinishInflate();
         childBottomView = getChildAt(0);
         childTopView = getChildAt(1);
-
     }
 
     @Override
-    protected void onSizeChanged(int w, int h, int oldw, int oldh) {
-        super.onSizeChanged(w, h, oldw, oldh);
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        int sizeWidth = MeasureSpec.getSize(widthMeasureSpec);
+        int sizeHeight = MeasureSpec.getSize(heightMeasureSpec);
+
         int childCount = getChildCount();
         for (int i = 0; i < childCount; i++) {
             View childView = getChildAt(i);
-            LayoutParams lp = (LayoutParams) childView.getLayoutParams();
-            lp.width = getWidth() - viewRightInterval - margin; //子View宽度=父控件宽度-右边距
-            childView.setLayoutParams(lp);
+            int childWidth = sizeWidth - viewRightMargin - margin * 2; //子View宽度= 父控件宽度-右边距 -(左右边距之和)
+            int childWidthMeasureSpec = MeasureSpec.makeMeasureSpec(
+                    childWidth, MeasureSpec.EXACTLY);
+            int childHeightMeasureSpec = MeasureSpec.makeMeasureSpec(
+                    sizeHeight, MeasureSpec.EXACTLY);
+            childView.measure(childWidthMeasureSpec, childHeightMeasureSpec);
         }
+        setMeasuredDimension(sizeWidth, sizeHeight);
     }
+
 
     @Override
     protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
@@ -104,16 +112,19 @@ public class CardChangeLayout extends FrameLayout {
         int childCount = getChildCount();
 
         for (int i = 0; i < childCount; i++) {
+
             View childView = getChildAt(i);
-            childView.layout(0 + margin, 0, childView.getMeasuredWidth(), childView.getMeasuredHeight());
+
+            childView.layout(0 + margin, 0, childView.getMeasuredWidth() + margin, childView.getMeasuredHeight());
+
             if (i != childCount - 1) {  //不是最后一个View都进行缩放 （底部View）
-                childView.setPivotX(childView.getMeasuredWidth() / 2f);  //设置缩放中心点
-                childView.setPivotY(childView.getMeasuredHeight() / 2f);
+                childView.setPivotX(childView.getWidth() / 2f);  //设置缩放中心点
+                childView.setPivotY(childView.getHeight() / 2f);
                 childView.setScaleX(viewScaleSize);
                 childView.setScaleY(viewScaleSize);
 
                 if (!isAnimatorRunning()) {
-                    childView.setTranslationX(viewRightInterval + viewRightInterval * viewScaleSize + margin);  //向右移动
+                    childView.setTranslationX(buttomViewRightTranslationX);  //向右移动 底部View超出效果
                 }
             }
         }
@@ -123,7 +134,9 @@ public class CardChangeLayout extends FrameLayout {
     @Override
     public void computeScroll() {
         if (mDragHelper.continueSettling(true)) {
+
             ViewCompat.postInvalidateOnAnimation(this);
+
         } else {
 
             if (childBottomView.getLeft() == margin && childTopView.getLeft() == margin || isAnimatorRunning()) {  //第一次绘制 或在动画中
@@ -131,22 +144,20 @@ public class CardChangeLayout extends FrameLayout {
             }
 
             if (changeCallBack != null) {
-                if (!changeCallBack.onChangeBefor(isTryChildTopView ? 0 : 1)) {
+                if (!changeCallBack.onChangeStart(isTryChildTopView ? BOTTOMVIEW : TOPVIEW)) {
                     if (mDragHelper.smoothSlideViewTo(isTryChildTopView ? childTopView : childBottomView, margin, 0)) {  //回弹效果
                         ViewCompat.postInvalidateOnAnimation(CardChangeLayout.this);
                     }
                     return;
                 }
             }
-            if (isTryChildTopView) {
-                if (childTopView.getLeft() < 0) {
-                    startAnimator(childTopView, childBottomView);
-                }
-            } else {
-                if (childBottomView.getLeft() < 0) {
-                    startAnimator(childBottomView, childTopView);
-                }
+
+            if (isTryChildTopView && childTopView.getLeft() < 0 || childTopView.getLeft() >= getWidth()) {    //顶部View 执行位移动画
+                startAnimator(childTopView, childBottomView);
+            } else if (!isTryChildTopView && childBottomView.getLeft() < 0 || childBottomView.getLeft() >= getWidth()) {
+                startAnimator(childBottomView, childTopView);
             }
+
 
         }
     }
@@ -155,21 +166,26 @@ public class CardChangeLayout extends FrameLayout {
     /**
      * 组合动画
      *
-     * @param topView    （顶部的View 移动到屏幕右边后做向右平移动画）
-     * @param bottomView （底部部的View 做放大动画的同时移动到topView的位置）
+     * @param translationView （顶部的View 移动到屏幕右边后做向右平移动画）
+     * @param scaleView       （底部部的View 做放大动画的同时移动到topView的位置）
      */
-    private void startAnimator(View topView, View bottomView) {
-        animatorSetsuofang = new AnimatorSet();
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(bottomView, "scaleX", viewScaleSize, 1f);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(bottomView, "scaleY", viewScaleSize, 1f);
+    private void startAnimator(View translationView, View scaleView) {
+        animatorSet = new AnimatorSet();
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(scaleView, "scaleX", viewScaleSize, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(scaleView, "scaleY", viewScaleSize, 1f);
+
         //底部View移动到顶层View 的位置
-        ObjectAnimator translationX = ObjectAnimator.ofFloat(bottomView, "translationX", (float) (viewRightInterval + viewRightInterval * 1 + margin), 0f);
-        ObjectAnimator translationX2 = ObjectAnimator.ofFloat(topView, "translationX", topView.getLeft(), 0);
-        bottomView.setPivotX(bottomView.getWidth() / 2f);  //
-        bottomView.setPivotY(bottomView.getHeight() / 2f);
-        animatorSetsuofang.setDuration(250);
-        animatorSetsuofang.setInterpolator(new LinearInterpolator());
-        animatorSetsuofang.addListener(new Animator.AnimatorListener() {
+        ObjectAnimator scaleViewTranslationX = ObjectAnimator.ofFloat(scaleView, "translationX", buttomViewRightTranslationX, 0f);
+
+        ObjectAnimator translationViewTranslationX = ObjectAnimator.ofFloat(translationView, "translationX", translationView.getLeft(), buttomViewRightTranslationX);
+
+        scaleView.setPivotX(scaleView.getWidth() / 2f);  //缩放点
+        scaleView.setPivotY(scaleView.getHeight() / 2f);
+
+        animatorSet.setDuration(animatorDuration);
+
+        animatorSet.setInterpolator(new LinearInterpolator());
+        animatorSet.addListener(new Animator.AnimatorListener() {
             @Override
             public void onAnimationStart(Animator animator) {
 
@@ -177,9 +193,9 @@ public class CardChangeLayout extends FrameLayout {
 
             @Override
             public void onAnimationEnd(Animator animator) {
-                updateViewLayout(bottomView, bottomView.getLayoutParams());   //更新布局
+                updateViewLayout(scaleView, scaleView.getLayoutParams());   //更新布局
                 if (changeCallBack != null) {
-                    changeCallBack.onChange(topView == childTopView ? BOTTOMVIEW : TOPVIEW);
+                    changeCallBack.onChangeEnd(translationView == childTopView ? BOTTOMVIEW : TOPVIEW);
                 }
             }
 
@@ -191,10 +207,14 @@ public class CardChangeLayout extends FrameLayout {
             public void onAnimationRepeat(Animator animator) {
             }
         });
-        animatorSetsuofang.playTogether(translationX2, translationX);
-        animatorSetsuofang.play(scaleX).with(scaleY);
-        bringChildToFront(bottomView);
-        animatorSetsuofang.start();
+
+        animatorSet.playTogether(translationViewTranslationX, scaleViewTranslationX);
+
+        animatorSet.play(scaleX).with(scaleY);
+
+        bringChildToFront(scaleView); //顶部View 和底部View 交换位置
+
+        animatorSet.start();
     }
 
 
@@ -250,7 +270,9 @@ public class CardChangeLayout extends FrameLayout {
 
         @Override
         public boolean tryCaptureView(View child, int pointerId) {  //捕获子View
-            if (isAnimatorRunning() || mDragHelper.continueSettling(true) || childBottomView.getLeft() < 0 || childTopView.getLeft() < 0) { //在动画中或移动中禁止捕获
+            if (isAnimatorRunning() || mDragHelper.continueSettling(true)
+                    || childBottomView.getLeft() < 0 || childTopView.getLeft() < 0
+                    || childBottomView.getLeft() >= getWidth() || childTopView.getLeft() >= getWidth()) { //在动画中或移动中禁止捕获
                 return false;
             }
             isTryChildTopView = child == childTopView;
@@ -259,7 +281,7 @@ public class CardChangeLayout extends FrameLayout {
 
         @Override
         public int getViewVerticalDragRange(View child) {
-            return 10;
+            return 1;
         }
 
         @Override
@@ -267,8 +289,10 @@ public class CardChangeLayout extends FrameLayout {
 
             int finalLeft = margin; // 默认是粘到最顶端
 
-            if (xvel < -VEL_THRESHOLD || releasedChild.getLeft() < -DISTANCE_THRESHOLD) {
-                finalLeft = -releasedChild.getMeasuredWidth();
+            if (xvel < -VEL_THRESHOLD || releasedChild.getLeft() < -DISTANCE_THRESHOLD) { //左滑
+                finalLeft = -getWidth();
+            } else if (xvel > VEL_THRESHOLD || releasedChild.getLeft() > DISTANCE_THRESHOLD) {
+                finalLeft = getWidth();
             }
 
             if (mDragHelper.smoothSlideViewTo(releasedChild, finalLeft, 0)) {  //回弹效果
@@ -296,18 +320,18 @@ public class CardChangeLayout extends FrameLayout {
      */
     public boolean isAnimatorRunning() {
 
-        if (animatorSetsuofang == null) {
+        if (animatorSet == null) {
             return false;
         }
-        return animatorSetsuofang.isRunning();
+        return animatorSet.isRunning();
     }
 
     @Override
     protected void onDetachedFromWindow() {
         super.onDetachedFromWindow();
-        if (animatorSetsuofang != null) {
-            animatorSetsuofang.addListener(null);
-            animatorSetsuofang.cancel();
+        if (animatorSet != null) {
+            animatorSet.addListener(null);
+            animatorSet.cancel();
         }
     }
 
@@ -323,9 +347,9 @@ public class CardChangeLayout extends FrameLayout {
 
     public interface ChangeCallBack {
 
-        boolean onChangeBefor(int index);  //卡片交换之前回调 返回值确定是否允许切换
+        boolean onChangeStart(int index);  //卡片交换之前回调 返回值确定是否允许切换
 
-        void onChange(int index);//布局切换
+        void onChangeEnd(int index);//布局动画切换结束
     }
 
 

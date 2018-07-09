@@ -159,7 +159,7 @@ public class WalletFragment_2 extends BaseLazyFragment {
     void initCardChangeListener() {
         mBinding.cardChangeLayout.setChangeCallBack(new CardChangeLayout.ChangeCallBack() {
             @Override
-            public boolean onChangeBefor(int index) {
+            public boolean onChangeStart(int index) {
 
                 if (!SPUtilHelper.isLoginNoStart()) {
 
@@ -186,7 +186,7 @@ public class WalletFragment_2 extends BaseLazyFragment {
             }
 
             @Override
-            public void onChange(int index) {
+            public void onChangeEnd(int index) {
                 changeLayoutByIndex(index);
             }
         });
