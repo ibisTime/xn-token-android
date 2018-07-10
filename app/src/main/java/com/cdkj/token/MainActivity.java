@@ -23,8 +23,8 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.ConsultFragment;
 import com.cdkj.token.databinding.ActivityMainBinding;
 import com.cdkj.token.model.VersionModel;
-import com.cdkj.token.user.UserFragment2;
-import com.cdkj.token.wallet.WalletFragment_2;
+import com.cdkj.token.user.UserFragment;
+import com.cdkj.token.wallet.WalletFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -149,9 +149,9 @@ public class MainActivity extends AbsBaseActivity {
         //设置fragment数据
         fragments = new ArrayList<>();
 
-        fragments.add(WalletFragment_2.getInstance());
+        fragments.add(WalletFragment.getInstance());
         fragments.add(ConsultFragment.getInstance());
-        fragments.add(UserFragment2.getInstance());
+        fragments.add(UserFragment.getInstance());
 
         mBinding.pagerMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragments));
         mBinding.pagerMain.setOffscreenPageLimit(fragments.size());

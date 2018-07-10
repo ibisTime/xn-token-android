@@ -29,8 +29,12 @@ import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
+
+import static com.cdkj.token.utils.CoinUtil.COIN_SYMBOL_SPACE_SYMBOL;
+import static com.cdkj.token.utils.CoinUtil.updateLocalCoinList;
 
 /**
  * 资产配置
@@ -79,14 +83,21 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
 
         if (addChoiceAdapter != null && addChoiceAdapter.getData() != null && !addChoiceAdapter.getData().isEmpty()) {
 
-            StringBuffer chooseTypes = new StringBuffer();
+            StringBuffer chooseCoins = new StringBuffer();
+
             for (LocalCoinDbModel localCoinDbModel : addChoiceAdapter.getData()) {
+
                 if (localCoinDbModel == null || !localCoinDbModel.isChoose()) continue;
-                chooseTypes.append(localCoinDbModel.getSymbol());
-                chooseTypes.append(",");
+
+                chooseCoins.append(localCoinDbModel.getSymbol());
+
+                chooseCoins.append(COIN_SYMBOL_SPACE_SYMBOL);
             }
-            if (!TextUtils.equals(chooseCoins, chooseTypes.toString())) { //配置改变 保存用户选择
-                WalletHelper.updateUserChooseCoinString(chooseTypes.toString(), SPUtilHelper.getUserId());
+
+            String chooseCoinsStrings = StringUtils.subStringEnd(chooseCoins.toString(), 0);  //去掉最后一个分割符号
+
+            if (!TextUtils.equals(this.chooseCoins, chooseCoinsStrings)) { //配置改变 保存用户选择
+                WalletHelper.updateUserChooseCoinString(chooseCoinsStrings, SPUtilHelper.getUserId());
                 EventBus.getDefault().postSticky(new AddCoinChangeEvent());   //通知上级界面刷新
             }
         }
@@ -136,7 +147,6 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
             @Override
             protected void onSuccess(List<LocalCoinDbModel> data, String SucMessage) {
                 saveCoinAsync(data);
-                checkUserChooseCoin(data);
 
             }
 
@@ -166,12 +176,18 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
         StringBuffer chooseBuf = new StringBuffer();
 
         for (LocalCoinDbModel coinDbModel : coinDbModels) {                     //请求的币种和用户选择币种比对
+
             if (coinDbModel == null) continue;
 
             if (!WalletHelper.userIsCoinChoosed(SPUtilHelper.getUserId())) { //第一次配置全部选中
+
                 coinDbModel.setChoose(true);
+
                 chooseBuf.append(coinDbModel.getSymbol());
-                chooseBuf.append(",");
+
+                chooseBuf.append(COIN_SYMBOL_SPACE_SYMBOL);
+
+
             } else {
                 coinDbModel.setChoose(TextUtils.indexOf(chooseCoins, coinDbModel.getSymbol()) != -1);  //判断用户是否配置了币种
             }
@@ -192,7 +208,7 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
      */
     private void checkFirstChooseAndSave(StringBuffer chooseBuf) {
         if (!WalletHelper.userIsCoinChoosed(SPUtilHelper.getUserId())) { //第一次配置 保存
-            chooseCoins = chooseBuf.toString();
+            chooseCoins = StringUtils.subStringEnd(chooseBuf.toString(), 0);  //去掉最后一个分割符号
             UserConfigDBModel userChooseCoinDBModel = new UserConfigDBModel();
             userChooseCoinDBModel.setChooseCoins(chooseCoins);
             userChooseCoinDBModel.setUserId(SPUtilHelper.getUserId());
@@ -208,19 +224,19 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
      */
     private void saveCoinAsync(List<LocalCoinDbModel> data) {
         if (data == null) {
-
             return;
         }
         mSubscription.add(Observable.just(data)
                 .subscribeOn(Schedulers.newThread())
+                .map(localCoinDbModels -> {
+                    updateLocalCoinList(localCoinDbModels);
+                    return 0;
+                })
+                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
-                    // 如果数据库已有数据，清空重新加载
-                    if (DataSupport.isExist(LocalCoinDbModel.class)) {
-                        DataSupport.deleteAll(LocalCoinDbModel.class);
-                    }
-                    DataSupport.saveAll(s);
+                    checkUserChooseCoin(data);
                 }, throwable -> {
-
+                    checkUserChooseCoin(data);
                 }));
 
     }

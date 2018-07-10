@@ -1,6 +1,8 @@
 package com.cdkj.token.utils;
 
 
+import android.text.TextUtils;
+
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.R;
 
@@ -158,11 +160,9 @@ public class AccountUtil {
 
         for (LocalCoinDbModel model : DataSupport.findAll(LocalCoinDbModel.class)) {
 
-            if (model.getSymbol().equals(coin)) {
-
+            if (TextUtils.equals(model.getSymbol(), coin)) {
                 return amountFormatUnit(new BigDecimal(model.getWithdrawFeeString()), coin, 8);
             }
-
         }
 
         return "";
@@ -175,6 +175,7 @@ public class AccountUtil {
 
         return showMoney;
     }
+
     public static String formatInt(double money) {
         DecimalFormat df = new DecimalFormat("#######0.000");
         String showMoney = df.format(money);

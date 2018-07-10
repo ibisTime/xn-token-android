@@ -20,9 +20,12 @@ import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.litepal.crud.DataSupport;
+import org.spongycastle.asn1.esf.SPuri;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,6 +35,9 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
+
+import static com.cdkj.token.utils.CoinUtil.COIN_SYMBOL_SPACE_SYMBOL;
+import static com.cdkj.token.utils.CoinUtil.updateLocalCoinList;
 
 @Route(path = CdRouteHelper.APPSTART)
 public class StartActivity extends BaseActivity {
@@ -102,6 +108,7 @@ public class StartActivity extends BaseActivity {
 
             @Override
             protected void onSuccess(List<LocalCoinDbModel> data, String SucMessage) {
+                data.add(data.get(0));
                 saveCoinAsync(data);
             }
 
@@ -134,11 +141,7 @@ public class StartActivity extends BaseActivity {
         mSubscription.add(Observable.just(data)
                 .subscribeOn(Schedulers.newThread())
                 .map(localCoinDbModels -> {
-                    // 如果数据库已有数据，清空重新加载
-                    if (DataSupport.isExist(LocalCoinDbModel.class)) {
-                        DataSupport.deleteAll(LocalCoinDbModel.class);
-                    }
-                    DataSupport.saveAll(localCoinDbModels);
+                    updateLocalCoinList(localCoinDbModels);
                     return 0;
                 })
                 .observeOn(AndroidSchedulers.mainThread())
@@ -147,7 +150,6 @@ public class StartActivity extends BaseActivity {
                 }, throwable -> {
                     getQiniu();
                 }));
-
     }
 
 

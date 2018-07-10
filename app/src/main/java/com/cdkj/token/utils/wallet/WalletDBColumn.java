@@ -14,6 +14,8 @@ public class WalletDBColumn {
     //删除用户钱包
     public static final String FIND_USER_SQL = WalletDBColumn.USERID + "=?";
 
+    public static final String DELETE_LOCAL_COIN = "symbol=?";
+
     public static final String USERID = "userid";
 
     public static final String WALLETPASSWORD = "walletpassword";

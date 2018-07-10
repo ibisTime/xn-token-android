@@ -19,33 +19,22 @@ import org.litepal.LitePal;
 
 public class MyApplication extends Application {
 
-    private final int pushId = 1;
-
     public static Application application;
-
 
     @Override
     public void onCreate() {
         super.onCreate();
-
         application = this;
         LogUtil.isLog = BuildConfig.IS_DEBUG;
         CdApplication.initialize(this);
-
-        EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
-
-
-
-        if ( LogUtil.isLog) {
+        initLitePal();
+        initZXing();
+        if (LogUtil.isLog) {
             ARouter.openLog();     // 打印日志
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
         ARouter.init(application); // 尽可能早，推荐在Application中初始化
-
-        initLitePal();
-        initZXing();
-
-
+        EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
     }
 
     private void initLitePal() {

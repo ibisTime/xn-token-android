@@ -1,5 +1,8 @@
 package com.cdkj.token.model.db;
 
+import android.text.TextUtils;
+import android.widget.EditText;
+
 import org.litepal.crud.DataSupport;
 
 import java.math.BigDecimal;
@@ -207,5 +210,13 @@ public class LocalCoinDbModel extends DataSupport implements Cloneable {
     @Override
     public Object clone() throws CloneNotSupportedException {
         return super.clone();
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) return false;
+        if (obj == this) return true;
+        LocalCoinDbModel obLocalCoinDbModel = (LocalCoinDbModel) obj;
+        return TextUtils.equals(this.getSymbol(), obLocalCoinDbModel.getSymbol());
     }
 }

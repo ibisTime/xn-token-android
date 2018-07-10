@@ -144,17 +144,12 @@ public class StringUtils {
         return splitAsList(s, "\\|\\|");
     }
 
-    public static String subString(String s, int start, int end) {
-
-        try {
-            if (s == null || s.length() <= 0 || end < start || end < 0 || start < 0) {
-
-                return "";
-            }
-            return s.substring(start, end);
-        } catch (Exception ex) {
-            return "";
+    public static String subStringEnd(String s, int start) {
+        if (TextUtils.isEmpty(s) || start < 0) {
+            return s;
         }
+        return s.substring(start, s.length() - 1);
+
     }
 
     //int前面补零

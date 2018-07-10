@@ -56,6 +56,7 @@ import static com.cdkj.baselibrary.appmanager.MyConfig.getThisNodeType;
 import static com.cdkj.baselibrary.utils.StringUtils.SPACE_SYMBOL;
 import static com.cdkj.token.utils.AccountUtil.UNIT_MIN;
 import static com.cdkj.token.utils.AccountUtil.UNIT_POW;
+import static com.cdkj.token.utils.wallet.WalletDBColumn.DELETE_LOCAL_COIN;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_COIN_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FIND_USER_SQL;
@@ -261,6 +262,11 @@ public class WalletHelper {
     public static List<LocalCoinDbModel> getLocalCoinList() {
         return DataSupport.findAll(LocalCoinDbModel.class);
     }
+
+    public static boolean deleteLocalCoinBySymbol(String symbol) {
+        return DataSupport.deleteAll(LocalCoinDbModel.class, DELETE_LOCAL_COIN, symbol) > 0;
+    }
+
 
     //获取本地所有缓存币种
     public static Disposable getLocalCoinListAsync(LocalCoinListGetListener listGetListener) {

@@ -130,7 +130,6 @@
         <activity android:name=".wallet.coin_detail.WalletCoinDetailsActivity" />
         <activity android:name=".wallet.coin_detail.WalletAddressShowActivity" />
         <activity android:name=".wallet.coin_detail.WalletTransferActivity" />
-        <activity android:name=".wallet.trusteeship.WalletUserActivity" />
         <activity android:name=".wallet.AddChoiceActivity2" />
         <activity android:name=".wallet.coin_detail.TransactionDetailsActivity" />
         <activity

@@ -141,11 +141,13 @@ public class ImgUtils {
 
     public static void loadImage(Context context, String path, ImageView iv) {
 
+        LogUtil.E("加载图片"+path);
+
         if (context == null || path == null)
             return;
 
 
-        if (path.toString().indexOf("http") != -1) {
+        if (isHaveHttp(path)) {
             Glide.with(context)
                     .load(path.toString())
                     .into(iv);

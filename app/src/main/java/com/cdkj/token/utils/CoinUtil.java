@@ -2,8 +2,11 @@ package com.cdkj.token.utils;
 
 import android.text.TextUtils;
 
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.R;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.litepal.crud.DataSupport;
 
@@ -16,6 +19,92 @@ import java.util.List;
 
 public class CoinUtil {
 
+    //自选分隔符
+    public final static String COIN_SYMBOL_SPACE_SYMBOL = ",";
+
+
+    /**
+     * 更新本地缓存
+     *
+     * @param requestCoins
+     */
+    public static void updateLocalCoinList(List<LocalCoinDbModel> requestCoins) {
+        //如果请求列表为空 则清空本地缓存
+        if (requestCoins == null || requestCoins.size() == 0) {
+            DataSupport.deleteAll(LocalCoinDbModel.class);
+            return;
+        }
+
+        // 如果数据库没有数据，则保存所有数据
+        if (!DataSupport.isExist(LocalCoinDbModel.class)) {
+            DataSupport.saveAll(requestCoins);
+            return;
+        }
+
+        List<LocalCoinDbModel> myLocalCoinList = WalletHelper.getLocalCoinList();  //本地缓存列表
+
+        updateLocalCoinByAdd(requestCoins, myLocalCoinList);
+
+        updateLocalCoinByDelete(requestCoins, myLocalCoinList);
+
+    }
+
+    /**
+     * 更新后台删除的币种
+     *
+     * @param requestCoins    后台币种
+     * @param myLocalCoinList 缓存币种
+     */
+    private static void updateLocalCoinByDelete(List<LocalCoinDbModel> requestCoins, List<LocalCoinDbModel> myLocalCoinList) {
+        //本地缓存和请求到的数据比对 找出需要删除的币种
+        for (LocalCoinDbModel localCoinDbModel : myLocalCoinList) {
+            if (!requestCoins.contains(localCoinDbModel)) {  //数据不存在 则删除本地缓存
+                WalletHelper.deleteLocalCoinBySymbol(localCoinDbModel.getSymbol());
+                LogUtil.E("localCoin delete：" + localCoinDbModel.getSymbol());
+            }
+        }
+    }
+
+    /**
+     * 更新后台新增的币种
+     *
+     * @param requestCoins    后台币种
+     * @param myLocalCoinList 缓存币种
+     */
+    private static void updateLocalCoinByAdd(List<LocalCoinDbModel> requestCoins, List<LocalCoinDbModel> myLocalCoinList) {
+
+        String userChooseCoinSymbolString = WalletHelper.getUserChooseCoinSymbolString(SPUtilHelper.getUserId()); //用户自选币种
+
+        List<LocalCoinDbModel> saveLocals = new ArrayList<>();
+
+        //请求到的数据和本地比对  找出需要保存的币种
+        for (LocalCoinDbModel localCoinDbModel : requestCoins) {
+
+            if (!myLocalCoinList.contains(localCoinDbModel)) {  //如果数据库不存在 则保存
+
+                if (!TextUtils.isEmpty(userChooseCoinSymbolString)) {
+                    userChooseCoinSymbolString += COIN_SYMBOL_SPACE_SYMBOL + localCoinDbModel.getSymbol();    //新增币种默认自选
+                } else {
+                    userChooseCoinSymbolString = localCoinDbModel.getSymbol();
+                }
+
+                saveLocals.add(localCoinDbModel);
+
+
+                LogUtil.E("localCoin add：" + localCoinDbModel.getSymbol());
+
+            }
+        }
+
+        if (!saveLocals.isEmpty()) {
+
+            DataSupport.saveAll(saveLocals);
+
+            if (SPUtilHelper.isLoginNoStart() && WalletHelper.userIsCoinChoosed(SPUtilHelper.getUserId())) {  //如果当前用户已经登录 并且添加过自选
+                WalletHelper.updateUserChooseCoinString(userChooseCoinSymbolString, SPUtilHelper.getUserId());  //更新用户自选
+            }
+        }
+    }
 
     public static String getCoinENameWithCurrency(String currency) {
 
@@ -78,8 +167,6 @@ public class CoinUtil {
         return AccountUtil.OGC;
 
     }
-
-
 
 
     /**

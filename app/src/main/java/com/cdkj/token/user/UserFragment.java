@@ -13,11 +13,9 @@ import com.cdkj.baselibrary.activitys.ImageSelectActivity;
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
-import com.cdkj.token.model.db.LocalCoinDbModel;
+import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.IsSuccessModes;
-import com.cdkj.baselibrary.model.LoginFailureEvent;
 import com.cdkj.baselibrary.model.UserInfoModel;
-import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.CameraHelper;
@@ -27,157 +25,87 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
-import com.cdkj.token.databinding.FragmentUserBinding;
-import com.cdkj.token.wallet.trusteeship.WalletUserActivity;
-
-import org.greenrobot.eventbus.Subscribe;
-import org.litepal.crud.DataSupport;
+import com.cdkj.token.databinding.FragmentUser2Binding;
+import com.cdkj.token.utils.wallet.WalletHelper;
+import com.cdkj.token.wallet.IntoWalletBeforeActivity;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 
-
 /**
- * 我的
- * Created by lei on 2017/8/21.
+ * Created by cdkj on 2018/6/28.
  */
+
 public class UserFragment extends BaseLazyFragment {
 
-    private FragmentUserBinding mBinding;
+    private FragmentUser2Binding mBinding;
 
     public final int PHOTOFLAG = 110;
 
-    private boolean isFirstCoinListRequest;//记录是否请求了币种
+    private CommonDialog commonDialog;
 
-    /**
-     * 获得fragment实例
-     *
-     * @return
-     */
     public static UserFragment getInstance() {
         UserFragment fragment = new UserFragment();
+        Bundle bundle = new Bundle();
+        fragment.setArguments(bundle);
         return fragment;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_user, null, false);
 
-        initListener();
+        mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_user2, null, false);
+
+        initClickListener();
 
         return mBinding.getRoot();
     }
 
 
-    private void initListener() {
 
-        mBinding.linLayoutLogo.setOnClickListener(view -> {
-            if (!SPUtilHelper.isLogin(mActivity, false)) {
-                return;
-            }
-            ImageSelectActivity.launchFragment(this, PHOTOFLAG);
+
+    private void initClickListener() {
+
+        //本地货币
+        mBinding.linLayoutLocalCoin.setOnClickListener(view -> {
+            LocalCoinTypeChooseActivity.open(mActivity);
         });
 
-        mBinding.llWalletSet.setOnClickListener(view -> {
+        //更换头像
+        mBinding.imgLogo.setOnClickListener(view -> {
+            ImageSelectActivity.launchFragment(this, PHOTOFLAG);
+        });
+        //账户与安全
+        mBinding.linLayoutUserAccount.setOnClickListener(view -> UserSettingActivity.open(mActivity));
+
+        //语言
+        mBinding.languageChange.setOnClickListener(view -> UserLanguageActivity.open(mActivity));
+
+        //加入社群
+        mBinding.joinUs.setOnClickListener(view -> UserJoinActivity.open(mActivity));
+        //钱包工具
+        mBinding.walletTool.setOnClickListener(view -> {
+            boolean isHasInfo = WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId());
+            if (!isHasInfo) {
+                showDoubleWarnListen(getString(R.string.please_create_or_import_wallet), view1 -> {
+                    IntoWalletBeforeActivity.open(mActivity);
+                });
+                return;
+            }
             UserWalletActivity.open(mActivity);
         });
 
-        mBinding.llSetting.setOnClickListener(view -> {
-            if (!SPUtilHelper.isLogin(mActivity, false)) {
-                return;
-            }
-            UserSettingActivity.open(mActivity);
-        });
-        //中心化钱包
-        mBinding.linLayoutUserAccount.setOnClickListener(view -> {
-            if (!SPUtilHelper.isLogin(mActivity, false)) {
-                return;
-            }
+        //帮助中心
+        mBinding.helper.setOnClickListener(view -> WebViewActivity.openkey(mActivity, getStrRes(R.string.user_issue), "questions"));
 
-            if (isFirstCoinListRequest) {  //如果已经获取过币种 则不再获取
-                WalletUserActivity.open(mActivity);
-            } else {
-                //获取配置币种列表
-                getCoinList();
-            }
+        //关于我们
+        mBinding.aboutUs.setOnClickListener(view -> UserAboutActivity.open(mActivity));
 
-        });
 
-        mBinding.llJoin.setOnClickListener(view -> {
-            if (!SPUtilHelper.isLogin(mActivity, false)) {
-                return;
-            }
-            UserJoinActivity.open(mActivity);
-        });
-
-        mBinding.llIssue.setOnClickListener(view -> {
-            WebViewActivity.openkey(mActivity, mBinding.tvIssue.getText().toString(), "questions");
-//            new SupportActivity.Builder().show(getActivity());
-        });
-
-        mBinding.llAbout.setOnClickListener(view -> {
-//            WebViewActivity.openkey(mActivity, mBinding.tvAbout.getText().toString(),"about_us");
-            UserAboutActivity.open(mActivity);
-        });
     }
-
-
-    private void getCoinList() {
-
-        Map<String, String> map = new HashMap<>();
-        map.put("type", "");
-        map.put("ename", "");
-        map.put("cname", "");
-        map.put("symbol", "");
-        map.put("status", "0"); // 0已发布，1已撤下
-        map.put("contractAddress", "");
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getCoinList("802267", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-        showLoadingDialog();
-
-        call.enqueue(new BaseResponseListCallBack<LocalCoinDbModel>(mActivity) {
-
-            @Override
-            protected void onSuccess(List<LocalCoinDbModel> data, String SucMessage) {
-                if (data == null) {
-                    WalletUserActivity.open(mActivity);
-                    return;
-                }
-                // 如果数据库已有数据，清空重新加载
-                if (DataSupport.isExist(LocalCoinDbModel.class)) {
-                    DataSupport.deleteAll(LocalCoinDbModel.class);
-                }
-
-                // 初始化交易界面默认所选择的币
-                if (data.size() > 0) {
-                    data.get(0).setChoose(true);
-                }
-                DataSupport.saveAll(data);
-                disMissLoading();
-                isFirstCoinListRequest = true;
-                WalletUserActivity.open(mActivity);
-            }
-
-            @Override
-            protected void onReqFailure(String errorCode, String errorMessage) {
-                super.onReqFailure(errorCode, errorMessage);
-                disMissLoading();
-//                WalletUserActivity.open(mActivity);
-            }
-
-            @Override
-            protected void onFinish() {
-            }
-        });
-    }
-
 
     @Override
     protected void lazyLoad() {
@@ -187,17 +115,69 @@ public class UserFragment extends BaseLazyFragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-//        if (!SPUtilHelper.getUserId().equals("")) {
-//            // 已登陆时初始化登录用户的用户信息
-//            getUserInfoRequest();
-//        }
+    protected void onInvisible() {
 
     }
 
-    @Override
-    protected void onInvisible() {
+    /**
+     * 获取用户信息
+     */
+    public void getUserInfoRequest() {
+
+        if (!SPUtilHelper.isLoginNoStart()) {
+            setShowData(null);
+            return;
+        }
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("userId", SPUtilHelper.getUserId());
+        map.put("token", SPUtilHelper.getUserToken());
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        call.enqueue(new BaseResponseModelCallBack<UserInfoModel>(mActivity) {
+            @Override
+            protected void onSuccess(UserInfoModel data, String SucMessage) {
+                if (data == null)
+                    return;
+
+                SPUtilHelper.saveSecretUserId(data.getSecretUserId());
+                SPUtilHelper.saveUserPhoto(data.getPhoto());
+                SPUtilHelper.saveUserEmail(data.getEmail());
+                SPUtilHelper.saveUserName(data.getNickname());
+                SPUtilHelper.saveRealName(data.getRealName());
+                SPUtilHelper.saveUserPhoneNum(data.getMobile());
+                SPUtilHelper.saveTradePwdFlag(data.isTradepwdFlag());
+                SPUtilHelper.saveGoogleAuthFlag(data.isGoogleAuthFlag());
+
+                setShowData(data);
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+    }
+
+
+    private void setShowData(UserInfoModel data) {
+        if (data == null) {
+            mBinding.tvNickName.setText("");
+            mBinding.tvPhoneNumber.setText("");
+            mBinding.imgLogo.setImageResource(R.mipmap.default_photo);
+            return;
+        }
+
+        if (data.getNickname() == null)
+            return;
+
+        mBinding.tvNickName.setText(data.getNickname());
+        mBinding.tvPhoneNumber.setText(StringUtils.ttransformShowPhone(data.getMobile()));
+        ImgUtils.loadLogo(mActivity, data.getPhoto(), mBinding.imgLogo);
 
     }
 
@@ -257,73 +237,33 @@ public class UserFragment extends BaseLazyFragment {
     }
 
     /**
-     * 获取用户信息
+     * 显示确认取消dialog
+     *
+     * @param str
+     * @param onPositiveListener
      */
-    public void getUserInfoRequest() {
+    protected void showDoubleWarnListen(String str, CommonDialog.OnPositiveListener onPositiveListener) {
 
-        if (!SPUtilHelper.isLoginNoStart()) {
-            setShowData(null);
+        if (mActivity == null || mActivity.isFinishing()) {
             return;
         }
 
-        Map<String, String> map = new HashMap<>();
-
-        map.put("userId", SPUtilHelper.getUserId());
-        map.put("token", SPUtilHelper.getUserToken());
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-        call.enqueue(new BaseResponseModelCallBack<UserInfoModel>(mActivity) {
-            @Override
-            protected void onSuccess(UserInfoModel data, String SucMessage) {
-                if (data == null)
-                    return;
-
-                setShowData(data);
-            }
-
-            @Override
-            protected void onFinish() {
-                disMissLoading();
-            }
-        });
-    }
-
-    private void setShowData(UserInfoModel data) {
-        if (data == null) {
-            mBinding.tvNick.setText("");
-            mBinding.tvMobile.setText("");
-//        ImgUtils.loadAvatar(mActivity, data.getPhoto(), data.getNickname(), mBinding.imAvatar, mBinding.tvAvatar);
-            mBinding.imAvatar.setImageResource(R.mipmap.default_photo);
-            return;
+        if (commonDialog == null) {
+            commonDialog = new CommonDialog(mActivity).builder()
+                    .setTitle(getString(com.cdkj.baselibrary.R.string.activity_base_tip)).setContentMsg(str)
+                    .setPositiveBtn(getString(com.cdkj.baselibrary.R.string.activity_base_confirm), onPositiveListener)
+                    .setNegativeBtn(getString(com.cdkj.baselibrary.R.string.activity_base_cancel), null, false);
         }
 
-        SPUtilHelper.saveSecretUserId(data.getSecretUserId());
-
-        SPUtilHelper.saveUserPhoto(data.getPhoto());
-        SPUtilHelper.saveUserEmail(data.getEmail());
-        SPUtilHelper.saveUserName(data.getNickname());
-        SPUtilHelper.saveRealName(data.getRealName());
-        SPUtilHelper.saveUserPhoneNum(data.getMobile());
-        SPUtilHelper.saveTradePwdFlag(data.isTradepwdFlag());
-        SPUtilHelper.saveGoogleAuthFlag(data.isGoogleAuthFlag());
-
-        if (data.getNickname() == null)
-            return;
-
-        mBinding.tvNick.setText(data.getNickname());
-        mBinding.tvMobile.setText(data.getMobile());
-        ImgUtils.loadLogo(mActivity, data.getPhoto(), mBinding.imAvatar);
+        commonDialog.show();
     }
 
-
-    //登录失效
-    @Subscribe
-    public void loginFailureEvent(LoginFailureEvent loginFailureEvent) {
-        setShowData(null);
+    @Override
+    public void onDestroy() {
+        if (commonDialog != null) {
+            commonDialog.closeDialog();
+        }
+        super.onDestroy();
     }
-
 
 }
