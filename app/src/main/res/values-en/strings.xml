@@ -4,10 +4,10 @@
     <string name="main_tag_consult">Discover</string>
     <string name="main_tab_wallet"> wallet </string>
     <string name="main_tab_my">My</string>
-    <string name="exit_confirm">confirm exit?</string>
+    <string name="exit_confirm">Confirm exit?</string>
     <string name="tip"> hint </string>
     <string name="tip_update"> update hint </string>
-    <string name="confirm"> confirm to</string>
+    <string name="confirm">confirm </string>
 
     <string name="attention"> note </string>
 
@@ -142,9 +142,9 @@
     <string name="user_password_google"> Google verification code </string>
 
     <string name="user_password_google_paste"> paste </string>
-    <string name="user_setting_trade_pwd"> capital password </string>
+    <string name="user_setting_trade_pwd"> Capital password </string>
     <string name="user_setting_identity"> real name authentication </string>
-    <string name="user_setting_mail"> binding mailbox </string>
+    <string name="user_setting_mail"> Binding mailbox </string>
 
     <string name="sms_code_send">Authenticode Get</string>
     <string name="sms_code_hint">Authentication Please SMS code enter the</string>
@@ -250,8 +250,8 @@
     <string name="user_password_old">old password </string>
     <string name="user_password_old_hint">Please input the old password </string>
     <string name="user_password_new"> new password </string>
-    <string name="user_setting_mobile"> modify the phone number </string>
-    <string name="user_setting_password"> modify the login password </string>
+    <string name="user_setting_mobile"> Modify the phone number </string>
+    <string name="user_setting_password"> Modify login password </string>
     <string name="user_setting_google">Google Verification</string>
     <string name="user_setting_sign_out"> log out </string>
     <string name="user_tip_language">language settings </string>
@@ -343,9 +343,10 @@
     <string name="coin_wan_ename">Wancoin</string>
     <string name="coin_eth_cname">Ethereum </string>
     <string name="coin_wan_came">WAN</string>
-    <string name="get_money">receive money </string>
+    <string name="get_money">Receive</string>
     <string name="service_money_tip">Transaction Fees will be deducted from the available balance, and the insufficient balance will be deducted from the transfer amount </string>
     <string name="transfer">transfer </string>
+    <string name="transfer_2">Send </string>
     <string name="ordinary"> ordinary </string>
     <string name="economics">economic </string>
     <string name="private_key_copy_success"> private key has been copied </string>
@@ -405,15 +406,15 @@
     <string name="no_phone_permission"> do not have permission, can\'t make a call, please go to Settings--->Permission Management to grant users the right to call </string>
     <string name="system_message"> system announcement </string>
     <string name="no_system_message">No system announcement </string>
-    <string name="my_wallet">My wallet(%s) </string>
-    <string name="fast_transfer"> one-click transfer </string>
-    <string name="transfer_change">flash </string>
+    <string name="my_wallet">My Wallet(%s) </string>
+    <string name="fast_transfer"> Smart Transfer </string>
+    <string name="transfer_change">Instant Swap</string>
     <string name="accounts_and_security">Account and Security</string>
     <string name="local_coin">Local currency </string>
     <string name="language">Language </string>
     <string name="please_create_or_import_wallet">Please create or import a wallet first</string>
     <string name="no_assets">no assets </string>
-    <string name="my_private_wallet"> secret key wallet(%s)</string>
+    <string name="my_private_wallet"> Decentralized Wallet(%s)</string>
     <string name="welcome_back">Welcome back! </string>
     <string name="chain">China</string>
     <string name="now_register">Register now</string>
@@ -424,28 +425,29 @@
     <string name="no_country">No country </string>
     <string name="choose_country">Select a country </string>
     <string name="wallet_tool">Wallet tool </string>
-    <string name="wallet_delete_success">wallet deleted successfully</string>
-    <string name="send_red_package">sent red packet</string>
-    <string name="send_you_red_package"> sent you a red packet </string>
-    <string name="defaut_red_package_mesg"> red packet rings, money rises </string>
+    <string name="wallet_delete_success">Wallet deleted successfully</string>
+    <string name="send_red_package">Sent red packet</string>
+    <string name="send_you_red_package"> Sent you a red packet </string>
+    <string name="defaut_red_package_mesg"> Red Packet Rings, Money Rises </string>
 
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_red_package">My red packets</string>
-    <string name="get_red_package"> received packets </string>
-    <string name="send_red_package2"> sent a red packet </string>
-    <string name="sub_total_red_package"> total send amount</string>
-    <string name="red_package_db">token </string>
-    <string name="red_package_sub_total">Token amount </string>
-    <string name="red_package_unit">Amount </string>
-    <string name="red_package_number">Number  </string>
+    <string name="get_red_package"> Received</string>
+    <string name="send_red_package2">Send</string>
+    <string name="sub_total_red_package"> Total Amount</string>
+    <string name="red_package_db">Token </string>
+    <string name="red_package_sub_total">Token Amount </string>
+    <string name="red_package_unit"> </string>
+    <string name="red_package_number">Quantity </string>
 
 
     <string name="red_package_msg">Best wishes</string>
     <string name="red_package_set"> Prepare red packet </string>
     <string name="red_package_send">Send red packet</string>
-    <string name="red_package_have">hold </string>
-    <string name="red_package_total"> total </string>
+    <string name="red_package_have">Balance</string>
+
+    <string name="red_package_total"> Total </string>
     <string name="red_package_empty_type">No currency available</string>
     <string name="red_package_please_set_type">Please set the payment password first</string>
     <string name="red_package_min_number">The minimum number of red packets is 1 </string>
@@ -456,9 +458,9 @@
     <string name="red_package_set_hand"> changed to a lucky red packets </string>
     <string name="red_package_set_ordinary"> changed to ordinary red packets </string>
     <string name="red_package_please_sing_number">Please input quantity</string>
-    <string name="red_package_please_total_number">Please input the total quantity </string>
-    <string name="red_package_please_number">Please input the quantity </string>
-    <string name="red_package_my">My red pack</string>
+    <string name="red_package_please_total_number">Enter number </string>f
+    <string name="red_package_please_number">Enter Quantity </string>
+    <string name="red_package_my">My red packets</string>
     <string name="red_package_get_empty">None </string>
     <string name="api_error">Request interface error </string>
     <string name="red_package_send_empty">No record sent </string>
@@ -468,26 +470,26 @@
     <string name="my_coin_address">My %s collection address </string>
     <string name="red_pg">Red packet </string>
     <string name="wallet_charge_recode">recode</string>
-    <string name="user_language_english">English</string>
+    <string name="user_language_english">英文</string>
     <string name="me_red_package">my red packet</string>
 
     <string name="red_package_number_unit">  </string>
     <string name="CNY">CNY</string>
     <string name="USD">USD</string>
 
-    <string name="red_package_sub_single">token single</string>
+    <string name="red_package_sub_single">Token single</string>
     <string name="wallet_assets">Total Assets(%s)</string>
     <string name="my_red_package_title">My red packets</string>
 
     <string name="red_package_mxn_number">the maximum amount of red packets is 500</string>
     <string name="red_package_max_numer">the maximum total amount is 10000000</string>
-    <string name="sen_red_packet_note">packets come,coins sound</string>
+    <string name="sen_red_packet_note">Red packets come, coins sound</string>
 
     <string name="share">share</string>
     <string name="us_web">官网</string>
     <string name="email_address">邮箱地址</string>
     <string name="sina_">新浪微博</string>
-    <string name="telegram_address">https://t.me/THAWallet.en</string>
+    <string name="telegram_address">https://t.me/THAWallet_en</string>
     <string name="waite_content_1">THA Users can receive apprentice through the invitation system, and instruct apprentice according to the task, thus obtain the calculation force. In addition, the apprentice uses THA Wallet to purchase quantitative financial products or Yubibao, masters can obtain a certain percentage of the Apprentice reward.</string>
     <string name="waite_title_1">Global Master and Apprentice Initiative: </string>
     <string name="waite_content_2">Yubibao is the digital currency value-added service and demand digital money management service product of THA wallet. It is easy to operate, has low threshold, without handling fees,  and are available with access, so that you can manage your digital assets with more flexibility. </string>

@@ -82,14 +82,16 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
                 case "charge": // 充值
                 case "o2o_in": // o2o店铺消费收入
                 case "invite": // 推荐好友分成
-                    ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(), 2), ivType);
+//                    ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(), 2), ivType);
+                    ivType.setImageResource(R.drawable.money_in);
                     break;
 
                 case "withdraw": // 取现
                 case "tradefee": // 手续费
                 case "withdrawfee": // 手续费
                 case "o2o_out": // o2o店铺消费支出
-                    ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(), 3), ivType);
+//                    ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(), 3), ivType);
+                    ivType.setImageResource(R.drawable.money_out);
                     break;
                 case "redpacket_back": // 红包退回
                     ivType.setImageResource(R.drawable.money_in);

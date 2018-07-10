@@ -89,7 +89,7 @@
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         android:layout_weight="1"
-                        android:text="0"
+                        android:text="0.000"
                         android:textColor="@color/red_text"
                         android:textSize="20sp" />
 
@@ -262,10 +262,9 @@
                     android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/red_bg_rodun"
-                    android:hint="@string/red_package_msg"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:text="@string/sen_red_packet_note"
+                    android:hint="@string/sen_red_packet_note"
                     android:textSize="14sp" />
 
                 <Button

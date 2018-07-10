@@ -473,7 +473,7 @@
     <string name="us_web">官网</string>
     <string name="email_address">邮箱地址</string>
     <string name="sina_">新浪微博</string>
-    <string name="telegram_address">https://t.me/THAWallet.cn</string>
+    <string name="telegram_address">https://t.me/THAWallet_cn</string>
     <string name="waite_content_1">THA用户可以通过邀请制收取徒弟，并根据任务引导来教育徒弟，从而获得算力。另外，徒弟使用THA钱包购买量化理财或余币宝，师父可获得徒弟一定比例的收益奖励。</string>
     <string name="waite_title_1">全球师徒首创玩法:</string>
     <string name="waite_content_2">余币宝是THA Wallet旗下的数字货币增值服务和活期数字货币管理服务产品。特点是操作简便、低门槛、零手续费、可随取随用，让您更灵活的管理数字资产。</string>
@@ -485,6 +485,6 @@
     <string name="lianghualicai">量化理财</string>
     <string name="recommend_application">推荐应用</string>
     <string name="copy_success">复制成功</string>
-
+    <string name="transfer_2">转账</string>
 
 </resources>

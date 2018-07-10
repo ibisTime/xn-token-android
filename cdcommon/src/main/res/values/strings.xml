@@ -25,6 +25,7 @@
     <string name="activity_image_tip">提示</string>
     <string name="activity_image_no_camera">没有可用相机</string>
     <string name="activity_image_confirm">确定</string>
+    <string name="confirm">确定</string>
     <string name="activity_image_no_cdcard">内存卡不存在</string>
     <string name="activity_image_getimg_failure">图片获取失败</string>
     <string name="activity_image_system_tip">系统提示</string>

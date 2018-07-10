@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -86,7 +87,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        UIStatusBarHelper.translucent(this, Color.parseColor("#FFFFA55D"));
+        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this,R.color.red));
 
         mBinding.etNumber.setEnabled(false);
         mBinding.etSendNumber.setEnabled(false);
@@ -178,7 +179,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
         mBinding.tvSumType.setText(getString(R.string.red_package_unit) + currencyType);
 
         //拼手气红包  就是输入的币的数量
-        mBinding.tvSumNumber.setText(TextUtils.isEmpty(etNumber) ? "0" : etNumber);
+        mBinding.tvSumNumber.setText(TextUtils.isEmpty(etNumber) ? "0.000" : etNumber);
 
         if (TextUtils.isEmpty(etNumber) || TextUtils.isEmpty(etSendNumber)) {
             return;
@@ -400,7 +401,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
             BigDecimal amount = new BigDecimal(accountListBean.getAmountString());
             BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
             String yue = AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), 8);
-            mBinding.tvBalance.setText(getString(R.string.red_package_have) + name + getString(R.string.red_package_total) + yue);
+            mBinding.tvBalance.setText(getString(R.string.red_package_have) + ": " + yue);
         }
     }
 

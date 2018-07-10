@@ -1,5 +1,5 @@
 <resources>
-    <string name="activity_find_code_hint"> Please code enter the verification</string>
+    <string name="activity_find_code_hint"> Enter code </string>
 
     <string name="activity_find_google_hint">Google Please authentication code enter
 </string>
@@ -27,7 +27,7 @@
     <string name="activity_find_repassword"> Confirm password </string>
     <string name="activity_find_google_paste"> paste </string>
     <string name="activity_find_google"> Google verification code </string>
-    <string name="activity_find_send">Authenticode Get
+    <string name="activity_find_send">Get code
 </string>
     <string name="activity_paypwd_pwd"> capital password </string>
 

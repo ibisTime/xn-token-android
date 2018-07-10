@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
@@ -45,7 +46,7 @@ public class RedPackageHistoryActivity extends AbsBaseLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        UIStatusBarHelper.translucent(this, Color.parseColor("#F55E52"));
+        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.red));
 
         mBinding.ivBack.setOnClickListener(view -> {
             finish();

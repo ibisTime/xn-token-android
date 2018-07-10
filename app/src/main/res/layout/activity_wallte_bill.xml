@@ -44,28 +44,6 @@
             android:layout_width="match_parent"
             android:layout_height="50dp">
 
-            <LinearLayout
-                android:id="@+id/linLayout_send_money"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:background="@color/colorPrimary"
-                android:gravity="center">
-
-                <ImageView
-                    android:layout_width="13dp"
-                    android:layout_height="16dp"
-                    android:src="@mipmap/bill_withdraw" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="6dp"
-                    android:text="@string/transfer"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linLayout_getmoney"
@@ -87,6 +65,29 @@
                     android:background="@color/white"
                     android:text="@string/get_money"
                     android:textColor="@color/text_color_light"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linLayout_send_money"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:background="@color/colorPrimary"
+                android:gravity="center">
+
+                <ImageView
+                    android:layout_width="13dp"
+                    android:layout_height="16dp"
+                    android:src="@mipmap/bill_withdraw" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:text="@string/transfer_2"
+                    android:textColor="@color/white"
                     android:textSize="16sp" />
 
             </LinearLayout>

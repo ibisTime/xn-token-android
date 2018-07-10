@@ -74,7 +74,7 @@ public class MySendRedPackageFragment extends AbsRefreshListFragment<MySendRedPa
         MySendRedPackageAdapter mAdapter = new MySendRedPackageAdapter(listData);
 
         mAdapter.setOnItemClickListener((adapter, view, position) -> {
-            RedPackageShearActivity.open(mActivity,mAdapter.getItem(position).getCode());
+            RedPackageShearActivity.open(mActivity, mAdapter.getItem(position).getCode());
         });
         return mAdapter;
     }

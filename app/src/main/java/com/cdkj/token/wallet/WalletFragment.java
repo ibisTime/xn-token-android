@@ -23,6 +23,7 @@ import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.BigDecimalUtils;
+import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
@@ -197,8 +198,8 @@ public class WalletFragment extends BaseLazyFragment {
         switch (index) {
             case BOTTOMVIEW:                                         //私密钱包
 
-                ObjectAnimator.ofFloat(mBinding.bluePoint, "TranslationX", 0, 35).setDuration(80).start();
-                ObjectAnimator.ofFloat(mBinding.grayPoint, "TranslationX", 0, -28).setDuration(80).start();
+                ObjectAnimator.ofFloat(mBinding.bluePoint, "TranslationX", 0, DisplayHelper.dpToPx(35)).setDuration(80).start();
+                ObjectAnimator.ofFloat(mBinding.grayPoint, "TranslationX", 0, DisplayHelper.dpToPx(-28)).setDuration(80).start();
 
                 isPrivateWallet = true;
                 mBinding.imgAddCoin.setVisibility(View.VISIBLE);
@@ -208,8 +209,8 @@ public class WalletFragment extends BaseLazyFragment {
                 break;
             case TOPVIEW:                                         //个人钱包
 
-                ObjectAnimator.ofFloat(mBinding.bluePoint, "TranslationX", 35, 0).setDuration(80).start();
-                ObjectAnimator.ofFloat(mBinding.grayPoint, "TranslationX", -28, 0).setDuration(80).start();
+                ObjectAnimator.ofFloat(mBinding.bluePoint, "TranslationX", DisplayHelper.dpToPx(35), 0).setDuration(80).start();
+                ObjectAnimator.ofFloat(mBinding.grayPoint, "TranslationX", DisplayHelper.dpToPx(-28), 0).setDuration(80).start();
 
                 isPrivateWallet = false;
                 mBinding.imgAddCoin.setVisibility(View.GONE);

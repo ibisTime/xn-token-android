@@ -26,6 +26,7 @@ import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
+import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.IntoWalletBeforeActivity;
 
@@ -63,8 +64,6 @@ public class UserFragment extends BaseLazyFragment {
 
         return mBinding.getRoot();
     }
-
-
 
 
     private void initClickListener() {
@@ -172,11 +171,10 @@ public class UserFragment extends BaseLazyFragment {
             return;
         }
 
-        if (data.getNickname() == null)
-            return;
+        if (data.getNickname() == null) return;
 
         mBinding.tvNickName.setText(data.getNickname());
-        mBinding.tvPhoneNumber.setText(StringUtils.ttransformShowPhone(data.getMobile()));
+        mBinding.tvPhoneNumber.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()) + " " + StringUtils.ttransformShowPhone(data.getMobile()));
         ImgUtils.loadLogo(mActivity, data.getPhoto(), mBinding.imgLogo);
 
     }

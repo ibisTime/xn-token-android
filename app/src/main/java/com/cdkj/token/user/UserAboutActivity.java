@@ -43,7 +43,7 @@ public class UserAboutActivity extends AbsBaseActivity {
     private String force;
 
 
-    public static void open(Context context){
+    public static void open(Context context) {
         if (context == null)
             return;
 
@@ -63,16 +63,16 @@ public class UserAboutActivity extends AbsBaseActivity {
         setSubLeftImgState(true);
 
         init();
-        getVersion();
+//        getVersion();
     }
 
     private void init() {
         mBinding.tvAppName.setText(getStrRes(R.string.app_name));
-        mBinding.tvVersion.setText("v"+ AppUtils.getAppVersionName(this));
+        mBinding.tvVersion.setText("v" + AppUtils.getAppVersionName(this));
         mBinding.tvFuhao.setText("@");
 
         mBinding.tvUpdate.setOnClickListener(view -> {
-            if (mBinding.tvUpdate.getText().toString().equals(getString(R.string.user_about_update))){
+            if (mBinding.tvUpdate.getText().toString().equals(getString(R.string.user_about_update))) {
                 update();
             }
         });
@@ -80,6 +80,7 @@ public class UserAboutActivity extends AbsBaseActivity {
 
     /**
      * 获取最新版本
+     *
      * @return
      */
     private void getVersion() {
@@ -101,7 +102,7 @@ public class UserAboutActivity extends AbsBaseActivity {
 
                 if (data.getVersion().equals(AppUtils.getAppVersionName(UserAboutActivity.this))) {
                     mBinding.tvUpdate.setText(getString(R.string.user_about_updated));
-                }else {
+                } else {
                     msg = data.getNote();
                     url = data.getDownloadUrl();
                     force = data.getForceUpdate();
@@ -132,9 +133,9 @@ public class UserAboutActivity extends AbsBaseActivity {
                 .setCancelable(false);
 
 
-        if(force.equals("1")){ // 强制更新
+        if (force.equals("1")) { // 强制更新
             builder.show();
-        }else {
+        } else {
             builder.setNegativeButton(getStrRes(R.string.cancel), null).show();
         }
     }
