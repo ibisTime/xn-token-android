@@ -43,7 +43,7 @@ public class CardChangeLayout extends FrameLayout {
 
     private AnimatorSet animatorSet;
 
-    private int animatorDuration = 250; //动画执行时长 毫秒
+    private int animatorDuration = 300; //动画执行时长 毫秒
 
     private float viewScaleSize = 0.8f; //底部View缩放比例
 

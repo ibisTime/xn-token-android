@@ -109,7 +109,7 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface {
 
         //国家区号选择
         mBinding.linLayoutCountryCode.setOnClickListener(view -> {
-            CountryCodeListActivity.open(this);
+            CountryCodeListActivity.open(this,true);
         });
     }
 

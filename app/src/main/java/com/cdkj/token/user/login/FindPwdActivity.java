@@ -103,7 +103,7 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
     private void initListener() {
         //国家区号选择
         mBinding.linLayoutCountryCode.setOnClickListener(view -> {
-            CountryCodeListActivity.open(this);
+            CountryCodeListActivity.open(this,true);
         });
         mBinding.tvFinish.setOnClickListener(view -> finish());
 
@@ -111,7 +111,7 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSendCOdePresenter.sendCodeRequest(mBinding.edtMobile.getText().toString(), "805063", MyConfig.USERTYPE, FindPwdActivity.this);
+                mSendCOdePresenter.sendCodeRequest(mBinding.edtMobile.getText().toString(), "805063", MyConfig.USERTYPE,SPUtilHelper.getCountryCode(), FindPwdActivity.this);
             }
         });
 

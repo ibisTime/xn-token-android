@@ -122,6 +122,8 @@ public class ConsultFragment extends BaseLazyFragment {
 
         addCall(call);
 
+        showLoadingDialog();
+
         call.enqueue(new BaseResponseListCallBack<BannerModel>(mActivity) {
 
             @Override
@@ -140,6 +142,7 @@ public class ConsultFragment extends BaseLazyFragment {
 
             @Override
             protected void onFinish() {
+                disMissLoading();
             }
         });
     }
@@ -184,7 +187,12 @@ public class ConsultFragment extends BaseLazyFragment {
             return;
         }
         // 刷新轮播图
-        getBanner();
+        if (bannerData != null && !bannerData.isEmpty()) {
+            mHeadBinding.banner.startAutoPlay();
+        } else {
+            getBanner();
+        }
+
     }
 
     @Override

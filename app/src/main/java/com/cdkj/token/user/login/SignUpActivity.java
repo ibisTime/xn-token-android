@@ -99,13 +99,13 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
     private void initListener() {
         //国家区号选择
         mBinding.linLayoutCountryCode.setOnClickListener(view -> {
-            CountryCodeListActivity.open(this);
+            CountryCodeListActivity.open(this,true);
         });
         mBinding.tvFinish.setOnClickListener(view -> finish());
 
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(view -> {
             if (check("code")) {
-                mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(), "805041", "C", this);
+                mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(), "805041", "C",SPUtilHelper.getCountryCode(), this);
             }
         });
 

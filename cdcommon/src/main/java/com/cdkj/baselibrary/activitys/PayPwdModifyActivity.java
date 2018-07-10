@@ -9,21 +9,19 @@ import android.view.View;
 
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.databinding.ActivityModifyPayPasswordBinding;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
-import com.cdkj.baselibrary.model.EventBusModel;
+import com.cdkj.baselibrary.model.CountrySelectEvent;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
@@ -43,6 +41,8 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
 
     private SendPhoneCodePresenter mSendCoodePresenter;
 
+    private String selectCountryCode;//用户选择的国家
+
 
     /**
      * @param context
@@ -58,12 +58,6 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
         context.startActivity(intent);
     }
 
-//    @Override
-//    protected void onResume() {
-//        super.onResume();
-//        mBinding.tvCountryName.setText(SPUtilHelper.getCountry());
-//        mBinding.tvCountryCode.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
-//    }
 
     @Override
     public View addMainView() {
@@ -73,6 +67,12 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+
+        mBinding.tvCountryName.setText(SPUtilHelper.getCountry());
+        mBinding.tvCountryCode.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+
+        selectCountryCode = SPUtilHelper.getCountryCode();
+
         setSubLeftImgState(true);
 
         mBinding.llGoogle.setVisibility(SPUtilHelper.getGoogleAuthFlag() ? View.VISIBLE : View.GONE);
@@ -97,12 +97,12 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
      * 设置事件
      */
     private void setListener() {
-//        mBinding.linLayoutCountryCode.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                CdRouteHelper.openCountrySelect(false);
-//            }
-//        });
+        mBinding.linLayoutCountryCode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                CdRouteHelper.openCountrySelect(false);
+            }
+        });
 
 //发送验证码
         mBinding.btnSend.setOnClickListener(new View.OnClickListener() {
@@ -117,7 +117,7 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
 
                 }
 
-                mSendCoodePresenter.sendCodeRequest(mBinding.edtPhone.getText().toString(), bizType, MyConfig.USERTYPE, PayPwdModifyActivity.this);
+                mSendCoodePresenter.sendCodeRequest(mBinding.edtPhone.getText().toString(), bizType, MyConfig.USERTYPE, selectCountryCode, PayPwdModifyActivity.this);
             }
         });
 //确认
@@ -237,9 +237,12 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
         }
     }
 
-//    @Subscribe
-//    public void countrySelectEvent(){
-//        mBinding.tvCountryName.setText(SPUtilHelper.getCountry());
-//        mBinding.tvCountryCode.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
-//    }
+    @Subscribe
+    public void countrySelectEvent(CountrySelectEvent countrySelectEvent) {
+        if (countrySelectEvent == null) return;
+        mBinding.tvCountryName.setText(countrySelectEvent.getCountryName());
+        mBinding.tvCountryCode.setText(StringUtils.transformShowCountryCode(countrySelectEvent.getCountryCode()));
+        selectCountryCode = countrySelectEvent.getCountryCode();
+
+    }
 }

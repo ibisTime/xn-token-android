@@ -148,7 +148,7 @@ public class UserGoogleActivity extends AbsBaseActivity implements SendCodeInter
             }else {
                 bizType = "805071";
             }
-            mPresenter.sendCodeRequest(SPUtilHelper.getUserPhoneNum(), bizType,"C",this);
+            mPresenter.sendCodeRequest(SPUtilHelper.getUserPhoneNum(), bizType,"C",SPUtilHelper.getCountryCode(),this);
         });
 
         mBinding.btnConfirm.setOnClickListener(view -> {

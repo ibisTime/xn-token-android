@@ -26,17 +26,20 @@ public class SendPhoneCodePresenter {
     private Context mContext;
     private Call call;
 
+    private String countryCode;
+
     public SendPhoneCodePresenter(SendCodeInterface view) {
         this.mListener = view;
     }
 
-    //处理登录逻辑
-    public void sendCodeRequest(String phone, String bizType, String kind, Context context) {
+    //发送验证码
+    public void sendCodeRequest(String phone, String bizType, String kind, String countryCode, Context context) {
         this.mContext = context;
         if (TextUtils.isEmpty(phone)) {
             ToastUtil.show(context, mContext.getString(R.string.activity_mobile_mobile_hint));
             return;
         }
+        if (TextUtils.isEmpty(countryCode)) return;
 
         request(phone, bizType, kind);
     }
@@ -53,7 +56,7 @@ public class SendPhoneCodePresenter {
         hashMap.put("mobile", phone);
         hashMap.put("bizType", bizType);
         hashMap.put("kind", kind);
-        hashMap.put("interCode", SPUtilHelper.getCountryCode()); //国际区号
+        hashMap.put("interCode", countryCode); //国际区号
 
         call = RetrofitUtils.getBaseAPiService().successRequest("805950", StringUtils.getJsonToString(hashMap));
 

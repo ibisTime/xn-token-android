@@ -1,5 +1,6 @@
 package com.cdkj.token.wallet.coin_detail;
 
+import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -78,23 +79,24 @@ public class WalletAddressShowActivity extends AbsBaseLoadActivity {
 
         mBinding.llCopy.setOnClickListener(view -> {
 
-            if (!TextUtils.isEmpty(mBinding.txtAddress.getText())) {
-                ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                cmb.setText(mBinding.txtAddress.getText()); //将内容放入粘贴管理器,在别的地方长按选择"粘贴"即可
-                ToastUtil.show(WalletAddressShowActivity.this, getStrRes(R.string.wallet_charge_address_copy_success));
-            }
+            copyAddress();
 
         });
 
         mBinding.llAddress.setOnClickListener(view -> {
-            if (!TextUtils.isEmpty(mBinding.txtAddress.getText())) {
-                ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                cmb.setText(mBinding.txtAddress.getText()); //将内容放入粘贴管理器,在别的地方长按选择"粘贴"即可
-                ToastUtil.show(WalletAddressShowActivity.this, getStrRes(R.string.wallet_charge_address_copy_success));
-            }
+            copyAddress();
 
         });
 
 
+    }
+
+    private void copyAddress() {
+        if (!TextUtils.isEmpty(mBinding.txtAddress.getText())) {
+            ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            ClipData clipData = ClipData.newPlainText(null, mBinding.txtAddress.getText());
+            cmb.setPrimaryClip(clipData);
+            ToastUtil.show(WalletAddressShowActivity.this, getStrRes(R.string.wallet_charge_address_copy_success));
+        }
     }
 }

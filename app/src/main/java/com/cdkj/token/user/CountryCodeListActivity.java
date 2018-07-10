@@ -11,6 +11,7 @@ import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsRefreshListActivity;
+import com.cdkj.baselibrary.model.CountrySelectEvent;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -18,6 +19,8 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.CountryCodeListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.CountryCodeMode;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -32,22 +35,37 @@ import retrofit2.Call;
 @Route(path = CdRouteHelper.APP_COUNTRY_SELECT)
 public class CountryCodeListActivity extends AbsRefreshListActivity {
 
-    public static void open(Context context) {
+    private boolean isSave;
+
+    /**
+     * @param context
+     * @param isSaveSelect 是否把用户的选择保存在本地
+     */
+    public static void open(Context context, boolean isSaveSelect) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, CountryCodeListActivity.class);
+        intent.putExtra(CdRouteHelper.DATASIGN, isSaveSelect);
         context.startActivity(intent);
     }
-
 
 
     @Override
     public RecyclerView.Adapter getListAdapter(List listData) {
         CountryCodeListAdapter countryCodeListAdapter = new CountryCodeListAdapter(listData);
         countryCodeListAdapter.setOnItemClickListener((adapter, view, position) -> {
-            SPUtilHelper.saveCountry(countryCodeListAdapter.getSelectCountryName(position));
-            SPUtilHelper.saveCountryCode(countryCodeListAdapter.getSelectCountryCode(position));
+            if (isSave) {
+                SPUtilHelper.saveCountry(countryCodeListAdapter.getSelectCountryName(position));
+                SPUtilHelper.saveCountryCode(countryCodeListAdapter.getSelectCountryCode(position));
+
+            } else {
+                CountrySelectEvent countrySelectEvent = new CountrySelectEvent();
+
+                countrySelectEvent.setCountryCode(countryCodeListAdapter.getSelectCountryCode(position));
+                countrySelectEvent.setCountryName(countryCodeListAdapter.getSelectCountryName(position));
+                EventBus.getDefault().post(countrySelectEvent);     //发送国家选择通知
+            }
             finish();
         });
         return countryCodeListAdapter;
@@ -86,6 +104,9 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+
+        isSave = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN, true);
+
         mBaseBinding.titleView.setMidTitle(R.string.choose_country);
         mBaseBinding.titleView.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
         mBaseBinding.titleView.setLeftImg(R.drawable.back_black_new);
