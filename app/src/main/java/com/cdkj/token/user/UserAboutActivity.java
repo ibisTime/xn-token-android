@@ -78,46 +78,46 @@ public class UserAboutActivity extends AbsBaseActivity {
         });
     }
 
-    /**
-     * 获取最新版本
-     *
-     * @return
-     */
-    private void getVersion() {
-        Map<String, String> map = new HashMap<>();
-        map.put("type", "android-c");
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-        call.enqueue(new BaseResponseModelCallBack<VersionModel>(this) {
-
-            @Override
-            protected void onSuccess(VersionModel data, String SucMessage) {
-                if (data == null)
-                    return;
-
-                if (data.getVersion().equals(AppUtils.getAppVersionName(UserAboutActivity.this))) {
-                    mBinding.tvUpdate.setText(getString(R.string.user_about_updated));
-                } else {
-                    msg = data.getNote();
-                    url = data.getDownloadUrl();
-                    force = data.getForceUpdate();
-
-                    mBinding.tvUpdate.setText(getString(R.string.user_about_update));
-                }
-            }
-
-            @Override
-            protected void onFinish() {
-                disMissLoading();
-            }
-        });
-
-    }
+//    /**
+//     * 获取最新版本
+//     *
+//     * @return
+//     */
+//    private void getVersion() {
+//        Map<String, String> map = new HashMap<>();
+//        map.put("type", "android-c");
+//        map.put("systemCode", MyConfig.SYSTEMCODE);
+//        map.put("companyCode", MyConfig.COMPANYCODE);
+//
+//        Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.getJsonToString(map));
+//
+//        addCall(call);
+//
+//        call.enqueue(new BaseResponseModelCallBack<VersionModel>(this) {
+//
+//            @Override
+//            protected void onSuccess(VersionModel data, String SucMessage) {
+//                if (data == null)
+//                    return;
+//
+//                if (data.getVersion().equals(AppUtils.getAppVersionName(UserAboutActivity.this))) {
+//                    mBinding.tvUpdate.setText(getString(R.string.user_about_updated));
+//                } else {
+//                    msg = data.getNote();
+//                    url = data.getDownloadUrl();
+//                    force = data.getForceUpdate();
+//
+//                    mBinding.tvUpdate.setText(getString(R.string.user_about_update));
+//                }
+//            }
+//
+//            @Override
+//            protected void onFinish() {
+//                disMissLoading();
+//            }
+//        });
+//
+//    }
 
     private void update() {
 

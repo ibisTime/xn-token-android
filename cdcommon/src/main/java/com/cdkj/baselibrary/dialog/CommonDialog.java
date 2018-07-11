@@ -84,7 +84,7 @@ public class CommonDialog {
     public CommonDialog setTitle(String title) {
         mIsShowTitle = true;
         if (TextUtils.isEmpty(title)) {
-            mTitle.setText("提示");
+
         } else {
             mTitle.setText(title);
         }

@@ -83,6 +83,7 @@ public class MainActivity extends AbsBaseActivity {
 
     private void init() {
         UIStatusBarHelper.translucent(this);
+        UIStatusBarHelper.setStatusBarLightMode(this);
         setShowIndex(WALLET);
 
 //        CoinListService.open(this);

@@ -308,7 +308,7 @@
     <string name="create_wallet_tip">With wallet backup, you have full control over your wallet assets, so it\'s highly recommended that you make a backup before using your wallet and save your wallet backup to a safe place. </string>
     <string name="now_backup">Back up now </string>
     <string name="next_step">Next </string>
-    <string name="sure_1">confirm </string>
+    <string name="sure_1">Confirm </string>
     <string name="now_check">check now </string>
 
 

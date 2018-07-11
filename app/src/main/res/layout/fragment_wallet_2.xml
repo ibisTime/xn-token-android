@@ -243,6 +243,7 @@
                     </com.cdkj.token.views.CardChangeLayout>
 
                     <LinearLayout
+                        android:id="@+id/linLayout_my_wallet_point"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -262,6 +263,30 @@
                             android:layout_width="10dp"
                             android:layout_height="10dp"
                             android:background="@drawable/gray_point" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/linLayout_private_wallet_point"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginBottom="4dp"
+                        android:layout_marginTop="12dp"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <View
+                            android:layout_marginRight="6dp"
+                            android:layout_width="10dp"
+                            android:layout_height="10dp"
+                            android:background="@drawable/gray_point" />
+
+                        <com.cdkj.token.views.OvalBlueView
+                            android:layout_width="25dp"
+                            android:layout_height="13dp"
+                            android:layout_gravity="center" />
 
                     </LinearLayout>
 

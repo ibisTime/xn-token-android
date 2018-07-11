@@ -77,8 +77,8 @@
     <string name="activity_authenticate_success"> authentication success </string>
     <string name="activity_authenticate_failure"> authentication failed, please try again later </string>
     <string name="activity_authenticate_download_title"> Download and Install Alipay to complete the certification?</string>
-    <string name="activity_authenticate_download_confirm">confirm </string>
-    <string name="activity_authenticate_download_cancel"> cancel</string>
+    <string name="activity_authenticate_download_confirm">Confirm </string>
+    <string name="activity_authenticate_download_cancel"> ancel</string>
     <string name="activity_find_title">Find password </string>
     <string name="activity_find_mobile_hint">Please input your mobile number </string>
     <string name="activity_image_system_open"> to open </string>
@@ -100,10 +100,10 @@
     <string name="activity_mobile_mobile_hint">Please input the phone number </string>
     <string name="activity_mobile_code_hint">Please input the verification code </string>
     <string name="activity_base_tip">tip </string>
-    <string name="activity_base_confirm">confirm</string>
-    <string name="confirm">confirm</string>
+    <string name="activity_base_confirm">Confirm</string>
+    <string name="confirm">Confirm</string>
     <string name="activity_base_cancel">Cancel</string>
-    <string name="cancel">cancel</string>
+    <string name="cancel">Cancel</string>
     <string name="activity_authenticate_name">real name</string>
     <string name="activity_authenticate_id">ID number </string>
     <string name="activity_authenticate_id_hint">Please input the ID number </string>

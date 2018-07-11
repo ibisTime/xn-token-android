@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
 import android.provider.Settings;
-import android.support.annotation.IdRes;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
@@ -61,7 +60,7 @@ public class AppUtils {
             return false;
         }
 
-        if (!getAndroidVersion(Build.VERSION_CODES.JELLY_BEAN_MR1)) //如果版本小于 4.2
+        if (!checkAndroidVersion(Build.VERSION_CODES.JELLY_BEAN_MR1)) //如果版本小于 4.2
         {
             return true;
         }
@@ -73,7 +72,7 @@ public class AppUtils {
         return true;
     }
 
-    public static Boolean getAndroidVersion(int version) {
+    public static Boolean checkAndroidVersion(int version) {
         if (Build.VERSION.SDK_INT >= version) {
             return true;
 
@@ -123,6 +122,20 @@ public class AppUtils {
             if (versionName == null || versionName.length() <= 0) {
                 return "";
             }
+        } catch (Exception e) {
+            Log.e("VersionInfo", "Exception", e);
+        }
+        return versionName;
+    }
+
+    /*获取版本信息*/
+    public static int getAppVersionCode(Context context) {
+        int versionName = 1;
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo pi = pm.getPackageInfo(context.getPackageName(), 0);
+            versionName = pi.versionCode;
+
         } catch (Exception e) {
             Log.e("VersionInfo", "Exception", e);
         }
