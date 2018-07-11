@@ -150,6 +150,7 @@ public class UserFragment extends BaseLazyFragment {
                 SPUtilHelper.saveRealName(data.getRealName());
                 SPUtilHelper.saveUserPhoneNum(data.getMobile());
                 SPUtilHelper.saveTradePwdFlag(data.isTradepwdFlag());
+                SPUtilHelper.saveLoginPwdFlag(data.isLoginPwdFlag());
                 SPUtilHelper.saveGoogleAuthFlag(data.isGoogleAuthFlag());
 
                 setShowData(data);

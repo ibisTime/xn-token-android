@@ -150,6 +150,23 @@ public class SPUtilHelper {
     }
 
     /**
+     * 设置用户选择的国家旗
+     *
+     * @param s
+     */
+
+    public static void saveCountryFlag(String s) {
+        SPUtils.put(CdApplication.getContext(), "country_flag", s);
+    }
+
+    /**
+     * 获取国家编号
+     */
+    public static String getCountryFlag() {
+        return SPUtils.getString(CdApplication.getContext(), "country_flag", "China.png");
+    }
+
+    /**
      * 设置用户token
      *
      * @param s
@@ -297,6 +314,22 @@ public class SPUtilHelper {
      */
     public static boolean getTradePwdFlag() {
         return SPUtils.getBoolean(CdApplication.getContext(), "trade_pwd", false);
+    }
+
+    /**
+     * 设置用户登录密码Flag
+     *
+     * @param s
+     */
+    public static void saveLoginPwdFlag(boolean s) {
+        SPUtils.put(CdApplication.getContext(), "LoginPwdFlag", s);
+    }
+
+    /**
+     * 获取用户登录密码Flag
+     */
+    public static boolean getLoginPwdFlag() {
+        return SPUtils.getBoolean(CdApplication.getContext(), "LoginPwdFlag", false);
     }
 
     /**

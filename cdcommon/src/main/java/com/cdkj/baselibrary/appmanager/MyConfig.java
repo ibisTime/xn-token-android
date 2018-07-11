@@ -36,14 +36,14 @@ public class MyConfig {
      * @return
      */
     public static int getThisNodeType() {
-        return NODE_REALSE;
+        return NODE_DEV;
     }
 
     // 环境访问地址
     public static final String BASE_URL_DEV = "http://120.26.6.213:2101/forward-service/"; // 研发
     public static final String BASE_URL_TEST = "http://120.26.6.213:2101/forward-service/"; // 测试
-    //    public static final String BASE_URL_ONLINE = "http://120.26.6.213:2101/forward-service/"; // 测试
-    public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
+        public static final String BASE_URL_ONLINE = "http://120.26.6.213:2101/forward-service/"; // 测试
+//    public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
 
 
     /**

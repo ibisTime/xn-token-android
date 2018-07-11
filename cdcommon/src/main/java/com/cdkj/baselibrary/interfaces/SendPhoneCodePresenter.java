@@ -35,6 +35,7 @@ public class SendPhoneCodePresenter {
     //发送验证码
     public void sendCodeRequest(String phone, String bizType, String kind, String countryCode, Context context) {
         this.mContext = context;
+        this.countryCode = countryCode;
         if (TextUtils.isEmpty(phone)) {
             ToastUtil.show(context, mContext.getString(R.string.activity_mobile_mobile_hint));
             return;

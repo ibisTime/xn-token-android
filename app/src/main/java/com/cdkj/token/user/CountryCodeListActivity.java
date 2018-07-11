@@ -58,12 +58,15 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
             if (isSave) {
                 SPUtilHelper.saveCountry(countryCodeListAdapter.getSelectCountryName(position));
                 SPUtilHelper.saveCountryCode(countryCodeListAdapter.getSelectCountryCode(position));
+                SPUtilHelper.saveCountryFlag(countryCodeListAdapter.getSelectPic(position));
 
             } else {
                 CountrySelectEvent countrySelectEvent = new CountrySelectEvent();
 
                 countrySelectEvent.setCountryCode(countryCodeListAdapter.getSelectCountryCode(position));
                 countrySelectEvent.setCountryName(countryCodeListAdapter.getSelectCountryName(position));
+                countrySelectEvent.setCountryFlag(countryCodeListAdapter.getSelectPic(position));
+
                 EventBus.getDefault().post(countrySelectEvent);     //发送国家选择通知
             }
             finish();

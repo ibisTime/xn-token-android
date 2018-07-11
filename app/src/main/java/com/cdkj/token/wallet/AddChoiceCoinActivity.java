@@ -15,6 +15,8 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.AddChoiceAdapter;
 import com.cdkj.token.api.MyApi;
+import com.cdkj.token.interfaces.LocalCoinCacheInterface;
+import com.cdkj.token.interfaces.LocalCoinCachePresenter;
 import com.cdkj.token.model.AddCoinChangeEvent;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.UserConfigDBModel;
@@ -46,6 +48,8 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
     private AddChoiceAdapter addChoiceAdapter;
     private String chooseCoins;
 
+    private LocalCoinCachePresenter mlLocalCoinCachePresenter;
+
     public static void open(Context context) {
         if (context == null) {
             return;
@@ -63,7 +67,14 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
         mRefreshBinding.refreshLayout.setEnableLoadmore(false);
         mRefreshBinding.refreshLayout.setEnableRefresh(false);
 
-        mRefreshHelper.onDefaluteMRefresh(true);
+        mlLocalCoinCachePresenter = new LocalCoinCachePresenter(new LocalCoinCacheInterface() {
+            @Override
+            public void cacheEnd(List<LocalCoinDbModel> data) {
+                checkUserChooseCoin(data);
+            }
+        });
+
+        mlLocalCoinCachePresenter.getCoinList(this, true);
     }
 
     @Override
@@ -74,6 +85,14 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
     @Override
     public void onBackPressed() {
         saveChooseAndFinish();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mlLocalCoinCachePresenter != null) {
+            mlLocalCoinCachePresenter.clear();
+        }
+        super.onDestroy();
     }
 
     /**
@@ -123,44 +142,9 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
 
     @Override
     public void getListRequest(int pageindex, int limit, boolean isShowDialog) {
-        getCoinList();
+        mlLocalCoinCachePresenter.getCoinList(this, true);
     }
 
-
-    private void getCoinList() {
-
-        Map<String, String> map = new HashMap<>();
-        map.put("type", "");
-        map.put("ename", "");
-        map.put("cname", "");
-        map.put("symbol", "");
-        map.put("status", "0"); // 0已发布，1已撤下
-        map.put("contractAddress", "");
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getCoinList("802267", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-
-        call.enqueue(new BaseResponseListCallBack<LocalCoinDbModel>(this) {
-
-            @Override
-            protected void onSuccess(List<LocalCoinDbModel> data, String SucMessage) {
-                saveCoinAsync(data);
-
-            }
-
-            @Override
-            protected void onReqFailure(String errorCode, String errorMessage) {
-                super.onReqFailure(errorCode, errorMessage);
-
-            }
-
-            @Override
-            protected void onFinish() {
-            }
-        });
-    }
 
     /**
      * 验证用户选择的币种
@@ -168,6 +152,9 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
      * @param coinDbModels
      */
     private void checkUserChooseCoin(List<LocalCoinDbModel> coinDbModels) {
+        if (coinDbModels == null) {
+            return;
+        }
 
         List<LocalCoinDbModel> dbModels = new ArrayList<>();
 
@@ -215,30 +202,6 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
             userChooseCoinDBModel.setIsChoosed(1);
             userChooseCoinDBModel.save();
         }
-    }
-
-    /**
-     * 异步缓存币种
-     *
-     * @param data
-     */
-    private void saveCoinAsync(List<LocalCoinDbModel> data) {
-        if (data == null) {
-            return;
-        }
-        mSubscription.add(Observable.just(data)
-                .subscribeOn(Schedulers.newThread())
-                .map(localCoinDbModels -> {
-                    updateLocalCoinList(localCoinDbModels);
-                    return 0;
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> {
-                    checkUserChooseCoin(data);
-                }, throwable -> {
-                    checkUserChooseCoin(data);
-                }));
-
     }
 
 

@@ -215,7 +215,7 @@ public class MainActivity extends AbsBaseActivity {
                 if (data == null)
                     return;
 
-                if (!TextUtils.equals(data.getVersion(), AppUtils.getAppVersionName(MainActivity.this))) {  //版本号不一致说明有更新
+                if (data.getVersion() > AppUtils.getAppVersionCode(MainActivity.this)) {  //版本号不一致说明有更新
                     showUploadDialog(data);
                 }
             }

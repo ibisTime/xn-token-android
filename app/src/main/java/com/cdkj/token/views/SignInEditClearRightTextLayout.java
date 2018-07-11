@@ -10,33 +10,34 @@ import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.cdkj.token.R;
-import com.cdkj.token.databinding.LayoutEditClearSendCodeBinding;
+import com.cdkj.token.databinding.LayoutEditClearBinding;
+import com.cdkj.token.databinding.LayoutEditClearRightTextBinding;
 
 /**
- * 清除按钮  下划线 EditText
+ * 清除按钮  下划线 获取验证码 EditText
  * Created by cdkj on 2018/7/1.
  */
 
-public class SignInEditClearCodeLayout extends LinearLayout {
+public class SignInEditClearRightTextLayout extends LinearLayout {
 
-    public LayoutEditClearSendCodeBinding mBinding;
+    public LayoutEditClearRightTextBinding mBinding;
 
     private String hintText;
 
-    public SignInEditClearCodeLayout(Context context) {
+    public SignInEditClearRightTextLayout(Context context) {
         this(context, null);
     }
 
-    public SignInEditClearCodeLayout(Context context, @Nullable AttributeSet attrs) {
+    public SignInEditClearRightTextLayout(Context context, @Nullable AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public SignInEditClearCodeLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
+    public SignInEditClearRightTextLayout(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.sign_edit_clear_layout);
@@ -48,7 +49,7 @@ public class SignInEditClearCodeLayout extends LinearLayout {
 
     private void init() {
 
-        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.layout_edit_clear_send_code, this, true);
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.layout_edit_clear_right_text, this, true);
 
         mBinding.edit.setHint(hintText);
 
@@ -100,16 +101,12 @@ public class SignInEditClearCodeLayout extends LinearLayout {
         return mBinding.edit.getText().toString();
     }
 
-    /**
-     * 获取发送验证码
-     *
-     * @return
-     */
-    public Button getSendCodeBtn() {
-        return mBinding.btnSend;
-    }
     public EditText getEditText() {
         return mBinding.edit;
+    }
+
+    public TextView getRughtText() {
+        return mBinding.tvRight;
     }
 
 }

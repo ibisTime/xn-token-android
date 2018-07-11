@@ -28,7 +28,7 @@
                     android:ellipsize="end"
                     android:singleLine="true"
                     android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:textSize="@dimen/title_mid_size" />
 
                 <ImageView
                     android:id="@+id/iv_title_img"

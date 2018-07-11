@@ -58,8 +58,8 @@
     <string name="please_choose_browser">Please select a browser </string>
     <string name="no_browser">No browser available</string>
     <string name="open_browser_error"> error </string>
-    <string name="code_down">Retrieved(%d)</string>
-    <string name="resend_code">resend code</string>
+    <string name="code_down">%d S</string>
+    <string name="resend_code">Resend</string>
     <string name="back">Back</string>
     <string name="load_error">Load error </string>
     <string name="choose">select </string>

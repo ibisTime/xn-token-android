@@ -26,7 +26,6 @@ import com.cdkj.token.adapter.CoinDetailsListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWallteBillBinding;
 import com.cdkj.token.databinding.HeaderBillListBinding;
-import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.utils.AccountUtil;
@@ -40,7 +39,6 @@ import java.util.Map;
 import retrofit2.Call;
 
 import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
-import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 
 /**
  * 钱包币种 详情
@@ -85,7 +83,7 @@ public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
 
         if (accountListBean != null) {
 
-            ImgUtils.loadAvatar(WalletCoinDetailsActivity.this,accountListBean.getCoinImgUrl(), mHeaderBinding.ivIcon);
+            ImgUtils.loadLogo(WalletCoinDetailsActivity.this,accountListBean.getCoinImgUrl(), mHeaderBinding.ivIcon);
 
             mHeaderBinding.tvSymbol.setText(accountListBean.getCoinName());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());

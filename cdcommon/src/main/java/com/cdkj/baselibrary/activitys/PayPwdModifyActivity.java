@@ -8,7 +8,6 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.R;
-import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
@@ -20,6 +19,7 @@ import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
+import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -68,7 +68,7 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        mBinding.tvCountryName.setText(SPUtilHelper.getCountry());
+        ImgUtils.loadActImg(this, SPUtilHelper.getCountryFlag(), mBinding.imgCountry);
         mBinding.tvCountryCode.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
 
         selectCountryCode = SPUtilHelper.getCountryCode();
@@ -97,12 +97,12 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
      * 设置事件
      */
     private void setListener() {
-        mBinding.linLayoutCountryCode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                CdRouteHelper.openCountrySelect(false);
-            }
-        });
+//        mBinding.linLayoutCountryCode.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                CdRouteHelper.openCountrySelect(false);
+//            }
+//        });
 
 //发送验证码
         mBinding.btnSend.setOnClickListener(new View.OnClickListener() {
@@ -240,7 +240,6 @@ public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInt
     @Subscribe
     public void countrySelectEvent(CountrySelectEvent countrySelectEvent) {
         if (countrySelectEvent == null) return;
-        mBinding.tvCountryName.setText(countrySelectEvent.getCountryName());
         mBinding.tvCountryCode.setText(StringUtils.transformShowCountryCode(countrySelectEvent.getCountryCode()));
         selectCountryCode = countrySelectEvent.getCountryCode();
 

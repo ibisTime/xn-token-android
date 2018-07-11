@@ -23,7 +23,6 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:inputType="number"
                 android:textColor="@color/text_black_cd"
                 android:textColorHint="@color/text_hint_color"
                 android:textSize="16sp"
@@ -34,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:paddingLeft="10dp"
-                android:visibility="gone">
+                android:visibility="invisible">
 
                 <ImageView
                     android:layout_width="20dp"
@@ -44,19 +43,17 @@
 
             </FrameLayout>
 
-            <Button
-                android:id="@+id/btn_send"
-                android:layout_width="80dp"
-                android:layout_height="34dp"
+            <TextView
+                android:id="@+id/tv_right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="10dp"
-                android:background="@drawable/btn_code_blue_bg"
-                android:ellipsize="end"
-                android:gravity="center"
-                android:maxLines="2"
-                android:text="@string/user_sign_up_send"
-                android:textColor="@color/text_blue"
-                android:textSize="12sp" />
+                android:background="@null"
+                android:gravity="center_vertical"
+                android:paddingLeft="10dp"
+                android:text="@string/user_sign_in_forget"
+                android:textColor="@color/gray_666666"
+                android:textSize="14sp" />
 
 
         </LinearLayout>

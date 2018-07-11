@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
+import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.CountryCodeMode;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -29,7 +30,16 @@ public class CountryCodeListAdapter extends BaseQuickAdapter<CountryCodeMode, Ba
 
     @Override
     protected void convert(BaseViewHolder helper, CountryCodeMode item) {
-        helper.setText(R.id.tv_country, item.getInterName() + " " + item.getChineseName() + "     " + transformShowCountryCode(item.getInterCode()));
+
+        helper.setText(R.id.tv_country, getSelectCountryName(helper.getLayoutPosition()) + "     " + transformShowCountryCode(item.getInterCode()));
+
+        ImgUtils.loadImage(mContext, item.getPic(), helper.getView(R.id.img_country));
+
+        if (TextUtils.equals(item.getInterCode(), SPUtilHelper.getCountryCode())) {  //显示选择图标
+            helper.setVisible(R.id.img_choose, true);
+        } else {
+            helper.setVisible(R.id.img_choose, false);
+        }
     }
 
     public String getSelectCountryName(int postion) {
@@ -38,6 +48,10 @@ public class CountryCodeListAdapter extends BaseQuickAdapter<CountryCodeMode, Ba
         } else {
             return mData.get(postion).getChineseName();
         }
+    }
+
+    public String getSelectPic(int postion) {
+        return mData.get(postion).getPic();
     }
 
     public String getSelectCountryCode(int postion) {

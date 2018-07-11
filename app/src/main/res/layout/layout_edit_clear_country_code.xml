@@ -15,18 +15,43 @@
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
-            <TextView
-                android:id="@+id/country_code"
+            <LinearLayout
+                android:id="@+id/linLayout_country"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="+86" />
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/img_country"
+                    android:layout_width="30dp"
+                    android:layout_height="20dp"
+                    tools:src="@drawable/china" />
+
+                <TextView
+                    android:id="@+id/country_code"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    tools:text="+86" />
+
+                <ImageView
+                    android:id="@+id/img_down"
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:layout_marginLeft="10dp"
+                    android:src="@drawable/country_select_down" />
+
+
+            </LinearLayout>
+
 
             <EditText
                 android:id="@+id/edit"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="1"
                 android:background="@null"
                 android:gravity="center_vertical"

@@ -91,7 +91,7 @@
     <string name="user_title_published"> my ad </string>
 
     <string name="user_published_none"> no release </string>
-    <string name="user_title_setting"> security settings </string>
+    <string name="user_title_setting"> Security settings </string>
 
     <string name="user_identity_success"> You have passed the real-name authentication </string>
 
@@ -107,18 +107,18 @@
     <string name="user_title_trust"> trusted </string>
     <string name="user_trust_none">and no person trust</string>
 
-    <string name="user_sign_in_mobile_hint">Please enter mobile number your</string>
-    <string name="user_sign_in_pwd_hint">Enter password your</string>
+    <string name="user_sign_in_mobile_hint"> Enter mobile number </string>
+    <string name="user_sign_in_pwd_hint">Enter password </string>
     <string name="user_sign_in_confirm"> Confirm login </string>
 
-    <string name="user_sign_in_forget"> forgot password? </string>
+    <string name="user_sign_in_forget">Forgot? </string>
     <string name="user_sign_up_nick"> nickname </string>
     <string name="user_sign_up_nick_hint">nickname please set your</string>
-    <string name="user_sign_up_mobile"> mobile number </string>
+    <string name="user_sign_up_mobile"> Mobile number </string>
     <string name="user_sign_up_mobile_hint">Please enter mobile number your</string>
     <string name="user_sign_up_code"> Mobile verification Code </string>
-    <string name="user_sign_up_code_hint">Please code enter the verification</string>
-    <string name="user_sign_up_send">Authenticode Get</string>
+    <string name="user_sign_up_code_hint"> Enter code</string>
+    <string name="user_sign_up_send">Get code</string>
     <string name="user_sign_up_pwd"> new password </string>
     <string name="user_sign_up_pwd_hint"> not less than 6-bit </string>
     <string name="user_sign_up_repwd"> Confirm password </string>
@@ -220,7 +220,7 @@
     <string name="user_code_hint">Please input the verification code </string>
     <string name="user_code_format_hint">The format of the verification code is incorrect </string>
     <string name="user_password_hint">Please input a password</string>
-    <string name="user_repassword_hint">Please confirm the password </string>
+    <string name="user_repassword_hint">Confirm  password </string>
     <string name="user_repassword_two_hint">The passwords must be same </string>
     <string name="user_protocol_hint">Please read and agree to the terms </string>
     <string name="user_sign_up_success"> registration is successful, log in automatically for you </string>
@@ -229,7 +229,7 @@
 
     <string name="user_address_add_address">withdraw address </string>
     <string name="user_address_add_code"> verification code </string>
-    <string name="user_address_add_code_hint">Please input the verification code </string>
+    <string name="user_address_add_code_hint">Enter code </string>
     <string name="user_address_add_is_default">Set this account as an authentication account </string>
     <string name="user_address_add_tip"> withdraw the funds to the authentication account and no longer input the fund password, Google verification code </string>
     <string name="user_title_email_bind">bind mailbox</string>
@@ -415,13 +415,12 @@
     <string name="please_create_or_import_wallet">Please create or import a wallet first</string>
     <string name="no_assets">no assets </string>
     <string name="my_private_wallet"> Decentralized Wallet(%s)</string>
-    <string name="welcome_back">Welcome back! </string>
     <string name="chain">China</string>
     <string name="now_register">Register now</string>
     <string name="no_account">No account yet? </string>
-    <string name="register">Register! </string>
+    <string name="register">Register </string>
     <string name="find_pwd_sure">Confirm </string>
-    <string name="find_pwd">find the password! </string>
+    <string name="find_pwd">Find the password </string>
     <string name="no_country">No country </string>
     <string name="choose_country">Select a country </string>
     <string name="wallet_tool">Wallet tool </string>
@@ -470,7 +469,7 @@
     <string name="my_coin_address">My %s collection address </string>
     <string name="red_pg">Red packet </string>
     <string name="wallet_charge_recode">recode</string>
-    <string name="user_language_english">英文</string>
+    <string name="user_language_english">English</string>
     <string name="me_red_package">my red packet</string>
 
     <string name="red_package_number_unit">  </string>
@@ -501,6 +500,11 @@
     <string name="lianghualicai">Quantitative Finance:</string>
     <string name="recommend_application">Recommend Applications</string>
     <string name="copy_success">replicated</string>
+    <string name="account_login">Account login</string>
+    <string name="code_login">Code Login</string>
+    <string name="set_login_pwd">Setting Login password</string>
+    <string name="login_pwd_sed_success">Password Setting successfully</string>
+    <string name="activity_setting_failure">Password Setting failure</string>
 
 </resources>
 

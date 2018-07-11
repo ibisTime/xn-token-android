@@ -64,15 +64,12 @@ public class StartActivity extends BaseActivity {
 
         UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.white));
         setContentView(R.layout.activity_start);
-
-        getCoinList();
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-//        getQiniu();
+        getQiniu();
     }
 
     private void nextTo() {
@@ -86,70 +83,6 @@ public class StartActivity extends BaseActivity {
                     MainActivity.open(this);
                     finish();
                 }, Throwable::printStackTrace));
-    }
-
-
-    private void getCoinList() {
-
-        Map<String, String> map = new HashMap<>();
-        map.put("type", "");
-        map.put("ename", "");
-        map.put("cname", "");
-        map.put("symbol", "");
-        map.put("status", "0"); // 0已发布，1已撤下
-        map.put("contractAddress", "");
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getCoinList("802267", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-
-        call.enqueue(new BaseResponseListCallBack<LocalCoinDbModel>(this) {
-
-            @Override
-            protected void onSuccess(List<LocalCoinDbModel> data, String SucMessage) {
-                data.add(data.get(0));
-                saveCoinAsync(data);
-            }
-
-            @Override
-            protected void onReqFailure(String errorCode, String errorMessage) {
-                getQiniu();
-            }
-
-            @Override
-            protected void onNoNet(String msg) {
-
-            }
-
-            @Override
-            protected void onFinish() {
-            }
-        });
-    }
-
-    /**
-     * 异步缓存币种
-     *
-     * @param data
-     */
-    private void saveCoinAsync(List<LocalCoinDbModel> data) {
-        if (data == null) {
-            getQiniu();
-            return;
-        }
-        mSubscription.add(Observable.just(data)
-                .subscribeOn(Schedulers.newThread())
-                .map(localCoinDbModels -> {
-                    updateLocalCoinList(localCoinDbModels);
-                    return 0;
-                })
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> {
-                    getQiniu();
-                }, throwable -> {
-                    getQiniu();
-                }));
     }
 
 

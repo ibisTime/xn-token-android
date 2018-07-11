@@ -8,9 +8,7 @@ import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 
-import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
@@ -19,6 +17,8 @@ import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.AppUtils;
+import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityFindPasswordBinding;
@@ -26,19 +26,13 @@ import com.cdkj.token.user.CountryCodeListActivity;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import retrofit2.Call;
 
 /**
  * 找回密码
  */
-public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterface {
+public class FindLoginPwdActivity extends AbsBaseActivity implements SendCodeInterface {
 
     private ActivityFindPasswordBinding mBinding;
 
@@ -56,7 +50,7 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
         if (context == null) {
             return;
         }
-        Intent intent = new Intent(context, FindPwdActivity.class);
+        Intent intent = new Intent(context, FindLoginPwdActivity.class);
         intent.putExtra("phonenumber", mPhoneNumber);
         context.startActivity(intent);
     }
@@ -80,11 +74,12 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
         if (getIntent() != null) {
             mPhoneNumber = getIntent().getStringExtra("phonenumber");
         }
+        mBinding.edtMobile.getEditText().setText(mPhoneNumber);
 
         initListener();
 
-        mBinding.edtPassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        mBinding.edtRePassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        mBinding.edtPassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        mBinding.edtRePassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         mBinding.edtMobile.getEditText().setInputType(InputType.TYPE_CLASS_PHONE);
 
     }
@@ -92,8 +87,8 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
     @Override
     protected void onResume() {
         super.onResume();
-        mBinding.tvCountryName.setText(SPUtilHelper.getCountry());
         mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+        ImgUtils.loadActImg(this, SPUtilHelper.getCountryFlag(), mBinding.edtMobile.getLeftImage());
     }
 
 
@@ -102,8 +97,8 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
      */
     private void initListener() {
         //国家区号选择
-        mBinding.linLayoutCountryCode.setOnClickListener(view -> {
-            CountryCodeListActivity.open(this,true);
+        mBinding.edtMobile.getLeftRootView().setOnClickListener(view -> {
+            CountryCodeListActivity.open(this, true);
         });
         mBinding.tvFinish.setOnClickListener(view -> finish());
 
@@ -111,7 +106,7 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSendCOdePresenter.sendCodeRequest(mBinding.edtMobile.getText().toString(), "805063", MyConfig.USERTYPE,SPUtilHelper.getCountryCode(), FindPwdActivity.this);
+                mSendCOdePresenter.sendCodeRequest(mBinding.edtMobile.getText().toString(), "805063", MyConfig.USERTYPE, SPUtilHelper.getCountryCode(), FindLoginPwdActivity.this);
             }
         });
 
@@ -183,7 +178,7 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
 
         addCall(call);
 
-        call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(FindPwdActivity.this) {
+        call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(FindLoginPwdActivity.this) {
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
                 if (data.isSuccess()) {
@@ -207,7 +202,9 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
     @Override
     public void CodeSuccess(String msg) {
         //启动倒计时
-        mSubscription.add(startCodeDown(60, mBinding.edtCode.getSendCodeBtn(), com.cdkj.token.R.drawable.btn_code_blue_bg, com.cdkj.token.R.drawable.gray));
+        //启动倒计时
+        mSubscription.add(AppUtils.startCodeDown(60, mBinding.edtCode.getSendCodeBtn(), R.drawable.btn_code_blue_bg, R.drawable.gray,
+                ContextCompat.getColor(this, R.color.btn_blue), ContextCompat.getColor(this, R.color.white)));
 
     }
 
@@ -236,51 +233,5 @@ public class FindPwdActivity extends AbsBaseActivity implements SendCodeInterfac
         }
     }
 
-    /**
-     * @param count
-     * @param btn
-     * @param enableTrueRes  可以点击样式
-     * @param enableFalseRes 不可以点击样式
-     * @return
-     */
-    public Disposable startCodeDown(final int count, final Button btn, final int enableTrueRes, final int enableFalseRes) {
-        return Observable.interval(0, 1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())    // 创建一个按照给定的时间间隔发射从0开始的整数序列
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .take(count)//只发射开始的N项数据或者一定时间内的数据
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        btn.setEnabled(false);
-                        btn.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.code_down, count));
-                    }
-                })
-                .subscribe(new Consumer<Long>() {
-                               @Override
-                               public void accept(Long aLong) throws Exception {
-                                   btn.setEnabled(false);
-                                   btn.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.code_down, count - aLong));
-                                   btn.setBackgroundResource(enableFalseRes);
-                                   btn.setTextColor(ContextCompat.getColor(FindPwdActivity.this, com.cdkj.token.R.color.white));
-                               }
-                           }, new Consumer<Throwable>() {
-                               @Override
-                               public void accept(Throwable throwable) throws Exception {
-                                   btn.setEnabled(true);
-                                   btn.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.code_down, count));
-                                   btn.setBackgroundResource(enableTrueRes);
-                                   btn.setTextColor(ContextCompat.getColor(FindPwdActivity.this, com.cdkj.token.R.color.btn_blue));
-                               }
-                           }, new Action() {
-                               @Override
-                               public void run() throws Exception {
-                                   btn.setEnabled(true);
-                                   btn.setTextColor(ContextCompat.getColor(FindPwdActivity.this, com.cdkj.token.R.color.btn_blue));
-                                   btn.setText(com.cdkj.baselibrary.R.string.resend_code);
-                                   btn.setBackgroundResource(enableTrueRes);
-                               }
-                           }
-                );
-    }
 
 }

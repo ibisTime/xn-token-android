@@ -16,7 +16,7 @@ public class VersionModel {
     private String note;
     private String downloadUrl;
     private String forceUpdate;
-    private String version;
+    private int version;
 
     public String getNote() {
         return note;
@@ -42,11 +42,11 @@ public class VersionModel {
         this.forceUpdate = forceUpdate;
     }
 
-    public String getVersion() {
+    public int getVersion() {
         return version;
     }
 
-    public void setVersion(String version) {
+    public void setVersion(int version) {
         this.version = version;
     }
 }

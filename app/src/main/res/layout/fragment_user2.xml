@@ -128,7 +128,6 @@
                         app:cardElevation="@dimen/user_fragment_card_elevation">
 
                         <LinearLayout
-
                             android:id="@+id/linLayout_user_account"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"

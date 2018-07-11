@@ -10,16 +10,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.PopupWindow;
 
-import com.cdkj.baselibrary.activitys.AuthenticateActivity;
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.activitys.UpdatePhoneActivity;
-import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserSettingBinding;
 import com.cdkj.token.databinding.PopupGoogleBinding;
+import com.cdkj.token.user.login.SetLoginPwdActivity;
 import com.cdkj.token.user.login.SignInActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -64,20 +63,21 @@ public class UserSettingActivity extends AbsBaseActivity {
 
     private void init() {
         mBinding.tvMail.setText(SPUtilHelper.getUserEmail());
-//        if (SPUtilHelper.getRealName() != null && SPUtilHelper.getRealName().length() > 1) {
-//            String name = "";
-//            for (int i = 1; i < SPUtilHelper.getRealName().length(); i++) {
-//                name += "*";
-//            }
-//            mBinding.tvIdentity.setText(name + SPUtilHelper.getRealName().substring(SPUtilHelper.getRealName().length() - 1, SPUtilHelper.getRealName().length()));
-//        }
-//         mBinding.tvMobile.setText(SPUtilHelper.getUserPhoneNum().substring(0, 3) + "****" + SPUtilHelper.getUserPhoneNum().substring(SPUtilHelper.getUserPhoneNum().length() - 4, SPUtilHelper.getUserPhoneNum().length()));
 
         if (!SPUtilHelper.getGoogleAuthFlag()) { // 未打开谷歌验证
             mBinding.tvGoogle.setText(getStrRes(R.string.user_google_close));
         } else {
             mBinding.tvGoogle.setText(getStrRes(R.string.user_google_open));
         }
+
+
+        if (SPUtilHelper.getLoginPwdFlag()) { // 未打开谷歌验证
+            mBinding.tvPwdState.setText(getStrRes(R.string.user_setting_password));
+        } else {
+            mBinding.tvPwdState.setText(R.string.set_login_pwd);
+        }
+
+
     }
 
     private void initListener() {
@@ -101,8 +101,13 @@ public class UserSettingActivity extends AbsBaseActivity {
             UpdatePhoneActivity.open(this);
         });
 
+        //登录密码
         mBinding.llPassword.setOnClickListener(view -> {
-            UserPasswordActivity.open(this);
+
+            SetLoginPwdActivity.open(this);
+
+//            UpdateLoginPasswordActivity.open(this);
+
         });
 
         mBinding.llGoogle.setOnClickListener(view -> {

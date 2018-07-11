@@ -31,6 +31,8 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.MsgListActivity;
 import com.cdkj.token.consult.NoneActivity;
 import com.cdkj.token.databinding.FragmentWallet2Binding;
+import com.cdkj.token.interfaces.LocalCoinCacheInterface;
+import com.cdkj.token.interfaces.LocalCoinCachePresenter;
 import com.cdkj.token.model.AddCoinChangeEvent;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.CoinModel;
@@ -77,6 +79,8 @@ public class WalletFragment extends BaseLazyFragment {
     private boolean isPrivateWallet;//当前是否是私密钱包
     private CommonDialog commonDialog;
 
+    private LocalCoinCachePresenter mlLocalCoinCachePresenter;
+
 
     @Nullable
     @Override
@@ -94,8 +98,30 @@ public class WalletFragment extends BaseLazyFragment {
 
         getMsgRequest();
 
-        getWalletAssetsData(true, true);
+        initLocalCoinPresenter();
+
+        mlLocalCoinCachePresenter.getCoinList(mActivity, false);  //开始时请求币种缓存
+
+        getWalletAssetsData(true, false);
+
         return mBinding.getRoot();
+    }
+
+    /**
+     * 本地币种缓存
+     */
+    void initLocalCoinPresenter() {
+        mlLocalCoinCachePresenter = new LocalCoinCachePresenter(new LocalCoinCacheInterface() {
+            @Override
+            public void cacheEnd(List<LocalCoinDbModel> data) {
+                if (isPrivateWallet) {
+                    getPriWalletAssetsData(true, false);
+                } else {
+                    getWalletAssetsData(false, false);
+                }
+            }
+
+        });
     }
 
     /**
@@ -196,10 +222,6 @@ public class WalletFragment extends BaseLazyFragment {
 
         switch (index) {
             case BOTTOMVIEW:                                         //私密钱包
-
-//                ObjectAnimator.ofFloat(mBinding.bluePoint, "TranslationX", 0, 35).setDuration(80).start();
-//                ObjectAnimator.ofFloat(mBinding.grayPoint, "TranslationX", 0, -35).setDuration(80).start();
-
                 mBinding.linLayoutPrivateWalletPoint.setVisibility(View.VISIBLE);
                 mBinding.linLayoutMyWalletPoint.setVisibility(View.GONE);
 
@@ -209,15 +231,12 @@ public class WalletFragment extends BaseLazyFragment {
                 mBinding.imgChange.setImageResource(R.drawable.change_red);
                 mBinding.imgTransfer.setImageResource(R.drawable.transfer_red);
                 getPriWalletAssetsData(true, true);
-
                 break;
+
             case TOPVIEW:                                         //个人钱包
 
-//                ObjectAnimator.ofFloat(mBinding.bluePoint, "TranslationX", 35, 0).setDuration(80).start();
-//                ObjectAnimator.ofFloat(mBinding.grayPoint, "TranslationX", -35, 0).setDuration(80).start();
                 mBinding.linLayoutPrivateWalletPoint.setVisibility(View.GONE);
                 mBinding.linLayoutMyWalletPoint.setVisibility(View.VISIBLE);
-
                 isPrivateWallet = false;
                 mBinding.imgAddCoin.setVisibility(View.GONE);
                 mBinding.imgChange.setImageResource(R.drawable.change_blue);
@@ -260,12 +279,7 @@ public class WalletFragment extends BaseLazyFragment {
 
             @Override
             public void onRefresh(int pageindex, int limit) {
-                if (isPrivateWallet) {
-                    getPriWalletAssetsData(true, false);
-                } else {
-                    getWalletAssetsData(false, false);
-                }
-
+                mlLocalCoinCachePresenter.getCoinList(mActivity, true);
             }
 
             @Override
@@ -273,28 +287,19 @@ public class WalletFragment extends BaseLazyFragment {
             }
         });
 
-        setRecyclerViewLayoutManager(mBinding.rvWallet);
+        mBinding.rvWallet.setLayoutManager(getRecyclerViewLayoutManager());
+
+        mBinding.rvWallet.setNestedScrollingEnabled(false);
 
         mRefreshHelper.init(10);
     }
 
-    private void setRecyclerViewLayoutManager(RecyclerView rv) {
-        rv.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false) {
-            @Override
-            public boolean canScrollVertically() {
-                return false;
-            }
-        });
-
-        rv.setNestedScrollingEnabled(false);
-    }
 
     @Override
     protected void lazyLoad() {
         if (mBinding == null) {
             return;
         }
-        getWalletAssetsData(true, true);
         getMsgRequest();
     }
 
@@ -646,10 +651,29 @@ public class WalletFragment extends BaseLazyFragment {
         commonDialog.show();
     }
 
+
+    /**
+     * 获取 LinearLayoutManager
+     *
+     * @return LinearLayoutManager
+     */
+    private LinearLayoutManager getRecyclerViewLayoutManager() {
+        return new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        };
+
+    }
+
     @Override
     public void onDestroy() {
         if (commonDialog != null) {
             commonDialog.closeDialog();
+        }
+        if (mlLocalCoinCachePresenter != null) {
+            mlLocalCoinCachePresenter.clear();
         }
         super.onDestroy();
     }

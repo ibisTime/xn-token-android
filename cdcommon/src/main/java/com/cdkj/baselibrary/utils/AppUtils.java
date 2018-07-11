@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.provider.ContactsContract;
 import android.provider.Settings;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Button;
@@ -184,6 +185,58 @@ public class AppUtils {
                                    btn.setEnabled(true);
                                    btn.setText(R.string.resend_code);
                                    btn.setBackgroundResource(R.drawable.selector_blue);
+                               }
+                           }
+                );
+    }
+
+
+    /**
+     * @param count
+     * @param btn
+     * @param enableTrueRes  可以点击样式
+     * @param enableFalseRes 不可以点击样式
+     * @return
+     */
+    public static Disposable startCodeDown(final int count, final Button btn,
+                                    final int enableTrueRes, final int enableFalseRes,
+                                    final int enableTrueTextColor, final int enableFalseTextColor) {
+        return Observable.interval(0, 1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())    // 创建一个按照给定的时间间隔发射从0开始的整数序列
+                .subscribeOn(AndroidSchedulers.mainThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .take(count)//只发射开始的N项数据或者一定时间内的数据
+                .doOnSubscribe(new Consumer<Disposable>() {
+                    @Override
+                    public void accept(Disposable disposable) throws Exception {
+                        btn.setEnabled(false);
+                        btn.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.code_down, count));
+                        btn.setBackgroundResource(enableFalseRes);
+                        btn.setTextColor(enableFalseTextColor);
+                    }
+                })
+                .subscribe(new Consumer<Long>() {
+                               @Override
+                               public void accept(Long aLong) throws Exception {
+                                   btn.setEnabled(false);
+                                   btn.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.code_down, count - aLong));
+                                   btn.setBackgroundResource(enableFalseRes);
+                                   btn.setTextColor(enableFalseTextColor);
+                               }
+                           }, new Consumer<Throwable>() {
+                               @Override
+                               public void accept(Throwable throwable) throws Exception {
+                                   btn.setEnabled(true);
+                                   btn.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.code_down, count));
+                                   btn.setBackgroundResource(enableTrueRes);
+                                   btn.setTextColor(enableTrueTextColor);
+                               }
+                           }, new Action() {
+                               @Override
+                               public void run() throws Exception {
+                                   btn.setEnabled(true);
+                                   btn.setTextColor(enableTrueTextColor);
+                                   btn.setText(com.cdkj.baselibrary.R.string.resend_code);
+                                   btn.setBackgroundResource(enableTrueRes);
                                }
                            }
                 );

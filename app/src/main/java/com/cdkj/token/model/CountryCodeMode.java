@@ -25,6 +25,15 @@ public class CountryCodeMode {
     private String continent;
     private int orderNo;
     private String status;
+    private String pic;
+
+    public String getPic() {
+        return pic;
+    }
+
+    public void setPic(String pic) {
+        this.pic = pic;
+    }
 
     public String getInterCode() {
         return interCode;

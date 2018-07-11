@@ -35,10 +35,19 @@ public class UserInfoModel {
     private String systemCode;
     private boolean tradepwdFlag;
     private boolean googleAuthFlag;
+    private boolean loginPwdFlag;  //是否设置过登录密码
     private int totalFollowNum;
     private int totalFansNum;
     private RefereeUserBean refereeUser;
     private UserStatisticsBean userStatistics;
+
+    public boolean isLoginPwdFlag() {
+        return loginPwdFlag;
+    }
+
+    public void setLoginPwdFlag(boolean loginPwdFlag) {
+        this.loginPwdFlag = loginPwdFlag;
+    }
 
     public String getSecretUserId() {
         return secretUserId;

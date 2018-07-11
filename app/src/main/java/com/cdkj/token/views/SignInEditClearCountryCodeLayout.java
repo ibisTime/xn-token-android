@@ -11,6 +11,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -108,4 +109,17 @@ public class SignInEditClearCountryCodeLayout extends LinearLayout {
     public TextView getLeftTextView() {
         return mBinding.countryCode;
     }
+
+    public ImageView getLeftImage() {
+        return mBinding.imgCountry;
+    }
+
+    public View getLeftRootView() {
+        return mBinding.linLayoutCountry;
+    }
+
+    public void setDownImgVisibilityGone() {
+        mBinding.imgDown.setVisibility(GONE);
+    }
+
 }

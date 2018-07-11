@@ -140,6 +140,13 @@ public class RefreshHelper<T> {
         });
     }
 
+    public void setEnbleRefreshAndLoad() {
+        if (mRefreshLayout != null) {
+            mRefreshLayout.setEnableLoadmore(false);
+            mRefreshLayout.setEnableRefresh(false);
+        }
+    }
+
     //执行默认刷新 mPageIndex变为一
     public void onDefaluteMRefresh(boolean isShowDialog) {
         mPageIndex = 1;

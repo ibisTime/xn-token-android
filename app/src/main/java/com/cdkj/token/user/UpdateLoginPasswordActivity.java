@@ -28,7 +28,7 @@ import static com.cdkj.baselibrary.utils.SystemUtils.paste;
 /**
  * 找回密码
  */
-public class UserPasswordActivity extends AbsBaseActivity {
+public class UpdateLoginPasswordActivity extends AbsBaseActivity {
 
     private ActivityUserPasswordBinding mBinding;
 
@@ -41,7 +41,7 @@ public class UserPasswordActivity extends AbsBaseActivity {
         if (context == null) {
             return;
         }
-        Intent intent = new Intent(context, UserPasswordActivity.class);
+        Intent intent = new Intent(context, UpdateLoginPasswordActivity.class);
         context.startActivity(intent);
     }
 
@@ -129,7 +129,7 @@ public class UserPasswordActivity extends AbsBaseActivity {
 
         addCall(call);
 
-        call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(UserPasswordActivity.this) {
+        call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(UpdateLoginPasswordActivity.this) {
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
                 if (data.isSuccess()) {

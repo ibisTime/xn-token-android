@@ -1,7 +1,6 @@
 package com.cdkj.token.adapter;
 
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.cdkj.baselibrary.utils.DateUtil;
@@ -34,6 +33,6 @@ public class MyGetRedPackageAdapter extends BaseQuickAdapter<MyGetRedPackageBean
         helper.setText(R.id.tv_rmb_money, MoneyUtils.MONEYSING + item.getRedPacketInfo().getTotalCountCNY());
         ImageView iv_user_head = helper.getView(R.id.iv_user_head);
 
-        ImgUtils.loadAvatar(mContext, item.getRedPacketInfo().getSendUserPhoto(), iv_user_head);
+        ImgUtils.loadLogo(mContext, item.getRedPacketInfo().getSendUserPhoto(), iv_user_head);
     }
 }

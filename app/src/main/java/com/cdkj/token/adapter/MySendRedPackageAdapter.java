@@ -30,6 +30,6 @@ public class MySendRedPackageAdapter extends BaseQuickAdapter<MySendRedPackageBe
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getCreateDateTime(), DateUtil.DATE_MMddHHmm));
         helper.setText(R.id.tv_rmb_money, MoneyUtils.MONEYSING + item.getTotalCountCNY() + "");
         ImageView iv_user_head = helper.getView(R.id.iv_user_head);
-        ImgUtils.loadAvatar(mContext, item.getSendUserPhoto(), iv_user_head);
+        ImgUtils.loadLogo(mContext, item.getSendUserPhoto(), iv_user_head);
     }
 }

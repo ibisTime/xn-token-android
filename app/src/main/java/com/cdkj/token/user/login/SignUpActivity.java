@@ -21,6 +21,8 @@ import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.AppUtils;
+import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MainActivity;
@@ -91,21 +93,22 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
     @Override
     protected void onResume() {
         super.onResume();
-        mBinding.tvCountryName.setText(SPUtilHelper.getCountry());
         mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+        ImgUtils.loadActImg(this, SPUtilHelper.getCountryFlag(), mBinding.edtMobile.getLeftImage());
     }
+
 
 
     private void initListener() {
         //国家区号选择
-        mBinding.linLayoutCountryCode.setOnClickListener(view -> {
-            CountryCodeListActivity.open(this,true);
+        mBinding.edtMobile.getLeftRootView().setOnClickListener(view -> {
+            CountryCodeListActivity.open(this, true);
         });
         mBinding.tvFinish.setOnClickListener(view -> finish());
 
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(view -> {
             if (check("code")) {
-                mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(), "805041", "C",SPUtilHelper.getCountryCode(), this);
+                mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(), "805041", "C", SPUtilHelper.getCountryCode(), this);
             }
         });
 
@@ -202,7 +205,8 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
     @Override
     public void CodeSuccess(String msg) {
         //启动倒计时
-        mSubscription.add(startCodeDown(60, mBinding.edtCode.getSendCodeBtn(), R.drawable.btn_code_blue_bg, R.drawable.gray));
+        mSubscription.add(AppUtils.startCodeDown(60, mBinding.edtCode.getSendCodeBtn(), R.drawable.btn_code_blue_bg, R.drawable.gray,
+                ContextCompat.getColor(this, R.color.btn_blue), ContextCompat.getColor(this, R.color.white)));
 
     }
 
@@ -229,54 +233,5 @@ public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface
             mPresenter = null;
         }
     }
-
-
-    /**
-     * @param count
-     * @param btn
-     * @param enableTrueRes  可以点击样式
-     * @param enableFalseRes 不可以点击样式
-     * @return
-     */
-    public Disposable startCodeDown(final int count, final Button btn, final int enableTrueRes, final int enableFalseRes) {
-        return Observable.interval(0, 1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())    // 创建一个按照给定的时间间隔发射从0开始的整数序列
-                .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .take(count)//只发射开始的N项数据或者一定时间内的数据
-                .doOnSubscribe(new Consumer<Disposable>() {
-                    @Override
-                    public void accept(Disposable disposable) throws Exception {
-                        btn.setEnabled(false);
-                        btn.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.code_down, count));
-                    }
-                })
-                .subscribe(new Consumer<Long>() {
-                               @Override
-                               public void accept(Long aLong) throws Exception {
-                                   btn.setEnabled(false);
-                                   btn.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.code_down, count - aLong));
-                                   btn.setBackgroundResource(enableFalseRes);
-                                   btn.setTextColor(ContextCompat.getColor(SignUpActivity.this, R.color.white));
-                               }
-                           }, new Consumer<Throwable>() {
-                               @Override
-                               public void accept(Throwable throwable) throws Exception {
-                                   btn.setEnabled(true);
-                                   btn.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.code_down, count));
-                                   btn.setBackgroundResource(enableTrueRes);
-                                   btn.setTextColor(ContextCompat.getColor(SignUpActivity.this, R.color.btn_blue));
-                               }
-                           }, new Action() {
-                               @Override
-                               public void run() throws Exception {
-                                   btn.setEnabled(true);
-                                   btn.setTextColor(ContextCompat.getColor(SignUpActivity.this, R.color.btn_blue));
-                                   btn.setText(com.cdkj.baselibrary.R.string.resend_code);
-                                   btn.setBackgroundResource(enableTrueRes);
-                               }
-                           }
-                );
-    }
-
 
 }
