@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.model.EventBusModel;
@@ -20,6 +19,9 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.Locale;
 
 import static com.cdkj.baselibrary.appmanager.EventTags.EVENT_REFRESH_LANGUAGE;
+import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
+import static com.cdkj.baselibrary.appmanager.MyConfig.SIMPLIFIED;
+import static com.cdkj.baselibrary.appmanager.MyConfig.TRADITIONAL;
 
 /**
  * Created by lei on 2017/12/7.

@@ -19,7 +19,7 @@ import org.litepal.LitePal;
 
 public class MyApplication extends Application {
 
-    public static Application application;
+    public  static Application application;
 
     @Override
     public void onCreate() {

@@ -31,7 +31,7 @@ public class LoginPresenter {
     }
 
     //处理登录逻辑
-    public void login(String username, String password, Context context) {
+    public void login(String username, String password, String countryCode, Context context) {
         this.mContext = context;
         if (TextUtils.isEmpty(username)) {
             ToastUtil.show(context, CdApplication.getContext().getString(R.string.please_input_account));
@@ -41,10 +41,13 @@ public class LoginPresenter {
             ToastUtil.show(context, CdApplication.getContext().getString(R.string.activity_find_password_hint));
             return;
         }
+
+
         HashMap<String, String> hashMap = new HashMap<>();
 
         hashMap.put("loginName", username);
         hashMap.put("loginPwd", password);
+        hashMap.put("interCode", countryCode); //国际区号
         hashMap.put("kind", MyConfig.USERTYPE);
         hashMap.put("systemCode", MyConfig.SYSTEMCODE);
 

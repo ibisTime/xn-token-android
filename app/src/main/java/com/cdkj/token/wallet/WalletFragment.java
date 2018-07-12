@@ -76,10 +76,11 @@ public class WalletFragment extends BaseLazyFragment {
     private RefreshHelper mRefreshHelper;
     private List<CoinTypeAndAddress> mChooseCoinList;
 
-    private boolean isPrivateWallet;//当前是否是私密钱包
+    private boolean isPrivateWallet = false;//当前是否是私密钱包 默认我的钱包
     private CommonDialog commonDialog;
-
     private LocalCoinCachePresenter mlLocalCoinCachePresenter;
+
+    private boolean isFirstCache = false;//是否进行了第一次币种缓存
 
 
     @Nullable
@@ -100,9 +101,7 @@ public class WalletFragment extends BaseLazyFragment {
 
         initLocalCoinPresenter();
 
-        mlLocalCoinCachePresenter.getCoinList(mActivity, false);  //开始时请求币种缓存
-
-        getWalletAssetsData(true, false);
+        mlLocalCoinCachePresenter.getCoinList(mActivity, true);  //开始时请求币种缓存
 
         return mBinding.getRoot();
     }
@@ -117,7 +116,12 @@ public class WalletFragment extends BaseLazyFragment {
                 if (isPrivateWallet) {
                     getPriWalletAssetsData(true, false);
                 } else {
-                    getWalletAssetsData(false, false);
+                    if (isFirstCache) {
+                        getWalletAssetsData(false, false);
+                    } else {
+                        getWalletAssetsData(true, true);
+                    }
+                    isFirstCache = true;
                 }
             }
 
@@ -224,8 +228,6 @@ public class WalletFragment extends BaseLazyFragment {
             case BOTTOMVIEW:                                         //私密钱包
                 mBinding.linLayoutPrivateWalletPoint.setVisibility(View.VISIBLE);
                 mBinding.linLayoutMyWalletPoint.setVisibility(View.GONE);
-
-
                 isPrivateWallet = true;
                 mBinding.imgAddCoin.setVisibility(View.VISIBLE);
                 mBinding.imgChange.setImageResource(R.drawable.change_red);
@@ -234,7 +236,6 @@ public class WalletFragment extends BaseLazyFragment {
                 break;
 
             case TOPVIEW:                                         //个人钱包
-
                 mBinding.linLayoutPrivateWalletPoint.setVisibility(View.GONE);
                 mBinding.linLayoutMyWalletPoint.setVisibility(View.VISIBLE);
                 isPrivateWallet = false;

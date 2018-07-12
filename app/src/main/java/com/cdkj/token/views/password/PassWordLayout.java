@@ -326,10 +326,6 @@ public class PassWordLayout extends LinearLayout {
 
     private class ZanyInputConnection extends BaseInputConnection {
 
-        @Override
-        public boolean commitText(CharSequence txt, int newCursorPosition) {
-            return super.commitText(txt, newCursorPosition);
-        }
 
         public ZanyInputConnection(View targetView, boolean fullEditor) {
             super(targetView, fullEditor);

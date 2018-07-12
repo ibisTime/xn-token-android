@@ -38,6 +38,16 @@ public class ImgUtils {
         } catch (Exception e) {
         }
     }
+    public static void loadByte(Activity context, byte[] imgid, ImageView img) {
+        if (!AppUtils.isActivityExist(context)) {
+            return;
+        }
+        if (context == null || img == null) {
+            return;
+        }
+
+        Glide.with(context).load(imgid).dontAnimate().into(img);
+    }
 
     static boolean isHaveHttp(String imgid) {
         if (TextUtils.isEmpty(imgid)) {

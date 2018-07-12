@@ -383,10 +383,7 @@ public class InputDialog {
         return this;
     }
     /** end----------------------------------------- */
-    
-    public TextView getTitleView() {
-        return this.getTitleView();
-    }
+
 
     public EditText getContentView() {
         return this.mContentInput;

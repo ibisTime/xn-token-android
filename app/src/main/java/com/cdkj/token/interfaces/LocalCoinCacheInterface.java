@@ -10,5 +10,5 @@ import java.util.List;
  */
 
 public interface LocalCoinCacheInterface {
-    void cacheEnd(List<LocalCoinDbModel> data);    //币种缓存结束 是否缓存结束
+    void cacheEnd(List<LocalCoinDbModel> data);
 }

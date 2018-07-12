@@ -46,13 +46,32 @@ import com.cdkj.token.model.db.LocalCoinDbModel;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.Url;
 
 /**
  * Created by lei on 2017/10/19.
  */
 
 public interface MyApi {
+    /**
+     * 根据Ip获取国家信息
+     *
+     * @return
+     */
+    @Headers({
+            "Accept: text/html, application/xhtml+xml, application/xml; q=0.9, */*; q=0.8",
+            "Cache-Control: no-cache",
+            "Connection: Keep-Alive",
+            "Host: ip.taobao.com",
+            "Upgrade-Insecure-Requests: 1",
+            "User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/64.0.3282.140 Safari/537.36 Edge/17.17134",
+    })
+    @GET
+    Call<String> getCountryInfoByIp(@Url String url);
+
     /**
      * 获取国家列表
      *
@@ -79,7 +98,8 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<BalanceListModel>> getBalanceList(@Field("code") String code, @Field("json") String json);
- /**
+
+    /**
      * 根据币种列表获取相应的币种信息列表
      *
      * @return
@@ -499,62 +519,62 @@ public interface MyApi {
     @POST("api")
     Call<BaseResponseModel<VersionModel>> getVersion(@Field("code") String code, @Field("json") String json);
 
-     /**
-    * 获取支持的币种
-    *
-    * @param code
-    * @param json
-    * @return
-    */
-   @FormUrlEncoded
-   @POST("api")
-   Call<BaseResponseListModel<LocalCoinDbModel>> getCoinList(@Field("code") String code, @Field("json") String json);
-
-
-   /**
-    * 发红包
-    *
-    * @param code
-    * @param json
-    * @return
-    */
-   @FormUrlEncoded
-   @POST("api")
-   Call<BaseResponseModel<RedPackageHistoryBean>> sendRedPackage(@Field("code") String code, @Field("json") String json);
+    /**
+     * 获取支持的币种
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseListModel<LocalCoinDbModel>> getCoinList(@Field("code") String code, @Field("json") String json);
 
 
     /**
-    * 获取我发送的红包数据
-    *
-    * @param code
-    * @param json
-    * @return
-    */
-   @FormUrlEncoded
-   @POST("api")
-   Call<BaseResponseModel<ResponseInListModel<MySendRedPackageBean.ListBean>>> getSendRedPackage(@Field("code") String code, @Field("json") String json);
+     * 发红包
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<RedPackageHistoryBean>> sendRedPackage(@Field("code") String code, @Field("json") String json);
 
-   /**
-    * 获取我抢的红包数据
-    *
-    * @param code
-    * @param json
-    * @return
-    */
-   @FormUrlEncoded
-   @POST("api")
-   Call<BaseResponseModel<ResponseInListModel<MyGetRedPackageBean>>> getGetRedPackage(@Field("code") String code, @Field("json") String json);
 
-   /**
-    * 红包详情
-    *
-    * @param code
-    * @param json
-    * @return
-    */
-   @FormUrlEncoded
-   @POST("api")
-   Call<BaseResponseModel<RedPackageDetialsBean>> getRedPackageDetails(@Field("code") String code, @Field("json") String json);
+    /**
+     * 获取我发送的红包数据
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ResponseInListModel<MySendRedPackageBean.ListBean>>> getSendRedPackage(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取我抢的红包数据
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ResponseInListModel<MyGetRedPackageBean>>> getGetRedPackage(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 红包详情
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<RedPackageDetialsBean>> getRedPackageDetails(@Field("code") String code, @Field("json") String json);
 
 
 }

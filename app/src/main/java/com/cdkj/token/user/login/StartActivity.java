@@ -4,14 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.fastjson.JSON;
+import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
-import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
+import com.cdkj.baselibrary.utils.LogUtil;
+import com.cdkj.baselibrary.utils.SystemUtils;
+import com.cdkj.token.model.CountryCodeMode;
+import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -20,12 +26,7 @@ import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
-import com.cdkj.token.utils.wallet.WalletHelper;
 
-import org.litepal.crud.DataSupport;
-import org.spongycastle.asn1.esf.SPuri;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -35,9 +36,8 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
-
-import static com.cdkj.token.utils.CoinUtil.COIN_SYMBOL_SPACE_SYMBOL;
-import static com.cdkj.token.utils.CoinUtil.updateLocalCoinList;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @Route(path = CdRouteHelper.APPSTART)
 public class StartActivity extends BaseActivity {
@@ -69,27 +69,81 @@ public class StartActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getQiniu();
+        getQiniuAndNextTo();  //获取七牛地址
     }
 
-    private void nextTo() {
-        mSubscription.add(Observable.timer(1, TimeUnit.SECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(isLogin -> {//延迟两秒进行跳转
-                    if (!SPUtilHelper.isLogin(this, false)) {
-                        finish();
-                        return;
+    /**
+     * 获取IP地址并匹配国家
+     */
+    private void getIpAndCheckCountry() {
+        mSubscription.add(Observable.just("")
+                .subscribeOn(Schedulers.newThread())
+                .map(s -> {
+                    return SystemUtils.getPublicIp(false);
+                })
+                .subscribe(s -> {
+                    getCountryInfo(s);
+                }, throwable -> {
+                    checkCountryAfterNext();
+                }));
+    }
+
+    /**
+     * 获取国家信息
+     */
+    private void getCountryInfo(String ip) {
+
+        Call<String> call = RetrofitUtils.createApi(MyApi.class).getCountryInfoByIp("http://ip.taobao.com/service/getIpInfo.php?ip=" + ip);
+
+        addCall(call);
+
+        call.enqueue(new Callback<String>() {
+            @Override
+            public void onResponse(Call<String> call, Response<String> response) {
+                try {
+                    IpCountryInfo ipCountryInfo = JSON.parseObject(response.body(), IpCountryInfo.class);
+                    if (ipCountryInfo != null && ipCountryInfo.getData() != null) {
+                        getCountryListRequestAndCheck(ipCountryInfo.getData().getCountry_id());
                     }
-                    MainActivity.open(this);
-                    finish();
-                }, Throwable::printStackTrace));
+
+                } catch (Exception e) {
+                    checkCountryAfterNext();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<String> call, Throwable t) {
+                checkCountryAfterNext();
+            }
+        });
+
+    }
+
+    /**
+     * 获取七牛之后 判断用户是否登录 没登陆进行国家匹配
+     */
+    private void qiniuAfternext() {
+        if (SPUtilHelper.isLoginNoStart()) {
+            MainActivity.open(this);
+            finish();
+        } else {
+            getIpAndCheckCountry();
+        }
+    }
+
+    /**
+     * 进行国家匹配 之后
+     */
+    private void checkCountryAfterNext() {
+        SignInActivity.open(this, true);
+        finish();
     }
 
 
     /**
      * 获取七牛服务器链接
      */
-    public void getQiniu() {
+    public void getQiniuAndNextTo() {
         Map<String, String> map = new HashMap<>();
         map.put("ckey", "qiniu_domain");
         map.put("systemCode", MyConfig.SYSTEMCODE);
@@ -104,7 +158,7 @@ public class StartActivity extends BaseActivity {
             @Override
             protected void onSuccess(SystemParameterModel data, String SucMessage) {
                 SPUtilHelper.saveQiniuUrl(data.getCvalue());
-                nextTo();
+                qiniuAfternext();
             }
 
             @Override
@@ -114,7 +168,7 @@ public class StartActivity extends BaseActivity {
 
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
-                nextTo();
+                qiniuAfternext();
             }
 
             @Override
@@ -122,5 +176,56 @@ public class StartActivity extends BaseActivity {
             }
         });
     }
+
+
+    /**
+     * 获取国家列表
+     */
+    public void getCountryListRequestAndCheck(String countryId) {
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("status", "1");//status
+
+        Call<BaseResponseListModel<CountryCodeMode>> call = RetrofitUtils.createApi(MyApi.class).getCountryList("801120", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        call.enqueue(new BaseResponseListCallBack<CountryCodeMode>(this) {
+            @Override
+            protected void onSuccess(List<CountryCodeMode> data, String SucMessage) {
+                checkCountryAndSave(data, countryId);
+                checkCountryAfterNext();
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+                checkCountryAfterNext();
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+    }
+
+    /**
+     * 通过传入的Id比对国家并保存国家信息
+     *
+     * @param data
+     * @param countryId
+     */
+    private void checkCountryAndSave(List<CountryCodeMode> data, String countryId) {
+        for (CountryCodeMode datum : data) {
+            if (datum == null) continue;
+            if (TextUtils.equals(countryId, datum.getInterSimpleCode())) {
+                SPUtilHelper.saveCountryCode(datum.getInterCode());
+                SPUtilHelper.saveCountryFlag(datum.getPic());
+                break;
+            }
+        }
+    }
+
 
 }

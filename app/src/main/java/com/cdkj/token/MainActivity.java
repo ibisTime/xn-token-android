@@ -221,6 +221,11 @@ public class MainActivity extends AbsBaseActivity {
             }
 
             @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+
+            }
+
+            @Override
             protected void onFinish() {
                 disMissLoading();
             }

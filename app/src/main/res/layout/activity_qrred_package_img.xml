@@ -16,6 +16,7 @@
             android:background="@mipmap/icon_qr_code_bg">
 
             <ImageView
+                android:visibility="invisible"
                 android:id="@+id/iv_qr_img"
                 android:layout_width="200dp"
                 android:layout_height="200dp"

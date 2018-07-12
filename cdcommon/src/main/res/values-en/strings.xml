@@ -1,4 +1,5 @@
 <resources>
+    <string name="money_sing">￥</string>
     <string name="activity_find_code_hint"> Enter code </string>
 
     <string name="activity_find_google_hint">Google Please authentication code enter

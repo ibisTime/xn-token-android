@@ -5,6 +5,7 @@ import android.text.TextUtils;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.CountryCodeMode;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -12,8 +13,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
-import static com.cdkj.baselibrary.base.BaseActivity.ENGLISH;
-import static com.cdkj.baselibrary.utils.StringUtils.transformShowCountryCode;
+import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
+
 
 /**
  * 国家编号列表
@@ -31,7 +32,7 @@ public class CountryCodeListAdapter extends BaseQuickAdapter<CountryCodeMode, Ba
     @Override
     protected void convert(BaseViewHolder helper, CountryCodeMode item) {
 
-        helper.setText(R.id.tv_country, getSelectCountryName(helper.getLayoutPosition()) + "     " + transformShowCountryCode(item.getInterCode()));
+        helper.setText(R.id.tv_country, getSelectCountryName(helper.getLayoutPosition()) + "     " + StringUtils.transformShowCountryCode(item.getInterCode()));
 
         ImgUtils.loadImage(mContext, item.getPic(), helper.getView(R.id.img_country));
 

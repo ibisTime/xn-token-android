@@ -429,7 +429,7 @@
     <string name="send_red_package2">发出红包</string>
     <string name="sub_total_red_package">总共发送</string>
     <string name="red_package_db">代币类型</string>
-    <string name="red_package_sub_total">代币总量</string>
+    <string name="red_package_sub_total">代币总额</string>
     <string name="red_package_unit">枚</string>
     <string name="red_package_number">红包个数</string>
     <string name="red_package_number_unit">个</string>

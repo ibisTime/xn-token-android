@@ -119,7 +119,7 @@
     <string name="user_address_delete_success">删除成功</string>
 
     <string name="user_title_language">语言设置</string>
-    <string name="user_language_english">Wnglish</string>
+    <string name="user_language_english">English</string>
     <string name="user_language_simplified">中文简体</string>
     <string name="user_language_traditional">中文繁体</string>
 
@@ -429,7 +429,7 @@
     <string name="send_red_package2">发出红包</string>
     <string name="sub_total_red_package">总共发送</string>
     <string name="red_package_db">代币类型</string>
-    <string name="red_package_sub_total">代币总量</string>
+    <string name="red_package_sub_total">代币总额</string>
     <string name="red_package_unit">枚</string>
     <string name="red_package_number">红包个数</string>
     <string name="red_package_number_unit">个</string>

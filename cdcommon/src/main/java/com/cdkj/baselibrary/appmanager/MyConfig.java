@@ -5,7 +5,6 @@ import android.text.TextUtils;
 
 import com.cdkj.baselibrary.utils.LogUtil;
 
-import static com.cdkj.baselibrary.base.BaseActivity.ENGLISH;
 
 public class MyConfig {
 
@@ -15,6 +14,11 @@ public class MyConfig {
 
     public final static int NODE_DEV = 0; //研发测试环境
     public final static int NODE_REALSE = 1;//真实环境
+
+
+    public static final String TRADITIONAL = "traditional";
+    public static final String SIMPLIFIED = "simplified";
+    public static final String ENGLISH = "english";
 
 
     // app运行环境
@@ -36,14 +40,14 @@ public class MyConfig {
      * @return
      */
     public static int getThisNodeType() {
-        return NODE_DEV;
+        return NODE_REALSE;
     }
 
     // 环境访问地址
     public static final String BASE_URL_DEV = "http://120.26.6.213:2101/forward-service/"; // 研发
     public static final String BASE_URL_TEST = "http://120.26.6.213:2101/forward-service/"; // 测试
-        public static final String BASE_URL_ONLINE = "http://120.26.6.213:2101/forward-service/"; // 测试
-//    public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
+    //        public static final String BASE_URL_ONLINE = "http://120.26.6.213:2101/forward-service/"; // 测试
+    public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
 
 
     /**
@@ -63,36 +67,6 @@ public class MyConfig {
             // 线上
             return MyConfig.BASE_URL_ONLINE;
         }
-    }
-
-
-    /**
-     * 获取红包分享路径
-     *
-     * @param redPackageCode
-     * @return
-     */
-    public static String getRedPacketShareUrl(String redPackageCode, String inviteCode) {
-
-        StringBuffer stringBuffer = new StringBuffer();
-
-        if (LogUtil.isLog) {
-            stringBuffer.append("http://m.thadev.hichengdai.com/redPacket/receive.html");//研发
-        } else {
-            stringBuffer.append("http://m.thachain.org/redPacket/receive.html");//正式
-        }
-
-        stringBuffer.append("?code=" + redPackageCode);//红包码
-
-        stringBuffer.append("&inviteCode=" + inviteCode);// 邀请码
-
-        if (TextUtils.equals(SPUtilHelper.getLanguage(), ENGLISH)) { //国际化
-            stringBuffer.append("&lang=en");
-        } else {
-            stringBuffer.append("&lang=cn");
-        }
-
-        return stringBuffer.toString();
     }
 
 }

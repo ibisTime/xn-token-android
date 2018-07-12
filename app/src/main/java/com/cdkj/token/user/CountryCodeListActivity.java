@@ -56,7 +56,6 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
         CountryCodeListAdapter countryCodeListAdapter = new CountryCodeListAdapter(listData);
         countryCodeListAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (isSave) {
-                SPUtilHelper.saveCountry(countryCodeListAdapter.getSelectCountryName(position));
                 SPUtilHelper.saveCountryCode(countryCodeListAdapter.getSelectCountryCode(position));
                 SPUtilHelper.saveCountryFlag(countryCodeListAdapter.getSelectPic(position));
 
@@ -88,6 +87,7 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
 
         Call<BaseResponseListModel<CountryCodeMode>> call = RetrofitUtils.createApi(MyApi.class).getCountryList("801120", StringUtils.getJsonToString(map));
 
+        addCall(call);
         if (isShowDialog) {
             showLoadingDialog();
         }

@@ -216,7 +216,10 @@ public class LocalCoinDbModel extends DataSupport implements Cloneable {
     public boolean equals(Object obj) {
         if (obj == null) return false;
         if (obj == this) return true;
-        LocalCoinDbModel obLocalCoinDbModel = (LocalCoinDbModel) obj;
-        return TextUtils.equals(this.getSymbol(), obLocalCoinDbModel.getSymbol());
+        if (obj instanceof LocalCoinDbModel) {
+            LocalCoinDbModel obLocalCoinDbModel = (LocalCoinDbModel) obj;
+            return TextUtils.equals(this.getSymbol(), obLocalCoinDbModel.getSymbol());
+        }
+        return false;
     }
 }

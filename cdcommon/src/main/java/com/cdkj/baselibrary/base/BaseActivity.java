@@ -3,27 +3,18 @@ package com.cdkj.baselibrary.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
-import com.alibaba.android.arouter.launcher.ARouter;
 import com.cdkj.baselibrary.R;
-import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.dialog.LoadingDialog;
@@ -42,6 +33,8 @@ import io.reactivex.disposables.CompositeDisposable;
 import retrofit2.Call;
 
 import static com.cdkj.baselibrary.appmanager.EventTags.EVENT_REFRESH_LANGUAGE;
+import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
+import static com.cdkj.baselibrary.appmanager.MyConfig.TRADITIONAL;
 
 
 /**
@@ -49,16 +42,10 @@ import static com.cdkj.baselibrary.appmanager.EventTags.EVENT_REFRESH_LANGUAGE;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    // 是否需要根据点击坐标来显示键盘
-    public boolean isNeedHideKeyBord = true;
 
     protected LoadingDialog loadingDialog;
     private List<Call> mCallList;
     protected CompositeDisposable mSubscription;
-
-    public static final String TRADITIONAL = "traditional";
-    public static final String SIMPLIFIED = "simplified";
-    public static final String ENGLISH = "english";
 
     @Subscribe
     @Override
@@ -166,7 +153,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean dispatchTouchEvent(MotionEvent ev) {
         if (ev.getAction() == MotionEvent.ACTION_DOWN) {
             View v = getCurrentFocus();
-            if (isShouldHideKeyboard(v, ev) && isNeedHideKeyBord) {
+            if (isShouldHideKeyboard(v, ev)) {
                 hideKeyboard(v.getWindowToken());
             }
         }
@@ -287,7 +274,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                 myLocale = Locale.TRADITIONAL_CHINESE;
                 break;
             default:
-                myLocale = Locale.SIMPLIFIED_CHINESE;
+                myLocale = Locale.ENGLISH;
                 break;
         }
 

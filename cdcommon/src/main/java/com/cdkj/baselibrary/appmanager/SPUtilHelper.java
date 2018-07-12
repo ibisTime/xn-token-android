@@ -94,11 +94,12 @@ public class SPUtilHelper {
     }
 
     /**
-     * 获取语言
+     * 获取语言 默认英语
      */
     public static String getLanguage() {
-        return SPUtils.getString(CdApplication.getContext(), "language", "");
+        return SPUtils.getString(CdApplication.getContext(), "language", MyConfig.ENGLISH);
     }
+
 
     /**
      * 设置本地货币类型（CNY USD）
@@ -116,21 +117,6 @@ public class SPUtilHelper {
         return SPUtils.getString(CdApplication.getContext(), "local_coin_type", "CNY");
     }
 
-    /**
-     * 设置用户选择的国家
-     *
-     * @param s
-     */
-    public static void saveCountry(String s) {
-        SPUtils.put(CdApplication.getContext(), "country", s);
-    }
-
-    /**
-     * 获取国家
-     */
-    public static String getCountry() {
-        return SPUtils.getString(CdApplication.getContext(), "country", "中国");
-    }
 
     /**
      * 设置用户选择的国家

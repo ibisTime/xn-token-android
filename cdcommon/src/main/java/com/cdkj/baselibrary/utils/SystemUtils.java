@@ -12,18 +12,25 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.widget.Toast;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
+import java.net.URL;
+import java.net.URLConnection;
 import java.util.Collection;
 import java.util.Enumeration;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static android.content.Context.WIFI_SERVICE;
 
@@ -42,6 +49,7 @@ public class SystemUtils {
 
     /**
      * 判断手机操作系统是不是MIUI
+     *
      * @return
      */
     public static boolean isMIUI() {
@@ -112,13 +120,14 @@ public class SystemUtils {
     }
 
     /**
-     * 获取MAC地址
+     * 获取MAC地址  android.permission.ACCESS_WIFI_STATE
+     *
      * @param mContext
      * @return
      */
     public static String getMacAddress(Context mContext) {
 
-        if(!getAndroidVersion(Build.VERSION_CODES.M)){  //如果手机是6.0以下
+        if (!getAndroidVersion(Build.VERSION_CODES.M)) {  //如果手机是6.0以下
             String macStr = "";
             WifiManager wifiManager = (WifiManager) mContext
                     .getSystemService(WIFI_SERVICE);
@@ -136,7 +145,7 @@ public class SystemUtils {
         Enumeration<NetworkInterface> interfaces = null;
         try {
             interfaces = NetworkInterface.getNetworkInterfaces();
-            Log.d("TEST_BUG", " interfaceName = " + interfaces );
+            Log.d("TEST_BUG", " interfaceName = " + interfaces);
             while (interfaces.hasMoreElements()) {
                 NetworkInterface netWork = interfaces.nextElement();
                 // 如果存在硬件地址并可以使用给定的当前权限访问，则返回该硬件地址（通常是 MAC）。
@@ -152,10 +161,10 @@ public class SystemUtils {
                     builder.deleteCharAt(builder.length() - 1);
                 }
                 String mac = builder.toString();
-                Log.d("TEST_BUG", "interfaceName="+netWork.getName()+", mac="+mac);
+                Log.d("TEST_BUG", "interfaceName=" + netWork.getName() + ", mac=" + mac);
                 // 从路由器上在线设备的MAC地址列表，可以印证设备Wifi的 name 是 wlan0
                 if (netWork.getName().equals("wlan0")) {
-                    Log.d("TEST_BUG", " interfaceName ="+netWork.getName()+", mac="+mac);
+                    Log.d("TEST_BUG", " interfaceName =" + netWork.getName() + ", mac=" + mac);
                     address = mac;
                 }
             }
@@ -204,12 +213,17 @@ public class SystemUtils {
         return new UUID(m_szDevIDShort.hashCode(), serial.hashCode()).toString();
     }
 
-
+    /**
+     * android.permission.READ_PHONE_STATE
+     *
+     * @param con
+     * @return
+     */
     public static String getIMEI(Context con) {
         try {
             TelephonyManager tm = (TelephonyManager) con.getSystemService(Context.TELEPHONY_SERVICE);
             return tm != null ? tm.getDeviceId() : "";
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
         return "";
@@ -226,6 +240,41 @@ public class SystemUtils {
     }
 
 
+    public static String getLocalIpAddress() {
+
+        try {
+
+            for (Enumeration<NetworkInterface> en = NetworkInterface.getNetworkInterfaces(); en.hasMoreElements(); ) {
+
+                NetworkInterface intf = en.nextElement();
+
+                for (Enumeration<InetAddress> enumIpAddr = intf.getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+
+                    if (!inetAddress.isLoopbackAddress() && inetAddress instanceof Inet4Address) {
+
+                        return inetAddress.getHostAddress().toString();
+
+                    }
+
+                }
+
+            }
+
+        } catch (SocketException ex) {
+
+            Log.e("get IpAddress fail", ex.toString());
+
+            return "";
+
+        }
+
+        return "";
+
+    }
+
+
     public static String getIPAddress(final boolean useIPv4) {
         try {
             for (Enumeration<NetworkInterface> nis = NetworkInterface.getNetworkInterfaces(); nis.hasMoreElements(); ) {
@@ -238,18 +287,18 @@ public class SystemUtils {
                         String hostAddress = inetAddress.getHostAddress();
                         boolean isIPv4 = hostAddress.indexOf(':') < 0;
                         if (useIPv4) {
-                            if (isIPv4){
-                                if(StringUtils.isIP(hostAddress)){
+                            if (isIPv4) {
+                                if (StringUtils.isIP(hostAddress)) {
                                     return hostAddress;
-                                }else{
+                                } else {
                                     return "";
                                 }
-                            };
+                            }
+                            ;
                         } else {
                             if (!isIPv4) {
                                 int index = hostAddress.indexOf('%');
-
-                                String ips=index < 0 ? hostAddress.toUpperCase() : hostAddress.substring(0, index).toUpperCase();
+                                String ips = index < 0 ? hostAddress.toUpperCase() : hostAddress.substring(0, index).toUpperCase();
                                 return ips;
                             }
                         }
@@ -272,9 +321,8 @@ public class SystemUtils {
         String resultString = "";
         // 检查剪贴板是否有内容
         if (!mClipboard.hasPrimaryClip()) {
-            Toast.makeText(context, "您还没有复制内容", Toast.LENGTH_SHORT).show();
-        }
-        else {
+
+        } else {
             ClipData clipData = mClipboard.getPrimaryClip();
             int count = clipData.getItemCount();
 
@@ -291,12 +339,215 @@ public class SystemUtils {
         return resultString;
     }
 
-    public static void copy(Context context, String content){
-        if (! TextUtils.isEmpty(content)){
+    public static void copy(Context context, String content) {
+        if (!TextUtils.isEmpty(content)) {
             ClipboardManager cmb = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
             cmb.setText(content); //将内容放入粘贴管理器,在别的地方长按选择"粘贴"即可
-            ToastUtil.show(context, "密钥已复制");
         }
     }
+
+    /*获取设备IPv4地址对应的InetAddress对象*/
+
+    public static InetAddress getIpAddress() {
+
+        try {
+
+            for (Enumeration<NetworkInterface> enNetI = NetworkInterface
+
+                    .getNetworkInterfaces(); enNetI.hasMoreElements(); ) {
+
+                NetworkInterface netI = enNetI.nextElement();
+
+                for (Enumeration<InetAddress> enumIpAddr = netI
+
+                        .getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+
+                    if (inetAddress instanceof Inet4Address && !inetAddress.isLoopbackAddress()) {
+
+                        return inetAddress;
+
+                    }
+
+                }
+
+            }
+
+        } catch (SocketException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return null;
+
+    }
+
+
+
+    /*获取设备IPv4地址对应的字符串*/
+
+    public static String getIpAddressString() {
+
+        try {
+
+            for (Enumeration<NetworkInterface> enNetI = NetworkInterface
+
+                    .getNetworkInterfaces(); enNetI.hasMoreElements(); ) {
+
+                NetworkInterface netI = enNetI.nextElement();
+
+                for (Enumeration<InetAddress> enumIpAddr = netI
+
+                        .getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+
+                    InetAddress inetAddress = enumIpAddr.nextElement();
+
+                    if (inetAddress instanceof Inet4Address && !inetAddress.isLoopbackAddress()) {
+
+                        return inetAddress.getHostAddress();
+
+                    }
+
+                }
+
+            }
+
+        } catch (SocketException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return "";
+
+    }
+
+
+
+    /*获取设备WiFi网络IPv4地址对应的字符串*/
+
+    public static String getWiFiIpAddressString() {
+
+        try {
+
+            for (Enumeration<NetworkInterface> enNetI = NetworkInterface
+
+                    .getNetworkInterfaces(); enNetI.hasMoreElements(); ) {
+
+                NetworkInterface netI = enNetI.nextElement();
+
+                if (netI.getDisplayName().equals("wlan0") || netI.getDisplayName().equals("eth0")) {
+
+                    for (Enumeration<InetAddress> enumIpAddr = netI
+
+                            .getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+
+                        InetAddress inetAddress = enumIpAddr.nextElement();
+
+                        if (inetAddress instanceof Inet4Address && !inetAddress.isLoopbackAddress()) {
+
+                            return inetAddress.getHostAddress();
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        } catch (SocketException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return "";
+
+    }
+
+
+
+    /*获取设备WiFi网络IPv4地址对应的InetAddress对象*/
+
+    public static InetAddress getWiFiIpAddress() {
+
+        try {
+
+            for (Enumeration<NetworkInterface> enNetI = NetworkInterface
+
+                    .getNetworkInterfaces(); enNetI.hasMoreElements(); ) {
+
+                NetworkInterface netI = enNetI.nextElement();
+
+                if (netI.getDisplayName().equals("wlan0") || netI.getDisplayName().equals("eth0")) {
+
+                    for (Enumeration<InetAddress> enumIpAddr = netI
+
+                            .getInetAddresses(); enumIpAddr.hasMoreElements(); ) {
+
+                        InetAddress inetAddress = enumIpAddr.nextElement();
+
+                        if (inetAddress instanceof Inet4Address && !inetAddress.isLoopbackAddress()) {
+
+                            return inetAddress;
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        } catch (SocketException e) {
+
+            e.printStackTrace();
+
+        }
+
+        return null;
+
+    }
+
+
+
+    /*判断字符串是否为一个合法的IPv4地址*/
+
+    public static boolean isIPv4Address(String address) {
+
+        String regex = "(2[5][0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})"
+
+                + "\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})"
+
+                + "\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})"
+
+                + "\\.(25[0-5]|2[0-4]\\d|1\\d{2}|\\d{1,2})";
+
+        Pattern p = Pattern.compile(regex);
+
+        Matcher m = p.matcher(address);
+
+        return m.matches();
+
+    }
+
+
+
+    /**
+     * Gets the public ip address through ipify's api. * @param useHttps If true, will use an https connection. If false, will use http. * @return The public ip address. * @throws IOException If there is an IO error.
+     */
+    public static String getPublicIp(boolean useHttps) throws IOException {
+        URL ipify = useHttps ? new URL("https://api.ipify.org") : new URL("http://api.ipify.org");
+        URLConnection conn = ipify.openConnection();
+        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+        String ip = null;
+        ip = in.readLine();
+        in.close();
+        return ip;
+    }
+
 
 }

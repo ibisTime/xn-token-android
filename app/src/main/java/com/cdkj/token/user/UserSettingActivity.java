@@ -128,7 +128,7 @@ public class UserSettingActivity extends AbsBaseActivity {
             showDoubleWarnListen(getStrRes(R.string.user_setting_sign_out) + "?", view1 -> {
                 SPUtilHelper.logOutClear();
                 EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
-                SignInActivity.open(UserSettingActivity.this, false);
+                SignInActivity.open(UserSettingActivity.this, true);
                 finish();
             });
         });

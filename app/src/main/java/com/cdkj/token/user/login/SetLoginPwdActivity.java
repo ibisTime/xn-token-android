@@ -69,6 +69,7 @@ public class SetLoginPwdActivity extends AbsBaseActivity implements SendCodeInte
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
+
         if (SPUtilHelper.getLoginPwdFlag()) { // 设置过支付密码
             mBinding.tvTitle.setText(R.string.user_setting_password);
         } else {
@@ -76,6 +77,7 @@ public class SetLoginPwdActivity extends AbsBaseActivity implements SendCodeInte
         }
 
         mBinding.edtMobile.setDownImgVisibilityGone();
+        mBinding.edtMobile.getEditText().setEnabled(false);
 
         setSubLeftImgState(true);
         mSendCOdePresenter = new SendPhoneCodePresenter(this);

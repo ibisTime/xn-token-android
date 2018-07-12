@@ -174,7 +174,7 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface, S
                 return;
             }
 
-            mPresenter.login(mBinding.edtUsername.getText().toString(), mBinding.edtPassword.getText().toString(), this);
+            mPresenter.login(mBinding.edtUsername.getText().toString(), mBinding.edtPassword.getText().toString(), SPUtilHelper.getCountryCode(), this);
         }
     }
 
@@ -225,7 +225,10 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface, S
         SPUtilHelper.saveUserId(user.getUserId());
         SPUtilHelper.saveUserToken(user.getToken());
         SPUtilHelper.saveUserPhoneNum(mBinding.edtUsername.getText().toString().trim());
-        MainActivity.open(this);
+
+        if(canOpenMain){
+            MainActivity.open(this);
+        }
         finish();
     }
 
@@ -271,25 +274,10 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface, S
         }
     }
 
-    @Override
-    protected boolean canFinish() {
-        if (canOpenMain) {
-            MainActivity.open(this);
-            finish();
-            return false;
-        } else {
-            return true;
-        }
-    }
 
     @Override
     public void onBackPressed() {
-        if (canOpenMain) {
-            MainActivity.open(this);
-            finish();
-        } else {
-            finish();
-        }
+        finish();
     }
 
 

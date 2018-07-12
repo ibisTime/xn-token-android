@@ -42,7 +42,6 @@ public abstract class BaseResponseModelCallBack<T> implements Callback<BaseRespo
             onReqFailure(DATA_NULL, CdApplication.getContext().getString(R.string.net_data_is_null));
             return;
         }
-
         BaseResponseModel t = response.body();
         checkState(t);      //根据返回错误的状态码实现相应的操作
 

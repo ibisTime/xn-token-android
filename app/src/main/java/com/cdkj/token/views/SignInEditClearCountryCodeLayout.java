@@ -79,6 +79,7 @@ public class SignInEditClearCountryCodeLayout extends LinearLayout {
         mBinding.edit.setOnFocusChangeListener(new OnFocusChangeListener() {
             @Override
             public void onFocusChange(View view, boolean b) {
+
                 if (b) {
                     changeImgShowState();
                     mBinding.viewLine.setBackgroundResource(R.drawable.line_blue_gradient);
@@ -91,6 +92,10 @@ public class SignInEditClearCountryCodeLayout extends LinearLayout {
     }
 
     void changeImgShowState() {
+        if (!mBinding.edit.isEnabled()) {
+            mBinding.imgEditClear.setVisibility(GONE);
+            return;
+        }
         if (TextUtils.isEmpty(getText())) {
             mBinding.imgEditClear.setVisibility(GONE);
         } else {

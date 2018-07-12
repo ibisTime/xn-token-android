@@ -87,7 +87,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this,R.color.red));
+        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.oragne));
 
         mBinding.etNumber.setEnabled(false);
         mBinding.etSendNumber.setEnabled(false);
@@ -107,7 +107,13 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
         });
         mBinding.tvRedType.setOnClickListener(view -> {
 
+            if (redType == 1) {        //拼手气红包变为普通红包
+                redType = 0;
+            } else if (redType == 0) {  //普通红包变为拼手气红包
+                redType = 1;
+            }
             showUIState();
+
             setTotalNumber();
         });
         mBinding.llType.setOnClickListener(view -> {
@@ -157,15 +163,13 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
      */
     private void showUIState() {
         if (redType == 1) {
-            redType = 0;
-            mBinding.tvRedType.setText(R.string.red_package_set_hand);
-            mBinding.etNumber.setHint(R.string.red_package_please_sing_number);
-            mBinding.tvSendNumTip.setText(R.string.red_package_sub_single);
-        } else if (redType == 0) {
-            redType = 1;
             mBinding.tvRedType.setText(R.string.red_package_set_ordinary);
             mBinding.etNumber.setHint(R.string.red_package_please_total_number);
             mBinding.tvSendNumTip.setText(R.string.red_package_sub_total);
+        } else if (redType == 0) {
+            mBinding.tvRedType.setText(R.string.red_package_set_hand);
+            mBinding.etNumber.setHint(R.string.red_package_please_sing_number);
+            mBinding.tvSendNumTip.setText(R.string.red_package_sub_single);
         }
     }
 
@@ -190,8 +194,8 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
             return;
         }
 
-        if (redType != 1) {
-            //普通红包就是输入的币的数量乘以发的包数
+        if (redType == 0) {    //普通红包就是输入的币的数量乘以发的包数 （拼手气红包不乘）
+
             double v1 = Double.parseDouble(etNumber);
             double v2 = Double.parseDouble(etSendNumber);
             if (v1 <= 0 || v2 <= 0) {
@@ -262,7 +266,7 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
         map.put("type", redType + "");
         map.put("count", moneyNumber + "");
         map.put("sendNum", sendNumber + "");
-        map.put("greeting", mBinding.etGreeting.getText().toString().trim());
+        map.put("greeting", getGreeting());
         map.put("tradePwd", tradePwd);//支付密码
         Call<BaseResponseModel<RedPackageHistoryBean>> baseResponseModelCall = RetrofitUtils.createApi(MyApi.class).sendRedPackage("623000", StringUtils.getJsonToString(map));
         baseResponseModelCall.enqueue(new BaseResponseModelCallBack<RedPackageHistoryBean>(this) {
@@ -284,6 +288,20 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
             }
         });
 
+    }
+
+    /**
+     * 获取发送红包参数 （祝福语）
+     *
+     * @return
+     */
+    private String getGreeting() {
+
+        if (TextUtils.isEmpty(mBinding.etGreeting.getText().toString().trim())) {
+            return mBinding.etGreeting.getHint().toString();
+        }
+
+        return mBinding.etGreeting.getText().toString().trim();
     }
 
     private void showInputDialog() {
