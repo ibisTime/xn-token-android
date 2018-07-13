@@ -34,6 +34,8 @@ import retrofit2.Call;
 
 import static com.cdkj.baselibrary.appmanager.EventTags.EVENT_REFRESH_LANGUAGE;
 import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
+import static com.cdkj.baselibrary.appmanager.MyConfig.KOREA;
+import static com.cdkj.baselibrary.appmanager.MyConfig.SIMPLIFIED;
 import static com.cdkj.baselibrary.appmanager.MyConfig.TRADITIONAL;
 
 
@@ -51,6 +53,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setAppLanguage();
         if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
@@ -58,8 +61,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         loadingDialog = new LoadingDialog(this);
         EventBus.getDefault().register(this);
         mCallList = new ArrayList<>();
-
-        setAppLanguage();
 
     }
 
@@ -270,8 +271,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             case ENGLISH:
                 myLocale = Locale.ENGLISH;
                 break;
-            case TRADITIONAL:
-                myLocale = Locale.TRADITIONAL_CHINESE;
+            case KOREA:
+                myLocale = Locale.KOREA;
+                break;
+            case SIMPLIFIED:
+                myLocale = Locale.SIMPLIFIED_CHINESE;
                 break;
             default:
                 myLocale = Locale.ENGLISH;
@@ -289,7 +293,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public void onEvent(EventBusModel model) {
         if (model.getTag().equals(EVENT_REFRESH_LANGUAGE)) {
             try {
-                setAppLanguage();
+//                setAppLanguage();
                 finish();
             } catch (Exception e) {
                 e.printStackTrace();

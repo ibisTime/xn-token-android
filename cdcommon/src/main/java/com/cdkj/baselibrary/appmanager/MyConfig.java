@@ -19,6 +19,7 @@ public class MyConfig {
     public static final String TRADITIONAL = "traditional";
     public static final String SIMPLIFIED = "simplified";
     public static final String ENGLISH = "english";
+    public static final String KOREA = "korea";
 
 
     // app运行环境

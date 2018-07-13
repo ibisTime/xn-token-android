@@ -20,6 +20,7 @@ import java.util.Locale;
 
 import static com.cdkj.baselibrary.appmanager.EventTags.EVENT_REFRESH_LANGUAGE;
 import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
+import static com.cdkj.baselibrary.appmanager.MyConfig.KOREA;
 import static com.cdkj.baselibrary.appmanager.MyConfig.SIMPLIFIED;
 import static com.cdkj.baselibrary.appmanager.MyConfig.TRADITIONAL;
 
@@ -56,15 +57,13 @@ public class UserLanguageActivity extends AbsBaseActivity {
     }
 
     private void init() {
-        Locale locale = getResources().getConfiguration().locale;
-
-        setView(locale.getLanguage(), locale.getCountry());
+        setView(SPUtilHelper.getLanguage());
     }
 
     private void initListener() {
+        //简体中午
         mBinding.llSimple.setOnClickListener(view -> {
             sendEventBus(SIMPLIFIED);
-
             initView();
             mBinding.ivSimple.setBackgroundResource(R.mipmap.choice_confirm);
         });
@@ -75,9 +74,14 @@ public class UserLanguageActivity extends AbsBaseActivity {
             mBinding.ivEnglish.setBackgroundResource(R.mipmap.choice_confirm);
         });
 
+        mBinding.llKorea.setOnClickListener(v -> {
+            sendEventBus(KOREA);
+            initView();
+            mBinding.ivKorea.setBackgroundResource(R.mipmap.choice_confirm);
+        });
+
         mBinding.llTradition.setOnClickListener(view -> {
             sendEventBus(TRADITIONAL);
-
             initView();
             mBinding.ivTradition.setBackgroundResource(R.mipmap.choice_confirm);
         });
@@ -97,24 +101,21 @@ public class UserLanguageActivity extends AbsBaseActivity {
         mBinding.ivSimple.setBackgroundResource(R.mipmap.choice_cancel);
         mBinding.ivEnglish.setBackgroundResource(R.mipmap.choice_cancel);
         mBinding.ivTradition.setBackgroundResource(R.mipmap.choice_cancel);
+        mBinding.ivKorea.setBackgroundResource(R.mipmap.choice_cancel);
     }
 
-    private void setView(String language, String country) {
+    private void setView(String language) {
         initView();
         switch (language) {
-
-            case "zh":
-                if (country.equals("CN")) { // 简体
-                    mBinding.ivSimple.setBackgroundResource(R.mipmap.choice_confirm);
-                } else {
-                    mBinding.ivTradition.setBackgroundResource(R.mipmap.choice_confirm);
-                }
+            case SIMPLIFIED:
+                mBinding.ivSimple.setBackgroundResource(R.mipmap.choice_confirm);
                 break;
-
-            case "en":
+            case ENGLISH:
                 mBinding.ivEnglish.setBackgroundResource(R.mipmap.choice_confirm);
                 break;
-
+            case KOREA:
+                mBinding.ivKorea.setBackgroundResource(R.mipmap.choice_confirm);
+                break;
         }
     }
 

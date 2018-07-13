@@ -472,7 +472,7 @@
     <string name="user_language_english">English</string>
     <string name="me_red_package">my red packet</string>
 
-    <string name="red_package_number_unit">  </string>
+    <string name="red_package_number_unit"> </string>
     <string name="CNY">CNY</string>
     <string name="USD">USD</string>
 
@@ -505,6 +505,7 @@
     <string name="set_login_pwd">Setting Login password</string>
     <string name="login_pwd_sed_success">Password Setting successfully</string>
     <string name="activity_setting_failure">Password Setting failure</string>
+    <string name="user_language_korea">한국어</string>
 
 </resources>
 
