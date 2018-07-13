@@ -1,0 +1,97 @@
+<resources>
+    <string name="please_set_account_moeny_pwd">비밀번호 설치</string>
+    <string name="please_waite">준비 중</string>
+
+    <string name="no_camera_permission">사용제한으로 카메라와 사진롤을 사용할수 없습니다</string>
+
+    <string name="activity_authenticate_title">실명인증</string>
+
+    <string name="activity_authenticate_name_hint">정확한 이름을 기입하십시요</string>
+
+    <string name="activity_authenticate_success">인증완료</string>
+
+    <string name="activity_authenticate_failure">인증실패,잠시후 다시 시도</string>
+
+    <string name="activity_authenticate_download_title">Alipay다운로드 및 설치하시겠습니까?</string>
+
+    <string name="activity_authenticate_download_confirm">네</string>
+
+    <string name="activity_authenticate_download_cancel">아니요</string>
+
+    <string name="activity_find_title">비밀번호 되찾기</string>
+
+    <string name="activity_find_mobile_hint">핸드폰 번호입력</string>
+
+    <string name="activity_image_system_open">오픈</string>
+
+
+    <string name="activity_image_system_cancel">취소</string>
+
+    <string name="activity_nick_title">닉네임 수정</string>
+
+    <string name="activity_nick_name_hint">닉네임 입력</string>
+
+    <string name="activity_nick_success">수정완료</string>
+
+    <string name="activity_paypwd_title">자금 비밀번호 수정</string>
+
+    <string name="activity_paypwd_title_set">자금 비밀번호 설치</string>
+    <string name="activity_paypwd_mobile_hint">핸드폰 번호 입력</string>
+    <string name="activity_paypwd_code_hint">인증번호 입력</string>
+    <string name="activity_paypwd_google_hint">구글인정번호 입력</string>
+    <string name="activity_paypwd_pwd_hint">자금 비밀번호 입력</string>
+    <string name="activity_paypwd_pwd_format_hint">자금 비밀번호은 최소 6자리입니다</string>
+    <string name="activity_paypwd_modify_sucess">수정완료</string>
+    <string name="activity_paypwd_set_success">설치완료</string>
+    <string name="activity_mobile_title">핸드폰 번호수정</string>
+    <string name="activity_mobile_mobile_hint">핸드폰 번호입력</string>
+    <string name="activity_mobile_code_hint">인증번호 입력</string>
+    <string name="activity_base_tip">제시</string>
+    <string name="activity_base_confirm">확인</string>
+    <string name="activity_base_cancel">최소</string>
+
+    <string name="activity_authenticate_name">실명</string>
+    <string name="activity_authenticate_id">신분증번호</string>
+    <string name="activity_authenticate_id_hint">신분증번호 입력</string>
+    <string name="activity_nick_name">닉네임</string>
+    <string name="activity_find_mobile">핸드폰 번호</string>
+    <string name="activity_find_code">핸드폰 인증번호</string>
+    <string name="content">내용</string>
+    <string name="net_error">인터텟 오류</string>
+    <string name="net_service_time_out">서버 작동오류</string>
+    <string name="net_req_time_out">인터넷 타임아웃</string>
+    <string name="net_exception">인터넷 이상</string>
+    <string name="error_unknown">잘못된 조작</string>
+    <string name="net_data_is_null">접수된 데이타 없음</string>
+    <string name="no_net">인터넷 연결안됨</string>
+    <string name="net_req_fail">인터넷 연결실패</string>
+    <string name="upload_pic_fail">그림파일 업로드 실패</string>
+    <string name="qiniu_token_error">token실패</string>
+    <string name="no_camera">카메라 없음</string>
+    <string name="no_sd_card">SD카드 없음</string>
+    <string name="get_pic_fail">그림파일 다운로드 실패</string>
+
+    <string name="activity_authenticate_id_format_hint">정확한 신분증번호를 기입하십시요</string>
+
+    <string name="please_choose_browser">브라우저 선택</string>
+    <string name="no_browser">브라우저 없음</string>
+    <string name="open_browser_error">브라우저 오류</string>
+    <string name="code_down">다시시도%d</string>
+    <string name="resend_code">다시시도</string>
+    <string name="back">이전화면</string>
+    <string name="load_error">로드오류</string>
+    <string name="choose">선택</string>
+    <string name="please_input_account">계정 입력</string>
+    <string name="sign_in_success">로그인완료</string>
+    <string name="sign_in_fail">로그인실패</string>
+    <string name="send_to_friend">친구에게 발송</string>
+    <string name="save_to_photo">핸드폰에 저장</string>
+    <string name="take_a_photo">사진촬영</string>
+    <string name="choose_from_album">사진롤에서 선택</string>
+    <string name="password_input_hint">최소 6자리</string>
+    <string name="user_language_korea">한국어</string>
+
+
+
+
+</resources>
