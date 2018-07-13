@@ -34,7 +34,7 @@
 
     <string name="activity_mobile_mobile"> new phone number </string>
     <string name="user_invite_share_title">share the to to</string>
-    <string name="user_invite_share_wx"> micro-letter </string>
+    <string name="user_invite_share_wx">Wechat</string>
 
     <string name="user_invite_share_pyq"> Friends Circle </string>
     <string name="smscode_send_success"> verification code has been sent please note check </string>
@@ -44,15 +44,12 @@
     <string name="web_create_pic_failure">a failed generate picture to</string>
     <string name="sure">determine to</string>
     <string name="do_fall">Operation failed</string>
-    <string name="show_big_photo">image large to view
-</string>
+    <string name="show_big_photo">image large to view</string>
     <string name="delete"> delete </string>
     <string name="delete_succ"> Delete succeeded </string>
     <string name="prompt"> hint </string>
     <string name="sure_"> indeed is</string>
 
-    <string name="save_photo_to"> The picture has been saved to the </string>
-    <string name="save_fial"> save failed </string>
 
     <string name="activity_paypwd_title_set">set the fund password</string>
     <string name="activity_mobile_modify_success">mobile phone number modified successfully</string>

@@ -202,9 +202,7 @@ public class ImageSelectActivity extends Activity implements View.OnClickListene
         try {
             MediaStore.Images.Media.insertImage(context.getContentResolver(),
                     file.getAbsolutePath(), fileName, null);
-            ToastUtil.show(context ,context.getString(R.string.save_photo_to)+ IMAGE_URL);
         } catch (FileNotFoundException e) {
-            ToastUtil.show(context ,context.getString(R.string.save_fial));
             e.printStackTrace();
         }
 

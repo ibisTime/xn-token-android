@@ -1,6 +1,6 @@
 <resources>
-    <string name="please_set_account_moeny_pwd">비밀번호 설치</string>
-    <string name="please_waite">준비 중</string>
+
+    <string name="money_sing">￥</string>
 
     <string name="no_camera_permission">사용제한으로 카메라와 사진롤을 사용할수 없습니다</string>
 
@@ -89,9 +89,47 @@
     <string name="take_a_photo">사진촬영</string>
     <string name="choose_from_album">사진롤에서 선택</string>
     <string name="password_input_hint">최소 6자리</string>
-    <string name="user_language_korea">한국어</string>
 
-
+    <string name="cancel">--</string>
+    <string name="confirm">--</string>
+    <string name="activity_mobile_modify_success">--</string>
+    <string name="sure_">--</string>
+    <string name="prompt">--</string>
+    <string name="delete_succ">--</string>
+    <string name="delete">--</string>
+    <string name="show_big_photo">--</string>
+    <string name="do_fall">--</string>
+    <string name="sure">--</string>
+    <string name="web_create_pic_failure">--</string>
+    <string name="storage_refused">--</string>
+    <string name="smscode_send_failure">--</string>
+    <string name="smscode_send_success">--</string>
+    <string name="user_invite_share_pyq">--</string>
+    <string name="user_invite_share_wx">--</string>
+    <string name="user_invite_share_title">--</string>
+    <string name="activity_mobile_mobile">--</string>
+    <string name="activity_paypwd_pwd">--</string>
+    <string name="activity_find_send">--</string>
+    <string name="activity_find_code_hint">--</string>
+    <string name="activity_find_google_hint">--</string>
+    <string name="activity_find_password_hint">--</string>
+    <string name="activity_find_repassword_hint">--</string>
+    <string name="activity_find_password_format_hint">--</string>
+    <string name="activity_find_repassword_format_hint">--</string>
+    <string name="activity_find_success">--</string>
+    <string name="activity_find_failure">--</string>
+    <string name="activity_image_unknow_error">-</string>
+    <string name="activity_image_tip">--</string>
+    <string name="activity_image_no_camera">--</string>
+    <string name="activity_image_confirm">--</string>
+    <string name="activity_image_no_cdcard">--</string>
+    <string name="activity_image_getimg_failure">--</string>
+    <string name="activity_image_system_tip">--</string>
+    <string name="activity_image_system_content">--</string>
+    <string name="activity_find_password">--</string>
+    <string name="activity_find_repassword">--</string>
+    <string name="activity_find_google_paste">--</string>
+    <string name="activity_find_google">--</string>
 
 
 </resources>

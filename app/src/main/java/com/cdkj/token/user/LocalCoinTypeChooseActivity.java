@@ -10,15 +10,12 @@ import android.view.View;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
-import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityLocalCoinTypeBinding;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.greenrobot.eventbus.EventBus;
-
-import static com.cdkj.baselibrary.appmanager.EventTags.EVENT_REFRESH_LANGUAGE;
 
 /**
  * 本地币种选择
@@ -75,10 +72,9 @@ public class LocalCoinTypeChooseActivity extends AbsBaseActivity {
     }
 
     public void finishActivity() {
-        EventBusModel model = new EventBusModel();
-        model.setTag(EVENT_REFRESH_LANGUAGE);
-        EventBus.getDefault().post(model);
+        EventBus.getDefault().post(new AllFinishEvent());
         //刷新界面
         MainActivity.open(this);
+        finish();
     }
 }

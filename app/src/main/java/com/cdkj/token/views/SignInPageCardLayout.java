@@ -36,7 +36,7 @@ public class SignInPageCardLayout extends FrameLayout {
 
         View viewBottom = getChildAt(0);
 
-        LayoutParams layoutParams = (LayoutParams) viewBottom.getLayoutParams();
+        LayoutParams layoutParams = (FrameLayout.LayoutParams) viewBottom.getLayoutParams();
 
         layoutParams.topMargin = viewTopHeight - DisplayHelper.dpToPx(10);//-10dp向上隐藏
 

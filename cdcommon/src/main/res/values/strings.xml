@@ -9,7 +9,7 @@
     <string name="activity_authenticate_failure">认证失败,请稍后重试</string>
     <string name="activity_authenticate_download_title">是否下载并安装支付宝完成认证?</string>
     <string name="activity_authenticate_download_confirm">好的</string>
-    <string name="activity_authenticate_download_cancel">算了</string>
+    <string name="activity_authenticate_download_cancel">取消</string>
     <string name="activity_find_title">找回密码</string>
     <string name="activity_find_mobile_hint">请输入手机号码</string>
     <string name="activity_find_code_hint">请输入验证码</string>
@@ -104,8 +104,6 @@
     <string name="code_down">重新获取(%d)</string>
     <string name="resend_code">重新获取</string>
     <string name="back">返回</string>
-    <string name="save_photo_to">图片已保存至</string>
-    <string name="save_fial">保存失败</string>
     <string name="load_error">加载错误</string>
     <string name="choose">选择</string>
     <string name="please_input_account">请输入帐号</string>

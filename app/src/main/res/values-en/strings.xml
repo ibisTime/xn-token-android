@@ -35,7 +35,7 @@
     <string name="wallet_bill"> Bill </string>
     <string name="bill_type_all"> all </string>
     <string name="bill_type_charge"> coin-filled </string>
-    <string name="bill_type_withdraw"> now </string>
+    <string name="bill_type_withdraw">now </string>
     <string name="bill_type_withdrawfee"> The Handling fee is</string>
 
     <string name="bill_type_withdrawfrozen"> frozen is</string>
@@ -172,7 +172,6 @@
 
     <string name="biz_status_wuxuduizhang"> no reconciliation required</string>
 
-    <string name="consult_list_title"> online merchant </string>
 
     <string name="wallet_withdraw_balance">Available balance </string>
     <string name="wallet_withdraw_address">receive address </string>
@@ -468,7 +467,7 @@
     <string name="assets">Assets</string>
     <string name="my_coin_address">My %s collection address </string>
     <string name="red_pg">Red packet </string>
-    <string name="wallet_charge_recode">recode</string>
+    <string name="wallet_charge_recode">record</string>
     <string name="user_language_english">English</string>
     <string name="me_red_package">my red packet</string>
 

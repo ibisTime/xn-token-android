@@ -19,7 +19,6 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.dialog.LoadingDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
-import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -32,11 +31,9 @@ import java.util.Locale;
 import io.reactivex.disposables.CompositeDisposable;
 import retrofit2.Call;
 
-import static com.cdkj.baselibrary.appmanager.EventTags.EVENT_REFRESH_LANGUAGE;
 import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
 import static com.cdkj.baselibrary.appmanager.MyConfig.KOREA;
 import static com.cdkj.baselibrary.appmanager.MyConfig.SIMPLIFIED;
-import static com.cdkj.baselibrary.appmanager.MyConfig.TRADITIONAL;
 
 
 /**
@@ -289,15 +286,4 @@ public abstract class BaseActivity extends AppCompatActivity {
         res.updateConfiguration(conf, dm);
     }
 
-    @Subscribe
-    public void onEvent(EventBusModel model) {
-        if (model.getTag().equals(EVENT_REFRESH_LANGUAGE)) {
-            try {
-//                setAppLanguage();
-                finish();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-    }
 }

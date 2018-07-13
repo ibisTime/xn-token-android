@@ -1,5 +1,8 @@
 <resources>
+    <string name="app_name">THA</string>
+
     <string name="wallet_withdraw_balance">잔액</string>
+
     <string name="wallet_withdraw_address">입금주소</string>
     <string name="wallet_withdraw_address_input_hint">주소입력 혹은 QR코드스캔</string>
     <string name="wallet_withdraw_amount">출금수량</string>
@@ -280,21 +283,170 @@
     <string name="assets">자산</string>
     <string name="my_coin_address">나의%s수납주소</string>
     <string name="red_pg">캔디 발송</string>
+    <string name="main_tag_consult">새로운 발견</string>
+    <string name="main_tab_wallet">월렛</string>
+    <string name="main_tab_my">나의</string>
+    <string name="my_red_package_title">나의 훙빠우</string>
+    <string name="sen_red_packet_note">훙빠우에는 황금 만냥</string>
+    <string name="user_language_english">English</string>
+    <string name="user_sign_up_mobile">핸드폰 번호</string>
+    <string name="user_sign_in_pwd_hint">밀번호 입력</string>
+    <string name="user_sign_in_forget">비밀번호 되찾기?</string>
+    <string name="user_title_sign_in">로그인</string>
+    <string name="yibibao">위삐보</string>
+    <string name="waite_title_3">계량화된 재정관리:</string>
+    <string name="lianghualicai">계량화된 재정관리</string>
+    <string name="recommend_application">어플 추천</string>
+    <string name="copy_success">복사완료</string>
+    <string name="user_language_korea">한국어</string>
+    <string name="account_login">계정비밀번호 로그인</string>
+    <string name="transfer_2">"이체 "</string>
+    <string name="wait_title_2">위삐보:</string>
+    <string name="telegram_address">https://t.me/THAWallet_cn</string>
+    <string name="share">"공유 공유 "</string>
+    <string name="wallet_charge_record">"거래 내역 "</string>
+    <string name="please_wait">기대하십시요</string>
+    <string name="biz_type_withdraw">수령</string>
+    <string name="biz_type_charge">충전</string>
+    <string name="sms_code_send">인증번호 발송</string>
+    <string name="user_setting_mail">이메일 등록</string>
+    <string name="user_password_title">비밀번호 수정</string>
+    <string name="user_password_re">비밀번호 확인</string>
+    <string name="user_password_re_hint">최소 6자리</string>
+    <string name="user_password_new_hint">최소 6자리</string>
+    <string name="user_sign_up_repwd_hint">최소 6자리</string>
+    <string name="user_sign_up_pwd_hint">최소 6자리</string>
+    <string name="user_sign_up_repwd">비밀번호 확인</string>
+    <string name="user_sign_up_pwd">새 비밀번호</string>
+    <string name="user_sign_up_send">인정번호 발송</string>
+    <string name="user_sign_up_code_hint">인증번호 입력</string>
+    <string name="user_sign_in_mobile_hint">핸드폰번호 입력</string>
+    <string name="user_sign_up_mobile_hint">핸드폰번호 입력</string>
+    <string name="user_title_join">커뮤니티 가입</string>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    <string name="exit_confirm">--</string>
+    <string name="tip">--</string>
+    <string name="tip_update">--</string>
+    <string name="confirm">--</string>
+    <string name="attention">--</string>
+    <string name="kick_logout">--</string>
+    <string name="deal">--</string>
+    <string name="good">--</string>
+    <string name="trust">--</string>
+    <string name="build_type">--</string>
+    <string name="property_eth">--</string>
+    <string name="property_btc">--</string>
+    <string name="freeze">--</string>
+    <string name="wallet_charge_my_address">--</string>
+    <string name="wallet_charge_address_copy">--</string>
+    <string name="wallet_charge_address">--</string>
+    <string name="wallet_assets">--</string>
+    <string name="wallet_frozen_0">--</string>
+    <string name="wallet_charge">--</string>
+    <string name="wallet_withdraw">--</string>
+    <string name="wallet_bill">--</string>
+    <string name="bill_type_all">--</string>
+    <string name="bill_type_charge">--</string>
+    <string name="bill_type_withdraw">--</string>
+    <string name="bill_type_withdrawfee">--</string>
+    <string name="bill_type_withdrawfrozen">--</string>
+    <string name="bill_type_withdrawunfrozen">--</string>
+    <string name="bill_type_select">--</string>
+    <string name="bill_title_all">--</string>
+    <string name="bill_title_charge">--</string>
+    <string name="bill_title_withdraw">--</string>
+    <string name="bill_title_frozen">--</string>
+    <string name="bill_none">--</string>
+    <string name="bill_all_none">--</string>
+    <string name="bill_charge_none">--</string>
+    <string name="bill_withdraw_none">--</string>
+    <string name="wallet_withdraw_amount_hint">--</string>
+    <string name="wallet_none">--</string>
+    <string name="market_quantity">--</string>
+    <string name="deal_type_select_tip">--</string>
+    <string name="popup_scan">--</string>
+    <string name="popup_paste">--</string>
+    <string name="copy_tip_none">--</string>
+    <string name="qrcode_parsing_failure">--</string>
+    <string name="camera_refused">--</string>
+    <string name="order_status_daishenpi">--</string>
+    <string name="order_status_butongguo">--</string>
+    <string name="order_status_daiguangbo">--</string>
+    <string name="order_status_guangbozhong">--</string>
+    <string name="order_status_shibai">--</string>
+    <string name="order_status_chenggong">--</string>
+    <string name="address_attestation">--</string>
+    <string name="address_unattestation">--</string>
+    <string name="user_title_address_add">--</string>
+    <string name="user_title_address_add_success">--</string>
+    <string name="user_google_btn_close">--</string>
+    <string name="user_google_btn_modify">--</string>
+    <string name="user_title_wallet">--</string>
+    <string name="user_title_invite_history">--</string>
+    <string name="invite_history_none">--</string>
+    <string name="user_title_published">--</string>
+    <string name="user_published_none">--</string>
+    <string name="user_title_setting">--</string>
+    <string name="user_identity_success">--</string>
+    <string name="user_title_person">--</string>
+    <string name="user_title_tip">--</string>
+    <string name="user_mobile_hint">--</string>
+    <string name="user_mobile_format_hint">--</string>
+    <string name="user_password_format_hint">--</string>
+    <string name="user_title_trust">--</string>
+    <string name="user_trust_none">--</string>
+    <string name="user_sign_in_confirm">--</string>
+    <string name="user_sign_up_nick">--</string>
+    <string name="user_sign_up_nick_hint">--</string>
+    <string name="user_sign_up_code">--</string>
+    <string name="user_sign_up_agree">--</string>
+    <string name="user_sign_up_profile">--</string>
+    <string name="user_sign_up_confirm">--</string>
+    <string name="user_password_pwdold_hint">--</string>
+    <string name="user_password_google_hint">--</string>
+    <string name="user_password_pwdnew_hint">--</string>
+    <string name="user_password_repwd_hint">--</string>
+    <string name="user_password_pwdnew_format_hint">--</string>
+    <string name="user_password_repwd_format_hint">--</string>
+    <string name="user_password_success">--</string>
+    <string name="user_password_failure">--</string>
+    <string name="user_password_google">--</string>
+    <string name="user_password_google_paste">--</string>
+    <string name="user_setting_trade_pwd">--</string>
+    <string name="user_setting_identity">--</string>
+    <string name="sms_code_hint">--</string>
+    <string name="trade_code_hint">--</string>
+    <string name="google_code_title">--</string>
+    <string name="google_code_hint">--</string>
+    <string name="google_code_format_hint">--</string>
+    <string name="user_about_copyright">--</string>
+    <string name="coin_eth">--</string>
+    <string name="coin_btc">--</string>
+    <string name="biz_type_tradefee">--</string>
+    <string name="biz_type_withdrawfee">--</string>
+    <string name="biz_status_daiduizhang">--</string>
+    <string name="biz_status_yiduiyiping">--</string>
+    <string name="biz_status_zhangbuping">--</string>
+    <string name="biz_status_yiduibuping">--</string>
+    <string name="biz_status_wuxuduizhang">--</string>
+    <string name="red_package_mxn_number">--</string>
+    <string name="red_package_max_numer">--</string>
+    <string name="please_set_account_money_password">--</string>
+    <string name="CNY">--</string>
+    <string name="USD">--</string>
+    <string name="red_package_sub_single">--</string>
+    <string name="us_web">--</string>
+    <string name="email_address">--</string>
+    <string name="sina_">--</string>
+    <string name="waite_content_1">--</string>
+    <string name="waite_title_1">--</string>
+    <string name="waite_content_2">--</string>
+    <string name="waite_content_3">--</string>
+    <string name="consult_1">--</string>
+    <string name="code_login">--</string>
+    <string name="set_login_pwd">--</string>
+    <string name="login_pwd_sed_success">--</string>
+    <string name="activity_setting_failure">--</string>
 
 
 </resources>

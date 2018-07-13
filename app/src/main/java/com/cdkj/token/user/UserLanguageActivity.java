@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
@@ -18,11 +19,9 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.Locale;
 
-import static com.cdkj.baselibrary.appmanager.EventTags.EVENT_REFRESH_LANGUAGE;
 import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
 import static com.cdkj.baselibrary.appmanager.MyConfig.KOREA;
 import static com.cdkj.baselibrary.appmanager.MyConfig.SIMPLIFIED;
-import static com.cdkj.baselibrary.appmanager.MyConfig.TRADITIONAL;
 
 /**
  * Created by lei on 2017/12/7.
@@ -63,38 +62,31 @@ public class UserLanguageActivity extends AbsBaseActivity {
     private void initListener() {
         //简体中午
         mBinding.llSimple.setOnClickListener(view -> {
-            sendEventBus(SIMPLIFIED);
             initView();
             mBinding.ivSimple.setBackgroundResource(R.mipmap.choice_confirm);
+            sendEventBusAndFinishAll(SIMPLIFIED);
         });
 
         mBinding.llEnglish.setOnClickListener(view -> {
-            sendEventBus(ENGLISH);
             initView();
             mBinding.ivEnglish.setBackgroundResource(R.mipmap.choice_confirm);
+            sendEventBusAndFinishAll(ENGLISH);
         });
 
         mBinding.llKorea.setOnClickListener(v -> {
-            sendEventBus(KOREA);
             initView();
             mBinding.ivKorea.setBackgroundResource(R.mipmap.choice_confirm);
+            sendEventBusAndFinishAll(KOREA);
         });
 
-        mBinding.llTradition.setOnClickListener(view -> {
-            sendEventBus(TRADITIONAL);
-            initView();
-            mBinding.ivTradition.setBackgroundResource(R.mipmap.choice_confirm);
-        });
     }
 
-    private void sendEventBus(String language) {
+    private void sendEventBusAndFinishAll(String language) {
         SPUtilHelper.saveLanguage(language);
-
-        EventBusModel model = new EventBusModel();
-        model.setTag(EVENT_REFRESH_LANGUAGE);
-        EventBus.getDefault().post(model);
+        EventBus.getDefault().post(new AllFinishEvent());
         //刷新界面
         MainActivity.open(this);
+        finish();
     }
 
     private void initView() {
