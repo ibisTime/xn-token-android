@@ -6,12 +6,14 @@ import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.cdkj.baselibrary.CdApplication;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
+
+import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
 
 /**
  * Created by lei on 2017/10/20.
@@ -19,22 +21,24 @@ import org.litepal.LitePal;
 
 public class MyApplication extends Application {
 
-    public  static Application application;
+    public static Application application;
 
     @Override
     public void onCreate() {
         super.onCreate();
         application = this;
         LogUtil.isLog = BuildConfig.IS_DEBUG;
-        CdApplication.initialize(this);
         initLitePal();
-        initZXing();
+        CdApplication.initialize(this);
+        AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置用户使用语言
         if (LogUtil.isLog) {
             ARouter.openLog();     // 打印日志
             ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
         }
-        ARouter.init(application); // 尽可能早，推荐在Application中初始化
+        ARouter.init(this); //
+        initZXing();
         EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
+
     }
 
     private void initLitePal() {

@@ -10,7 +10,7 @@ import android.view.View;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsBaseActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
-import com.cdkj.baselibrary.model.EventBusModel;
+import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserLanguageBinding;
@@ -22,6 +22,7 @@ import java.util.Locale;
 import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
 import static com.cdkj.baselibrary.appmanager.MyConfig.KOREA;
 import static com.cdkj.baselibrary.appmanager.MyConfig.SIMPLIFIED;
+import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
 
 /**
  * Created by lei on 2017/12/7.
@@ -84,7 +85,7 @@ public class UserLanguageActivity extends AbsBaseActivity {
     private void sendEventBusAndFinishAll(String language) {
         SPUtilHelper.saveLanguage(language);
         EventBus.getDefault().post(new AllFinishEvent());
-        //刷新界面
+        AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置语言
         MainActivity.open(this);
         finish();
     }

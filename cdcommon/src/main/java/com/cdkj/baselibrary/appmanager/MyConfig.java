@@ -1,9 +1,15 @@
 package com.cdkj.baselibrary.appmanager;
 
 
+import android.content.Context;
+import android.content.res.Configuration;
+import android.content.res.Resources;
 import android.text.TextUtils;
+import android.util.DisplayMetrics;
 
 import com.cdkj.baselibrary.utils.LogUtil;
+
+import java.util.Locale;
 
 
 public class MyConfig {
@@ -70,4 +76,20 @@ public class MyConfig {
         }
     }
 
+
+    /**
+     * 设置APP使用的语言
+     */
+    public static Locale getUserLanguageLocal() {
+        switch (SPUtilHelper.getLanguage()) {
+            case ENGLISH:
+                return Locale.ENGLISH;
+            case KOREA:
+                return Locale.KOREA;
+            case SIMPLIFIED:
+                return Locale.SIMPLIFIED_CHINESE;
+            default:
+                return Locale.ENGLISH;
+        }
+    }
 }

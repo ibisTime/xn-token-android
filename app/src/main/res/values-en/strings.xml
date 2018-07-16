@@ -206,7 +206,7 @@
     <string name="user_address_delete_confirm">Are you sure you want to delete this address? </string>
     <string name="user_address_delete_success">delete successfully </string>
     <string name="user_title_language">language settings </string>
-    <string name="user_language_simplified">Chinese simplified </string>
+    <string name="user_language_simplified">中文简体</string><!--Chinese simplified -->
     <string name="user_language_traditional">Chinese Traditional </string>
     <string name="user_title_google">Google Verification</string>
     <string name="user_google_open">Is turned on </string>

@@ -10,6 +10,6 @@ import com.cdkj.token.MyApplication;
 public class StringUtil {
 
     public static String getString(int resources){
-        return MyApplication.application.getString(resources);
+        return MyApplication.getInstance().getString(resources);
     }
 }

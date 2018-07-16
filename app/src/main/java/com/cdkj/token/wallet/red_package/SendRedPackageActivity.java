@@ -393,7 +393,9 @@ public class SendRedPackageActivity extends AbsBaseLoadActivity {
                 public void onOptionsSelect(int options1, int options2, int options3, View v) {
                     setShowSelectCoinInfo(options1);
                 }
-            }).build();
+            }).setCancelText(getString(R.string.cancel))//取消按钮文字
+                    .setSubmitText(getString(R.string.sure))//确认按钮文字
+                    .build();
         }
 
 

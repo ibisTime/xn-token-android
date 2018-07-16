@@ -3,22 +3,19 @@ package com.cdkj.baselibrary.base;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
-import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.cdkj.baselibrary.R;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.dialog.LoadingDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
+import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -26,14 +23,11 @@ import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import io.reactivex.disposables.CompositeDisposable;
 import retrofit2.Call;
 
-import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
-import static com.cdkj.baselibrary.appmanager.MyConfig.KOREA;
-import static com.cdkj.baselibrary.appmanager.MyConfig.SIMPLIFIED;
+import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
 
 
 /**
@@ -50,7 +44,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setAppLanguage();
+
         if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
@@ -255,35 +249,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      */
     public String getStrRes(int resources) {
         return getString(resources);
-    }
-
-    /**
-     * 设置APP使用的语言
-     */
-    public void setAppLanguage() {
-
-        Locale myLocale;
-
-        switch (SPUtilHelper.getLanguage()) {
-            case ENGLISH:
-                myLocale = Locale.ENGLISH;
-                break;
-            case KOREA:
-                myLocale = Locale.KOREA;
-                break;
-            case SIMPLIFIED:
-                myLocale = Locale.SIMPLIFIED_CHINESE;
-                break;
-            default:
-                myLocale = Locale.ENGLISH;
-                break;
-        }
-
-        Resources res = getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = myLocale;
-        res.updateConfiguration(conf, dm);
     }
 
 }

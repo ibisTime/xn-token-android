@@ -104,6 +104,7 @@ public class OkHttpUtils {
                     .retryOnConnectionFailure(false)//允许失败重试
                     .cookieJar(new CookiesManager())  //cookie 管理
                     .addInterceptor(getInterceptor(LogUtil.isLog))    //网络日志
+//                    .addNetworkInterceptor(new StethoInterceptor())
 //                    .sslSocketFactory(createSSLSocketFactory(), new TrustAllManager())
 //                    .hostnameVerifier(new TrustAllHostnameVerifier())
                     .build();
