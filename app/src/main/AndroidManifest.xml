@@ -144,6 +144,7 @@
             android:theme="@style/ActivityDialogStyleBottom"></activity>
         <activity android:name=".user.LocalCoinTypeChooseActivity" />
         <activity android:name=".user.login.SetLoginPwdActivity" />
+        <activity android:name=".consult.FutureImageShowActivity" />
     </application>
 
 </manifest>

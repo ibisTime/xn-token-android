@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.signature.StringSignature;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.glidetransforms.GlideCircleTransform;
@@ -38,6 +40,7 @@ public class ImgUtils {
         } catch (Exception e) {
         }
     }
+
     public static void loadByte(Activity context, byte[] imgid, ImageView img) {
         if (!AppUtils.isActivityExist(context)) {
             return;
@@ -103,11 +106,8 @@ public class ImgUtils {
             return;
         }
 
-        try {
-            Glide.with(context).load(imgid).placeholder(R.drawable.default_pic).error(R.drawable.default_pic).into(img);
-        } catch (Exception e) {
-        }
-
+        Glide.with(context).load(imgid).diskCacheStrategy(DiskCacheStrategy.NONE)
+                .skipMemoryCache(true).into(img);
     }
 
 

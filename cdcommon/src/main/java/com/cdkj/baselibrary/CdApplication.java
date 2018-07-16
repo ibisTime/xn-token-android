@@ -4,7 +4,6 @@ package com.cdkj.baselibrary;
 import android.app.Application;
 import android.content.Context;
 
-import com.facebook.stetho.Stetho;
 
 public class CdApplication extends Application {
     /**

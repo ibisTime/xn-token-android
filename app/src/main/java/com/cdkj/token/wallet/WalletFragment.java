@@ -28,6 +28,7 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.WalletBalanceAdapter;
 import com.cdkj.token.api.MyApi;
+import com.cdkj.token.consult.FutureImageShowActivity;
 import com.cdkj.token.consult.MsgListActivity;
 import com.cdkj.token.consult.NoneActivity;
 import com.cdkj.token.databinding.FragmentWallet2Binding;
@@ -157,12 +158,12 @@ public class WalletFragment extends BaseLazyFragment {
 
         //一键划转
         mBinding.linLayoutFastTransfer.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, NoneActivity.ONE_CLICK);
+            FutureImageShowActivity.open(mActivity, NoneActivity.ONE_CLICK);
         });
 
         //闪兑
         mBinding.linLayoutTransferChange.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, NoneActivity.FLASH);
+            FutureImageShowActivity.open(mActivity, NoneActivity.FLASH);
         });
 
         //公告关闭
