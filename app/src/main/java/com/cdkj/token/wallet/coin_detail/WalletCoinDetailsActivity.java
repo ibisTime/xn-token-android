@@ -11,7 +11,7 @@ import android.view.View;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.api.ResponseInListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -45,7 +45,7 @@ import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
  * Created by cdkj on 2018/6/8.
  */
 
-public class WalletCoinDetailsActivity extends AbsBaseLoadActivity {
+public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
     private ActivityWallteBillBinding mBinding;
 

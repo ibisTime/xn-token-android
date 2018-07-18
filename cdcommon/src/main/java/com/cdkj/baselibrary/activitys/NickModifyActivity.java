@@ -8,11 +8,9 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.R;
-import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityModifyNickBinding;
-import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -27,7 +25,7 @@ import retrofit2.Call;
  * Created by lei on 2017/8/22.
  */
 
-public class NickModifyActivity extends AbsBaseActivity {
+public class NickModifyActivity extends AbsActivity {
 
     private ActivityModifyNickBinding mBinding;
 

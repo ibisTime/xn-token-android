@@ -6,7 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserWalletBinding;
 import com.cdkj.token.wallet.WalletPasswordModifyActivity;
@@ -18,7 +18,7 @@ import com.cdkj.token.wallet.export.WalletExportPasswordCheckActivity;
  * Created by cdkj on 2018/5/26.
  */
 
-public class UserWalletActivity extends AbsBaseActivity {
+public class UserWalletActivity extends AbsActivity {
 
     private ActivityUserWalletBinding mBinding;
 

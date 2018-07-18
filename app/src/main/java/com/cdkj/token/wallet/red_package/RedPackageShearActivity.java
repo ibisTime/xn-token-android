@@ -10,7 +10,7 @@ import android.view.View;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
@@ -32,7 +32,7 @@ import retrofit2.Call;
 /**
  * 红包分享
  */
-public class RedPackageShearActivity extends AbsBaseLoadActivity {
+public class RedPackageShearActivity extends AbsLoadActivity {
     ActivityRedPackageShearBinding mBinding;
     private String currentCode;
 

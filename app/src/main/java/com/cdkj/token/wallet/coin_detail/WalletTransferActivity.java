@@ -12,13 +12,12 @@ import android.widget.Toast;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityTransferBinding;
-import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.pop.GasTypeChoosePop;
@@ -44,7 +43,7 @@ import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
  * Created by cdkj on 2018/6/8.
  */
 
-public class WalletTransferActivity extends AbsBaseLoadActivity {
+public class WalletTransferActivity extends AbsLoadActivity {
 
     private ActivityTransferBinding mBinding;
 

@@ -11,7 +11,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
 import com.cdkj.baselibrary.model.IsSuccessModes;
@@ -22,9 +22,6 @@ import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityFindPasswordBinding;
-import com.cdkj.token.user.CountryCodeListActivity;
-
-import org.spongycastle.asn1.esf.SPuri;
 
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -34,7 +31,7 @@ import retrofit2.Call;
 /**
  * 设置密码和修改密码
  */
-public class SetLoginPwdActivity extends AbsBaseActivity implements SendCodeInterface {
+public class SetLoginPwdActivity extends AbsActivity implements SendCodeInterface {
 
     private ActivityFindPasswordBinding mBinding;
 

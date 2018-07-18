@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityRechargeBinding;
@@ -23,7 +23,7 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 /**
  * 地址展示  （收款）
  */
-public class WalletAddressShowActivity extends AbsBaseLoadActivity {
+public class WalletAddressShowActivity extends AbsLoadActivity {
 
 
     private ActivityRechargeBinding mBinding;

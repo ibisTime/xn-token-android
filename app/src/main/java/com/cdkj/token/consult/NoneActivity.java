@@ -8,7 +8,7 @@ import android.view.Gravity;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityNoneBinding;
 
@@ -16,7 +16,7 @@ import com.cdkj.token.databinding.ActivityNoneBinding;
  * Created by lei on 2018/3/29.
  */
 
-public class NoneActivity extends AbsBaseActivity {
+public class NoneActivity extends AbsActivity {
 
     private ActivityNoneBinding mBinding;
 

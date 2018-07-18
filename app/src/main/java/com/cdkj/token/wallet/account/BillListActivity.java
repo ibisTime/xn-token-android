@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
 import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -27,7 +27,6 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityBillListBinding;
 import com.cdkj.token.databinding.HeaderBillListBinding;
 import com.cdkj.token.model.BillModel;
-import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -48,7 +47,7 @@ import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
  * Created by cdkj on 2018/5/25.
  */
 
-public class BillListActivity extends AbsBaseActivity {
+public class BillListActivity extends AbsActivity {
 
     private ActivityBillListBinding mBinding;
     private HeaderBillListBinding mHeaderBinding;

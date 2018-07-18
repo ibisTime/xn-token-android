@@ -8,12 +8,11 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityWalletWordsShowBinding;
-import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.util.List;
@@ -25,7 +24,7 @@ import static com.cdkj.baselibrary.utils.StringUtils.SPACE_SYMBOL;
  * Created by cdkj on 2018/6/6.
  */
 
-public class WalletHelpWordsShowActivity extends AbsBaseLoadActivity {
+public class WalletHelpWordsShowActivity extends AbsLoadActivity {
 
     private ActivityWalletWordsShowBinding mBinding;
 

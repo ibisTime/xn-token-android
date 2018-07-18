@@ -13,7 +13,7 @@ import android.widget.PopupWindow;
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.activitys.UpdatePhoneActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserSettingBinding;
@@ -27,7 +27,7 @@ import org.greenrobot.eventbus.EventBus;
  * Created by lei on 2017/11/1.
  */
 
-public class UserSettingActivity extends AbsBaseActivity {
+public class UserSettingActivity extends AbsActivity {
 
 
     private ActivityUserSettingBinding mBinding;
@@ -43,6 +43,11 @@ public class UserSettingActivity extends AbsBaseActivity {
     public View addMainView() {
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_user_setting, null, false);
         return mBinding.getRoot();
+    }
+
+    @Override
+    protected boolean canLoadTopTitleView() {
+        return false;
     }
 
     @Override

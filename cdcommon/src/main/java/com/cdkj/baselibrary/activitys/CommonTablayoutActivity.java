@@ -7,7 +7,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.adapters.TabLayoutAdapter;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityTabBinding;
 
 import java.util.List;
@@ -16,7 +16,7 @@ import java.util.List;
  * Created by cdkj on 2017/6/15.
  */
 
-public abstract class CommonTablayoutActivity extends AbsBaseActivity {
+public abstract class CommonTablayoutActivity extends AbsActivity {
 
     protected ActivityTabBinding mbinding;
 

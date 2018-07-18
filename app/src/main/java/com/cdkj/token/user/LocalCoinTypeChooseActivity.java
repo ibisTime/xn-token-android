@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.EventBus;
  * Created by cdkj on 2018/7/2.
  */
 
-public class LocalCoinTypeChooseActivity extends AbsBaseActivity {
+public class LocalCoinTypeChooseActivity extends AbsActivity {
 
     public ActivityLocalCoinTypeBinding mBinding;
 

@@ -17,6 +17,7 @@ import com.cdkj.baselibrary.dialog.LoadingDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
+import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -35,7 +36,6 @@ import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-
     protected LoadingDialog loadingDialog;
     private List<Call> mCallList;
     protected CompositeDisposable mSubscription;
@@ -48,6 +48,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (getRequestedOrientation() != ActivityInfo.SCREEN_ORIENTATION_PORTRAIT) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+
+        UIStatusBarHelper.setStatusBarLightMode(this);
+        UIStatusBarHelper.translucent(this);
+
         mSubscription = new CompositeDisposable();
         loadingDialog = new LoadingDialog(this);
         EventBus.getDefault().register(this);

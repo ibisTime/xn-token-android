@@ -10,7 +10,7 @@ import android.view.View;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityModifyPayPasswordBinding;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
@@ -33,7 +33,7 @@ import retrofit2.Call;
  * 修改 设置 资金密码
  * Created by cdkj on 2017/6/29.
  */
-public class PayPwdModifyActivity extends AbsBaseActivity implements SendCodeInterface {
+public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterface {
 
     private ActivityModifyPayPasswordBinding mBinding;
 

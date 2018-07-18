@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.dialog.InputDialog;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -38,7 +38,7 @@ import static com.cdkj.token.utils.AccountUtil.getUnit;
  * Created by lei on 2017/10/18.
  */
 
-public class StorePayActivity extends AbsBaseActivity {
+public class StorePayActivity extends AbsActivity {
 
 
     private ActivityStorePayBinding mBinding;

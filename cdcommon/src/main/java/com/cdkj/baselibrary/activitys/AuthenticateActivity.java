@@ -13,7 +13,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityAuthenticateBinding;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -27,7 +27,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-public class AuthenticateActivity extends AbsBaseActivity {
+public class AuthenticateActivity extends AbsActivity {
 
     private ActivityAuthenticateBinding mBinding;
 

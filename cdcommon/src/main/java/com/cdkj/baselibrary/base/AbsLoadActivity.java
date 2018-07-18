@@ -7,12 +7,13 @@ import android.view.View;
 
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.databinding.ActivityAbsBaseLoadBinding;
+import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 
 
 /**
  * 带空页面，错误页面显示的BaseActivity 通过AbsBaseActivityj界面操作封装成View而来
  */
-public abstract class AbsBaseLoadActivity extends BaseActivity {
+public abstract class AbsLoadActivity extends BaseActivity {
     protected ActivityAbsBaseLoadBinding mBaseBinding;
 
     /**
@@ -21,6 +22,7 @@ public abstract class AbsBaseLoadActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         mBaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_abs_base_load);
 
         mBaseBinding.contentView.addContentView(addMainView());

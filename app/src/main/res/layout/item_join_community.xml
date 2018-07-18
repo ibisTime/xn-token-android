@@ -10,6 +10,7 @@
         android:id="@+id/ll_twitter"
         android:layout_width="match_parent"
         android:layout_height="45dp"
+        android:background="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">

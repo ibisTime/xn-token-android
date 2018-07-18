@@ -17,7 +17,7 @@ import java.util.List;
  * Created by cdkj on 2018/2/28.
  */
 
-public abstract class AbsRefreshListActivity<T> extends AbsBaseLoadActivity {
+public abstract class AbsRefreshListActivity<T> extends AbsLoadActivity {
 
     protected LayoutCommonRecyclerRefreshBinding mRefreshBinding;
 

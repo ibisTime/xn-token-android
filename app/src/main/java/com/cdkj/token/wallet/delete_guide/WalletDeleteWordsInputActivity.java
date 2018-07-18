@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -31,7 +31,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by cdkj on 2018/6/6.
  */
 
-public class WalletDeleteWordsInputActivity extends AbsBaseLoadActivity {
+public class WalletDeleteWordsInputActivity extends AbsLoadActivity {
 
     private ActivityWalletWordsCheckInputBinding mBinding;
     private ArrayList<String> words;

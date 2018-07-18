@@ -340,8 +340,8 @@
     <string name="freeze">동결</string>
     <string name="wallet_charge_my_address">비트코인 입금주소</string>
     <string name="wallet_charge_address_copy">(주소복사)</string>
-    <string name="wallet_charge_address">--</string>
-    <string name="wallet_assets">주소 복사완료</string>
+    <string name="wallet_charge_address">주소</string>
+    <string name="wallet_assets">주소 복사완료(%s)</string>
     <string name="wallet_frozen_0">동결0</string>
     <string name="wallet_charge">입금</string>
     <string name="wallet_withdraw">출금</string>

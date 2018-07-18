@@ -6,7 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityWalletBackupStartBinding;
 import com.cdkj.token.wallet.create_guide.WalletHelpWordsShowActivity;
@@ -16,7 +16,7 @@ import com.cdkj.token.wallet.create_guide.WalletHelpWordsShowActivity;
  * Created by cdkj on 2018/6/7.
  */
 
-public class WalletBackupStartActivity extends AbsBaseLoadActivity {
+public class WalletBackupStartActivity extends AbsLoadActivity {
 
     private ActivityWalletBackupStartBinding mBinding;
 

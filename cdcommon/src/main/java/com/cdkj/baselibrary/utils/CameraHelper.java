@@ -328,7 +328,7 @@ public class CameraHelper {
         if (data == null) return;
         Uri imageUri = data.getData();
 
-        if ("Xiaomi".equals(Build.MANUFACTURER) || SystemUtils.isMIUI())   //小米相册兼容代码
+        if (DeviceHelper.isMIUI())   //小米相册兼容代码
         {
             String imgP = setPhotoForMiuiSystem(data);
 
@@ -522,7 +522,6 @@ public class CameraHelper {
     public interface CamerahelperCropInterface {
         void startCrop(Object context, int requestCode, String path);//从Activity页面启动
     }
-
 
 
     /**

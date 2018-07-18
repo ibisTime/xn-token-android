@@ -4,14 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
 import com.cdkj.baselibrary.model.IsSuccessModes;
@@ -22,7 +20,6 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserGoogleBinding;
 
-import org.greenrobot.eventbus.Subscribe;
 import org.json.JSONObject;
 
 import java.util.HashMap;
@@ -39,7 +36,7 @@ import static com.cdkj.baselibrary.utils.SystemUtils.paste;
  * Created by lei on 2017/12/6.
  */
 
-public class UserGoogleActivity extends AbsBaseActivity implements SendCodeInterface {
+public class UserGoogleActivity extends AbsActivity implements SendCodeInterface {
 
     private SendPhoneCodePresenter mPresenter;
 

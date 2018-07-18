@@ -11,7 +11,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
 import com.cdkj.baselibrary.model.IsSuccessModes;
@@ -32,7 +32,7 @@ import retrofit2.Call;
 /**
  * 找回密码
  */
-public class FindLoginPwdActivity extends AbsBaseActivity implements SendCodeInterface {
+public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterface {
 
     private ActivityFindPasswordBinding mBinding;
 

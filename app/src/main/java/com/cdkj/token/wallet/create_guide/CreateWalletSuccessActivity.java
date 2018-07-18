@@ -6,7 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreateWalletSuccessBinding;
 
@@ -15,7 +15,7 @@ import com.cdkj.token.databinding.ActivityCreateWalletSuccessBinding;
  * Created by cdkj on 2018/6/6.
  */
 
-public class CreateWalletSuccessActivity extends AbsBaseLoadActivity {
+public class CreateWalletSuccessActivity extends AbsLoadActivity {
 
     private ActivityCreateWalletSuccessBinding mBinding;
 

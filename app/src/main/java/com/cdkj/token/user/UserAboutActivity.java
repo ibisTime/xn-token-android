@@ -7,25 +7,13 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.EventTags;
-import com.cdkj.baselibrary.appmanager.MyConfig;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
-import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
-import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
-import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityUserAboutBinding;
-import com.cdkj.token.model.VersionModel;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import retrofit2.Call;
 
 import static com.cdkj.token.utils.UpdateUtil.startWeb;
 
@@ -34,7 +22,7 @@ import static com.cdkj.token.utils.UpdateUtil.startWeb;
  * Created by lei on 2018/1/5.
  */
 
-public class UserAboutActivity extends AbsBaseActivity {
+public class UserAboutActivity extends AbsActivity {
 
     private ActivityUserAboutBinding mBinding;
 

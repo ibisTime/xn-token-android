@@ -9,13 +9,11 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.R;
-import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityModifyPhoneBinding;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
-import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -32,7 +30,7 @@ import retrofit2.Call;
  * Created by cdkj on 2017/6/16.
  */
 
-public class UpdatePhoneActivity extends AbsBaseActivity implements SendCodeInterface {
+public class UpdatePhoneActivity extends AbsActivity implements SendCodeInterface {
 
     private ActivityModifyPhoneBinding mBinding;
 

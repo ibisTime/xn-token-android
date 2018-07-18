@@ -23,7 +23,7 @@ import java.util.List;
  * Created by cdkj on 2017/7/19.
  */
 
-public abstract class BaseRefreshActivity<T> extends AbsBaseActivity {
+public abstract class BaseRefreshActivity<T> extends AbsActivity {
 
     protected LayoutCommonRecyclerRefreshBinding mBinding;
 

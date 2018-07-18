@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreatePassWordBinding;
@@ -20,7 +20,7 @@ import com.cdkj.token.views.password.PassWordLayout;
  * Created by cdkj on 2018/6/7.
  */
 
-public class WalletPasswordModifyActivity extends AbsBaseLoadActivity {
+public class WalletPasswordModifyActivity extends AbsLoadActivity {
 
     private ActivityCreatePassWordBinding mBinding;
 

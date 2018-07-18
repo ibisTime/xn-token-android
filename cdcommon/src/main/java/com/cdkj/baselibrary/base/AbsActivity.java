@@ -9,12 +9,13 @@ import android.widget.TextView;
 
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.databinding.ActivityAbsBaseBinding;
+import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 
 
 /**
  * 带空页面，错误页面显示的BaseActivity
  */
-public abstract class AbsBaseActivity extends BaseActivity {
+public abstract class AbsActivity extends BaseActivity {
     private View mErrorView;
     private View mMainView;
     private View mTopTitleView;
@@ -25,33 +26,34 @@ public abstract class AbsBaseActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        ActivityAbsBaseBinding mBaseBinding= DataBindingUtil.setContentView(this, R.layout.activity_abs_base);
 
-        if(canLoadTopTitleView()){
+        ActivityAbsBaseBinding mBaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_abs_base);
+
+        if (canLoadTopTitleView()) {
 
             if (!mBaseBinding.toptitlelayout.isInflated()) {
-                mTopTitleView= mBaseBinding.toptitlelayout.getViewStub().inflate();
+                mTopTitleView = mBaseBinding.toptitlelayout.getViewStub().inflate();
             }
 
             mTopTitleView.findViewById(R.id.fram_img_back).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if(canFinish()){
+                    if (canFinish()) {
                         finish();
                     }
                 }
             });
         }
 
-        if(canLoadErrorView()){
+        if (canLoadErrorView()) {
             if (!mBaseBinding.emptylayout.isInflated()) {
-                mErrorView= mBaseBinding.emptylayout.getViewStub().inflate();
+                mErrorView = mBaseBinding.emptylayout.getViewStub().inflate();
             }
         }
 
         mMainView = addMainView();
 
-        if(mMainView!=null){
+        if (mMainView != null) {
             mBaseBinding.contentView.addView(mMainView, 1);
         }
 
@@ -61,31 +63,34 @@ public abstract class AbsBaseActivity extends BaseActivity {
 
     /**
      * 能否结束当前页面
+     *
      * @return
      */
-    protected  boolean canFinish(){
+    protected boolean canFinish() {
         return true;
     }
 
     /**
      * 能否加载标题
+     *
      * @return
      */
-    protected  boolean canLoadTopTitleView(){
+    protected boolean canLoadTopTitleView() {
         return true;
     }
+
     /**
      * 能否加载错误提示View
+     *
      * @return
      */
-    protected  boolean canLoadErrorView(){
+    protected boolean canLoadErrorView() {
         return false;
     }
 
 
     /**
      * 添加要显示的View
-     *
      */
     public abstract View addMainView();
 
@@ -96,20 +101,23 @@ public abstract class AbsBaseActivity extends BaseActivity {
 
     /**
      * 设置错误显示图标
+     *
      * @param resId
      */
     protected void setErrorIcon(int resId) {
-        if(mErrorView==null)return;
+        if (mErrorView == null) return;
         ImageView mIcon = (ImageView) mErrorView.findViewById(R.id.iv_icon_error);
         mIcon.setImageResource(resId);
     }
+
     /**
      * 设置错误显示文本
-     * @param  errer
+     *
+     * @param errer
      */
     protected void setErroryText(String errer) {
-        if(mErrorView==null) return;
-        TextView mText = (TextView) mErrorView.findViewById( R.id.tv_error);
+        if (mErrorView == null) return;
+        TextView mText = (TextView) mErrorView.findViewById(R.id.tv_error);
         mText.setText(errer);
     }
 
@@ -118,8 +126,9 @@ public abstract class AbsBaseActivity extends BaseActivity {
      */
     private void hideAll() {
         hideAllNoTitle();
-        if(mTopTitleView!=null) mTopTitleView.setVisibility(View.GONE);
+        if (mTopTitleView != null) mTopTitleView.setVisibility(View.GONE);
     }
+
     /**
      * 隐藏除标题栏的所有界面,辅助显示各个页面的
      */
@@ -135,35 +144,35 @@ public abstract class AbsBaseActivity extends BaseActivity {
 
     public void showErrorView() {
         hideAllNoTitle();
-        if(mErrorView!=null) mErrorView.setVisibility(View.VISIBLE);
+        if (mErrorView != null) mErrorView.setVisibility(View.VISIBLE);
     }
 
     public void showContentView() {
         hideAllNoTitle();
-        if(mMainView!=null) mMainView.setVisibility(View.VISIBLE);
+        if (mMainView != null) mMainView.setVisibility(View.VISIBLE);
     }
 
     public void showErrorView(int imgResId, String error) {
         hideAllNoTitle();
-        if(mErrorView!=null)  mErrorView.setVisibility(View.VISIBLE);
+        if (mErrorView != null) mErrorView.setVisibility(View.VISIBLE);
         setErrorIcon(imgResId);
         setErroryText(error);
     }
 
     public void showErrorView(String error) {
         hideAllNoTitle();
-        if(mErrorView!=null)  mErrorView.setVisibility(View.VISIBLE);
+        if (mErrorView != null) mErrorView.setVisibility(View.VISIBLE);
         setErroryText(error);
     }
 
 
-
     /**
      * 设置标题
+     *
      * @param title
      */
     public void setTopTitle(String title) {
-        if(mTopTitleView == null){
+        if (mTopTitleView == null) {
             return;
         }
         TextView tvTitle = (TextView) mTopTitleView.findViewById(R.id.tv_top_title_abs);
@@ -172,10 +181,11 @@ public abstract class AbsBaseActivity extends BaseActivity {
 
     /**
      * 设置标题点击事件
+     *
      * @param listener
      */
     public void setTopTitleClickListener(View.OnClickListener listener) {
-        if(mTopTitleView == null){
+        if (mTopTitleView == null) {
             return;
         }
         TextView tvTitle = (TextView) mTopTitleView.findViewById(R.id.tv_top_title_abs);
@@ -184,10 +194,11 @@ public abstract class AbsBaseActivity extends BaseActivity {
 
     /**
      * 设置标题图片是否显示
+     *
      * @param b
      */
     public void setTopImgEnable(boolean b) {
-        if(mTopTitleView == null){
+        if (mTopTitleView == null) {
             return;
         }
         ImageView ivImg = (ImageView) mTopTitleView.findViewById(R.id.iv_title_img);
@@ -196,26 +207,28 @@ public abstract class AbsBaseActivity extends BaseActivity {
 
     /**
      * 设置标题
+     *
      * @param b
      */
     public void setTopLineState(boolean b) {
-        if(mTopTitleView == null){
+        if (mTopTitleView == null) {
             return;
         }
         View line = mTopTitleView.findViewById(R.id.line_bottom);
-        if(b){
+        if (b) {
             line.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             line.setVisibility(View.GONE);
         }
     }
 
     /**
      * 设置title left 文本点击事件
+     *
      * @param subTitle
      */
     public void setSubLeftTitleAndClick(String subTitle) {
-        if(mTopTitleView == null){
+        if (mTopTitleView == null) {
             return;
         }
         FrameLayout frameLayout = (FrameLayout) mTopTitleView.findViewById(R.id.fram_img_back);
@@ -228,11 +241,12 @@ public abstract class AbsBaseActivity extends BaseActivity {
 
     /**
      * title  left img 显示状态
+     *
      * @param isShow
      */
     public void setSubLeftImgState(boolean isShow) {
 
-        if(mTopTitleView == null){
+        if (mTopTitleView == null) {
             return;
         }
 
@@ -240,11 +254,11 @@ public abstract class AbsBaseActivity extends BaseActivity {
         ImageView ivSubTitle = (ImageView) mTopTitleView.findViewById(R.id.img_back);
         FrameLayout frameLayout = (FrameLayout) mTopTitleView.findViewById(R.id.fram_img_back);
 
-        if(isShow){
+        if (isShow) {
             tvSubTitle.setVisibility(View.VISIBLE);
             ivSubTitle.setVisibility(View.VISIBLE);
             frameLayout.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             tvSubTitle.setVisibility(View.GONE);
             ivSubTitle.setVisibility(View.GONE);
             frameLayout.setVisibility(View.GONE);
@@ -253,15 +267,16 @@ public abstract class AbsBaseActivity extends BaseActivity {
 
     /**
      * 设置title right 图片点击事件
+     *
      * @param listener
      */
     public void setSubRightImgAndClick(int rid, View.OnClickListener listener) {
 
-        if(mTopTitleView== null){
+        if (mTopTitleView == null) {
             return;
         }
 
-        ImageView img= (ImageView) mTopTitleView.findViewById(R.id.img_right);
+        ImageView img = (ImageView) mTopTitleView.findViewById(R.id.img_right);
         img.setVisibility(View.VISIBLE);
         img.setImageResource(rid);
         findViewById(R.id.fllayout_right).setOnClickListener(listener);
@@ -269,12 +284,13 @@ public abstract class AbsBaseActivity extends BaseActivity {
 
     /**
      * 设置title right 文本点击事件
+     *
      * @param subTitle
      * @param listener
      */
     public void setSubRightTitleAndClick(String subTitle, View.OnClickListener listener) {
 
-        if(mTopTitleView == null)return;
+        if (mTopTitleView == null) return;
 
         if (subTitle == null)
             return;
@@ -286,19 +302,19 @@ public abstract class AbsBaseActivity extends BaseActivity {
         frameLayout.setVisibility(View.VISIBLE);
         tvSubTitle.setOnClickListener(listener);
     }
+
     /**
      * 设置title right 消失
      */
     public void setSubRightTitHide() {
 
-        if(mTopTitleView == null)return;
+        if (mTopTitleView == null) return;
 
         FrameLayout frameLayout = (FrameLayout) mTopTitleView.findViewById(R.id.fllayout_right);
         TextView tvSubTitle = (TextView) mTopTitleView.findViewById(R.id.tv_top_right);
         tvSubTitle.setVisibility(View.GONE);
         frameLayout.setVisibility(View.GONE);
     }
-
 
 
 }

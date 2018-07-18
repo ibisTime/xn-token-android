@@ -14,7 +14,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.interfaces.LoginInterface;
 import com.cdkj.baselibrary.interfaces.LoginPresenter;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
@@ -25,7 +25,6 @@ import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivitySignInBinding;
@@ -36,7 +35,7 @@ import java.util.HashMap;
 import retrofit2.Call;
 
 @Route(path = CdRouteHelper.APPLOGIN)
-public class SignInActivity extends AbsBaseActivity implements LoginInterface, SendCodeInterface {
+public class SignInActivity extends AbsActivity implements LoginInterface, SendCodeInterface {
 
     private boolean canOpenMain;
 
@@ -73,7 +72,6 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface, S
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        UIStatusBarHelper.translucent(this);
         setTopLineState(true);
         setSubLeftImgState(true);
 
@@ -226,7 +224,7 @@ public class SignInActivity extends AbsBaseActivity implements LoginInterface, S
         SPUtilHelper.saveUserToken(user.getToken());
         SPUtilHelper.saveUserPhoneNum(mBinding.edtUsername.getText().toString().trim());
 
-        if(canOpenMain){
+        if (canOpenMain) {
             MainActivity.open(this);
         }
         finish();

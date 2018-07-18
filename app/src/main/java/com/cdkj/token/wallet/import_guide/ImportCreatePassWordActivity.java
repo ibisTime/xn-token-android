@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
@@ -30,7 +30,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by cdkj on 2018/6/5.
  */
 
-public class ImportCreatePassWordActivity extends AbsBaseLoadActivity {
+public class ImportCreatePassWordActivity extends AbsLoadActivity {
 
     private ActivityCreatePassWordBinding mBinding;
 

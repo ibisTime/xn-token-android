@@ -8,10 +8,6 @@
         android:orientation="vertical"
         tools:context="com.cdkj.token.wallet.red_package.RedPackageHistoryActivity">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:background="@color/red" />
 
         <RelativeLayout
             android:layout_width="match_parent"

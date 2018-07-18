@@ -24,19 +24,20 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="35dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:text="@string/main_tab_my"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
+
 
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_marginTop="75dp"
                 android:layout_weight="1"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp"
+                android:paddingLeft="13dp"
+                android:paddingRight="13dp"
                 android:scrollbars="none">
 
                 <LinearLayout
@@ -47,10 +48,11 @@
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="120dp"
-                        android:layout_marginBottom="15dp"
+                        android:layout_marginBottom="10dp"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
-                        app:cardElevation="@dimen/user_fragment_card_elevation">
+                        app:cardElevation="@dimen/user_fragment_card_elevation"
+                        app:cardUseCompatPadding="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -125,12 +127,14 @@
                         android:layout_height="wrap_content"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
-                        app:cardElevation="@dimen/user_fragment_card_elevation">
+                        app:cardElevation="@dimen/user_fragment_card_elevation"
+                        app:cardUseCompatPadding="true">
 
                         <LinearLayout
                             android:id="@+id/linLayout_user_account"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
+                            android:background="?attr/selectableItemBackground"
                             android:gravity="center_vertical">
 
                             <ImageView
@@ -164,7 +168,8 @@
                         android:layout_marginTop="10dp"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
-                        app:cardElevation="@dimen/user_fragment_card_elevation">
+                        app:cardElevation="@dimen/user_fragment_card_elevation"
+                        app:cardUseCompatPadding="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -176,6 +181,7 @@
                                 android:id="@+id/linLayout_local_coin"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
+                                android:background="?attr/selectableItemBackground"
                                 android:gravity="center_vertical">
 
                                 <ImageView
@@ -209,6 +215,7 @@
                                 android:id="@+id/language_change"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
+                                android:background="?attr/selectableItemBackground"
                                 android:gravity="center_vertical">
 
                                 <ImageView
@@ -243,10 +250,11 @@
                     <android.support.v7.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
+                        android:layout_marginTop="8dp"
                         app:cardBackgroundColor="@color/white"
                         app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
-                        app:cardElevation="@dimen/user_fragment_card_elevation">
+                        app:cardElevation="@dimen/user_fragment_card_elevation"
+                        app:cardUseCompatPadding="true">
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -258,6 +266,7 @@
                                 android:id="@+id/join_us"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
+                                android:background="?attr/selectableItemBackground"
                                 android:gravity="center_vertical">
 
                                 <ImageView
@@ -291,6 +300,7 @@
                                 android:id="@+id/wallet_tool"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
+                                android:background="?attr/selectableItemBackground"
                                 android:gravity="center_vertical">
 
                                 <ImageView
@@ -316,10 +326,15 @@
 
                             </LinearLayout>
 
+                            <View
+                                style="@style/style_split_line"
+                                android:layout_marginLeft="48dp" />
+
                             <LinearLayout
                                 android:id="@+id/helper"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
+                                android:background="?attr/selectableItemBackground"
                                 android:gravity="center_vertical">
 
                                 <ImageView
@@ -353,6 +368,7 @@
                                 android:id="@+id/about_us"
                                 android:layout_width="match_parent"
                                 android:layout_height="60dp"
+                                android:background="?attr/selectableItemBackground"
                                 android:gravity="center_vertical">
 
                                 <ImageView
@@ -389,6 +405,7 @@
                 </LinearLayout>
 
             </ScrollView>
+
         </FrameLayout>
 
     </LinearLayout>

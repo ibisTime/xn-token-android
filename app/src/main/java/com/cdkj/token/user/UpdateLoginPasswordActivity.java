@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -28,7 +28,7 @@ import static com.cdkj.baselibrary.utils.SystemUtils.paste;
 /**
  * 找回密码
  */
-public class UpdateLoginPasswordActivity extends AbsBaseActivity {
+public class UpdateLoginPasswordActivity extends AbsActivity {
 
     private ActivityUserPasswordBinding mBinding;
 

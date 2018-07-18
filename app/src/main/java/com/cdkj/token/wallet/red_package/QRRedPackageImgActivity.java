@@ -11,7 +11,7 @@ import android.view.View;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.model.IntroductionInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -33,7 +33,7 @@ import retrofit2.Call;
 import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
 
 
-public class QRRedPackageImgActivity extends AbsBaseLoadActivity {
+public class QRRedPackageImgActivity extends AbsLoadActivity {
 
     ActivityQrredPackageImgBinding mBinding;
     private String redPackageCode;

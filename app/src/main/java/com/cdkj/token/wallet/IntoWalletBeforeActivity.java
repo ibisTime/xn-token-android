@@ -6,8 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cdkj.baselibrary.activitys.WebViewActivity;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityIntoMainBeforeBinding;
 import com.cdkj.token.utils.wallet.WalletHelper;
@@ -19,7 +18,7 @@ import com.cdkj.token.wallet.import_guide.WalletImportWordsInputActivity;
  * Created by cdkj on 2018/6/5.
  */
 
-public class IntoWalletBeforeActivity extends AbsBaseLoadActivity {
+public class IntoWalletBeforeActivity extends AbsLoadActivity {
 
     private ActivityIntoMainBeforeBinding mBinding;
 

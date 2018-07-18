@@ -17,7 +17,7 @@ import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.dialog.InputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.EventBusModel;
@@ -35,7 +35,6 @@ import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWithdrawBinding;
-import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.SystemParameterModel;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -55,7 +54,7 @@ import static com.cdkj.token.utils.AccountUtil.getUnit;
  * Created by lei on 2017/10/18.
  */
 
-public class WithdrawActivity extends AbsBaseActivity {
+public class WithdrawActivity extends AbsActivity {
 
     private WalletBalanceModel model;
     private PermissionHelper permissionHelper;

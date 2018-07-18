@@ -1,5 +1,7 @@
 package com.cdkj.baselibrary.utils;
 
+import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageInfo;
@@ -10,13 +12,19 @@ import android.graphics.Point;
 import android.net.ConnectivityManager;
 import android.os.Build;
 import android.os.Environment;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.Display;
+import android.view.KeyCharacterMap;
+import android.view.KeyEvent;
+import android.view.View;
 import android.view.ViewConfiguration;
+import android.view.Window;
 import android.view.WindowManager;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 import java.util.Locale;
 
 /**
@@ -30,18 +38,20 @@ public class DisplayHelper {
      */
     public static final float DENSITY = Resources.getSystem()
             .getDisplayMetrics().density;
-    private static final String TAG = "Devices";
-    /**
-     * 屏幕密度
-     */
-    public static float sDensity = 0f;
+    private static final String TAG = "DisplayHelper";
+
     /**
      * 是否有摄像头
      */
     private static Boolean sHasCamera = null;
 
+    private static int[] sPortraitRealSizeCache = null;
+    private static int[] sLandscapeRealSizeCache = null;
+
     /**
      * 获取 DisplayMetrics
+     *
+     * @return
      */
     public static DisplayMetrics getDisplayMetrics(Context context) {
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -71,14 +81,17 @@ public class DisplayHelper {
     }
 
     public static float getDensity(Context context) {
-        if (sDensity == 0f) {
-            sDensity = getDisplayMetrics(context).density;
-        }
-        return sDensity;
+        return context.getResources().getDisplayMetrics().density;
+    }
+
+    public static float getFontDensity(Context context) {
+        return context.getResources().getDisplayMetrics().scaledDensity;
     }
 
     /**
      * 获取屏幕宽度
+     *
+     * @return
      */
     public static int getScreenWidth(Context context) {
         return getDisplayMetrics(context).widthPixels;
@@ -86,6 +99,8 @@ public class DisplayHelper {
 
     /**
      * 获取屏幕高度
+     *
+     * @return
      */
     public static int getScreenHeight(Context context) {
         return getDisplayMetrics(context).heightPixels;
@@ -93,8 +108,31 @@ public class DisplayHelper {
 
     /**
      * 获取屏幕的真实宽高
+     *
+     * @param context
+     * @return
      */
+
     public static int[] getRealScreenSize(Context context) {
+        if (DeviceHelper.isEssentialPhone() && Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            // Essential Phone 8.0版本后，Display size 会根据挖孔屏的设置而得到不同的结果，不能信任 cache
+            return doGetRealScreenSize(context);
+        }
+        int orientation = context.getResources().getConfiguration().orientation;
+        if (orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            if (sLandscapeRealSizeCache == null) {
+                sLandscapeRealSizeCache = doGetRealScreenSize(context);
+            }
+            return sLandscapeRealSizeCache;
+        } else {
+            if (sPortraitRealSizeCache == null) {
+                sPortraitRealSizeCache = doGetRealScreenSize(context);
+            }
+            return sPortraitRealSizeCache;
+        }
+    }
+
+    private static int[] doGetRealScreenSize(Context context) {
         int[] size = new int[2];
         int widthPixels, heightPixels;
         WindowManager w = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
@@ -110,37 +148,166 @@ public class DisplayHelper {
             heightPixels = (Integer) Display.class.getMethod("getRawHeight").invoke(d);
         } catch (Exception ignored) {
         }
-        try {
-            // used when SDK_INT >= 17; includes window decorations (statusbar bar/menu bar)
-            Point realSize = new Point();
-            Display.class.getMethod("getRealSize", Point.class).invoke(d, realSize);
-            widthPixels = realSize.x;
-            heightPixels = realSize.y;
-        } catch (Exception ignored) {
+        if (Build.VERSION.SDK_INT >= 17) {
+            try {
+                // used when SDK_INT >= 17; includes window decorations (statusbar bar/menu bar)
+                Point realSize = new Point();
+                d.getRealSize(realSize);
+
+
+                Display.class.getMethod("getRealSize", Point.class).invoke(d, realSize);
+                widthPixels = realSize.x;
+                heightPixels = realSize.y;
+            } catch (Exception ignored) {
+            }
         }
 
         size[0] = widthPixels;
         size[1] = heightPixels;
         return size;
+    }
 
+    /**
+     * 剔除挖孔屏等导致的不可用区域后的 width
+     *
+     * @param activity
+     * @return
+     */
+    public static int getUsefulScreenWidth(Activity activity) {
+        return getUsefulScreenWidth(activity, UINotchHelper.hasNotch(activity));
+    }
+
+    public static int getUsefulScreenWidth(View view) {
+        return getUsefulScreenWidth(view.getContext(), UINotchHelper.hasNotch(view));
+    }
+
+    public static int getUsefulScreenWidth(Context context, boolean hasNotch) {
+        int result = getRealScreenSize(context)[0];
+        int orientation = context.getResources().getConfiguration().orientation;
+        boolean isLandscape = orientation == Configuration.ORIENTATION_LANDSCAPE;
+        if (!hasNotch) {
+            if (isLandscape &&DeviceHelper.isEssentialPhone()
+                    && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                // https://arstechnica.com/gadgets/2017/09/essential-phone-review-impressive-for-a-new-company-but-not-competitive/
+                // 这里说挖孔屏是状态栏高度的两倍， 但横屏好像小了一点点
+                result -= 2 * UIStatusBarHelper.getStatusbarHeight(context);
+            }
+            return result;
+        }
+        if (isLandscape) {
+            // 华为挖孔屏横屏时，会把整个 window 往后移动，因此，可用区域减小
+            if (DeviceHelper.isHuawei() && !DisplayHelper.huaweiIsNotchSetToShowInSetting(context)) {
+                result -= UINotchHelper.getNotchSizeInHuawei(context)[1];
+            }
+
+            // TODO verify for MIUI
+            if (DeviceHelper.isXiaomi() && !DisplayHelper.xiaomiIsNotchSetToShowInSetting(context)) {
+                result -= UINotchHelper.getNotchHeightInXiaomi(context);
+            }
+
+            // TODO vivo 设置-系统导航-导航手势样式-显示手势操作区域 打开的情况下，应该减去手势操作区域的高度，但无API
+            // TODO vivo 设置-显示与亮度-第三方应用显示比例 选为安全区域显示时，整个 window 会移动，应该减去移动区域，但无API
+            // TODO oppo 设置-显示与亮度-应用全屏显示-凹形区域显示控制 关闭是，整个 window 会移动，应该减去移动区域，但无API
+        }
+        return result;
+    }
+
+    /**
+     * 剔除挖孔屏等导致的不可用区域后的 height
+     *
+     * @param activity
+     * @return
+     */
+    public static int getUsefulScreenHeight(Activity activity) {
+        return getUsefulScreenHeight(activity, UINotchHelper.hasNotch(activity));
+    }
+
+    public static int getUsefulScreenHeight(View view) {
+        return getUsefulScreenHeight(view.getContext(), UINotchHelper.hasNotch(view));
+    }
+
+    private static int getUsefulScreenHeight(Context context, boolean hasNotch) {
+        int result = getRealScreenSize(context)[1];
+        int orientation = context.getResources().getConfiguration().orientation;
+        boolean isPortrait = orientation == Configuration.ORIENTATION_PORTRAIT;
+        if (!hasNotch) {
+            if (isPortrait && DeviceHelper.isEssentialPhone()
+                    && Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+                // https://arstechnica.com/gadgets/2017/09/essential-phone-review-impressive-for-a-new-company-but-not-competitive/
+                // 这里说挖孔屏是状态栏高度的两倍
+                result -= 2 * UIStatusBarHelper.getStatusbarHeight(context);
+            }
+            return result;
+        }
+        if (isPortrait) {
+            if (DeviceHelper.isXiaomi() && !DisplayHelper.xiaomiIsNotchSetToShowInSetting(context)) {
+                // TODO verify for MIUI
+                result -= UINotchHelper.getNotchHeightInXiaomi(context);
+            }
+            // TODO vivo 设置-系统导航-导航手势样式-显示手势操作区域 打开的情况下，应该减去手势操作区域的高度，但无API
+            // TODO vivo 设置-显示与亮度-第三方应用显示比例 选为安全区域显示时，整个 window 会移动，应该减去移动区域，但无API
+            // TODO oppo 设置-显示与亮度-应用全屏显示-凹形区域显示控制 关闭是，整个 window 会移动，应该减去移动区域，但无API
+        }
+        return result;
+    }
+
+    public static boolean isNavMenuExist(Context context) {
+        //通过判断设备是否有返回键、菜单键(不是虚拟键,是手机屏幕外的按键)来确定是否有navigation bar
+        boolean hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey();
+        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+
+        if (!hasMenuKey && !hasBackKey) {
+            // 做任何你需要做的,这个设备有一个导航栏
+            return true;
+        }
+        return false;
     }
 
     /**
      * 单位转换: dp -> px
+     *
+     * @param dp
+     * @return
      */
     public static int dp2px(Context context, int dp) {
         return (int) (getDensity(context) * dp + 0.5);
     }
 
     /**
+     * 单位转换: sp -> px
+     *
+     * @param sp
+     * @return
+     */
+    public static int sp2px(Context context, int sp) {
+        return (int) (getFontDensity(context) * sp + 0.5);
+    }
+
+    /**
      * 单位转换:px -> dp
+     *
+     * @param px
+     * @return
      */
     public static int px2dp(Context context, int px) {
         return (int) (px / getDensity(context) + 0.5);
     }
 
     /**
+     * 单位转换:px -> sp
+     *
+     * @param px
+     * @return
+     */
+    public static int px2sp(Context context, int px) {
+        return (int) (px / getFontDensity(context) + 0.5);
+    }
+
+    /**
      * 判断是否有状态栏
+     *
+     * @param context
+     * @return
      */
     public static boolean hasStatusBar(Context context) {
         if (context instanceof Activity) {
@@ -153,6 +320,9 @@ public class DisplayHelper {
 
     /**
      * 获取ActionBar高度
+     *
+     * @param context
+     * @return
      */
     public static int getActionBarHeight(Context context) {
         int actionBarHeight = 0;
@@ -166,6 +336,9 @@ public class DisplayHelper {
 
     /**
      * 获取状态栏高度
+     *
+     * @param context
+     * @return
      */
     public static int getStatusBarHeight(Context context) {
         Class<?> c;
@@ -187,12 +360,25 @@ public class DisplayHelper {
 
     /**
      * 获取虚拟菜单的高度,若无则返回0
+     *
+     * @param context
+     * @return
      */
     public static int getNavMenuHeight(Context context) {
+        if (!isNavMenuExist(context)) {
+            return 0;
+        }
+        // 小米4没有nav bar, 而 navigation_bar_height 有值
+        int resourceId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        if (resourceId > 0) {
+            return context.getResources().getDimensionPixelSize(resourceId);
+        }
+
+        // 小米 MIX 有nav bar, 而 getRealScreenSize(context)[1] - getScreenHeight(context) = 0
         return getRealScreenSize(context)[1] - getScreenHeight(context);
     }
 
-    public static boolean hasCamera(Context context) {
+    public static final boolean hasCamera(Context context) {
         if (sHasCamera == null) {
             PackageManager pckMgr = context.getPackageManager();
             boolean flag = pckMgr
@@ -207,6 +393,9 @@ public class DisplayHelper {
 
     /**
      * 是否有硬件menu
+     *
+     * @param context
+     * @return
      */
     @SuppressWarnings("SimplifiableIfStatement")
     public static boolean hasHardwareMenuKey(Context context) {
@@ -222,7 +411,11 @@ public class DisplayHelper {
 
     /**
      * 是否有网络功能
+     *
+     * @param context
+     * @return
      */
+    @SuppressLint("MissingPermission")
     public static boolean hasInternet(Context context) {
         ConnectivityManager cm = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         return cm.getActiveNetworkInfo() != null;
@@ -230,6 +423,9 @@ public class DisplayHelper {
 
     /**
      * 判断是否存在pckName包
+     *
+     * @param pckName
+     * @return
      */
     public static boolean isPackageExist(Context context, String pckName) {
         try {
@@ -244,6 +440,8 @@ public class DisplayHelper {
 
     /**
      * 判断 SD Card 是否 ready
+     *
+     * @return
      */
     public static boolean isSdcardReady() {
         return Environment.MEDIA_MOUNTED.equals(Environment
@@ -252,6 +450,9 @@ public class DisplayHelper {
 
     /**
      * 获取当前国家的语言
+     *
+     * @param context
+     * @return
      */
     public static String getCurCountryLan(Context context) {
         Configuration config = context.getResources().getConfiguration();
@@ -269,6 +470,9 @@ public class DisplayHelper {
 
     /**
      * 判断是否为中文环境
+     *
+     * @param context
+     * @return
      */
     public static boolean isZhCN(Context context) {
         Configuration config = context.getResources().getConfiguration();
@@ -285,33 +489,32 @@ public class DisplayHelper {
 
     /**
      * 设置全屏
+     *
+     * @param activity
      */
-    public static void setFullScreen(Context context) {
-        if (context instanceof Activity) {
-            Activity activity = (Activity) context;
-            WindowManager.LayoutParams params = activity.getWindow().getAttributes();
-            params.flags |= WindowManager.LayoutParams.FLAG_FULLSCREEN;
-            activity.getWindow().setAttributes(params);
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
+    public static void setFullScreen(Activity activity) {
+        Window window = activity.getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
+        window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
     }
 
     /**
      * 取消全屏
+     *
+     * @param activity
      */
-    public static void cancelFullScreen(Context context) {
-        if (context instanceof Activity) {
-            Activity activity = (Activity) context;
-            WindowManager.LayoutParams params = activity.getWindow().getAttributes();
-            params.flags &= (~WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            activity.getWindow().setAttributes(params);
-            activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
-        }
+    public static void cancelFullScreen(Activity activity) {
+        Window window = activity.getWindow();
+        window.clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS);
     }
 
     /**
      * 判断是否全屏
+     *
+     * @param activity
+     * @return
      */
     public static boolean isFullScreen(Activity activity) {
         WindowManager.LayoutParams params = activity.getWindow().getAttributes();
@@ -320,36 +523,72 @@ public class DisplayHelper {
 
 
     public static boolean isElevationSupported() {
-        return Build.VERSION.SDK_INT >= 21;
+        return android.os.Build.VERSION.SDK_INT >= 21;
+    }
+
+    public static boolean hasNavigationBar(Context context) {
+        boolean hasNav = deviceHasNavigationBar();
+        if (!hasNav) {
+            return false;
+        }
+        if (DeviceHelper.isVivo()) {
+            return vivoNavigationGestureEnabled(context);
+        }
+        return true;
     }
 
     /**
-     * 根据手机的分辨率从 dp 的单位 转成为 px(像素)
+     * 判断设备是否存在NavigationBar
+     *
+     * @return true 存在, false 不存在
      */
-    public static int dip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (dpValue * scale + 0.5f);
+    private static boolean deviceHasNavigationBar() {
+        boolean haveNav = false;
+        try {
+            //1.通过WindowManagerGlobal获取windowManagerService
+            // 反射方法：IWindowManager windowManagerService = WindowManagerGlobal.getWindowManagerService();
+            Class<?> windowManagerGlobalClass = Class.forName("android.view.WindowManagerGlobal");
+            Method getWmServiceMethod = windowManagerGlobalClass.getDeclaredMethod("getWindowManagerService");
+            getWmServiceMethod.setAccessible(true);
+            //getWindowManagerService是静态方法，所以invoke null
+            Object iWindowManager = getWmServiceMethod.invoke(null);
+
+            //2.获取windowMangerService的hasNavigationBar方法返回值
+            // 反射方法：haveNav = windowManagerService.hasNavigationBar();
+            Class<?> iWindowManagerClass = iWindowManager.getClass();
+            Method hasNavBarMethod = iWindowManagerClass.getDeclaredMethod("hasNavigationBar");
+            hasNavBarMethod.setAccessible(true);
+            haveNav = (Boolean) hasNavBarMethod.invoke(iWindowManager);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return haveNav;
     }
+
+    // ====================== Setting ===========================
+    private static final String VIVO_NAVIGATION_GESTURE = "navigation_gesture_on";
+    private static final String HUAWAI_DISPLAY_NOTCH_STATUS = "display_notch_status";
+
     /**
-     * 根据手机的分辨率从 px(像素) 的单位 转成为 dp
+     * 获取vivo手机设置中的"navigation_gesture_on"值，判断当前系统是使用导航键还是手势导航操作
+     *
+     * @param context app Context
+     * @return false 表示使用的是虚拟导航键(NavigationBar)， true 表示使用的是手势， 默认是false
      */
-    public static int px2dip(Context context, float pxValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return (int) (pxValue / scale + 0.5f);
+    public static boolean vivoNavigationGestureEnabled(Context context) {
+        int val = Settings.Secure.getInt(context.getContentResolver(), VIVO_NAVIGATION_GESTURE, 0);
+        return val != 0;
     }
 
-    public static int px2sp(Context context, float pxValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (pxValue / fontScale + 0.5f);
-    }
-    public static int sp2px(Context context, float spValue) {
-        final float fontScale = context.getResources().getDisplayMetrics().scaledDensity;
-        return (int) (spValue * fontScale + 0.5f);
+    public static boolean huaweiIsNotchSetToShowInSetting(Context context) {
+        // 0: 默认
+        // 1: 隐藏显示区域
+        int result = Settings.Secure.getInt(context.getContentResolver(), HUAWAI_DISPLAY_NOTCH_STATUS, 0);
+        return result == 0;
     }
 
-    public static float fdip2px(Context context, float dpValue) {
-        final float scale = context.getResources().getDisplayMetrics().density;
-        return dpValue * scale + 0.5f;
+    @TargetApi(17)
+    public static boolean xiaomiIsNotchSetToShowInSetting(Context context) {
+        return Settings.Global.getInt(context.getContentResolver(), "force_black", 0) == 0;
     }
-
 }

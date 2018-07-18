@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityTransctionDetailsBinding;
@@ -26,7 +26,7 @@ import static com.cdkj.token.utils.CoinUtil.getMoneyStateByState;
  * Created by cdkj on 2018/6/12.
  */
 
-public class TransactionDetailsActivity extends AbsBaseLoadActivity {
+public class TransactionDetailsActivity extends AbsLoadActivity {
 
     private ActivityTransctionDetailsBinding mBinding;
 

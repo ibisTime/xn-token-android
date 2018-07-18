@@ -7,18 +7,16 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.appmanager.MyConfig;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.ConsultFragment;
 import com.cdkj.token.databinding.ActivityMainBinding;
@@ -38,7 +36,7 @@ import retrofit2.Call;
 import static com.cdkj.token.utils.UpdateUtil.isForceUpload;
 import static com.cdkj.token.utils.UpdateUtil.startWeb;
 
-public class MainActivity extends AbsBaseActivity {
+public class MainActivity extends AbsActivity {
 
     private ActivityMainBinding mBinding;
 
@@ -82,8 +80,6 @@ public class MainActivity extends AbsBaseActivity {
 
 
     private void init() {
-        UIStatusBarHelper.translucent(this);
-        UIStatusBarHelper.setStatusBarLightMode(this);
         setShowIndex(WALLET);
 
 //        CoinListService.open(this);

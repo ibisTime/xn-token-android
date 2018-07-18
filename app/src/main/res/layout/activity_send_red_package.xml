@@ -12,7 +12,6 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="45dp"
-            android:layout_marginTop="25dp"
             android:gravity="center_vertical">
 
             <TextView
@@ -262,9 +261,9 @@
                     android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/red_bg_rodun"
+                    android:hint="@string/sen_red_packet_note"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"
-                    android:hint="@string/sen_red_packet_note"
                     android:textSize="14sp" />
 
                 <Button

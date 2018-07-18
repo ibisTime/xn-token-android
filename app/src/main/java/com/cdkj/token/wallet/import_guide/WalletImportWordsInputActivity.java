@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
@@ -25,7 +25,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by cdkj on 2018/6/6.
  */
 
-public class WalletImportWordsInputActivity extends AbsBaseLoadActivity {
+public class WalletImportWordsInputActivity extends AbsLoadActivity {
 
     private ActivityWalletWordsCheckInputBinding mBinding;
     private ArrayList<String> words;

@@ -8,7 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.token.MainActivity;
@@ -16,8 +16,6 @@ import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserLanguageBinding;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.Locale;
 
 import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
 import static com.cdkj.baselibrary.appmanager.MyConfig.KOREA;
@@ -28,7 +26,7 @@ import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
  * Created by lei on 2017/12/7.
  */
 
-public class UserLanguageActivity extends AbsBaseActivity {
+public class UserLanguageActivity extends AbsActivity {
 
     private ActivityUserLanguageBinding mBinding;
 

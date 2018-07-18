@@ -17,6 +17,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Method;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -40,28 +41,9 @@ import static android.content.Context.WIFI_SERVICE;
 
 public class SystemUtils {
 
-    private static final String KEY_MIUI_VERSION_CODE = "ro.miui.ui.version.code";
-    private static final String KEY_MIUI_VERSION_NAME = "ro.miui.ui.version.name";
-    private static final String KEY_MIUI_INTERNAL_STORAGE = "ro.miui.internal.storage";
 
     // 粘贴板
     private static ClipboardManager mClipboard = null;
-
-    /**
-     * 判断手机操作系统是不是MIUI
-     *
-     * @return
-     */
-    public static boolean isMIUI() {
-        try {
-            final BuildProperties prop = BuildProperties.newInstance();
-            return prop.getProperty(KEY_MIUI_VERSION_CODE, null) != null
-                    || prop.getProperty(KEY_MIUI_VERSION_NAME, null) != null
-                    || prop.getProperty(KEY_MIUI_INTERNAL_STORAGE, null) != null;
-        } catch (final IOException e) {
-            return false;
-        }
-    }
 
 
     public static class BuildProperties {
@@ -535,14 +517,13 @@ public class SystemUtils {
     }
 
 
-
     /**
      * Gets the public ip address through ipify's api. * @param useHttps If true, will use an https connection. If false, will use http. * @return The public ip address. * @throws IOException If there is an IO error.
      */
     public static String getPublicIp(boolean useHttps) throws IOException {
         URL ipify = useHttps ? new URL("https://api.ipify.org") : new URL("http://api.ipify.org");
         URLConnection conn = ipify.openConnection();
-        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(),"UTF-8"));
+        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
         String ip = null;
         ip = in.readLine();
         in.close();

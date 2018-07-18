@@ -61,8 +61,6 @@ public class StartActivity extends BaseActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.white));
         setContentView(R.layout.activity_start);
     }
 

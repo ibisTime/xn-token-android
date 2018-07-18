@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -31,7 +31,7 @@ import java.util.List;
  * Created by cdkj on 2018/6/6.
  */
 
-public class WalletBackupCheckActivity extends AbsBaseLoadActivity {
+public class WalletBackupCheckActivity extends AbsLoadActivity {
 
     private ActivityWalletWordsCheckClickBinding mBinding;
 

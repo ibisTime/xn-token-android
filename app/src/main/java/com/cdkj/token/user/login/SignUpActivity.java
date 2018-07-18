@@ -8,13 +8,11 @@ import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 
-import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.activitys.AppBuildTypeActivity;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -35,17 +33,11 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import retrofit2.Call;
 
 
-public class SignUpActivity extends AbsBaseActivity implements SendCodeInterface {
+public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
 
     private SendPhoneCodePresenter mPresenter;

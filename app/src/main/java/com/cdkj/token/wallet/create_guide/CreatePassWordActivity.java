@@ -8,9 +8,8 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreatePassWordBinding;
@@ -27,7 +26,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by cdkj on 2018/6/5.
  */
 
-public class CreatePassWordActivity extends AbsBaseLoadActivity {
+public class CreatePassWordActivity extends AbsLoadActivity {
 
     private ActivityCreatePassWordBinding mBinding;
 

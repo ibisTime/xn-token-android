@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityPrivateKeyShowBinding;
@@ -24,7 +24,7 @@ import io.reactivex.schedulers.Schedulers;
  * Created by cdkj on 2018/6/7.
  */
 
-public class CoinPrivateKeyShowActivity extends AbsBaseLoadActivity {
+public class CoinPrivateKeyShowActivity extends AbsLoadActivity {
 
     private ActivityPrivateKeyShowBinding mBinding;
 

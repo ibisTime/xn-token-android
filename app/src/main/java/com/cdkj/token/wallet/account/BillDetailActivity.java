@@ -6,7 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.utils.AccountUtil;
@@ -21,7 +21,7 @@ import static com.cdkj.baselibrary.utils.DateUtil.DEFAULT_DATE_FMT;
  * Created by lei on 2017/10/26.
  */
 
-public class BillDetailActivity extends AbsBaseActivity {
+public class BillDetailActivity extends AbsActivity {
 
     private BillModel.ListBean bean;
     private ActivityBillDetailBinding mBinding;

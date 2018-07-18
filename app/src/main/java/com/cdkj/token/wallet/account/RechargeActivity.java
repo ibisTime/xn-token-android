@@ -9,15 +9,14 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityRechargeBinding;
-import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
-public class RechargeActivity extends AbsBaseActivity {
+public class RechargeActivity extends AbsActivity {
 
     private WalletBalanceModel model;
 

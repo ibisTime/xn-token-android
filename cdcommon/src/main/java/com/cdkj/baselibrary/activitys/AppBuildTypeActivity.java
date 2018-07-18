@@ -16,7 +16,7 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityAppBuildTypeBinding;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -31,7 +31,7 @@ import static com.cdkj.baselibrary.appmanager.MyConfig.BUILD_TYPE_TEST;
  * Created by lei on 2017/12/1.
  */
 
-public class AppBuildTypeActivity extends AbsBaseActivity {
+public class AppBuildTypeActivity extends AbsActivity {
 
     private ActivityAppBuildTypeBinding mBinding;
 

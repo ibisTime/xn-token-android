@@ -28,7 +28,7 @@ import android.widget.TextView;
 
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.MyConfig;
-import com.cdkj.baselibrary.base.AbsBaseActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityWebviewBinding;
 import com.cdkj.baselibrary.model.IntroductionInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -45,7 +45,7 @@ import retrofit2.Call;
 /**
  * 介绍类webview
  */
-public class WebViewActivity extends AbsBaseActivity {
+public class WebViewActivity extends AbsActivity {
 
     private ActivityWebviewBinding mBinding;
 

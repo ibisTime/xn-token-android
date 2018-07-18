@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
@@ -18,7 +17,7 @@ import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.InputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.UserInfoModel;
@@ -50,7 +49,7 @@ import retrofit2.Call;
 /**
  * 发送红包
  */
-public class SendRedPackageActivity extends AbsBaseLoadActivity {
+public class SendRedPackageActivity extends AbsLoadActivity {
     ActivitySendRedPackageBinding mBinding;
     private double moneyNumber;//发币数量  最少0.001
     private int sendNumber;//发红包数量

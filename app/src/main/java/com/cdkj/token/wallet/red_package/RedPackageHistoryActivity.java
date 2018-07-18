@@ -3,13 +3,12 @@ package com.cdkj.token.wallet.red_package;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
-import com.cdkj.baselibrary.base.AbsBaseLoadActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityRedPackageHistoryBinding;
@@ -19,7 +18,7 @@ import java.util.ArrayList;
 /**
  * 收发红包记录
  */
-public class RedPackageHistoryActivity extends AbsBaseLoadActivity {
+public class RedPackageHistoryActivity extends AbsLoadActivity {
 
     //    int loadDataType = 0;//加载的是  发红包的数据 还是抢红包的数据   0是抢到的红包  1是发出的红包
     ActivityRedPackageHistoryBinding mBinding;
