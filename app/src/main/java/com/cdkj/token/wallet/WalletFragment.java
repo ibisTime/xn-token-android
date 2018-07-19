@@ -227,8 +227,8 @@ public class WalletFragment extends BaseLazyFragment {
 
         switch (index) {
             case BOTTOMVIEW:                                         //私密钱包
-                mBinding.linLayoutPrivateWalletPoint.setVisibility(View.VISIBLE);
-                mBinding.linLayoutMyWalletPoint.setVisibility(View.GONE);
+//                mBinding.linLayoutPrivateWalletPoint.setVisibility(View.VISIBLE);
+//                mBinding.linLayoutMyWalletPoint.setVisibility(View.GONE);
                 isPrivateWallet = true;
                 mBinding.imgAddCoin.setVisibility(View.VISIBLE);
                 mBinding.imgChange.setImageResource(R.drawable.change_red);
@@ -237,8 +237,8 @@ public class WalletFragment extends BaseLazyFragment {
                 break;
 
             case TOPVIEW:                                         //个人钱包
-                mBinding.linLayoutPrivateWalletPoint.setVisibility(View.GONE);
-                mBinding.linLayoutMyWalletPoint.setVisibility(View.VISIBLE);
+//                mBinding.linLayoutPrivateWalletPoint.setVisibility(View.GONE);
+//                mBinding.linLayoutMyWalletPoint.setVisibility(View.VISIBLE);
                 isPrivateWallet = false;
                 mBinding.imgAddCoin.setVisibility(View.GONE);
                 mBinding.imgChange.setImageResource(R.drawable.change_blue);
