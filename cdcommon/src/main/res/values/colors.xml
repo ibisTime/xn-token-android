@@ -65,6 +65,6 @@
 
     <color name="pass_word_view_bg">#ededed</color>
 
-
+    <color name="title_mid_color">#333333</color>
 
 </resources>

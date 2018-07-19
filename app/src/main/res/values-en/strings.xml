@@ -506,6 +506,9 @@
     <string name="activity_setting_failure">Password Setting failure</string>
     <string name="user_language_korea">한국어</string>
 
+
+    <string name="version_num">Virsion：V %s</string>
+
 </resources>
 
 

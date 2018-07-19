@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cdkj.baselibrary.base.AbsActivity;
+import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.token.R;
@@ -22,13 +23,9 @@ import static com.cdkj.token.utils.UpdateUtil.startWeb;
  * Created by lei on 2018/1/5.
  */
 
-public class UserAboutActivity extends AbsActivity {
+public class UserAboutActivity extends AbsStatusBarTranslucentActivity {
 
     private ActivityUserAboutBinding mBinding;
-
-    private String msg;
-    private String url;
-    private String force;
 
 
     public static void open(Context context) {
@@ -38,93 +35,17 @@ public class UserAboutActivity extends AbsActivity {
         context.startActivity(new Intent(context, UserAboutActivity.class));
     }
 
+
     @Override
-    public View addMainView() {
+    public View addContentView() {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_user_about, null, false);
         return mBinding.getRoot();
     }
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        setTopTitle(getStrRes(R.string.user_about));
-        setTopLineState(true);
-        setSubLeftImgState(true);
-
-        init();
-//        getVersion();
-    }
-
-    private void init() {
-        mBinding.tvAppName.setText(getStrRes(R.string.app_name));
-        mBinding.tvVersion.setText("v" + AppUtils.getAppVersionName(this));
-        mBinding.tvFuhao.setText("@");
-
-        mBinding.tvUpdate.setOnClickListener(view -> {
-            if (mBinding.tvUpdate.getText().toString().equals(getString(R.string.user_about_update))) {
-                update();
-            }
-        });
-    }
-
-//    /**
-//     * 获取最新版本
-//     *
-//     * @return
-//     */
-//    private void getVersion() {
-//        Map<String, String> map = new HashMap<>();
-//        map.put("type", "android-c");
-//        map.put("systemCode", MyConfig.SYSTEMCODE);
-//        map.put("companyCode", MyConfig.COMPANYCODE);
-//
-//        Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.getJsonToString(map));
-//
-//        addCall(call);
-//
-//        call.enqueue(new BaseResponseModelCallBack<VersionModel>(this) {
-//
-//            @Override
-//            protected void onSuccess(VersionModel data, String SucMessage) {
-//                if (data == null)
-//                    return;
-//
-//                if (data.getVersion().equals(AppUtils.getAppVersionName(UserAboutActivity.this))) {
-//                    mBinding.tvUpdate.setText(getString(R.string.user_about_updated));
-//                } else {
-//                    msg = data.getNote();
-//                    url = data.getDownloadUrl();
-//                    force = data.getForceUpdate();
-//
-//                    mBinding.tvUpdate.setText(getString(R.string.user_about_update));
-//                }
-//            }
-//
-//            @Override
-//            protected void onFinish() {
-//                disMissLoading();
-//            }
-//        });
-//
-//    }
-
-    private void update() {
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle(getStrRes(R.string.tip))
-                .setMessage(msg)
-                .setPositiveButton(getStrRes(R.string.confirm), (dialogInterface, i) -> {
-
-                    startWeb(UserAboutActivity.this, url);
-                    EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
-                    finish();
-
-                })
-                .setCancelable(false);
-
-
-        if (force.equals("1")) { // 强制更新
-            builder.show();
-        } else {
-            builder.setNegativeButton(getStrRes(R.string.cancel), null).show();
-        }
+        setMidTitle(getStrRes(R.string.user_about));
+        mBinding.tvVersionName.setText(getString(R.string.version_num, AppUtils.getAppVersionName(this)));
+        setPageBgImage(R.drawable.my_bg);
     }
 }

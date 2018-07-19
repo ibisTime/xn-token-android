@@ -98,7 +98,7 @@ public class UserFragment extends BaseLazyFragment {
         });
 
         //帮助中心
-        mBinding.helper.setOnClickListener(view -> WebViewActivity.openkey(mActivity, getStrRes(R.string.user_issue), "questions"));
+        mBinding.helper.setOnClickListener(view -> HelperCenterActivity.openkey(mActivity, getStrRes(R.string.user_issue), "questions"));
 
         //关于我们
         mBinding.aboutUs.setOnClickListener(view -> UserAboutActivity.open(mActivity));

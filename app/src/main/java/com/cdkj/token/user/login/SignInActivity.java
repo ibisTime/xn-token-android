@@ -55,7 +55,7 @@ public class SignInActivity extends AbsActivity implements LoginInterface, SendC
             return;
         }
         Intent intent = new Intent(context, SignInActivity.class);
-        intent.putExtra("canOpenMain", canOpenMain);
+        intent.putExtra(CdRouteHelper.DATASIGN, canOpenMain);
         context.startActivity(intent);
     }
 
@@ -98,7 +98,7 @@ public class SignInActivity extends AbsActivity implements LoginInterface, SendC
         if (getIntent() == null)
             return;
 
-        canOpenMain = getIntent().getBooleanExtra("canOpenMain", false);
+        canOpenMain = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN, false);
     }
 
     private void initListener() {

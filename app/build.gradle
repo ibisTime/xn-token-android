@@ -34,7 +34,11 @@ android {
             buildConfigField "boolean", "IS_DEBUG", "false"
             minifyEnabled false //开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "THA_${variant.versionName}_${releaseTime()}.apk"
+                }
+            }
 //            ndk {
 //                // 需要将 x86 架构过滤掉
 //                abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
@@ -99,4 +103,8 @@ dependencies {
     //选择框
     implementation 'com.contrarywind:Android-PickerView:4.1.4'
 
+}
+///格式化打完完成后APK名称中的时间
+def releaseTime() {
+    return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC+8"))
 }

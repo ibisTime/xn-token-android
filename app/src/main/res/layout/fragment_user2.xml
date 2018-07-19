@@ -24,8 +24,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="@dimen/status_bar_height"
                 android:gravity="center"
+                android:paddingTop="15dp"
                 android:text="@string/main_tab_my"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -34,7 +35,7 @@
             <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="75dp"
+                android:layout_marginTop="85dp"
                 android:layout_weight="1"
                 android:paddingLeft="13dp"
                 android:paddingRight="13dp"

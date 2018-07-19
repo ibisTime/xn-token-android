@@ -491,4 +491,7 @@
     <string name="activity_setting_failure">密码设置失败</string>
     <string name="user_language_korea">한국어</string>
 
+
+    <string name="version_num">-：V %s</string>
+
 </resources>

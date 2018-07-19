@@ -4,9 +4,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
+        android:paddingTop="@dimen/status_bar_height"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:fitsSystemWindows="true"
         android:orientation="vertical">
 
         <LinearLayout
@@ -273,9 +275,9 @@
                         android:visibility="gone">
 
                         <View
-                            android:layout_marginRight="6dp"
                             android:layout_width="10dp"
                             android:layout_height="10dp"
+                            android:layout_marginRight="6dp"
                             android:background="@drawable/gray_point" />
 
                         <com.cdkj.token.views.OvalBlueView

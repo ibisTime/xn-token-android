@@ -14,13 +14,6 @@
 
         </com.cdkj.baselibrary.views.TopTitleLayout>
 
-        <View
-            android:id="@+id/view_v"
-            android:layout_width="match_parent"
-            android:layout_height="0.3dp"
-            android:background="@color/line_gray_cd"
-            android:visibility="gone" />
-
 
         <com.cdkj.baselibrary.views.ViewLoadLayout
             android:id="@+id/content_view"

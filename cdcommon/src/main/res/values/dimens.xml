@@ -8,6 +8,6 @@
 
     <!--dialog-->
     <dimen name="line_height">0.5dp</dimen>
-    <dimen name="title_mid_size">16sp</dimen>
+    <dimen name="title_mid_size">18sp</dimen>
 
 </resources>

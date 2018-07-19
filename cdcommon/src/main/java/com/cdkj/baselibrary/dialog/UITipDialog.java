@@ -122,6 +122,18 @@ public class UITipDialog extends Dialog {
         timerDismiss();
     }
 
+    public static void showInfoNoIcon(Context context, String info) {
+        if (tipDialog != null) {
+            tipDialog.dismiss();
+        }
+        tipDialog = new UITipDialog.Builder(context)
+                .setIconType(Builder.ICON_TYPE_NOTHING)
+                .setTipWord(info)
+                .create();
+        tipDialog.show();
+        timerDismiss();
+    }
+
     public static void showInfo(Context context, String info, OnDismissListener listener) {
         if (tipDialog != null) {
             tipDialog.dismiss();

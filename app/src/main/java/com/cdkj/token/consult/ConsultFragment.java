@@ -4,7 +4,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.GridLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,36 +11,23 @@ import android.view.ViewGroup;
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
-import com.cdkj.baselibrary.base.BaseRefreshFragment;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
-import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
-import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.adapter.ConsultAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentConsultBinding;
 import com.cdkj.token.loader.BannerImageLoader;
 import com.cdkj.token.model.BannerModel;
-import com.cdkj.token.model.ConsultModel;
-import com.cdkj.token.model.KtInfoModel;
-import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.wallet.red_package.SendRedPackageActivity;
-import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
-
-import static com.cdkj.token.utils.AccountUtil.OGCSCALE;
-import static com.cdkj.token.utils.CoinUtil.getFirstTokenCoin;
 
 /**
  * 应用 发现

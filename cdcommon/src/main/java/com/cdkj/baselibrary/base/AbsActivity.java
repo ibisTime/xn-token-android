@@ -211,15 +211,7 @@ public abstract class AbsActivity extends BaseActivity {
      * @param b
      */
     public void setTopLineState(boolean b) {
-        if (mTopTitleView == null) {
-            return;
-        }
-        View line = mTopTitleView.findViewById(R.id.line_bottom);
-        if (b) {
-            line.setVisibility(View.VISIBLE);
-        } else {
-            line.setVisibility(View.GONE);
-        }
+
     }
 
     /**

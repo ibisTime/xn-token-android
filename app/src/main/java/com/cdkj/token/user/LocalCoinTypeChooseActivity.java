@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsActivity;
+import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
@@ -22,7 +22,7 @@ import org.greenrobot.eventbus.EventBus;
  * Created by cdkj on 2018/7/2.
  */
 
-public class LocalCoinTypeChooseActivity extends AbsActivity {
+public class LocalCoinTypeChooseActivity extends AbsStatusBarTranslucentActivity {
 
     public ActivityLocalCoinTypeBinding mBinding;
 
@@ -36,7 +36,7 @@ public class LocalCoinTypeChooseActivity extends AbsActivity {
 
 
     @Override
-    public View addMainView() {
+    public View addContentView() {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_local_coin_type, null, false);
         return mBinding.getRoot();
     }
@@ -44,31 +44,38 @@ public class LocalCoinTypeChooseActivity extends AbsActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        setTopTitle(getString(R.string.local_coin));
+        setMidTitle(R.string.local_coin);
+        setPageBgImage(R.drawable.my_bg);
 
         if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-            mBinding.imgCny.setBackgroundResource(R.mipmap.choice_confirm);
-            mBinding.imgUsd.setBackgroundResource(R.mipmap.deal_unchoose);
+            showCny();
         } else {
-            mBinding.imgUsd.setBackgroundResource(R.mipmap.choice_confirm);
-            mBinding.imgCny.setBackgroundResource(R.mipmap.deal_unchoose);
+            showUsd();
         }
 
         //选择人民币
         mBinding.linLayoutCny.setOnClickListener(view -> {
-            mBinding.imgCny.setBackgroundResource(R.mipmap.choice_confirm);
-            mBinding.imgUsd.setBackgroundResource(R.mipmap.deal_unchoose);
+            showCny();
             SPUtilHelper.saveLocalCoinType(WalletHelper.LOCAL_COIN_CNY);
             finishActivity();
         });
 
         //选择美元
         mBinding.linLayoutUsd.setOnClickListener(view -> {
-            mBinding.imgUsd.setBackgroundResource(R.mipmap.choice_confirm);
-            mBinding.imgCny.setBackgroundResource(R.mipmap.deal_unchoose);
+            showUsd();
             SPUtilHelper.saveLocalCoinType(WalletHelper.LOCAL_COIN_USD);
             finishActivity();
         });
+    }
+
+    void showUsd() {
+        mBinding.imgUsd.setVisibility(View.VISIBLE);
+        mBinding.imgCny.setVisibility(View.GONE);
+    }
+
+    void showCny() {
+        mBinding.imgCny.setVisibility(View.VISIBLE);
+        mBinding.imgUsd.setVisibility(View.GONE);
     }
 
     public void finishActivity() {

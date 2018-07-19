@@ -1,22 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <data>
-
-    </data>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
         android:orientation="vertical">
 
-        <View style="@style/style_split_line_broad" />
-
         <LinearLayout
             android:id="@+id/ll_modify"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="@dimen/layout_item_height"
+            android:background="?attr/selectableItemBackground"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp">
@@ -26,23 +21,26 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/modify_password"
-                android:textColor="@color/black"
+                android:textColor="@color/gray_666666"
                 android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
                 android:background="@mipmap/more" />
 
         </LinearLayout>
 
-        <View style="@style/style_split_line" />
+        <View
+            style="@style/style_split_line"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
 
         <LinearLayout
             android:id="@+id/ll_back_up"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="@dimen/layout_item_height"
+            android:background="?attr/selectableItemBackground"
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:paddingRight="15dp">
@@ -52,18 +50,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/wallet_backup"
-                android:textColor="@color/black"
+                android:textColor="@color/gray_666666"
                 android:textSize="14sp" />
 
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
                 android:background="@mipmap/more" />
 
         </LinearLayout>
 
-        <View style="@style/style_split_line" />
 
         <LinearLayout
             android:id="@+id/ll_out"
@@ -90,34 +86,25 @@
 
         </LinearLayout>
 
-        <View style="@style/style_split_line" />
 
-        <LinearLayout
-            android:id="@+id/ll_delete"
+        <View
+            style="@style/style_split_line"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+
+        <Button
+            android:id="@+id/btn_delete"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:gravity="center_vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-
-                android:text="@string/delete_wallet"
-                android:textColor="@color/black"
-                android:textSize="14sp" />
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="15dp"
-                android:background="@mipmap/more" />
-
-        </LinearLayout>
-
-        <View style="@style/style_split_line" />
+            android:layout_height="@dimen/btn_height"
+            android:layout_gravity="center"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="60dp"
+            android:background="@drawable/selector_btn_blue_line"
+            android:gravity="center"
+            android:text="@string/delete_wallet"
+            android:textColor="@drawable/selector_text_blue_white"
+            android:textSize="16sp" />
 
 
     </LinearLayout>

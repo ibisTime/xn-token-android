@@ -12,6 +12,7 @@ import android.view.View;
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.base.AbsActivity;
+import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -36,7 +37,7 @@ import retrofit2.Call;
 import static com.cdkj.token.utils.UpdateUtil.isForceUpload;
 import static com.cdkj.token.utils.UpdateUtil.startWeb;
 
-public class MainActivity extends AbsActivity {
+public class MainActivity extends BaseActivity {
 
     private ActivityMainBinding mBinding;
 
@@ -58,24 +59,13 @@ public class MainActivity extends AbsActivity {
     }
 
     @Override
-    public View addMainView() {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_main, null, false);
-
-        return mBinding.getRoot();
-    }
-
-    @Override
-    public void afterCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         initListener();
         init();
         initViewPager();
         getVersion();
-    }
-
-
-    @Override
-    protected boolean canLoadTopTitleView() {
-        return false;
     }
 
 
@@ -175,10 +165,8 @@ public class MainActivity extends AbsActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         Fragment fragment = fragments.get(fragments.size() - 1);
         fragment.onActivityResult(requestCode, resultCode, data);
-
     }
 
     @Override

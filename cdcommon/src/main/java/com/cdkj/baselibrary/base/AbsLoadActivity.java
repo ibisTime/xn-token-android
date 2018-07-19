@@ -7,7 +7,6 @@ import android.view.View;
 
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.databinding.ActivityAbsBaseLoadBinding;
-import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 
 
 /**
@@ -37,7 +36,7 @@ public abstract class AbsLoadActivity extends BaseActivity {
      */
     private void initTitleView() {
         mBaseBinding.titleView.setVisibility(canLoadTopTitleView() ? View.VISIBLE : View.GONE);
-        mBaseBinding.viewV.setVisibility(canLoadTopTitleView() ? View.VISIBLE : View.GONE);
+
         if (canLoadTopTitleView()) {
             mBaseBinding.titleView.setLeftFraClickListener(new View.OnClickListener() {
                 @Override
@@ -90,7 +89,6 @@ public abstract class AbsLoadActivity extends BaseActivity {
      */
     protected void setShowTitle(boolean isShow) {
         mBaseBinding.titleView.setVisibility(isShow ? View.VISIBLE : View.GONE);
-        mBaseBinding.viewV.setVisibility(isShow ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -102,7 +100,7 @@ public abstract class AbsLoadActivity extends BaseActivity {
         mBaseBinding.titleView.setRightTitleColor(R.color.text_black_cd);
         mBaseBinding.titleView.setMidTitleColor(R.color.text_black_cd);
         mBaseBinding.titleView.setLeftImg(R.mipmap.back_blue);
-        mBaseBinding.titleView.setLeftTitle(getString(R.string.back));
+//        mBaseBinding.titleView.setLeftTitle(getString(R.string.back));
     }
 
 

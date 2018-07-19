@@ -145,6 +145,7 @@
         <activity android:name=".user.LocalCoinTypeChooseActivity" />
         <activity android:name=".user.login.SetLoginPwdActivity" />
         <activity android:name=".consult.FutureImageShowActivity" />
+        <activity android:name=".user.HelperCenterActivity" />
     </application>
 
 </manifest>

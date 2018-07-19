@@ -448,6 +448,7 @@
     <string name="set_login_pwd">로그인 비밀번호 설치</string>
     <string name="login_pwd_sed_success">비밀번호 설치완료</string>
     <string name="activity_setting_failure">비밀번호 설치실패</string>
+    <string name="version_num">버전：V %s</string>
 
 
 </resources>

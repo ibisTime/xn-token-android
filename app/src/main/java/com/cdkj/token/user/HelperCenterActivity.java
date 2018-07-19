@@ -1,4 +1,4 @@
-package com.cdkj.baselibrary.activitys;
+package com.cdkj.token.user;
 
 import android.app.Activity;
 import android.content.Context;
@@ -15,14 +15,15 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
-import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.base.AbsActivity;
-import com.cdkj.baselibrary.databinding.ActivityWebviewBinding;
+import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.model.IntroductionInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.token.R;
+import com.cdkj.token.databinding.ActivityHelpCenterBinding;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -31,11 +32,11 @@ import retrofit2.Call;
 
 
 /**
- * 介绍类webview
+ * 帮助中心
  */
-public class WebViewActivity extends AbsActivity {
+public class HelperCenterActivity extends AbsStatusBarTranslucentActivity {
 
-    private ActivityWebviewBinding mBinding;
+    private ActivityHelpCenterBinding mBinding;
 
     private WebView webView;
 
@@ -49,7 +50,7 @@ public class WebViewActivity extends AbsActivity {
             return;
         }
 
-        Intent intent = new Intent(activity, WebViewActivity.class);
+        Intent intent = new Intent(activity, HelperCenterActivity.class);
         intent.putExtra("code", code);
         intent.putExtra("title", title);
         activity.startActivity(intent);
@@ -66,7 +67,7 @@ public class WebViewActivity extends AbsActivity {
             return;
         }
 
-        Intent intent = new Intent(activity, WebViewActivity.class);
+        Intent intent = new Intent(activity, HelperCenterActivity.class);
         intent.putExtra("content", content);
         intent.putExtra("title", title);
         activity.startActivity(intent);
@@ -83,7 +84,7 @@ public class WebViewActivity extends AbsActivity {
             return;
         }
 
-        Intent intent = new Intent(activity, WebViewActivity.class);
+        Intent intent = new Intent(activity, HelperCenterActivity.class);
         intent.putExtra("url", url);
         intent.putExtra("title", title);
         activity.startActivity(intent);
@@ -92,18 +93,15 @@ public class WebViewActivity extends AbsActivity {
 
 
     @Override
-    public View addMainView() {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_webview, null, false);
+    public View addContentView() {
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_help_center, null, false);
         return mBinding.getRoot();
     }
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        setSubLeftImgState(true);
-        setTopLineState(true);
-
+        setPageBgImage(R.drawable.my_bg);
         initLayout();
-
         initData();
     }
 
@@ -141,7 +139,7 @@ public class WebViewActivity extends AbsActivity {
             }
         });
 
-        mBinding.linLayoutWebView.addView(webView,1);
+        mBinding.linLayoutWebView.addView(webView, 1);
 
     }
 
@@ -150,7 +148,7 @@ public class WebViewActivity extends AbsActivity {
             return;
         }
 
-        setTopTitle(getIntent().getStringExtra("title"));
+        setMidTitle(getIntent().getStringExtra("title"));
 
         if (TextUtils.isEmpty(getIntent().getStringExtra("url"))) {
 
@@ -225,7 +223,7 @@ public class WebViewActivity extends AbsActivity {
     }
 
     private void goBack() {
-        if (webView!=null && webView.canGoBack()) {
+        if (webView != null && webView.canGoBack()) {
             webView.goBack();
         } else {
             finish();

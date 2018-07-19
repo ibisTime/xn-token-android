@@ -14,6 +14,7 @@ import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.activitys.UpdatePhoneActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
+import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserSettingBinding;
@@ -27,8 +28,7 @@ import org.greenrobot.eventbus.EventBus;
  * Created by lei on 2017/11/1.
  */
 
-public class UserSettingActivity extends AbsActivity {
-
+public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
 
     private ActivityUserSettingBinding mBinding;
 
@@ -40,25 +40,18 @@ public class UserSettingActivity extends AbsActivity {
     }
 
     @Override
-    public View addMainView() {
+    public View addContentView() {
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_user_setting, null, false);
         return mBinding.getRoot();
     }
 
     @Override
-    protected boolean canLoadTopTitleView() {
-        return false;
-    }
-
-    @Override
     public void afterCreate(Bundle savedInstanceState) {
-        setTopTitle(getStrRes(R.string.user_title_setting));
-        setTopLineState(true);
-        setSubLeftImgState(true);
-
-
+        setMidTitle(R.string.accounts_and_security);
+        setPageBgImage(R.drawable.my_bg);
         initListener();
     }
+
 
     @Override
     protected void onResume() {
