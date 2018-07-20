@@ -4,7 +4,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="@dimen/input_item_height"
         android:background="@color/white"
         android:orientation="vertical">
 
@@ -25,7 +25,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/text_black_cd"
                 android:textColorHint="@color/text_hint_color"
-                android:textSize="16sp"
+                android:textSize="14sp"
                 tools:hint="请输入" />
 
             <FrameLayout
@@ -48,7 +48,7 @@
         <View
             android:id="@+id/view_line"
             android:layout_width="match_parent"
-            android:layout_height="2dp"
+            android:layout_height="1dp"
             android:background="@color/line_gray_cd" />
 
     </LinearLayout>

@@ -50,7 +50,8 @@ public abstract class AbsLoadActivity extends BaseActivity {
                     topTitleViewRightClick();
                 }
             });
-            setTitleBg();
+
+            setTitleBgWhite();
         }
     }
 
@@ -94,13 +95,19 @@ public abstract class AbsLoadActivity extends BaseActivity {
     /**
      * 设置title背景信息
      */
-    protected void setTitleBg() {
+    protected void setTitleBgBlue() {
+        mBaseBinding.titleView.setBackgroundColor(ContextCompat.getColor(this, R.color.title_bg_blue));
+        mBaseBinding.titleView.setMidTitleColor(R.color.white);
+        mBaseBinding.titleView.setLeftImg(R.drawable.back_white);
+    }
+
+    /**
+     * 设置title背景信息
+     */
+    protected void setTitleBgWhite() {
         mBaseBinding.titleView.setBackgroundColor(ContextCompat.getColor(this, R.color.title_bg));
-        mBaseBinding.titleView.setLeftTitleColor(R.color.text_color_light);
-        mBaseBinding.titleView.setRightTitleColor(R.color.text_black_cd);
         mBaseBinding.titleView.setMidTitleColor(R.color.text_black_cd);
-        mBaseBinding.titleView.setLeftImg(R.mipmap.back_blue);
-//        mBaseBinding.titleView.setLeftTitle(getString(R.string.back));
+        mBaseBinding.titleView.setLeftImg(R.drawable.back_black);
     }
 
 

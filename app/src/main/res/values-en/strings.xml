@@ -302,7 +302,7 @@
     <string name="please_set_transaction_pass_word">Please set the transaction password </string>
     <string name="please_check_transaction">Please confirm the transaction password </string>
     <string name="password_error">Inconsistent input passwords </string>
-    <string name="wallet_create_success">wallet created successfully</string>
+    <string name="wallet_create_success">New wallet created successfully</string>
     <string name="important_hints">Important </string>
     <string name="create_wallet_tip">With wallet backup, you have full control over your wallet assets, so it\'s highly recommended that you make a backup before using your wallet and save your wallet backup to a safe place. </string>
     <string name="now_backup">Back up now </string>
@@ -518,6 +518,14 @@
     <string name="defect">--</string>
     <string name="defect_1">--</string>
     <string name="defete_2">--</string>
+    <string name="words_input_hint">--</string>
+    <string name="start_import">--</string>
+    <string name="what_is_the_words">--</string>
+    <string name="agree_clause">--</string>
+    <string name="wallet_name">--</string>
+    <string name="create_wallet_success_info">--</string>
+    <string name="backup_wallet_intro">--</string>
+    <string name="backup_intro_2">--</string>
 
 </resources>
 

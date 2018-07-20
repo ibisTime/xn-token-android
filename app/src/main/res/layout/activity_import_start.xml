@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp">
+
+
+            <EditText
+                android:id="@+id/edit_words"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:background="@null"
+                android:gravity="top"
+                android:hint="@string/words_input_hint"
+                android:lineSpacingExtra="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="15dp"
+                android:textColor="@color/black"
+                android:textColorHint="@color/text_hint_color"
+                android:textSize="14sp" />
+
+            <View style="@style/style_split_line" />
+
+            <com.cdkj.token.views.SignInEditClearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint_text="@string/user_sign_in_pwd_hint" />
+
+            <com.cdkj.token.views.SignInEditClearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint_text="@string/activity_find_repassword_hint" />
+
+
+            <LinearLayout
+                android:id="@+id/linLayout_agree"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center_vertical"
+                android:layout_marginBottom="26dp"
+                android:layout_marginTop="20dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <FrameLayout
+                    android:id="@+id/fraLayout_aggree"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp">
+
+                    <ImageView
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/deal_unchoose" />
+
+                </FrameLayout>
+
+
+                <TextView
+                    android:id="@+id/radiobutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/agree_clause"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_height"
+                android:background="@drawable/selector_blue"
+                android:text="@string/start_import"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/what_is_the_words"
+                android:textColor="@color/text_blue"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+</layout>

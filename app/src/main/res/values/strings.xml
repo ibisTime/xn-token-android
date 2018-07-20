@@ -302,7 +302,7 @@
     <string name="please_set_transaction_pass_word">请设置交易密码</string>
     <string name="please_check_transaction">请确认交易密码</string>
     <string name="password_error">两次输入密码不一致</string>
-    <string name="wallet_create_success">钱包创建成功</string>
+    <string name="wallet_create_success">新钱包创建成功</string>
     <string name="important_hints">重要提示</string>
     <string name="create_wallet_tip">拥有钱包备份就能完全控制钱包资产，因此强烈建议您在使用钱包前做好备份，并将钱包备份保存到安全的地方。</string>
     <string name="now_backup">立即备份</string>
@@ -327,7 +327,7 @@
     <string name="modify_password">修改密码</string>
     <string name="please_set_transaction_password">请设置交易密码</string>
     <string name="transaction_password_error">交易密码错误</string>
-    <string name="wallet_backup">钱包备份</string>
+    <string name="wallet_backup">备份钱包</string>
     <string name="wallet_backup_success">钱包备份成功</string>
     <string name="i_know">知道了</string>
     <string name="delete_wallet">删除钱包</string>
@@ -502,5 +502,13 @@
     <string name="defect">缺点</string>
     <string name="defect_1">有矿工费。</string>
     <string name="defete_2">转账速度慢。</string>
+    <string name="words_input_hint">助记词，按空格分割</string>
+    <string name="start_import">开始导入</string>
+    <string name="what_is_the_words">什么是助记词</string>
+    <string name="agree_clause">我已经仔细阅读并同意服务及隐私条款</string>
+    <string name="wallet_name">钱包名称</string>
+    <string name="create_wallet_success_info">强烈建议您在使用钱包钱做好备份，导出[助记词]或keystore存储到安全的地方。然后开始尝试转入小额资金启用。</string>
+    <string name="backup_wallet_intro">如何备份钱包</string>
+    <string name="backup_intro_2">在您的手机丢失或者忘记密码的情况下，恢复词可用于你的钱包或者资金。</string>
 
 </resources>

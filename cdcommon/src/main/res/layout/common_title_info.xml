@@ -4,7 +4,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="46dp"
+        android:layout_height="45dp"
         android:orientation="vertical">
 
         <FrameLayout
@@ -35,26 +35,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="3dp"
-                    android:layout_marginTop="2dp"
                     android:background="@mipmap/title_img"
                     android:visibility="gone" />
 
             </LinearLayout>
 
             <FrameLayout
-                android:layout_marginRight="5dp"
                 android:id="@+id/fram_img_back"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="left"
+                android:layout_marginRight="5dp"
                 android:paddingLeft="15dp">
 
                 <ImageView
                     android:id="@+id/img_back"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_width="21dp"
+                    android:layout_height="21dp"
                     android:layout_gravity="center_vertical"
-                    android:src="@mipmap/back_blue" />
+                    android:src="@drawable/back_black" />
 
                 <TextView
                     android:id="@+id/tv_back"
@@ -62,7 +61,6 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="17dp"
-                    android:text="@string/back"
                     android:textColor="@color/text_color_light"
                     android:textSize="14sp" />
             </FrameLayout>

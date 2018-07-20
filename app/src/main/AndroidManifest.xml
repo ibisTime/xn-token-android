@@ -146,6 +146,8 @@
         <activity android:name=".user.login.SetLoginPwdActivity" />
         <activity android:name=".consult.FutureImageShowActivity" />
         <activity android:name=".user.HelperCenterActivity" />
+        <activity android:name=".wallet.import_guide.ImportWalletStartActivity" />
+        <activity android:name=".wallet.create_guide.CreateWalletStartActivity" />
     </application>
 
 </manifest>

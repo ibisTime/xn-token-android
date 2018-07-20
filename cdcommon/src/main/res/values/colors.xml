@@ -6,12 +6,13 @@
 
     <color name="gray_bg">#f6f6f6</color>
     <color name="title_bg">#ffffff</color>
+    <color name="title_bg_blue">#0848DF</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="white_50">#82ffffff</color>
     <!--透明度颜色-->
     <color name="transparent">#00000000</color>
-    <color name="text_hint_color">#CCCCCC</color>
+    <color name="text_hint_color">#aaaaaa</color>
     <color name="pop_black_bg">#651b1b1b</color>
     <color name="text_color">#484848</color>
     <color name="text_color_light">#007AFF</color>

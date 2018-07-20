@@ -112,7 +112,7 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
 
         mBaseBinding.titleView.setMidTitle(R.string.choose_country);
         mBaseBinding.titleView.setBackgroundColor(ContextCompat.getColor(this, R.color.white));
-        mBaseBinding.titleView.setLeftImg(R.drawable.back_black_new);
+        mBaseBinding.titleView.setLeftImg(R.drawable.back_black);
         mBaseBinding.titleView.setLeftTitle("");
         initRefreshHelper(10);
         mRefreshHelper.onDefaluteMRefresh(true);

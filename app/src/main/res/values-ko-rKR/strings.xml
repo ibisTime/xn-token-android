@@ -124,7 +124,7 @@
     <string name="please_set_transaction_pass_word">거래비밀번호 설치</string>
     <string name="please_check_transaction">비밀번호 확인</string>
     <string name="password_error">비밀번호 입력 일치하지 않음</string>
-    <string name="wallet_create_success">월렛 생성</string>
+    <string name="wallet_create_success">새로운 월렛 생성 완료</string>
     <string name="important_hints">주의사</string>
     <string name="create_wallet_tip">월렛 백업자료만 있으면 월렛을 이용할수 있으니 사용전 안전하게 백업하시고 안전한 곳에 저장하시기를 바랍니다</string>
     <string name="now_backup">백업시작</string>
@@ -460,6 +460,14 @@
     <string name="defect">단점</string>
     <string name="defect_1">마이너 개스비 소요。</string>
     <string name="defete_2">이체 속도 느림 。</string>
+    <string name="words_input_hint">--</string>
+    <string name="start_import">생성 시작 </string>
+    <string name="what_is_the_words">복구키란</string>
+    <string name="agree_clause">위의 내용에 있는 모든 사항에 동의합니다</string>
+    <string name="wallet_name">월렛 이름</string>
+    <string name="create_wallet_success_info">월렛을 사용하기전에 [복구키] 혹은 keystore를 안전한 백업을 권장합니다.그리고 소액의 금액으로 부터 시작하시기를 바랍니다.</string>
+    <string name="backup_wallet_intro">월렛 백업 방법</string>
+    <string name="backup_intro_2">핸드폰 분실 혹 비밀번호 분실시 복구키는 고객님의 월렛과 자금을 되찾는데 도움이 됩니다.</string>
 
 
 </resources>
