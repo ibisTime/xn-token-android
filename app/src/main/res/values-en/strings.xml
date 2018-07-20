@@ -508,6 +508,16 @@
 
 
     <string name="version_num">Virsion：V %s</string>
+    <string name="my_account_wallet">My Wallet</string>
+
+    <string name="my_wallet_introduction">--</string>
+    <string name="my_private_wallet_title">Decentralized Wallet</string>
+    <string name="my_private_wallet_introduction">--</string>
+    <string name="advantage">优点</string>
+    <string name="only_user_save_key">--</string>
+    <string name="defect">--</string>
+    <string name="defect_1">--</string>
+    <string name="defete_2">--</string>
 
 </resources>
 

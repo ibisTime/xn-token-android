@@ -50,12 +50,8 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
     public void afterCreate(Bundle savedInstanceState) {
         setMidTitle(getStrRes(R.string.user_title_language));
         setPageBgImage(R.drawable.my_bg);
-        init();
-        initListener();
-    }
-
-    private void init() {
         setView(SPUtilHelper.getLanguage());
+        initListener();
     }
 
     private void initListener() {

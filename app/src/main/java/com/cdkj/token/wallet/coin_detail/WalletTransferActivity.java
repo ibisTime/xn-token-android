@@ -20,7 +20,7 @@ import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityTransferBinding;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.WalletDBModel;
-import com.cdkj.token.pop.GasTypeChoosePop;
+import com.cdkj.token.views.pop.GasTypeChoosePop;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.utils.wallet.WalletHelper;

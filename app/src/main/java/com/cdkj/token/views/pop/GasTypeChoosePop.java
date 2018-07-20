@@ -1,4 +1,4 @@
-package com.cdkj.token.pop;
+package com.cdkj.token.views.pop;
 
 import android.app.Activity;
 import android.content.Context;

@@ -35,6 +35,7 @@
     <color name="popup_bg">#66000000</color>
 
     <color name="oragne">#ff7d0e</color>
+    <color name="oragne_ff6953">#FF6953</color>
 
     <color name="pass_view_rect_input">#007AFF</color>
     <color name="regi_line_color">#c8c8c8</color>

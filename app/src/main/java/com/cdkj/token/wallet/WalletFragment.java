@@ -1,6 +1,5 @@
 package com.cdkj.token.wallet;
 
-import android.animation.ObjectAnimator;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -45,6 +44,7 @@ import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.CardChangeLayout;
+import com.cdkj.token.views.dialogs.InfoSureDialog;
 import com.cdkj.token.wallet.account.BillListActivity;
 import com.cdkj.token.wallet.coin_detail.WalletCoinDetailsActivity;
 
@@ -82,7 +82,14 @@ public class WalletFragment extends BaseLazyFragment {
     private LocalCoinCachePresenter mlLocalCoinCachePresenter;
 
     private boolean isFirstCache = false;//是否进行了第一次币种缓存
+    private View mImportGuideView;  //导入钱包引导
 
+    public static WalletFragment getInstance() {
+        WalletFragment fragment = new WalletFragment();
+        Bundle bundle = new Bundle();
+        fragment.setArguments(bundle);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -142,16 +149,13 @@ public class WalletFragment extends BaseLazyFragment {
 
     }
 
-    public static WalletFragment getInstance() {
-        WalletFragment fragment = new WalletFragment();
-        Bundle bundle = new Bundle();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
 
-
+    /**
+     * 点击事件
+     */
     private void initClickListener() {
 
+        //公告信息
         mBinding.tvBulletin.setOnClickListener(view -> {
             MsgListActivity.open(mActivity);
         });
@@ -176,6 +180,17 @@ public class WalletFragment extends BaseLazyFragment {
             AddChoiceCoinActivity.open(mActivity);
         });
 
+        //我的钱包说明
+        mBinding.imgMyWalletInfo.setOnClickListener(view -> {
+            new InfoSureDialog(mActivity).setInfoTitle(getString(R.string.my_account_wallet)).setInfoContent(getString(R.string.my_wallet_introduction)).show();
+        });
+
+        //私钥钱包说明
+        mBinding.imgMyPrivateWalletInfo.setOnClickListener(view -> {
+            new InfoSureDialog(mActivity).setInfoTitle(getString(R.string.my_private_wallet_title)).setInfoContent(getString(R.string.my_private_wallet_introduction)).show();
+        });
+
+
     }
 
     /**
@@ -185,29 +200,15 @@ public class WalletFragment extends BaseLazyFragment {
         mBinding.cardChangeLayout.setChangeCallBack(new CardChangeLayout.ChangeCallBack() {
             @Override
             public boolean onChangeStart(int index) {
-
                 if (!SPUtilHelper.isLoginNoStart()) {
-
                     EventBus.getDefault().post(new AllFinishEvent());
-
                     CdRouteHelper.openLogin(true);
-
                     if (mActivity != null) {
                         mActivity.finish();
                     }
-
                     return false;
                 }
-
-                boolean isHasInfo = WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId());
-
-                if (!isHasInfo) {
-                    showDoubleWarnListen(getString(R.string.please_create_or_import_wallet), view -> {
-                        IntoWalletBeforeActivity.open(mActivity);
-                    });
-                }
-
-                return isHasInfo;
+                return true;
             }
 
             @Override
@@ -224,28 +225,103 @@ public class WalletFragment extends BaseLazyFragment {
      */
     private void changeLayoutByIndex(int index) {
 
-
         switch (index) {
             case BOTTOMVIEW:                                         //私密钱包
-//                mBinding.linLayoutPrivateWalletPoint.setVisibility(View.VISIBLE);
-//                mBinding.linLayoutMyWalletPoint.setVisibility(View.GONE);
                 isPrivateWallet = true;
-                mBinding.imgAddCoin.setVisibility(View.VISIBLE);
-                mBinding.imgChange.setImageResource(R.drawable.change_red);
-                mBinding.imgTransfer.setImageResource(R.drawable.transfer_red);
+                boolean isHasWallet = showImportGuideViewAndGetState();
+                if (!isHasWallet) {
+                    return;
+                }
+                showWalletStateView();
                 getPriWalletAssetsData(true, true);
+
                 break;
 
             case TOPVIEW:                                         //个人钱包
-//                mBinding.linLayoutPrivateWalletPoint.setVisibility(View.GONE);
-//                mBinding.linLayoutMyWalletPoint.setVisibility(View.VISIBLE);
                 isPrivateWallet = false;
-                mBinding.imgAddCoin.setVisibility(View.GONE);
-                mBinding.imgChange.setImageResource(R.drawable.change_blue);
-                mBinding.imgTransfer.setImageResource(R.drawable.transfer_blue);
+                hindImportGuideView();
                 getWalletAssetsData(false, true);
                 break;
         }
+
+        showWalletStateView();
+    }
+
+    /**
+     * 根据是否有钱包来判段是否显示导入引导View   //用户没有导入钱包 则显示引导界面,同时隐藏列表界面和功能界面
+     */
+    private boolean showImportGuideViewAndGetState() {
+
+        boolean isHasWallet = WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId());
+
+        if (isHasWallet) {
+            hindImportGuideView();
+            return isHasWallet;
+        }
+
+        inFlateImportViewAndSetListener();
+
+        showImportGuideView();
+
+        return isHasWallet;
+    }
+
+    /**
+     * 导入ImportView 并设置点击事件
+     */
+    private void inFlateImportViewAndSetListener() {
+        if (!mBinding.importLayout.isInflated()) {
+            mImportGuideView = mBinding.importLayout.getViewStub().inflate();
+
+            mImportGuideView.findViewById(R.id.btn_create).setOnClickListener(view -> {
+
+            });
+
+            mImportGuideView.findViewById(R.id.tv_import).setOnClickListener(view -> {
+
+            });
+        }
+    }
+
+    /**
+     * 显示引导View
+     */
+    private void showImportGuideView() {
+        if (mImportGuideView != null) {
+            mImportGuideView.setVisibility(View.VISIBLE);
+        }
+        mBinding.linLayoutTransfer.setVisibility(View.GONE);
+        mBinding.linLayoutCoinlistTitle.setVisibility(View.GONE);
+        mBinding.linLayoutRecycler.setVisibility(View.GONE);
+    }
+
+    /**
+     * 隐藏引导View
+     */
+    private void hindImportGuideView() {
+        if (mImportGuideView != null && mImportGuideView.getVisibility() == View.VISIBLE) {
+            mImportGuideView.setVisibility(View.GONE);
+            mBinding.linLayoutTransfer.setVisibility(View.VISIBLE);
+            mBinding.linLayoutCoinlistTitle.setVisibility(View.VISIBLE);
+            mBinding.linLayoutRecycler.setVisibility(View.VISIBLE);
+        }
+    }
+
+    /**
+     * 根据用户选择的钱包显示相应界面
+     */
+    private void showWalletStateView() {
+
+        if (isPrivateWallet) {
+            mBinding.imgAddCoin.setVisibility(View.VISIBLE);
+            mBinding.imgChange.setImageResource(R.drawable.change_red);
+            mBinding.imgTransfer.setImageResource(R.drawable.transfer_red);
+        } else {
+            mBinding.imgAddCoin.setVisibility(View.GONE);
+            mBinding.imgChange.setImageResource(R.drawable.change_blue);
+            mBinding.imgTransfer.setImageResource(R.drawable.transfer_blue);
+        }
+
     }
 
     private void initRefresh() {

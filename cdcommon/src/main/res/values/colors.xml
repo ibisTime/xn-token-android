@@ -47,6 +47,7 @@
 
     <color name="btn_white">#ffffff</color>
     <color name="btn_blue">#108ee9</color>
+    <color name="blue_185DED">#185DED</color>
     <color name="btn_title_bg">#ff6702</color>
 
 
@@ -55,8 +56,8 @@
     <color name="fontColor_hint">#aaaaaa</color>
 
 
-    <color name="btn_select">#108ee9</color>
-    <color name="btn_select_un">#0c6eb5</color>
+    <color name="btn_select">#2770FA</color>
+    <color name="btn_select_un">#108ee9</color>
     <color name="tablayout_select">#108ee9</color>
     <color name="lineColor">#ebeaea</color>
     <color name="line_gray_cd">#dedede</color>

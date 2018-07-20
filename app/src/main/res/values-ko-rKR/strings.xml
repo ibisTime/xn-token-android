@@ -449,6 +449,17 @@
     <string name="login_pwd_sed_success">비밀번호 설치완료</string>
     <string name="activity_setting_failure">비밀번호 설치실패</string>
     <string name="version_num">버전：V %s</string>
+    <string name="my_account_wallet">개인계정</string>
+
+
+    <string name="my_wallet_introduction">--</string>
+    <string name="my_private_wallet_title">프라이빗 키 월렛</string>
+    <string name="my_private_wallet_introduction">--</string>
+    <string name="advantage">장점</string>
+    <string name="only_user_save_key">--</string>
+    <string name="defect">단점</string>
+    <string name="defect_1">마이너 개스비 소요。</string>
+    <string name="defete_2">이체 속도 느림 。</string>
 
 
 </resources>
