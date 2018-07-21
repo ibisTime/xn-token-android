@@ -527,6 +527,14 @@
     <string name="backup_wallet_intro">--</string>
     <string name="backup_intro_2">--</string>
     <string name="backup_intro_3">--</string>
+    <string name="backup_intro_4">--</string>
+    <string name="backup_intro_5">--</string>
+    <string name="backup_intro_6">--</string>
+    <string name="copy_money_address">--</string>
+    <string name="transfer_fees">Transaction Fees</string>
+    <string name="sure_transfer">--</string>
+    <string name="fast">fast</string>
+    <string name="slow">Slow</string>
 
 </resources>
 

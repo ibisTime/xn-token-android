@@ -3,136 +3,175 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#f6f6f6"
-        android:clipChildren="false"
-        android:orientation="vertical">
+        tools:showIn="@layout/fragment_user2">
 
-        <FrameLayout
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:background="@drawable/user_bg" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/status_bar_height"
+            android:gravity="center"
+            android:paddingTop="15dp"
+            android:text="@string/main_tab_my"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:clipChildren="false"
-            tools:showIn="@layout/fragment_user2">
+            android:layout_marginTop="85dp"
+            android:layout_weight="1"
+            android:paddingLeft="13dp"
+            android:paddingRight="13dp"
+            android:scrollbars="none">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="175dp"
-                android:background="@drawable/user_bg" />
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/status_bar_height"
-                android:gravity="center"
-                android:paddingTop="15dp"
-                android:text="@string/main_tab_my"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-
-            <ScrollView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="85dp"
-                android:layout_weight="1"
-                android:paddingLeft="13dp"
-                android:paddingRight="13dp"
-                android:scrollbars="none">
+                android:orientation="vertical">
 
-                <LinearLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="10dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
+                    app:cardElevation="@dimen/user_fragment_card_elevation"
+                    app:cardUseCompatPadding="true">
 
-                    <android.support.v7.widget.CardView
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="120dp"
-                        android:layout_marginBottom="10dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
-                        app:cardElevation="@dimen/user_fragment_card_elevation"
-                        app:cardUseCompatPadding="true">
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:orientation="horizontal">
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/tv_nick_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:textColor="@color/text_black_cd"
+                                android:textSize="16sp"
+                                tools:text="哈哈哈" />
 
                             <LinearLayout
-                                android:layout_width="0dp"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginLeft="15dp"
-                                android:layout_weight="1"
-                                android:orientation="vertical">
+                                android:layout_marginTop="25dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/phone" />
 
                                 <TextView
-                                    android:id="@+id/tv_nick_name"
+                                    android:id="@+id/tv_phone_number"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="0dp"
-                                    android:layout_weight="1"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
                                     android:ellipsize="end"
                                     android:maxLines="1"
-                                    android:textColor="@color/text_black_cd"
-                                    android:textSize="16sp"
-                                    tools:text="哈哈哈" />
-
-                                <LinearLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="25dp"
-                                    android:gravity="center_vertical"
-                                    android:orientation="horizontal">
-
-                                    <ImageView
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:src="@drawable/phone" />
-
-                                    <TextView
-                                        android:id="@+id/tv_phone_number"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginLeft="10dp"
-                                        android:ellipsize="end"
-                                        android:maxLines="1"
-                                        android:textColor="@color/gray_666666"
-                                        android:textSize="12sp"
-                                        tools:text="1111111" />
-
-                                </LinearLayout>
-
+                                    android:textColor="@color/gray_666666"
+                                    android:textSize="12sp"
+                                    tools:text="1111111" />
 
                             </LinearLayout>
-
-                            <ImageView
-                                android:id="@+id/img_logo"
-                                android:layout_width="65dp"
-                                android:layout_height="65dp"
-                                android:layout_gravity="center_vertical"
-                                android:layout_marginRight="15dp"
-                                android:src="@drawable/user_logo" />
 
 
                         </LinearLayout>
 
+                        <ImageView
+                            android:id="@+id/img_logo"
+                            android:layout_width="65dp"
+                            android:layout_height="65dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginRight="15dp"
+                            android:src="@drawable/user_logo" />
 
-                    </android.support.v7.widget.CardView>
+
+                    </LinearLayout>
 
 
-                    <android.support.v7.widget.CardView
+                </android.support.v7.widget.CardView>
+
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
+                    app:cardElevation="@dimen/user_fragment_card_elevation"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
+                        android:id="@+id/linLayout_user_account"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="?attr/selectableItemBackground"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="@dimen/user_fragment_item_img_width"
+                            android:layout_height="@dimen/user_fragment_item_img_height"
+                            android:layout_marginLeft="15dp"
+                            android:src="@drawable/lock" />
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1"
+                            android:text="@string/accounts_and_security"
+                            android:textColor="@color/black"
+                            android:textSize="14sp" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="15dp"
+                            android:background="@mipmap/more" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
+                    app:cardElevation="@dimen/user_fragment_card_elevation"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
-                        app:cardElevation="@dimen/user_fragment_card_elevation"
-                        app:cardUseCompatPadding="true">
+                        android:orientation="vertical">
+
 
                         <LinearLayout
-                            android:id="@+id/linLayout_user_account"
+                            android:id="@+id/linLayout_local_coin"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:background="?attr/selectableItemBackground"
@@ -142,14 +181,14 @@
                                 android:layout_width="@dimen/user_fragment_item_img_width"
                                 android:layout_height="@dimen/user_fragment_item_img_height"
                                 android:layout_marginLeft="15dp"
-                                android:src="@drawable/lock" />
+                                android:src="@drawable/user_item_2" />
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
                                 android:layout_weight="1"
-                                android:text="@string/accounts_and_security"
+                                android:text="@string/local_coin"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
@@ -161,253 +200,205 @@
 
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
-
-                    <android.support.v7.widget.CardView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
-                        app:cardElevation="@dimen/user_fragment_card_elevation"
-                        app:cardUseCompatPadding="true">
+                        <View
+                            style="@style/style_split_line"
+                            android:layout_marginLeft="48dp" />
 
                         <LinearLayout
+                            android:id="@+id/language_change"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:layout_height="60dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center_vertical">
 
+                            <ImageView
+                                android:layout_width="@dimen/user_fragment_item_img_width"
+                                android:layout_height="@dimen/user_fragment_item_img_height"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/user_item_3" />
 
-                            <LinearLayout
-                                android:id="@+id/linLayout_local_coin"
-                                android:layout_width="match_parent"
-                                android:layout_height="60dp"
-                                android:background="?attr/selectableItemBackground"
-                                android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_weight="1"
+                                android:text="@string/language"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
 
-                                <ImageView
-                                    android:layout_width="@dimen/user_fragment_item_img_width"
-                                    android:layout_height="@dimen/user_fragment_item_img_height"
-                                    android:layout_marginLeft="15dp"
-                                    android:src="@drawable/user_item_2" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_weight="1"
-                                    android:text="@string/local_coin"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp" />
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="15dp"
-                                    android:background="@mipmap/more" />
-
-                            </LinearLayout>
-
-                            <View
-                                style="@style/style_split_line"
-                                android:layout_marginLeft="48dp" />
-
-                            <LinearLayout
-                                android:id="@+id/language_change"
-                                android:layout_width="match_parent"
-                                android:layout_height="60dp"
-                                android:background="?attr/selectableItemBackground"
-                                android:gravity="center_vertical">
-
-                                <ImageView
-                                    android:layout_width="@dimen/user_fragment_item_img_width"
-                                    android:layout_height="@dimen/user_fragment_item_img_height"
-                                    android:layout_marginLeft="15dp"
-                                    android:src="@drawable/user_item_3" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_weight="1"
-                                    android:text="@string/language"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp" />
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="15dp"
-                                    android:background="@mipmap/more" />
-
-                            </LinearLayout>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:background="@mipmap/more" />
 
                         </LinearLayout>
 
+                    </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
+
+                </android.support.v7.widget.CardView>
 
 
-                    <android.support.v7.widget.CardView
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    app:cardBackgroundColor="@color/white"
+                    app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
+                    app:cardElevation="@dimen/user_fragment_card_elevation"
+                    app:cardUseCompatPadding="true">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        app:cardBackgroundColor="@color/white"
-                        app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
-                        app:cardElevation="@dimen/user_fragment_card_elevation"
-                        app:cardUseCompatPadding="true">
+                        android:orientation="vertical">
+
 
                         <LinearLayout
+                            android:id="@+id/join_us"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:layout_height="60dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center_vertical">
 
+                            <ImageView
+                                android:layout_width="@dimen/user_fragment_item_img_width"
+                                android:layout_height="@dimen/user_fragment_item_img_height"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/user_item_4" />
 
-                            <LinearLayout
-                                android:id="@+id/join_us"
-                                android:layout_width="match_parent"
-                                android:layout_height="60dp"
-                                android:background="?attr/selectableItemBackground"
-                                android:gravity="center_vertical">
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_weight="1"
+                                android:text="@string/user_join"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
 
-                                <ImageView
-                                    android:layout_width="@dimen/user_fragment_item_img_width"
-                                    android:layout_height="@dimen/user_fragment_item_img_height"
-                                    android:layout_marginLeft="15dp"
-                                    android:src="@drawable/user_item_4" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_weight="1"
-                                    android:text="@string/user_join"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp" />
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="15dp"
-                                    android:background="@mipmap/more" />
-
-                            </LinearLayout>
-
-                            <View
-                                style="@style/style_split_line"
-                                android:layout_marginLeft="48dp" />
-
-                            <LinearLayout
-                                android:id="@+id/wallet_tool"
-                                android:layout_width="match_parent"
-                                android:layout_height="60dp"
-                                android:background="?attr/selectableItemBackground"
-                                android:gravity="center_vertical">
-
-                                <ImageView
-                                    android:layout_width="@dimen/user_fragment_item_img_width"
-                                    android:layout_height="@dimen/user_fragment_item_img_height"
-                                    android:layout_marginLeft="15dp"
-                                    android:src="@drawable/user_item_5" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_weight="1"
-                                    android:text="@string/wallet_tool"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp" />
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="15dp"
-                                    android:background="@mipmap/more" />
-
-                            </LinearLayout>
-
-                            <View
-                                style="@style/style_split_line"
-                                android:layout_marginLeft="48dp" />
-
-                            <LinearLayout
-                                android:id="@+id/helper"
-                                android:layout_width="match_parent"
-                                android:layout_height="60dp"
-                                android:background="?attr/selectableItemBackground"
-                                android:gravity="center_vertical">
-
-                                <ImageView
-                                    android:layout_width="@dimen/user_fragment_item_img_width"
-                                    android:layout_height="@dimen/user_fragment_item_img_height"
-                                    android:layout_marginLeft="18dp"
-                                    android:src="@drawable/user_item_6" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_weight="1"
-                                    android:text="@string/user_issue"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp" />
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="15dp"
-                                    android:background="@mipmap/more" />
-
-                            </LinearLayout>
-
-                            <View
-                                style="@style/style_split_line"
-                                android:layout_marginLeft="48dp" />
-
-                            <LinearLayout
-                                android:id="@+id/about_us"
-                                android:layout_width="match_parent"
-                                android:layout_height="60dp"
-                                android:background="?attr/selectableItemBackground"
-                                android:gravity="center_vertical">
-
-                                <ImageView
-                                    android:layout_width="@dimen/user_fragment_item_img_width"
-                                    android:layout_height="@dimen/user_fragment_item_img_height"
-                                    android:layout_marginLeft="15dp"
-                                    android:src="@drawable/user_item_7" />
-
-                                <TextView
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="15dp"
-                                    android:layout_weight="1"
-                                    android:text="@string/user_about"
-                                    android:textColor="@color/black"
-                                    android:textSize="14sp" />
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="15dp"
-                                    android:background="@mipmap/more" />
-
-                            </LinearLayout>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:background="@mipmap/more" />
 
                         </LinearLayout>
 
-                    </android.support.v7.widget.CardView>
+                        <View
+                            style="@style/style_split_line"
+                            android:layout_marginLeft="48dp" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="50dp" />
+                        <LinearLayout
+                            android:id="@+id/wallet_tool"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center_vertical">
 
-                </LinearLayout>
+                            <ImageView
+                                android:layout_width="@dimen/user_fragment_item_img_width"
+                                android:layout_height="@dimen/user_fragment_item_img_height"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/user_item_5" />
 
-            </ScrollView>
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_weight="1"
+                                android:text="@string/wallet_tool"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
 
-        </FrameLayout>
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:background="@mipmap/more" />
 
-    </LinearLayout>
+                        </LinearLayout>
+
+                        <View
+                            style="@style/style_split_line"
+                            android:layout_marginLeft="48dp" />
+
+                        <LinearLayout
+                            android:id="@+id/helper"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/user_fragment_item_img_width"
+                                android:layout_height="@dimen/user_fragment_item_img_height"
+                                android:layout_marginLeft="18dp"
+                                android:src="@drawable/user_item_6" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_weight="1"
+                                android:text="@string/user_issue"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:background="@mipmap/more" />
+
+                        </LinearLayout>
+
+                        <View
+                            style="@style/style_split_line"
+                            android:layout_marginLeft="48dp" />
+
+                        <LinearLayout
+                            android:id="@+id/about_us"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/user_fragment_item_img_width"
+                                android:layout_height="@dimen/user_fragment_item_img_height"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/user_item_7" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_weight="1"
+                                android:text="@string/user_about"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:background="@mipmap/more" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </FrameLayout>
+
 </layout>

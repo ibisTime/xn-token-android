@@ -118,7 +118,7 @@
                         <android.support.v7.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:elevation="0dp"
+                            app:cardElevation="0dp"
                             app:cardCornerRadius="10dp">
 
                             <ImageView
@@ -187,7 +187,7 @@
                         <android.support.v7.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:elevation="0dp"
+                            app:cardElevation="0dp"
                             app:cardCornerRadius="10dp">
 
                             <ImageView

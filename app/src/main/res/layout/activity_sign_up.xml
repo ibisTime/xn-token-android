@@ -87,7 +87,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="40dp"
-                android:background="@drawable/btn_blue"
+                android:background="@drawable/selector_btn_blue_change"
                 android:gravity="center"
                 android:text="@string/user_title_sign_up"
                 android:textColor="@color/white"

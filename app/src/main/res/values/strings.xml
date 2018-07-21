@@ -511,5 +511,13 @@
     <string name="backup_wallet_intro">如何备份钱包</string>
     <string name="backup_intro_2">在您的手机丢失或者忘记密码的情况下，恢复词可用于你的钱包或者资金。</string>
     <string name="backup_intro_3">请按书序点击助记词，以确认你的备注助记词填写正确</string>
+    <string name="backup_intro_4">确认您的钱包助记词</string>
+    <string name="backup_intro_5">现在写下这些词</string>
+    <string name="backup_intro_6">您的恢复词是12个，在纸上记下他们并安全的保存它。</string>
+    <string name="copy_money_address">复制收款地址</string>
+    <string name="transfer_fees">矿工费</string>
+    <string name="sure_transfer">确认转账</string>
+    <string name="fast">快</string>
+    <string name="slow">慢</string>
 
 </resources>

@@ -469,6 +469,14 @@
     <string name="backup_wallet_intro">월렛 백업 방법</string>
     <string name="backup_intro_2">핸드폰 분실 혹 비밀번호 분실시 복구키는 고객님의 월렛과 자금을 되찾는데 도움이 됩니다.</string>
     <string name="backup_intro_3">순서대로 복구키 입력하고 다시한번 복구키 확인</string>
+    <string name="backup_intro_4">--</string>
+    <string name="backup_intro_5">--</string>
+    <string name="backup_intro_6">고객님의 복구키는 12개 이고 안전한곳에 적어두어 보관 하십시요.</string>
+    <string name="copy_money_address">계좌번호 복사 </string>
+    <string name="transfer_fees">개스 비</string>
+    <string name="sure_transfer">이체 확인</string>
+    <string name="fast">빨리</string>
+    <string name="slow">느리게</string>
 
 
 </resources>

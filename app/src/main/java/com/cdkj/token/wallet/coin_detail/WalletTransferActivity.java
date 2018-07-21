@@ -84,12 +84,17 @@ public class WalletTransferActivity extends AbsLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
+        setStatusBarBlue();
+        setTitleBgBlue();
+
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
             mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), ETHSCALE) + " " + accountListBean.getCoinName());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
         }
+
+//        mBinding.tvCurrencySing.setText(getString(R.string.wallet_withdraw_balance) + WalletHelper.getShowLocalCoinType());
 
         transferGasPrice = WalletHelper.getGasLimit();
         gasPrice = WalletHelper.getGasLimit();
@@ -250,27 +255,27 @@ public class WalletTransferActivity extends AbsLoadActivity {
             permissionRequest();
         });
 
-        mBinding.linLayoutGasChoose.setOnClickListener(view -> {
-            new GasTypeChoosePop(this, chooseGasType).setItemClickListener((chooseType, typeString) -> {
-                chooseGasType = chooseType;
-                mBinding.tvChooseType.setText(typeString);
-
-                switch (chooseType) {
-                    case GasTypeChoosePop.FIRST:
-                        transferGasPrice = WalletHelper.getGasLimit().multiply(new BigDecimal(2).toBigInteger());
-                        break;
-                    case GasTypeChoosePop.ORDINARY:
-                        transferGasPrice = WalletHelper.getGasLimit();
-                        break;
-
-                    case GasTypeChoosePop.ECONOMICS:
-                        transferGasPrice = WalletHelper.getGasLimit().divide(new BigDecimal(2).toBigInteger());
-                        break;
-                }
-                setShowGasPrice();
-
-            }).showPopupWindow();
-        });
+//        mBinding.linLayoutGasChoose.setOnClickListener(view -> {
+//            new GasTypeChoosePop(this, chooseGasType).setItemClickListener((chooseType, typeString) -> {
+//                chooseGasType = chooseType;
+//                mBinding.tvChooseType.setText(typeString);
+//
+//                switch (chooseType) {
+//                    case GasTypeChoosePop.FIRST:
+//                        transferGasPrice = WalletHelper.getGasLimit().multiply(new BigDecimal(2).toBigInteger());
+//                        break;
+//                    case GasTypeChoosePop.ORDINARY:
+//                        transferGasPrice = WalletHelper.getGasLimit();
+//                        break;
+//
+//                    case GasTypeChoosePop.ECONOMICS:
+//                        transferGasPrice = WalletHelper.getGasLimit().divide(new BigDecimal(2).toBigInteger());
+//                        break;
+//                }
+//                setShowGasPrice();
+//
+//            }).showPopupWindow();
+//        });
     }
 
     @Override

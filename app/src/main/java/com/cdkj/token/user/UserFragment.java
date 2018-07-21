@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.activitys.ImageSelectActivity;
-import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.dialog.CommonDialog;
@@ -26,7 +25,6 @@ import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
-import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.IntoWalletBeforeActivity;
 
@@ -94,7 +92,7 @@ public class UserFragment extends BaseLazyFragment {
                 });
                 return;
             }
-            UserWalletActivity.open(mActivity);
+            WalletToolActivity.open(mActivity);
         });
 
         //帮助中心

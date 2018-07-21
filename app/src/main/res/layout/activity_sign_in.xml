@@ -5,12 +5,12 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/sign_in_bg"
             android:orientation="vertical">
 
             <ImageView
@@ -122,7 +122,7 @@
                             android:layout_height="50dp"
                             android:layout_gravity="center"
                             android:layout_marginTop="35dp"
-                            android:background="@drawable/btn_blue"
+                            android:background="@drawable/selector_btn_blue_change"
                             android:gravity="center"
                             android:text="@string/user_title_sign_in"
                             android:textColor="@color/white"

@@ -28,7 +28,7 @@ public abstract class AbsStatusBarTranslucentActivity extends BaseActivity {
         mBaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_abs_status_bar);
 
         View contentView = addContentView();
-        if(contentView!=null){
+        if (contentView != null) {
             mBaseBinding.linLayoutRoot.addView(contentView);
         }
 
@@ -62,6 +62,12 @@ public abstract class AbsStatusBarTranslucentActivity extends BaseActivity {
 
     public void setMidTitle(@StringRes int titleString) {
         mBaseBinding.tvTitle.setText(titleString);
+    }
+
+    public void sheShowTitle(boolean isShow) {
+        if (isShow) {
+
+        }
     }
 
 }

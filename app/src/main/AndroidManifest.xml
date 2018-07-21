@@ -109,7 +109,7 @@
         <activity android:name=".wallet.AddChoiceCoinActivity" />
         <activity android:name=".consult.MsgListActivity" />
         <activity android:name=".user.UserJoinActivity" />
-        <activity android:name=".user.UserWalletActivity" />
+        <activity android:name=".user.WalletToolActivity" />
 
         <activity android:name=".wallet.IntoWalletBeforeActivity" />
         <activity android:name=".wallet.create_guide.CreatePassWordActivity" />

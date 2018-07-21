@@ -15,6 +15,8 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
+import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.interfaces.LoginInterface;
 import com.cdkj.baselibrary.interfaces.LoginPresenter;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
@@ -35,7 +37,7 @@ import java.util.HashMap;
 import retrofit2.Call;
 
 @Route(path = CdRouteHelper.APPLOGIN)
-public class SignInActivity extends AbsActivity implements LoginInterface, SendCodeInterface {
+public class SignInActivity extends AbsStatusBarTranslucentActivity implements LoginInterface, SendCodeInterface {
 
     private boolean canOpenMain;
 
@@ -59,21 +61,17 @@ public class SignInActivity extends AbsActivity implements LoginInterface, SendC
         context.startActivity(intent);
     }
 
+
     @Override
-    public View addMainView() {
+    public View addContentView() {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_sign_in, null, false);
         return mBinding.getRoot();
     }
 
     @Override
-    protected boolean canLoadTopTitleView() {
-        return false;
-    }
-
-    @Override
     public void afterCreate(Bundle savedInstanceState) {
-        setTopLineState(true);
-        setSubLeftImgState(true);
+
+        setPageBgImage(R.drawable.sign_in_bg);
 
         mPresenter = new LoginPresenter(this);
         mSendPhoneCodePresenter = new SendPhoneCodePresenter(this);

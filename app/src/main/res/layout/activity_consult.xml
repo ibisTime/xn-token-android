@@ -129,7 +129,7 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_blue"
+                android:background="@drawable/btn_blue_change"
                 android:text="@string/call_phone"
                 android:textColor="@color/white" />
 
@@ -140,7 +140,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="15dp"
                 android:layout_weight="1"
-                android:background="@drawable/btn_blue"
+                android:background="@drawable/btn_blue_change"
                 android:text="@string/want_to_pay"
                 android:textColor="@color/white" />
 

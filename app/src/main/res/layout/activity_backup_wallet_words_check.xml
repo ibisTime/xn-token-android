@@ -8,84 +8,77 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:background="@color/title_bg_blue" />
 
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="-70dp"
+                android:background="@drawable/backup_bg"
+                android:orientation="vertical"
+                android:paddingBottom="50dp"
+                android:paddingLeft="30dp"
+                android:paddingRight="30dp">
 
-
-                <LinearLayout
+                <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:background="@drawable/backup_bg"
-                    android:orientation="vertical"
-                    android:paddingBottom="50dp"
-                    android:paddingLeft="30dp"
-                    android:paddingRight="30dp">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="30dp"
-                        android:gravity="center"
-                        android:text="确认您的钱包助记词"
-                        android:textColor="@color/text_black_cd"
-                        android:textSize="16sp" />
+                    android:layout_marginTop="30dp"
+                    android:gravity="center"
+                    android:text="@string/backup_intro_4"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="16sp" />
 
 
-                    <TextView
-                        android:id="@+id/edit_words"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:gravity="top"
-                        android:padding="10dp"
-                        android:text="@string/backup_intro_3"
-                        android:textColor="#b5b5b5"
-                        android:textSize="12sp" />
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="2dp"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/line_dotted_gray" />
-
-                    <com.google.android.flexbox.FlexboxLayout
-                        android:id="@+id/flex_layout"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="37dp">
-
-
-                    </com.google.android.flexbox.FlexboxLayout>
-
-
-                </LinearLayout>
-
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView"
+                <TextView
+                    android:id="@+id/edit_words"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="17dp">
+                    android:layout_marginTop="8dp"
+                    android:gravity="top"
+                    android:padding="10dp"
+                    android:text="@string/backup_intro_3"
+                    android:textColor="#b5b5b5"
+                    android:textSize="12sp" />
 
-                </android.support.v7.widget.RecyclerView>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/line_dotted_gray" />
+
+                <com.google.android.flexbox.FlexboxLayout
+                    android:id="@+id/flex_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="37dp">
+
+
+                </com.google.android.flexbox.FlexboxLayout>
 
 
             </LinearLayout>
-        </FrameLayout>
+
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="17dp">
+
+            </android.support.v7.widget.RecyclerView>
+
+        </LinearLayout>
     </ScrollView>
 </layout>

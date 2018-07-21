@@ -37,7 +37,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="69dp"
-                android:background="@drawable/btn_blue"
+                android:background="@drawable/btn_blue_change"
                 android:text="@string/create_wallet"
                 android:textColor="@color/white" />
 
@@ -48,7 +48,7 @@
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="30dp"
-                android:background="@drawable/btn_blue"
+                android:background="@drawable/btn_blue_change"
                 android:text="@string/put_wallet"
                 android:textColor="@color/white" />
 

@@ -140,7 +140,7 @@ public class WalletBackupCheckActivity extends AbsLoadActivity {
         boolean isClick = (boolean) textView.getTag();
 
         if (!isClick) {  //如果没有点击
-            textView.setBackgroundResource(R.drawable.btn_blue);
+            textView.setBackgroundResource(R.drawable.btn_blue_change);
             textView.setTextColor(ContextCompat.getColor(this, R.color.white));
             mBackupWords.add(textView.getText().toString());
         } else {

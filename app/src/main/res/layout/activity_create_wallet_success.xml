@@ -8,102 +8,96 @@
         android:layout_height="match_parent"
         android:background="@color/white">
 
-
-        <FrameLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="80dp"
                 android:background="@color/title_bg_blue" />
 
-            <LinearLayout
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="-60dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
+                app:cardElevation="@dimen/user_fragment_card_elevation"
+                app:cardUseCompatPadding="true">
 
-                <android.support.v7.widget.CardView
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginTop="20dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
-                    app:cardElevation="@dimen/user_fragment_card_elevation"
-                    app:cardUseCompatPadding="true">
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:paddingBottom="50dp">
+
+                    <ImageView
+                        android:layout_width="75dp"
+                        android:layout_height="75dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="80dp"
+                        android:src="@drawable/success_" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="15dp"
+                        android:text="@string/wallet_create_success"
+                        android:textColor="@color/text_black_cd"
+                        android:textSize="20sp" />
 
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
-                        android:background="@color/white"
-                        android:orientation="vertical"
-                        android:paddingBottom="50dp">
+                        android:layout_marginTop="25dp"
+                        android:text="@string/create_wallet_success_info"
+                        android:textColor="@color/gray_999999"
+                        android:textSize="12sp" />
 
-                        <ImageView
-                            android:layout_width="75dp"
-                            android:layout_height="75dp"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="80dp"
-                            android:src="@drawable/success_" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginTop="15dp"
-                            android:text="@string/wallet_create_success"
-                            android:textColor="@color/text_black_cd"
-                            android:textSize="20sp" />
+                </LinearLayout>
 
 
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginRight="15dp"
-                            android:layout_marginTop="25dp"
-                            android:text="@string/create_wallet_success_info"
-                            android:textColor="@color/gray_999999"
-                            android:textSize="12sp" />
+            </android.support.v7.widget.CardView>
 
-                    </LinearLayout>
+            <Button
+                android:id="@+id/btn_now_backup"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/btn_height"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="26dp"
+                android:background="@drawable/selector_blue"
+                android:text="@string/wallet_backup"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/tv_import_wallet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp"
+                android:text="@string/backup_wallet_intro"
+                android:textColor="@color/text_blue"
+                android:textSize="15sp" />
 
-                </android.support.v7.widget.CardView>
-
-                <Button
-                    android:id="@+id/btn_now_backup"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/btn_height"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="26dp"
-                    android:background="@drawable/selector_blue"
-                    android:text="@string/wallet_backup"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
-                <TextView
-                    android:layout_marginBottom="20dp"
-                    android:id="@+id/tv_import_wallet"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:paddingBottom="10dp"
-                    android:paddingTop="10dp"
-                    android:text="@string/backup_wallet_intro"
-                    android:textColor="@color/text_blue"
-                    android:textSize="15sp" />
-
-            </LinearLayout>
-        </FrameLayout>
+        </LinearLayout>
     </ScrollView>
 </layout>

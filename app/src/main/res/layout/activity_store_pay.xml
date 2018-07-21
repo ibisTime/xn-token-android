@@ -136,7 +136,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@drawable/btn_blue"
+                android:background="@drawable/btn_blue_change"
                 android:gravity="center"
                 android:text="@string/affix"
                 android:textColor="@color/white"

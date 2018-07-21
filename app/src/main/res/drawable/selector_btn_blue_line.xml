@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:drawable="@drawable/btn_blue_bg_line" android:state_pressed="false"/>
-    <item android:drawable="@drawable/btn_blue" android:state_pressed="true"></item>
+    <item android:drawable="@drawable/btn_blue_change" android:state_pressed="true"></item>
     <item android:drawable="@drawable/shape_normal_blue_btn"/>
 </selector>

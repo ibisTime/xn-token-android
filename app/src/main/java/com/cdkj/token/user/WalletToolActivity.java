@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserWalletBinding;
@@ -16,10 +15,11 @@ import com.cdkj.token.wallet.delete_guide.WallteDeleteStartActivity;
 import com.cdkj.token.wallet.export.WalletExportPasswordCheckActivity;
 
 /**
+ * 钱包工具
  * Created by cdkj on 2018/5/26.
  */
 
-public class UserWalletActivity extends AbsLoadActivity {
+public class WalletToolActivity extends AbsLoadActivity {
 
     private ActivityUserWalletBinding mBinding;
 
@@ -27,7 +27,7 @@ public class UserWalletActivity extends AbsLoadActivity {
         if (context == null) {
             return;
         }
-        context.startActivity(new Intent(context, UserWalletActivity.class));
+        context.startActivity(new Intent(context, WalletToolActivity.class));
     }
 
     @Override
@@ -41,9 +41,8 @@ public class UserWalletActivity extends AbsLoadActivity {
 
         mBaseBinding.titleView.setMidTitle(getStrRes(R.string.wallet_tool));
 
-        mBaseBinding.titleView.setLeftTitle("");
-
-        mBaseBinding.titleView.setLeftImg(R.drawable.back_black);
+        setStatusBarBlue();
+        setTitleBgBlue();
 
         initClickListener();
     }

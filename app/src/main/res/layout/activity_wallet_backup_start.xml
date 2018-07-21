@@ -55,7 +55,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="50dp"
-            android:background="@drawable/btn_blue"
+            android:background="@drawable/btn_blue_change"
             android:text="@string/now_backup"
             android:textColor="@color/white" />
 

@@ -79,7 +79,7 @@
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="20dp"
-            android:background="@drawable/btn_blue"
+            android:background="@drawable/btn_blue_change"
             android:text="@string/sure_1"
             android:textColor="@color/white" />
 
