@@ -2,11 +2,13 @@ package com.cdkj.baselibrary.base;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.databinding.ActivityAbsBaseLoadBinding;
+import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 
 
 /**
@@ -99,6 +101,10 @@ public abstract class AbsLoadActivity extends BaseActivity {
         mBaseBinding.titleView.setBackgroundColor(ContextCompat.getColor(this, R.color.title_bg_blue));
         mBaseBinding.titleView.setMidTitleColor(R.color.white);
         mBaseBinding.titleView.setLeftImg(R.drawable.back_white);
+    }
+
+    protected void setStatusBarBlue() {
+        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.title_bg_blue));
     }
 
     /**

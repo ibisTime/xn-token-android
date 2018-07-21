@@ -40,7 +40,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="30dp"
-                        android:text="2123132121313"
+                        android:gravity="center"
+                        android:text="确认您的钱包助记词"
                         android:textColor="@color/text_black_cd"
                         android:textSize="16sp" />
 
@@ -49,11 +50,10 @@
                         android:id="@+id/edit_words"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="15dp"
-                        android:background="@color/gray_f7f7f7"
+                        android:layout_marginTop="8dp"
                         android:gravity="top"
                         android:padding="10dp"
-                        android:text="@string/backup_intro_2"
+                        android:text="@string/backup_intro_3"
                         android:textColor="#b5b5b5"
                         android:textSize="12sp" />
 
@@ -63,54 +63,26 @@
                         android:layout_marginTop="20dp"
                         android:background="@drawable/line_dotted_gray" />
 
-
-                    <LinearLayout
+                    <com.google.android.flexbox.FlexboxLayout
+                        android:id="@+id/flex_layout"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="40dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <View
-                            android:layout_width="10dp"
-                            android:layout_height="5dp"
-                            android:background="@drawable/line_blue_gradient" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
-                            android:text="现在写下这些词"
-                            android:textColor="@color/text_black_cd"
-                            android:textSize="14sp" />
-
-                    </LinearLayout>
+                        android:layout_marginTop="37dp">
 
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/recyclerView"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp">
-
-                    </android.support.v7.widget.RecyclerView>
+                    </com.google.android.flexbox.FlexboxLayout>
 
 
                 </LinearLayout>
 
 
-                <Button
-                    android:id="@+id/btn_create_wallet"
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/btn_height"
-                    android:layout_marginBottom="20dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginRight="30dp"
-                    android:layout_marginTop="26dp"
-                    android:background="@drawable/selector_blue"
-                    android:text="@string/next_step"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp">
+
+                </android.support.v7.widget.RecyclerView>
 
 
             </LinearLayout>

@@ -16,76 +16,76 @@
         android:layout_marginTop="23dp"
         android:gravity="center"
         android:textColor="@color/dialog_tips_title_txt"
-        android:textSize="16sp" />
+        android:textSize="18sp"
+        tools:text="标题" />
 
     <TextView
         android:id="@+id/dialog_tips_content_msg"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginLeft="55dp"
         android:layout_marginRight="55dp"
-        android:layout_marginTop="15dp"
-        android:gravity="center"
+        android:layout_marginTop="8dp"
         android:textColor="@color/dialog_tips_content_txt"
-        android:textSize="14sp" />
+        android:textSize="16sp"
+        tools:text="内容" />
 
     <View
         style="@style/style_split_line"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="30dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="43dp"
+        android:layout_height="@dimen/dialog_button_height"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/dialog_tips_negative_btn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@drawable/dialog_tips_negative_btn_sel"
             android:gravity="center"
-            android:minHeight="43dp"
             android:textAllCaps="false"
             android:textColor="@color/dialog_tips_negative_btn_txt"
-            android:textSize="17sp" />
+            android:textSize="16sp"
+            tools:text="取消" />
 
         <View
             android:id="@+id/dialog_tips_divider_left_line"
-            style="@style/style_split_vline"
-            android:minHeight="40dp" />
+            style="@style/style_split_vline" />
 
         <Button
             android:id="@+id/dialog_tips_middle_btn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@drawable/dialog_tips_middle_btn_sel"
             android:gravity="center"
-            android:minHeight="43dp"
             android:textAllCaps="false"
-            android:textColor="@color/dialog_tips_positive_btn_txt"
-            android:textSize="17sp" />
+            android:textColor="@color/dialog_tips_mid_btn_txt"
+            android:textSize="16sp"
+            tools:text="取消" />
 
         <View
             android:id="@+id/dialog_tips_divider_right_line"
-            style="@style/style_split_vline"
-            android:minHeight="40dp" />
+            style="@style/style_split_vline" />
 
         <Button
             android:id="@+id/dialog_tips_positive_btn"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:background="@drawable/dialog_tips_positive_btn_sel"
             android:gravity="center"
-            android:minHeight="43dp"
             android:textAllCaps="false"
-            android:textColor="@color/dialog_tips_negative_btn_txt"
-            android:textSize="16sp" />
+            android:textColor="@color/dialog_tips_positive_btn_txt"
+            android:textSize="16sp"
+            tools:text="确定" />
 
     </LinearLayout>
 

@@ -7,12 +7,16 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.base.BaseActivity;
+import com.cdkj.baselibrary.dialog.InputDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -171,10 +175,29 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-        showDoubleWarnListen(getStrRes(R.string.exit_confirm), view -> {
-            EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
-            finish();
-        });
+//        showDoubleWarnListen(getStrRes(R.string.exit_confirm), view -> {
+//            EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
+//            finish();
+//        });
+//
+        showInputDialog();
+
+    }
+
+    private void showInputDialog() {
+        InputDialog inputDialog = null;
+        if (inputDialog == null) {
+            inputDialog = new InputDialog(this).builder().setTitle(getStrRes(R.string.trade_code_hint))
+                    .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
+
+                    })
+                    .setNegativeBtn(getStrRes(R.string.cancel), null)
+                    .setContentMsg("");
+            inputDialog.getContentView().setText("");
+            inputDialog.getContentView().setHint(getStrRes(R.string.trade_code_hint));
+        }
+        inputDialog.getContentView().setText("");
+        inputDialog.show();
     }
 
     /**

@@ -119,7 +119,7 @@
         <activity android:name=".wallet.import_guide.WalletImportWordsInputActivity" />
         <activity android:name=".wallet.import_guide.ImportWalletSuccessActivity" />
         <activity android:name=".wallet.import_guide.ImportCreatePassWordActivity" />
-        <activity android:name=".wallet.backup_guide.WalletBackupStartActivity" />
+        <activity android:name=".wallet.backup_guide.BackupWalletStartActivity" />
         <activity android:name=".wallet.WalletPasswordModifyActivity" />
         <activity android:name=".wallet.backup_guide.WalletBackupPasswordCheckActivity" />
         <activity android:name=".wallet.delete_guide.WallteDeleteStartActivity" />

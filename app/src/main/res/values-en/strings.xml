@@ -507,7 +507,7 @@
     <string name="user_language_korea">한국어</string>
 
 
-    <string name="version_num">Virsion：V %s</string>
+    <string name="version_num">Version：V %s</string>
     <string name="my_account_wallet">My Wallet</string>
 
     <string name="my_wallet_introduction">--</string>
@@ -526,6 +526,7 @@
     <string name="create_wallet_success_info">--</string>
     <string name="backup_wallet_intro">--</string>
     <string name="backup_intro_2">--</string>
+    <string name="backup_intro_3">--</string>
 
 </resources>
 

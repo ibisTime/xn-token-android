@@ -39,8 +39,7 @@ public class ImportWalletStartActivity extends AbsLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.title_bg_blue));
-
+        setStatusBarBlue();
         setTitleBgBlue();
 
         mBaseBinding.titleView.setMidTitle(R.string.import_wallet);

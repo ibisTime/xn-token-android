@@ -468,6 +468,7 @@
     <string name="create_wallet_success_info">월렛을 사용하기전에 [복구키] 혹은 keystore를 안전한 백업을 권장합니다.그리고 소액의 금액으로 부터 시작하시기를 바랍니다.</string>
     <string name="backup_wallet_intro">월렛 백업 방법</string>
     <string name="backup_intro_2">핸드폰 분실 혹 비밀번호 분실시 복구키는 고객님의 월렛과 자금을 되찾는데 도움이 됩니다.</string>
+    <string name="backup_intro_3">순서대로 복구키 입력하고 다시한번 복구키 확인</string>
 
 
 </resources>

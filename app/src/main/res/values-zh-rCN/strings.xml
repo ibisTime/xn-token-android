@@ -508,5 +508,6 @@
     <string name="create_wallet_success_info">强烈建议您在使用钱包钱做好备份，导出[助记词]或keystore存储到安全的地方。然后开始尝试转入小额资金启用。</string>
     <string name="backup_wallet_intro">如何备份钱包</string>
     <string name="backup_intro_2">在您的手机丢失或者忘记密码的情况下，恢复词可用于你的钱包或者资金。</string>
+    <string name="backup_intro_3">请按书序点击助记词，以确认你的备注助记词填写正确</string>
 
 </resources>

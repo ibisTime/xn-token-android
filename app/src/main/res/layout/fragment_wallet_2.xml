@@ -9,7 +9,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:fitsSystemWindows="true"
         android:orientation="vertical"
         android:paddingTop="@dimen/status_bar_height">
 

@@ -19,7 +19,6 @@ import com.cdkj.baselibrary.R;
 public class InputDialog {
     private Context mContext;
     private Dialog mDialog;
-    private LinearLayout mLayout;
     private TextView mTitle;
     private EditText mContentInput;
     private View mDividerLine;
@@ -36,9 +35,8 @@ public class InputDialog {
     }
 
     public InputDialog builder() {
-        View view  = LayoutInflater.from(mContext).inflate(R.layout.dialog_input, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_input, null);
 
-        mLayout = (LinearLayout) view.findViewById(R.id.dialog_input_layout);
         mTitle = (TextView) view.findViewById(R.id.dialog_input_title);
         mContentInput = (EditText) view.findViewById(R.id.dialog_input_content_input);
         mDividerLine = view.findViewById(R.id.dialog_input_divider_line);
@@ -51,10 +49,10 @@ public class InputDialog {
         mPositiveBtn.setVisibility(View.GONE);
         mNegativeBtn.setVisibility(View.GONE);
 
-        int screenWidth = ((WindowManager)this.mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth();
+        int screenWidth = ((WindowManager) this.mContext.getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay().getWidth();
         mDialog = new Dialog(mContext, R.style.TipsDialog);
         mDialog.setContentView(view);
-        mDialog.getWindow().setLayout((int)(screenWidth * 0.8f), ViewGroup.LayoutParams.WRAP_CONTENT);
+        mDialog.getWindow().setLayout((int) (screenWidth * 0.8f), ViewGroup.LayoutParams.WRAP_CONTENT);
         mDialog.getWindow().setGravity(Gravity.CENTER);
 
         setCancelable(true);
@@ -65,6 +63,7 @@ public class InputDialog {
 
     /**
      * 设置标题
+     *
      * @param title
      * @return
      */
@@ -86,6 +85,7 @@ public class InputDialog {
 
     /**
      * 设置内容
+     *
      * @param msg
      * @return
      */
@@ -115,6 +115,7 @@ public class InputDialog {
 
     /**
      * 设置确定按钮
+     *
      * @param text
      * @param onPositiveListener
      * @return
@@ -140,6 +141,7 @@ public class InputDialog {
 
     /**
      * 设置取消按钮
+     *
      * @param text
      * @param onNegativeListener
      * @return
@@ -155,7 +157,7 @@ public class InputDialog {
             @Override
             public void onClick(View v) {
                 if (onNegativeListener != null) {
-                    onNegativeListener.onNegative(v,  mContentInput.getText().toString());
+                    onNegativeListener.onNegative(v, mContentInput.getText().toString());
                 }
                 mDialog.dismiss();
             }
@@ -230,13 +232,16 @@ public class InputDialog {
         // 加上下面这一行弹出对话框时软键盘随之弹出
         mDialog.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
     }
-   public void dismiss() {
-       if(mDialog!=null){
-           mDialog.dismiss();
-       }
+
+    public void dismiss() {
+        if (mDialog != null) {
+            mDialog.dismiss();
+        }
     }
 
-    /** start----------------------------------------- */
+    /**
+     * start-----------------------------------------
+     */
     public InputDialog setTitleText(String text) {
         mIsShowTitle = true;
         if (TextUtils.isEmpty(text)) {
@@ -266,7 +271,9 @@ public class InputDialog {
     }
     /** end----------------------------------------- */
 
-    /** start----------------------------------------- */
+    /**
+     * start-----------------------------------------
+     */
     public InputDialog setContentMsgText(String text) {
         mIsShowContentInput = true;
         if (TextUtils.isEmpty(text)) {
@@ -296,7 +303,9 @@ public class InputDialog {
     }
     /** end----------------------------------------- */
 
-    /** start----------------------------------------- */
+    /**
+     * start-----------------------------------------
+     */
     public InputDialog setNegativeBtnText(String text) {
         mIsShowNegativeBtn = true;
         if (TextUtils.isEmpty(text)) {
@@ -340,7 +349,9 @@ public class InputDialog {
     }
     /** end----------------------------------------- */
 
-    /** start----------------------------------------- */
+    /**
+     * start-----------------------------------------
+     */
     public InputDialog setPositiveBtnText(String text) {
         mIsShowPositiveBtn = true;
         if (TextUtils.isEmpty(text)) {
@@ -382,7 +393,10 @@ public class InputDialog {
         });
         return this;
     }
-    /** end----------------------------------------- */
+
+    /**
+     * end-----------------------------------------
+     */
 
 
     public EditText getContentView() {

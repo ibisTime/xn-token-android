@@ -7,7 +7,6 @@ import android.os.Bundle;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.token.R;
 import com.cdkj.token.wallet.AbsWalletPassWordCheckActivity;
-import com.cdkj.token.wallet.backup_guide.WalletBackupStartActivity;
 
 /**
  * 钱包密码验证

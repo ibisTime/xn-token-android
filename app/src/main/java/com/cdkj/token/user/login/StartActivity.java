@@ -3,7 +3,6 @@ package com.cdkj.token.user.login;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
@@ -14,26 +13,23 @@ import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
-import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.SystemUtils;
 import com.cdkj.token.model.CountryCodeMode;
 import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
+import com.cdkj.token.wallet.backup_guide.BackupWalletStartActivity;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,6 +63,7 @@ public class StartActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
         getQiniuAndNextTo();  //获取七牛地址
     }
 
