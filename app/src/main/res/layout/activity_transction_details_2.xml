@@ -20,215 +20,219 @@
                 android:layout_height="60dp"
                 android:background="@color/title_bg_blue" />
 
-            <LinearLayout
+
+            <android.support.v7.widget.CardView
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="90dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="-45dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
+                app:cardElevation="@dimen/user_fragment_card_elevation"
+                app:cardUseCompatPadding="true">
 
-                <android.support.v7.widget.CardView
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="90dp"
-                    app:cardBackgroundColor="@color/white"
-                    app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
-                    app:cardElevation="@dimen/user_fragment_card_elevation"
-                    app:cardUseCompatPadding="true">
+                    android:layout_height="match_parent"
+                    android:background="@drawable/transfer_bg_1"
+                    android:orientation="vertical"
+                    android:paddingTop="19dp">
 
-                    <LinearLayout
+                    <TextView
+                        android:id="@+id/tv_currency_sing"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/transfer_bg_1"
-                        android:orientation="vertical"
-                        android:paddingTop="19dp">
-
-                        <TextView
-                            android:id="@+id/tv_currency_sing"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:gravity="center"
-                            android:textColor="@color/gray_666666"
-                            android:textSize="12sp"
-                            tools:text="转出" />
-
-                        <TextView
-                            android:id="@+id/tv_currency"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:gravity="center"
-                            android:text="@string/wallet_withdraw_balance"
-                            android:textColor="@color/text_black_cd"
-                            android:textSize="24dp"
-                            tools:text="dfdf" />
-
-                    </LinearLayout>
-
-                </android.support.v7.widget.CardView>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_item_height"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:padding="15dp">
-
-                    <TextView
-                        android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:text="接收地址"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
                         android:textColor="@color/gray_666666"
-                        android:textSize="14sp" />
+                        android:textSize="12sp"
+                        tools:text="转出" />
 
                     <TextView
-                        android:id="@+id/tv_to_address"
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tv_currency"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="@string/wallet_withdraw_balance"
                         android:textColor="@color/text_black_cd"
-                        android:textSize="14sp"
-                        tools:text="收款地址" />
-
+                        android:textSize="24dp"
+                        tools:text="dfdf" />
 
                 </LinearLayout>
 
-                <View style="@style/style_split_line" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_item_height"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:padding="15dp">
-
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:text="转账数量"
-                        android:textColor="@color/gray_666666"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_black_cd"
-                        android:textSize="14sp"
-                        tools:text="收款地址" />
+            </android.support.v7.widget.CardView>
 
 
-                </LinearLayout>
+            <LinearLayout
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_item_height"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp">
 
-                <View style="@style/style_split_line" />
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="接收地址"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_item_height"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:padding="15dp">
-
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:text="旷工费"
-                        android:textColor="@color/gray_666666"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_black_cd"
-                        android:textSize="14sp"
-                        tools:text="收款地址" />
-
-
-                </LinearLayout>
-
-                <View style="@style/style_split_line" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_item_height"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:padding="15dp">
-
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:text="变动时间"
-                        android:textColor="@color/gray_666666"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_black_cd"
-                        android:textSize="14sp"
-                        tools:text="收款地址" />
-
-
-                </LinearLayout>
-
-                <View style="@style/style_split_line" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_item_height"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:padding="15dp">
-
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:text="明细状态"
-                        android:textColor="@color/gray_666666"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_black_cd"
-                        android:textSize="14sp"
-                        tools:text="收款地址" />
-
-
-                </LinearLayout>
-
-                <View style="@style/style_split_line" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/layout_item_height"
-                    android:background="@color/white"
-                    android:gravity="center_vertical"
-                    android:padding="15dp">
-
-                    <TextView
-                        android:layout_width="80dp"
-                        android:layout_height="wrap_content"
-                        android:text="明细状态"
-                        android:textColor="@color/gray_666666"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/text_black_cd"
-                        android:textSize="14sp"
-                        tools:text="收款地址" />
-
-
-                </LinearLayout>
-
-                <View style="@style/style_split_line" />
+                <TextView
+                    android:id="@+id/tv_to_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="收款地址" />
 
 
             </LinearLayout>
+
+            <View style="@style/style_split_line" />
+
+            <LinearLayout
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_item_height"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="转账数量"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="收款地址" />
+
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line" />
+
+            <LinearLayout
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_item_height"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="旷工费"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="收款地址" />
+
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line" />
+
+            <LinearLayout
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_item_height"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="变动时间"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="收款地址" />
+
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line" />
+
+            <LinearLayout
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_item_height"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="明细状态"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="收款地址" />
+
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line" />
+
+            <LinearLayout
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_item_height"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:padding="15dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="明细状态"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="收款地址" />
+
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line" />
 
 
         </LinearLayout>
