@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/dialog_tips_bg"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:padding="10dp"
+            android:src="@drawable/delete" />
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingBottom="22dp"
+            android:paddingTop="40dp"
+            android:textColor="@color/text_black_cd"
+            android:textSize="20sp"
+            tools:text="请输入支付密码" />
+
+        <com.cdkj.token.views.password.PassWordLayout
+            android:id="@+id/passWordLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_tipsinfo"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            app:box_draw_type="rect"
+            app:box_input_color="@color/text_black_cd"
+            app:box_no_input_color="@color/text_black_cd"
+            app:draw_box_line_size="0.5dp"
+            app:interval_width="0dp"
+            app:is_show_input_line="false"
+            app:item_height="55dp"
+            app:item_width="55dp"
+            app:pass_inputed_type="circle"
+            app:pass_leng="six"
+            app:text_input_color="@color/black" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="16dp"
+            android:padding="10dp"
+            android:text="忘记密码?"
+            android:textColor="@color/gray_666666" />
+
+
+    </LinearLayout>
+</layout>

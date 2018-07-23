@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -10,20 +11,64 @@
         android:orientation="vertical"
         tools:context="com.cdkj.token.wallet.red_package.QRRedPackageImgActivity">
 
-        <FrameLayout
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@mipmap/icon_qr_code_bg">
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingBottom="10dp"
+            android:paddingLeft="40dp"
+            android:paddingRight="40dp">
 
             <ImageView
-                android:visibility="invisible"
-                android:id="@+id/iv_qr_img"
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:layout_margin="10dp"
-                android:background="@color/white"
-                android:padding="5dp"
-                 />
+                android:id="@+id/img_logo"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginTop="15dp"
+                android:src="@mipmap/icon_open_bg" />
+
+            <TextView
+                android:id="@+id/tv_user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/red_text"
+                tools:text="Koala" />
+
+            <TextView
+                textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/send_you_red_package" />
+
+        </LinearLayout>
+
+        <FrameLayout
+            android:layout_width="170dp"
+            android:layout_height="170dp"
+            android:background="@mipmap/icon_qr_code_bg">
+
+            <android.support.v7.widget.CardView
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:layout_gravity="center"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="5dp">
+
+                <ImageView
+                    android:id="@+id/iv_qr_img"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_gravity="center"
+                    android:background="@color/white"
+                    android:visibility="invisible" />
+
+            </android.support.v7.widget.CardView>
+
+
         </FrameLayout>
 
 

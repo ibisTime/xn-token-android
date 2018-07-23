@@ -7,14 +7,9 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
-import android.text.TextUtils;
-import android.view.View;
 
-import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.appmanager.MyConfig;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.dialog.InputDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -23,7 +18,7 @@ import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.api.MyApi;
-import com.cdkj.token.consult.ConsultFragment;
+import com.cdkj.token.consult.FindFragment;
 import com.cdkj.token.databinding.ActivityMainBinding;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.user.UserFragment;
@@ -141,7 +136,7 @@ public class MainActivity extends BaseActivity {
         fragments = new ArrayList<>();
 
         fragments.add(WalletFragment.getInstance());
-        fragments.add(ConsultFragment.getInstance());
+        fragments.add(FindFragment.getInstance());
         fragments.add(UserFragment.getInstance());
 
         mBinding.pagerMain.setAdapter(new ViewPagerAdapter(getSupportFragmentManager(), fragments));

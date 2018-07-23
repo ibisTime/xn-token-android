@@ -16,7 +16,7 @@ import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
-import com.cdkj.token.databinding.FragmentConsultBinding;
+import com.cdkj.token.databinding.FragmentFindBinding;
 import com.cdkj.token.loader.BannerImageLoader;
 import com.cdkj.token.model.BannerModel;
 import com.cdkj.token.wallet.red_package.SendRedPackageActivity;
@@ -34,9 +34,9 @@ import retrofit2.Call;
  * Created by lei on 2018/3/6.
  */
 
-public class ConsultFragment extends BaseLazyFragment {
+public class FindFragment extends BaseLazyFragment {
 
-    private FragmentConsultBinding mHeadBinding;
+    private FragmentFindBinding mHeadBinding;
     private List<BannerModel> bannerData = new ArrayList<>();
 
     /**
@@ -44,8 +44,8 @@ public class ConsultFragment extends BaseLazyFragment {
      *
      * @return
      */
-    public static ConsultFragment getInstance() {
-        ConsultFragment fragment = new ConsultFragment();
+    public static FindFragment getInstance() {
+        FindFragment fragment = new FindFragment();
         return fragment;
     }
 
@@ -53,7 +53,7 @@ public class ConsultFragment extends BaseLazyFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mHeadBinding = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.fragment_consult, null, false);
+        mHeadBinding = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.fragment_find, null, false);
 
         initListener();
 
@@ -70,17 +70,17 @@ public class ConsultFragment extends BaseLazyFragment {
         });
 
         //首创玩法
-        mHeadBinding.llMerchant.setOnClickListener(view -> {
+        mHeadBinding.linLayoutFirstPlay.setOnClickListener(view -> {
             NoneActivity.open(mActivity, NoneActivity.FIRST_CREATE);
         });
-        mHeadBinding.fraLayoutYbb.setOnClickListener(view -> {
+        mHeadBinding.linLayoutYbb.setOnClickListener(view -> {
             NoneActivity.open(mActivity, NoneActivity.YBB);
         });
-        mHeadBinding.fraLayoutLhlc.setOnClickListener(view -> {
+        mHeadBinding.linLayoutLhlc.setOnClickListener(view -> {
             NoneActivity.open(mActivity, NoneActivity.LHLC);
         });
 
-        mHeadBinding.fraRed.setOnClickListener(view -> {
+        mHeadBinding.linLayoutRedPacket.setOnClickListener(view -> {
             //跳转到红包
             SendRedPackageActivity.open(mActivity);
         });

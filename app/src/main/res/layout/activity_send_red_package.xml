@@ -52,7 +52,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,7 +73,8 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -132,13 +133,25 @@
                         android:src="@mipmap/icon_right_arrow" />
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/tv_balance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/red_packet_text_yellow"
+                    android:textSize="12sp"
+                    tools:text="持有ETC总量  0.006" />
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
-                    android:layout_marginTop="20dp"
                     android:background="@drawable/red_bg_rodun"
                     android:gravity="center_vertical">
 
@@ -184,28 +197,29 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:id="@+id/tv_balance"
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:textColor="@color/white"
-                        tools:text="持有ETC总量  0.006" />
+                        android:gravity="center_vertical"
+                        android:textColor="@color/red_packet_text_yellow"
+                        android:textSize="12sp"
+                        tools:text="当前为普通红包" />
 
                     <TextView
                         android:id="@+id/tv_red_type"
                         android:layout_width="105dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
                         android:background="@drawable/red_bg_line_rodun"
                         android:ellipsize="end"
+                        android:gravity="center"
                         android:paddingBottom="5dp"
                         android:paddingLeft="10dp"
                         android:paddingRight="10dp"
                         android:paddingTop="5dp"
                         android:singleLine="true"
                         android:text="@string/red_package_set_ordinary"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/red_packet_text_yellow"
+                        android:textSize="12sp" />
 
                 </LinearLayout>
 
@@ -270,13 +284,26 @@
                     android:id="@+id/btn_submit"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="50dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
                     android:background="@drawable/red_package_btn_bg"
                     android:text="@string/red_package_set"
                     android:textColor="@color/red_text_shear" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="50dp"
+                    android:layout_marginTop="10dp"
+                    android:drawablePadding="5dp"
+                    android:drawableRight="@drawable/question"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/red_packet_text_yellow"
+                    android:textSize="12sp"
+                    tools:text="红包规则" />
+
 
             </LinearLayout>
         </ScrollView>
