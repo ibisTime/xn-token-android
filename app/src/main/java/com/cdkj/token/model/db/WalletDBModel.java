@@ -9,6 +9,7 @@ import org.litepal.crud.DataSupport;
 public class WalletDBModel extends DataSupport {
 
     public String userId;
+    public String walletName; //钱包名称
     public String helpWordsEn;// 助记词 英文
     public String walletPassWord;
 
@@ -21,6 +22,14 @@ public class WalletDBModel extends DataSupport {
     public String wanAddress;//地址
     public String wanPrivateKey;//私钥
 
+
+    public String getWalletName() {
+        return walletName;
+    }
+
+    public void setWalletName(String walletName) {
+        this.walletName = walletName;
+    }
 
     public String getUserId() {
         return userId;

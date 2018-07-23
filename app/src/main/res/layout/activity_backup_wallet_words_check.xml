@@ -11,6 +11,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:descendantFocusability="blocksDescendants"
             android:orientation="vertical">
 
             <View
@@ -52,20 +53,18 @@
                     android:textColor="#b5b5b5"
                     android:textSize="12sp" />
 
-                <View
+                <com.cdkj.token.views.DashLineView
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/line_dotted_gray" />
+                    android:layout_marginTop="20dp" />
+
 
                 <com.google.android.flexbox.FlexboxLayout
                     android:id="@+id/flex_layout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="37dp">
-
-
-                </com.google.android.flexbox.FlexboxLayout>
+                    android:layout_marginTop="37dp"
+                    app:flexWrap="wrap" />
 
 
             </LinearLayout>
@@ -75,7 +74,7 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="17dp">
+                android:layout_marginTop="20dp">
 
             </android.support.v7.widget.RecyclerView>
 

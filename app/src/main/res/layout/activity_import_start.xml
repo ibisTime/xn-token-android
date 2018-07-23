@@ -35,11 +35,13 @@
             <View style="@style/style_split_line" />
 
             <com.cdkj.token.views.SignInEditClearLayout
+                android:id="@+id/edit_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hint_text="@string/user_sign_in_pwd_hint" />
+                app:hint_text="@string/user_password_hint" />
 
             <com.cdkj.token.views.SignInEditClearLayout
+                android:id="@+id/edit_repassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:hint_text="@string/activity_find_repassword_hint" />
@@ -61,6 +63,7 @@
                     android:layout_height="40dp">
 
                     <ImageView
+                        android:id="@+id/img_aggree"
                         android:layout_width="17dp"
                         android:layout_height="17dp"
                         android:layout_gravity="center"
@@ -81,9 +84,10 @@
             </LinearLayout>
 
             <Button
+                android:id="@+id/btn_import"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/btn_height"
-                android:background="@drawable/selector_blue"
+                android:background="@drawable/selector_btn_blue_change"
                 android:text="@string/start_import"
                 android:textColor="@color/white"
                 android:textSize="16sp" />

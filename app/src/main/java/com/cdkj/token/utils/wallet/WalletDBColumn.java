@@ -37,6 +37,7 @@ public class WalletDBColumn {
     public static final String CHOOSECOINIDS = "choosecoins";
 
     public static final String ISCHOOSED = "ischoosed";
+    public static final String WALLET_NAME = "walletname";
 
 
 }

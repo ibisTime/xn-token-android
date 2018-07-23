@@ -61,6 +61,7 @@ import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_COIN_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FIND_USER_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.WALLETPASSWORD;
+import static com.cdkj.token.utils.wallet.WalletDBColumn.WALLET_NAME;
 
 /**
  * 钱包工具类
@@ -441,6 +442,9 @@ public class WalletHelper {
                 walletDBModel.setWanPrivateKey(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.WANPRIVATEKEY))));
 
 
+                walletDBModel.setWalletName(decrypt(cursor.getString(cursor.getColumnIndex(WalletDBColumn.WALLET_NAME))));
+
+
             }
         } catch (Exception e) {
 
@@ -608,6 +612,33 @@ public class WalletHelper {
             if (cursor != null && cursor.moveToFirst()) {
                 String password = cursor.getString(cursor.getColumnIndex(WALLETPASSWORD));
                 return decrypt(password);
+            }
+        } catch (Exception e) {
+
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+
+
+        return "";
+    }
+
+    /**
+     * 获取用户钱包名称
+     *
+     * @param
+     * @return
+     */
+    public static String getWalletNameByUserId(String uerId) {
+
+        Cursor cursor = getUserInfoCursorByUserId(uerId);
+
+        try {
+            if (cursor != null && cursor.moveToFirst()) {
+                String name = cursor.getString(cursor.getColumnIndex(WALLET_NAME));
+                return name;
             }
         } catch (Exception e) {
 

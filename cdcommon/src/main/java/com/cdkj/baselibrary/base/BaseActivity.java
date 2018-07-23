@@ -104,7 +104,6 @@ public abstract class BaseActivity extends AppCompatActivity {
             return;
         }
 
-
         if (loadingDialog != null && loadingDialog.isShowing()) {
             loadingDialog.closeDialog();
         }
@@ -140,6 +139,32 @@ public abstract class BaseActivity extends AppCompatActivity {
                 .setTitle(getString(R.string.activity_base_tip)).setContentMsg(str)
                 .setPositiveBtn(getString(R.string.activity_base_confirm), onPositiveListener)
                 .setNegativeBtn(getString(R.string.activity_base_cancel), null, false);
+
+        commonDialog.show();
+    }
+    protected void showDoubleWarnListen(String title,String content, CommonDialog.OnPositiveListener onPositiveListener) {
+
+        if (isFinishing()) {
+            return;
+        }
+
+        CommonDialog commonDialog = new CommonDialog(this).builder()
+                .setTitle(title).setContentMsg(content)
+                .setPositiveBtn(getString(R.string.activity_base_confirm), onPositiveListener)
+                .setNegativeBtn(getString(R.string.activity_base_cancel), null, false);
+
+        commonDialog.show();
+    }
+
+    protected void showSureListen(String str, CommonDialog.OnPositiveListener onPositiveListener) {
+
+        if (this == null || isFinishing()) {
+            return;
+        }
+
+        CommonDialog commonDialog = new CommonDialog(this).builder()
+                .setContentMsg(str)
+                .setPositiveBtn(getString(R.string.activity_base_confirm), onPositiveListener);
 
         commonDialog.show();
     }

@@ -170,29 +170,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-//        showDoubleWarnListen(getStrRes(R.string.exit_confirm), view -> {
-//            EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
-//            finish();
-//        });
-//
-        showInputDialog();
-
-    }
-
-    private void showInputDialog() {
-        InputDialog inputDialog = null;
-        if (inputDialog == null) {
-            inputDialog = new InputDialog(this).builder().setTitle(getStrRes(R.string.trade_code_hint))
-                    .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
-
-                    })
-                    .setNegativeBtn(getStrRes(R.string.cancel), null)
-                    .setContentMsg("");
-            inputDialog.getContentView().setText("");
-            inputDialog.getContentView().setHint(getStrRes(R.string.trade_code_hint));
-        }
-        inputDialog.getContentView().setText("");
-        inputDialog.show();
+        showDoubleWarnListen(getStrRes(R.string.exit_confirm), view -> {
+            EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
+            finish();
+        });
     }
 
     /**

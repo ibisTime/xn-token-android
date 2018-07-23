@@ -39,29 +39,31 @@
                     android:paddingRight="15dp">
 
                     <TextView
-                        android:id="@+id/edit_words"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="15dp"
                         android:background="@color/gray_f7f7f7"
                         android:gravity="top"
                         android:padding="10dp"
-                        android:text="注意！THA不存储用户密码，无法提供找回或重置功能，密码必须要自己备份好。密码用于加密保护私钥，强度也非常重要。"
+                        android:text="@string/create_wallet_intro_1"
                         android:textColor="#b5b5b5"
                         android:textSize="12sp" />
 
                     <com.cdkj.token.views.SignInEditClearLayout
+                        android:id="@+id/edit_wallet_name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hint_text="@string/wallet_name" />
 
 
                     <com.cdkj.token.views.SignInEditClearLayout
+                        android:id="@+id/edit_password"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hint_text="@string/user_sign_in_pwd_hint" />
 
                     <com.cdkj.token.views.SignInEditClearLayout
+                        android:id="@+id/edit_repassword"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hint_text="@string/activity_find_repassword_hint" />
@@ -83,6 +85,7 @@
                             android:layout_height="40dp">
 
                             <ImageView
+                                android:id="@+id/img_aggree"
                                 android:layout_width="17dp"
                                 android:layout_height="17dp"
                                 android:layout_gravity="center"

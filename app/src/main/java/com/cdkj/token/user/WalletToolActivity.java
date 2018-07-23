@@ -6,10 +6,13 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserWalletBinding;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.WalletPasswordModifyActivity;
+import com.cdkj.token.wallet.backup_guide.BackupWalletStartActivity;
 import com.cdkj.token.wallet.backup_guide.WalletBackupPasswordCheckActivity;
 import com.cdkj.token.wallet.delete_guide.WallteDeleteStartActivity;
 import com.cdkj.token.wallet.export.WalletExportPasswordCheckActivity;
@@ -43,13 +46,15 @@ public class WalletToolActivity extends AbsLoadActivity {
 
         setStatusBarBlue();
         setTitleBgBlue();
-
         initClickListener();
+
+        mBinding.tvWalletName.setText(WalletHelper.getWalletNameByUserId(SPUtilHelper.getUserId()));
+
     }
 
 
     private void initClickListener() {
-        mBinding.llBackUp.setOnClickListener(view -> WalletBackupPasswordCheckActivity.open(this));
+        mBinding.llBackUp.setOnClickListener(view -> BackupWalletStartActivity.open(this));
         mBinding.llModify.setOnClickListener(view -> WalletPasswordModifyActivity.open(this));
         mBinding.btnDelete.setOnClickListener(view -> WallteDeleteStartActivity.open(this));
         mBinding.llOut.setOnClickListener(view -> WalletExportPasswordCheckActivity.open(this));

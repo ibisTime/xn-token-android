@@ -535,6 +535,7 @@
     <string name="sure_transfer">--</string>
     <string name="fast">fast</string>
     <string name="slow">Slow</string>
+    <string name="create_wallet_intro_1">--</string>
 
 </resources>
 

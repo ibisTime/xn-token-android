@@ -27,6 +27,10 @@ public class CreateWalletSuccessActivity extends AbsLoadActivity {
         context.startActivity(intent);
     }
 
+    @Override
+    protected boolean canLoadTopTitleView() {
+        return false;
+    }
 
     @Override
     public View addMainView() {
@@ -37,9 +41,17 @@ public class CreateWalletSuccessActivity extends AbsLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
+        setStatusBarBlue();
+        setTitleBgBlue();
+
         mBinding.btnNowBackup.setOnClickListener(view -> {
             WalletHelpWordsShowActivity.open(this, false);
             finish();
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+
     }
 }

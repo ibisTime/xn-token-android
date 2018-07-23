@@ -517,5 +517,6 @@
     <string name="sure_transfer">确认转账</string>
     <string name="fast">快</string>
     <string name="slow">慢</string>
+    <string name="create_wallet_intro_1">注意！THA不存储用户密码，无法提供找回或重置功能，密码必须要自己备份好。密码用于加密保护私钥，强度也非常重要。</string>
 
 </resources>

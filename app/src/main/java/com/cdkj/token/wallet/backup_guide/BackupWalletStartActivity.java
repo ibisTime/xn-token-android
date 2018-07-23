@@ -8,12 +8,19 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
+import android.view.WindowManager;
 
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
+import com.cdkj.baselibrary.dialog.CommonDialog;
+import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.HelpWordsGridAdapter;
 import com.cdkj.token.databinding.ActivityBackupWalletStartBinding;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.recycler.GridDivider;
+
+import org.spongycastle.asn1.esf.SPuri;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,12 +52,15 @@ public class BackupWalletStartActivity extends AbsLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+        //禁止截屏
+//        getWindow().addFlags(WindowManager.LayoutParams.FLAG_SECURE);
 
         setStatusBarBlue();
 
         setTitleBgBlue();
 
         mBaseBinding.titleView.setMidTitle(R.string.wallet_backup);
+
         initClickListener();
 
         mBinding.recyclerView.setLayoutManager(new GridLayoutManager(this, 3) {
@@ -60,33 +70,27 @@ public class BackupWalletStartActivity extends AbsLoadActivity {
             }
         });
 
-        mBinding.recyclerView.addItemDecoration(new GridDivider(this,10, ContextCompat.getColor(this,R.color.red)));
+        setWordsData();
+    }
 
-        List<String> strings = new ArrayList<>();
-
-        strings.add("d");
-        strings.add("d");
-        strings.add("d");
-        strings.add("d");
-        strings.add("d");
-        strings.add("d");
-        strings.add("d");
-        strings.add("d");
-        strings.add("d");
-        strings.add("d");
-        strings.add("dddddd");
-        strings.add("ffffffffd");
-
-        mBinding.recyclerView.setAdapter(new HelpWordsGridAdapter(strings));
-
-
+    /**
+     * 设置数据显示
+     */
+    void setWordsData() {
+        List<String> wordsList = WalletHelper.getHelpWordsListByUserId(SPUtilHelper.getUserId());
+        if (wordsList != null && wordsList.size() > 0) {
+            mBinding.recyclerView.addItemDecoration(new GridDivider(this, DisplayHelper.dp2px(this, 1), ContextCompat.getColor(this, R.color.gray_dee0e5)));
+            mBinding.recyclerView.setAdapter(new HelpWordsGridAdapter(wordsList));
+        }
     }
 
     private void initClickListener() {
 
-//        mBinding.btnNowBackup.setOnClickListener(view -> {
-//            WalletHelpWordsShowActivity.open(this, true);
-//            finish();
-//        });
+        mBinding.btnNext.setOnClickListener(view -> {
+            BackupWalletWordsCheckActivity.open(this);
+            finish();
+        });
     }
+
+
 }

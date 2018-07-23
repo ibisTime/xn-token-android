@@ -53,11 +53,11 @@
                     android:textColor="#b5b5b5"
                     android:textSize="12sp" />
 
-                <View
+                <com.cdkj.token.views.DashLineView
                     android:layout_width="match_parent"
                     android:layout_height="2dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/line_dotted_gray" />
+                     />
 
 
                 <LinearLayout
@@ -91,19 +91,21 @@
 
                 </android.support.v7.widget.RecyclerView>
 
+                <View style="@style/style_split_line" />
+
 
             </LinearLayout>
 
 
             <Button
-                android:id="@+id/btn_create_wallet"
+                android:id="@+id/btn_next"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginBottom="20dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="15dp"
-                android:background="@drawable/selector_blue"
+                android:background="@drawable/selector_btn_blue_change"
                 android:text="@string/next_step"
                 android:textColor="@color/white"
                 android:textSize="16sp" />
