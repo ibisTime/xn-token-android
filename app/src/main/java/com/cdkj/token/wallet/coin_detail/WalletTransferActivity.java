@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
@@ -20,7 +21,6 @@ import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityTransferBinding;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.WalletDBModel;
-import com.cdkj.token.views.pop.GasTypeChoosePop;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.utils.wallet.WalletHelper;
@@ -49,8 +49,9 @@ public class WalletTransferActivity extends AbsLoadActivity {
 
     private final int CODEPERSE = 101;
 
-    private int chooseGasType = GasTypeChoosePop.ORDINARY;//矿工费类型 默认普通
-    private BigInteger gasPrice;//矿工费用
+
+    private BigInteger mGas;//燃料单位费用
+    private BigInteger gasPriceLimit;//矿工费用
     private BigInteger transferGasPrice;//计算后转账矿工费用
 
     private WalletBalanceModel accountListBean;
@@ -97,7 +98,8 @@ public class WalletTransferActivity extends AbsLoadActivity {
 //        mBinding.tvCurrencySing.setText(getString(R.string.wallet_withdraw_balance) + WalletHelper.getShowLocalCoinType());
 
         transferGasPrice = WalletHelper.getGasLimit();
-        gasPrice = WalletHelper.getGasLimit();
+        mGas = WalletHelper.getGasLimit();
+        gasPriceLimit = WalletHelper.getGasLimit();
 
         mBaseBinding.titleView.setMidTitle(R.string.transfer);
         mBinding.edtAmount.addTextChangedListener(new EditTextJudgeNumberWatcher(mBinding.edtAmount, 15, 8));
@@ -233,7 +235,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                         .observeOn(AndroidSchedulers.mainThread())
                         .doFinally(() -> disMissLoading())
                         .subscribe(gasPrice -> {
-                            this.gasPrice = gasPrice;
+                            this.mGas = gasPrice;
                             setShowGasPrice();
 
                         }, throwable -> {
@@ -247,12 +249,55 @@ public class WalletTransferActivity extends AbsLoadActivity {
      */
     private void setShowGasPrice() {
 
-        mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(transferGasPrice).multiply(new BigDecimal(this.gasPrice)), ETHSCALE) + " " + accountListBean.getCoinName());
+        mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(transferGasPrice).multiply(new BigDecimal(this.mGas)), ETHSCALE) + " " + accountListBean.getCoinName());
     }
 
     private void initClickListener() {
         mBinding.fraLayoutQRcode.setOnClickListener(view -> {
             permissionRequest();
+        });
+
+
+        //矿工费设置
+        mBinding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+
+                if (i < 100) {
+                    float ii = 100 - i;
+                    float ic = ii / 100;
+                    BigDecimal bg = new BigDecimal(ic);
+                    transferGasPrice = gasPriceLimit.subtract(new BigDecimal(gasPriceLimit).multiply(bg).toBigInteger());
+
+                    BigInteger minPrice = gasPriceLimit.divide(new BigDecimal(2).toBigInteger());//最小矿工费
+
+                    if (transferGasPrice.compareTo(minPrice) < 0) {
+                        transferGasPrice = minPrice;
+                    }
+
+                } else if (i > 100) {
+                    float ii = i - 100;
+                    float ic = ii / 100;
+                    BigDecimal bg = new BigDecimal(ic);
+                    transferGasPrice = gasPriceLimit.add(new BigDecimal(gasPriceLimit).multiply(bg).toBigInteger());
+
+                } else {
+                    transferGasPrice = gasPriceLimit;
+                }
+
+
+                setShowGasPrice();
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
         });
 
 //        mBinding.linLayoutGasChoose.setOnClickListener(view -> {

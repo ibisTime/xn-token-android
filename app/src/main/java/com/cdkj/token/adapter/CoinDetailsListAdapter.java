@@ -31,7 +31,7 @@ public class CoinDetailsListAdapter extends BaseQuickAdapter<LocalCoinBill, Base
 
 
     public CoinDetailsListAdapter(@Nullable List<LocalCoinBill> data, String coinSymbol) {
-        super(R.layout.item_bill, data);
+        super(R.layout.item_bill_2, data);
         this.coinSymbol = coinSymbol;
     }
 
@@ -39,22 +39,19 @@ public class CoinDetailsListAdapter extends BaseQuickAdapter<LocalCoinBill, Base
     protected void convert(BaseViewHolder helper, LocalCoinBill item) {
         if (item == null) return;
 
-        helper.setText(R.id.tv_day, DateUtil.formatStringData(item.getTransDatetime(), "dd日"));
-        helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getTransDatetime(), DATE_HM));
+        helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getTransDatetime(), DATE_MMddHHmm));
         helper.setImageResource(R.id.iv_type, getStataIconByState(item.getDirection()));
 
         helper.setText(R.id.tv_amount, getMoneyStateByState(item.getDirection()) + AccountUtil.amountFormatUnitForShow(item.getValue(), ETHSCALE) + " " + this.coinSymbol);
 
         if (isInState(item.getDirection())) {
-            helper.setText(R.id.tv_remark, this.coinSymbol + " " + mContext.getString(R.string.get_money));
+            helper.setText(R.id.tv_remark,  mContext.getString(R.string.get_money));
+            helper.setText(R.id.tv_address, item.getFrom());
         } else {
-            helper.setText(R.id.tv_remark, this.coinSymbol + " " + mContext.getString(R.string.transfer));
+            helper.setText(R.id.tv_remark,   mContext.getString(R.string.transfer));
+            helper.setText(R.id.tv_address, item.getTo());
         }
 
-//        helper.setText(R.id.tv_bill_hash, getShowHashText(item.getTxHash()));
-//        helper.setText(R.id.tv_date, DateUtil.formatStringData(item.getTransDatetime(), DATE_MMddHHmm));
-//        helper.setText(R.id.tv_amount, getMoneyStateByState(item.getDirection()) + AccountUtil.amountFormatUnitForShow(item.getValue(), ETHSCALE));
-//        helper.setImageResource(R.id.img_state, getStataIconByState(item.getDirection()));
     }
 
     /**

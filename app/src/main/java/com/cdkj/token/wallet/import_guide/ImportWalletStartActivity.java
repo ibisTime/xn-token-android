@@ -105,6 +105,10 @@ public class ImportWalletStartActivity extends AbsLoadActivity {
             UITipDialog.showInfoNoIcon(this, getString(R.string.please_input_help_words));
             return true;
         }
+        if (TextUtils.isEmpty(mBinding.editWalletName.getText().toString())) {
+            UITipDialog.showInfoNoIcon(this, getString(R.string.wallet_name));
+            return true;
+        }
 
         if (TextUtils.isEmpty(mPassword)) {
             UITipDialog.showInfoNoIcon(this, getString(R.string.user_password_hint));
@@ -158,6 +162,7 @@ public class ImportWalletStartActivity extends AbsLoadActivity {
                             WalletDBModel dbModel2 = WalletHelper.createEthAndWanPrivateKeybyMnenonic(mWordList); //TODO 导入缺少BTC
                             dbModel2.setWalletPassWord(WalletHelper.encrypt(mPassword));
                             dbModel2.setUserId(SPUtilHelper.getUserId());
+                            dbModel2.setWalletName(mBinding.editWalletName.getText());
                             return dbModel2.save();
                         })
 

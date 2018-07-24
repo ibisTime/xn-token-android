@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:textColor="@color/dialog_tips_title_txt"
         android:textSize="18sp"
@@ -25,7 +25,7 @@
         android:layout_height="55dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:background="@drawable/shape_edit_cash_coupon"
         android:inputType="textPassword"
         android:paddingLeft="5dp"
@@ -36,7 +36,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:background="@color/dialog_tips_line" />
 
     <LinearLayout

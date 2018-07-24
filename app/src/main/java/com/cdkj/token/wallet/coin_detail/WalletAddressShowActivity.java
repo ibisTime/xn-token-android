@@ -13,8 +13,10 @@ import android.view.View;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
+import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
+import com.cdkj.token.databinding.ActivityAddressQrimgShowBinding;
 import com.cdkj.token.databinding.ActivityRechargeBinding;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
@@ -26,7 +28,7 @@ import com.uuzuche.lib_zxing.activity.CodeUtils;
 public class WalletAddressShowActivity extends AbsLoadActivity {
 
 
-    private ActivityRechargeBinding mBinding;
+    private ActivityAddressQrimgShowBinding mBinding;
 
     private String coinType;
 
@@ -41,7 +43,7 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
 
     @Override
     public View addMainView() {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_recharge, null, false);
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_address_qrimg_show, null, false);
         return mBinding.getRoot();
     }
 
@@ -72,22 +74,9 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
     }
 
     private void initListener() {
-
-        mBinding.llClose.setOnClickListener(view -> {
-            mBinding.llTip.setVisibility(View.GONE);
-        });
-
-        mBinding.llCopy.setOnClickListener(view -> {
-
+        mBinding.btnCopy.setOnClickListener(view -> {
             copyAddress();
-
         });
-
-        mBinding.llAddress.setOnClickListener(view -> {
-            copyAddress();
-
-        });
-
 
     }
 
@@ -96,7 +85,7 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
             ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
             ClipData clipData = ClipData.newPlainText(null, mBinding.txtAddress.getText());
             cmb.setPrimaryClip(clipData);
-            ToastUtil.show(WalletAddressShowActivity.this, getStrRes(R.string.wallet_charge_address_copy_success));
+            UITipDialog.showInfoNoIcon(WalletAddressShowActivity.this, getStrRes(R.string.wallet_charge_address_copy_success));
         }
     }
 }

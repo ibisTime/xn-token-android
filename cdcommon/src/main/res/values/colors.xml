@@ -60,8 +60,8 @@
     <color name="fontColor_hint">#aaaaaa</color>
 
 
-    <color name="btn_select">#2770FA</color>
-    <color name="btn_select_un">#108ee9</color>
+    <color name="btn_select">#165bde</color>
+    <color name="btn_select_un">#2770FA</color>
     <color name="tablayout_select">#108ee9</color>
     <color name="lineColor">#ebeaea</color>
     <color name="line_gray_cd">#dedede</color>

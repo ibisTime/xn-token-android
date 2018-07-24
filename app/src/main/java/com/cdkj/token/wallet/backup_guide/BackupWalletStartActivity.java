@@ -36,6 +36,7 @@ public class BackupWalletStartActivity extends AbsLoadActivity {
     private ActivityBackupWalletStartBinding mBinding;
     private boolean isFromBackup;
 
+
     /**
      * @param context
      * @param isFromBackup 是否来自备份界面
@@ -96,7 +97,7 @@ public class BackupWalletStartActivity extends AbsLoadActivity {
     private void initClickListener() {
 
         mBinding.btnNext.setOnClickListener(view -> {
-            BackupWalletWordsCheckActivity.open(this,isFromBackup);
+            BackupWalletWordsCheckActivity.open(this, isFromBackup);
             finish();
         });
     }

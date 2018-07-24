@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
@@ -18,14 +19,12 @@ import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.NetUtils;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
-import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.CoinDetailsListAdapter;
 import com.cdkj.token.api.MyApi;
-import com.cdkj.token.databinding.ActivityWallteBillBinding;
-import com.cdkj.token.databinding.HeaderBillListBinding;
+import com.cdkj.token.databinding.ActivityWalletBillBinding;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.utils.AccountUtil;
@@ -47,10 +46,9 @@ import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
 
 public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
-    private ActivityWallteBillBinding mBinding;
+    private ActivityWalletBillBinding mBinding;
 
     private RefreshHelper mRefreshHelper;
-    private HeaderBillListBinding mHeaderBinding;
     private WalletBalanceModel accountListBean;
 
 
@@ -70,48 +68,53 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
     @Override
     public View addMainView() {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_wallte_bill, null, false);
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_wallet_bill, null, false);
         return mBinding.getRoot();
     }
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        mHeaderBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_bill_list, null, false);
+        setStatusBarBlue();
+        setTitleBgBlue();
+
 
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
         if (accountListBean != null) {
-
-            ImgUtils.loadLogo(WalletCoinDetailsActivity.this,accountListBean.getCoinImgUrl(), mHeaderBinding.ivIcon);
-
-            mHeaderBinding.tvSymbol.setText(accountListBean.getCoinName());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
-
-            if (!TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-                mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), ETHSCALE));
-
-            }
-
-            if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-                if (TextUtils.isEmpty(accountListBean.getAmountCny())) {
-                    mHeaderBinding.tvAmountCny.setText("≈0" + "" + WalletHelper.getShowLocalCoinType());
-                } else {
-                    mHeaderBinding.tvAmountCny.setText("≈" + accountListBean.getAmountCny() + " " + WalletHelper.getShowLocalCoinType());
-                }
-            } else if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
-                if (TextUtils.isEmpty(accountListBean.getAmountUSD())) {
-                    mHeaderBinding.tvAmountCny.setText("≈0" + " " + WalletHelper.getShowLocalCoinType());
-                } else {
-                    mHeaderBinding.tvAmountCny.setText("≈" + accountListBean.getAmountUSD() + " " + WalletHelper.getShowLocalCoinType());
-                }
-            }
-
+            ImgUtils.loadCircleImg(WalletCoinDetailsActivity.this, accountListBean.getCoinImgUrl(), mBinding.ivIcon);
+            setAmountInfo();
         }
+
         initRefreshHelper();
 
         initClickListener();
 
+    }
+
+    /**
+     * 设置总额显示
+     */
+    void setAmountInfo() {
+        if (!TextUtils.isEmpty(accountListBean.getCoinBalance())) {
+            mBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), ETHSCALE) + accountListBean.getCoinName());
+
+        }
+
+        if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
+            if (TextUtils.isEmpty(accountListBean.getAmountCny())) {
+                mBinding.tvAmountCny.setText("≈0" + "" + WalletHelper.getShowLocalCoinType());
+            } else {
+                mBinding.tvAmountCny.setText("≈" + accountListBean.getAmountCny() + " " + WalletHelper.getShowLocalCoinType());
+            }
+        } else if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
+            if (TextUtils.isEmpty(accountListBean.getAmountUSD())) {
+                mBinding.tvAmountCny.setText("≈0" + " " + WalletHelper.getShowLocalCoinType());
+            } else {
+                mBinding.tvAmountCny.setText("≈" + accountListBean.getAmountUSD() + " " + WalletHelper.getShowLocalCoinType());
+            }
+        }
     }
 
     @Override
@@ -124,13 +127,15 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
     private void initClickListener() {
 
-        mBinding.linLayoutGetmoney.setOnClickListener(view -> {
+        //收款
+        mBinding.linLayoutInCoin.setOnClickListener(view -> {
             if (accountListBean != null) {
                 WalletAddressShowActivity.open(this, accountListBean.getCoinName());
             }
         });
 
-        mBinding.linLayoutSendMoney.setOnClickListener(view -> {
+        //转账
+        mBinding.linLayoutOutCoin.setOnClickListener(view -> {
 
             if (!NetUtils.isNetworkConnected(this)) {
                 UITipDialog.showInfo(this, getString(R.string.please_open_the_net));
@@ -154,31 +159,12 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
             @Override
             public RecyclerView getRecyclerView() {
-                return mBinding.rv;
+                return mBinding.recyclerView;
             }
 
             @Override
             public RecyclerView.Adapter getAdapter(List listData) {
-
-                String coinSymbol = "";
-                if (accountListBean != null) {
-                    coinSymbol = accountListBean.getCoinName();
-                }
-
-                CoinDetailsListAdapter coinDetailsListAdapter = new CoinDetailsListAdapter(listData, coinSymbol);
-
-                coinDetailsListAdapter.setHeaderAndEmpty(true);
-
-                coinDetailsListAdapter.addHeaderView(mHeaderBinding.getRoot());
-
-                coinDetailsListAdapter.setOnItemClickListener((adapter, view, position) -> {
-                    String coinType = "";
-                    if (accountListBean != null) {
-                        coinType = accountListBean.getCoinName();
-                    }
-                    TransactionDetailsActivity.open(WalletCoinDetailsActivity.this, coinDetailsListAdapter.getItem(position), coinType);
-                });
-
+                CoinDetailsListAdapter coinDetailsListAdapter = getCoinDetailsListAdapter(listData);
                 return coinDetailsListAdapter;
             }
 
@@ -190,6 +176,31 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
         });
 
         mRefreshHelper.init(RefreshHelper.LIMITE);
+    }
+
+    /**
+     * 获取数据适配器
+     *
+     * @param listData
+     * @return
+     */
+    @NonNull
+    CoinDetailsListAdapter getCoinDetailsListAdapter(List listData) {
+        String coinSymbol = "";
+        if (accountListBean != null) {
+            coinSymbol = accountListBean.getCoinName();
+        }
+
+        CoinDetailsListAdapter coinDetailsListAdapter = new CoinDetailsListAdapter(listData, coinSymbol);
+
+        coinDetailsListAdapter.setOnItemClickListener((adapter, view, position) -> {
+            String coinType = "";
+            if (accountListBean != null) {
+                coinType = accountListBean.getCoinName();
+            }
+            TransactionDetailsActivity.open(WalletCoinDetailsActivity.this, coinDetailsListAdapter.getItem(position), coinType);
+        });
+        return coinDetailsListAdapter;
     }
 
     /**
@@ -223,7 +234,6 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
-                LogUtil.E("详情错误" + errorMessage);
             }
 
             @Override

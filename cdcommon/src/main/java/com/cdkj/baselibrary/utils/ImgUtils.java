@@ -10,11 +10,9 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.signature.StringSignature;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.glidetransforms.GlideCircleTransform;
-import com.cdkj.baselibrary.utils.glidetransforms.GlideRoundTransform;
 
 /**
  * 图片加载工具类
@@ -26,20 +24,34 @@ public class ImgUtils {
         if (!AppUtils.isActivityExist(context)) {
             return;
         }
-        if (context == null || img == null) {
+        if (img == null) {
             return;
         }
 
-        try {
-            if (isHaveHttp(imgid)) {
-                Glide.with(context).load(imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
-            } else {
-                Glide.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
-            }
-
-        } catch (Exception e) {
+        if (isHaveHttp(imgid)) {
+            Glide.with(context).load(imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
+        } else {
+            Glide.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
         }
+
     }
+
+    public static void loadCircleImg(Activity context, String imgid, ImageView img) {
+        if (!AppUtils.isActivityExist(context)) {
+            return;
+        }
+        if (img == null) {
+            return;
+        }
+
+        if (isHaveHttp(imgid)) {
+            Glide.with(context).load(imgid).transform(new GlideCircleTransform(context)).into(img);
+        } else {
+            Glide.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).transform(new GlideCircleTransform(context)).into(img);
+        }
+
+    }
+
 
     public static void loadByte(Activity context, byte[] imgid, ImageView img) {
         if (!AppUtils.isActivityExist(context)) {

@@ -30,8 +30,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@drawable/transfer_bg_1"
-                android:orientation="vertical"
-                android:paddingTop="19dp">
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/iv_icon"
@@ -40,7 +39,6 @@
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:layout_marginTop="10dp"
                     tools:src="@drawable/defect" />
 
                 <TextView
@@ -48,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="-10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_toRightOf="@+id/iv_icon"
                     android:gravity="center"
                     android:text="@string/wallet_withdraw_balance"
@@ -91,11 +89,12 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:layout_weight="1"
-                android:text="交易记录"
+                android:text="@string/transaction_record"
                 android:textColor="@color/text_black_cd"
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_filter"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
@@ -103,20 +102,44 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="15dp"
                 android:paddingTop="10dp"
-                android:text="筛选"
+                android:text="@string/bill_type_select"
                 android:textColor="@color/text_black_cd"
-                android:textSize="12sp" />
+                android:textSize="12sp"
+                android:visibility="invisible" />
 
 
         </LinearLayout>
 
-
-        <android.support.v7.widget.RecyclerView
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
+            android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            app:srlAccentColor="@android:color/tertiary_text_dark"
+            app:srlEnablePreviewInEditMode="true"
+            app:srlPrimaryColor="@color/white">
+            <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
+            <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
+            <com.scwang.smartrefresh.layout.header.ClassicsHeader
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
-        <View style="@style/style_split_line" />
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <com.scwang.smartrefresh.layout.footer.ClassicsFooter
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+
+        <View
+            style="@style/style_split_line"
+            android:layout_height="0.5dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -124,6 +147,7 @@
             android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/linLayout_in_coin"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -140,13 +164,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
-                    android:text="@string/wallet_title_charge"
+                    android:text="@string/get_money"
                     android:textSize="12sp" />
 
 
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linLayout_out_coin"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
@@ -163,7 +188,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"
-                    android:text="@string/wallet_withdraw"
+                    android:text="@string/transfer_2"
                     android:textSize="12sp" />
 
 

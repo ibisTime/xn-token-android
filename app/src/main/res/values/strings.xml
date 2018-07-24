@@ -522,5 +522,6 @@
     <string name="create_wallet_intro_1">注意！THA不存储用户密码，无法提供找回或重置功能，密码必须要自己备份好。密码用于加密保护私钥，强度也非常重要。</string>
     <string name="backup_introtation_dialog_title">免责声明</string>
     <string name="backup_introtation_dialog_content">请确保已备份钱包至安全的地方，THA不承担任何钱包丢失、被盗、忘记密码等产生的资产损失！</string>
+    <string name="my_coin_address_2">我的收款地址</string>
 
 </resources>

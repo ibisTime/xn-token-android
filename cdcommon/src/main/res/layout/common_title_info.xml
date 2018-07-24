@@ -50,8 +50,8 @@
 
                 <ImageView
                     android:id="@+id/img_back"
-                    android:layout_width="21dp"
-                    android:layout_height="21dp"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
                     android:layout_gravity="center_vertical"
                     android:src="@drawable/back_black" />
 

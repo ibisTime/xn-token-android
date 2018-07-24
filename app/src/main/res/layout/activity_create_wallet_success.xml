@@ -78,7 +78,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginTop="26dp"
-                android:background="@drawable/selector_blue"
+                android:background="@drawable/selector_btn_blue_change"
                 android:text="@string/wallet_backup"
                 android:textColor="@color/white"
                 android:textSize="16sp" />

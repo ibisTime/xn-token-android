@@ -57,6 +57,9 @@ public class TransactionDetailsActivity extends AbsLoadActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
+        setStatusBarBlue();
+        setTitleBgBlue();
+
         mBaseBinding.titleView.setMidTitle(getString(R.string.transaction_details));
 
         LocalCoinBill localCoinBill = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
@@ -81,7 +84,7 @@ public class TransactionDetailsActivity extends AbsLoadActivity {
 
         if (localCoinBill == null) return;
 
-        mBinding.imgStateIcon.setImageResource(CoinUtil.getStataIconByState(localCoinBill.getDirection()));
+//        mBinding.imgStateIcon.setImageResource(CoinUtil.getStataIconByState(localCoinBill.getDirection()));
 
         if (CoinUtil.isInState(localCoinBill.getDirection())) {
             mBinding.tvStateString.setText(R.string.withdraw);

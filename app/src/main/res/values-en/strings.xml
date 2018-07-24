@@ -538,6 +538,7 @@
     <string name="create_wallet_intro_1">--</string>
     <string name="backup_introtation_dialog_title">--</string>
     <string name="backup_introtation_dialog_content">--</string>
+    <string name="my_coin_address_2">My collection address</string>
 
 </resources>
 

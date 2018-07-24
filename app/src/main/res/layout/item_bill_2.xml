@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -11,14 +12,16 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
 
 
             <ImageView
+                android:id="@+id/iv_type"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
-                android:src="@drawable/money_in" />
+                tools:src="@drawable/money_in" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -28,15 +31,17 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_remark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="转账"
                     android:textColor="@color/text_black_cd"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    tools:text="转账" />
 
                 <TextView
+                    android:id="@+id/tv_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
@@ -47,24 +52,26 @@
                     android:textSize="12sp" />
 
                 <TextView
+                    android:id="@+id/tv_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
                     android:ellipsize="end"
                     android:singleLine="true"
-                    android:text="地址......"
                     android:textColor="#ADBAC0"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="地址......" />
 
 
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="转账"
                 android:textColor="#47D047"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                tools:text="转账" />
 
         </LinearLayout>
 

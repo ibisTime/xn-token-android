@@ -17,9 +17,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="我的收款地址"
+                android:text="@string/my_coin_address_2"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp" />
 
@@ -54,7 +54,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
-                android:layout_marginTop="28dp"
+                android:layout_marginTop="20dp"
                 android:text="@string/address"
                 android:textColor="@color/gray_666666"
                 android:textSize="16sp" />
@@ -63,16 +63,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="20dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 app:cardBackgroundColor="#FDFEFF"
                 app:cardCornerRadius="5dp"
                 app:cardElevation="3dp"
                 app:cardUseCompatPadding="true">
 
                 <TextView
+                    android:id="@+id/txt_address"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -92,11 +93,13 @@
                 android:paddingTop="35dp">
 
                 <Button
+                    android:id="@+id/btn_copy"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/btn_height"
+                    android:layout_marginBottom="50dp"
                     android:layout_marginLeft="30dp"
                     android:layout_marginRight="30dp"
-                    android:background="@drawable/selector_blue"
+                    android:background="@drawable/selector_btn_blue_change"
                     android:text="@string/copy_money_address"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
