@@ -264,27 +264,22 @@ public class WalletTransferActivity extends AbsLoadActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 
                 if (i < 100) {
-                    float ii = 100 - i;
-                    float ic = ii / 100;
-                    BigDecimal bg = new BigDecimal(ic);
+                    float lowerI = 100 - i;
+                    BigDecimal bg = new BigDecimal(lowerI / 100);
                     transferGasPrice = gasPriceLimit.subtract(new BigDecimal(gasPriceLimit).multiply(bg).toBigInteger());
-
                     BigInteger minPrice = gasPriceLimit.divide(new BigDecimal(2).toBigInteger());//最小矿工费
-
                     if (transferGasPrice.compareTo(minPrice) < 0) {
                         transferGasPrice = minPrice;
                     }
 
                 } else if (i > 100) {
-                    float ii = i - 100;
-                    float ic = ii / 100;
-                    BigDecimal bg = new BigDecimal(ic);
+                    float upperI = i - 100;
+                    BigDecimal bg = new BigDecimal(upperI);
                     transferGasPrice = gasPriceLimit.add(new BigDecimal(gasPriceLimit).multiply(bg).toBigInteger());
 
                 } else {
                     transferGasPrice = gasPriceLimit;
                 }
-
 
                 setShowGasPrice();
             }
