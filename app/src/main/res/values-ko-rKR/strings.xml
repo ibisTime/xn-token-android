@@ -478,6 +478,8 @@
     <string name="fast">빨리</string>
     <string name="slow">느리게</string>
     <string name="create_wallet_intro_1">주의!THA는 사용자의 비밀번호를 저장하지 않습니다.하여 비밀번호 되찾기와 재설치 기능이 없습니다.비밀번호는 반드시 본인이 백업해 두어야 합니다.비밀번호는 프라이빗 관리에 사용함으로 아주 중요합니다.</string>
+    <string name="backup_introtation_dialog_title">면책성명</string>
+    <string name="backup_introtation_dialog_content">백업된 자료는 안전한 곳에 보관하고 THA는 월렛 분실,도난,비빌번호 분실등으로 발생한 손실에대해서는 책임지지 않습니다!</string>
 
 
 </resources>

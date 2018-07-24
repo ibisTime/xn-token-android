@@ -35,7 +35,7 @@ public class WalletBackupPasswordCheckActivity extends AbsWalletPassWordCheckAct
     @Override
     public void checkPassWord(boolean isSuccess) {
         if (isSuccess) {
-            BackupWalletStartActivity.open(this);
+            BackupWalletStartActivity.open(this,true);
             finish();
         } else {
             mBinding.passWordLayout.passWordLayout.removeAllPwd();

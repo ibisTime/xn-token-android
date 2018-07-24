@@ -68,7 +68,7 @@ public abstract class AbsWalletPassWordCheckActivity extends AbsLoadActivity {
      * @param pwd
      */
     private void checkOldPassword(String pwd) {
-        checkPassWord(WalletHelper.checkOldPasswordByUserId(pwd, SPUtilHelper.getUserId()));
+        checkPassWord(WalletHelper.checkPasswordByUserId(pwd, SPUtilHelper.getUserId()));
     }
 
 

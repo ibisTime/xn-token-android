@@ -27,6 +27,7 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.IntoWalletBeforeActivity;
+import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -88,7 +89,7 @@ public class UserFragment extends BaseLazyFragment {
             boolean isHasInfo = WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId());
             if (!isHasInfo) {
                 showDoubleWarnListen(getString(R.string.please_create_or_import_wallet), view1 -> {
-                    IntoWalletBeforeActivity.open(mActivity);
+                    CreateWalletStartActivity.open(mActivity);
                 });
                 return;
             }

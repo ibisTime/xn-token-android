@@ -10,6 +10,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
@@ -33,12 +34,18 @@ import java.util.List;
 public class BackupWalletStartActivity extends AbsLoadActivity {
 
     private ActivityBackupWalletStartBinding mBinding;
+    private boolean isFromBackup;
 
-    public static void open(Context context) {
+    /**
+     * @param context
+     * @param isFromBackup 是否来自备份界面
+     */
+    public static void open(Context context, boolean isFromBackup) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, BackupWalletStartActivity.class);
+        intent.putExtra(CdRouteHelper.DATASIGN, isFromBackup);
         context.startActivity(intent);
     }
 
@@ -58,6 +65,8 @@ public class BackupWalletStartActivity extends AbsLoadActivity {
         setStatusBarBlue();
 
         setTitleBgBlue();
+
+        isFromBackup = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN, false);
 
         mBaseBinding.titleView.setMidTitle(R.string.wallet_backup);
 
@@ -87,7 +96,7 @@ public class BackupWalletStartActivity extends AbsLoadActivity {
     private void initClickListener() {
 
         mBinding.btnNext.setOnClickListener(view -> {
-            BackupWalletWordsCheckActivity.open(this);
+            BackupWalletWordsCheckActivity.open(this,isFromBackup);
             finish();
         });
     }

@@ -82,7 +82,7 @@ public class WalletPasswordModifyActivity extends AbsLoadActivity {
      * @param pwd
      */
     private void checkOldPassword(String pwd) {
-        if (WalletHelper.checkOldPasswordByUserId(pwd, SPUtilHelper.getUserId())) {
+        if (WalletHelper.checkPasswordByUserId(pwd, SPUtilHelper.getUserId())) {
             isCheckOldPassWordState = false;
             mBinding.passWordLayout.passWordLayout.removeAllPwd();
             mBinding.tvTips.setText(R.string.please_set_transaction_password);

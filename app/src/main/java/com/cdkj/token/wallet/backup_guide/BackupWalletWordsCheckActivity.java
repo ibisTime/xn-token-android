@@ -10,21 +10,23 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.TextView;
 
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.DisplayHelper;
+import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
-import com.cdkj.token.adapter.HelpWordsGridAdapter;
 import com.cdkj.token.adapter.HelpWordsGridCheckAdapter;
 import com.cdkj.token.databinding.ActivityBackupWalletWordsCheckBinding;
 import com.cdkj.token.model.HelpWordsCheckModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.recycler.GridDivider;
 import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.google.android.flexbox.FlexDirection;
 import com.google.android.flexbox.FlexboxLayout;
-import com.google.android.flexbox.FlexboxLayoutManager;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,12 +47,18 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
 
     private List<String> mChooseWordList;//用户选择的单词列表
     private HelpWordsGridCheckAdapter helpWordsGridAdapter;
+    private boolean isFromBackup;
 
-    public static void open(Context context) {
+    /**
+     * @param context
+     * @param isFromBackup 是否来自备份界面
+     */
+    public static void open(Context context, boolean isFromBackup) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, BackupWalletWordsCheckActivity.class);
+        intent.putExtra(CdRouteHelper.DATASIGN, isFromBackup);
         context.startActivity(intent);
     }
 
@@ -67,6 +75,7 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
         setStatusBarBlue();
         setTitleBgBlue();
 
+        isFromBackup = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN, false);
         mChooseWordList = new ArrayList<>();
         mBaseBinding.titleView.setMidTitle(R.string.wallet_backup);
 
@@ -76,7 +85,7 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
                 return false;
             }
         });
-        mBinding.recyclerView.addItemDecoration(new GridDivider(this, DisplayHelper.dp2px(this, 1), ContextCompat.getColor(this, R.color.red)));
+        mBinding.recyclerView.addItemDecoration(new GridDivider(this, DisplayHelper.dp2px(this, 5), ContextCompat.getColor(this, R.color.red)));
         initAdapter();
 
     }
@@ -100,33 +109,57 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
                     }
                     mChooseWordList.add(checkModel.getWords());
                     if (mChooseWordList.size() >= 12) {
-                        mSubscription.add(Observable.just("")
-                                .subscribeOn(Schedulers.newThread())
-                                .map(s -> WalletHelper.checkMnenonic(mChooseWordList))
-                                .observeOn(AndroidSchedulers.mainThread())
-                                .subscribe(isPass -> {
-                                    showSureListen(getString(R.string.wallet_backup_success), new CommonDialog.OnPositiveListener() {
-                                        @Override
-                                        public void onPositive(View view) {
-                                            showDoubleWarnListen("免责声明", "请确保已备份钱包至安全的地方，\n" +
-                                                    "THA不承担任何钱包丢失、被盗、\n" +
-                                                    "忘记密码等产生的资产损失！", view1 -> finish());
-                                        }
-                                    });
-                                }, throwable -> {
-
-                                }));
+                        checkInputWords();
                     }
-
                     checkModel.setChoose(true);
                     helpWordsGridAdapter.notifyItemChanged(position);
-
                     addChooseViewByWords(checkModel, position);
-
-
                 }
             });
         }
+    }
+
+    /**
+     * 判断用户选择的单词是否正确
+     */
+    void checkInputWords() {
+        mSubscription.add(Observable.just("")
+                .subscribeOn(Schedulers.newThread())
+                .map(s -> WalletHelper.checkMnenonic(mChooseWordList))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(isPass -> {
+
+                    if (isPass) {
+
+                        showSureDialog(getString(R.string.wallet_backup_success), new CommonDialog.OnPositiveListener() {
+                            @Override
+                            public void onPositive(View view) {
+                                backupStateCheck();
+                            }
+                        });
+
+
+                    } else {
+                        showSureDialog(getString(R.string.check_words_fail), null);
+                    }
+
+                }, throwable -> {
+
+                }));
+    }
+
+    /**
+     * 备份通过状态
+     */
+    void backupStateCheck() {
+        showDoubleWarnListen(getString(R.string.backup_introtation_dialog_title), getString(R.string.backup_introtation_dialog_content), view1 -> {
+
+            if (!isFromBackup) {
+                EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
+                MainActivity.open(BackupWalletWordsCheckActivity.this);
+            }
+            finish();
+        });
     }
 
     /**

@@ -661,11 +661,11 @@ public class WalletHelper {
 
 
     /**
-     * 检测旧密码
+     * 检测钱包密码是否正确
      *
      * @param pwd
      */
-    public static boolean checkOldPasswordByUserId(String pwd, String userId) {
+    public static boolean checkPasswordByUserId(String pwd, String userId) {
         return TextUtils.equals(pwd, WalletHelper.getWalletPasswordByUserId(userId));
     }
 

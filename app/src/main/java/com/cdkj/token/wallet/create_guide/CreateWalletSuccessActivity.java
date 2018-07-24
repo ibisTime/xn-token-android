@@ -9,6 +9,7 @@ import android.view.View;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreateWalletSuccessBinding;
+import com.cdkj.token.wallet.backup_guide.BackupWalletStartActivity;
 
 /**
  * 创建钱包成功
@@ -44,8 +45,9 @@ public class CreateWalletSuccessActivity extends AbsLoadActivity {
         setStatusBarBlue();
         setTitleBgBlue();
 
+        //立即备份
         mBinding.btnNowBackup.setOnClickListener(view -> {
-            WalletHelpWordsShowActivity.open(this, false);
+            BackupWalletStartActivity.open(this,false);
             finish();
         });
     }

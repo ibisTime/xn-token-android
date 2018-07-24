@@ -156,7 +156,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         commonDialog.show();
     }
 
-    protected void showSureListen(String str, CommonDialog.OnPositiveListener onPositiveListener) {
+    protected void showSureDialog(String str, CommonDialog.OnPositiveListener onPositiveListener) {
 
         if (this == null || isFinishing()) {
             return;

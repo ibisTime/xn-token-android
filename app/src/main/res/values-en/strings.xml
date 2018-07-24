@@ -329,14 +329,14 @@
     <string name="modify_password"> modify password </string>
     <string name="please_set_transaction_password">Please set the transaction password </string>
     <string name="transaction_password_error">transaction password error </string>
-    <string name="wallet_backup">wallet backup </string>
-    <string name="wallet_backup_success">wallet backup success </string>
+    <string name="wallet_backup">Wallet backup </string>
+    <string name="wallet_backup_success">Wallet backup success </string>
     <string name="i_know">know </string>
-    <string name="delete_wallet">delete wallet</string>
+    <string name="delete_wallet">Delete wallet</string>
     <string name="please_input_help_words">Please input the mnemonic words </string>
-    <string name="address">address </string>
-    <string name="private_key"> private key </string>
-    <string name="export_private_key">export private key </string>
+    <string name="address">Address </string>
+    <string name="private_key"> Private key </string>
+    <string name="export_private_key">Export private key </string>
     <string name="coin_key_name">The following is the address and private key of %s, click to copy </string>
     <string name="coin_eth_ename">Ethereum</string>
     <string name="coin_wan_ename">Wancoin</string>
@@ -513,7 +513,7 @@
     <string name="my_wallet_introduction">--</string>
     <string name="my_private_wallet_title">Decentralized Wallet</string>
     <string name="my_private_wallet_introduction">--</string>
-    <string name="advantage">优点</string>
+    <string name="advantage">--</string>
     <string name="only_user_save_key">--</string>
     <string name="defect">--</string>
     <string name="defect_1">--</string>
@@ -536,6 +536,8 @@
     <string name="fast">fast</string>
     <string name="slow">Slow</string>
     <string name="create_wallet_intro_1">--</string>
+    <string name="backup_introtation_dialog_title">--</string>
+    <string name="backup_introtation_dialog_content">--</string>
 
 </resources>
 
