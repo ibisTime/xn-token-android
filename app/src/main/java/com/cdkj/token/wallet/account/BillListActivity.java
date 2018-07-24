@@ -8,9 +8,10 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
 import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -18,15 +19,13 @@ import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.views.MyPickerPopupWindow;
 import com.cdkj.token.R;
-import com.cdkj.token.model.WalletBalanceModel;
-import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.adapter.BillListAdapter;
 import com.cdkj.token.api.MyApi;
-import com.cdkj.token.databinding.ActivityBillListBinding;
-import com.cdkj.token.databinding.HeaderBillListBinding;
+import com.cdkj.token.databinding.ActivityWalletBillBinding;
 import com.cdkj.token.model.BillModel;
+import com.cdkj.token.model.WalletBalanceModel;
+import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
@@ -47,10 +46,9 @@ import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
  * Created by cdkj on 2018/5/25.
  */
 //TODO POP 优化
-public class BillListActivity extends AbsActivity {
+public class BillListActivity extends AbsLoadActivity {
 
-    private ActivityBillListBinding mBinding;
-    private HeaderBillListBinding mHeaderBinding;
+    private ActivityWalletBillBinding mBinding;
 
     private WalletBalanceModel mAccountBean;
     private BillListAdapter mBillAdapter;
@@ -68,13 +66,12 @@ public class BillListActivity extends AbsActivity {
             return;
         }
         context.startActivity(new Intent(context, BillListActivity.class)
-                .putExtra("mAccountBean", mAccountBean));
+                .putExtra(CdRouteHelper.DATASIGN, mAccountBean));
     }
 
     @Override
     public View addMainView() {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_bill_list, null, false);
-        mHeaderBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.header_bill_list, null, false);
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_wallet_bill, null, false);
 
         return mBinding.getRoot();
     }
@@ -82,74 +79,83 @@ public class BillListActivity extends AbsActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
+        setStatusBarBlue();
+        setTitleBgBlue();
+
         types = new String[]{getStrRes(R.string.bill_type_all), getStrRes(R.string.bill_type_charge), getStrRes(R.string.bill_type_withdraw),
                 getStrRes(R.string.bill_type_withdrawfee)};
 
         if (getIntent() == null)
             return;
 
-        mAccountBean = getIntent().getParcelableExtra("mAccountBean");
+        mAccountBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
         initCallBack();
-
-        init();
+        initData();
         initView();
         initListener();
     }
 
-    private void init() {
-        if (mAccountBean != null) {
-            setTopTitle(mAccountBean.getCoinName());
-        }
-        setTopLineState(true);
-        setSubLeftImgState(true);
-        setSubRightImgAndClick(R.mipmap.bill_filter, v -> {
-            initPopup(v);
-        });
+    private void initView() {
+        ImgUtils.loadCircleImg(this, getCoinWatermarkWithCurrency(mAccountBean.getCoinName(), 1), mBinding.ivIcon);
+        mBinding.tvFilter.setVisibility(View.VISIBLE);
 
+        mBinding.tvInMoney.setText(R.string.wallet_bill_list_charge);
+        mBinding.tvOutMoney.setText(R.string.wallet_bill_list_withdraw);
+
+        if (!TextUtils.isEmpty(mAccountBean.getAmountString()) || !TextUtils.isEmpty(mAccountBean.getFrozenAmountString())) {
+            BigDecimal amount = new BigDecimal(mAccountBean.getAmountString());
+            BigDecimal frozenAmount = new BigDecimal(mAccountBean.getFrozenAmountString());
+            mBinding.tvAmount.setText(AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), mAccountBean.getCoinName(), 8));
+        }
+
+
+        if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
+            if (mAccountBean.getAmountCny() == null) {
+                mBinding.tvAmountCny.setText("≈ 0" + WalletHelper.getShowLocalCoinType());
+            } else {
+                mBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountCny() + WalletHelper.getShowLocalCoinType());
+            }
+
+        } else {
+            if (mAccountBean.getAmountUSD() == null) {
+                mBinding.tvAmountCny.setText("≈ 0" + WalletHelper.getShowLocalCoinType());
+            } else {
+                mBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountUSD() + WalletHelper.getShowLocalCoinType());
+            }
+        }
+
+
+    }
+
+    private void initData() {
+        if (mAccountBean != null) {
+            mBaseBinding.titleView.setMidTitle(mAccountBean.getCoinName());
+        }
         refreshHelper = new RefreshHelper(this, back);
         refreshHelper.init(10);
         // 刷新
         refreshHelper.onDefaluteMRefresh(true);
     }
 
-    private void initView() {
-        mHeaderBinding.tvSymbol.setText(mAccountBean.getCoinName());
-        ImgUtils.loadImage(this, getCoinWatermarkWithCurrency(mAccountBean.getCoinName(), 1), mHeaderBinding.ivIcon);
-
-        if (!TextUtils.isEmpty(mAccountBean.getAmountString()) || !TextUtils.isEmpty(mAccountBean.getFrozenAmountString())) {
-            BigDecimal amount = new BigDecimal(mAccountBean.getAmountString());
-            BigDecimal frozenAmount = new BigDecimal(mAccountBean.getFrozenAmountString());
-            mHeaderBinding.tvAmount.setText(AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), mAccountBean.getCoinName(), 8));
-        }
-
-
-        if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-            if (mAccountBean.getAmountCny() == null) {
-                mHeaderBinding.tvAmountCny.setText("≈ 0" + WalletHelper.getShowLocalCoinType());
-            } else {
-                mHeaderBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountCny() + WalletHelper.getShowLocalCoinType());
-            }
-
-        } else {
-            if (mAccountBean.getAmountUSD() == null) {
-                mHeaderBinding.tvAmountCny.setText("≈ 0" + WalletHelper.getShowLocalCoinType());
-            } else {
-                mHeaderBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountUSD() + WalletHelper.getShowLocalCoinType());
-            }
-        }
-
-
-    }
 
     private void initListener() {
-        mBinding.llCharge.setOnClickListener(view -> {
+
+        //筛选
+
+        mBinding.tvFilter.setOnClickListener(view -> {
+//            initPopup();
+        });
+
+        //充币
+        mBinding.linLayoutInCoin.setOnClickListener(view -> {
             if (mAccountBean == null)
                 return;
             RechargeActivity.open(this, mAccountBean);
         });
 
-        mBinding.llWithdraw.setOnClickListener(view -> {
+        //提币
+        mBinding.linLayoutOutCoin.setOnClickListener(view -> {
             if (mAccountBean == null)
                 return;
             WithdrawActivity.open(this, mAccountBean);
@@ -161,24 +167,21 @@ public class BillListActivity extends AbsActivity {
         back = new BaseRefreshCallBack(this) {
             @Override
             public SmartRefreshLayout getRefreshLayout() {
-                mBinding.refreshLayout.setEnableLoadmore(false);
+
                 return mBinding.refreshLayout;
             }
 
             @Override
             public RecyclerView getRecyclerView() {
-                return mBinding.rv;
+                return mBinding.recyclerView;
             }
 
             @Override
             public BaseQuickAdapter getAdapter(List listData) {
                 mBillAdapter = new BillListAdapter(listData);
-                mBillAdapter.setHeaderAndEmpty(true);
-                mBillAdapter.addHeaderView(mHeaderBinding.getRoot());
                 mBillAdapter.setOnItemClickListener((adapter, view, position) -> {
                     BillDetailActivity.open(BillListActivity.this, (BillModel.ListBean) adapter.getItem(position));
                 });
-
                 return mBillAdapter;
             }
 
@@ -237,26 +240,4 @@ public class BillListActivity extends AbsActivity {
 
     }
 
-    /**
-     * @param view
-     */
-    private void initPopup(View view) {
-        MyPickerPopupWindow popupWindow = new MyPickerPopupWindow(this, R.layout.popup_picker);
-        popupWindow.setNumberPicker(R.id.np_type, types);
-
-        popupWindow.setOnClickListener(R.id.tv_cancel, v -> {
-            popupWindow.dismiss();
-        });
-
-        popupWindow.setOnClickListener(R.id.tv_confirm, v -> {
-
-            type = popupWindow.getNumberPicker(R.id.np_type, bizType);
-            getListData(1, 10, true);
-
-            popupWindow.dismiss();
-
-        });
-
-        popupWindow.show(view);
-    }
 }

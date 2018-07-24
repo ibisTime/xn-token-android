@@ -175,11 +175,11 @@ public class CoinUtil {
      * @param direction
      * @return
      */
-    public static int getStataIconByState(String direction) {
+    public static int getPrivateCoinStataIconByState(String direction) {
         if (isInState(direction)) {
-            return R.drawable.money_in;
+            return R.drawable.private_coin_in;
         }
-        return R.drawable.money_out;
+        return R.drawable.private_coin_out;
     }
 
     /**

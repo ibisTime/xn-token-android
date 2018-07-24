@@ -112,7 +112,7 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
             if (!SPUtilHelper.getGoogleAuthFlag()) { // 未打开谷歌验证
                 UserGoogleActivity.open(this, "open");
             } else {
-                popupType(view);
+                GoogleCodeSetActivity.open(this);
             }
         });
 
@@ -131,48 +131,5 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
             });
         });
     }
-
-    private void popupType(View view) {
-        PopupGoogleBinding popupBinding;
-
-        popupBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.popup_google, null, false);
-
-        // 一个自定义的布局，作为显示的内容
-        View mView = popupBinding.getRoot();
-
-        final PopupWindow popupWindow = new PopupWindow(mView,
-                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, true);
-
-        popupWindow.setTouchable(true);
-        popupWindow.setAnimationStyle(R.style.PopupAnimation);
-
-        popupWindow.setTouchInterceptor((v, event) -> {
-
-            // 这里如果返回true的话，touch事件将被拦截
-            // 拦截后 PopupWindow的onTouchEvent不被调用，这样点击外部区域无法dismiss
-            return false;
-        });
-
-        popupBinding.tvCancel.setOnClickListener(v -> {
-            popupWindow.dismiss();
-        });
-
-        popupBinding.tvClose.setOnClickListener(v -> {
-            popupWindow.dismiss();
-            UserGoogleActivity.open(this, "close");
-        });
-
-        popupBinding.tvModify.setOnClickListener(v -> {
-            popupWindow.dismiss();
-            UserGoogleActivity.open(this, "modify");
-        });
-
-        // 如果不设置PopupWindow的背景，无论是点击外部区域还是Back键都无法dismiss弹框
-        popupWindow.setBackgroundDrawable(getResources().getDrawable(R.drawable.corner_popup));
-        // 设置好参数之后再show
-        popupWindow.showAtLocation(view, Gravity.CENTER, 0, 50);
-
-    }
-
 
 }

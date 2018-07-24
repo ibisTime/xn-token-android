@@ -18,6 +18,7 @@ import java.util.List;
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_DAY;
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_HM;
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_M;
+import static com.cdkj.baselibrary.utils.DateUtil.DATE_MMddHHmm;
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_YM;
 import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 
@@ -27,10 +28,8 @@ import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 
 public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseViewHolder> {
 
-    List<BillModel.ListBean> list;
-
     public BillListAdapter(@Nullable List<BillModel.ListBean> data) {
-        super(R.layout.item_bill, data);
+        super(R.layout.item_bill_2, data);
     }
 
     @NonNull
@@ -41,31 +40,12 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
 
     @Override
     protected void convert(BaseViewHolder helper, BillModel.ListBean item) {
-        if (list == null) {
-            list = getData();
-        }
 
-        // 当itemPosition为0时，展示日期
-        if (helper.getLayoutPosition() == 1) {
-            helper.setGone(R.id.ll_ym, true);
-            helper.setText(R.id.tv_ym, DateUtil.formatStringData(item.getCreateDatetime(), DATE_YM));
-        } else { // 当itemPosition不为0但当前item的日期与上一个item不相同时，展示日期，否则不展示
-            String month_now = DateUtil.formatStringData(item.getCreateDatetime(), DATE_M);
-            String month_last = DateUtil.formatStringData(list.get(helper.getLayoutPosition() - 1).getCreateDatetime(), DATE_M);
+        helper.setGone(R.id.tv_address, false);
 
-            if (!month_now.equals(month_last)) {
-                helper.setGone(R.id.ll_ym, true);
-                helper.setText(R.id.tv_ym, DateUtil.formatStringData(item.getCreateDatetime(), DATE_YM));
-            } else {
-                helper.setGone(R.id.ll_ym, false);
-            }
-        }
-
-        helper.setText(R.id.tv_day, DateUtil.formatStringData(item.getCreateDatetime(), DATE_DAY));
-        helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getCreateDatetime(), DATE_HM));
+        helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getCreateDatetime(), DATE_MMddHHmm));
 
         helper.setText(R.id.tv_remark, item.getBizNote());
-        helper.setText(R.id.tv_currency, item.getCurrency());
 
         BigDecimal tas = new BigDecimal(item.getTransAmountString());
         int i = tas.compareTo(BigDecimal.ZERO);
@@ -83,7 +63,7 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
                 case "o2o_in": // o2o店铺消费收入
                 case "invite": // 推荐好友分成
 //                    ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(), 2), ivType);
-                    ivType.setImageResource(R.drawable.money_in);
+                    ivType.setImageResource(R.drawable.coin_in);
                     break;
 
                 case "withdraw": // 取现
@@ -91,16 +71,16 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
                 case "withdrawfee": // 手续费
                 case "o2o_out": // o2o店铺消费支出
 //                    ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(), 3), ivType);
-                    ivType.setImageResource(R.drawable.money_out);
+                    ivType.setImageResource(R.drawable.coin_out);
                     break;
                 case "redpacket_back": // 红包退回
-                    ivType.setImageResource(R.drawable.money_in);
+                    ivType.setImageResource(R.drawable.coin_in);
                     break;
                 case "sendredpacket_out": // 发红包
-                    ivType.setImageResource(R.drawable.money_out);
+                    ivType.setImageResource(R.drawable.coin_out);
                     break;
                 case "sendredpacket_in": // 抢红包
-                    ivType.setImageResource(R.drawable.money_in);
+                    ivType.setImageResource(R.drawable.coin_in);
                     break;
             }
 

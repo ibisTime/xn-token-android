@@ -394,6 +394,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
                 }
             }).setCancelText(getString(R.string.cancel))//取消按钮文字
                     .setSubmitText(getString(R.string.sure))//确认按钮文字
+
                     .build();
         }
 

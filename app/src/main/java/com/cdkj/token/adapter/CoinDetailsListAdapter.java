@@ -12,12 +12,10 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
-import static com.cdkj.baselibrary.utils.DateUtil.DATE_HM;
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_MMddHHmm;
-import static com.cdkj.baselibrary.utils.DateUtil.DATE_YM;
 import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
 import static com.cdkj.token.utils.CoinUtil.getMoneyStateByState;
-import static com.cdkj.token.utils.CoinUtil.getStataIconByState;
+import static com.cdkj.token.utils.CoinUtil.getPrivateCoinStataIconByState;
 import static com.cdkj.token.utils.CoinUtil.isInState;
 
 /**
@@ -40,15 +38,15 @@ public class CoinDetailsListAdapter extends BaseQuickAdapter<LocalCoinBill, Base
         if (item == null) return;
 
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getTransDatetime(), DATE_MMddHHmm));
-        helper.setImageResource(R.id.iv_type, getStataIconByState(item.getDirection()));
+        helper.setImageResource(R.id.iv_type, getPrivateCoinStataIconByState(item.getDirection()));
 
         helper.setText(R.id.tv_amount, getMoneyStateByState(item.getDirection()) + AccountUtil.amountFormatUnitForShow(item.getValue(), ETHSCALE) + " " + this.coinSymbol);
 
         if (isInState(item.getDirection())) {
-            helper.setText(R.id.tv_remark,  mContext.getString(R.string.get_money));
+            helper.setText(R.id.tv_remark, mContext.getString(R.string.get_money));
             helper.setText(R.id.tv_address, item.getFrom());
         } else {
-            helper.setText(R.id.tv_remark,   mContext.getString(R.string.transfer));
+            helper.setText(R.id.tv_remark, mContext.getString(R.string.transfer));
             helper.setText(R.id.tv_address, item.getTo());
         }
 

@@ -161,6 +161,7 @@
                     android:src="@drawable/coin_in_gray" />
 
                 <TextView
+                    android:id="@+id/tv_in_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="3dp"
@@ -185,6 +186,7 @@
                     android:src="@drawable/coin_out_gray" />
 
                 <TextView
+                    android:id="@+id/tv_out_money"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="5dp"

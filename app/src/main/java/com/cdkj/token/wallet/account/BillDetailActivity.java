@@ -6,7 +6,9 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.utils.AccountUtil;
@@ -17,21 +19,21 @@ import java.math.BigDecimal;
 
 import static com.cdkj.baselibrary.utils.DateUtil.DEFAULT_DATE_FMT;
 
-/**
+/**账单详情
  * Created by lei on 2017/10/26.
  */
 
-public class BillDetailActivity extends AbsActivity {
+public class BillDetailActivity extends AbsLoadActivity {
 
     private BillModel.ListBean bean;
     private ActivityBillDetailBinding mBinding;
 
-    public static void open(Context context, BillModel.ListBean bean){
+    public static void open(Context context, BillModel.ListBean bean) {
         if (context == null) {
             return;
         }
         context.startActivity(new Intent(context, BillDetailActivity.class)
-                .putExtra("bean", bean));
+                .putExtra(CdRouteHelper.DATASIGN, bean));
     }
 
     @Override
@@ -42,12 +44,14 @@ public class BillDetailActivity extends AbsActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        setTopTitle(getStrRes(R.string.wallet_title_bill_detail));
-        setSubLeftImgState(true);
+        mBaseBinding.titleView.setMidTitle(getStrRes(R.string.wallet_title_bill_detail));
 
-        if (getIntent() != null){
-            bean = (BillModel.ListBean) getIntent().getSerializableExtra("bean");
-            if (bean != null){
+        setStatusBarBlue();
+        setTitleBgBlue();
+
+        if (getIntent() != null) {
+            bean = (BillModel.ListBean) getIntent().getSerializableExtra(CdRouteHelper.DATASIGN);
+            if (bean != null) {
                 setView();
             }
 
@@ -60,16 +64,16 @@ public class BillDetailActivity extends AbsActivity {
         mBinding.tvInfo.setText(bean.getBizNote());
         BigDecimal tas = new BigDecimal(bean.getTransAmountString());
 
-        int i=tas.compareTo(BigDecimal.ZERO);
-        if (i==1){
-            mBinding.tvAmount.setText("+"+ AccountUtil.amountFormatUnit(tas,bean.getCurrency(), 8)+" "+bean.getCurrency());
-        }else {
-            mBinding.tvAmount.setText(AccountUtil.amountFormatUnit(tas,bean.getCurrency(), 8)+" "+bean.getCurrency());
+        int i = tas.compareTo(BigDecimal.ZERO);
+        if (i == 1) {
+            mBinding.tvAmount.setText("+" + AccountUtil.amountFormatUnit(tas, bean.getCurrency(), 8) + " " + bean.getCurrency());
+        } else {
+            mBinding.tvAmount.setText(AccountUtil.amountFormatUnit(tas, bean.getCurrency(), 8) + " " + bean.getCurrency());
         }
 
         mBinding.tvBefore.setText(AccountUtil.amountFormatUnit(new BigDecimal(bean.getPreAmountString()), bean.getCurrency(), 8));
         mBinding.tvAfter.setText(AccountUtil.amountFormatUnit(new BigDecimal(bean.getPostAmountString()), bean.getCurrency(), 8));
-        mBinding.tvDate.setText(DateUtil.formatStringData(bean.getCreateDatetime(),DEFAULT_DATE_FMT));
+        mBinding.tvDate.setText(DateUtil.formatStringData(bean.getCreateDatetime(), DEFAULT_DATE_FMT));
         mBinding.tvType.setText(AccountUtil.formatBizType(bean.getBizType()));
         mBinding.tvStatus.setText(AccountUtil.formatBillStatus(bean.getStatus()));
     }

@@ -2,15 +2,14 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android">
 
     <LinearLayout
-        android:background="@color/popup_bg"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:padding="10dp">
 
         <View
             android:id="@+id/empty_view"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
@@ -50,6 +49,7 @@
             android:background="@drawable/mydialog_bg"
             android:gravity="center"
             android:text="@string/cancel"
+            android:textColor="@color/gray_666666"
             android:textSize="16sp" />
 
     </LinearLayout>

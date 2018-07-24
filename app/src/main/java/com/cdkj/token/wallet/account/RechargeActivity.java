@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
+import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
@@ -19,7 +21,7 @@ import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.wallet.coin_detail.WalletAddressShowActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
-public class RechargeActivity extends AbsActivity {
+public class RechargeActivity extends AbsLoadActivity {
 
     private WalletBalanceModel model;
 
@@ -30,7 +32,7 @@ public class RechargeActivity extends AbsActivity {
             return;
         }
         context.startActivity(new Intent(context, RechargeActivity.class)
-                .putExtra("model", model));
+                .putExtra(CdRouteHelper.DATASIGN, model));
     }
 
     @Override
@@ -47,15 +49,10 @@ public class RechargeActivity extends AbsActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        setTopTitle(getStrRes(R.string.wallet_title_charge));
-        setTopLineState(true);
-        setSubLeftImgState(true);
-        setSubRightImgAndClick(R.mipmap.wallet_charge_recode, v -> {
-            BillActivity.open(this, model.getAccountNumber(), BillActivity.TYPE_CHARGE);
-        });
+        mBaseBinding.titleView.setMidTitle(getStrRes(R.string.wallet_title_charge));
 
         if (getIntent() != null) {
-            model = getIntent().getParcelableExtra("model");
+            model = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
             if (!TextUtils.isEmpty(model.getAddress())) {
                 initQRCodeAndAddress();

@@ -1,187 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/gray_f7f7f7"
-            android:gravity="center_horizontal"
             android:orientation="vertical">
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@color/title_bg_blue" />
+
+
+            <android.support.v7.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="90dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="-45dp"
+                app:cardBackgroundColor="@color/white"
+                app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
+                app:cardElevation="@dimen/user_fragment_card_elevation"
+                app:cardUseCompatPadding="true">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/transfer_bg_1"
+                    android:orientation="vertical"
+                    android:paddingTop="19dp">
+
+                    <TextView
+                        android:id="@+id/tv_info"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:textColor="@color/gray_666666"
+                        android:textSize="12sp"
+                        tools:text="转出" />
+
+                    <TextView
+                        android:id="@+id/tv_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal"
+                        android:gravity="center"
+                        android:text="@string/wallet_withdraw_balance"
+                        android:textColor="@color/text_black_cd"
+                        android:textSize="24dp"
+                        tools:text="dfdf" />
+
+                </LinearLayout>
+
+            </android.support.v7.widget.CardView>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/white"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp">
 
                 <TextView
-                    android:id="@+id/tv_info"
-                    android:layout_width="wrap_content"
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="22dp"
-                    android:textColor="@color/black"
-                    android:textSize="15sp" />
+                    android:text="@string/wallet_bill_detail_before"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/tv_amount"
+                    android:id="@+id/tv_before"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="22dp"
-                    android:layout_marginTop="22dp"
-                    android:textColor="@color/colorPrimary"
-                    android:textSize="30sp" />
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="收款地址" />
+
 
             </LinearLayout>
+
+            <View style="@style/style_split_line" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:background="@color/white"
-                android:orientation="vertical">
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
+                <TextView
+                    android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="18dp"
-                    android:orientation="horizontal">
+                    android:text="@string/wallet_bill_detail_after"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wallet_bill_detail_before"
-                        android:textColor="@color/gray_999999"
-                        android:textSize="14sp" />
+                <TextView
 
-                    <TextView
-                        android:id="@+id/tv_before"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="right"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
+                    android:id="@+id/tv_after"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="18dp"
-                    android:orientation="horizontal">
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="收款地址" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wallet_bill_detail_after"
-                        android:textColor="@color/gray_999999"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tv_after"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="right"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="18dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wallet_bill_detail_date"
-                        android:textColor="@color/gray_999999"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tv_date"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="right"
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="18dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wallet_bill_detail_status"
-                        android:textColor="@color/gray_999999"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tv_status"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="right"
-                        android:textColor="@color/text_color_light"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="18dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
-                    android:layout_marginTop="18dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@string/wallet_bill_detail_type"
-                        android:textColor="@color/gray_999999"
-                        android:textSize="14sp" />
-
-                    <TextView
-                        android:id="@+id/tv_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:gravity="right"
-                        android:text=""
-                        android:textColor="@color/black"
-                        android:textSize="14sp" />
-
-                </LinearLayout>
 
             </LinearLayout>
+
+            <View style="@style/style_split_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wallet_bill_detail_date"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="收款地址" />
+
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wallet_bill_detail_status"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="收款地址" />
+
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/wallet_bill_detail_type"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="收款地址" />
+
+
+            </LinearLayout>
+
+
+            <View style="@style/style_split_line" />
 
         </LinearLayout>
 
+
     </ScrollView>
+
+
 </layout>

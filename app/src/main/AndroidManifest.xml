@@ -33,7 +33,6 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".wallet.account.BillActivity" />
         <activity android:name=".wallet.account.BillDetailActivity" />
         <activity android:name=".wallet.account.RechargeActivity" />
         <activity android:name=".wallet.account.WithdrawActivity" />
@@ -141,7 +140,10 @@
         <activity android:name=".user.CountryCodeListActivity" />
         <activity
             android:name=".wallet.red_package.QRRedPackageImgActivity"
-            android:theme="@style/ActivityDialogStyleBottom"></activity>
+            android:theme="@style/ActivityDialogStyleBottom" />
+        <activity
+            android:name=".user.GoogleCodeSetActivity"
+            android:theme="@style/ActivityDialogStyleBottom" />
         <activity android:name=".user.LocalCoinTypeChooseActivity" />
         <activity android:name=".user.login.SetLoginPwdActivity" />
         <activity android:name=".consult.FutureImageShowActivity" />
