@@ -65,4 +65,5 @@
         <attr name="is_circulation" format="boolean" />
     </declare-styleable>
 
+
 </resources>

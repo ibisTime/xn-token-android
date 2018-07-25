@@ -25,6 +25,10 @@ import java.util.List;
  */
 public class ScrollPicker extends View {
 
+   public interface ScrollPickerData {
+        String getShowString();
+    }
+
     private int mMinTextSize = 24; // 最小的字体
     private int mMaxTextSize = 32; // 最大的字体
     // 字体渐变颜色
@@ -39,8 +43,8 @@ public class ScrollPicker extends View {
     private int mMeasureWidth;
     private int mMeasureHeight;
     private int mSelected; // 当前选中的item下标，实际保持不变一直为中间位置的那个元素
-    private List<String> mData;
-    private List<String> mInitData;//初始化数据
+    private List<ScrollPickerData> mData;
+    private List<ScrollPickerData> mInitData;//初始化数据
     private int mItemHeight = 0; //每个条目的高度=mMeasureHeight／mVisibleItemCount
     private int mCenterY; //中间item的起始坐标y
     private float mLastMoveY; // 触摸的坐标y
@@ -119,7 +123,7 @@ public class ScrollPicker extends View {
             return;
         }
 
-        String text = mData.get(position);
+        String text = mData.get(position).getShowString();
         float x = 0;
         if (relative == -1) { // 上一个
             if (mMoveLength < 0) { // 向上滑动
@@ -348,11 +352,11 @@ public class ScrollPicker extends View {
         }
     }
 
-    public List<String> getData() {
+    public List<ScrollPickerData> getData() {
         return mData;
     }
 
-    public void setData(List<String> data) {
+    public void setData(List<ScrollPickerData> data) {
         mData.clear();
         this.mData.addAll(data);
         mInitData = mData;
@@ -380,13 +384,17 @@ public class ScrollPicker extends View {
         invalidate();
     }
 
-    public String getSelectedItem() {
+    public ScrollPickerData getSelectedItem() {
 
         if (mSelected < -1 || mSelected >= mData.size()) {
-            return "";
+            return null;
         }
 
         return mData.get(mSelected);
+    }
+
+    public int getSelectedPosition() {
+        return mSelected;
     }
 
     public void setSelectedPosition(int position) {
@@ -397,7 +405,7 @@ public class ScrollPicker extends View {
 
         LogUtil.I("size : " + mInitData.size() + " mSelected : " + mSelected + " position : " + position);
         int count = Math.abs(mSelected - position);
-        List<String> list = new ArrayList<>();
+        List<ScrollPickerData> list = new ArrayList<>();
         if (position < mSelected) {
             list.addAll(mInitData.subList(mInitData.size() - count, mInitData.size()));
             list.addAll(mInitData.subList(0, mInitData.size() - count));
@@ -436,6 +444,6 @@ public class ScrollPicker extends View {
      * @author huangziwei
      */
     public interface OnSelectedListener {
-        void onSelected(List<String> data, int position);
+        void onSelected(List<ScrollPickerData> data, int position);
     }
 }

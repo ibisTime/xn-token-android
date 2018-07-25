@@ -13,18 +13,17 @@ import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
-import com.cdkj.baselibrary.utils.SystemUtils;
-import com.cdkj.token.model.CountryCodeMode;
-import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.baselibrary.utils.SystemUtils;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
+import com.cdkj.token.model.CountryCodeMode;
+import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.token.model.SystemParameterModel;
-import com.cdkj.token.views.dialogs.UserPayPasswordInputDialog;
-import com.cdkj.token.wallet.backup_guide.BackupWalletStartActivity;
+import com.cdkj.token.views.pop.PickerPop;
 
 import java.util.HashMap;
 import java.util.List;
@@ -59,7 +58,6 @@ public class StartActivity extends BaseActivity {
             e.printStackTrace();
         }
         setContentView(R.layout.activity_start);
-
     }
 
     @Override

@@ -203,7 +203,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(() -> disMissLoading())
                 .subscribe(s -> {
-                    if (s.getError() != null) {
+                    if (s == null || s.getError() != null) {
                         LogUtil.E("has————" + s.getError().getMessage());
                         UITipDialog.showFail(WalletTransferActivity.this, getString(R.string.transfer_fail));
                         return;
