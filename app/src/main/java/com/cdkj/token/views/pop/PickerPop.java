@@ -63,7 +63,6 @@ public class PickerPop extends BasePopupWindow {
         mBinding.tvCancel.setOnClickListener(view -> dismiss());
     }
 
-
     @Override
     public View initAnimaView() {
         return mBinding.content;
