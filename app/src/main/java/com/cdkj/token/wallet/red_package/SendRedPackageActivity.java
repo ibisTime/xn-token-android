@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.text.Editable;
@@ -34,6 +35,11 @@ import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.RedPackageEventBusBean;
 import com.cdkj.token.model.RedPackageHistoryBean;
 import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.views.dialogs.UserBalanceDialog;
+import com.cdkj.token.views.dialogs.UserPayPasswordInputDialog;
+import com.cdkj.token.wallet.account.RechargeActivity;
+import com.cdkj.token.wallet.account.RechargeAddressQRActivity;
+import com.cdkj.token.wallet.coin_detail.WalletAddressShowActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -53,14 +59,22 @@ public class SendRedPackageActivity extends AbsLoadActivity {
     ActivitySendRedPackageBinding mBinding;
     private double moneyNumber;//发币数量  最少0.001
     private int sendNumber;//发红包数量
-    private int redType = 1;//红包类型 0=定额红包 1=拼手气红包  默认是拼手气红包
+
     private String currencyType;//币种类型名称
-    private InputDialog inputDialog;
-    private String mobile;
+    private UserPayPasswordInputDialog passInputDialog;
     private String tradePwd; //用户输入的密码
 
     private List<CoinModel.AccountListBean> cAccountListBeans;//币种列表
     private OptionsPickerView coinPickerView;
+
+    public final int TYPE_ORDINARY = 0; //普通红包
+    public final int TYPE_LUCKY = 1; //手气红包
+
+    private int redType = TYPE_LUCKY;//红包类型 0=定额红包 1=拼手气红包  默认是拼手气红包
+    private UserBalanceDialog userBalanceDialog;
+
+    private String balanString;//余额显示
+
 
     public static void open(Context context) {
         if (context == null) {
@@ -90,6 +104,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
         mBinding.etNumber.setEnabled(false);
         mBinding.etSendNumber.setEnabled(false);
+        mBinding.tvInMoney.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
         showUIState();
         initOnClick();
         getUserInfoRequest();
@@ -97,20 +112,29 @@ public class SendRedPackageActivity extends AbsLoadActivity {
     }
 
     private void initOnClick() {
+
+        //转入资金
+
+        mBinding.tvInMoney.setOnClickListener(view -> {
+            RechargeAddressQRActivity.open(this, currencyType);
+        });
+
         mBinding.ivBack.setOnClickListener(view -> finish());
         mBinding.tvTopRight.setOnClickListener(view -> RedPackageHistoryActivity.open(this));
         mBinding.btnSubmit.setOnClickListener(v -> {
             checkData();
         });
         mBinding.llType.setOnClickListener(view -> {
+
         });
         mBinding.tvRedType.setOnClickListener(view -> {
 
-            if (redType == 1) {        //拼手气红包变为普通红包
-                redType = 0;
-            } else if (redType == 0) {  //普通红包变为拼手气红包
-                redType = 1;
+            if (redType == TYPE_LUCKY) {        //拼手气红包变为普通红包
+                redType = TYPE_ORDINARY;
+            } else if (redType == TYPE_ORDINARY) {  //普通红包变为拼手气红包
+                redType = TYPE_LUCKY;
             }
+
             showUIState();
 
             setTotalNumber();
@@ -161,11 +185,13 @@ public class SendRedPackageActivity extends AbsLoadActivity {
      * 普通红包和拼手气红包状态修改
      */
     private void showUIState() {
-        if (redType == 1) {
+        if (redType == TYPE_LUCKY) {
+            mBinding.tvRedPacketTypeString.setText(R.string.red_packet_type_2);
             mBinding.tvRedType.setText(R.string.red_package_set_ordinary);
             mBinding.etNumber.setHint(R.string.red_package_please_total_number);
             mBinding.tvSendNumTip.setText(R.string.red_package_sub_total);
-        } else if (redType == 0) {
+        } else if (redType == TYPE_ORDINARY) {
+            mBinding.tvRedPacketTypeString.setText(R.string.red_packet_type_1);
             mBinding.tvRedType.setText(R.string.red_package_set_hand);
             mBinding.etNumber.setHint(R.string.red_package_please_sing_number);
             mBinding.tvSendNumTip.setText(R.string.red_package_sub_single);
@@ -210,41 +236,41 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
     private void checkData() {
         if (TextUtils.isEmpty(currencyType)) {
-            ToastUtil.show(this, getString(R.string.red_package_please_type));
+            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_please_type));
             return;
         }
 
         String money_et = mBinding.etNumber.getText().toString();
         if (TextUtils.isEmpty(money_et)) {
-            ToastUtil.show(this, getString(R.string.red_package_piease_send_number));
+            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_piease_send_number));
             return;
         }
         moneyNumber = Double.parseDouble(money_et);
         if (moneyNumber < 0.001) {
-            ToastUtil.show(this, getString(R.string.red_package_min_numer));
+            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_min_numer));
             return;
         }
 
         if (moneyNumber > 1000000) {
-            ToastUtil.show(this, getString(R.string.red_package_max_numer));
+            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_max_numer));
             return;
         }
 
         String number_et = mBinding.etSendNumber.getText().toString();
         if (TextUtils.isEmpty(number_et)) {
-            ToastUtil.show(this, getString(R.string.red_package_pleas_number));
+            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_pleas_number));
             return;
         }
 
         sendNumber = Integer.parseInt(number_et);
 
         if (sendNumber < 1) {
-            ToastUtil.show(this, getString(R.string.red_package_min_number));
+            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_min_number));
             return;
         }
 
         if (sendNumber > 500) {
-            ToastUtil.show(this, getString(R.string.red_package_mxn_number));
+            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_mxn_number));
             return;
         }
 
@@ -256,8 +282,11 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
     /**
      * 发红包接口
+     *
+     * @param tradePwd 支付密码
      */
-    private void sendDatas() {
+    private void sendDatas(String tradePwd) {
+        if (TextUtils.isEmpty(tradePwd)) return;
         showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("userId", SPUtilHelper.getUserId());
@@ -308,30 +337,36 @@ public class SendRedPackageActivity extends AbsLoadActivity {
         if (!SPUtilHelper.getTradePwdFlag()) {
             showDoubleWarnListen(getString(R.string.red_package_please_set_type), view -> {
                 //跳转设置支付界面
-                PayPwdModifyActivity.open(this, false, mobile);
+                PayPwdModifyActivity.open(this, false, SPUtilHelper.getUserPhoneNum());
             });
             return;
         }
-        if (inputDialog == null) {
-            inputDialog = new InputDialog(this).builder().setTitle(getStrRes(R.string.trade_code_hint))
-                    .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
-                        tradePwd = inputDialog.getContentView().getText().toString().trim();
-                        if (TextUtils.isEmpty(tradePwd)) {
-                            showToast(getStrRes(R.string.trade_code_hint));
-                        } else {
-                            //  payRequest(inputDialog.getContentView().getText().toString().trim());
-                            //判断密码
-                            sendDatas();
-                            inputDialog.dismiss();
-                        }
-                    })
-                    .setNegativeBtn(getStrRes(R.string.cancel), null)
-                    .setContentMsg("");
-            inputDialog.getContentView().setText("");
-            inputDialog.getContentView().setHint(getStrRes(R.string.trade_code_hint));
+
+        if (userBalanceDialog == null) {
+            userBalanceDialog = new UserBalanceDialog(this).setSureCLickListener(view2 -> {
+                userBalanceDialog.dismiss();
+                showPasswordInputDialog();
+            });
         }
-        inputDialog.getContentView().setText("");
-        inputDialog.show();
+        userBalanceDialog.setShowBalance(balanString + currencyType);  //余额 + 币种类型
+        userBalanceDialog.show();
+    }
+
+    /**
+     * 显示密码输入
+     */
+    private void showPasswordInputDialog() {
+        if (passInputDialog == null) {
+            passInputDialog = new UserPayPasswordInputDialog(this);
+            passInputDialog.setPasswordInputEndListener(new UserPayPasswordInputDialog.PasswordInputEndListener() {
+                @Override
+                public void passEnd(String password) {
+                    passInputDialog.dismiss();
+                    sendDatas(password);
+                }
+            });
+        }
+        passInputDialog.show();
     }
 
     /**
@@ -394,7 +429,6 @@ public class SendRedPackageActivity extends AbsLoadActivity {
                 }
             }).setCancelText(getString(R.string.cancel))//取消按钮文字
                     .setSubmitText(getString(R.string.sure))//确认按钮文字
-
                     .build();
         }
 
@@ -421,6 +455,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             BigDecimal amount = new BigDecimal(accountListBean.getAmountString());
             BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
             String yue = AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), 8);
+            balanString = yue;
             mBinding.tvBalance.setText(getString(R.string.red_package_have) + ": " + yue);
         }
     }
@@ -459,7 +494,6 @@ public class SendRedPackageActivity extends AbsLoadActivity {
                 SPUtilHelper.saveUserPhoneNum(data.getMobile());
                 SPUtilHelper.saveTradePwdFlag(data.isTradepwdFlag());
                 SPUtilHelper.saveGoogleAuthFlag(data.isGoogleAuthFlag());
-                mobile = data.getMobile();
                 setShowData(data);
             }
 
@@ -483,8 +517,14 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
     }
 
-    @Subscribe()
-    public void onMessageEvent(RedPackageEventBusBean event) {
-        finish();
+    @Override
+    protected void onDestroy() {
+        if (passInputDialog != null) {
+            passInputDialog.dismiss();
+        }
+        if (userBalanceDialog != null) {
+            userBalanceDialog.dismiss();
+        }
+        super.onDestroy();
     }
 }

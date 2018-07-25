@@ -4,6 +4,9 @@ import org.litepal.crud.DataSupport;
 
 /**
  * 钱包数据库 字段名  对应 WalletDBColumn类
+ * <p>
+ * 数据库修改要考虑版本兼容问题
+ * <p>
  * Created by cdkj on 2018/6/6.
  */
 public class WalletDBModel extends DataSupport {

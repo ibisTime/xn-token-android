@@ -539,6 +539,15 @@
     <string name="backup_introtation_dialog_title">--</string>
     <string name="backup_introtation_dialog_content">--</string>
     <string name="my_coin_address_2">My collection address</string>
+    <string name="qr_share_tip_1">--</string>
+    <string name="qr_share_tip_2">--</string>
+    <string name="red_packet_rule">--</string>
+    <string name="red_packet_type_1">--</string>
+    <string name="red_packet_type_2">--</string>
+    <string name="sure_pay">--</string>
+    <string name="account_balance">--</string>
+    <string name="now_pay">--</string>
+    <string name="transfer_user_funds">--</string>
 
 </resources>
 

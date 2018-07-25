@@ -481,6 +481,15 @@
     <string name="backup_introtation_dialog_title">면책성명</string>
     <string name="backup_introtation_dialog_content">백업된 자료는 안전한 곳에 보관하고 THA는 월렛 분실,도난,비빌번호 분실등으로 발생한 손실에대해서는 책임지지 않습니다!</string>
     <string name="my_coin_address_2">나의 계좌번호</string>
+    <string name="qr_share_tip_1">QR코드 스캔 및 THA 훙빠우수령</string>
+    <string name="qr_share_tip_2">--</string>
+    <string name="red_packet_rule">--</string>
+    <string name="red_packet_type_1">일바 훙빠우 </string>
+    <string name="red_packet_type_2">럭키 훙빠우</string>
+    <string name="sure_pay">결재확인</string>
+    <string name="account_balance">계자내 잔액</string>
+    <string name="now_pay">즉시 결재 </string>
+    <string name="transfer_user_funds">--</string>
 
 
 </resources>

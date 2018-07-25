@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@drawable/dialog_tips_bg"
         android:orientation="vertical">
 
         <ImageView
+            android:id="@+id/img_close"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="right"
@@ -24,38 +24,62 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:paddingBottom="22dp"
-            android:paddingTop="40dp"
+            android:paddingTop="20dp"
+            android:text="@string/sure_pay"
             android:textColor="@color/text_black_cd"
-            android:textSize="20sp"
-            tools:text="请输入支付密码" />
-
-        <com.cdkj.token.views.password.PassWordLayout
-            android:id="@+id/passWordLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_tipsinfo"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            app:box_draw_type="rect"
-            app:box_input_color="@color/text_black_cd"
-            app:box_no_input_color="@color/text_black_cd"
-            app:draw_box_line_size="0.5dp"
-            app:interval_width="0dp"
-            app:is_show_input_line="false"
-            app:item_height="55dp"
-            app:item_width="55dp"
-            app:pass_inputed_type="circle"
-            app:pass_leng="six"
-            app:text_input_color="@color/black" />
+            android:textSize="20sp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:padding="10dp"
-            android:text="忘记密码?"
-            android:textColor="@color/gray_666666" />
+            android:text="0.5ETH"
+            android:textColor="#A75E02"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/red_bg_line_rodun_2"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/account_balance"
+                android:textColor="@color/gray_666666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_balance"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="right"
+                android:textColor="@color/text_black_cd"
+                android:textSize="14sp"
+                tools:text="0" />
+
+        </LinearLayout>
+
+
+        <Button
+            android:id="@+id/btn_sure"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/color_yellow_top_to_down_change"
+            android:gravity="center"
+            android:text="@string/now_pay"
+            android:textColor="#A75E02"
+            android:textSize="16sp" />
 
 
     </LinearLayout>

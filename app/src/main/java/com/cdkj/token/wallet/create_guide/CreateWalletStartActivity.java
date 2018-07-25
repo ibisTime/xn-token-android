@@ -55,8 +55,8 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
         setStatusBarBlue();
         setTitleBgBlue();
 
-        mBinding.editPassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        mBinding.editRepassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        mBinding.editPassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        mBinding.editRepassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
 
         mBaseBinding.titleView.setMidTitle(R.string.create_wallet);
 

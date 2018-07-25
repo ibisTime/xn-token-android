@@ -55,37 +55,20 @@ public class RechargeActivity extends AbsLoadActivity {
             model = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
             if (!TextUtils.isEmpty(model.getAddress())) {
-                initQRCodeAndAddress();
+                initQRCodeAndAddress(model.getAddress());
             }
 
         }
 
-        initView();
         initListener();
 
     }
 
-    private void initView() {
-        if (model == null)
-            return;
 
-//        mBinding.tvCoin.setText(getString(R.string.my_coin_address, model.getCoinName()));
-
-//        switch (model.getCoinName()){
-//            case "ETH":
-//                mBinding.tvCoin.setText(getStrRes(R.string.wallet_charge_address_eth));
-//                break;
-//
-//            case "BTC":
-//                mBinding.tvCoin.setText(getStrRes(R.string.wallet_charge_address_btc));
-//                break;
-//        }
-    }
-
-    private void initQRCodeAndAddress() {
-        Bitmap mBitmap = CodeUtils.createImage(model.getAddress(), 400, 400, null);
+    private void initQRCodeAndAddress(String address) {
+        Bitmap mBitmap = CodeUtils.createImage(address, 400, 400, null);
         mBinding.imgQRCode.setImageBitmap(mBitmap);
-        mBinding.txtAddress.setText(model.getAddress());
+        mBinding.txtAddress.setText(address);
 
     }
 
@@ -93,7 +76,7 @@ public class RechargeActivity extends AbsLoadActivity {
 
         mBinding.btnCopy.setOnClickListener(view -> {
             ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            cmb.setText(model.getAddress().trim()); //将内容放入粘贴管理器,在别的地方长按选择"粘贴"即可
+            cmb.setText(mBinding.txtAddress.getText().toString()); //将内容放入粘贴管理器,在别的地方长按选择"粘贴"即可
             UITipDialog.showInfoNoIcon(RechargeActivity.this, getStrRes(R.string.wallet_charge_address_copy_success));
         });
     }

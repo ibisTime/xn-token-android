@@ -523,5 +523,14 @@
     <string name="backup_introtation_dialog_title">免责声明</string>
     <string name="backup_introtation_dialog_content">请确保已备份钱包至安全的地方，THA不承担任何钱包丢失、被盗、忘记密码等产生的资产损失！</string>
     <string name="my_coin_address_2">我的收款地址</string>
+    <string name="qr_share_tip_1">扫描二维码领取THA红包</string>
+    <string name="qr_share_tip_2">截图分享二维码</string>
+    <string name="red_packet_rule">红包规则</string>
+    <string name="red_packet_type_1">当前为普通红包</string>
+    <string name="red_packet_type_2">当前为拼手气红包</string>
+    <string name="sure_pay">确认付款</string>
+    <string name="account_balance">账户余额</string>
+    <string name="now_pay">立即付款</string>
+    <string name="transfer_user_funds">转入资金</string>
 
 </resources>

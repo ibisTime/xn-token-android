@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -15,6 +16,7 @@ import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityRedPackageShearBinding;
@@ -58,13 +60,12 @@ public class RedPackageShearActivity extends AbsLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+
+        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.oragne));
+
         if (getIntent() != null) {
             currentCode = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
-            if (TextUtils.isEmpty(currentCode)) {
-                finish();
-            }
-        } else {
-            finish();
+
         }
         initOnclick();
         initDates();
@@ -72,6 +73,7 @@ public class RedPackageShearActivity extends AbsLoadActivity {
     }
 
     private void initDates() {
+        if (TextUtils.isEmpty(currentCode)) return;
         showLoadingDialog();
         Map<String, String> map = new HashMap<String, String>();
         map.put("userId", SPUtilHelper.getUserId());
@@ -83,6 +85,9 @@ public class RedPackageShearActivity extends AbsLoadActivity {
 
                 mBinding.tvUserName.setText(data.getSendUserNickname());
                 mBinding.tvMasg.setText(data.getGreeting());
+
+                SPUtilHelper.saveUserPhoto(data.getSendUserPhoto());
+
                 ImgUtils.loadLogo(RedPackageShearActivity.this, data.getSendUserPhoto(), mBinding.imgLogo);
             }
 
@@ -96,7 +101,13 @@ public class RedPackageShearActivity extends AbsLoadActivity {
 
     private void initOnclick() {
         mBinding.llOpen.setOnClickListener(view -> {
-            QRRedPackageImgActivity.open(this,currentCode);
+            QRRedPackageImgActivity.open(this, currentCode);
+            //隐藏出去背景图片相关元素
+            mBinding.imgLogo.setVisibility(View.INVISIBLE);
+            mBinding.tvUserName.setVisibility(View.INVISIBLE);
+            mBinding.tvRedPacketTip.setVisibility(View.INVISIBLE);
+            mBinding.tvMasg.setVisibility(View.INVISIBLE);
+            mBinding.llOpen.setVisibility(View.INVISIBLE);
         });
         mBinding.rllTop.ivBack.setOnClickListener(view -> {
             finish();

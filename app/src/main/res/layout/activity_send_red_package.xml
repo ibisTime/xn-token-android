@@ -52,7 +52,7 @@
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -133,19 +133,41 @@
                         android:src="@mipmap/icon_right_arrow" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_balance"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:textColor="@color/red_packet_text_yellow"
-                    android:textSize="12sp"
-                    tools:text="持有ETC总量  0.006" />
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/tv_balance"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="5dp"
+                        android:gravity="center_vertical"
+                        android:textColor="@color/red_packet_text_yellow"
+                        android:textSize="12sp"
+                        tools:text="持有ETC总量  0.006," />
+
+                    <TextView
+                        android:id="@+id/tv_in_money"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="5dp"
+                        android:autoLink="all"
+                        android:gravity="center_vertical"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="2dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/transfer_user_funds"
+                        android:textColor="@color/red_packet_text_yellow"
+                        android:textSize="12sp" />
+
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -197,13 +219,17 @@
                     android:gravity="center_vertical">
 
                     <TextView
+                        android:id="@+id/tv_red_packet_type_string"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
                         android:layout_weight="1"
+                        android:ellipsize="end"
                         android:gravity="center_vertical"
+                        android:singleLine="true"
+                        android:text="@string/red_packet_type_2"
                         android:textColor="@color/red_packet_text_yellow"
-                        android:textSize="12sp"
-                        tools:text="当前为普通红包" />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_red_type"
@@ -296,13 +322,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginBottom="50dp"
-                    android:layout_marginTop="10dp"
                     android:drawablePadding="5dp"
                     android:drawableRight="@drawable/question"
                     android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:text="@string/red_packet_rule"
                     android:textColor="@color/red_packet_text_yellow"
-                    android:textSize="12sp"
-                    tools:text="红包规则" />
+                    android:textSize="12sp" />
 
 
             </LinearLayout>

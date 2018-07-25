@@ -23,6 +23,7 @@ import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.SystemParameterModel;
+import com.cdkj.token.views.dialogs.UserPayPasswordInputDialog;
 import com.cdkj.token.wallet.backup_guide.BackupWalletStartActivity;
 
 import java.util.HashMap;
@@ -58,12 +59,12 @@ public class StartActivity extends BaseActivity {
             e.printStackTrace();
         }
         setContentView(R.layout.activity_start);
+
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
         getQiniuAndNextTo();  //获取七牛地址
     }
 

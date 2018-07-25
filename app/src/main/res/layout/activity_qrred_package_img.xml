@@ -7,7 +7,7 @@
         android:id="@+id/ll_other"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
+        android:fitsSystemWindows="true"
         android:orientation="vertical"
         tools:context="com.cdkj.token.wallet.red_package.QRRedPackageImgActivity">
 
@@ -16,6 +16,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="20dp"
             android:layout_marginRight="20dp"
+            android:layout_marginTop="125dp"
             android:gravity="center_horizontal"
             android:orientation="vertical"
             android:paddingBottom="10dp"
@@ -26,7 +27,6 @@
                 android:id="@+id/img_logo"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_marginTop="15dp"
                 android:src="@mipmap/icon_open_bg" />
 
             <TextView
@@ -38,17 +38,18 @@
                 tools:text="Koala" />
 
             <TextView
-                textColor="@color/white"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:text="@string/send_you_red_package" />
+                android:text="@string/send_you_red_package"
+                android:textColor="@color/white" />
 
         </LinearLayout>
 
         <FrameLayout
             android:layout_width="170dp"
             android:layout_height="170dp"
+            android:layout_gravity="center"
             android:background="@mipmap/icon_qr_code_bg">
 
             <android.support.v7.widget.CardView
@@ -70,6 +71,22 @@
 
 
         </FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:text="@string/qr_share_tip_1"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|center"
+            android:layout_marginTop="50dp"
+            android:text="@string/qr_share_tip_2"
+            android:textColor="@color/white" />
 
 
     </LinearLayout>

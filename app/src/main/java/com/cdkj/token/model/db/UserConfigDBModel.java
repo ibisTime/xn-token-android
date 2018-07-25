@@ -4,6 +4,7 @@ import org.litepal.crud.DataSupport;
 
 /**
  * 用户配置表 （自选币种 本地货币货币）
+ * 数据库修改要考虑版本兼容问题
  * Created by cdkj on 2018/6/30.
  */
 

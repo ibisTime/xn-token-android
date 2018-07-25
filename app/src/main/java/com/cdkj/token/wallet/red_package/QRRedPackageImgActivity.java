@@ -12,6 +12,7 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
+import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.model.IntroductionInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -33,7 +34,7 @@ import retrofit2.Call;
 import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
 
 
-public class QRRedPackageImgActivity extends AbsLoadActivity {
+public class QRRedPackageImgActivity extends BaseActivity {
 
     ActivityQrredPackageImgBinding mBinding;
     private String redPackageCode;
@@ -48,18 +49,9 @@ public class QRRedPackageImgActivity extends AbsLoadActivity {
     }
 
     @Override
-    protected boolean canLoadTopTitleView() {
-        return false;
-    }
-
-    @Override
-    public View addMainView() {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_qrred_package_img, null, false);
-        return mBinding.getRoot();
-    }
-
-    @Override
-    public void afterCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_qrred_package_img);
         if (getIntent() != null) {
             redPackageCode = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
         }
@@ -67,9 +59,17 @@ public class QRRedPackageImgActivity extends AbsLoadActivity {
             EventBus.getDefault().post(new RedPackageEventBusBean());
             finish();
         });
+
+        ImgUtils.loadLogo(QRRedPackageImgActivity.this, SPUtilHelper.getUserPhoto(), mBinding.imgLogo);
+
         getRedPacketShareUrlRequest();
     }
 
+    @Override
+    public void onBackPressed() {
+        EventBus.getDefault().post(new RedPackageEventBusBean());
+        finish();
+    }
 
     /**
      * 获取红包分享路径

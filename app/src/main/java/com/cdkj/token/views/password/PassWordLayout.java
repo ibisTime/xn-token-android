@@ -179,10 +179,10 @@ public class PassWordLayout extends LinearLayout {
      *
      * @param pwd
      */
-    public void addPwd(String pwd) {
+    public void addPwd(int pwd) {
         if (mPassList != null && mPassList.size() < maxLength) {
-            mPassList.add(pwd);
-            setNextInput(pwd);
+            mPassList.add(pwd + "");
+            setNextInput(pwd + "");
         }
 
         if (pwdChangeListener != null) {
@@ -359,7 +359,8 @@ public class PassWordLayout extends LinearLayout {
                     return false;
                 }
                 if (keyCode >= KeyEvent.KEYCODE_0 && keyCode <= KeyEvent.KEYCODE_9) {//处理数字
-                    addPwd(keyCode - 7 + "");              //点击添加密码
+//                    addPwd(keyCode - 7 + "");              //点击添加密码
+                    addPwdByKeyCode(keyCode);
                     return true;
                 }
 
@@ -374,6 +375,42 @@ public class PassWordLayout extends LinearLayout {
             }
             return false;
         }//onKey
+
+        void addPwdByKeyCode(int keyCode) {
+            switch (keyCode) {
+                case KeyEvent.KEYCODE_0:
+                    addPwd(0);
+                    break;
+                case KeyEvent.KEYCODE_1:
+                    addPwd(1);
+                    break;
+                case KeyEvent.KEYCODE_2:
+                    addPwd(2);
+                    break;
+                case KeyEvent.KEYCODE_3:
+                    addPwd(3);
+                    break;
+                case KeyEvent.KEYCODE_4:
+                    addPwd(4);
+                    break;
+                case KeyEvent.KEYCODE_5:
+                    addPwd(5);
+                    break;
+                case KeyEvent.KEYCODE_6:
+                    addPwd(6);
+                    break;
+                case KeyEvent.KEYCODE_7:
+                    addPwd(7);
+                    break;
+                case KeyEvent.KEYCODE_8:
+                    addPwd(8);
+                    break;
+                case KeyEvent.KEYCODE_9:
+                    addPwd(9);
+                    break;
+            }
+        }
+
     }
 
 

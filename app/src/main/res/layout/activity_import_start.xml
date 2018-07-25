@@ -40,8 +40,6 @@
                 android:layout_height="wrap_content"
                 app:hint_text="@string/wallet_name" />
 
-            <View style="@style/style_split_line" />
-
             <com.cdkj.token.views.SignInEditClearLayout
                 android:id="@+id/edit_password"
                 android:layout_width="match_parent"

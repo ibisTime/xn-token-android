@@ -151,6 +151,7 @@
         <activity android:name=".wallet.import_guide.ImportWalletStartActivity" />
         <activity android:name=".wallet.create_guide.CreateWalletStartActivity" />
         <activity android:name=".wallet.backup_guide.BackupWalletWordsCheckActivity" />
+        <activity android:name=".wallet.account.RechargeAddressQRActivity" />
     </application>
 
 </manifest>
