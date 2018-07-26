@@ -548,6 +548,7 @@
     <string name="account_balance">--</string>
     <string name="now_pay">--</string>
     <string name="transfer_user_funds">--</string>
+    <string name="red_packet">red_packet</string>
 
 </resources>
 

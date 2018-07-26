@@ -23,10 +23,12 @@ import java.util.List;
  * 滑动选择
  * Created by Administrator on 2016/6/28.
  */
+//TODO 循环逻辑处理
 public class ScrollPicker extends View {
 
     public interface ScrollPickerData {
         String getShowString();
+
         String getSelectType();
     }
 
@@ -61,7 +63,6 @@ public class ScrollPicker extends View {
     // 可以把scroller看做模拟的触屏滑动操作，mLastScrollY为上次触屏滑动的坐标
     private int mLastScrollY = 0; // Scroller的坐标y
 
-    private int year = 0;
 
     private boolean scrollDestion = false;//false 向上滑动，true向下滑动
 
@@ -109,6 +110,7 @@ public class ScrollPicker extends View {
 
     /**
      * 是否循环
+     *
      * @param issCirculation
      */
     public void setIsCirculationt(boolean issCirculation) {
@@ -258,13 +260,6 @@ public class ScrollPicker extends View {
         mScroller.abortAnimation();
     }
 
-    public int getYear() {
-        return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
-    }
 
     // 循环滚动
     private void checkCirculation() {
@@ -300,12 +295,6 @@ public class ScrollPicker extends View {
             }
         }
 
-//        LogUtil.I(mData.get(mSelected));
-//        if(mData.get(mSelected).startsWith("12月") && scrollDestion ){
-//            year--;
-//        } else if( mData.get(mSelected).startsWith("1月") && !scrollDestion){
-//            year++;
-//        }
     }
 
     // 平滑滚动

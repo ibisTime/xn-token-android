@@ -532,5 +532,6 @@
     <string name="account_balance">账户余额</string>
     <string name="now_pay">立即付款</string>
     <string name="transfer_user_funds">转入资金</string>
+    <string name="red_packet">红包</string>
 
 </resources>
