@@ -152,6 +152,10 @@
         <activity android:name=".wallet.create_guide.CreateWalletStartActivity" />
         <activity android:name=".wallet.backup_guide.BackupWalletWordsCheckActivity" />
         <activity android:name=".wallet.account.RechargeAddressQRActivity" />
+        <activity android:name=".user.pattern_lock.PatternLockSettingActivity" />
+        <activity
+            android:name=".user.pattern_lock.PatternLockCheckActivity"
+            android:launchMode="singleTask" />
     </application>
 
 </manifest>

@@ -22,6 +22,7 @@ import com.cdkj.token.consult.FindFragment;
 import com.cdkj.token.databinding.ActivityMainBinding;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.user.UserFragment;
+import com.cdkj.token.user.pattern_lock.PatternLockCheckActivity;
 import com.cdkj.token.wallet.WalletFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -70,7 +71,6 @@ public class MainActivity extends BaseActivity {
 
     private void init() {
         setShowIndex(WALLET);
-
 //        CoinListService.open(this);
     }
 

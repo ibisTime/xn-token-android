@@ -21,6 +21,7 @@ import com.cdkj.token.databinding.ActivityUserSettingBinding;
 import com.cdkj.token.databinding.PopupGoogleBinding;
 import com.cdkj.token.user.login.SetLoginPwdActivity;
 import com.cdkj.token.user.login.SignInActivity;
+import com.cdkj.token.user.pattern_lock.PatternLockSettingActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -50,6 +51,7 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
         setMidTitle(R.string.accounts_and_security);
         setPageBgImage(R.drawable.my_bg);
         initListener();
+
     }
 
 
@@ -60,6 +62,9 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
     }
 
     private void init() {
+
+        mBinding.switchView.setChecked(SPUtilHelper.isSetPatternPwd());
+
         mBinding.tvMail.setText(SPUtilHelper.getUserEmail());
 
         if (!SPUtilHelper.getGoogleAuthFlag()) { // 未打开谷歌验证
@@ -79,6 +84,17 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
     }
 
     private void initListener() {
+
+        mBinding.switchView.setOnClickListener(view -> {
+            if (mBinding.switchView.isChecked()) {
+                PatternLockSettingActivity.open(this);
+            } else {
+                SPUtilHelper.saveUserPatternPwd("");
+            }
+            mBinding.switchView.setChecked(false);
+        });
+
+        //资金密码
         mBinding.llTradePwd.setOnClickListener(view -> {
             PayPwdModifyActivity.open(this, SPUtilHelper.getTradePwdFlag(), SPUtilHelper.getUserPhoneNum());
         });

@@ -205,6 +205,42 @@ public class StringUtils {
         return sb.toString();
     }
 
+    /**
+     * list装换为字符串
+     *
+     * @param list
+     * @return
+     */
+    public static String listToString(List<?> list) {
+
+        if (list == null || list.size() == 0) {
+            return "";
+        }
+
+        StringBuffer sb = new StringBuffer();
+        if (list != null) {
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i) == null || list.get(i).equals("")) {
+                    continue;
+                }
+                // 如果值是list类型则调用自己
+                if (list.get(i) instanceof List) {
+                    sb.append(listToString((List<?>) list.get(i)));
+
+                } /*else if (list.get(i) instanceof Map) {
+                    sb.append(MapToString((Map<?, ?>) list.get(i)));
+                    if (i != list.size() - 1) {
+                        sb.append(sep1);
+                    }
+
+                }*/ else {
+                    sb.append(list.get(i));
+                }
+            }
+        }
+        return sb.toString();
+    }
+
 
     //判断email格式是否正确
     public static boolean isEmail(String email) {

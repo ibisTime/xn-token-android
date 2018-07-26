@@ -508,7 +508,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
     private void setShowData(UserInfoModel data) {
         if (data == null) {
 
-            mBinding.imgLogo.setImageResource(R.mipmap.default_photo);
+            mBinding.imgLogo.setImageResource(R.drawable.photo_default);
             return;
         }
         if (data.getNickname() == null)

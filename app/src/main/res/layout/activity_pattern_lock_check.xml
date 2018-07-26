@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/welcome_back"
+            android:textColor="@color/text_black_cd"
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:src="@drawable/photo_default" />
+
+        <TextView
+            android:id="@+id/tv_user_phone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:textColor="@color/text_black_cd"
+            android:textSize="20sp"
+            tools:text="@string/welcome_back" />
+
+        <TextView
+            android:id="@+id/text_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:text="绘制手势密码"
+            android:textColor="@color/gray_666666"
+            android:textSize="14sp" />
+
+        <com.cdkj.token.views.pattern_lock.PatternLockView
+            android:id="@+id/pattern_lock_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="48dp"
+            android:layout_marginRight="48dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            app:plv_color="@color/gray_cccccc"
+            app:plv_errorColor="#FE4F4F"
+            app:plv_fillColor="@color/white"
+            app:plv_hitColor="#0848DF"
+            app:plv_lineWidth="1dp" />
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left"
+                android:layout_marginLeft="40dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="忘记手势密码"
+                android:textColor="@color/gray_666666"
+                android:textSize="12sp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:layout_marginRight="40dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="切换登录"
+                android:textColor="@color/gray_666666"
+                android:textSize="12sp" />
+
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+</layout>

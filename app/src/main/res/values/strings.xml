@@ -533,5 +533,5 @@
     <string name="now_pay">立即付款</string>
     <string name="transfer_user_funds">转入资金</string>
     <string name="red_packet">红包</string>
-
+    <string name="welcome_back">欢迎回来</string>
 </resources>

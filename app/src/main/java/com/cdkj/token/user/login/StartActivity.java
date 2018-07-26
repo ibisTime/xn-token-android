@@ -23,7 +23,6 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.CountryCodeMode;
 import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.token.model.SystemParameterModel;
-import com.cdkj.token.views.pop.PickerPop;
 
 import java.util.HashMap;
 import java.util.List;
@@ -34,6 +33,7 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
 
 @Route(path = CdRouteHelper.APPSTART)
 public class StartActivity extends BaseActivity {
@@ -58,6 +58,7 @@ public class StartActivity extends BaseActivity {
             e.printStackTrace();
         }
         setContentView(R.layout.activity_start);
+
     }
 
     @Override

@@ -167,7 +167,7 @@ public class UserFragment extends BaseLazyFragment {
         if (data == null) {
             mBinding.tvNickName.setText("");
             mBinding.tvPhoneNumber.setText("");
-            mBinding.imgLogo.setImageResource(R.mipmap.default_photo);
+            mBinding.imgLogo.setImageResource(R.drawable.photo_default);
             return;
         }
 

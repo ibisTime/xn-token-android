@@ -368,4 +368,27 @@ public class SPUtilHelper {
         return SPUtils.getString(CdApplication.getContext(), "user_email", "");
     }
 
+    /**
+     * 设置用户手势密码
+     *
+     * @param s
+     */
+    public static void saveUserPatternPwd(String s) {
+        SPUtils.put(CdApplication.getContext(), "pattern_key", s);
+    }
+
+    /**
+     * 获取设置用户手势密码
+     */
+    public static String getUserPatternPwd() {
+        return SPUtils.getString(CdApplication.getContext(), "pattern_key", "");
+    }
+
+    /**
+     * 是否设置过用户手势密码
+     */
+    public static boolean isSetPatternPwd() {
+        return !TextUtils.isEmpty(getUserPatternPwd());
+    }
+
 }

@@ -6,8 +6,11 @@ import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.cdkj.baselibrary.CdApplication;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
+import com.cdkj.token.model.PatternLockCheckFinish;
+import com.cdkj.token.user.pattern_lock.PatternLockCheckActivity;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import org.greenrobot.eventbus.EventBus;
@@ -38,6 +41,26 @@ public class MyApplication extends Application {
         ARouter.init(this); //
         initZXing();
         EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
+
+        AppFrontBackHelper helper = new AppFrontBackHelper();
+
+        helper.register(MyApplication.application, new AppFrontBackHelper.OnAppStatusListener() {
+
+            @Override
+            public void onFront() {
+                if (SPUtilHelper.isLoginNoStart() && SPUtilHelper.isSetPatternPwd()) {  //已经登录了 并且已经设置过手势密码
+                    EventBus.getDefault().post(new PatternLockCheckFinish());
+                    PatternLockCheckActivity.open(MyApplication.application);
+                }
+            }
+
+            @Override
+
+            public void onBack() {
+
+            }
+        });
+        LogUtil.E("Aapplication启动");
 
     }
 

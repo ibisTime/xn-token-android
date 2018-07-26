@@ -55,6 +55,7 @@
 
     </declare-styleable>
 
+    <!--PickerView 滑动选择-->
     <declare-styleable name="ScrollPicker">
         <attr name="min_text_size" format="dimension" />
         <attr name="max_text_size" format="dimension" />
@@ -65,5 +66,23 @@
         <attr name="is_circulation" format="boolean" />
     </declare-styleable>
 
+
+    <!--手势锁屏-->
+    <declare-styleable name="PatternIndicatorView">
+        <attr name="piv_color" format="color|reference" />
+        <attr name="piv_hitColor" format="color|reference" />
+        <attr name="piv_errorColor" format="color|reference" />
+        <attr name="piv_fillColor" format="color|reference" />
+        <attr name="piv_lineWidth" format="dimension|reference" />
+    </declare-styleable>
+
+    <declare-styleable name="PatternLockView">
+        <attr name="plv_color" format="color|reference" />
+        <attr name="plv_hitColor" format="color|reference" />
+        <attr name="plv_errorColor" format="color|reference" />
+        <attr name="plv_fillColor" format="color|reference" />
+        <attr name="plv_lineWidth" format="dimension|reference" />
+        <attr name="plv_enableAutoClean" format="boolean|reference" />
+    </declare-styleable>
 
 </resources>
