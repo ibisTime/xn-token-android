@@ -23,16 +23,20 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.BillListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWalletBillBinding;
+import com.cdkj.token.model.BillFilterModel;
 import com.cdkj.token.model.BillModel;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
+import com.cdkj.token.views.ScrollPicker;
+import com.cdkj.token.views.pop.PickerPop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -53,13 +57,15 @@ public class BillListActivity extends AbsLoadActivity {
     private WalletBalanceModel mAccountBean;
     private BillListAdapter mBillAdapter;
 
-    private BaseRefreshCallBack back;
+    private BaseRefreshCallBack refreshCallBackback;
     private RefreshHelper refreshHelper;
 
-    private String type = "";
+    private String filterType = "";
     private String kind = "0";
-    private String[] types;
-    private String[] bizType = {"", "charge", "withdraw", "withdrawfee"};
+
+    private List<ScrollPicker.ScrollPickerData> filterTypeList; //筛选pop数据
+    private PickerPop filterPickerPop;
+
 
     public static void open(Context context, WalletBalanceModel mAccountBean) {
         if (context == null) {
@@ -82,8 +88,7 @@ public class BillListActivity extends AbsLoadActivity {
         setStatusBarBlue();
         setTitleBgBlue();
 
-        types = new String[]{getStrRes(R.string.bill_type_all), getStrRes(R.string.bill_type_charge), getStrRes(R.string.bill_type_withdraw),
-                getStrRes(R.string.bill_type_withdrawfee)};
+        initFilterTypeList();
 
         if (getIntent() == null)
             return;
@@ -94,6 +99,23 @@ public class BillListActivity extends AbsLoadActivity {
         initData();
         initView();
         initListener();
+    }
+
+    void initFilterTypeList() {
+
+        filterTypeList = new ArrayList<>();
+
+        String[] bizType = new String[]{"", "charge", "withdraw", "withdrawfee"};
+
+        String[] types = new String[]{getStrRes(R.string.bill_type_all), getStrRes(R.string.bill_type_charge), getStrRes(R.string.bill_type_withdraw),
+                getStrRes(R.string.bill_type_withdrawfee)};
+
+        for (int i = 0; i < bizType.length; i++) {
+            BillFilterModel billFilterModel = new BillFilterModel();
+            billFilterModel.setItemText(types[i]);
+            billFilterModel.setType(bizType[i]);
+            filterTypeList.add(billFilterModel);
+        }
     }
 
     private void initView() {
@@ -132,7 +154,7 @@ public class BillListActivity extends AbsLoadActivity {
         if (mAccountBean != null) {
             mBaseBinding.titleView.setMidTitle(mAccountBean.getCoinName());
         }
-        refreshHelper = new RefreshHelper(this, back);
+        refreshHelper = new RefreshHelper(this, refreshCallBackback);
         refreshHelper.init(10);
         // 刷新
         refreshHelper.onDefaluteMRefresh(true);
@@ -144,7 +166,19 @@ public class BillListActivity extends AbsLoadActivity {
         //筛选
 
         mBinding.tvFilter.setOnClickListener(view -> {
-//            initPopup();
+            if (filterPickerPop == null) {
+                filterPickerPop = new PickerPop(this);
+                filterPickerPop.setPickerViewData(filterTypeList);
+                filterPickerPop.setOnSelectListener(selectPosition -> {
+                    if (selectPosition == null) {
+                        return;
+                    }
+                    filterType = selectPosition.getSelectType();
+                    refreshHelper.onDefaluteMRefresh(true);
+                });
+            }
+
+            filterPickerPop.showPopupWindow();
         });
 
         //充币
@@ -164,7 +198,7 @@ public class BillListActivity extends AbsLoadActivity {
 
     private void initCallBack() {
 
-        back = new BaseRefreshCallBack(this) {
+        refreshCallBackback = new BaseRefreshCallBack(this) {
             @Override
             public SmartRefreshLayout getRefreshLayout() {
 
@@ -208,7 +242,7 @@ public class BillListActivity extends AbsLoadActivity {
         Map<String, String> map = new HashMap<>();
         map.put("limit", limit + "");
         map.put("start", pageIndex + "");
-        map.put("bizType", type);
+        map.put("bizType", filterType);
         map.put("kind", kind);
         map.put("accountNumber", mAccountBean.getAccountNumber());
         map.put("token", SPUtilHelper.getUserToken());
@@ -240,4 +274,11 @@ public class BillListActivity extends AbsLoadActivity {
 
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (filterPickerPop != null) {
+            filterPickerPop.dismiss();
+        }
+    }
 }

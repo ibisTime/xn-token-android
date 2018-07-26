@@ -55,7 +55,7 @@ public class PickerPop extends BasePopupWindow {
     private void initClickListener() {
         mBinding.tvConfirm.setOnClickListener(view -> {
             if (onSelectListener != null) {
-                onSelectListener.onSureSelect(mBinding.snMonitor.getSelectedPosition());
+                onSelectListener.onSureSelect(mBinding.scrollpicker.getSelectedItem());
             }
             dismiss();
         });
@@ -85,11 +85,15 @@ public class PickerPop extends BasePopupWindow {
 
 
     public void setPickerViewData(List<ScrollPicker.ScrollPickerData> pickerViewData) {
-        mBinding.snMonitor.setData(pickerViewData);
+        mBinding.scrollpicker.setData(pickerViewData);
+    }
+
+    public void setIsCirculationt(boolean isCirculationt) {
+        mBinding.scrollpicker.setIsCirculationt(isCirculationt);
     }
 
     public interface onSelectListener {
-        void onSureSelect(int selectPosition);
+        void onSureSelect(ScrollPicker.ScrollPickerData selectPosition);
     }
 
 }

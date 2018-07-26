@@ -25,8 +25,9 @@ import java.util.List;
  */
 public class ScrollPicker extends View {
 
-   public interface ScrollPickerData {
+    public interface ScrollPickerData {
         String getShowString();
+        String getSelectType();
     }
 
     private int mMinTextSize = 24; // 最小的字体
@@ -103,6 +104,15 @@ public class ScrollPicker extends View {
             mIsCirculation = typedArray.getBoolean(R.styleable.ScrollPicker_is_circulation, true);
             typedArray.recycle();
         }
+    }
+
+
+    /**
+     * 是否循环
+     * @param issCirculation
+     */
+    public void setIsCirculationt(boolean issCirculation) {
+        this.mIsCirculation = issCirculation;
     }
 
     @Override

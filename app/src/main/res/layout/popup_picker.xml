@@ -5,19 +5,20 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#66000000"
         android:orientation="vertical">
 
         <View
             android:id="@+id/dissmiss_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="#66000000" />
+            android:layout_weight="1" />
 
         <LinearLayout
             android:id="@+id/content"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/white"
             android:orientation="vertical">
 
 
@@ -73,14 +74,14 @@
 
 
                 <com.cdkj.token.views.ScrollPicker
-                    android:id="@+id/sn_monitor"
+                    android:id="@+id/scrollpicker"
                     android:layout_width="wrap_content"
                     android:layout_height="250dp"
                     android:layout_gravity="center"
                     sp:end_color="#2164FF"
-                    sp:is_circulation="true"
-                    sp:max_text_size="15sp"
-                    sp:min_text_size="13sp"
+                    sp:is_circulation="false"
+                    sp:max_text_size="13sp"
+                    sp:min_text_size="12sp"
                     sp:start_color="@color/gray_999999"
                     sp:visible_item_count="5" />
 
