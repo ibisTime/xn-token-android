@@ -69,7 +69,10 @@ public class WalletToolActivity extends AbsLoadActivity {
         mBinding.llOut.setOnClickListener(view -> WalletExportPasswordCheckActivity.open(this));
 
         mBinding.btnDelete.setOnClickListener(view -> {
-            showPasswordInputDialog();
+            showDoubleWarnListen(getString(R.string.backup_introtation_dialog_title), getString(R.string.backup_introtation_dialog_content), view1 -> {
+                showPasswordInputDialog();
+            });
+
         });
     }
 
@@ -80,17 +83,12 @@ public class WalletToolActivity extends AbsLoadActivity {
         if (inputDialog == null) {
             inputDialog = new InputDialog(this).builder().setTitle(getStrRes(R.string.user_password_hint))
                     .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
-
                         String tradePwd = inputDialog.getContentView().getText().toString().trim();
-
                         if (TextUtils.isEmpty(tradePwd)) {
                             UITipDialog.showInfoNoIcon(WalletToolActivity.this, getString(R.string.user_password_hint));
                             return;
                         }
-
                         checkPassword(tradePwd);
-
-
                     })
                     .setNegativeBtn(getStrRes(R.string.cancel), null)
                     .setContentMsg("");
@@ -107,17 +105,14 @@ public class WalletToolActivity extends AbsLoadActivity {
      * @param tradePwd
      */
     private void checkPassword(String tradePwd) {
-
         if (WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {  //用户密码输入正确
-            showDoubleWarnListen(getString(R.string.backup_introtation_dialog_title), getString(R.string.backup_introtation_dialog_content), view1 -> {
-                WalletHelper.deleteUserWallet(SPUtilHelper.getUserId());
-                UITipDialog.showSuccess(this, getString(R.string.wallet_delete_success), dialogInterface -> {
-                    EventBus.getDefault().post(new AllFinishEvent());
-                    MainActivity.open(this);
-                    finish();
-                });
+            WalletHelper.deleteUserWallet(SPUtilHelper.getUserId());
+            UITipDialog.showSuccess(this, getString(R.string.wallet_delete_success), dialogInterface -> {
+                EventBus.getDefault().post(new AllFinishEvent());
+                MainActivity.open(this);
+                finish();
             });
-            return;
+
         } else {
             UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
         }
