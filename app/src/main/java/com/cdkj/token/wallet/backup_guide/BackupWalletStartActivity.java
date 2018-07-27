@@ -10,14 +10,17 @@ import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.view.WindowManager;
 
+import com.alibaba.fastjson.JSON;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.utils.DisplayHelper;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.HelpWordsGridAdapter;
 import com.cdkj.token.databinding.ActivityBackupWalletStartBinding;
+import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.recycler.GridDivider;
 
@@ -34,19 +37,19 @@ import java.util.List;
 public class BackupWalletStartActivity extends AbsLoadActivity {
 
     private ActivityBackupWalletStartBinding mBinding;
-    private boolean isFromBackup;
+    private boolean isFromWalletToolBackup;
 
 
     /**
      * @param context
-     * @param isFromBackup 是否来自备份界面
+     * @param isFromWalletToolBackup 是否来自钱包工具备份界面
      */
-    public static void open(Context context, boolean isFromBackup) {
+    public static void open(Context context, boolean isFromWalletToolBackup) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, BackupWalletStartActivity.class);
-        intent.putExtra(CdRouteHelper.DATASIGN, isFromBackup);
+        intent.putExtra(CdRouteHelper.DATASIGN, isFromWalletToolBackup);
         context.startActivity(intent);
     }
 
@@ -67,7 +70,7 @@ public class BackupWalletStartActivity extends AbsLoadActivity {
 
         setTitleBgBlue();
 
-        isFromBackup = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN, false);
+        isFromWalletToolBackup = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN, false);
 
         mBaseBinding.titleView.setMidTitle(R.string.wallet_backup);
 
@@ -87,17 +90,37 @@ public class BackupWalletStartActivity extends AbsLoadActivity {
      * 设置数据显示
      */
     void setWordsData() {
-        List<String> wordsList = WalletHelper.getHelpWordsListByUserId(SPUtilHelper.getUserId());
+
+        List<String> wordsList = getWordsisFromBackup();
+
         if (wordsList != null && wordsList.size() > 0) {
             mBinding.recyclerView.addItemDecoration(new GridDivider(this, DisplayHelper.dp2px(this, 1), ContextCompat.getColor(this, R.color.gray_dee0e5)));
             mBinding.recyclerView.setAdapter(new HelpWordsGridAdapter(wordsList));
         }
     }
 
+
+    /**
+     * 不同界面获取不同数据
+     * @return
+     */
+    public List<String> getWordsisFromBackup() {
+        if (isFromWalletToolBackup) {
+            return WalletHelper.getHelpWordsListByUserId(SPUtilHelper.getUserId());
+        }
+
+        WalletDBModel walletDBModel = JSON.parseObject(SPUtilHelper.getWalletCache(), WalletDBModel.class);
+
+        if (walletDBModel == null) return null;
+
+        return StringUtils.splitAsList(walletDBModel.getHelpWordsEn(), WalletHelper.HELPWORD_SPACE_SYMBOL);
+    }
+
+
     private void initClickListener() {
 
         mBinding.btnNext.setOnClickListener(view -> {
-            BackupWalletWordsCheckActivity.open(this, isFromBackup);
+            BackupWalletWordsCheckActivity.open(this, isFromWalletToolBackup);
             finish();
         });
     }

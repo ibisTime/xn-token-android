@@ -385,6 +385,22 @@ public class SPUtilHelper {
     }
 
     /**
+     * 创建钱包时的钱包信息暂时备份，备份之后会被清除（用户只有在备份之后这个钱包信息才被认可）
+     *
+     * @param s
+     */
+    public static void createWalletCache(String s) {
+        SPUtils.put(CdApplication.getContext(), "create_wallet_cache", s);
+    }
+
+    /**
+     * 获取创建钱包时的钱包信息暂时备份
+     */
+    public static String getWalletCache() {
+        return SPUtils.getString(CdApplication.getContext(), "create_wallet_cache", "");
+    }
+
+    /**
      * 是否设置过用户手势密码
      */
     public static boolean isSetPatternPwd() {

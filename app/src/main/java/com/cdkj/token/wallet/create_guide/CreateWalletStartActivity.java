@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.health.UidHealthStats;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -11,6 +12,7 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.alibaba.fastjson.JSON;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -163,7 +165,7 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
         }
 
         if (!isAggree) {
-            UITipDialog.showInfoNoIcon(CreateWalletStartActivity.this, getString(R.string.agree_clause));
+            UITipDialog.showInfoNoIcon(CreateWalletStartActivity.this, getString(R.string.please_read_and_aggree));
             return true;
         }
         return false;
@@ -189,17 +191,20 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
 
                             walletDBModel2.setWalletName(mBinding.editWalletName.getText());
 
-                            return walletDBModel2.save(); //
+                            return JSON.toJSONString(walletDBModel2); //转为String暂存 用户只有进行备份之后才会使用
+
                         })
                         .observeOn(AndroidSchedulers.mainThread())
+
                         .doOnComplete(() -> disMissLoading())
-                        .subscribe(isSave -> {
-                            if (isSave) {
+                        .subscribe(walletString -> {
+                            if (!TextUtils.isEmpty(walletString)) {
+                                SPUtilHelper.createWalletCache(walletString); //转为String暂存 用户只有进行备份之后才会使用
                                 CreateWalletSuccessActivity.open(CreateWalletStartActivity.this);
+                                finish();
                             } else {
                                 UITipDialog.showFail(this, getString(R.string.wallet_create_fail));
                             }
-                            finish();
                         }, throwable -> {
                             ToastUtil.show(this, getString(R.string.wallet_create_fail));
                             finish();
