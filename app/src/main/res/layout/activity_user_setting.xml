@@ -178,7 +178,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:layout_weight="1"
-                        android:text="手势密码"
+                        android:text="@string/pattern_pwd"
                         android:textColor="@color/gray_666666"
                         android:textSize="14sp" />
 

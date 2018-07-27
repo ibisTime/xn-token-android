@@ -36,6 +36,8 @@ import java.util.HashMap;
 
 import retrofit2.Call;
 
+import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
+
 @Route(path = CdRouteHelper.APPLOGIN)
 public class SignInActivity extends AbsStatusBarTranslucentActivity implements LoginInterface, SendCodeInterface {
 
@@ -71,6 +73,8 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
+        sheShowTitle(false);
+
         setPageBgImage(R.drawable.sign_in_bg);
 
         mPresenter = new LoginPresenter(this);
@@ -78,6 +82,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         init();
         initEditInputType();
         initListener();
+
     }
 
     @Override

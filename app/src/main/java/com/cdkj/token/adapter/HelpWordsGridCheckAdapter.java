@@ -19,7 +19,7 @@ public class HelpWordsGridCheckAdapter extends BaseQuickAdapter<HelpWordsCheckMo
 
 
     public HelpWordsGridCheckAdapter(@Nullable List<HelpWordsCheckModel> data) {
-        super(R.layout.layout_words_text, data);
+        super(R.layout.layout_words_text_2, data);
     }
 
     @Override

@@ -6,6 +6,7 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.SPUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MyApplication;
+import com.cdkj.token.R;
 import com.cdkj.token.utils.StringUtil;
 
 import java.util.List;
@@ -60,7 +61,7 @@ public class PatternHelper {
 
         if ((hitList == null) || (hitList.size() < MAX_SIZE)) {
             this.times++;
-            this.isFinish = this.times >= MAX_SIZE;
+            this.isFinish = this.times > MAX_SIZE;
             this.message = getPwdErrorMsg();
             return;
         }
@@ -72,7 +73,7 @@ public class PatternHelper {
             this.isFinish = true;
         } else {
             this.times++;
-            this.isFinish = this.times >= MAX_SIZE;
+            this.isFinish = this.times > MAX_SIZE;
             this.message = getPwdErrorMsg();
         }
     }
@@ -90,27 +91,27 @@ public class PatternHelper {
     }
 
     private String getReDrawMsg() {
-        return "请再次绘制手势密码";
+        return MyApplication.getInstance().getString(R.string.draw_pattern_pwd_2);
     }
 
     private String getSettingSuccessMsg() {
-        return "手势手势密码设置成功！";
+        return MyApplication.getInstance().getString(R.string.set_pattern_pwd_success);
     }
 
     private String getCheckingSuccessMsg() {
-        return "解锁成功！";
+        return MyApplication.getInstance().getString(R.string.pattern_unlock_success);
     }
 
     private String getSizeErrorMsg() {
-        return String.format("至少连接个%d点，请重新绘制", MAX_SIZE);
+        return MyApplication.getInstance().getString(R.string.draw_pattern_pwd_max_hint, MAX_SIZE);
     }
 
     private String getDiffPreErrorMsg() {
-        return "与上次绘制不一致，请重新绘制";
+        return MyApplication.getInstance().getString(R.string.reset_pattern_pwd);
     }
 
     private String getPwdErrorMsg() {
-        return String.format("密码错误，还剩%d次机会", getRemainTimes());
+        return MyApplication.getInstance().getString(R.string.pattern_pwd_error_number, getRemainTimes());
     }
 
     private String convert2String(List<Integer> hitList) {
@@ -126,7 +127,7 @@ public class PatternHelper {
     }
 
     private int getRemainTimes() {
-        return (times <= 5) ? (MAX_TIMES - times) : 0;
+        return (times <= MAX_TIMES) ? (MAX_TIMES - times) : 0;
     }
 
     public boolean isAllClear() {

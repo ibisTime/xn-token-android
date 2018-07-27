@@ -3,7 +3,7 @@
     <string name="app_name">THA</string>
     <string name="main_tag_consult">Discover</string>
     <string name="main_tab_wallet"> wallet </string>
-    <string name="main_tab_my">My</string>
+    <string name="main_tab_my">Me</string>
     <string name="exit_confirm">Confirm exit?</string>
     <string name="tip"> hint </string>
     <string name="tip_update"> update hint </string>
@@ -550,6 +550,20 @@
     <string name="transfer_user_funds">--</string>
     <string name="red_packet">red_packet</string>
     <string name="welcome_back">Welcome back</string>
+    <string name="set_pattern_pwd">--</string>
+    <string name="draw_your_pattern_pwd">--</string>
+    <string name="draw_pattern_pwd">--</string>
+    <string name="forget_pattern_pwd"></string>
+    <string name="change_login_type"></string>
+    <string name="draw_pattern_pwd_2">--</string>
+    <string name="set_pattern_pwd_success">--</string>
+    <string name="pattern_unlock_success">--</string>
+    <string name="draw_pattern_pwd_max_hint">--%d</string>
+    <string name="reset_pattern_pwd">--</string>
+    <string name="pattern_pwd_error_number">--%d</string>
+    <string name="please_read_and_aggree">--</string>
+    <string name="wallet_name_input_hint">--</string>
+    <string name="red_packet_tab_title_info">--</string>
 </resources>
 
 

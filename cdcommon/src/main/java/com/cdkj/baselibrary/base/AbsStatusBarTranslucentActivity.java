@@ -65,9 +65,7 @@ public abstract class AbsStatusBarTranslucentActivity extends BaseActivity {
     }
 
     public void sheShowTitle(boolean isShow) {
-        if (isShow) {
-
-        }
+        mBaseBinding.fraLayoutTitle.setVisibility(isShow?View.VISIBLE:View.GONE);
     }
 
 }

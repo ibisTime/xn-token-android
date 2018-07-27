@@ -5,10 +5,8 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
-import android.view.animation.OvershootInterpolator;
 import android.view.animation.TranslateAnimation;
 
 import com.cdkj.baselibrary.base.AbsLoadActivity;
@@ -51,7 +49,7 @@ public class PatternLockSettingActivity extends AbsLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        mBaseBinding.titleView.setMidTitle("设置手势密码");
+        mBaseBinding.titleView.setMidTitle(R.string.set_pattern_pwd);
         patternHelper = new PatternHelper();
         mBinding.patternLockView.setOnPatternChangedListener(new OnPatternChangeListener() {
             @Override

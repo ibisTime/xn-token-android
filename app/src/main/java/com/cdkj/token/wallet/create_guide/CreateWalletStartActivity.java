@@ -4,23 +4,34 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreateWalletStartBinding;
 import com.cdkj.token.model.db.WalletDBModel;
+import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.import_guide.ImportWalletStartActivity;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
+import static com.cdkj.baselibrary.utils.StringUtils.stringFilter;
 
 /**
  * 创建钱包开始界面
@@ -55,13 +66,41 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
         setStatusBarBlue();
         setTitleBgBlue();
 
-        mBinding.editPassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-        mBinding.editRepassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        initEditText();
 
         mBaseBinding.titleView.setMidTitle(R.string.create_wallet);
 
         initClickListener();
 
+    }
+
+    void initEditText() {
+        mBinding.editPassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        mBinding.editRepassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        mBinding.editPassword.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+        mBinding.editRepassword.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+
+        mBinding.editWalletName.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String editable = mBinding.editWalletName.getText().toString();
+                String str = stringFilter(editable.toString());
+                if (!editable.equals(str)) {
+                    mBinding.editWalletName.getEditText().setText(str);
+                    //设置新的光标所在位置
+                    mBinding.editWalletName.getEditText().setSelection(str.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void initClickListener() {
@@ -100,7 +139,7 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
      */
     private boolean checkCanPass() {
         if (TextUtils.isEmpty(mBinding.editWalletName.getText().toString())) {
-            UITipDialog.showInfoNoIcon(this, getString(R.string.wallet_name));
+            UITipDialog.showInfoNoIcon(this, getString(R.string.wallet_name_input_hint));
             return true;
         }
 

@@ -534,4 +534,19 @@
     <string name="transfer_user_funds">转入资金</string>
     <string name="red_packet">红包</string>
     <string name="welcome_back">欢迎回来</string>
+    <string name="set_pattern_pwd">设置手势密码</string>
+    <string name="draw_your_pattern_pwd">请绘制您的手势密码</string>
+    <string name="draw_pattern_pwd">绘制手势密码</string>
+    <string name="forget_pattern_pwd">忘记手势密码</string>
+    <string name="change_login_type">切换登录</string>
+    <string name="draw_pattern_pwd_2">请再次绘制手势密码</string>
+    <string name="set_pattern_pwd_success">手势密码设置成功！</string>
+    <string name="pattern_unlock_success">解锁成功！</string>
+    <string name="draw_pattern_pwd_max_hint">至少连接个%d点，请重新绘制</string>
+    <string name="reset_pattern_pwd">与上次绘制不一致，请重新绘制</string>
+    <string name="pattern_pwd_error_number">密码错误，还剩%d次机会</string>
+    <string name="please_read_and_aggree">请阅读并同意服务及隐私条款</string>
+    <string name="wallet_name_input_hint">请输入钱包名称</string>
+    <string name="red_packet_tab_title_info">将数字货币塞入其中，发给好友</string>
+    <string name="pattern_pwd">手势密码</string>
 </resources>

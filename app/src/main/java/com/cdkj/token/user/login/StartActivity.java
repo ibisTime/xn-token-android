@@ -217,6 +217,7 @@ public class StartActivity extends BaseActivity {
             if (TextUtils.equals(countryId, datum.getInterSimpleCode())) {
                 SPUtilHelper.saveCountryCode(datum.getInterCode());
                 SPUtilHelper.saveCountryFlag(datum.getPic());
+                MyConfig.changeLanguageForCountry(this, datum.getInterCode());
                 break;
             }
         }

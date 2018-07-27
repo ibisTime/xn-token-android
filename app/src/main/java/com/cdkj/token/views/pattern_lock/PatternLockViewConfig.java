@@ -16,7 +16,7 @@ class PatternLockViewConfig {
     private static final String DEFAULT_ERROR_COLOR = "#F44336";
     private static final String DEFAULT_FILL_COLOR = "#FFFFFF";
     private static final int DEFAULT_LINE_WIDTH = 1;
-    private static final int DEFAULT_DELAY_TIME = 1000;//ms
+    private static final int DEFAULT_DELAY_TIME = 800;//ms
     private static final boolean DEFAULT_ENABLE_AUTO_CLEAN = true;
 
     public static @ColorInt

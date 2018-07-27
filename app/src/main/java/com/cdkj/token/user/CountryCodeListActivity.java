@@ -5,20 +5,25 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
+import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsRefreshListActivity;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.model.CountrySelectEvent;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.CountryCodeListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.CountryCodeMode;
+import com.cdkj.token.user.login.SignInActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -27,6 +32,8 @@ import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
+
+import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
 
 /**
  * 国家区号列表
@@ -68,10 +75,15 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
 
                 EventBus.getDefault().post(countrySelectEvent);     //发送国家选择通知
             }
+
+            MyConfig.changeLanguageForCountry(this, countryCodeListAdapter.getSelectCountryCode(position));
+            EventBus.getDefault().post(new AllFinishEvent());
+            SignInActivity.open(this, true);
             finish();
         });
         return countryCodeListAdapter;
     }
+
 
     @Override
     protected boolean canLoadTopTitleView() {

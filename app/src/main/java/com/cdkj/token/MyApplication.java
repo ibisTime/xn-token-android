@@ -31,16 +31,8 @@ public class MyApplication extends Application {
         super.onCreate();
         application = this;
         LogUtil.isLog = BuildConfig.IS_DEBUG;
-        initLitePal();
-        CdApplication.initialize(this);
-        AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置用户使用语言
-        if (LogUtil.isLog) {
-            ARouter.openLog();     // 打印日志
-            ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
-        }
-        ARouter.init(this); //
-        initZXing();
-        EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
+
+        init();
 
         AppFrontBackHelper helper = new AppFrontBackHelper();
 
@@ -61,7 +53,19 @@ public class MyApplication extends Application {
             }
         });
         LogUtil.E("Aapplication启动");
+    }
 
+    void init() {
+        initLitePal();
+        CdApplication.initialize(this);
+        if (LogUtil.isLog) {
+            ARouter.openLog();     // 打印日志
+            ARouter.openDebug();   // 开启调试模式(如果在InstantRun模式下运行，必须开启调试模式！线上版本需要关闭,否则有安全风险)
+        }
+        ARouter.init(this); //
+        initZXing();
+        EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
+        AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置用户使用语言
     }
 
     private void initLitePal() {

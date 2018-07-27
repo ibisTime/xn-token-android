@@ -40,34 +40,6 @@
 
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/layout_item_height"
-                android:background="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/export_private_key"
-                    android:textColor="@color/gray_666666"
-                    android:textSize="14sp" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/more" />
-
-            </LinearLayout>
-
-            <View
-                style="@style/style_split_line"
-                android:layout_marginLeft="15dp"
-                android:layout_marginRight="15dp" />
-
-            <LinearLayout
                 android:id="@+id/ll_modify"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/layout_item_height"

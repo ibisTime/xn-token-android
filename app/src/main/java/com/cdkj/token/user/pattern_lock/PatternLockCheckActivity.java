@@ -1,11 +1,9 @@
 package com.cdkj.token.user.pattern_lock;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
@@ -15,15 +13,11 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.ImgUtils;
-import com.cdkj.baselibrary.utils.SPUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityPatternLockCheckBinding;
-import com.cdkj.token.databinding.ActivityPatternLockSettingBinding;
 import com.cdkj.token.model.PatternLockCheckFinish;
 import com.cdkj.token.user.login.SignInActivity;
-import com.cdkj.token.user.login.StartActivity;
 import com.cdkj.token.views.pattern_lock.OnPatternChangeListener;
 import com.cdkj.token.views.pattern_lock.PatternHelper;
 import com.cdkj.token.views.pattern_lock.PatternLockView;
@@ -35,7 +29,7 @@ import java.util.List;
 
 
 /**
- * 手势密码锁
+ * 手势密码锁验证
  * Created by cdkj on 2018/7/26.
  */
 
@@ -71,9 +65,26 @@ public class PatternLockCheckActivity extends AbsLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        ImgUtils.loadLogo(this,SPUtilHelper.getQiniuUrl(), mBinding.imgLogo);
-        mBinding.tvUserPhone.setText(StringUtils.transformShowCountryCode(StringUtils.ttransformShowPhone(SPUtilHelper.getUserPhoneNum())));
+        ImgUtils.loadLogo(this, SPUtilHelper.getQiniuUrl(), mBinding.imgLogo);
+        mBinding.tvUserPhone.setText(StringUtils.ttransformShowPhone(SPUtilHelper.getUserPhoneNum()));
 
+        initPatternListener();
+
+        initClickListener();
+
+    }
+
+
+    private void initClickListener() {
+
+        mBinding.tvChangeLogin.setOnClickListener(view -> {
+            toSignInPage();
+            finish();
+        });
+
+    }
+
+    void initPatternListener() {
         patternHelper = new PatternHelper();
         mBinding.patternLockView.setOnPatternChangedListener(new OnPatternChangeListener() {
             @Override
@@ -95,9 +106,7 @@ public class PatternLockCheckActivity extends AbsLoadActivity {
             public void onClear(PatternLockView view) {
                 if (patternHelper.isFinish()) {
                     if (patternHelper.isAllClear()) {
-                        SPUtilHelper.logOutClear();
-                        EventBus.getDefault().post(new AllFinishEvent());
-                        SignInActivity.open(PatternLockCheckActivity.this, true);
+                        toSignInPage();
                     }
                     finish();
                 }
@@ -105,12 +114,18 @@ public class PatternLockCheckActivity extends AbsLoadActivity {
         });
     }
 
+    /**
+     * 跳向登录界面
+     */
+    void toSignInPage() {
+        SPUtilHelper.logOutClear();
+        EventBus.getDefault().post(new AllFinishEvent());
+        SignInActivity.open(PatternLockCheckActivity.this, true);
+    }
+
 
     private void updateMsg() {
         mBinding.textMsg.setText(this.patternHelper.getMessage());
-//        mBinding.textMsg.setTextColor(this.patternHelper.isOk() ?
-//                getResources().getColor(R.color.gray_666666) :
-//                getResources().getColor(R.color.red));
 
         if (!this.patternHelper.isOk()) {
             TranslateAnimation animation = new TranslateAnimation(0, -15, 0, 0); //错误时执行抖动动画

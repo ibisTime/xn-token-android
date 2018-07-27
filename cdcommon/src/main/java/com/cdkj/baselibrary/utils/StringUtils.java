@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.regex.PatternSyntaxException;
 
 /**
  * Created by cdkj on 2017/6/9.
@@ -319,6 +320,7 @@ public class StringUtils {
 
     public static final String REGEX_IP = "((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)";
 
+
     /**
      * 验证IP地址
      *
@@ -327,6 +329,15 @@ public class StringUtils {
      */
     public static boolean isIP(final CharSequence input) {
         return isMatch(REGEX_IP, input);
+    }
+
+
+    public static String stringFilter(String str) throws PatternSyntaxException {
+        // 只允许字母、数字和汉字
+        String regEx = "[^a-zA-Z0-9\u4E00-\u9FA5]";
+        Pattern p = Pattern.compile(regEx);
+        Matcher m = p.matcher(str);
+        return m.replaceAll("").trim();
     }
 
 }

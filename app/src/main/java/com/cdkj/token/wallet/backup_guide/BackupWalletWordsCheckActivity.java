@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
 import android.widget.TextView;
@@ -85,7 +86,9 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
                 return false;
             }
         });
-        mBinding.recyclerView.addItemDecoration(new GridDivider(this, DisplayHelper.dp2px(this, 5), ContextCompat.getColor(this, R.color.red)));
+        mBinding.recyclerView.addItemDecoration(new GridDivider(this, DisplayHelper.dp2px(this, 1), ContextCompat.getColor(this, R.color.gray_dee0e5)));
+
+        ((DefaultItemAnimator) mBinding.recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         initAdapter();
 
     }
@@ -130,7 +133,6 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
                 .subscribe(isPass -> {
 
                     if (isPass) {
-
                         showSureDialog(getString(R.string.wallet_backup_success), new CommonDialog.OnPositiveListener() {
                             @Override
                             public void onPositive(View view) {

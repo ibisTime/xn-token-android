@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
+import com.cdkj.baselibrary.dialog.InputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
@@ -21,6 +22,7 @@ import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityTransferBinding;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.WalletDBModel;
+import com.cdkj.token.user.WalletToolActivity;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.utils.wallet.WalletHelper;
@@ -57,6 +59,8 @@ public class WalletTransferActivity extends AbsLoadActivity {
     private WalletBalanceModel accountListBean;
 
     private PermissionHelper mPermissionHelper;
+
+    private InputDialog passWordInputDialog;
 
 
     //需要的权限
@@ -110,52 +114,61 @@ public class WalletTransferActivity extends AbsLoadActivity {
 
         mBinding.btnNext.setOnClickListener(view -> {
 
-            if (TextUtils.isEmpty(mBinding.editToAddress.getText().toString().trim())) {
-                UITipDialog.showInfo(this, getString(R.string.please_to_address));
-                return;
-            }
-
-            if (!WalletUtils.isValidAddress(mBinding.editToAddress.getText().toString().trim())) {
-                UITipDialog.showInfo(this, getStrRes(R.string.error_wallet_address));
-                return;
-            }
-
-            if (TextUtils.isEmpty(mBinding.edtAmount.getText().toString().trim())) {
-                UITipDialog.showInfo(this, getString(R.string.please_input_transaction_number));
-                return;
-            }
-
-            try {
-
-                if (accountListBean == null || TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-                    UITipDialog.showInfo(this, getStrRes(R.string.no_balance));
-                    return;
-                }
-
-                BigInteger amountBigInteger = AccountUtil.bigIntegerFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim())); //转账数量
-
-                if (amountBigInteger.compareTo(BigInteger.ZERO) == 0 || amountBigInteger.compareTo(BigInteger.ZERO) == -1) {
-                    UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
-                    return;
-                }
-
-                BigInteger allBigInteger = transferGasPrice.add(amountBigInteger);//手续费+转账数量
-
-                int checkInt = allBigInteger.compareTo(new BigDecimal(accountListBean.getCoinBalance()).toBigInteger()); //比较
-
-                if (checkInt == 1 || checkInt == 0) {
-                    UITipDialog.showInfo(this, getString(R.string.no_balance));
-                    return;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-                UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
-                return;
-            }
-
-            transfer();
+            if (transferInputCheck()) return;
+            showPasswordInputDialog();
 
         });
+    }
+
+    /**
+     * 转账输入状态检测
+     *
+     * @return
+     */
+    boolean transferInputCheck() {
+        if (TextUtils.isEmpty(mBinding.editToAddress.getText().toString().trim())) {
+            UITipDialog.showInfo(this, getString(R.string.please_to_address));
+            return true;
+        }
+
+        if (!WalletUtils.isValidAddress(mBinding.editToAddress.getText().toString().trim())) {
+            UITipDialog.showInfo(this, getStrRes(R.string.error_wallet_address));
+            return true;
+        }
+
+        if (TextUtils.isEmpty(mBinding.edtAmount.getText().toString().trim())) {
+            UITipDialog.showInfo(this, getString(R.string.please_input_transaction_number));
+            return true;
+        }
+
+        try {
+
+            if (accountListBean == null || TextUtils.isEmpty(accountListBean.getCoinBalance())) {
+                UITipDialog.showInfo(this, getStrRes(R.string.no_balance));
+                return true;
+            }
+
+            BigInteger amountBigInteger = AccountUtil.bigIntegerFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim())); //转账数量
+
+            if (amountBigInteger.compareTo(BigInteger.ZERO) == 0 || amountBigInteger.compareTo(BigInteger.ZERO) == -1) {
+                UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
+                return true;
+            }
+
+            BigInteger allBigInteger = transferGasPrice.add(amountBigInteger);//手续费+转账数量
+
+            int checkInt = allBigInteger.compareTo(new BigDecimal(accountListBean.getCoinBalance()).toBigInteger()); //比较
+
+            if (checkInt == 1 || checkInt == 0) {
+                UITipDialog.showInfo(this, getString(R.string.no_balance));
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
+            return true;
+        }
+        return false;
     }
 
 
@@ -243,6 +256,39 @@ public class WalletTransferActivity extends AbsLoadActivity {
                         })
         );
     }
+
+
+    /**
+     * 显示密码输入框
+     */
+    private void showPasswordInputDialog() {
+        if (passWordInputDialog == null) {
+            passWordInputDialog = new InputDialog(this).builder().setTitle(getStrRes(R.string.trade_code_hint))
+                    .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
+
+                        String tradePwd = passWordInputDialog.getContentView().getText().toString().trim();
+
+                        if (TextUtils.isEmpty(tradePwd)) {
+                            UITipDialog.showInfoNoIcon(WalletTransferActivity.this, getString(R.string.trade_code_hint));
+                            return;
+                        }
+
+                        if (!WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {
+                            UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
+                            return;
+                        }
+
+                        transfer();
+                    })
+                    .setNegativeBtn(getStrRes(R.string.cancel), null)
+                    .setContentMsg("");
+        }
+        passWordInputDialog.getContentView().setText("");
+        passWordInputDialog.getContentView().setHint(getStrRes(R.string.trade_code_hint));
+        passWordInputDialog.getContentView().setText("");
+        passWordInputDialog.show();
+    }
+
 
     /**
      * 设置矿工费显示

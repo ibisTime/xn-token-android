@@ -1,7 +1,7 @@
 package com.cdkj.token;
 
 /**
- * Created by 李先俊 on 2018/7/26.
+ * Created by cdkj on 2018/7/26.
  */
 
 
@@ -9,7 +9,6 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.token.user.login.StartActivity;
 
 /**
@@ -30,7 +29,6 @@ public class AppFrontBackHelper {
 
     }
 
-
     /**
      * 注册状态监听，仅在Application中使用
      *
@@ -41,7 +39,6 @@ public class AppFrontBackHelper {
     public void register(Application application, OnAppStatusListener listener) {
         mOnAppStatusListener = listener;
         application.registerActivityLifecycleCallbacks(activityLifecycleCallbacks);
-
     }
 
 

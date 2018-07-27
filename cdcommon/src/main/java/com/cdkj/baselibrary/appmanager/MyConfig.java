@@ -7,6 +7,7 @@ import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
+import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 
 import java.util.Locale;
@@ -41,14 +42,6 @@ public class MyConfig {
     // 拍照文件保存路径
     public static final String CACHDIR = "tha_photo";
 
-    /**
-     * 获取转账节点类型
-     *
-     * @return
-     */
-    public static int getThisNodeType() {
-        return NODE_REALSE;
-    }
 
     // 环境访问地址
     public static final String BASE_URL_DEV = "http://120.26.6.213:2101/forward-service/"; // 研发
@@ -57,13 +50,27 @@ public class MyConfig {
     public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
 
 
+
+
+    /**
+     * 获取转账节点类型
+     *
+     * @return
+     */
+    public static int getThisNodeType() {
+        if (LogUtil.isLog) {
+            return NODE_DEV;
+        }
+        return NODE_REALSE;
+    }
+
     /**
      * 获取网络请求URL
      *
      * @return
      */
     public static String getBaseURL() {
-        if (false) {
+        if (LogUtil.isLog) {
             switch (SPUtilHelper.getAPPBuildType()) {
                 case BUILD_TYPE_TEST: // 测试
                     return MyConfig.BASE_URL_TEST;
@@ -92,4 +99,29 @@ public class MyConfig {
                 return Locale.ENGLISH;
         }
     }
+
+    /**
+     * 选择国家的时候改变语言
+     *
+     * @param countryCode
+     */
+    public static void changeLanguageForCountry(Context context, String countryCode) {
+        if (!TextUtils.isEmpty(countryCode)) {
+            switch (countryCode) {
+                case "0086":  //中国
+                case "00886":  //中国台湾
+                case "00852":  //中国香港
+                case "00853":   //中国澳门
+                    SPUtilHelper.saveLanguage(MyConfig.SIMPLIFIED);  //简体中文
+                    break;
+                case "0082":
+                    SPUtilHelper.saveLanguage(MyConfig.KOREA);  //韩语
+                    break;
+                default:
+                    SPUtilHelper.saveLanguage(MyConfig.ENGLISH);  //英语
+            }
+            AppUtils.setAppLanguage(context, getUserLanguageLocal());   //设置用户使用语言
+        }
+    }
+
 }

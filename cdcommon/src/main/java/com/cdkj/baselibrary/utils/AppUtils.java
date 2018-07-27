@@ -203,8 +203,8 @@ public class AppUtils {
      * @return
      */
     public static Disposable startCodeDown(final int count, final Button btn,
-                                    final int enableTrueRes, final int enableFalseRes,
-                                    final int enableTrueTextColor, final int enableFalseTextColor) {
+                                           final int enableTrueRes, final int enableFalseRes,
+                                           final int enableTrueTextColor, final int enableFalseTextColor) {
         return Observable.interval(0, 1, TimeUnit.SECONDS, AndroidSchedulers.mainThread())    // 创建一个按照给定的时间间隔发射从0开始的整数序列
                 .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -515,17 +515,19 @@ public class AppUtils {
     }
 
 
-
     /**
      * 设置APP使用的语言
      */
     public static void setAppLanguage(Context context, Locale locale) {
         if (context == null || locale == null) return;
-        Resources res = context.getResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = locale;
-        res.updateConfiguration(conf, dm);
+        try {
+            Resources res = context.getResources();
+            DisplayMetrics dm = res.getDisplayMetrics();
+            Configuration conf = res.getConfiguration();
+            conf.locale = locale;
+            res.updateConfiguration(conf, dm);
+        } catch (Exception e) {
+        }
     }
 
 

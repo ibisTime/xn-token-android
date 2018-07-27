@@ -21,7 +21,7 @@
     <color name="dialog_tips_content_txt">#333333</color>
     <color name="dialog_tips_bg">#FFFFFFFF</color>
     <color name="dialog_tips_title_txt">#030303</color>
-    <color name="dialog_tips_btn">#d6d6d6</color>
+    <color name="dialog_tips_btn">#e1e1e1</color>
     <color name="dialog_tips_line">#EAEAEA</color>
     <color name="dialog_tips_negative_btn_txt">#999999</color>
     <color name="input_dialog_negative_btn_txt">#999999</color>
