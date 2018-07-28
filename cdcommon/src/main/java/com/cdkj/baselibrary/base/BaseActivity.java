@@ -53,10 +53,12 @@ public abstract class BaseActivity extends AppCompatActivity {
         UIStatusBarHelper.translucent(this);
 
         mSubscription = new CompositeDisposable();
-        loadingDialog = new LoadingDialog(this);
+
         EventBus.getDefault().register(this);
+
         mCallList = new ArrayList<>();
 
+        AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置用户使用语言
     }
 
 
@@ -142,7 +144,8 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         commonDialog.show();
     }
-    protected void showDoubleWarnListen(String title,String content, CommonDialog.OnPositiveListener onPositiveListener) {
+
+    protected void showDoubleWarnListen(String title, String content, CommonDialog.OnPositiveListener onPositiveListener) {
 
         if (isFinishing()) {
             return;

@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -12,15 +11,16 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
-import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityImportStartBinding;
 import com.cdkj.token.model.db.WalletDBModel;
+import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.util.ArrayList;
@@ -116,6 +116,7 @@ public class ImportWalletStartActivity extends AbsLoadActivity {
             isAggree = !isAggree;
         });
 
+        //导入
         mBinding.btnImport.setOnClickListener(view -> {
 
             mPassword = mBinding.editPassword.getText();
@@ -125,6 +126,18 @@ public class ImportWalletStartActivity extends AbsLoadActivity {
             checkWordsAndSave();
 
         });
+
+        //隐私协议
+        mBinding.tvRead.setOnClickListener(view -> {
+            WebViewActivity.openkey(this, getString(R.string.privacy_agreement), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_PRIVACY));
+        });
+
+        //什么是助记词
+        mBinding.tvWahtIsWords.setOnClickListener(view -> {
+            WebViewActivity.openkey(this, getString(R.string.what_is_the_words), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_MNEMONIC));
+        });
+
+
 
     }
 

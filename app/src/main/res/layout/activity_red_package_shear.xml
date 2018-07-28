@@ -41,6 +41,7 @@
                 android:textColor="@color/red_text" />
 
             <TextView
+                android:visibility="invisible"
                 android:id="@+id/tv_red_packet_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

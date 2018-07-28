@@ -507,4 +507,7 @@
     <string name="please_read_and_aggree">--</string>
     <string name="wallet_name_input_hint">--</string>
     <string name="red_packet_tab_title_info">--</string>
+    <string name="coin_list">코인 리스트</string>
+    <string name="redpacket_back">--</string>
+    <string name="redpacket_get">--</string>
 </resources>

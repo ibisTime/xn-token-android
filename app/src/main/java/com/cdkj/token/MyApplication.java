@@ -41,6 +41,7 @@ public class MyApplication extends Application {
             @Override
             public void onFront() {
                 if (SPUtilHelper.isLoginNoStart() && SPUtilHelper.isSetPatternPwd()) {  //已经登录了 并且已经设置过手势密码
+
                     EventBus.getDefault().post(new PatternLockCheckFinish());
                     PatternLockCheckActivity.open(MyApplication.application);
                 }
@@ -65,7 +66,7 @@ public class MyApplication extends Application {
         ARouter.init(this); //
         initZXing();
         EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
-        AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置用户使用语言
+
     }
 
     private void initLitePal() {

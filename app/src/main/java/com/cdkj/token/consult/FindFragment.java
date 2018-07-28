@@ -19,6 +19,7 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentFindBinding;
 import com.cdkj.token.loader.BannerImageLoader;
 import com.cdkj.token.model.BannerModel;
+import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.wallet.red_package.SendRedPackageActivity;
 import com.youth.banner.BannerConfig;
 
@@ -71,13 +72,18 @@ public class FindFragment extends BaseLazyFragment {
 
         //首创玩法
         mHeadBinding.linLayoutFirstPlay.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, NoneActivity.FIRST_CREATE);
+//            NoneActivity.open(mActivity, NoneActivity.FIRST_CREATE);
+            WebViewActivity.openkey(mActivity, getString(R.string.consult_1), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_GLOBAL_MASTER));
         });
+
         mHeadBinding.linLayoutYbb.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, NoneActivity.YBB);
+//            NoneActivity.open(mActivity, NoneActivity.YBB);
+            WebViewActivity.openkey(mActivity, getString(R.string.yibibao), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_YUBIBAO));
         });
+
         mHeadBinding.linLayoutLhlc.setOnClickListener(view -> {
-            NoneActivity.open(mActivity, NoneActivity.LHLC);
+//            NoneActivity.open(mActivity, NoneActivity.LHLC);
+            WebViewActivity.openkey(mActivity, getString(R.string.lianghualicai), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_QUANTITATIVE_FINANCE));
         });
 
         mHeadBinding.linLayoutRedPacket.setOnClickListener(view -> {

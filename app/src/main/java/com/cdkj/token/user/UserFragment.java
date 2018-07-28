@@ -10,10 +10,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.activitys.ImageSelectActivity;
+import com.cdkj.baselibrary.activitys.NickModifyActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.IsSuccessModes;
+import com.cdkj.baselibrary.model.NickNameUpdate;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -25,9 +27,12 @@ import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
+import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.IntoWalletBeforeActivity;
 import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -67,6 +72,11 @@ public class UserFragment extends BaseLazyFragment {
 
     private void initClickListener() {
 
+        //修改昵称
+        mBinding.linLayoutNickName.setOnClickListener(view -> {
+            NickModifyActivity.open(mActivity,SPUtilHelper.getUserName());
+        });
+
         //本地货币
         mBinding.linLayoutLocalCoin.setOnClickListener(view -> {
             LocalCoinTypeChooseActivity.open(mActivity);
@@ -97,7 +107,9 @@ public class UserFragment extends BaseLazyFragment {
         });
 
         //帮助中心
-        mBinding.helper.setOnClickListener(view -> HelperCenterActivity.openkey(mActivity, getStrRes(R.string.user_issue), "questions"));
+        mBinding.helper.setOnClickListener(view -> {
+            HelperCenterActivity.openkey(mActivity, getStrRes(R.string.user_issue), ThaAppConstant.getH5UrlLangage(ThaAppConstant.QUESTIONS));
+        });
 
         //关于我们
         mBinding.aboutUs.setOnClickListener(view -> UserAboutActivity.open(mActivity));
@@ -262,6 +274,13 @@ public class UserFragment extends BaseLazyFragment {
             commonDialog.closeDialog();
         }
         super.onDestroy();
+    }
+
+    @Subscribe
+    public void nickNameUpdate(NickNameUpdate nickNameUpdate){
+        if(mBinding!=null){
+            mBinding.tvNickName.setText(SPUtilHelper.getUserName());
+        }
     }
 
 }

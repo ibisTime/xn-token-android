@@ -15,25 +15,27 @@ import java.util.Locale;
 
 public class MyConfig {
 
+    //系统参数
     public final static String COMPANYCODE = "CD-TOKEN00018";
     public final static String SYSTEMCODE = "CD-TOKEN00018";
     public final static String USERTYPE = "C";//用户类型
 
-    public final static int NODE_DEV = 0; //研发测试环境
-    public final static int NODE_REALSE = 1;//真实环境
 
-
-    public static final String TRADITIONAL = "traditional";
-    public static final String SIMPLIFIED = "simplified";
-    public static final String ENGLISH = "english";
-    public static final String KOREA = "korea";
+//    public static final String TRADITIONAL = "traditional";
+    public static final String SIMPLIFIED = "ZH_CN";
+    public static final String ENGLISH = "EN";
+    public static final String KOREA = "KO";
 
 
     // app运行环境
-
     public static final String BUILD_TYPE_TEST = "0";
     public static final String BUILD_TYPE_DEBUG = "1";
     public static final String BUILD_TYPE_RELEASE = "2";
+
+
+    //以太网络节点
+    public final static int NODE_DEV = 0; //研发测试环境
+    public final static int NODE_REALSE = 1;//真实环境
 
 
     //默认七牛url
@@ -42,14 +44,11 @@ public class MyConfig {
     // 拍照文件保存路径
     public static final String CACHDIR = "tha_photo";
 
-
     // 环境访问地址
     public static final String BASE_URL_DEV = "http://120.26.6.213:2101/forward-service/"; // 研发
     public static final String BASE_URL_TEST = "http://120.26.6.213:2101/forward-service/"; // 测试
     //        public static final String BASE_URL_ONLINE = "http://120.26.6.213:2101/forward-service/"; // 测试
     public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
-
-
 
 
     /**

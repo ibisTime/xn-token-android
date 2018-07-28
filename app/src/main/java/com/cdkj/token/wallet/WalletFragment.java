@@ -143,11 +143,11 @@ public class WalletFragment extends BaseLazyFragment {
      */
     void initViewState() {
         mBinding.tvAllAssets.setText(getString(R.string.wallet_assets, WalletHelper.getShowLocalCoinType()));
-        mBinding.tvMyWallet.setText(getString(R.string.my_wallet, WalletHelper.getShowLocalCoinType()));
-        mBinding.tvMyPrivateWallet.setText(getString(R.string.my_private_wallet, WalletHelper.getShowLocalCoinType()));
+        mBinding.cardChangeLayout.tvMyWallet.setText(getString(R.string.my_wallet, WalletHelper.getShowLocalCoinType()));
+        mBinding.cardChangeLayout.tvMyPrivateWallet.setText(getString(R.string.my_private_wallet, WalletHelper.getShowLocalCoinType()));
 
-        mBinding.tvWalletSymbol.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()));
-        mBinding.tvPrivateWalletSymbol.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()));
+        mBinding.cardChangeLayout.tvWalletSymbol.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()));
+        mBinding.cardChangeLayout.tvPrivateWalletSymbol.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()));
 
     }
 
@@ -183,12 +183,12 @@ public class WalletFragment extends BaseLazyFragment {
         });
 
         //我的钱包说明
-        mBinding.imgMyWalletInfo.setOnClickListener(view -> {
+        mBinding.cardChangeLayout.imgMyWalletInfo.setOnClickListener(view -> {
             new InfoSureDialog(mActivity).setInfoTitle(getString(R.string.my_account_wallet)).setInfoContent(getString(R.string.my_wallet_introduction)).show();
         });
 
         //私钥钱包说明
-        mBinding.imgMyPrivateWalletInfo.setOnClickListener(view -> {
+        mBinding.cardChangeLayout.imgMyPrivateWalletInfo.setOnClickListener(view -> {
             new InfoSureDialog(mActivity).setInfoTitle(getString(R.string.my_private_wallet_title)).setInfoContent(getString(R.string.my_private_wallet_introduction)).show();
         });
 
@@ -199,7 +199,7 @@ public class WalletFragment extends BaseLazyFragment {
      * 顶部卡片布局改变监听
      */
     void initCardChangeListener() {
-        mBinding.cardChangeLayout.setChangeCallBack(new CardChangeLayout.ChangeCallBack() {
+        mBinding.cardChangeLayout.cardChangeLayout.setChangeCallBack(new CardChangeLayout.ChangeCallBack() {
             @Override
             public boolean onChangeStart(int index) {
                 if (!SPUtilHelper.isLoginNoStart()) {
@@ -416,9 +416,9 @@ public class WalletFragment extends BaseLazyFragment {
             protected void onSuccess(CoinModel data, String SucMessage) {
 
                 if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-                    mBinding.tvWalletAmount.setText(data.getTotalAmountCNY());
+                    mBinding.cardChangeLayout.tvWalletAmount.setText(data.getTotalAmountCNY());
                 } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
-                    mBinding.tvWalletAmount.setText(data.getTotalAmountUSD());
+                    mBinding.cardChangeLayout.tvWalletAmount.setText(data.getTotalAmountUSD());
                 }
 
 
@@ -478,9 +478,9 @@ public class WalletFragment extends BaseLazyFragment {
 
 
                 if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-                    mBinding.tvPriWalletAmount.setText(data.getTotalAmountCNY());
+                    mBinding.cardChangeLayout.tvPriWalletAmount.setText(data.getTotalAmountCNY());
                 } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
-                    mBinding.tvPriWalletAmount.setText(data.getTotalAmountUSD());
+                    mBinding.cardChangeLayout.tvPriWalletAmount.setText(data.getTotalAmountUSD());
                 }
 
                 countAllWalletAmount();
@@ -578,11 +578,11 @@ public class WalletFragment extends BaseLazyFragment {
      * 计算所有钱包资产(个人 + 私有)
      */
     private void countAllWalletAmount() {
-        if (TextUtils.isEmpty(mBinding.tvWalletAmount.getText().toString()) || TextUtils.isEmpty(mBinding.tvPriWalletAmount.getText().toString())) {
+        if (TextUtils.isEmpty(mBinding.cardChangeLayout.tvWalletAmount.getText().toString()) || TextUtils.isEmpty(mBinding.cardChangeLayout.tvPriWalletAmount.getText().toString())) {
             return;
         }
-        BigDecimal wallAmount = new BigDecimal(mBinding.tvWalletAmount.getText().toString());
-        BigDecimal priWallAmount = new BigDecimal(mBinding.tvPriWalletAmount.getText().toString());
+        BigDecimal wallAmount = new BigDecimal(mBinding.cardChangeLayout.tvWalletAmount.getText().toString());
+        BigDecimal priWallAmount = new BigDecimal(mBinding.cardChangeLayout.tvPriWalletAmount.getText().toString());
 
         mBinding.tvAllWalletAmount.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()) + BigDecimalUtils.add(wallAmount, priWallAmount).toPlainString());
 
@@ -766,7 +766,11 @@ public class WalletFragment extends BaseLazyFragment {
     @Subscribe
     public void addCoinChangeEvent(AddCoinChangeEvent ad) {
         mChooseCoinList = null;
-        getPriWalletAssetsData(true, true);
+        if (isPrivateWallet) {
+            getPriWalletAssetsData(true, true);
+        } else {
+            getWalletAssetsData(false, true);
+        }
     }
 
 }

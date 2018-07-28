@@ -82,6 +82,8 @@ public class RedPackageShearActivity extends AbsLoadActivity {
             @Override
             protected void onSuccess(RedPackageDetialsBean data, String SucMessage) {
 
+                mBinding.tvRedPacketTip.setVisibility(View.VISIBLE);
+
                 mBinding.tvUserName.setText(data.getSendUserNickname());
                 mBinding.tvMasg.setText(data.getGreeting());
 

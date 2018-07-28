@@ -176,33 +176,33 @@ public class StringUtils {
         }
 
         StringBuffer sb = new StringBuffer();
-        if (list != null) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i) == null || list.get(i).equals("")) {
-                    continue;
-                }
-                // 如果值是list类型则调用自己
-                if (list.get(i) instanceof List) {
-                    sb.append(listToString((List<?>) list.get(i), sep1));
-                    if (i != list.size() - 1) {
-                        sb.append(sep1);
-                    }
 
-                } /*else if (list.get(i) instanceof Map) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) == null || list.get(i).equals("")) {
+                continue;
+            }
+            // 如果值是list类型则调用自己
+            if (list.get(i) instanceof List) {
+                sb.append(listToString((List<?>) list.get(i), sep1));
+                if (i != list.size() - 1) {
+                    sb.append(sep1);
+                }
+
+            } /*else if (list.get(i) instanceof Map) {
                     sb.append(MapToString((Map<?, ?>) list.get(i)));
                     if (i != list.size() - 1) {
                         sb.append(sep1);
                     }
 
                 }*/ else {
-                    sb.append(list.get(i));
-                    if (i != list.size() - 1) {
-                        sb.append(sep1);
-                    }
-
+                sb.append(list.get(i));
+                if (i != list.size() - 1) {
+                    sb.append(sep1);
                 }
+
             }
         }
+
         return sb.toString();
     }
 
@@ -219,26 +219,26 @@ public class StringUtils {
         }
 
         StringBuffer sb = new StringBuffer();
-        if (list != null) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i) == null || list.get(i).equals("")) {
-                    continue;
-                }
-                // 如果值是list类型则调用自己
-                if (list.get(i) instanceof List) {
-                    sb.append(listToString((List<?>) list.get(i)));
 
-                } /*else if (list.get(i) instanceof Map) {
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) == null || list.get(i).equals("")) {
+                continue;
+            }
+            // 如果值是list类型则调用自己
+            if (list.get(i) instanceof List) {
+                sb.append(listToString((List<?>) list.get(i)));
+
+            } /*else if (list.get(i) instanceof Map) {
                     sb.append(MapToString((Map<?, ?>) list.get(i)));
                     if (i != list.size() - 1) {
                         sb.append(sep1);
                     }
 
                 }*/ else {
-                    sb.append(list.get(i));
-                }
+                sb.append(list.get(i));
             }
         }
+
         return sb.toString();
     }
 
@@ -332,7 +332,13 @@ public class StringUtils {
     }
 
 
-    public static String stringFilter(String str) throws PatternSyntaxException {
+    /**
+     * 字符过滤
+     * @param str
+     * @return
+     * @throws PatternSyntaxException
+     */
+    public static String stringFilter(String str){
         // 只允许字母、数字和汉字
         String regEx = "[^a-zA-Z0-9\u4E00-\u9FA5]";
         Pattern p = Pattern.compile(regEx);

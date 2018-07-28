@@ -36,17 +36,17 @@
 
                 <EditText
                     android:id="@+id/edt_nickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center_vertical"
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="15dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"
-                    android:textSize="14sp"
-                    android:maxLength="11"
                     android:background="@null"
+                    android:gravity="center_vertical"
+                    android:maxLength="11"
                     android:textColor="@color/fontColor_gray"
                     android:textColorHint="@color/fontColor_hint"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent" />
+                    android:textSize="14sp" />
 
             </LinearLayout>
 

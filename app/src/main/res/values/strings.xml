@@ -549,4 +549,7 @@
     <string name="wallet_name_input_hint">请输入钱包名称</string>
     <string name="red_packet_tab_title_info">将数字货币塞入其中，发给好友</string>
     <string name="pattern_pwd">手势密码</string>
+    <string name="coin_list">币种列表</string>
+    <string name="redpacket_back">红包退回</string>
+    <string name="redpacket_get">抢红包</string>
 </resources>

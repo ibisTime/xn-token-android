@@ -318,6 +318,7 @@
                     android:textColor="@color/red_text_shear" />
 
                 <TextView
+                    android:id="@+id/tv_red_packet_rule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"

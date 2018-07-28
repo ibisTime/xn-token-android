@@ -1,25 +1,36 @@
 package com.cdkj.baselibrary.activitys;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.cdkj.baselibrary.R;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
+import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityModifyNickBinding;
+import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.IsSuccessModes;
+import com.cdkj.baselibrary.model.NickNameUpdate;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
+
+import static com.cdkj.baselibrary.utils.StringUtils.stringFilter;
 
 /**
  * Created by lei on 2017/8/22.
@@ -36,12 +47,12 @@ public class NickModifyActivity extends AbsActivity {
      *
      * @param context
      */
-    public static void open(Context context,String nick) {
+    public static void open(Context context, String nick) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, NickModifyActivity.class);
-        intent.putExtra("nick",nick);
+        intent.putExtra(CdRouteHelper.DATASIGN, nick);
         context.startActivity(intent);
     }
 
@@ -57,7 +68,7 @@ public class NickModifyActivity extends AbsActivity {
         setSubLeftImgState(true);
 
         if (getIntent() != null) {
-            nick = getIntent().getStringExtra("nick");
+            nick = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
             mBinding.edtNickname.setHint(nick);
         }
 
@@ -69,12 +80,35 @@ public class NickModifyActivity extends AbsActivity {
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(mBinding.edtNickname.getText().toString())) {
-                    showToast(getString(R.string.activity_nick_name_hint));
+                    UITipDialog.showInfoNoIcon(NickModifyActivity.this, getString(R.string.activity_nick_name_hint));
                     return;
                 }
                 modifyNick();
             }
         });
+
+        mBinding.edtNickname.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String editable = mBinding.edtNickname.getText().toString();
+                String str = stringFilter(editable.toString());
+                if (!editable.equals(str)) {
+                    mBinding.edtNickname.setText(str);
+                    //设置新的光标所在位置
+                    mBinding.edtNickname.setSelection(str.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
     }
 
     /**
@@ -85,9 +119,11 @@ public class NickModifyActivity extends AbsActivity {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("nickname", mBinding.edtNickname.getText().toString());
         map.put("token", SPUtilHelper.getUserToken());
+        map.put("companyCode", MyConfig.COMPANYCODE);
+        map.put("token", SPUtilHelper.getUserToken());
 
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805082", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805075", StringUtils.getJsonToString(map));
 
         addCall(call);
 
@@ -97,9 +133,14 @@ public class NickModifyActivity extends AbsActivity {
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
                 if (data.isSuccess()) {
 
-                    showToast(getString(R.string.activity_nick_success));
-
-                    finish();
+                    UITipDialog.showSuccess(NickModifyActivity.this, getString(R.string.activity_nick_success), new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            SPUtilHelper.saveUserName(mBinding.edtNickname.getText().toString());
+                            EventBus.getDefault().post(new NickNameUpdate());
+                            finish();
+                        }
+                    });
                 }
             }
 

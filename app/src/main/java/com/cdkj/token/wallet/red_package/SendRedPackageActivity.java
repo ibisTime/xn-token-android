@@ -16,32 +16,26 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
+import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
-import com.cdkj.baselibrary.dialog.InputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.ToastUtil;
-import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivitySendRedPackageBinding;
 import com.cdkj.token.model.CoinModel;
-import com.cdkj.token.model.RedPackageEventBusBean;
 import com.cdkj.token.model.RedPackageHistoryBean;
 import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.views.dialogs.UserBalanceDialog;
 import com.cdkj.token.views.dialogs.UserPayPasswordInputDialog;
-import com.cdkj.token.wallet.account.RechargeActivity;
 import com.cdkj.token.wallet.account.RechargeAddressQRActivity;
-import com.cdkj.token.wallet.coin_detail.WalletAddressShowActivity;
-
-import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
@@ -109,6 +103,11 @@ public class SendRedPackageActivity extends AbsLoadActivity {
     }
 
     private void initOnClick() {
+
+        //红包规则
+        mBinding.tvRedPacketRule.setOnClickListener(view -> {
+            WebViewActivity.openkey(this, getString(R.string.red_packet_rule), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_RED_PACKET_RULE));
+        });
 
         //转入资金
         mBinding.tvInMoney.setOnClickListener(view -> {

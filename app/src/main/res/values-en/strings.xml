@@ -553,8 +553,8 @@
     <string name="set_pattern_pwd">--</string>
     <string name="draw_your_pattern_pwd">--</string>
     <string name="draw_pattern_pwd">--</string>
-    <string name="forget_pattern_pwd"></string>
-    <string name="change_login_type"></string>
+    <string name="forget_pattern_pwd">--</string>
+    <string name="change_login_type">--</string>
     <string name="draw_pattern_pwd_2">--</string>
     <string name="set_pattern_pwd_success">--</string>
     <string name="pattern_unlock_success">--</string>
@@ -564,6 +564,9 @@
     <string name="please_read_and_aggree">--</string>
     <string name="wallet_name_input_hint">--</string>
     <string name="red_packet_tab_title_info">--</string>
+    <string name="coin_list">List</string>
+    <string name="redpacket_back">--</string>
+    <string name="redpacket_get">--</string>
 </resources>
 
 
