@@ -33,6 +33,7 @@ public class GoogleCodeSetActivity extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.transparent));
+
         popupBinding = DataBindingUtil.setContentView(this, R.layout.popup_google);
 
         initListener();

@@ -6,8 +6,8 @@ android {
         applicationId "com.cdkj.tha"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 4
-        versionName "1.5.0"
+        versionCode 5
+        versionName "1.6.0"
 
         multiDexEnabled true
 

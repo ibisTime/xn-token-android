@@ -44,9 +44,7 @@ public class RedPackageHistoryActivity extends AbsLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-
-        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.red));
-
+        setStatusBarColor(ContextCompat.getColor(this, R.color.red));
         mBinding.ivBack.setOnClickListener(view -> {
             finish();
         });

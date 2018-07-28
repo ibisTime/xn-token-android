@@ -60,8 +60,7 @@ public class RedPackageShearActivity extends AbsLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-
-        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.oragne));
+        setStatusBarColor(ContextCompat.getColor(this, R.color.red_packet_status_bar));
 
         if (getIntent() != null) {
             currentCode = getIntent().getStringExtra(CdRouteHelper.DATASIGN);

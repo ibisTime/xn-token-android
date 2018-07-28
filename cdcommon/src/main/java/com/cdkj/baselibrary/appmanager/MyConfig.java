@@ -61,7 +61,7 @@ public class MyConfig {
         if (LogUtil.isLog) {
             return NODE_DEV;
         }
-        return NODE_REALSE;
+        return NODE_DEV;
     }
 
     /**
@@ -79,7 +79,7 @@ public class MyConfig {
             }
         } else {
             // 线上
-            return MyConfig.BASE_URL_ONLINE;
+            return MyConfig.BASE_URL_DEV;
         }
     }
 

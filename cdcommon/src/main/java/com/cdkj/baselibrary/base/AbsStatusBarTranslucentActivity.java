@@ -12,6 +12,7 @@ import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.databinding.ActivityAbsBaseLoadBinding;
 import com.cdkj.baselibrary.databinding.ActivityAbsStatusBarBinding;
 import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 
 
 /**
@@ -24,6 +25,8 @@ public abstract class AbsStatusBarTranslucentActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        UIStatusBarHelper.setStatusBarLightMode(this);
+        UIStatusBarHelper.translucent(this);
 
         mBaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_abs_status_bar);
 

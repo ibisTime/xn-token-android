@@ -17,6 +17,7 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
+import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.LoginInterface;
 import com.cdkj.baselibrary.interfaces.LoginPresenter;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
@@ -123,7 +124,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         //发送验证码
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(view -> {
             if (TextUtils.isEmpty(mBinding.edtUsername.getText().toString().trim())) {
-                showToast(getStrRes(R.string.user_mobile_hint));
+                UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_mobile_hint));
                 return;
             }
 
@@ -157,13 +158,13 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
     private void checkInputAndLogin() {
 
         if (TextUtils.isEmpty(mBinding.edtUsername.getText().toString().trim())) {
-            showToast(getStrRes(R.string.user_mobile_hint));
+            UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_mobile_hint));
             return;
         }
 
         if (isCodeLogin()) {
             if (TextUtils.isEmpty(mBinding.edtCode.getEditText().getText().toString().trim())) {
-                showToast(getStrRes(R.string.user_code_hint));
+                UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_code_hint));
                 return;
             }
             codeLoginRequest();
@@ -171,7 +172,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         } else {
 
             if (mBinding.edtPassword.getText().toString().trim().length() < 6) {
-                showToast(getStrRes(R.string.user_password_format_hint));
+                UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_password_format_hint));
                 return;
             }
 
@@ -204,7 +205,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
                     loginSuccessNext(data);
                 } else {
                     disMissLoading();
-                    showToast(SucMessage);
+                    UITipDialog.showInfoNoIcon(SignInActivity.this,SucMessage);
                 }
             }
 
@@ -292,7 +293,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
 
     @Override
     public void CodeFailed(String code, String msg) {
-        showToast(msg);
+        UITipDialog.showInfoNoIcon(this,msg);
     }
 
     @Override

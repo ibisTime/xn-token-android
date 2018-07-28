@@ -62,7 +62,6 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
     private String currencyType;//币种类型名称
     private UserPayPasswordInputDialog passInputDialog;
-    private String tradePwd; //用户输入的密码
 
     private List<CoinModel.AccountListBean> cAccountListBeans;//币种列表
     private OptionsPickerView coinPickerView;
@@ -99,9 +98,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-
-        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.oragne));
-
+        setStatusBarColor(ContextCompat.getColor(this, R.color.red_packet_status_bar));
         mBinding.etNumber.setEnabled(false);
         mBinding.etSendNumber.setEnabled(false);
         mBinding.tvInMoney.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
@@ -114,7 +111,6 @@ public class SendRedPackageActivity extends AbsLoadActivity {
     private void initOnClick() {
 
         //转入资金
-
         mBinding.tvInMoney.setOnClickListener(view -> {
             RechargeAddressQRActivity.open(this, currencyType);
         });

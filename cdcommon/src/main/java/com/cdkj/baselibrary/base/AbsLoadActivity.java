@@ -2,6 +2,7 @@ package com.cdkj.baselibrary.base;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
@@ -105,7 +106,13 @@ public abstract class AbsLoadActivity extends BaseActivity {
     }
 
     protected void setStatusBarBlue() {
-        UIStatusBarHelper.translucent(this, ContextCompat.getColor(this, R.color.title_bg_blue));
+        UIStatusBarHelper.setStatusBarDarkMode(this);
+        setStatusBarColor(ContextCompat.getColor(this, R.color.title_bg_blue));
+    }
+
+    protected void setStatusBarColor(@ColorInt int color) {
+        UIStatusBarHelper.translucent(this, color);
+        mBaseBinding.linLayoutRoot.setBackgroundColor(color);//坑 部分机型fitsSystemWindows属性 无法设置状态栏颜色 ，这里绘制背景实现状态栏颜色改变（会过度绘制）
     }
 
     /**
