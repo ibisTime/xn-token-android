@@ -28,7 +28,7 @@ public class UpdateUtil {
             context.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(context, "请检查下载链接", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "error url", Toast.LENGTH_SHORT).show();
         } finally {
 
         }
@@ -44,6 +44,7 @@ public class UpdateUtil {
 
     /**
      * 是否强制更新 1 是
+     *
      * @param state
      * @return
      */

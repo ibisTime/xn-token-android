@@ -20,6 +20,7 @@ import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityImportStartBinding;
 import com.cdkj.token.model.db.WalletDBModel;
+import com.cdkj.token.user.WebViewImgBgActivity;
 import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
@@ -43,7 +44,7 @@ public class ImportWalletStartActivity extends AbsLoadActivity {
     private ArrayList<String> mWordList;
     private String mPassword;
 
-    private boolean isAggree = false;
+    private boolean isAggree = true; //同意隐私条款
 
     public static void open(Context context) {
         if (context == null) {
@@ -129,14 +130,13 @@ public class ImportWalletStartActivity extends AbsLoadActivity {
 
         //隐私协议
         mBinding.tvRead.setOnClickListener(view -> {
-            WebViewActivity.openkey(this, getString(R.string.privacy_agreement), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_PRIVACY));
+            WebViewImgBgActivity.openkey(this, getString(R.string.privacy_agreement), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_PRIVACY));
         });
 
         //什么是助记词
         mBinding.tvWahtIsWords.setOnClickListener(view -> {
-            WebViewActivity.openkey(this, getString(R.string.what_is_the_words), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_MNEMONIC));
+            WebViewImgBgActivity.openkey(this, getString(R.string.what_is_the_words), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_MNEMONIC));
         });
-
 
 
     }

@@ -26,6 +26,11 @@ public class PatternHelper {
     private boolean isFinish;
     private boolean isOk;
 
+    /**
+     * 设置
+     *
+     * @param hitList
+     */
     public void validateForSetting(List<Integer> hitList) {
         this.isFinish = false;
         this.isOk = false;
@@ -51,11 +56,15 @@ public class PatternHelper {
             this.isOk = true;
             this.isFinish = true;
         } else {
-            this.tmpPwd = null;
             this.message = getDiffPreErrorMsg();
         }
     }
 
+    /**
+     * 验证
+     *
+     * @param hitList
+     */
     public void validateForChecking(List<Integer> hitList) {
         this.isOk = false;
 

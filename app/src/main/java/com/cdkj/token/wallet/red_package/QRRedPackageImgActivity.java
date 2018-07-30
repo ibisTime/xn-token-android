@@ -21,6 +21,7 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityQrredPackageImgBinding;
 import com.cdkj.token.model.RedPackageEventBusBean;
+import com.cdkj.token.utils.ThaAppConstant;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -62,6 +63,8 @@ public class QRRedPackageImgActivity extends BaseActivity {
 
         ImgUtils.loadLogo(QRRedPackageImgActivity.this, SPUtilHelper.getUserPhoto(), mBinding.imgLogo);
 
+        mBinding.tvUserName.setText(SPUtilHelper.getUserName());
+
         getRedPacketShareUrlRequest();
     }
 
@@ -69,29 +72,6 @@ public class QRRedPackageImgActivity extends BaseActivity {
     public void onBackPressed() {
         EventBus.getDefault().post(new RedPackageEventBusBean());
         finish();
-    }
-
-    /**
-     * 获取红包分享路径
-     *
-     * @param redPackageCode
-     * @return
-     */
-    public static String getRedPacketShareUrl(String redPackageCode, String inviteCode) {
-
-        StringBuffer stringBuffer = new StringBuffer();
-
-        stringBuffer.append("/redPacket/receive.html?code=" + redPackageCode);//红包码
-
-        stringBuffer.append("&inviteCode=" + inviteCode);// 邀请码
-
-        if (TextUtils.equals(SPUtilHelper.getLanguage(), ENGLISH)) { //国际化
-            stringBuffer.append("&lang=en");
-        } else {
-            stringBuffer.append("&lang=cn");
-        }
-
-        return stringBuffer.toString();
     }
 
 
@@ -115,7 +95,7 @@ public class QRRedPackageImgActivity extends BaseActivity {
                     return;
                 }
 
-                Bitmap bitmap = CodeUtils.createImage(data.getCvalue() + getRedPacketShareUrl(redPackageCode, SPUtilHelper.getSecretUserId()), 500, 500, null);
+                Bitmap bitmap = CodeUtils.createImage(data.getCvalue() + ThaAppConstant.getRedPacketShareUrl(redPackageCode, SPUtilHelper.getSecretUserId()), 500, 500, null);
 
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);

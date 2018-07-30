@@ -6,10 +6,10 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreateWalletSuccessBinding;
+import com.cdkj.token.user.WebViewImgBgActivity;
 import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.wallet.backup_guide.BackupWalletStartActivity;
 
@@ -55,7 +55,7 @@ public class CreateWalletSuccessActivity extends AbsLoadActivity {
 
         //如何备份
         mBinding.tvImportWallet.setOnClickListener(view -> {
-            WebViewActivity.openkey(this, getString(R.string.backup_wallet_intro), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_MNEMONIC_BACKUP));
+            WebViewImgBgActivity.openkey(this, getString(R.string.backup_wallet_intro), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_MNEMONIC_BACKUP));
         });
     }
 

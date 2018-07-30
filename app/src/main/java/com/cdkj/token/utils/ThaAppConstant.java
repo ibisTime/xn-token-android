@@ -1,6 +1,10 @@
 package com.cdkj.token.utils;
 
+import android.text.TextUtils;
+
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
+
+import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
 
 /**
  * 常量类
@@ -20,9 +24,33 @@ public class ThaAppConstant {
     public static final String QUESTIONS = "questions_"; //常见问题
 
 
+    /**
+     * 获取H5URL
+     *
+     * @param url
+     * @return
+     */
     public static String getH5UrlLangage(String url) {
         return url + SPUtilHelper.getLanguage();
     }
 
+    /**
+     * 获取红包分享路径
+     *
+     * @param redPackageCode
+     * @return
+     */
+    public static String getRedPacketShareUrl(String redPackageCode, String inviteCode) {
+
+        StringBuffer stringBuffer = new StringBuffer();
+
+        stringBuffer.append("/redPacket/receive.html?code=" + redPackageCode);//红包码
+
+        stringBuffer.append("&inviteCode=" + inviteCode);// 邀请码
+
+        stringBuffer.append("&lang=" + SPUtilHelper.getLanguage());//国际化
+
+        return stringBuffer.toString();
+    }
 
 }

@@ -2,6 +2,7 @@ package com.cdkj.token.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.widget.ImageView;
 
 import com.cdkj.baselibrary.utils.DateUtil;
@@ -51,8 +52,10 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
         int i = tas.compareTo(BigDecimal.ZERO);
         if (i == 1) {
             helper.setText(R.id.tv_amount, "+" + AccountUtil.amountFormatUnit(tas, item.getCurrency(), 8));
+            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext,R.color.in_money));
         } else {
             helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnit(tas, item.getCurrency(), 8));
+            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext,R.color.out_money));
         }
 
         ImageView ivType = helper.getView(R.id.iv_type);

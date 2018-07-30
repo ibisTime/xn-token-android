@@ -274,7 +274,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                         }
 
                         if (!WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {
-                            UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
+                            UITipDialog.showInfoNoIcon(this,getString(R.string.capital_pwd_error));
                             return;
                         }
 
@@ -323,7 +323,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                     BigDecimal bg = new BigDecimal(upperI);
                     transferGasPrice = gasPriceLimit.add(new BigDecimal(gasPriceLimit).multiply(bg).toBigInteger());
 
-                } else {
+                } else {                                             //默认矿工费
                     transferGasPrice = gasPriceLimit;
                 }
 

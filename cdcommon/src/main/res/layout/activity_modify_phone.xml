@@ -194,7 +194,7 @@
         <Button
             android:id="@+id/btn_confirm"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="@dimen/cd_btn_height"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="30dp"

@@ -102,6 +102,18 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
             case KOREA:
                 mBinding.ivKorea.setVisibility(View.VISIBLE);
                 break;
+
+            //以下兼容1.6.0之前 勿改动
+            case "simplified":
+                mBinding.ivSimple.setVisibility(View.VISIBLE);
+                break;
+            case "english":
+                mBinding.ivEnglish.setVisibility(View.VISIBLE);
+                break;
+            case "korea":
+                mBinding.ivKorea.setVisibility(View.VISIBLE);
+                break;
+
         }
     }
 

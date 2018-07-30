@@ -68,8 +68,21 @@ public class UserBalanceDialog extends Dialog {
         return this;
     }
 
+    /**
+     * 余额
+     * @param balanceStr
+     */
     public void setShowBalance(String balanceStr) {
+
         mBinding.tvBalance.setText(balanceStr);
+    }
+
+    /**
+     * 支付金额
+     * @param money
+     */
+    public void setShowPayMoney(String money) {
+        mBinding.tvPayMoney.setText(money);
     }
 
     private void initListener() {

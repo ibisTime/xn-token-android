@@ -29,7 +29,6 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
 import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
-import com.cdkj.token.wallet.IntoWalletBeforeActivity;
 import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
 
 import org.greenrobot.eventbus.Subscribe;
@@ -108,7 +107,7 @@ public class UserFragment extends BaseLazyFragment {
 
         //帮助中心
         mBinding.helper.setOnClickListener(view -> {
-            HelperCenterActivity.openkey(mActivity, getStrRes(R.string.user_issue), ThaAppConstant.getH5UrlLangage(ThaAppConstant.QUESTIONS));
+            WebViewImgBgActivity.openkey(mActivity, getStrRes(R.string.user_issue), ThaAppConstant.getH5UrlLangage(ThaAppConstant.QUESTIONS));
         });
 
         //关于我们

@@ -1,6 +1,5 @@
 package com.cdkj.token;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -11,18 +10,16 @@ import android.support.v4.content.ContextCompat;
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.base.BaseActivity;
-import com.cdkj.baselibrary.dialog.InputDialog;
+import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
-import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.FindFragment;
 import com.cdkj.token.databinding.ActivityMainBinding;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.user.UserFragment;
-import com.cdkj.token.user.pattern_lock.PatternLockCheckActivity;
 import com.cdkj.token.wallet.WalletFragment;
 
 import org.greenrobot.eventbus.EventBus;
@@ -43,7 +40,7 @@ public class MainActivity extends BaseActivity {
 
     public static final int WALLET = 0;
     public static final int CONSULT = 1;
-    public static final int MY = 2;
+    public static final int ME = 2;
     private List<Fragment> fragments;
 
     /**
@@ -90,7 +87,7 @@ public class MainActivity extends BaseActivity {
         });
 
         mBinding.layoutMainBottom.llMy.setOnClickListener(v -> {
-            setShowIndex(MY);
+            setShowIndex(ME);
         });
 
     }
@@ -107,7 +104,7 @@ public class MainActivity extends BaseActivity {
                 mBinding.layoutMainBottom.ivWallet.setImageResource(R.mipmap.main_wallet_light);
                 mBinding.layoutMainBottom.tvWallet.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
                 break;
-            case MY:
+            case ME:
                 mBinding.layoutMainBottom.ivMy.setImageResource(R.mipmap.main_my_light);
                 mBinding.layoutMainBottom.tvMy.setTextColor(ContextCompat.getColor(this, R.color.colorAccent));
                 break;
@@ -197,10 +194,11 @@ public class MainActivity extends BaseActivity {
             protected void onSuccess(VersionModel data, String SucMessage) {
                 if (data == null)
                     return;
+                showUploadDialog(data);
 
-                if (data.getVersion() > AppUtils.getAppVersionCode(MainActivity.this)) {  //版本号不一致说明有更新
-                    showUploadDialog(data);
-                }
+//                if (data.getVersion() > AppUtils.getAppVersionCode(MainActivity.this)) {  //版本号不一致说明有更新
+//                    showUploadDialog(data);
+//                }
             }
 
             @Override
@@ -223,24 +221,18 @@ public class MainActivity extends BaseActivity {
      */
     private void showUploadDialog(VersionModel versionModel) {
 
-        if (isFinishing()) {
-            return;
-        }
-
-        AlertDialog.Builder builder = new AlertDialog.Builder(this).setTitle(getStrRes(R.string.tip_update))
-                .setMessage(versionModel.getNote())
-                .setPositiveButton(getStrRes(R.string.confirm), (dialogInterface, i) -> {
-                    startWeb(MainActivity.this, versionModel.getDownloadUrl());
-                    EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
-                    finish();
-                })
-                .setCancelable(false);
-
-
         if (isForceUpload(versionModel.getForceUpdate())) { // 强制更新
-            builder.show();
+
+            showSureDialog(getStrRes(R.string.tip_update), versionModel.getNote(), view -> {
+                startWeb(MainActivity.this, versionModel.getDownloadUrl());
+                EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
+                finish();
+            });
+
         } else {
-            builder.setNegativeButton(getStrRes(R.string.cancel), null).show();
+            showDoubleWarnListen(getStrRes(R.string.tip_update), versionModel.getNote(), view -> {
+                startWeb(MainActivity.this, versionModel.getDownloadUrl());
+            });
         }
     }
 
@@ -249,4 +241,26 @@ public class MainActivity extends BaseActivity {
         super.onDestroy();
 //        CoinListService.close(this);
     }
+
+    /**
+     * 只显示确认弹框的按钮
+     *
+     * @param title
+     * @param str
+     * @param onPositiveListener
+     */
+    protected void showSureDialog(String title, String str, CommonDialog.OnPositiveListener onPositiveListener) {
+
+        if (this == null || isFinishing()) {
+            return;
+        }
+
+        CommonDialog commonDialog = new CommonDialog(this).builder()
+                .setTitle(title)
+                .setContentMsg(str)
+                .setPositiveBtn(getString(com.cdkj.baselibrary.R.string.activity_base_confirm), onPositiveListener);
+
+        commonDialog.show();
+    }
+
 }

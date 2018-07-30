@@ -70,7 +70,7 @@
                 android:id="@+id/tv_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#47D047"
+                android:textColor="@color/out_money"
                 android:textSize="16sp"
                 tools:text="转账" />
 

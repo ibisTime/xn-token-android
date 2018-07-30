@@ -173,7 +173,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="12dp"
                                 android:layout_toRightOf="@id/img_red_packet"
-                                android:text="@string/waite_title_1"
+                                android:ellipsize="end"
+                                android:singleLine="true"
+                                android:text="@string/waite_content_1"
                                 android:textColor="@color/gray_666666"
                                 android:textSize="12sp" />
 

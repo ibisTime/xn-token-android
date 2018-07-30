@@ -65,8 +65,10 @@ public class PatternLockCheckActivity extends AbsLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+        
         ImgUtils.loadLogo(this, SPUtilHelper.getUserPhoto(), mBinding.imgLogo);
-        mBinding.tvUserPhone.setText(StringUtils.ttransformShowPhone(SPUtilHelper.getUserPhoneNum()));
+
+        mBinding.tvUserPhone.setText(SPUtilHelper.getUserName());
 
         initPatternListener();
 

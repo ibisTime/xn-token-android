@@ -21,7 +21,7 @@ public class MyConfig {
     public final static String USERTYPE = "C";//用户类型
 
 
-//    public static final String TRADITIONAL = "traditional";
+    //    public static final String TRADITIONAL = "traditional";
     public static final String SIMPLIFIED = "ZH_CN";
     public static final String ENGLISH = "EN";
     public static final String KOREA = "KO";
@@ -43,6 +43,7 @@ public class MyConfig {
 
     // 拍照文件保存路径
     public static final String CACHDIR = "tha_photo";
+
 
     // 环境访问地址
     public static final String BASE_URL_DEV = "http://120.26.6.213:2101/forward-service/"; // 研发
@@ -69,16 +70,16 @@ public class MyConfig {
      * @return
      */
     public static String getBaseURL() {
-        if (LogUtil.isLog) {
+        if (true) {
             switch (SPUtilHelper.getAPPBuildType()) {
                 case BUILD_TYPE_TEST: // 测试
-                    return MyConfig.BASE_URL_TEST;
+                    return MyConfig.BASE_URL_DEV;
                 default: // 研发
                     return MyConfig.BASE_URL_DEV;
             }
         } else {
             // 线上
-            return MyConfig.BASE_URL_DEV;
+            return MyConfig.BASE_URL_ONLINE;
         }
     }
 

@@ -33,14 +33,30 @@
         <activity
             android:name=".MainActivity"
             android:launchMode="singleTask" />
-        <activity android:name=".wallet.account.BillDetailActivity" />
-        <activity android:name=".wallet.account.RechargeActivity" />
-        <activity android:name=".wallet.account.WithdrawActivity" />
-        <activity android:name=".user.UserSettingActivity" />
-        <activity android:name=".user.UserEmailActivity" />
-        <activity android:name=".user.UserLanguageActivity" />
-        <activity android:name=".user.UpdateLoginPasswordActivity" />
-        <activity android:name=".user.UserAboutActivity" />
+        <activity
+            android:name=".wallet.account.BillDetailActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.account.RechargeActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.account.WithdrawActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.UserSettingActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.UserEmailActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.UserLanguageActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.UpdateLoginPasswordActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.UserAboutActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".user.login.SignInActivity"
             android:launchMode="singleTask"
@@ -88,9 +104,15 @@
                     android:scheme="orangecoin" />
             </intent-filter>
         </activity>
-        <activity android:name=".consult.StatisticsActivity" />
-        <activity android:name=".wallet.account.WithdrawOrderActivity" />
-        <activity android:name=".user.UserGoogleActivity" />
+        <activity
+            android:name=".consult.StatisticsActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.account.WithdrawOrderActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.UserGoogleActivity"
+            android:windowSoftInputMode="adjustPan" />
 
         <!--拨打电话-->
         <activity
@@ -103,59 +125,138 @@
             android:name=".consult.StorePayActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".consult.NoneActivity" />
-        <activity android:name=".wallet.account.BillListActivity" />
-        <activity android:name=".wallet.AddChoiceCoinActivity" />
-        <activity android:name=".consult.MsgListActivity" />
-        <activity android:name=".user.UserJoinActivity" />
-        <activity android:name=".user.WalletToolActivity" />
+        <activity
+            android:name=".consult.NoneActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.account.BillListActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.AddChoiceCoinActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".consult.MsgListActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.UserJoinActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.WalletToolActivity"
+            android:windowSoftInputMode="adjustPan" />
 
-        <activity android:name=".wallet.IntoWalletBeforeActivity" />
-        <activity android:name=".wallet.create_guide.CreatePassWordActivity" />
-        <activity android:name=".wallet.create_guide.CreateWalletSuccessActivity" />
-        <activity android:name=".wallet.create_guide.WalletBackupCheckActivity" />
-        <activity android:name=".wallet.create_guide.WalletHelpWordsShowActivity" />
-        <activity android:name=".wallet.import_guide.WalletImportWordsInputActivity" />
-        <activity android:name=".wallet.import_guide.ImportWalletSuccessActivity" />
-        <activity android:name=".wallet.import_guide.ImportCreatePassWordActivity" />
-        <activity android:name=".wallet.backup_guide.BackupWalletStartActivity" />
-        <activity android:name=".wallet.WalletPasswordModifyActivity" />
-        <activity android:name=".wallet.backup_guide.WalletBackupPasswordCheckActivity" />
-        <activity android:name=".wallet.delete_guide.WallteDeleteStartActivity" />
-        <activity android:name=".wallet.delete_guide.WalletDeleteWordsInputActivity" />
-        <activity android:name=".wallet.export.CoinKeySelectActivity" />
-        <activity android:name=".wallet.export.CoinPrivateKeyShowActivity" />
-        <activity android:name=".wallet.export.WalletExportPasswordCheckActivity" />
-        <activity android:name=".wallet.coin_detail.WalletCoinDetailsActivity" />
-        <activity android:name=".wallet.coin_detail.WalletAddressShowActivity" />
-        <activity android:name=".wallet.coin_detail.WalletTransferActivity" />
-        <activity android:name=".wallet.AddChoiceActivity2" />
-        <activity android:name=".wallet.coin_detail.TransactionDetailsActivity" />
+        <activity
+            android:name=".wallet.IntoWalletBeforeActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.create_guide.CreatePassWordActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.create_guide.CreateWalletSuccessActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.create_guide.WalletBackupCheckActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.create_guide.WalletHelpWordsShowActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.import_guide.WalletImportWordsInputActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.import_guide.ImportWalletSuccessActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.import_guide.ImportCreatePassWordActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.backup_guide.BackupWalletStartActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.WalletPasswordModifyActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.backup_guide.WalletBackupPasswordCheckActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.delete_guide.WallteDeleteStartActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.delete_guide.WalletDeleteWordsInputActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.export.CoinKeySelectActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.export.CoinPrivateKeyShowActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.export.WalletExportPasswordCheckActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.coin_detail.WalletCoinDetailsActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.coin_detail.WalletAddressShowActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.coin_detail.WalletTransferActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.AddChoiceActivity2"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.coin_detail.TransactionDetailsActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".wallet.red_package.SendRedPackageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".wallet.red_package.RedPackageShearActivity" />
-        <activity android:name=".wallet.red_package.RedPackageHistoryActivity" />
-        <activity android:name=".user.CountryCodeListActivity" />
+        <activity
+            android:name=".wallet.red_package.RedPackageShearActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.red_package.RedPackageHistoryActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.CountryCodeListActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".wallet.red_package.QRRedPackageImgActivity"
             android:theme="@style/ActivityDialogStyleBottom" />
         <activity
             android:name=".user.GoogleCodeSetActivity"
             android:theme="@style/ActivityDialogStyleBottom" />
-        <activity android:name=".user.LocalCoinTypeChooseActivity" />
-        <activity android:name=".user.login.SetLoginPwdActivity" />
-        <activity android:name=".consult.FutureImageShowActivity" />
-        <activity android:name=".user.HelperCenterActivity" />
-        <activity android:name=".wallet.import_guide.ImportWalletStartActivity" />
-        <activity android:name=".wallet.create_guide.CreateWalletStartActivity" />
-        <activity android:name=".wallet.backup_guide.BackupWalletWordsCheckActivity" />
-        <activity android:name=".wallet.account.RechargeAddressQRActivity" />
-        <activity android:name=".user.pattern_lock.PatternLockSettingActivity" />
+        <activity
+            android:name=".user.LocalCoinTypeChooseActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.login.SetLoginPwdActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".consult.FutureImageShowActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.WebViewImgBgActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.import_guide.ImportWalletStartActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.create_guide.CreateWalletStartActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.backup_guide.BackupWalletWordsCheckActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.account.RechargeAddressQRActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.pattern_lock.PatternLockSettingActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".user.pattern_lock.PatternLockCheckActivity"
-            android:launchMode="singleTask" />
+            android:launchMode="singleTask"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

@@ -30,12 +30,13 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/tv_pay_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="0.5ETH"
             android:textColor="#A75E02"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            tools:text="0.5ETH" />
 
         <LinearLayout
             android:layout_width="match_parent"

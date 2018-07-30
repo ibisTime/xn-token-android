@@ -766,11 +766,7 @@ public class WalletFragment extends BaseLazyFragment {
     @Subscribe
     public void addCoinChangeEvent(AddCoinChangeEvent ad) {
         mChooseCoinList = null;
-        if (isPrivateWallet) {
-            getPriWalletAssetsData(true, true);
-        } else {
-            getWalletAssetsData(false, true);
-        }
+        getPriWalletAssetsData(true, true);
     }
 
 }

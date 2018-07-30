@@ -12,6 +12,7 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -23,6 +24,8 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.CountryCodeMode;
 import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.token.model.SystemParameterModel;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.List;
@@ -119,6 +122,7 @@ public class StartActivity extends BaseActivity {
      */
     private void qiniuAfternext() {
         if (SPUtilHelper.isLoginNoStart()) {
+            EventBus.getDefault().post(new AllFinishEvent());
             MainActivity.open(this);
             finish();
         } else {
@@ -130,6 +134,7 @@ public class StartActivity extends BaseActivity {
      * 进行国家匹配 之后
      */
     private void checkCountryAfterNext() {
+        EventBus.getDefault().post(new AllFinishEvent());
         SignInActivity.open(this, true);
         finish();
     }

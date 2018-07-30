@@ -48,6 +48,7 @@
     <color name="red">#F55E52</color>
     <color name="transparent">#09000000</color>
     <color name="red_packet_text_yellow">#FBDDA9</color>
-
+    <color name="out_money">#47D047</color>
+    <color name="in_money">#F55E52</color>
 
 </resources>

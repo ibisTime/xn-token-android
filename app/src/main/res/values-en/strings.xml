@@ -5,8 +5,8 @@
     <string name="main_tab_wallet"> wallet </string>
     <string name="main_tab_my">Me</string>
     <string name="exit_confirm">Confirm exit?</string>
-    <string name="tip"> hint </string>
-    <string name="tip_update"> update hint </string>
+    <string name="tip">Hint</string>
+    <string name="tip_update">Update hint </string>
     <string name="confirm">confirm </string>
 
     <string name="attention"> note </string>
@@ -142,7 +142,8 @@
     <string name="user_password_google"> Google verification code </string>
 
     <string name="user_password_google_paste"> paste </string>
-    <string name="user_setting_trade_pwd"> Capital password </string>
+    <string name="user_setting_trade_pwd">Capital password </string>
+
     <string name="user_setting_identity"> real name authentication </string>
     <string name="user_setting_mail"> Binding mailbox </string>
 
@@ -328,7 +329,7 @@
     <string name="update_password_fail"> password modification failed </string>
     <string name="modify_password"> modify password </string>
     <string name="please_set_transaction_password">Please set the transaction password </string>
-    <string name="transaction_password_error">transaction password error </string>
+    <string name="transaction_password_error">transaction password error </string>f
     <string name="wallet_backup">Wallet backup </string>
     <string name="wallet_backup_success">Wallet backup success </string>
     <string name="i_know">know </string>
@@ -510,63 +511,67 @@
     <string name="version_num">Version：V %s</string>
     <string name="my_account_wallet">My Wallet</string>
 
-    <string name="my_wallet_introduction">--</string>
+    <string name="my_wallet_introduction">A personal account refers to a central wallet, which is saved by THA for your private key. In a central wallet, there is no loss of wallet that cannot be recovered, and can be verified to retrieve your wallet and allow you to experience more services. </string>
     <string name="my_private_wallet_title">Decentralized Wallet</string>
-    <string name="my_private_wallet_introduction">--</string>
-    <string name="advantage">--</string>
-    <string name="only_user_save_key">--</string>
-    <string name="defect">--</string>
+    <string name="my_private_wallet_introduction">The private key wallet is to go to the central wallet, in the central wallet, all user authentication content, such as trading passwords, private keys, mnemonics, etc. are stored in the user\'s mobile phone local, not stored in the centralized server. If the user mistakenly deletes the wallet, forgets to back up the private key or mnemonics, will not be able to retrieve the wallet. </string>
+    <string name="advantage">Advantages</string>
+    <string name="only_user_save_key">Only the user saves the private key</string>
+    <string name="defect">Defect</string>
     <string name="defect_1">--</string>
     <string name="defete_2">--</string>
-    <string name="words_input_hint">--</string>
-    <string name="start_import">--</string>
-    <string name="what_is_the_words">--</string>
-    <string name="agree_clause">--</string>
-    <string name="wallet_name">--</string>
+    <string name="words_input_hint">Mnemonic words, separated by space </string>
+    <string name="start_import">Start input</string>
+    <string name="what_is_the_words">What is notation word  </string>
+    <string name="agree_clause">I have carefully read and agree to the terms of service and privacy</string>
+    <string name="wallet_name">Wallet Name</string>
     <string name="create_wallet_success_info">--</string>
     <string name="backup_wallet_intro">--</string>
     <string name="backup_intro_2">--</string>
-    <string name="backup_intro_3">--</string>
-    <string name="backup_intro_4">--</string>
-    <string name="backup_intro_5">--</string>
-    <string name="backup_intro_6">--</string>
+    <string name="backup_intro_3">Please click on the mnemonics in order to make sure your backup mnemonics are filled in correctly</string>
+    <string name="backup_intro_4">Confirm the notation words which helps you remember your wallet</string>
+    <string name="backup_intro_5">Now write down these words.</string>
+    <string name="backup_intro_6">Your have 12 recovery words, write them down on paper and keep it safely.</string>
     <string name="copy_money_address">--</string>
     <string name="transfer_fees">Transaction Fees</string>
-    <string name="sure_transfer">--</string>
+    <string name="sure_transfer">Transfer confirmed </string>
     <string name="fast">fast</string>
     <string name="slow">Slow</string>
-    <string name="create_wallet_intro_1">--</string>
-    <string name="backup_introtation_dialog_title">--</string>
-    <string name="backup_introtation_dialog_content">--</string>
+    <string name="create_wallet_intro_1">Attention! Tha does not store user passwords, can not provide recovery or reset functions, passwords must be backed up well by users. Passwords are used to encrypt the private key, and strength is also important.</string>
+    <string name="backup_introtation_dialog_title">Disclaimer</string>
+    <string name="backup_introtation_dialog_content">Please ensure that the wallet has been backed up safely THA does not bear any loss of loss of wallet, stolen, forgotten password and other assets lost!</string>
     <string name="my_coin_address_2">My collection address</string>
-    <string name="qr_share_tip_1">--</string>
-    <string name="qr_share_tip_2">--</string>
-    <string name="red_packet_rule">--</string>
-    <string name="red_packet_type_1">--</string>
-    <string name="red_packet_type_2">--</string>
-    <string name="sure_pay">--</string>
-    <string name="account_balance">--</string>
-    <string name="now_pay">--</string>
-    <string name="transfer_user_funds">--</string>
+    <string name="qr_share_tip_1">Scan the QR-code for tha red envelopes</string>
+    <string name="qr_share_tip_2">Screenshot the QR-code for sharing </string>
+    <string name="red_packet_rule">Rules of Red Envelope </string>
+    <string name="red_packet_type_1">This is ordinary red envelopes</string>
+    <string name="red_packet_type_2">This is Red Envelope for spell luck </string>
+    <string name="sure_pay">Payment Confirmed</string>
+    <string name="account_balance">Account balance</string>
+    <string name="now_pay">Prompt payment</string>
+    <string name="transfer_user_funds">Transfer-in funds</string>
     <string name="red_packet">red_packet</string>
     <string name="welcome_back">Welcome back</string>
-    <string name="set_pattern_pwd">--</string>
-    <string name="draw_your_pattern_pwd">--</string>
-    <string name="draw_pattern_pwd">--</string>
-    <string name="forget_pattern_pwd">--</string>
-    <string name="change_login_type">--</string>
-    <string name="draw_pattern_pwd_2">--</string>
-    <string name="set_pattern_pwd_success">--</string>
-    <string name="pattern_unlock_success">--</string>
+    <string name="set_pattern_pwd">Set Gesture Password</string>
+    <string name="draw_your_pattern_pwd">Please draw your gesture password</string>
+    <string name="draw_pattern_pwd">Draw the gesture Password</string>
+    <string name="forget_pattern_pwd">Forget gesture password</string>
+    <string name="change_login_type">Switch logins</string>
+    <string name="draw_pattern_pwd_2">Please draw the gesture password again</string>
+    <string name="set_pattern_pwd_success">Gesture Password Set success!</string>
+    <string name="pattern_unlock_success">Succeed unlock</string>
     <string name="draw_pattern_pwd_max_hint">--%d</string>
-    <string name="reset_pattern_pwd">--</string>
+    <string name="reset_pattern_pwd">Inconsistent with the last drawing, please redraw</string>
     <string name="pattern_pwd_error_number">--%d</string>
-    <string name="please_read_and_aggree">--</string>
-    <string name="wallet_name_input_hint">--</string>
-    <string name="red_packet_tab_title_info">--</string>
+    <string name="please_read_and_aggree">Please read and agree to the terms of service and privacy</string>
+    <string name="wallet_name_input_hint">Please enter the wallet name</string>
+    <string name="red_packet_tab_title_info">Put the digital currency into it and send it to a friend!</string>
+
     <string name="coin_list">List</string>
     <string name="redpacket_back">--</string>
     <string name="redpacket_get">--</string>
+    <string name="pattern_pwd">Gesture Password</string>
+    <string name="capital_pwd_error">Capital password error</string>
+    <string name="please_input_transaction_pwd">--</string>
 </resources>
 
 

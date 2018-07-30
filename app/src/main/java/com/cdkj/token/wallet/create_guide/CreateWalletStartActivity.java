@@ -46,7 +46,7 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
 
     private String mPassword;
 
-    private boolean isAggree = false;
+    private boolean isAggree = true;//同意条款
 
     public static void open(Context context) {
         if (context == null) {

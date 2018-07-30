@@ -12,9 +12,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
-        tools:replace="android:allowBackup"
         android:allowBackup="false"
-        android:supportsRtl="true">
+        android:supportsRtl="true"
+        tools:replace="android:allowBackup">
 
         <!--自定义fileprovider，类似schema，命名空间之类，后面会用到-->
         <!--申明为true，您才能获取临时共享权限-->
@@ -32,9 +32,13 @@
 
 
         <activity android:name=".activitys.AppBuildTypeActivity" />
-        <activity android:name=".activitys.UpdatePhoneActivity" />
+        <activity
+            android:name=".activitys.UpdatePhoneActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activitys.WebViewActivity" />
-        <activity android:name=".activitys.NickModifyActivity" />
+        <activity
+            android:name=".activitys.NickModifyActivity"
+            android:windowSoftInputMode="adjustPan" />
 
     </application>
 

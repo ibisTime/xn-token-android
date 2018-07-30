@@ -492,7 +492,7 @@
     <string name="transfer_user_funds">--</string>
 
     <string name="red_packet">훙빠우</string>
-    <string name="welcome_back">Welcome back</string>
+    <string name="welcome_back">--</string>
     <string name="set_pattern_pwd">--</string>
     <string name="draw_your_pattern_pwd">--</string>
     <string name="draw_pattern_pwd">--</string>
@@ -510,4 +510,7 @@
     <string name="coin_list">코인 리스트</string>
     <string name="redpacket_back">--</string>
     <string name="redpacket_get">--</string>
+    <string name="pattern_pwd">--</string>
+    <string name="capital_pwd_error">--</string>
+    <string name="please_input_transaction_pwd">--</string>
 </resources>

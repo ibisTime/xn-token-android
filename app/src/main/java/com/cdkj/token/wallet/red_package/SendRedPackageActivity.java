@@ -31,6 +31,7 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivitySendRedPackageBinding;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.RedPackageHistoryBean;
+import com.cdkj.token.user.WebViewImgBgActivity;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.views.dialogs.UserBalanceDialog;
@@ -39,6 +40,7 @@ import com.cdkj.token.wallet.account.RechargeAddressQRActivity;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +69,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
     private UserBalanceDialog userBalanceDialog;
 
     private String balanString;//余额显示
+    private String sendTotalCoinString;
 
 
     public static void open(Context context) {
@@ -96,6 +99,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
         mBinding.etNumber.setEnabled(false);
         mBinding.etSendNumber.setEnabled(false);
         mBinding.tvInMoney.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        cAccountListBeans = new ArrayList<>();
         showUIState();
         initOnClick();
         getUserInfoRequest();
@@ -106,7 +110,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
         //红包规则
         mBinding.tvRedPacketRule.setOnClickListener(view -> {
-            WebViewActivity.openkey(this, getString(R.string.red_packet_rule), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_RED_PACKET_RULE));
+            WebViewImgBgActivity.openkey(this, getString(R.string.red_packet_rule), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_RED_PACKET_RULE));
         });
 
         //转入资金
@@ -135,7 +139,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             setTotalNumber();
         });
         mBinding.llType.setOnClickListener(view -> {
-            if (cAccountListBeans != null && !cAccountListBeans.isEmpty()) {
+            if (cAccountListBeans==null ||cAccountListBeans.isEmpty()) {
                 getWalletAssetsData(true);
             } else {
                 showCoinSelectPickView();
@@ -223,8 +227,8 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             }
             double total = v1 * v2;
             DecimalFormat df = new DecimalFormat("#######0.###");
-            String showMoney = df.format(total);
-            mBinding.tvSumNumber.setText(showMoney);
+            sendTotalCoinString = df.format(total);
+            mBinding.tvSumNumber.setText(sendTotalCoinString);
 
         }
     }
@@ -235,12 +239,11 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             return;
         }
 
-        String money_et = mBinding.etNumber.getText().toString();
-        if (TextUtils.isEmpty(money_et)) {
+        if (TextUtils.isEmpty(sendTotalCoinString)) {
             UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_piease_send_number));
             return;
         }
-        moneyNumber = Double.parseDouble(money_et);
+        moneyNumber = Double.parseDouble(sendTotalCoinString);
         if (moneyNumber < 0.001) {
             UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_min_numer));
             return;
@@ -330,7 +333,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
     private void showInputDialog() {
         //判断有没有设置过支付密码
         if (!SPUtilHelper.getTradePwdFlag()) {
-            showDoubleWarnListen(getString(R.string.red_package_please_set_type), view -> {
+            showDoubleWarnListen(getString(R.string.please_set_account_money_password), view -> {
                 //跳转设置支付界面
                 PayPwdModifyActivity.open(this, false, SPUtilHelper.getUserPhoneNum());
             });
@@ -344,6 +347,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             });
         }
         userBalanceDialog.setShowBalance(balanString + currencyType);  //余额 + 币种类型
+        userBalanceDialog.setShowPayMoney(sendTotalCoinString + currencyType);  //币种数量 + 币种类型
         userBalanceDialog.show();
     }
 
@@ -432,6 +436,11 @@ public class SendRedPackageActivity extends AbsLoadActivity {
         coinPickerView.show();
     }
 
+    /**
+     * 选择币种信息
+     *
+     * @param options1
+     */
     void setShowSelectCoinInfo(int options1) {
 
         if (options1 < 0 || cAccountListBeans == null || options1 > cAccountListBeans.size()) {
@@ -494,12 +503,16 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+
             }
         });
     }
 
-
+    /**
+     * 用户信息展示
+     *
+     * @param data
+     */
     private void setShowData(UserInfoModel data) {
         if (data == null) {
 

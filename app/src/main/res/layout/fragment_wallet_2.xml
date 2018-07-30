@@ -230,7 +230,8 @@
                             android:layout_gravity="center_vertical"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
-                            android:src="@drawable/add_black" />
+                            android:src="@drawable/add_black"
+                            android:visibility="invisible" />
 
                     </LinearLayout>
 

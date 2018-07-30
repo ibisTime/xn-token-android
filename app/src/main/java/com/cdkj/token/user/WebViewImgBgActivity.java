@@ -16,7 +16,6 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.cdkj.baselibrary.appmanager.MyConfig;
-import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.model.IntroductionInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -32,9 +31,10 @@ import retrofit2.Call;
 
 
 /**
- * 帮助中心
+ * webView图片背景
+ *
  */
-public class HelperCenterActivity extends AbsStatusBarTranslucentActivity {
+public class WebViewImgBgActivity extends AbsStatusBarTranslucentActivity {
 
     private ActivityHelpCenterBinding mBinding;
 
@@ -50,7 +50,7 @@ public class HelperCenterActivity extends AbsStatusBarTranslucentActivity {
             return;
         }
 
-        Intent intent = new Intent(activity, HelperCenterActivity.class);
+        Intent intent = new Intent(activity, WebViewImgBgActivity.class);
         intent.putExtra("code", code);
         intent.putExtra("title", title);
         activity.startActivity(intent);
@@ -67,7 +67,7 @@ public class HelperCenterActivity extends AbsStatusBarTranslucentActivity {
             return;
         }
 
-        Intent intent = new Intent(activity, HelperCenterActivity.class);
+        Intent intent = new Intent(activity, WebViewImgBgActivity.class);
         intent.putExtra("content", content);
         intent.putExtra("title", title);
         activity.startActivity(intent);
@@ -84,7 +84,7 @@ public class HelperCenterActivity extends AbsStatusBarTranslucentActivity {
             return;
         }
 
-        Intent intent = new Intent(activity, HelperCenterActivity.class);
+        Intent intent = new Intent(activity, WebViewImgBgActivity.class);
         intent.putExtra("url", url);
         intent.putExtra("title", title);
         activity.startActivity(intent);
