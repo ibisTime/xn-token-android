@@ -320,7 +320,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
 
                 } else if (i > 100) {
                     float upperI = i - 100;
-                    BigDecimal bg = new BigDecimal(upperI/100);
+                    BigDecimal bg = new BigDecimal(upperI / 100);
                     transferGasPrice = gasPriceLimit.add(new BigDecimal(gasPriceLimit).multiply(bg).toBigInteger());
 
                 } else {                                             //默认矿工费
