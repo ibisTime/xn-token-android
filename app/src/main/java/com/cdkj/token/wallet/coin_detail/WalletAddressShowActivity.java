@@ -30,14 +30,14 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
 
     private ActivityAddressQrimgShowBinding mBinding;
 
-    private String coinType;
+    private String mAddress;
 
-    public static void open(Context context, String coinType) {
+    public static void open(Context context, String address) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, WalletAddressShowActivity.class);
-        intent.putExtra(CdRouteHelper.DATASIGN, coinType);
+        intent.putExtra(CdRouteHelper.DATASIGN, address);
         context.startActivity(intent);
     }
 
@@ -57,7 +57,7 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
         mBaseBinding.titleView.setMidTitle(R.string.get_money);
 
         if (getIntent() != null) {
-            coinType = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
+            mAddress = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
         }
 
         initQRCodeAndAddress();
@@ -66,11 +66,10 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
 
 
     private void initQRCodeAndAddress() {
-        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
-        String address = WalletHelper.getAddressByCoinType(walletDBModel, coinType);
-        Bitmap mBitmap = CodeUtils.createImage(address, 400, 400, null);
+        if (TextUtils.isEmpty(mAddress)) return;
+        Bitmap mBitmap = CodeUtils.createImage(mAddress, 400, 400, null);
         mBinding.imgQRCode.setImageBitmap(mBitmap);
-        mBinding.txtAddress.setText(address);
+        mBinding.txtAddress.setText(mAddress);
     }
 
     private void initListener() {

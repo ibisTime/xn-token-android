@@ -70,7 +70,7 @@ public class MyConfig {
      * @return
      */
     public static String getBaseURL() {
-        if (true) {
+        if (false) {
             switch (SPUtilHelper.getAPPBuildType()) {
                 case BUILD_TYPE_TEST: // 测试
                     return MyConfig.BASE_URL_DEV;

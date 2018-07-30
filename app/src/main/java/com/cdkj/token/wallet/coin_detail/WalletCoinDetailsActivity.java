@@ -130,7 +130,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
         //收款
         mBinding.linLayoutInCoin.setOnClickListener(view -> {
             if (accountListBean != null) {
-                WalletAddressShowActivity.open(this, accountListBean.getCoinName());
+                WalletAddressShowActivity.open(this, accountListBean.getAddress());
             }
         });
 

@@ -208,7 +208,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                 .map(s -> {
                     WalletDBModel w = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
 
-                    if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_WAN)) {
+                    if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_WAN)) {   //TODO 转账地址优化
                         return WalletHelper.transferWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), transferGasPrice);
                     }
                     return WalletHelper.transfer(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), transferGasPrice);
@@ -274,7 +274,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                         }
 
                         if (!WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {
-                            UITipDialog.showInfoNoIcon(this,getString(R.string.capital_pwd_error));
+                            UITipDialog.showInfoNoIcon(this, getString(R.string.capital_pwd_error));
                             return;
                         }
 
