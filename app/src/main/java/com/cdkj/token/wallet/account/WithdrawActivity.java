@@ -21,6 +21,7 @@ import com.cdkj.baselibrary.dialog.InputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.model.IsSuccessModes;
+import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.PermissionHelper;
@@ -100,6 +101,9 @@ public class WithdrawActivity extends AbsLoadActivity {
         init();
 
         initListener();
+
+        getUserInfoRequest();
+
 //        getWithdrawFee();
     }
 
@@ -129,26 +133,28 @@ public class WithdrawActivity extends AbsLoadActivity {
             QRscan();
         });
 
-
         mBinding.btnWithdraw.setOnClickListener(view -> {
 
-            if (check()) {
-                if (isCerti) {
-                    if (SPUtilHelper.getTradePwdFlag()) {
-                        showInputDialog();
-                    } else {
-                        UITipDialog.showInfo(WithdrawActivity.this, getString(R.string.please_set_account_money_password), new DialogInterface.OnDismissListener() {
-                            @Override
-                            public void onDismiss(DialogInterface dialogInterface) {
-                                PayPwdModifyActivity.open(WithdrawActivity.this, SPUtilHelper.getTradePwdFlag(), SPUtilHelper.getUserPhoneNum());
-                            }
-                        });
-                    }
-                } else {
-                    withdrawal("");
-                }
-
+            if (!check()) {
+                return;
             }
+
+//            if (isCerti) {
+//                withdrawal("");
+//                return;
+//            }
+
+            if (SPUtilHelper.getTradePwdFlag()) {
+                showInputDialog();
+            } else {
+                UITipDialog.showInfo(WithdrawActivity.this, getString(R.string.please_set_account_money_password), new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        PayPwdModifyActivity.open(WithdrawActivity.this, SPUtilHelper.getTradePwdFlag(), SPUtilHelper.getUserPhoneNum());
+                    }
+                });
+            }
+
 
         });
 
@@ -164,21 +170,21 @@ public class WithdrawActivity extends AbsLoadActivity {
 
     private boolean check() {
         if (TextUtils.isEmpty(mBinding.editToAddress.getText().toString().trim())) {
-            ToastUtil.show(WithdrawActivity.this, getStrRes(R.string.user_address_hint));
+            UITipDialog.showInfoNoIcon(WithdrawActivity.this, getStrRes(R.string.user_address_hint));
             return false;
         }
 
         if (TextUtils.isEmpty(mBinding.edtAmount.getText().toString().trim())) {
-            ToastUtil.show(WithdrawActivity.this, getStrRes(R.string.wallet_withdraw_amount_hint));
+            UITipDialog.showInfoNoIcon(WithdrawActivity.this, getStrRes(R.string.wallet_withdraw_amount_hint));
             return false;
         }
 
         if (isCerti) {
-            if (SPUtilHelper.getGoogleAuthFlag()) {
-//                if (TextUtils.isEmpty(mBinding.editToAddress.getText().toString())) {
-//                    showToast(getStrRes(R.string.google_code_hint));
-//                    return false;
-//                }
+            if (SPUtilHelper.getGoogleAuthFlag() && TextUtils.isEmpty(mBinding.editGoogleCode.getText().toString())) {
+                UITipDialog.showInfoNoIcon(this, getStrRes(R.string.google_code_hint));
+                mBinding.linLayoutGoogle.setVisibility(View.VISIBLE);
+                mBinding.viewGoogle.setVisibility(View.VISIBLE);
+                return false;
             }
         }
 
@@ -273,7 +279,7 @@ public class WithdrawActivity extends AbsLoadActivity {
 
         Map<String, String> map = new HashMap<>();
 
-        map.put("googleCaptcha", "");
+        map.put("googleCaptcha", mBinding.editGoogleCode.getText().toString());
         map.put("token", SPUtilHelper.getUserToken());
         map.put("applyUser", SPUtilHelper.getUserId());
         map.put("systemCode", MyConfig.SYSTEMCODE);
@@ -324,6 +330,42 @@ public class WithdrawActivity extends AbsLoadActivity {
     }
 
 
+    /**
+     * 获取用户信息 获取用户是否设置了支付密码
+     */
+    public void getUserInfoRequest() {
+
+        if (!SPUtilHelper.isLoginNoStart()) {
+
+            return;
+        }
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("userId", SPUtilHelper.getUserId());
+        map.put("token", SPUtilHelper.getUserToken());
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        showLoadingDialog();
+
+        call.enqueue(new BaseResponseModelCallBack<UserInfoModel>(this) {
+            @Override
+            protected void onSuccess(UserInfoModel data, String SucMessage) {
+                if (data == null)
+                    return;
+                SPUtilHelper.saveTradePwdFlag(data.isTradepwdFlag());
+                SPUtilHelper.saveGoogleAuthFlag(data.isGoogleAuthFlag());
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+    }
 
 
     @Subscribe

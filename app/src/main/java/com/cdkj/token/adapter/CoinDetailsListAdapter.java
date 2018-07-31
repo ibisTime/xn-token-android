@@ -45,12 +45,12 @@ public class CoinDetailsListAdapter extends BaseQuickAdapter<LocalCoinBill, Base
 
         if (isInState(item.getDirection())) {
             helper.setText(R.id.tv_remark, mContext.getString(R.string.get_money));
-            helper.setTextColor(R.id.tv_remark, ContextCompat.getColor(mContext,R.color.in_money));
+            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext,R.color.in_money));
             helper.setText(R.id.tv_address, item.getFrom());
         } else {
             helper.setText(R.id.tv_remark, mContext.getString(R.string.transfer));
             helper.setText(R.id.tv_address, item.getTo());
-            helper.setTextColor(R.id.tv_remark, ContextCompat.getColor(mContext,R.color.out_money));
+            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext,R.color.out_money));
         }
 
     }

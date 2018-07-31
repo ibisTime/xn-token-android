@@ -75,7 +75,7 @@ public class NoneActivity extends AbsActivity {
 
             case FIRST_CREATE:
                 mBinding.tvContent.setText(R.string.waite_content_1);
-                mBinding.tvTitle.setText(R.string.waite_title_1);
+                mBinding.tvTitle.setText(R.string.consult_1);
                 setTopTitle(getString(R.string.consult_1));
                 break;
 

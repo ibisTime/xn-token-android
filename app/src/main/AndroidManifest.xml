@@ -3,16 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.cdkj.token">
 
-    <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" />
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.VIBRATE" /> <!--震动-->
+    <uses-permission android:name="android.permission.CHANGE_CONFIGURATION" /><!--允许修改当前设置-->
+    <uses-permission android:name="android.permission.INTERNET" /><!--链接网络-->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /><!--允许程序写入外部存储，如SD卡上写文件-->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /><!---->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
-    <uses-permission android:name="android.permission.GET_TASKS" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.CALL_PHONE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
+    <!--<uses-permission android:name="android.permission.WAKE_LOCK" />-->
+    <!--<uses-permission android:name="android.permission.CALL_PHONE" />-->
 
     <application
         android:name=".MyApplication"

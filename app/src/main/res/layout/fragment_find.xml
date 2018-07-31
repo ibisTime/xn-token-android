@@ -128,6 +128,8 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="12dp"
                                 android:layout_toRightOf="@id/img_red_packet"
+                                android:ellipsize="end"
+                                android:maxLines="2"
                                 android:text="@string/red_packet_tab_title_info"
                                 android:textColor="@color/gray_666666"
                                 android:textSize="12sp" />
@@ -174,8 +176,8 @@
                                 android:layout_marginLeft="12dp"
                                 android:layout_toRightOf="@id/img_red_packet"
                                 android:ellipsize="end"
-                                android:singleLine="true"
-                                android:text="@string/waite_content_1"
+                                android:maxLines="2"
+                                android:text="@string/first_play_intro"
                                 android:textColor="@color/gray_666666"
                                 android:textSize="12sp" />
 
@@ -222,7 +224,7 @@
                                 android:layout_toRightOf="@id/img_red_packet"
                                 android:ellipsize="end"
                                 android:singleLine="true"
-                                android:text="@string/waite_content_3"
+                                android:text="@string/lianghualicai_intro"
                                 android:textColor="@color/gray_666666"
                                 android:textSize="12sp" />
 
@@ -267,8 +269,8 @@
                                 android:layout_marginLeft="12dp"
                                 android:layout_toRightOf="@id/img_red_packet"
                                 android:ellipsize="end"
-                                android:singleLine="true"
-                                android:text="@string/waite_content_2"
+                                android:maxLines="2"
+                                android:text="@string/yubibao_intro"
                                 android:textColor="@color/gray_666666"
                                 android:textSize="12sp" />
 

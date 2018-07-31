@@ -151,6 +151,46 @@
 
             </LinearLayout>
 
+            <View
+                android:id="@+id/view_google"
+                android:visibility="gone"
+                style="@style/style_split_line" />
+
+            <LinearLayout
+                android:id="@+id/linLayout_google"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/layout_item_height"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/white"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:text="@string/user_password_google"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/edit_google_code"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="25dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/user_password_google_hint"
+                    android:inputType="numberDecimal"
+                    android:textColor="@color/black"
+                    android:textColorHint="@color/gray_999999"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
             <View style="@style/style_split_line" />
 
 

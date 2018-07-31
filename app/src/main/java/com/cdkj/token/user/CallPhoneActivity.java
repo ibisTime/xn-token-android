@@ -61,6 +61,7 @@ public class CallPhoneActivity extends BaseActivity {
     }
 
     /**
+     *     <uses-permission android:name="android.permission.CALL_PHONE" />
      * 拨打电话权限请求
      */
     private void permissionRequest() {

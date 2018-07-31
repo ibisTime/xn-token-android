@@ -263,18 +263,18 @@ public class WalletTransferActivity extends AbsLoadActivity {
      */
     private void showPasswordInputDialog() {
         if (passWordInputDialog == null) {
-            passWordInputDialog = new InputDialog(this).builder().setTitle(getStrRes(R.string.trade_code_hint))
+            passWordInputDialog = new InputDialog(this).builder().setTitle(getStrRes(R.string.please_input_transaction_pwd))
                     .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
 
                         String tradePwd = passWordInputDialog.getContentView().getText().toString().trim();
 
                         if (TextUtils.isEmpty(tradePwd)) {
-                            UITipDialog.showInfoNoIcon(WalletTransferActivity.this, getString(R.string.trade_code_hint));
+                            UITipDialog.showInfoNoIcon(WalletTransferActivity.this, getString(R.string.please_input_transaction_pwd));
                             return;
                         }
 
                         if (!WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {
-                            UITipDialog.showInfoNoIcon(this, getString(R.string.capital_pwd_error));
+                            UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
                             return;
                         }
 
@@ -284,7 +284,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                     .setContentMsg("");
         }
         passWordInputDialog.getContentView().setText("");
-        passWordInputDialog.getContentView().setHint(getStrRes(R.string.trade_code_hint));
+        passWordInputDialog.getContentView().setHint(getStrRes(R.string.please_input_transaction_pwd));
         passWordInputDialog.getContentView().setText("");
         passWordInputDialog.show();
     }

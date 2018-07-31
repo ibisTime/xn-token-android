@@ -33,7 +33,7 @@
     <string name="wallet_withdraw_address_input_hint">请粘贴地址或扫码录入</string>
     <string name="wallet_withdraw_amount">提币数量</string>
     <string name="wallet_withdraw_free">手续费\u3000</string>
-    <string name="wallet_withdraw_tip">手续费将在提现金额中扣除</string>
+    <string name="wallet_withdraw_tip">手续费将在提币金额中扣除</string>
     <string name="wallet_withdraw_confirm">确认提币</string>
 
     <string name="wallet_withdraw_order_title">提币订单</string>
@@ -424,8 +424,8 @@
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="my_red_package">我的红包</string>
-    <string name="get_red_package">抢到红包</string>
-    <string name="send_red_package2">发出红包</string>
+    <string name="get_red_package">我收到的</string>
+    <string name="send_red_package2">我发出的</string>
     <string name="sub_total_red_package">总共发送</string>
     <string name="red_package_db">代币类型</string>
     <string name="red_package_sub_total">代币总额</string>
@@ -435,7 +435,7 @@
     <string name="red_package_msg">请输入祝福语</string>
     <string name="red_package_set">塞进红包</string>
     <string name="red_package_send">发红包</string>
-    <string name="red_package_have">持有</string>
+    <string name="red_package_have">个人账户余额</string>
     <string name="red_package_total">总量</string>
     <string name="red_package_empty_type">暂无可用币种</string>
     <string name="red_package_please_set_type">请先设置支付密码</string>
@@ -545,11 +545,14 @@
     <string name="pattern_pwd_error_number">密码错误，还剩%d次机会</string>
     <string name="please_read_and_aggree">请阅读并同意服务及隐私条款</string>
     <string name="wallet_name_input_hint">请输入钱包名称</string>
-    <string name="red_packet_tab_title_info">将数字货币塞入其中，发给好友</string>
+    <string name="red_packet_tab_title_info">发数字货币红包、查收发记录和提现</string>
     <string name="pattern_pwd">手势密码</string>
     <string name="coin_list">币种列表</string>
     <string name="redpacket_back">红包退回</string>
     <string name="redpacket_get">抢红包</string>
     <string name="capital_pwd_error">资金密码错误</string>
     <string name="please_input_transaction_pwd">请输入交易密码</string>
+    <string name="yubibao_intro">随存随取、灵活理财</string>
+    <string name="lianghualicai_intro">低风险、高收益、定期理财产品</string>
+    <string name="first_play_intro">师徒教育玩法、双向奖励机制</string>
 </resources>

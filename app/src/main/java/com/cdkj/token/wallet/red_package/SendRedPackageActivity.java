@@ -69,7 +69,6 @@ public class SendRedPackageActivity extends AbsLoadActivity {
     private UserBalanceDialog userBalanceDialog;
 
     private String balanString;//余额显示
-    private String sendTotalCoinString;
 
 
     public static void open(Context context) {
@@ -139,7 +138,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             setTotalNumber();
         });
         mBinding.llType.setOnClickListener(view -> {
-            if (cAccountListBeans==null ||cAccountListBeans.isEmpty()) {
+            if (cAccountListBeans == null || cAccountListBeans.isEmpty()) {
                 getWalletAssetsData(true);
             } else {
                 showCoinSelectPickView();
@@ -218,7 +217,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             return;
         }
 
-        if (redType == 0) {    //普通红包就是输入的币的数量乘以发的包数 （拼手气红包不乘）
+        if (redType == TYPE_ORDINARY) {    //普通红包就是输入的币的数量乘以发的包数 （拼手气红包不乘）
 
             double v1 = Double.parseDouble(etNumber);
             double v2 = Double.parseDouble(etSendNumber);
@@ -227,7 +226,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             }
             double total = v1 * v2;
             DecimalFormat df = new DecimalFormat("#######0.###");
-            sendTotalCoinString = df.format(total);
+            String sendTotalCoinString = df.format(total);
             mBinding.tvSumNumber.setText(sendTotalCoinString);
 
         }
@@ -239,11 +238,11 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             return;
         }
 
-        if (TextUtils.isEmpty(sendTotalCoinString)) {
+        if (TextUtils.isEmpty(mBinding.tvSumNumber.getText().toString().trim())) {
             UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_piease_send_number));
             return;
         }
-        moneyNumber = Double.parseDouble(sendTotalCoinString);
+        moneyNumber = Double.parseDouble(mBinding.tvSumNumber.getText().toString().trim());
         if (moneyNumber < 0.001) {
             UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_min_numer));
             return;
@@ -347,7 +346,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             });
         }
         userBalanceDialog.setShowBalance(balanString + currencyType);  //余额 + 币种类型
-        userBalanceDialog.setShowPayMoney(sendTotalCoinString + currencyType);  //币种数量 + 币种类型
+        userBalanceDialog.setShowPayMoney(mBinding.tvSumNumber.getText().toString().trim() + currencyType);  //币种数量 + 币种类型
         userBalanceDialog.show();
     }
 
@@ -460,7 +459,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
             String yue = AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), 8);
             balanString = yue;
-            mBinding.tvBalance.setText(getString(R.string.red_package_have) + ": " + yue);
+            mBinding.tvBalance.setText(getString(R.string.red_package_have) + ":" + yue);
         }
     }
 

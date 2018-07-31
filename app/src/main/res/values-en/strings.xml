@@ -2,100 +2,101 @@
 
     <string name="app_name">THA</string>
     <string name="main_tag_consult">Discover</string>
-    <string name="main_tab_wallet"> wallet </string>
+    <string name="main_tab_wallet">Wallet </string>
     <string name="main_tab_my">Me</string>
     <string name="exit_confirm">Confirm exit?</string>
     <string name="tip">Hint</string>
     <string name="tip_update">Update hint </string>
-    <string name="confirm">confirm </string>
+    <string name="confirm">Confirm </string>
 
-    <string name="attention"> note </string>
+    <string name="attention">Note </string>
 
-    <string name="kick_logout"> your account is already logged in at another terminal, log on again </string>
-    <string name="deal"> trading </string>
-    <string name="good"> praise </string>
+    <string name="kick_logout">Your account is already logged in at another terminal, log on again </string>
+    <string name="deal">Trading </string>
+    <string name="good">Praise </string>
 
-    <string name="trust"> trust </string>
+    <string name="trust">Rust</string>
 
-    <string name="build_type"> Environment switch</string>
+    <string name="build_type">Environment switch</string>
     <string name="property_eth">Ethernet Currency Asset (ETH) </string>
-    <string name="property_btc"> Bitcoin asset (BTC) </string>
+    <string name="property_btc">Bitcoin asset (BTC) </string>
 
-    <string name="freeze"> frozen </string>
-    <string name="wallet_charge_my_address"> my bit-currency billing address </string>
-    <string name="wallet_charge_address_copy"> (click Copy address) </string>
+    <string name="freeze">Frozen</string>
+    <string name="wallet_charge_my_address">My bit-currency billing address </string>
+    <string name="wallet_charge_address_copy">(Click copy address) </string>
 
-    <string name="wallet_charge_address"> address </string>
+    <string name="wallet_charge_address">Address</string>
 
 
-    <string name="wallet_frozen_0"> frozen 0 </string>
-    <string name="wallet_charge"> coin-filled </string>
-    <string name="wallet_withdraw"> coin </string>
+    <string name="wallet_frozen_0">Frozen 0</string>
+    <string name="wallet_charge"> Coin-filled </string>
+    <string name="wallet_withdraw">Coin </string>
 
     <string name="wallet_bill"> Bill </string>
-    <string name="bill_type_all"> all </string>
-    <string name="bill_type_charge"> coin-filled </string>
-    <string name="bill_type_withdraw">now </string>
+    <string name="bill_type_all">All </string>
+    <string name="bill_type_charge"> Coin-filled </string>
+    <string name="bill_type_withdraw">Now </string>
     <string name="bill_type_withdrawfee"> The Handling fee is</string>
 
-    <string name="bill_type_withdrawfrozen"> frozen is</string>
+    <string name="bill_type_withdrawfrozen"> Frozen is</string>
 
-    <string name="bill_type_withdrawunfrozen"> the to unfreeze</string>
-    <string name="bill_type_select"> filter to</string>
-    <string name="bill_title_all"> balance detail </string>
-    <string name="bill_title_charge"> recharge detail </string>
-    <string name="bill_title_withdraw"> coin detail </string>
-    <string name="bill_title_frozen"> frozen detail </string>
-    <string name="bill_none"> no record </string>
-    <string name="bill_all_none"> no balance details </string>
-    <string name="bill_charge_none"> no recharge details </string>
+    <string name="bill_type_withdrawunfrozen"> The to unfreeze</string>
+    <string name="bill_type_select">Filter to</string>
+    <string name="bill_title_all"> Balance detail </string>
+    <string name="bill_title_charge"> Recharge detail </string>
+    <string name="bill_title_withdraw">Coin detail </string>
+    <string name="bill_title_frozen">Frozen detail </string>
+    <string name="bill_none"> No record </string>
+    <string name="bill_all_none">Bo balance details </string>
+    <string name="bill_charge_none"> Bo recharge details </string>
     <string name="bill_withdraw_none">No currency details</string>
-    <string name="wallet_none"> no wallet </string>
-    <string name="market_quantity"> quantity </string>
+    <string name="wallet_none">No wallet </string>
+    <string name="market_quantity">Quantity </string>
 
 
     <string name="deal_type_select_tip">Please select the transaction type</string>
 
     <string name="popup_scan"> Scan two-dimensional code </string>
 
-    <string name="popup_paste"> paste address </string>
+    <string name="popup_paste">Paste address </string>
 
     <string name="copy_tip_none"> You content copied have not the</string>
 
-    <string name="qrcode_parsing_failure"> code failure parse to two-dimensional</string>
+    <string name="qrcode_parsing_failure">Code failure parse to two-dimensional</string>
 
-    <string name="camera_refused">camera has open refused the to</string>
-    <string name="order_status_daishenpi"> pending approval </string>
-    <string name="order_status_butongguo"> approval does not pass </string>
-    <string name="order_status_daiguangbo"> approved for broadcast </string>
+    <string name="camera_refused">Camera has open refused the to</string>
+    <string name="order_status_daishenpi">Pending approval </string>
+    <string name="order_status_butongguo">Approval does not pass </string>
+    <string name="order_status_daiguangbo">Approved for broadcast </string>
     <string name="order_status_guangbozhong"> Radio </string>
-    <string name="order_status_shibai"> broadcast failed </string>
+    <string name="order_status_shibai">Broadcast failed </string>
 
-    <string name="order_status_chenggong"> broadcast successfully </string>It's mine
-    <string name="address_attestation">been certified has</string>
+    <string name="order_status_chenggong">Broadcast successfully </string>
 
-    <string name="address_unattestation">certified is not</string>
-    <string name="user_title_address_add">add address</string>
-    <string name="user_title_address_add_success">add address successfully</string>
+    <string name="address_attestation">Been certified has</string>
 
-    <string name="user_google_btn_close"> close Google verification </string>
+    <string name="address_unattestation">Certified is not</string>
+    <string name="user_title_address_add">Add address</string>
+    <string name="user_title_address_add_success">Add address successfully</string>
+
+    <string name="user_google_btn_close">Close Google verification </string>
 
     <string name="user_google_btn_modify">Google modify to validation</string>
 
     <string name="user_title_join">Join community</string>
 
-    <string name="user_title_wallet"> Wallet settings </string>
+    <string name="user_title_wallet">Wallet settings </string>
     <string name="user_title_invite_history"> recommended history </string>
 
     <string name="invite_history_none">No history recommended</string>
-    <string name="user_title_published"> my ad </string>
+    <string name="user_title_published">My ad </string>
 
-    <string name="user_published_none"> no release </string>
+    <string name="user_published_none">No release </string>
     <string name="user_title_setting"> Security settings </string>
 
     <string name="user_identity_success"> You have passed the real-name authentication </string>
 
-    <string name="user_title_person"> personal homepage </string>
+    <string name="user_title_person">Personal homepage </string>
 
     <string name="user_title_tip"> personality settings </string>
     <string name="user_title_sign_in"> login </string>
@@ -263,7 +264,7 @@
     <string name="user_services">Contact customer service</string>
     <string name="user_about">About us</string>
     <string name="user_about_update">update to the latest version </string>
-    <string name="user_about_updated"> is already the latest version </string>
+    <string name="user_about_updated">Is already the latest version </string>
 
 
     <string name="user_sign_up_referee">referee mobile phone </string>
@@ -363,7 +364,7 @@
     <string name="choose_fee_tip">Selecting an economic fee may result in an extended transaction confirmation time. For transactions that require time, please choose prioritized fee</string>
     <string name="priority">Priority </string>
     <string name="extract_amount">to raise the amount of money </string>
-    <string name="transaction_record">transaction record </string>
+    <string name="transaction_record">Transaction record </string>
     <string name="business_app">Business Application</string>
     <string name="coin_to_coin">coin coin </string>
     <string name="tha_planet">THA Planet </string>
@@ -380,7 +381,7 @@
     <string name="please_input_withdraw_address">Please input the payment address </string>
     <string name="withdraw_address">receipt address </string>
     <string name="transfer_out_address"> transfer address </string>
-    <string name="fees"> fee</string>
+    <string name="fees">Fee</string>
     <string name="block_height">block height </string>
     <string name="transction_code">transaction number </string>
     <string name="transction_time">transaction time </string>
@@ -517,21 +518,21 @@
     <string name="advantage">Advantages</string>
     <string name="only_user_save_key">Only the user saves the private key</string>
     <string name="defect">Defect</string>
-    <string name="defect_1">--</string>
-    <string name="defete_2">--</string>
+    <string name="defect_1">There\'s mining fee.</string>
+    <string name="defete_2">The transaction rate is slow.</string>
     <string name="words_input_hint">Mnemonic words, separated by space </string>
     <string name="start_import">Start input</string>
     <string name="what_is_the_words">What is notation word  </string>
     <string name="agree_clause">I have carefully read and agree to the terms of service and privacy</string>
     <string name="wallet_name">Wallet Name</string>
-    <string name="create_wallet_success_info">--</string>
-    <string name="backup_wallet_intro">--</string>
-    <string name="backup_intro_2">--</string>
+    <string name="create_wallet_success_info">We are highly recommending you  that prepare a backup with wallet asset, export [mnemonics] to a safe place, and then start with using a tinny fund as start up.</string>
+    <string name="backup_wallet_intro">How to back up your wallet</string>
+    <string name="backup_intro_2">In case your phone loses or forgets your password, mnemonics can be used for your wallet or money.</string>
     <string name="backup_intro_3">Please click on the mnemonics in order to make sure your backup mnemonics are filled in correctly</string>
     <string name="backup_intro_4">Confirm the notation words which helps you remember your wallet</string>
     <string name="backup_intro_5">Now write down these words.</string>
     <string name="backup_intro_6">Your have 12 recovery words, write them down on paper and keep it safely.</string>
-    <string name="copy_money_address">--</string>
+    <string name="copy_money_address">Copy a collection address</string>
     <string name="transfer_fees">Transaction Fees</string>
     <string name="sure_transfer">Transfer confirmed </string>
     <string name="fast">fast</string>
@@ -559,19 +560,21 @@
     <string name="draw_pattern_pwd_2">Please draw the gesture password again</string>
     <string name="set_pattern_pwd_success">Gesture Password Set success!</string>
     <string name="pattern_unlock_success">Succeed unlock</string>
-    <string name="draw_pattern_pwd_max_hint">--%d</string>
+    <string name="draw_pattern_pwd_max_hint">At least Connect %d dots,please redraw again</string>
     <string name="reset_pattern_pwd">Inconsistent with the last drawing, please redraw</string>
-    <string name="pattern_pwd_error_number">--%d</string>
+    <string name="pattern_pwd_error_number">Wrong password, %d time chance left</string>
     <string name="please_read_and_aggree">Please read and agree to the terms of service and privacy</string>
     <string name="wallet_name_input_hint">Please enter the wallet name</string>
-    <string name="red_packet_tab_title_info">Put the digital currency into it and send it to a friend!</string>
-
-    <string name="coin_list">List</string>
-    <string name="redpacket_back">--</string>
-    <string name="redpacket_get">--</string>
+    <string name="red_packet_tab_title_info">Send a digital currency in red envelope,check the receive records and cash the balance</string>
+    <string name="coin_list">List of currencies</string>
+    <string name="redpacket_back">Red Envelopes returned</string>
+    <string name="redpacket_get">Grab a red envelope</string>
     <string name="pattern_pwd">Gesture Password</string>
     <string name="capital_pwd_error">Capital password error</string>
-    <string name="please_input_transaction_pwd">--</string>
+    <string name="please_input_transaction_pwd">Please enter the trading password.</string>
+    <string name="yubibao_intro">Flexible financial management,Save in and cash the balance anytime</string>
+    <string name="lianghualicai_intro">Regular financial product,Low risk high return </string>
+    <string name="first_play_intro">Two-way incentive mechanism,master and apprentice orientation</string>
 </resources>
 
 

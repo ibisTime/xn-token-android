@@ -49,7 +49,7 @@ import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 /**
  * Created by cdkj on 2018/5/25.
  */
-//TODO POP 优化
+
 public class BillListActivity extends AbsLoadActivity {
 
     private ActivityWalletBillBinding mBinding;

@@ -9,8 +9,10 @@
     </style>
 
     <style name="AppTheme.NoActionBar" parent="AppTheme">
-        <item name="windowActionBar">false</item>939795
+        <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="textAllCaps">false</item>
+
     </style>
 
     <!-- 底部弹出层 -->

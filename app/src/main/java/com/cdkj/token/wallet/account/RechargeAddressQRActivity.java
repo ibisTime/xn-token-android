@@ -69,6 +69,9 @@ public class RechargeAddressQRActivity extends AbsLoadActivity {
 
 
     private void initQRCodeAndAddress(String address) {
+        if (address == null) {
+            return;
+        }
         Bitmap mBitmap = CodeUtils.createImage(address, 400, 400, null);
         mBinding.imgQRCode.setImageBitmap(mBitmap);
         mBinding.txtAddress.setText(address);

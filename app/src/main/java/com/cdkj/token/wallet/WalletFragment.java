@@ -364,6 +364,7 @@ public class WalletFragment extends BaseLazyFragment {
 
             @Override
             public void getListDataRequest(int pageindex, int limit, boolean isShowDialog) {
+
             }
         });
 
@@ -457,6 +458,12 @@ public class WalletFragment extends BaseLazyFragment {
 
         if (mChooseCoinList == null) {
             getLocalCoinAndRequestWalletDdata(isSetRecyclerData, isShowDialog);
+            return;
+        }
+
+        if (!WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId())) {
+            disMissLoading();
+            mRefreshHelper.refreshLayoutStop();
             return;
         }
 

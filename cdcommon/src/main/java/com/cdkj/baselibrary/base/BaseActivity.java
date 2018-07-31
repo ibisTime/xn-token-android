@@ -58,7 +58,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         mCallList = new ArrayList<>();
 
-        AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置用户使用语言
     }
 
 
@@ -265,7 +264,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
     /**
-     * 能否通过 EventBUS事件结束
+     * 能否通过 EventBUS事件结束当前界面
      *
      * @return
      */

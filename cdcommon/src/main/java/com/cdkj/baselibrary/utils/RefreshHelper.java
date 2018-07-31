@@ -199,7 +199,7 @@ public class RefreshHelper<T> {
     }
 
     //停止加载和刷新布局动画
-    void refreshLayoutStop() {
+    public void refreshLayoutStop() {
         if (mRefreshLayout != null) {
             if (mRefreshLayout.isRefreshing()) { //停止刷新
                 mRefreshLayout.finishRefresh();

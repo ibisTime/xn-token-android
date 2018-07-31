@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
+import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.token.R;
 import com.cdkj.token.model.BannerModel;
 import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
@@ -15,30 +17,30 @@ public class BannerImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
 
-        if (path instanceof BannerModel) {
+        Glide.with(context)
+                .load(getImgUrl(path))
+                .placeholder(R.drawable.default_pic)
+                .into(imageView);
+    }
 
-            BannerModel banner = (BannerModel) path;
 
-            Glide.with(context)
-                    .load(SPUtilHelper.getQiniuUrl() + banner.getPic())
-//                    .centerCrop()
-                    .into(imageView);
-
-            return;
-        }
-
-        if (path.toString().indexOf("http") != -1) {
-            Glide.with(context)
-                    .load(path.toString())
-//                    .centerCrop()
-                    .into(imageView);
+    public String getImgUrl(Object object) {
+        if (object == null) return "";
+        String url;
+        if (object instanceof BannerModel) {
+            BannerModel banner = (BannerModel) object;
+            url = banner.getPic();
         } else {
-
-            Glide.with(context)
-                    .load(SPUtilHelper.getQiniuUrl() + path.toString())
-//                    .centerCrop()
-                    .into(imageView);
+            url = object.toString();
         }
+
+        if (ImgUtils.isHaveHttp(url)) {
+            return url;
+        }
+
+        return SPUtilHelper.getQiniuUrl() + url;
+
 
     }
+
 }

@@ -148,7 +148,7 @@
                         android:gravity="center_vertical"
                         android:textColor="@color/red_packet_text_yellow"
                         android:textSize="12sp"
-                        tools:text="持有ETC总量  0.006," />
+                        android:text="持有0," />
 
                     <TextView
                         android:id="@+id/tv_in_money"
@@ -317,20 +317,32 @@
                     android:text="@string/red_package_set"
                     android:textColor="@color/red_text_shear" />
 
-                <TextView
+                <LinearLayout
                     android:id="@+id/tv_red_packet_rule"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="50dp"
-                    android:drawablePadding="5dp"
-                    android:drawableRight="@drawable/question"
+                    android:layout_marginBottom="20dp"
                     android:gravity="center_vertical"
-                    android:padding="10dp"
-                    android:text="@string/red_packet_rule"
-                    android:textColor="@color/red_packet_text_yellow"
-                    android:textSize="12sp" />
+                    android:orientation="horizontal">
 
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center_vertical"
+                        android:padding="10dp"
+                        android:text="@string/red_packet_rule"
+                        android:textColor="@color/red_packet_text_yellow"
+                        android:textSize="12sp" />
+
+                    <ImageView
+                        android:layout_marginTop="1dp"
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:src="@drawable/question_yellow" />
+
+                </LinearLayout>
 
             </LinearLayout>
         </ScrollView>

@@ -97,9 +97,10 @@ public class UserFragment extends BaseLazyFragment {
         mBinding.walletTool.setOnClickListener(view -> {
             boolean isHasInfo = WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId());
             if (!isHasInfo) {
-                showDoubleWarnListen(getString(R.string.please_create_or_import_wallet), view1 -> {
-                    CreateWalletStartActivity.open(mActivity);
-                });
+                CreateWalletStartActivity.open(mActivity);
+//                showDoubleWarnListen(getString(R.string.please_create_or_import_wallet), view1 -> {
+//                    CreateWalletStartActivity.open(mActivity);
+//                });
                 return;
             }
             WalletToolActivity.open(mActivity);

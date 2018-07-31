@@ -64,11 +64,17 @@ public class ImgUtils {
         Glide.with(context).load(imgid).dontAnimate().into(img);
     }
 
-    static boolean isHaveHttp(String imgid) {
-        if (TextUtils.isEmpty(imgid)) {
+    /**
+     * 判断是否有http头
+     *
+     * @param url
+     * @return
+     */
+    public static boolean isHaveHttp(String url) {
+        if (TextUtils.isEmpty(url)) {
             return false;
         }
-        return TextUtils.indexOf(imgid, "http://") != -1 && TextUtils.indexOf(imgid, "http://") != -1;
+        return TextUtils.indexOf(url, "http://") != -1 || TextUtils.indexOf(url, "https://") != -1;
     }
 
     public static void loadLogo(Context context, String imgid, ImageView img) {
