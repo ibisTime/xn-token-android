@@ -262,4 +262,5 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
     public void onBackPressed() {
 
     }
+
 }

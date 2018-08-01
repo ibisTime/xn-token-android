@@ -92,5 +92,10 @@ public class UserPayPasswordInputDialog extends Dialog {
         return this;
     }
 
+    public void setPwdEmpty() {
+        if (mBinding == null) return;
+        mBinding.passView.clearPwd();
+    }
+
 
 }

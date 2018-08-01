@@ -21,7 +21,9 @@ import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreateWalletStartBinding;
 import com.cdkj.token.model.db.WalletDBModel;
+import com.cdkj.token.user.WebViewImgBgActivity;
 import com.cdkj.token.utils.StringUtil;
+import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.import_guide.ImportWalletStartActivity;
 
@@ -81,6 +83,7 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
         mBinding.editRepassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         mBinding.editPassword.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
         mBinding.editRepassword.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+        mBinding.editWalletName.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
 
         mBinding.editWalletName.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
@@ -129,6 +132,11 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
                 return;
             }
             createMnemonicWordsAsyn(mPassword);
+        });
+
+        //隐私协议
+        mBinding.tvRead.setOnClickListener(view -> {
+            WebViewImgBgActivity.openkey(this, getString(R.string.privacy_agreement), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_PRIVACY));
         });
 
     }

@@ -205,6 +205,14 @@ public class SixPassWordView extends View {
         }
     }
 
+    public void clearPwd() {
+        if (mPassList != null && mPassList.size() > 0) {
+            mPassList.clear();
+            invalidate();
+        }
+    }
+
+
     /**
      * 获取密码
      *

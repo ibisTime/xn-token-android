@@ -146,9 +146,9 @@
                         android:layout_marginLeft="30dp"
                         android:layout_marginTop="5dp"
                         android:gravity="center_vertical"
+                        android:text="@string/red_package_have"
                         android:textColor="@color/red_packet_text_yellow"
-                        android:textSize="12sp"
-                        android:text="持有0," />
+                        android:textSize="12sp" />
 
                     <TextView
                         android:id="@+id/tv_in_money"
@@ -331,15 +331,17 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center_vertical"
-                        android:padding="10dp"
+                        android:paddingBottom="10dp"
+                        android:paddingRight="5dp"
+                        android:paddingTop="10dp"
                         android:text="@string/red_packet_rule"
                         android:textColor="@color/red_packet_text_yellow"
                         android:textSize="12sp" />
 
                     <ImageView
+                        android:layout_width="12dp"
+                        android:layout_height="12dp"
                         android:layout_marginTop="1dp"
-                        android:layout_width="10dp"
-                        android:layout_height="10dp"
                         android:src="@drawable/question_yellow" />
 
                 </LinearLayout>

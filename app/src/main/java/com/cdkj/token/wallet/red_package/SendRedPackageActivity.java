@@ -364,6 +364,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
                 }
             });
         }
+        passInputDialog.setPwdEmpty();
         passInputDialog.show();
     }
 

@@ -148,7 +148,6 @@ public class WalletFragment extends BaseLazyFragment {
 
         mBinding.cardChangeLayout.tvWalletSymbol.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()));
         mBinding.cardChangeLayout.tvPrivateWalletSymbol.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()));
-
     }
 
 

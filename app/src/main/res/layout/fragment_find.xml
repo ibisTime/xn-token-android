@@ -223,7 +223,7 @@
                                 android:layout_marginLeft="12dp"
                                 android:layout_toRightOf="@id/img_red_packet"
                                 android:ellipsize="end"
-                                android:singleLine="true"
+                                android:maxLines="2"
                                 android:text="@string/lianghualicai_intro"
                                 android:textColor="@color/gray_666666"
                                 android:textSize="12sp" />

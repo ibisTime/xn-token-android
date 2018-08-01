@@ -80,6 +80,7 @@ public class ImportWalletStartActivity extends AbsLoadActivity {
         mBinding.editRepassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
         mBinding.editPassword.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
         mBinding.editRepassword.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(6)});
+        mBinding.editWalletName.getEditText().setFilters(new InputFilter[]{new InputFilter.LengthFilter(11)});
 
         mBinding.editWalletName.getEditText().addTextChangedListener(new TextWatcher() {
             @Override
