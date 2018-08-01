@@ -55,6 +55,9 @@ public class LocalCoinTypeChooseActivity extends AbsStatusBarTranslucentActivity
 
         //选择人民币
         mBinding.linLayoutCny.setOnClickListener(view -> {
+            if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
+                return;
+            }
             showCny();
             SPUtilHelper.saveLocalCoinType(WalletHelper.LOCAL_COIN_CNY);
             finishActivity();
@@ -62,6 +65,9 @@ public class LocalCoinTypeChooseActivity extends AbsStatusBarTranslucentActivity
 
         //选择美元
         mBinding.linLayoutUsd.setOnClickListener(view -> {
+            if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
+                return;
+            }
             showUsd();
             SPUtilHelper.saveLocalCoinType(WalletHelper.LOCAL_COIN_USD);
             finishActivity();

@@ -42,13 +42,13 @@
     <string name="storage_refused">access denied has memory permissions to your</string>
 
     <string name="web_create_pic_failure">a failed generate picture to</string>
-    <string name="sure">determine to</string>
+    <string name="sure">Confirm</string>
     <string name="do_fall">Operation failed</string>
     <string name="show_big_photo">image large to view</string>
-    <string name="delete"> delete </string>
-    <string name="delete_succ"> Delete succeeded </string>
+    <string name="delete">Delete </string>
+    <string name="delete_succ">Delete succeeded </string>
     <string name="prompt"> hint </string>
-    <string name="sure_"> indeed is</string>
+    <string name="sure_">Indeed is</string>
 
 
     <string name="activity_paypwd_title_set">set the fund password</string>
@@ -62,7 +62,7 @@
     <string name="load_error">Load error </string>
     <string name="choose">select </string>
     <string name="please_input_account">Please input an account </string>
-    <string name="sign_in_success"> log in success </string>
+    <string name="sign_in_success"> Log in success </string>
     <string name="sign_in_fail"> log in failed </string>
     <string name="send_to_friend">Send to a friend</string>
     <string name="save_to_photo">Save to phone </string>

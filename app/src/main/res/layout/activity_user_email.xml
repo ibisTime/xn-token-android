@@ -74,7 +74,6 @@
                     android:layout_width="0dp"
                     android:layout_weight="1"
                     android:textSize="14sp"
-                    android:maxLength="4"
                     android:background="@null"
                     android:inputType="number"
                     android:textColor="@color/fontColor_gray"

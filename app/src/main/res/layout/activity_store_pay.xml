@@ -102,7 +102,8 @@
             android:layout_marginTop="10dp"
             android:background="@color/white"
             android:orientation="horizontal"
-            android:visibility="gone">
+            android:visibility="gone"
+            >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -124,7 +125,6 @@
                 android:gravity="center_vertical"
                 android:hint="@string/please_input_google_code"
                 android:inputType="number"
-                android:maxLength="6"
                 android:textColor="@color/fontColor_gray"
                 android:textColorHint="@color/fontColor_hint"
                 android:textSize="14sp" />

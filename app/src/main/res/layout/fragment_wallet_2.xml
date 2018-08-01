@@ -15,6 +15,7 @@
             android:id="@+id/linLayout_bulletin"
             android:layout_width="match_parent"
             android:layout_height="35dp"
+            android:background="#F7F9FC"
             android:paddingLeft="10dp"
             android:paddingRight="10dp">
 

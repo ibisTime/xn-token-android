@@ -4,9 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
@@ -55,20 +57,29 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
     }
 
     private void initListener() {
-        //简体中午
+        //简体中文
         mBinding.llSimple.setOnClickListener(view -> {
+            if (TextUtils.equals(SPUtilHelper.getLanguage(), MyConfig.SIMPLIFIED)) {
+                return;
+            }
             initView();
             mBinding.ivSimple.setVisibility(View.VISIBLE);
             sendEventBusAndFinishAll(SIMPLIFIED);
         });
 
         mBinding.llEnglish.setOnClickListener(view -> {
+            if (TextUtils.equals(SPUtilHelper.getLanguage(), MyConfig.ENGLISH)) {
+                return;
+            }
             initView();
             mBinding.ivEnglish.setVisibility(View.VISIBLE);
             sendEventBusAndFinishAll(ENGLISH);
         });
 
         mBinding.llKorea.setOnClickListener(v -> {
+            if (TextUtils.equals(SPUtilHelper.getLanguage(), MyConfig.KOREA)) {
+                return;
+            }
             initView();
             mBinding.ivKorea.setVisibility(View.VISIBLE);
             sendEventBusAndFinishAll(KOREA);
