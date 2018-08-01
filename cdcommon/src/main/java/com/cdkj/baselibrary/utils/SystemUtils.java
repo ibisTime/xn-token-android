@@ -42,10 +42,6 @@ import static android.content.Context.WIFI_SERVICE;
 public class SystemUtils {
 
 
-    // 粘贴板
-    private static ClipboardManager mClipboard = null;
-
-
     public static class BuildProperties {
 
         private final Properties properties;
@@ -296,29 +292,23 @@ public class SystemUtils {
 
     public static String paste(Context context) {
         // Gets a handle to the clipboard service.
-        if (null == mClipboard) {
-            mClipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-        }
+        // 粘贴板
+        ClipboardManager mClipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
 
-        String resultString = "";
+        StringBuffer resultString = new StringBuffer();
         // 检查剪贴板是否有内容
-        if (!mClipboard.hasPrimaryClip()) {
-
-        } else {
+        if (mClipboard.hasPrimaryClip()) {
             ClipData clipData = mClipboard.getPrimaryClip();
             int count = clipData.getItemCount();
-
             for (int i = 0; i < count; ++i) {
-
                 ClipData.Item item = clipData.getItemAt(i);
                 CharSequence str = item
                         .coerceToText(context);
-
-                resultString += str;
+                resultString.append(str);
             }
-
         }
-        return resultString;
+
+        return resultString.toString();
     }
 
     public static void copy(Context context, String content) {

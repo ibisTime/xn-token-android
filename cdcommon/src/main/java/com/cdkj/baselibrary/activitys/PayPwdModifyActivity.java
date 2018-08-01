@@ -1,6 +1,7 @@
 package com.cdkj.baselibrary.activitys;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityModifyPayPasswordBinding;
+import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
 import com.cdkj.baselibrary.model.CountrySelectEvent;
@@ -28,6 +30,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
+
+import static com.cdkj.baselibrary.utils.SystemUtils.paste;
 
 /**
  * 修改 设置 资金密码
@@ -103,6 +107,13 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
 //                CdRouteHelper.openCountrySelect(false);
 //            }
 //        });
+        //粘贴
+        mBinding.btnPaste.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBinding.edtGoogle.setText(paste(PayPwdModifyActivity.this));
+            }
+        });
 
 //发送验证码
         mBinding.btnSend.setOnClickListener(new View.OnClickListener() {
@@ -125,25 +136,25 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(mBinding.edtPhone.getText())) {
-                    showToast(getString(R.string.activity_paypwd_mobile_hint));
+                    UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_mobile_hint));
                     return;
                 }
                 if (TextUtils.isEmpty(mBinding.edtCode.getText())) {
-                    showToast(getString(R.string.activity_paypwd_code_hint));
+                    UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_code_hint));
                     return;
                 }
                 if (SPUtilHelper.getGoogleAuthFlag()) {
                     if (TextUtils.isEmpty(mBinding.edtGoogle.getText().toString())) {
-                        showToast(getString(R.string.activity_paypwd_google_hint));
+                        UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_google_hint));
                         return;
                     }
                 }
                 if (TextUtils.isEmpty(mBinding.edtRepassword.getText())) {
-                    showToast(getString(R.string.activity_paypwd_pwd_hint));
+                    UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_pwd_hint));
                     return;
                 }
                 if (mBinding.edtRepassword.getText().length() < 6) {
-                    showToast(getString(R.string.activity_paypwd_pwd_format_hint));
+                    UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_pwd_format_hint));
                     return;
                 }
 
@@ -186,16 +197,26 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
                 if (!data.isSuccess()) {
                     return;
                 }
-
+                SPUtilHelper.saveTradePwdFlag(true);
                 if (mIsSetPwd) {
-                    showToast(getString(R.string.activity_paypwd_modify_sucess));
+                    UITipDialog.showSuccess(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_modify_sucess), new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+                            finish();
+                        }
+                    });
                 } else {
-                    showToast(getString(R.string.activity_paypwd_set_success));
+                    UITipDialog.showSuccess(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_set_success), new DialogInterface.OnDismissListener() {
+                        @Override
+                        public void onDismiss(DialogInterface dialogInterface) {
+
+
+                            finish();
+                        }
+                    });
                 }
 
-                SPUtilHelper.saveTradePwdFlag(true);
 
-                finish();
             }
 
             @Override
@@ -215,7 +236,7 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
 
     @Override
     public void CodeFailed(String code, String msg) {
-        showToast(msg);
+        UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, msg);
     }
 
     @Override

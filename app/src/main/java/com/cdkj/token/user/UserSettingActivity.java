@@ -85,6 +85,7 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
 
     private void initListener() {
 
+        //开启关闭手势密码
         mBinding.switchView.setOnClickListener(view -> {
             if (mBinding.switchView.isChecked()) {
                 PatternLockSettingActivity.open(this);
@@ -107,10 +108,12 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
 //            }
 //        });
 
+        //绑定邮箱
         mBinding.llMail.setOnClickListener(view -> {
             UserEmailActivity.open(this, SPUtilHelper.getUserEmail());
         });
 
+        //修改手机号
         mBinding.llMobile.setOnClickListener(view -> {
             UpdatePhoneActivity.open(this);
         });
