@@ -481,8 +481,8 @@
     <string name="wallet_assets">Total Assets(%s)</string>
     <string name="my_red_package_title">My red packets</string>
 
-    <string name="red_package_mxn_number">the maximum amount of red packets is 500</string>
-    <string name="red_package_max_numer">the maximum total amount is 10000000</string>
+    <string name="red_package_mxn_number">the maximum amount of red packets is %d</string>
+    <string name="red_package_max_numer">the maximum total amount is %d</string>
     <string name="sen_red_packet_note">Red packets come, coins sound</string>
 
     <string name="share">share</string>

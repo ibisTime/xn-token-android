@@ -459,8 +459,8 @@
     <string name="my_coin_address">我的%s收款地址</string>
     <string name="red_pg">发红包</string>
     <string name="my_red_package_title">抢到红包</string>
-    <string name="red_package_mxn_number">红包个数最多为500个</string>
-    <string name="red_package_max_numer">总额最多为10000000枚</string>
+    <string name="red_package_mxn_number">红包个数最多为%d个</string>
+    <string name="red_package_max_numer">总额最多为%d枚</string>
     <string name="share">分享</string>
     <string name="please_set_account_money_password">请先设置资金密码</string>
     <string name="wallet_charge_record">记录</string>

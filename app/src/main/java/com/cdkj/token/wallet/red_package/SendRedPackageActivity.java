@@ -16,7 +16,6 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
-import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
@@ -70,6 +69,10 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
     private String balanString;//余额显示
 
+//    private final int maxRedPacketNumber = 10000; //最大红包个数
+
+//    private final int maxCoinCount = 1000000;//最大币数量
+
 
     public static void open(Context context) {
         if (context == null) {
@@ -120,7 +123,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
         mBinding.ivBack.setOnClickListener(view -> finish());
         mBinding.tvTopRight.setOnClickListener(view -> RedPackageHistoryActivity.open(this));
         mBinding.btnSubmit.setOnClickListener(v -> {
-            checkData();
+            checkInputState();
         });
         mBinding.llType.setOnClickListener(view -> {
 
@@ -232,7 +235,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
         }
     }
 
-    private void checkData() {
+    private void checkInputState() {
         if (TextUtils.isEmpty(currencyType)) {
             UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_please_type));
             return;
@@ -242,16 +245,18 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_piease_send_number));
             return;
         }
+
         moneyNumber = Double.parseDouble(mBinding.tvSumNumber.getText().toString().trim());
+
         if (moneyNumber < 0.001) {
             UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_min_numer));
             return;
         }
 
-        if (moneyNumber > 1000000) {
-            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_max_numer));
-            return;
-        }
+//        if (moneyNumber > maxCoinCount) {
+//            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_max_numer,maxCoinCount));
+//            return;
+//        }
 
         String number_et = mBinding.etSendNumber.getText().toString();
         if (TextUtils.isEmpty(number_et)) {
@@ -266,10 +271,10 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             return;
         }
 
-        if (sendNumber > 500) {
-            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_mxn_number));
-            return;
-        }
+//        if (sendNumber > maxRedPacketNumber) {
+//            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_mxn_number,maxRedPacketNumber));
+//            return;
+//        }
 
         //去请求数据
         showInputDialog();

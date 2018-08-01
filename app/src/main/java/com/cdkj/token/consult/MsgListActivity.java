@@ -43,7 +43,6 @@ public class MsgListActivity extends BaseRefreshActivity {
         setTopLineState(true);
         setSubLeftImgState(true);
 
-
         getListData(pageIndex,limit,true);
     }
 

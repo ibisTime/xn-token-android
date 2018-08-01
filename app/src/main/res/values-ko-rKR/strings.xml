@@ -430,8 +430,8 @@
     <string name="biz_status_zhangbuping">불 일치 장부 재확인</string>
     <string name="biz_status_yiduibuping">수입 지출 불 일치</string>
     <string name="biz_status_wuxuduizhang">장부 대조 필요 없음</string>
-    <string name="red_package_mxn_number">훙빠우 개수 최대500개</string>
-    <string name="red_package_max_numer">전체 10000000개</string>
+    <string name="red_package_mxn_number">훙빠우 개수 최대%d개</string>
+    <string name="red_package_max_numer">전체 %d개</string>
     <string name="please_set_account_money_password">자금 비밀번호 설치</string>
     <string name="CNY">CNY</string>
     <string name="USD">USD</string>
