@@ -10,6 +10,7 @@ import android.view.View;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
+import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -43,7 +44,7 @@ public class UserEmailActivity extends AbsActivity {
             return;
         }
         Intent intent = new Intent(context, UserEmailActivity.class);
-        intent.putExtra("email",email);
+        intent.putExtra("email", email);
         context.startActivity(intent);
     }
 
@@ -59,9 +60,9 @@ public class UserEmailActivity extends AbsActivity {
 
         if (getIntent() != null) {
             email = getIntent().getStringExtra("email");
-            if (email == null || email.equals("")){
+            if (email == null || email.equals("")) {
                 setTopTitle(getStrRes(R.string.user_title_email_bind));
-            }else {
+            } else {
                 setTopTitle(getStrRes(R.string.user_title_email_modify));
                 mBinding.edtEmail.setText(email);
                 mBinding.edtEmail.setHint(email);
@@ -81,21 +82,21 @@ public class UserEmailActivity extends AbsActivity {
 
         mBinding.btnConfirm.setOnClickListener(v -> {
 
-            if (check("all")){
+            if (check("all")) {
                 modifyEmail();
             }
         });
     }
 
-    private boolean check(String type){
+    private boolean check(String type) {
         if (TextUtils.isEmpty(mBinding.edtEmail.getText().toString())) {
-            showToast(getStrRes(R.string.user_email_hint));
+            UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_email_hint));
             return false;
         }
 
-        if (type.equals("all")){
+        if (type.equals("all")) {
             if (TextUtils.isEmpty(mBinding.edtCode.getText().toString())) {
-                showToast(getStrRes(R.string.user_email_code_hint));
+                UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_email_code_hint));
                 return false;
             }
         }
@@ -123,15 +124,15 @@ public class UserEmailActivity extends AbsActivity {
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
                 if (data.isSuccess()) {
-                    if(data.isSuccess()){
-                        showToast(getString(R.string.email_code_send_success));
+                    if (data.isSuccess()) {
+                        UITipDialog.showInfoNoIcon(UserEmailActivity.this,getString(R.string.email_code_send_success));
 
                         //启动倒计时
                         mSubscription.add(AppUtils.startCodeDown(60, mBinding.btnSend));
                         //改变ui
                         mBinding.btnSend.setBackgroundResource(R.drawable.corner_sign_btn_gray);
-                    }else{
-                        showToast(getString(R.string.email_code_send_failure));
+                    } else {
+                        UITipDialog.showInfoNoIcon(UserEmailActivity.this,getString(R.string.email_code_send_failure));
                     }
                 }
             }
@@ -165,14 +166,19 @@ public class UserEmailActivity extends AbsActivity {
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
                 if (data.isSuccess()) {
 
-                    if (email == null || email.equals("")){
-                        showToast(getStrRes(R.string.user_email_bind_success));
-                    }else {
-                        showToast(getStrRes(R.string.user_email_modify_success));
-                    }
                     SPUtilHelper.saveUserEmail(mBinding.edtEmail.getText().toString().trim());
 
-                    finish();
+                    if (TextUtils.isEmpty(email)) {
+
+                        UITipDialog.showSuccess(UserEmailActivity.this, getStrRes(R.string.user_email_bind_success), dialogInterface -> {
+                            finish();
+                        });
+
+                    } else {
+                        UITipDialog.showSuccess(UserEmailActivity.this, getStrRes(R.string.user_email_modify_success), dialogInterface -> {
+                            finish();
+                        });
+                    }
                 }
             }
 
@@ -184,7 +190,6 @@ public class UserEmailActivity extends AbsActivity {
 
 
     }
-
 
 
 }

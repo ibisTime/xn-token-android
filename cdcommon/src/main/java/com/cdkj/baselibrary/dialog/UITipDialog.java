@@ -1,5 +1,6 @@
 package com.cdkj.baselibrary.dialog;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Color;
@@ -51,12 +52,14 @@ public class UITipDialog extends Dialog {
         setCancelable(false);
     }
 
-    public static void showSuccess(Context context, String info) {
+    public static void showSuccess(Activity activity, String info) {
         if (tipDialog != null) {
             tipDialog.dismiss();
         }
-        if (context == null) return;
-        tipDialog = new UITipDialog.Builder(context)
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
+        tipDialog = new UITipDialog.Builder(activity)
                 .setIconType(UITipDialog.Builder.ICON_TYPE_SUCCESS)
                 .setTipWord(info)
                 .create();
@@ -64,12 +67,14 @@ public class UITipDialog extends Dialog {
         timerDismiss();
     }
 
-    public static void showSuccess(Context context, String info, OnDismissListener listener) {
+    public static void showSuccess(Activity activity, String info, OnDismissListener listener) {
         if (tipDialog != null) {
             tipDialog.dismiss();
         }
-        if (context == null) return;
-        tipDialog = new UITipDialog.Builder(context)
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
+        tipDialog = new UITipDialog.Builder(activity)
                 .setIconType(UITipDialog.Builder.ICON_TYPE_SUCCESS)
                 .setTipWord(info)
                 .create();
@@ -97,11 +102,14 @@ public class UITipDialog extends Dialog {
                 });
     }
 
-    public static void showFail(Context context, String info) {
+    public static void showFail(Activity activity, String info) {
         if (tipDialog != null) {
             tipDialog.dismiss();
         }
-        tipDialog = new UITipDialog.Builder(context)
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
+        tipDialog = new UITipDialog.Builder(activity)
                 .setIconType(Builder.ICON_TYPE_FAIL)
                 .setTipWord(info)
                 .create();
@@ -110,11 +118,14 @@ public class UITipDialog extends Dialog {
         timerDismiss();
     }
 
-    public static void showInfo(Context context, String info) {
+    public static void showInfo(Activity activity, String info) {
         if (tipDialog != null) {
             tipDialog.dismiss();
         }
-        tipDialog = new UITipDialog.Builder(context)
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
+        tipDialog = new UITipDialog.Builder(activity)
                 .setIconType(Builder.ICON_TYPE_INFO)
                 .setTipWord(info)
                 .create();
@@ -122,11 +133,14 @@ public class UITipDialog extends Dialog {
         timerDismiss();
     }
 
-    public static void showInfoNoIcon(Context context, String info) {
+    public static void showInfoNoIcon(Activity activity, String info) {
         if (tipDialog != null) {
             tipDialog.dismiss();
         }
-        tipDialog = new UITipDialog.Builder(context)
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
+        tipDialog = new UITipDialog.Builder(activity)
                 .setIconType(Builder.ICON_TYPE_NOTHING)
                 .setTipWord(info)
                 .create();
@@ -134,12 +148,14 @@ public class UITipDialog extends Dialog {
         timerDismiss();
     }
 
-    public static void showInfo(Context context, String info, OnDismissListener listener) {
+    public static void showInfo(Activity activity, String info, OnDismissListener listener) {
         if (tipDialog != null) {
             tipDialog.dismiss();
         }
-        if (context == null) return;
-        tipDialog = new UITipDialog.Builder(context)
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
+        tipDialog = new UITipDialog.Builder(activity)
                 .setIconType(UITipDialog.Builder.ICON_TYPE_INFO)
                 .setTipWord(info)
                 .create();

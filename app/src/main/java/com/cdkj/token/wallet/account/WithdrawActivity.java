@@ -48,6 +48,8 @@ import retrofit2.Call;
 import static com.cdkj.token.utils.AccountUtil.getUnit;
 
 /**
+ * 提币
+ *
  * Created by lei on 2017/10/18.
  */
 
@@ -109,21 +111,26 @@ public class WithdrawActivity extends AbsLoadActivity {
 
     private void init() {
 
-        if (getIntent() != null) {
-            model = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
-            if (model != null) {
-                mBinding.tvBalance.setText(AccountUtil.sub(Double.parseDouble(model.getAmountString()),
-                        Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()));
-                mBinding.tvFee.setText(model.getCoinName());
-
-                if (model.getCoinBalance() != null)
-                    mBinding.edtAmount.setHint(getString(R.string.wallet_withdraw_amount_hint2) + AccountUtil.sub(Double.parseDouble(model.getCoinBalance()),
-                            Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()));
-            }
-
-            // 设置提现手续费
-            mBinding.edtCommission.setText(AccountUtil.getWithdrawFee(model.getCoinName()));
+        if (getIntent() == null) {
+            return;
         }
+
+        model = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
+
+        if (model == null) {
+            return;
+        }
+        mBinding.tvBalance.setText(AccountUtil.sub(Double.parseDouble(model.getAmountString()),
+                Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()));
+        mBinding.tvFee.setText(model.getCoinName());
+
+        if (model.getCoinBalance() != null)
+            mBinding.edtAmount.setHint(getString(R.string.wallet_withdraw_amount_hint2) + AccountUtil.sub(Double.parseDouble(model.getCoinBalance()),
+                    Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()));
+
+        // 设置提现手续费
+        mBinding.edtCommission.setText(AccountUtil.getWithdrawFee(model.getCoinName()));
+
     }
 
     private void initListener() {
@@ -197,7 +204,7 @@ public class WithdrawActivity extends AbsLoadActivity {
                     .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
 
                         if (inputDialog.getContentView().getText().toString().trim().equals("")) {
-                            showToast(getStrRes(R.string.trade_code_hint));
+                            UITipDialog.showInfoNoIcon(WithdrawActivity.this, getStrRes(R.string.trade_code_hint));
                         } else {
                             withdrawal(inputDialog.getContentView().getText().toString().trim());
                             inputDialog.dismiss();
@@ -300,8 +307,7 @@ public class WithdrawActivity extends AbsLoadActivity {
 
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
-                showToast(getStrRes(R.string.wallet_withdraw_success));
-                finish();
+                UITipDialog.showSuccess(WithdrawActivity.this, getStrRes(R.string.wallet_withdraw_success), dialogInterface -> finish());
             }
 
             @Override
@@ -312,6 +318,9 @@ public class WithdrawActivity extends AbsLoadActivity {
     }
 
 
+    /**
+     * 二维码扫描
+     */
     private void QRscan() {
         permissionHelper = new PermissionHelper(this);
 

@@ -79,7 +79,6 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
 
         clearCall();
 
@@ -93,6 +92,8 @@ public abstract class BaseActivity extends AppCompatActivity {
             loadingDialog = null;
         }
         EventBus.getDefault().unregister(this);
+
+        super.onDestroy();
     }
 
 

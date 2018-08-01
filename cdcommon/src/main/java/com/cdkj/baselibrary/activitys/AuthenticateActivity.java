@@ -27,6 +27,9 @@ import java.util.Map;
 
 import retrofit2.Call;
 
+/**
+ * 实名认证
+ */
 public class AuthenticateActivity extends AbsActivity {
 
     private ActivityAuthenticateBinding mBinding;

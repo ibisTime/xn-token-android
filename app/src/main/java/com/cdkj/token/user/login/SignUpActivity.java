@@ -173,7 +173,6 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
                     SPUtilHelper.saveUserId(data.getUserId());
                     SPUtilHelper.saveUserToken(data.getToken());
-//                    SPUtilHelper.saveUserName(mBinding.edtNick.getText().toString().trim());
                     SPUtilHelper.saveUserPhoneNum(mBinding.edtMobile.getText().toString().trim());
 
                     EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面

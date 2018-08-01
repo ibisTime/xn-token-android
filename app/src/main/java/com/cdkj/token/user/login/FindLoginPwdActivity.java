@@ -117,12 +117,12 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
             @Override
             public void onClick(View v) {
                 if (TextUtils.isEmpty(mBinding.edtMobile.getText().toString())) {
-                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this,getString(R.string.activity_find_mobile_hint));
+                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this, getString(R.string.activity_find_mobile_hint));
                     return;
                 }
 
                 if (TextUtils.isEmpty(mBinding.edtCode.getText().toString())) {
-                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this,getString(R.string.activity_find_code_hint));
+                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this, getString(R.string.activity_find_code_hint));
                     return;
                 }
 
@@ -134,21 +134,21 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
 //                }
 
                 if (TextUtils.isEmpty(mBinding.edtPassword.getText().toString())) {
-                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this,getString(R.string.activity_find_password_hint));
+                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this, getString(R.string.activity_find_password_hint));
                     return;
                 }
                 if (TextUtils.isEmpty(mBinding.edtRePassword.getText().toString())) {
-                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this,getString(R.string.activity_find_repassword_hint));
+                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this, getString(R.string.activity_find_repassword_hint));
                     return;
                 }
 
                 if (mBinding.edtPassword.getText().length() < 6) {
-                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this,getString(R.string.activity_find_password_format_hint));
+                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this, getString(R.string.activity_find_password_format_hint));
                     return;
                 }
 
                 if (!mBinding.edtPassword.getText().toString().equals(mBinding.edtRePassword.getText().toString())) {
-                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this,getString(R.string.activity_find_repassword_format_hint));
+                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this, getString(R.string.activity_find_repassword_format_hint));
                     return;
                 }
 
@@ -183,10 +183,12 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
                 if (data.isSuccess()) {
-                    showToast(getString(R.string.activity_find_success));
-                    finish();
+                    UITipDialog.showSuccess(FindLoginPwdActivity.this, getString(R.string.activity_find_success), dialogInterface -> {
+                        finish();
+                    });
+
                 } else {
-                    showToast(getString(R.string.activity_find_failure));
+                    UITipDialog.showFail(FindLoginPwdActivity.this, getString(R.string.activity_find_failure));
                 }
             }
 
@@ -211,7 +213,7 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
 
     @Override
     public void CodeFailed(String code, String msg) {
-        UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this,msg);
+        UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this, msg);
     }
 
     @Override
