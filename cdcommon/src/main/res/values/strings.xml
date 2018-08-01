@@ -113,5 +113,17 @@
     <string name="save_to_photo">保存到手机</string>
     <string name="take_a_photo">拍照</string>
     <string name="choose_from_album">从手机相册选择</string>
+    <string name="pull_down_to_refresh">下拉可以刷新</string>
+    <string name="refreshing">正在刷新...</string>
+    <string name="loading">正在加载...</string>
+    <string name="now_can_refresh">释放立即刷新</string>
+    <string name="refresh_success">刷新完成</string>
+    <string name="refresh_failure">刷新失败</string>
+    <string name="last_update">上次更新:</string>
+    <string name="pull_up_to_load_more">上拉加载更多</string>
+    <string name="release_to_load_more">释放立即加载</string>
+    <string name="load_success">加载完成</string>
+    <string name="load_fail">加载失败</string>
+    <string name="no_more_data">全部加载完成</string>
 
 </resources>

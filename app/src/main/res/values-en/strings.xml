@@ -197,7 +197,7 @@
     <string name="wallet_charge_record">record </string>
 
     <string name="wallet_charge_address_copy_success">Address has been copied</string>
-    <string name="wallet_title_withdraw">withdraw </string>
+    <string name="wallet_title_withdraw">Withdraw </string>
     <string name="wallet_withdraw_address_hint">Please input the sending address </string>
     <string name="wallet_withdraw_success"> withdraw the application successfully </string>
     <string name="wallet_transfer_success">Transfer application successfully </string>
@@ -469,7 +469,7 @@
     <string name="assets">Assets</string>
     <string name="my_coin_address">My %s collection address </string>
     <string name="red_pg">Red packet </string>
-    <string name="wallet_charge_recode">record</string>
+    <string name="wallet_charge_recode">Record</string>
     <string name="user_language_english">English</string>
     <string name="me_red_package">my red packet</string>
 
