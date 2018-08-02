@@ -58,6 +58,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
         mCallList = new ArrayList<>();
 
+        AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置用户使用语言
     }
 
 

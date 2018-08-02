@@ -153,8 +153,8 @@
 
             <View
                 android:id="@+id/view_google"
-                android:visibility="gone"
-                style="@style/style_split_line" />
+                style="@style/style_split_line"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/linLayout_google"
@@ -244,10 +244,12 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="30dp"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:background="@color/white"
-                android:gravity="center_vertical">
+                android:gravity="center_vertical"
+                android:paddingBottom="10dp"
+                android:paddingTop="10dp">
 
                 <ImageView
                     android:layout_width="10dp"

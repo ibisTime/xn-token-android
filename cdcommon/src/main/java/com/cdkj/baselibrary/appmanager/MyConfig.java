@@ -47,9 +47,7 @@ public class MyConfig {
 
     // 环境访问地址
     public static final String BASE_URL_DEV = "http://120.26.6.213:2101/forward-service/"; // 研发
-//    public static final String BASE_URL_DEV = "http://192.168.1.195:4006/forward-service/"; // 研发
     public static final String BASE_URL_TEST = "http://120.26.6.213:2101/forward-service/"; // 测试
-    //        public static final String BASE_URL_ONLINE = "http://120.26.6.213:2101/forward-service/"; // 测试
     public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
 
 
@@ -59,10 +57,10 @@ public class MyConfig {
      * @return
      */
     public static int getThisNodeType() {
-        if (LogUtil.isLog) {
+        if (true) {
             return NODE_DEV;
         }
-        return NODE_DEV;
+        return NODE_REALSE;
     }
 
     /**

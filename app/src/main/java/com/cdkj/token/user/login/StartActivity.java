@@ -122,7 +122,6 @@ public class StartActivity extends BaseActivity {
      */
     private void qiniuAfternext() {
         if (SPUtilHelper.isLoginNoStart()) {
-            EventBus.getDefault().post(new AllFinishEvent());
             MainActivity.open(this);
             finish();
         } else {
@@ -134,7 +133,6 @@ public class StartActivity extends BaseActivity {
      * 进行国家匹配 之后
      */
     private void checkCountryAfterNext() {
-        EventBus.getDefault().post(new AllFinishEvent());
         SignInActivity.open(this, true);
         finish();
     }

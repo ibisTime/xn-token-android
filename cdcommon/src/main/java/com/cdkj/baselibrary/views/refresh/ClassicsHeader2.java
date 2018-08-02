@@ -108,6 +108,7 @@ public class ClassicsHeader2 extends RelativeLayout implements RefreshHeader {
         layout.addView(mHeaderText, lpHeaderText);
         LinearLayout.LayoutParams lpUpdateText = new LinearLayout.LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         layout.addView(mLastUpdateText, lpUpdateText);
+        mLastUpdateText.setVisibility(GONE);
 
         LayoutParams lpHeaderLayout = new LayoutParams(WRAP_CONTENT, WRAP_CONTENT);
         lpHeaderLayout.addRule(CENTER_IN_PARENT);
@@ -301,7 +302,7 @@ public class ClassicsHeader2 extends RelativeLayout implements RefreshHeader {
         switch (newState) {
             case None:
 //                restoreRefreshLayoutBackground();
-                mLastUpdateText.setVisibility(VISIBLE);
+                mLastUpdateText.setVisibility(GONE);
             case PullDownToRefresh:
                 mHeaderText.setText(com.cdkj.baselibrary.R.string.pull_down_to_refresh);
                 mArrowView.setVisibility(VISIBLE);
@@ -367,7 +368,7 @@ public class ClassicsHeader2 extends RelativeLayout implements RefreshHeader {
         mLastTime = time;
         DateFormat mFormat =
                 new SimpleDateFormat("M-d HH:mm");
-        mLastUpdateText.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.last_update) + mFormat.format(time));
+        mLastUpdateText.setText(CdApplication.getContext().getString(com.cdkj.baselibrary.R.string.last_update_2) + mFormat.format(time));
         if (mShared != null && !isInEditMode()) {
             mShared.edit().putLong(KEY_LAST_UPDATE_TIME, time.getTime()).apply();
         }

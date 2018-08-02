@@ -39,6 +39,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
+import static java.math.BigDecimal.ROUND_HALF_DOWN;
 
 /**
  * 钱包转账
@@ -294,7 +295,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
      * 设置矿工费显示
      */
     private void setShowGasPrice() {
-
+        if (accountListBean == null) return;
         mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(transferGasPrice).multiply(new BigDecimal(this.mGas)), ETHSCALE) + " " + accountListBean.getCoinName());
     }
 
@@ -304,24 +305,32 @@ public class WalletTransferActivity extends AbsLoadActivity {
         });
 
 
+        BigInteger minPrice = new BigDecimal(gasPriceLimit).multiply(new BigDecimal(0.85)).toBigInteger();//最小矿工费
+        BigInteger maxPrice = new BigDecimal(gasPriceLimit).multiply(new BigDecimal(1.15)).toBigInteger(); //最大矿工费
+
         //矿工费设置
         mBinding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                if (i < 50) {
 
-                if (i < 100) {
-                    float lowerI = 100 - i;
-                    BigDecimal bg = new BigDecimal(lowerI / 100);
-                    transferGasPrice = gasPriceLimit.subtract(new BigDecimal(gasPriceLimit).multiply(bg).toBigInteger());
-                    BigInteger minPrice = gasPriceLimit.divide(new BigDecimal(2).toBigInteger());//最小矿工费
+                    float f = i / 100f;
+
+                    BigDecimal bg = new BigDecimal(f);
+
+                    transferGasPrice = maxPrice.multiply(bg.toBigInteger()).add(minPrice);
+
                     if (transferGasPrice.compareTo(minPrice) < 0) {
                         transferGasPrice = minPrice;
                     }
 
-                } else if (i > 100) {
-                    float upperI = i - 100;
-                    BigDecimal bg = new BigDecimal(upperI / 100);
-                    transferGasPrice = gasPriceLimit.add(new BigDecimal(gasPriceLimit).multiply(bg).toBigInteger());
+                } else if (i > 50) {
+
+                    float f = i / 100f;
+
+                    BigDecimal bg = new BigDecimal(f);
+
+                    transferGasPrice = maxPrice.multiply(bg.toBigInteger());
 
                 } else {                                             //默认矿工费
                     transferGasPrice = gasPriceLimit;

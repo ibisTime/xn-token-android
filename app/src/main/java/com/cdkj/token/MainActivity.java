@@ -14,6 +14,7 @@ import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.FindFragment;
@@ -194,11 +195,9 @@ public class MainActivity extends BaseActivity {
             protected void onSuccess(VersionModel data, String SucMessage) {
                 if (data == null)
                     return;
-                showUploadDialog(data);
-
-//                if (data.getVersion() > AppUtils.getAppVersionCode(MainActivity.this)) {  //版本号不一致说明有更新
-//                    showUploadDialog(data);
-//                }
+                if (data.getVersion() > AppUtils.getAppVersionCode(MainActivity.this)) {  //版本号不一致说明有更新
+                    showUploadDialog(data);
+                }
             }
 
             @Override

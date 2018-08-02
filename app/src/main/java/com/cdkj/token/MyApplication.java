@@ -65,7 +65,6 @@ public class MyApplication extends Application {
         initZXing();
         EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
 
-        AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置用户使用语言
     }
 
     private void initLitePal() {
