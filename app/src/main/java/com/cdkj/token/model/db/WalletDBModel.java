@@ -26,6 +26,13 @@ public class WalletDBModel extends DataSupport {
     public String wanPrivateKey;//私钥
 
 
+    //以下为140之前版本兼容  历史遗留问题............
+    private String helpcenterEn;// 助记词 英文
+    private String helpWordsrEn;// 助记词 英文
+    private String coinType;//所属币类型
+    private String privataeKey;//私钥
+
+
     public String getWalletName() {
         return walletName;
     }

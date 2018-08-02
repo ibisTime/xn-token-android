@@ -115,9 +115,9 @@ public class SixPassWordView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        mPaint.setColor(Color.parseColor("#DEE0E5"));
+        mPaint.setColor(Color.parseColor("#FF606060"));
         mPaint.setStyle(Paint.Style.STROKE);//空心
-        mPaint.setStrokeWidth(1.5f);
+        mPaint.setStrokeWidth(2f);
         RectF rect = new RectF(0, 0, getWidth(), getHeight());
         canvas.drawRoundRect(rect, DisplayHelper.dp2px(getContext(), 4), DisplayHelper.dp2px(getContext(), 4), mPaint);
 

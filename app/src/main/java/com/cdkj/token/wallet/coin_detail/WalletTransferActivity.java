@@ -22,7 +22,6 @@ import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityTransferBinding;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.WalletDBModel;
-import com.cdkj.token.user.WalletToolActivity;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.utils.wallet.WalletHelper;
@@ -39,7 +38,6 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
 import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
-import static java.math.BigDecimal.ROUND_HALF_DOWN;
 
 /**
  * 钱包转账
@@ -53,8 +51,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
     private final int CODEPERSE = 101;
 
 
-    private BigInteger mGas;//燃料单位费用
-    private BigInteger gasPriceLimit;//矿工费用
+    private BigInteger mGasPrice;//获取的燃料单位费用
     private BigInteger transferGasPrice;//计算后转账矿工费用
 
     private WalletBalanceModel accountListBean;
@@ -100,18 +97,12 @@ public class WalletTransferActivity extends AbsLoadActivity {
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
         }
 
-//        mBinding.tvCurrencySing.setText(getString(R.string.wallet_withdraw_balance) + WalletHelper.getShowLocalCoinType());
-
-        transferGasPrice = WalletHelper.getGasLimit();
-        mGas = WalletHelper.getGasLimit();
-        gasPriceLimit = WalletHelper.getGasLimit();
+        getGasPriceValue();
 
         mBaseBinding.titleView.setMidTitle(R.string.transfer);
         mBinding.edtAmount.addTextChangedListener(new EditTextJudgeNumberWatcher(mBinding.edtAmount, 15, 8));
 
         initClickListener();
-
-        getGasPriceValue();
 
         mBinding.btnNext.setOnClickListener(view -> {
 
@@ -155,6 +146,8 @@ public class WalletTransferActivity extends AbsLoadActivity {
                 UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
                 return true;
             }
+
+            if (transferGasPrice == null) return true;
 
             BigInteger allBigInteger = transferGasPrice.add(amountBigInteger);//手续费+转账数量
 
@@ -210,9 +203,9 @@ public class WalletTransferActivity extends AbsLoadActivity {
                     WalletDBModel w = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
 
                     if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_WAN)) {   //TODO 转账地址优化
-                        return WalletHelper.transferWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), transferGasPrice);
+                        return WalletHelper.transferWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getGasLimit(), transferGasPrice);
                     }
-                    return WalletHelper.transfer(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), transferGasPrice);
+                    return WalletHelper.transfer(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getGasLimit(), transferGasPrice);
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(() -> disMissLoading())
@@ -249,8 +242,9 @@ public class WalletTransferActivity extends AbsLoadActivity {
                         .observeOn(AndroidSchedulers.mainThread())
                         .doFinally(() -> disMissLoading())
                         .subscribe(gasPrice -> {
-                            this.mGas = gasPrice;
-                            setShowGasPrice();
+                            this.mGasPrice = gasPrice;
+                            this.transferGasPrice = gasPrice;
+                            setShowGasPrice(mGasPrice);
 
                         }, throwable -> {
 
@@ -294,49 +288,24 @@ public class WalletTransferActivity extends AbsLoadActivity {
     /**
      * 设置矿工费显示
      */
-    private void setShowGasPrice() {
-        if (accountListBean == null) return;
-        mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(transferGasPrice).multiply(new BigDecimal(this.mGas)), ETHSCALE) + " " + accountListBean.getCoinName());
+    private void setShowGasPrice(BigInteger gasPrice) {
+        if (accountListBean == null || gasPrice == null) return;
+        mBinding.tvGas.setText(
+                AccountUtil.amountFormatUnitForShow(new BigDecimal(WalletHelper.getGasLimit())                   //limite * gasPrice
+                        .multiply(new BigDecimal(gasPrice)), ETHSCALE) + " " + accountListBean.getCoinName());
     }
 
     private void initClickListener() {
+        //扫码
         mBinding.fraLayoutQRcode.setOnClickListener(view -> {
             permissionRequest();
         });
 
-
-        BigInteger minPrice = new BigDecimal(gasPriceLimit).multiply(new BigDecimal(0.85)).toBigInteger();//最小矿工费
-        BigInteger maxPrice = new BigDecimal(gasPriceLimit).multiply(new BigDecimal(1.15)).toBigInteger(); //最大矿工费
-
-        //矿工费设置
+        //矿工费滑动设置显示
         mBinding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                if (i < 50) {
-
-                    float f = i / 100f;
-
-                    BigDecimal bg = new BigDecimal(f);
-
-                    transferGasPrice = maxPrice.multiply(bg.toBigInteger()).add(minPrice);
-
-                    if (transferGasPrice.compareTo(minPrice) < 0) {
-                        transferGasPrice = minPrice;
-                    }
-
-                } else if (i > 50) {
-
-                    float f = i / 100f;
-
-                    BigDecimal bg = new BigDecimal(f);
-
-                    transferGasPrice = maxPrice.multiply(bg.toBigInteger());
-
-                } else {                                             //默认矿工费
-                    transferGasPrice = gasPriceLimit;
-                }
-
-                setShowGasPrice();
+                setGaspriceBySeekBarChange(i);
             }
 
             @Override
@@ -350,27 +319,29 @@ public class WalletTransferActivity extends AbsLoadActivity {
             }
         });
 
-//        mBinding.linLayoutGasChoose.setOnClickListener(view -> {
-//            new GasTypeChoosePop(this, chooseGasType).setItemClickListener((chooseType, typeString) -> {
-//                chooseGasType = chooseType;
-//                mBinding.tvChooseType.setText(typeString);
-//
-//                switch (chooseType) {
-//                    case GasTypeChoosePop.FIRST:
-//                        transferGasPrice = WalletHelper.getGasLimit().multiply(new BigDecimal(2).toBigInteger());
-//                        break;
-//                    case GasTypeChoosePop.ORDINARY:
-//                        transferGasPrice = WalletHelper.getGasLimit();
-//                        break;
-//
-//                    case GasTypeChoosePop.ECONOMICS:
-//                        transferGasPrice = WalletHelper.getGasLimit().divide(new BigDecimal(2).toBigInteger());
-//                        break;
-//                }
-//                setShowGasPrice();
-//
-//            }).showPopupWindow();
-//        });
+
+    }
+
+    /**
+     * 根据seekBar滑动计算gasPrice
+     *
+     * @param i
+     */
+    void setGaspriceBySeekBarChange(int i) {
+        if (mGasPrice == null) return;
+        BigDecimal minPrice = new BigDecimal(mGasPrice).multiply(new BigDecimal(0.85));//最小矿工费  最大最小是GasPrice上下浮动15%
+        BigDecimal maxPrice = new BigDecimal(mGasPrice).multiply(new BigDecimal(1.15)); //最大矿工费
+        float Progress = i / 100f;
+        BigDecimal ProgressBigDecimal = new BigDecimal(Progress);
+        if (i < 50) {
+            transferGasPrice = ((maxPrice.multiply(ProgressBigDecimal)).add(minPrice)).toBigInteger();
+        } else if (i > 50) {
+            transferGasPrice = maxPrice.multiply(ProgressBigDecimal).toBigInteger();
+        } else {                                             //默认矿工费
+            transferGasPrice = mGasPrice;
+        }
+
+        setShowGasPrice(transferGasPrice);
     }
 
     @Override

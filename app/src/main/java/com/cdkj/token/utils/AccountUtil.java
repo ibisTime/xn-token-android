@@ -88,7 +88,6 @@ public class AccountUtil {
      * @return
      */
     public static String amountFormatUnitForShow(BigDecimal amount, int scale) {
-
         if (amount == null) {
             return "0";
         }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
@@ -133,17 +134,19 @@
                         android:src="@mipmap/icon_right_arrow" />
                 </LinearLayout>
 
-                <LinearLayout
+                <com.google.android.flexbox.FlexboxLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:paddingLeft="30dp"
+                    android:paddingRight="20dp"
+                    app:flexWrap="wrap">
 
                     <TextView
                         android:id="@+id/tv_balance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="30dp"
                         android:layout_marginTop="5dp"
                         android:gravity="center_vertical"
                         android:text="@string/red_package_have"
@@ -167,7 +170,7 @@
                         android:textSize="12sp" />
 
 
-                </LinearLayout>
+                </com.google.android.flexbox.FlexboxLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

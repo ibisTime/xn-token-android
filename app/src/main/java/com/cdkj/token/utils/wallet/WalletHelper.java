@@ -6,6 +6,7 @@ import android.text.TextUtils;
 
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.MoneyUtils;
 import com.cdkj.baselibrary.utils.SPUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -34,6 +35,7 @@ import org.web3j.protocol.core.methods.response.EthGetBalance;
 import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 import org.web3j.protocol.core.methods.response.EthSendTransaction;
 import org.web3j.protocol.http.HttpService;
+import org.web3j.tx.Contract;
 import org.web3j.utils.Numeric;
 
 import java.io.IOException;
@@ -768,7 +770,7 @@ public class WalletHelper {
      * @throws IOException
      */
 
-    public static EthSendTransaction transfer(WalletDBModel walletDBModel, String to, String money, BigInteger GAS_LIMIT) throws ExecutionException, InterruptedException, IOException {
+    public static EthSendTransaction transfer(WalletDBModel walletDBModel, String to, String money, BigInteger gas_limit, BigInteger gas_price) throws ExecutionException, InterruptedException, IOException {
 
         Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_ETH)));
         //转账人账户地址
@@ -785,13 +787,12 @@ public class WalletHelper {
 
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
 
-        BigInteger GAS_PRICE = web3j.ethGasPrice().send().getGasPrice();
 
         //创建交易，这里是转x个以太币
         BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(UNIT_POW)).toBigInteger(); //需要转账的金额
 
         RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
-                nonce, GAS_PRICE, GAS_LIMIT, toAddress, priceValue);
+                nonce, gas_price, gas_limit, toAddress, priceValue);
 
         //签名Transaction，这里要对交易做签名
         byte[] signedMessage = TransactionEncoder.signMessage(rawTransaction, credentials);
@@ -817,7 +818,9 @@ public class WalletHelper {
      * @throws IOException
      */
 
-    public static EthSendTransaction transferWan(WalletDBModel walletDBModel, String to, String money, BigInteger GAS_LIMIT) throws ExecutionException, InterruptedException, IOException {
+    public static EthSendTransaction transferWan(WalletDBModel walletDBModel, String to, String money, BigInteger gas_limit,BigInteger gas_price) throws ExecutionException, InterruptedException, IOException {
+
+        LogUtil.E(gas_price.floatValue() + "手续费");
 
         Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_WAN)));
         //转账人账户地址
@@ -834,13 +837,11 @@ public class WalletHelper {
 
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
 
-        BigInteger GAS_PRICE = web3j.ethGasPrice().send().getGasPrice();
-
         //创建交易
         BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(UNIT_POW)).toBigInteger(); //需要转账的金额
 
         WanRawTransaction rawTransaction = WanRawTransaction.createTransaction(
-                nonce, GAS_PRICE, GAS_LIMIT, toAddress, priceValue, "");
+                nonce, gas_price, gas_limit, toAddress, priceValue, "");
 
         //签名Transaction，这里要对交易做签名
         byte[] signedMessage = WanTransactionEncoder.signMessage(rawTransaction, credentials);
@@ -881,6 +882,13 @@ public class WalletHelper {
     public static BigInteger getGasLimit() {
         BigInteger gaslimit = BigInteger.valueOf(21000);
         return gaslimit;
+    }
+
+    /**
+     *
+     */
+    public static BigInteger getDefluteGas() {
+        return Contract.GAS_PRICE;
     }
 
 

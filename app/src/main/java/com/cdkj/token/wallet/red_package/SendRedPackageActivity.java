@@ -69,9 +69,9 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
     private String balanString;//余额显示
 
-//    private final int maxRedPacketNumber = 10000; //最大红包个数
+    private final int maxRedPacketNumber = 10000; //最大红包个数
 
-//    private final int maxCoinCount = 1000000;//最大币数量
+    private final int maxCoinCount = 1000000;//最大币数量
 
 
     public static void open(Context context) {
@@ -253,10 +253,10 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             return;
         }
 
-//        if (moneyNumber > maxCoinCount) {
-//            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_max_numer,maxCoinCount));
-//            return;
-//        }
+        if (moneyNumber > maxCoinCount) {
+            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_max_numer, maxCoinCount));
+            return;
+        }
 
         String number_et = mBinding.etSendNumber.getText().toString();
         if (TextUtils.isEmpty(number_et)) {
@@ -271,10 +271,10 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             return;
         }
 
-//        if (sendNumber > maxRedPacketNumber) {
-//            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_mxn_number,maxRedPacketNumber));
-//            return;
-//        }
+        if (sendNumber > maxRedPacketNumber) {
+            UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_mxn_number, maxRedPacketNumber));
+            return;
+        }
 
         //去请求数据
         showInputDialog();

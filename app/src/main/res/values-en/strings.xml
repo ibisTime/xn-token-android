@@ -150,7 +150,7 @@
 
     <string name="sms_code_send">Authenticode Get</string>
     <string name="sms_code_hint">Authentication Please SMS code enter the</string>
-    <string name="trade_code_hint">Please capital enter password the</string>
+    <string name="trade_code_hint">Please enter the capital password </string>
     <string name="google_code_title"> Google verification code </string>
     <string name="google_code_hint">Google Please authentication code enter</string>
 
@@ -328,7 +328,7 @@
     <string name="words_tip_3">According to the mnemonics you wrote down, click in the order to verify that the backup mnemonics you made are correct. </string>
     <string name="update_password_success"> password modified successfully </string>
     <string name="update_password_fail"> password modification failed </string>
-    <string name="modify_password"> modify password </string>
+    <string name="modify_password">Modify password </string>
     <string name="please_set_transaction_password">Please set the transaction password </string>
     <string name="transaction_password_error">transaction password error </string>f
     <string name="wallet_backup">Wallet backup </string>
@@ -346,7 +346,7 @@
     <string name="coin_wan_came">WAN</string>
     <string name="get_money">Receive</string>
     <string name="service_money_tip">Transaction Fees will be deducted from the available balance, and the insufficient balance will be deducted from the transfer amount </string>
-    <string name="transfer">transfer </string>
+    <string name="transfer">Transfer </string>
     <string name="transfer_2">Send </string>
     <string name="ordinary"> ordinary </string>
     <string name="economics">economic </string>
@@ -535,7 +535,7 @@
     <string name="copy_money_address">Copy a collection address</string>
     <string name="transfer_fees">Transaction Fees</string>
     <string name="sure_transfer">Transfer confirmed </string>
-    <string name="fast">fast</string>
+    <string name="fast">Fast</string>
     <string name="slow">Slow</string>
     <string name="create_wallet_intro_1">Attention! Tha does not store user passwords, can not provide recovery or reset functions, passwords must be backed up well by users. Passwords are used to encrypt the private key, and strength is also important.</string>
     <string name="backup_introtation_dialog_title">Disclaimer</string>
