@@ -32,6 +32,37 @@ public class WalletDBModel extends DataSupport {
     private String coinType;//所属币类型
     private String privataeKey;//私钥
 
+    public String getHelpcenterEn() {
+        return helpcenterEn;
+    }
+
+    public void setHelpcenterEn(String helpcenterEn) {
+        this.helpcenterEn = helpcenterEn;
+    }
+
+    public String getHelpWordsrEn() {
+        return helpWordsrEn;
+    }
+
+    public void setHelpWordsrEn(String helpWordsrEn) {
+        this.helpWordsrEn = helpWordsrEn;
+    }
+
+    public String getCoinType() {
+        return coinType;
+    }
+
+    public void setCoinType(String coinType) {
+        this.coinType = coinType;
+    }
+
+    public String getPrivataeKey() {
+        return privataeKey;
+    }
+
+    public void setPrivataeKey(String privataeKey) {
+        this.privataeKey = privataeKey;
+    }
 
     public String getWalletName() {
         return walletName;
