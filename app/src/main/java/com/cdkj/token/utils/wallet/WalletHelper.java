@@ -818,9 +818,7 @@ public class WalletHelper {
      * @throws IOException
      */
 
-    public static EthSendTransaction transferWan(WalletDBModel walletDBModel, String to, String money, BigInteger gas_limit,BigInteger gas_price) throws ExecutionException, InterruptedException, IOException {
-
-        LogUtil.E(gas_price.floatValue() + "手续费");
+    public static EthSendTransaction transferWan(WalletDBModel walletDBModel, String to, String money, BigInteger gas_limit, BigInteger gas_price) throws ExecutionException, InterruptedException, IOException {
 
         Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_WAN)));
         //转账人账户地址
