@@ -21,7 +21,6 @@ import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
 /**
  * Created by lei on 2017/10/20.
  */
-
 public class MyApplication extends Application {
 
     public static Application application;
