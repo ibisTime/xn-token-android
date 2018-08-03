@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
-import com.cdkj.baselibrary.dialog.InputDialog;
+import com.cdkj.baselibrary.dialog.NumberPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
@@ -58,7 +58,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
 
     private PermissionHelper mPermissionHelper;
 
-    private InputDialog passWordInputDialog;
+    private NumberPwdInputDialog passWordInputDialog;
 
 
     //需要的权限
@@ -258,7 +258,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
      */
     private void showPasswordInputDialog() {
         if (passWordInputDialog == null) {
-            passWordInputDialog = new InputDialog(this).builder().setTitle(getStrRes(R.string.please_input_transaction_pwd))
+            passWordInputDialog = new NumberPwdInputDialog(this).builder().setTitle(getStrRes(R.string.please_input_transaction_pwd))
                     .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
 
                         String tradePwd = passWordInputDialog.getContentView().getText().toString().trim();

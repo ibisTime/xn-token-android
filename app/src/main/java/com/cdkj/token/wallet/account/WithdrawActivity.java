@@ -17,7 +17,7 @@ import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
-import com.cdkj.baselibrary.dialog.InputDialog;
+import com.cdkj.baselibrary.dialog.NumberPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.model.IsSuccessModes;
@@ -26,7 +26,6 @@ import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWithdrawBinding;
@@ -58,7 +57,7 @@ public class WithdrawActivity extends AbsLoadActivity {
     private WalletBalanceModel model;
     private PermissionHelper permissionHelper;
 
-    private InputDialog inputDialog;
+    private NumberPwdInputDialog inputDialog;
     private ActivityWithdrawBinding mBinding;
 
 
@@ -200,7 +199,7 @@ public class WithdrawActivity extends AbsLoadActivity {
 
     private void showInputDialog() {
         if (inputDialog == null) {
-            inputDialog = new InputDialog(this).builder().setTitle(getStrRes(R.string.trade_code_hint))
+            inputDialog = new NumberPwdInputDialog(this).builder().setTitle(getStrRes(R.string.trade_code_hint))
                     .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
 
                         if (inputDialog.getContentView().getText().toString().trim().equals("")) {

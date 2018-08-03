@@ -10,7 +10,7 @@ import android.view.View;
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
-import com.cdkj.baselibrary.dialog.InputDialog;
+import com.cdkj.baselibrary.dialog.NumberPwdInputDialog;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -45,7 +45,7 @@ public class StorePayActivity extends AbsActivity {
 
     private boolean mTradepwdFlag; //用户是否设置了支付密码
 
-    private InputDialog inputDialog;
+    private NumberPwdInputDialog inputDialog;
 
     private String mStoreCode;
 
@@ -154,7 +154,7 @@ public class StorePayActivity extends AbsActivity {
 
     private void showInputDialog() {
         if (inputDialog == null) {
-            inputDialog = new InputDialog(this).builder().setTitle(getStrRes(R.string.trade_code_hint))
+            inputDialog = new NumberPwdInputDialog(this).builder().setTitle(getStrRes(R.string.trade_code_hint))
                     .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
 
                         if (TextUtils.isEmpty(inputDialog.getContentView().getText().toString().trim())) {

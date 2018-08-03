@@ -10,13 +10,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cdkj.baselibrary.R;
 
-
-public class InputDialog {
+/**
+ * 数字密码输入
+ */
+public class NumberPwdInputDialog {
     private Context mContext;
     private Dialog mDialog;
     private TextView mTitle;
@@ -30,11 +31,11 @@ public class InputDialog {
     private boolean mIsShowPositiveBtn = false;
     private boolean mIsShowNegativeBtn = false;
 
-    public InputDialog(Context context) {
+    public NumberPwdInputDialog(Context context) {
         this.mContext = context;
     }
 
-    public InputDialog builder() {
+    public NumberPwdInputDialog builder() {
         View view = LayoutInflater.from(mContext).inflate(R.layout.dialog_input, null);
 
         mTitle = (TextView) view.findViewById(R.id.dialog_input_title);
@@ -67,7 +68,7 @@ public class InputDialog {
      * @param title
      * @return
      */
-    public InputDialog setTitle(String title) {
+    public NumberPwdInputDialog setTitle(String title) {
         mIsShowTitle = true;
         if (TextUtils.isEmpty(title)) {
             mTitle.setText(R.string.prompt);
@@ -77,7 +78,7 @@ public class InputDialog {
         return this;
     }
 
-    public InputDialog setTitle(int titleResId) {
+    public NumberPwdInputDialog setTitle(int titleResId) {
         mIsShowTitle = true;
         mTitle.setText(titleResId);
         return this;
@@ -89,7 +90,7 @@ public class InputDialog {
      * @param msg
      * @return
      */
-    public InputDialog setContentMsg(String msg) {
+    public NumberPwdInputDialog setContentMsg(String msg) {
         mIsShowContentInput = true;
         mContentInput.setText(msg);
         if (!TextUtils.isEmpty(msg)) {
@@ -98,17 +99,17 @@ public class InputDialog {
         return this;
     }
 
-    public InputDialog setContentMsg(int msgResId) {
+    public NumberPwdInputDialog setContentMsg(int msgResId) {
         setContentMsg(mContext.getString(msgResId));
         return this;
     }
 
-    public InputDialog setCancelable(boolean cancel) {
+    public NumberPwdInputDialog setCancelable(boolean cancel) {
         mDialog.setCancelable(cancel);
         return this;
     }
 
-    public InputDialog setCanceledOnTouchOutside(boolean cancel) {
+    public NumberPwdInputDialog setCanceledOnTouchOutside(boolean cancel) {
         mDialog.setCanceledOnTouchOutside(cancel);
         return this;
     }
@@ -120,7 +121,7 @@ public class InputDialog {
      * @param onPositiveListener
      * @return
      */
-    public InputDialog setPositiveBtn(String text, final OnPositiveListener onPositiveListener) {
+    public NumberPwdInputDialog setPositiveBtn(String text, final OnPositiveListener onPositiveListener) {
         mIsShowPositiveBtn = true;
         if (TextUtils.isEmpty(text)) {
             mPositiveBtn.setText(R.string.sure);
@@ -146,7 +147,7 @@ public class InputDialog {
      * @param onNegativeListener
      * @return
      */
-    public InputDialog setNegativeBtn(String text, final OnNegativeListener onNegativeListener) {
+    public NumberPwdInputDialog setNegativeBtn(String text, final OnNegativeListener onNegativeListener) {
         mIsShowNegativeBtn = true;
         if (TextUtils.isEmpty(text)) {
             mNegativeBtn.setText(R.string.cancel);
@@ -242,7 +243,7 @@ public class InputDialog {
     /**
      * start-----------------------------------------
      */
-    public InputDialog setTitleText(String text) {
+    public NumberPwdInputDialog setTitleText(String text) {
         mIsShowTitle = true;
         if (TextUtils.isEmpty(text)) {
             mTitle.setText(R.string.prompt);
@@ -252,19 +253,19 @@ public class InputDialog {
         return this;
     }
 
-    public InputDialog setTitleText(int textId) {
+    public NumberPwdInputDialog setTitleText(int textId) {
         mIsShowTitle = true;
         mTitle.setText(textId);
         return this;
     }
 
-    public InputDialog setTitleTextColor(int colorId) {
+    public NumberPwdInputDialog setTitleTextColor(int colorId) {
         mIsShowTitle = true;
         mTitle.setTextColor(colorId);
         return this;
     }
 
-    public InputDialog setTitleTextSize(int textSize) {
+    public NumberPwdInputDialog setTitleTextSize(int textSize) {
         mIsShowTitle = true;
         mTitle.setTextSize(textSize);
         return this;
@@ -274,7 +275,7 @@ public class InputDialog {
     /**
      * start-----------------------------------------
      */
-    public InputDialog setContentMsgText(String text) {
+    public NumberPwdInputDialog setContentMsgText(String text) {
         mIsShowContentInput = true;
         if (TextUtils.isEmpty(text)) {
             mContentInput.setText(R.string.cancel);
@@ -284,19 +285,19 @@ public class InputDialog {
         return this;
     }
 
-    public InputDialog setContentMsgText(int textId) {
+    public NumberPwdInputDialog setContentMsgText(int textId) {
         mIsShowContentInput = true;
         mContentInput.setText(textId);
         return this;
     }
 
-    public InputDialog setContentMsgTextColor(int colorId) {
+    public NumberPwdInputDialog setContentMsgTextColor(int colorId) {
         mIsShowContentInput = true;
         mContentInput.setTextColor(colorId);
         return this;
     }
 
-    public InputDialog setContentMsgTextSize(int textSize) {
+    public NumberPwdInputDialog setContentMsgTextSize(int textSize) {
         mIsShowContentInput = true;
         mContentInput.setTextSize(textSize);
         return this;
@@ -306,7 +307,7 @@ public class InputDialog {
     /**
      * start-----------------------------------------
      */
-    public InputDialog setNegativeBtnText(String text) {
+    public NumberPwdInputDialog setNegativeBtnText(String text) {
         mIsShowNegativeBtn = true;
         if (TextUtils.isEmpty(text)) {
             mNegativeBtn.setText(R.string.cancel);
@@ -316,25 +317,25 @@ public class InputDialog {
         return this;
     }
 
-    public InputDialog setNegativeBtnText(int textId) {
+    public NumberPwdInputDialog setNegativeBtnText(int textId) {
         mIsShowNegativeBtn = true;
         mNegativeBtn.setText(textId);
         return this;
     }
 
-    public InputDialog setNegativeBtnTextColor(int colorId) {
+    public NumberPwdInputDialog setNegativeBtnTextColor(int colorId) {
         mIsShowNegativeBtn = true;
         mNegativeBtn.setTextColor(colorId);
         return this;
     }
 
-    public InputDialog setNegativeBtnTextSize(int textSize) {
+    public NumberPwdInputDialog setNegativeBtnTextSize(int textSize) {
         mIsShowNegativeBtn = true;
         mNegativeBtn.setTextSize(textSize);
         return this;
     }
 
-    public InputDialog setNegativeBtnListener(final OnNegativeListener onNegativeListener) {
+    public NumberPwdInputDialog setNegativeBtnListener(final OnNegativeListener onNegativeListener) {
         mIsShowPositiveBtn = true;
         mNegativeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -352,7 +353,7 @@ public class InputDialog {
     /**
      * start-----------------------------------------
      */
-    public InputDialog setPositiveBtnText(String text) {
+    public NumberPwdInputDialog setPositiveBtnText(String text) {
         mIsShowPositiveBtn = true;
         if (TextUtils.isEmpty(text)) {
             mPositiveBtn.setText("取消");
@@ -362,25 +363,25 @@ public class InputDialog {
         return this;
     }
 
-    public InputDialog setPositiveBtnText(int textId) {
+    public NumberPwdInputDialog setPositiveBtnText(int textId) {
         mIsShowPositiveBtn = true;
         mPositiveBtn.setText(textId);
         return this;
     }
 
-    public InputDialog setPositiveBtnTextColor(int colorId) {
+    public NumberPwdInputDialog setPositiveBtnTextColor(int colorId) {
         mIsShowPositiveBtn = true;
         mPositiveBtn.setTextColor(colorId);
         return this;
     }
 
-    public InputDialog setPositiveBtnTextSize(int textSize) {
+    public NumberPwdInputDialog setPositiveBtnTextSize(int textSize) {
         mIsShowPositiveBtn = true;
         mPositiveBtn.setTextSize(textSize);
         return this;
     }
 
-    public InputDialog setPositiveBtnListener(final OnPositiveListener onPositiveListener) {
+    public NumberPwdInputDialog setPositiveBtnListener(final OnPositiveListener onPositiveListener) {
         mIsShowPositiveBtn = true;
         mPositiveBtn.setOnClickListener(new View.OnClickListener() {
             @Override

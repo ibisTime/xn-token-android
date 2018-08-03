@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
-import com.cdkj.baselibrary.dialog.InputDialog;
+import com.cdkj.baselibrary.dialog.NumberPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.MainActivity;
@@ -18,10 +18,8 @@ import com.cdkj.token.databinding.ActivityUserWalletBinding;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.WalletPasswordModifyActivity;
 import com.cdkj.token.wallet.backup_guide.BackupWalletStartActivity;
-import com.cdkj.token.wallet.backup_guide.BackupWalletWordsCheckActivity;
 import com.cdkj.token.wallet.delete_guide.WallteDeleteStartActivity;
 import com.cdkj.token.wallet.export.WalletExportPasswordCheckActivity;
-import com.kenai.jffi.Main;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -33,7 +31,7 @@ import org.greenrobot.eventbus.EventBus;
 public class WalletToolActivity extends AbsLoadActivity {
 
     private ActivityUserWalletBinding mBinding;
-    private InputDialog inputDialog;
+    private NumberPwdInputDialog inputDialog;
 
     private final int DIALOG_DELETE = 0;//dialog 类型 删除
     private final int DIALOG_BACKUP = 1; //dialog类型备份
@@ -91,7 +89,7 @@ public class WalletToolActivity extends AbsLoadActivity {
      */
     private void showPasswordInputDialog(int type) {
         if (inputDialog == null) {
-            inputDialog = new InputDialog(this).builder().setTitle(getString(R.string.please_input_transaction_pwd))
+            inputDialog = new NumberPwdInputDialog(this).builder().setTitle(getString(R.string.please_input_transaction_pwd))
                     .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
                         String tradePwd = inputDialog.getContentView().getText().toString().trim();
                         if (TextUtils.isEmpty(tradePwd)) {
