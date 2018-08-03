@@ -135,34 +135,54 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
         mBinding.btnConfirm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (TextUtils.isEmpty(mBinding.edtPhone.getText())) {
-                    UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_mobile_hint));
-                    return;
-                }
-                if (TextUtils.isEmpty(mBinding.edtCode.getText())) {
-                    UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_code_hint));
-                    return;
-                }
-                if (SPUtilHelper.getGoogleAuthFlag()) {
-                    if (TextUtils.isEmpty(mBinding.edtGoogle.getText().toString())) {
-                        UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_google_hint));
-                        return;
-                    }
-                }
-                if (TextUtils.isEmpty(mBinding.edtRepassword.getText())) {
-                    UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_pwd_hint));
-                    return;
-                }
-                if (mBinding.edtRepassword.getText().length() < 6) {
-                    UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_pwd_format_hint));
-                    return;
-                }
-
+                if (checkInputState()) return;
 
                 setPwd();
 
             }
         });
+    }
+
+    /**
+     * 验证输入状态
+     *
+     * @return 是否拦截
+     */
+    public boolean checkInputState() {
+        if (TextUtils.isEmpty(mBinding.edtPhone.getText())) {
+            UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_mobile_hint));
+            return true;
+        }
+        if (TextUtils.isEmpty(mBinding.edtCode.getText())) {
+            UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_code_hint));
+            return true;
+        }
+        if (SPUtilHelper.getGoogleAuthFlag()) {
+            if (TextUtils.isEmpty(mBinding.edtGoogle.getText().toString())) {
+                UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_google_hint));
+                return true;
+            }
+        }
+        if (TextUtils.isEmpty(mBinding.edtPassword.getText())) {
+            UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_pwd_hint));
+            return true;
+        }
+        if (mBinding.edtPassword.getText().length() < 6) {
+            UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_pwd_format_hint));
+            return true;
+        }
+
+
+        if (TextUtils.isEmpty(mBinding.edtRepassword.getText())) {
+            UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_find_repassword_hint));
+            return true;
+        }
+
+        if (!TextUtils.equals(mBinding.edtPassword.getText().toString().trim(), mBinding.edtRepassword.getText().toString().trim())) {
+            UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_find_repassword_format_hint));
+            return true;
+        }
+        return false;
     }
 
 
@@ -174,9 +194,9 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
         object.put("token", SPUtilHelper.getUserToken());
         object.put("googleCaptcha", mBinding.edtGoogle.getText().toString());
         if (mIsSetPwd) {
-            object.put("newTradePwd", mBinding.edtRepassword.getText().toString().trim());
+            object.put("newTradePwd", mBinding.edtPassword.getText().toString().trim());
         } else {
-            object.put("tradePwd", mBinding.edtRepassword.getText().toString().trim());
+            object.put("tradePwd", mBinding.edtPassword.getText().toString().trim());
         }
 
         object.put("smsCaptcha", mBinding.edtCode.getText().toString().toString());
@@ -194,28 +214,27 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(this) {
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
+
                 if (!data.isSuccess()) {
                     return;
                 }
+
                 SPUtilHelper.saveTradePwdFlag(true);
+
+                String dialotString = "";
+
                 if (mIsSetPwd) {
-                    UITipDialog.showSuccess(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_modify_sucess), new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialogInterface) {
-                            finish();
-                        }
-                    });
+                    dialotString = getString(R.string.activity_paypwd_modify_sucess);
                 } else {
-                    UITipDialog.showSuccess(PayPwdModifyActivity.this, getString(R.string.activity_paypwd_set_success), new DialogInterface.OnDismissListener() {
-                        @Override
-                        public void onDismiss(DialogInterface dialogInterface) {
-
-
-                            finish();
-                        }
-                    });
+                    dialotString = getString(R.string.activity_paypwd_set_success);
                 }
 
+                UITipDialog.showSuccess(PayPwdModifyActivity.this, dialotString, new DialogInterface.OnDismissListener() {
+                    @Override
+                    public void onDismiss(DialogInterface dialogInterface) {
+                        finish();
+                    }
+                });
 
             }
 
