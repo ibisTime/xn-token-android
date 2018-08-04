@@ -37,27 +37,26 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/transfer_bg_1"
                     android:orientation="vertical"
-                    android:paddingTop="19dp">
+                    android:paddingTop="15dp">
 
                     <TextView
-                        android:id="@+id/tv_info"
+                        android:id="@+id/tv_state_string"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
+                        android:text="@string/final_money"
                         android:textColor="@color/gray_666666"
-                        android:textSize="12sp"
-                        tools:text="转出" />
+                        android:textSize="14sp" />
 
                     <TextView
-                        android:id="@+id/tv_amount"
+                        android:id="@+id/tv_money"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal"
                         android:gravity="center"
-                        android:text="@string/wallet_withdraw_balance"
-                        android:textColor="@color/text_black_cd"
-                        android:textSize="24sp"
+                        android:textColor="#007AFF"
+                        android:textSize="22sp"
                         tools:text="dfdf" />
 
                 </LinearLayout>
@@ -71,18 +70,47 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/wallet_bill_detail_before"
+                    android:text="@string/question_from"
                     android:textColor="@color/gray_666666"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/tv_before"
+                    android:id="@+id/tv_from"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="所在端" />
+
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_intro"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_question_tro"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="20dp"
@@ -102,19 +130,82 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/wallet_bill_detail_after"
+                    android:text="@string/question_find_step"
                     android:textColor="@color/gray_666666"
                     android:textSize="14sp" />
 
                 <TextView
+                    android:id="@+id/tv_show_step"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="20dp"
+                    android:paddingTop="20dp"
+                    android:textColor="@color/text_black_cd"
+                    android:textSize="14sp"
+                    tools:text="收款地址" />
 
-                    android:id="@+id/tv_after"
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="15dp"
+                android:background="@color/white"
+                >
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_photo"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:descendantFocusability="blocksDescendants">
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recycler"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <View style="@style/style_split_line" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
+                android:background="@color/white"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/question_remark"
+                    android:textColor="@color/gray_666666"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tv_remark"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="20dp"
@@ -134,18 +225,17 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/wallet_bill_detail_date"
+                    android:text="@string/commit_time"
                     android:textColor="@color/gray_666666"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/tv_date"
+                    android:id="@+id/tv_commit_time"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="20dp"
@@ -165,18 +255,17 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp">
+                android:gravity="center_vertical">
 
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/wallet_bill_detail_status"
+                    android:text="@string/question_bug_state"
                     android:textColor="@color/gray_666666"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/tv_status"
+                    android:id="@+id/tv_bug_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:paddingBottom="20dp"
@@ -196,20 +285,20 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:background="@color/white"
-                android:gravity="center_vertical"
-                android:paddingLeft="15dp">
+                android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="90dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/wallet_bill_detail_type"
+                    android:text="@string/question_final_level"
                     android:textColor="@color/gray_666666"
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/tv_type"
+                    android:id="@+id/tv_final_level"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
                     android:paddingBottom="20dp"
                     android:paddingTop="20dp"
                     android:textColor="@color/text_black_cd"
@@ -219,8 +308,8 @@
 
             </LinearLayout>
 
-
             <View style="@style/style_split_line" />
+
 
         </LinearLayout>
 

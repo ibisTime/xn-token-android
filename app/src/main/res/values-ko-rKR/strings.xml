@@ -516,4 +516,80 @@
     <string name="yubibao_intro">수시 입출금으로 자유롭게 재정관리</string>
     <string name="lianghualicai_intro">낮은 리스크、높은 수익、정기적인 재정관리 제품</string>
     <string name="first_play_intro">사제 교육적 노리법、양측 보너스 제도</string>
+    <string name="android_txt">Android</string>
+    <string name="ios_text">iOS</string>
+
+    <string name="commit_time">提交时间</string>
+    <string name="final_money">最终发放奖励金额</string>
+    <string name="question_state_6">待奖励</string>
+    <string name="question_state_7">已奖励</string>
+    <string name="bug_level_1">严重缺陷</string>
+    <string name="bug_level_2">一般缺陷</string>
+    <string name="bug_level_3">优化缺陷</string>
+    <string name="question_state_8">奖励发放中</string>
+
+
+    <string name="bga_pp_toast_photo_picker_max">최대 %d개그림 선택</string>
+
+    <string name="bga_pp_all_image">모든 그림</string>
+
+    <string name="bga_pp_choose">그림 선택</string>
+
+    <string name="bga_pp_view_photo">그림 보기</string>
+
+    <string name="h5_text">H5 사이트</string>
+
+    <string name="question_hint_1">문제 서술(필수)</string>
+
+    <string name="question_hint_2">문제 세부적으로 서술</string>
+
+    <string name="question_hint_3">순환절차(필수)</string>
+
+    <string name="question_hint_4">순환절차를 기입하세요</string>
+
+    <string name="question_hint_5">문제 캡쳐(선택)</string>
+
+    <string name="question_hint_6">비고(선택)</string>
+
+    <string name="question_submit">제출</string>
+
+    <string name="question_history">기존 피드백</string>
+
+    <string name="question_feedback">문제 피드백</string>
+
+    <string name="question_input_hint_1">문제에 대해 자세히 서술</string>
+
+    <string name="question_input_hint_2">순환절차를 기입하세요</string>
+
+    <string name="question_submit_success">문제 제출완료</string>
+
+    <string name="no_question_history">기존 피드백 없음</string>
+
+    <string name="question_details">문제 세부내용</string>
+
+    <string name="question_from">위치</string>
+
+    <string name="question_intro">문제 서술</string>
+
+    <string name="question_find_step">순환절차</string>
+
+    <string name="question_photo">문제 캡쳐</string>
+
+    <string name="question_remark">비고</string>
+
+    <string name="question_bug_state">bug상태</string>
+
+    <string name="question_final_level">최종확인 등급</string>
+
+    <string name="question_state_1">확인 중</string>
+
+    <string name="question_state_2">순환 실패</string>
+
+    <string name="question_state_3">확인완료</string>
+
+    <string name="question_state_4">포상</string>
+
+    <string name="question_state_5">포상확인중</string>
+
+    <string name="bga_pp_confirm">확인</string>
 </resources>

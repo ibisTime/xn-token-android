@@ -154,7 +154,6 @@ public class MainActivity extends BaseActivity {
         if (index < 0 && index >= fragments.size()) {
             return;
         }
-
         mBinding.pagerMain.setCurrentItem(index, false);
         setTabIndex(index);
     }

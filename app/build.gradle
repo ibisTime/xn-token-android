@@ -103,6 +103,12 @@ dependencies {
     //选择框
     implementation 'com.contrarywind:Android-PickerView:4.1.4'
 
+    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
+    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
+    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.8@aar'
+    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.8@aar'
+
+
 }
 ///格式化打完完成后APK名称中的时间
 def releaseTime() {

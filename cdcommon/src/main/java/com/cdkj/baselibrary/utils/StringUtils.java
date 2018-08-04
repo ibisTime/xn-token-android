@@ -334,11 +334,12 @@ public class StringUtils {
 
     /**
      * 字符过滤
+     *
      * @param str
      * @return
      * @throws PatternSyntaxException
      */
-    public static String stringFilter(String str){
+    public static String stringFilter(String str) {
         // 只允许字母、数字和汉字
         String regEx = "[^a-zA-Z0-9\u4E00-\u9FA5]";
         Pattern p = Pattern.compile(regEx);

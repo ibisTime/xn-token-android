@@ -3,13 +3,11 @@ package com.cdkj.token.loader;
 import android.content.Context;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
-import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
+import com.cdkj.baselibrary.utils.GlideApp;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.BannerModel;
-import com.youth.banner.Banner;
 import com.youth.banner.loader.ImageLoader;
 
 public class BannerImageLoader extends ImageLoader {
@@ -17,7 +15,7 @@ public class BannerImageLoader extends ImageLoader {
     @Override
     public void displayImage(Context context, Object path, ImageView imageView) {
 
-        Glide.with(context)
+        GlideApp.with(context)
                 .load(getImgUrl(path))
                 .placeholder(R.drawable.default_pic)
                 .into(imageView);

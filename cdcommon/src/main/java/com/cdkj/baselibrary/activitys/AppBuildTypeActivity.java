@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
@@ -20,6 +19,7 @@ import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityAppBuildTypeBinding;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.GlideApp;
 import com.cdkj.baselibrary.utils.LogUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -76,8 +76,8 @@ public class AppBuildTypeActivity extends AbsActivity {
             }
         });
 
-        Glide.with(this).load(R.mipmap.pu).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(mBinding.ivDebug);
-        Glide.with(this).load(R.mipmap.pu).asGif().diskCacheStrategy(DiskCacheStrategy.SOURCE).into(mBinding.ivTest);
+        GlideApp.with(this).asGif().load(R.mipmap.pu).diskCacheStrategy(DiskCacheStrategy.NONE).into(mBinding.ivDebug);
+        GlideApp.with(this).asGif().load(R.mipmap.pu).diskCacheStrategy(DiskCacheStrategy.NONE).into(mBinding.ivTest);
     }
 
     public void setBuildType(View view, String type) {

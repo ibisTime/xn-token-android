@@ -51,4 +51,9 @@
     <color name="out_money">#F55E52</color>
     <color name="in_money">#47D047</color>
 
+    <color name="bga_pp_colorPrimaryDark">@color/colorPrimaryDark</color>
+    <!-- PhotoPicker 导航栏的颜色 -->
+    <color name="bga_pp_navigationBarColor">@color/colorPrimaryDark</color>
+    <!-- PhotoPicker Toolbar 的颜色 -->
+    <color name="bga_pp_colorPrimary">@color/colorPrimary</color>
 </resources>

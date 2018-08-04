@@ -101,13 +101,29 @@
 
                         </LinearLayout>
 
-                        <ImageView
-                            android:id="@+id/img_logo"
+                        <LinearLayout
                             android:layout_width="65dp"
-                            android:layout_height="65dp"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginRight="15dp"
-                            android:src="@drawable/user_logo" />
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="10dp"
+                            android:orientation="vertical">
+
+                            <ImageView
+                                android:id="@+id/img_crown"
+                                android:layout_width="18dp"
+                                android:layout_height="16dp"
+                                android:layout_gravity="center_horizontal"
+                                android:src="@drawable/crown"
+                                android:visibility="gone" />
+
+                            <ImageView
+                                android:id="@+id/img_logo"
+                                android:layout_width="65dp"
+                                android:layout_height="65dp"
+                                android:layout_gravity="bottom"
+                                android:src="@drawable/user_logo" />
+
+
+                        </LinearLayout>
 
 
                     </LinearLayout>
@@ -309,6 +325,40 @@
                                 android:layout_marginLeft="15dp"
                                 android:layout_weight="1"
                                 android:text="@string/wallet_tool"
+                                android:textColor="@color/black"
+                                android:textSize="14sp" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginRight="15dp"
+                                android:background="@mipmap/more" />
+
+                        </LinearLayout>
+
+                        <View
+                            style="@style/style_split_line"
+                            android:layout_marginLeft="48dp" />
+
+                        <LinearLayout
+                            android:id="@+id/linLayout_feedback"
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:background="?attr/selectableItemBackground"
+                            android:gravity="center_vertical">
+
+                            <ImageView
+                                android:layout_width="@dimen/user_fragment_item_img_width"
+                                android:layout_height="@dimen/user_fragment_item_img_height"
+                                android:layout_marginLeft="15dp"
+                                android:src="@drawable/question_feedback" />
+
+                            <TextView
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_weight="1"
+                                android:text="@string/question_feedback"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 

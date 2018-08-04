@@ -6,24 +6,31 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.support.annotation.NonNull;
 
 import com.bumptech.glide.load.engine.bitmap_recycle.BitmapPool;
 import com.bumptech.glide.load.resource.bitmap.BitmapTransformation;
+
+import java.nio.ByteBuffer;
+import java.security.MessageDigest;
 
 /**Glide 圆形图片带边框
  * Created by Administrator on 2016-08-02.
  */
 public class GlideCircleBorderTransform extends BitmapTransformation {
 
+    private static final String ID = "com.cdkj.baselibrary.utils.glidetransforms.GlideCircleBorderTransform";
+    private static final byte[] ID_BYTES = ID.getBytes(CHARSET);
+
     private Paint mBorderPaint;
     private float mBorderWidth;
 
     public GlideCircleBorderTransform(Context context) {
-        super(context);
+        super();
     }
 
     public GlideCircleBorderTransform(Context context, int borderWidth, int borderColor) {
-        super(context);
+        super();
         mBorderWidth = Resources.getSystem().getDisplayMetrics().density * borderWidth;
 
         mBorderPaint = new Paint();
@@ -34,7 +41,7 @@ public class GlideCircleBorderTransform extends BitmapTransformation {
         mBorderPaint.setStrokeWidth(mBorderWidth);
     }
 
-
+    @Override
     protected Bitmap transform(BitmapPool pool, Bitmap toTransform, int outWidth, int outHeight) {
         return circleCrop(pool, toTransform);
     }
@@ -66,8 +73,20 @@ public class GlideCircleBorderTransform extends BitmapTransformation {
         return result;
     }
 
+
     @Override
-    public String getId() {
-        return getClass().getName();
+    public boolean equals(Object o) {
+        return o instanceof GlideCircleBorderTransform;
+    }
+
+
+    @Override
+    public int hashCode() {
+        return ID.hashCode();
+    }
+
+    @Override
+    public void updateDiskCacheKey(@NonNull MessageDigest messageDigest) {
+        messageDigest.update(ID_BYTES);
     }
 }

@@ -29,6 +29,7 @@ import com.cdkj.token.model.MyGetRedPackageBean;
 import com.cdkj.token.model.MySendRedPackageBean;
 import com.cdkj.token.model.OrderDetailModel;
 import com.cdkj.token.model.OrderModel;
+import com.cdkj.token.model.QuestionFeedbackModel;
 import com.cdkj.token.model.RateModel;
 import com.cdkj.token.model.RedPackageDetialsBean;
 import com.cdkj.token.model.RedPackageHistoryBean;
@@ -80,6 +81,24 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseListModel<CountryCodeMode>> getCountryList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取问题反馈列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ResponseInListModel<QuestionFeedbackModel>>> getQuestionFeedbackList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取问题反馈列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<QuestionFeedbackModel>> getQuestionFeedbackDetails(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取本地币种流水

@@ -8,11 +8,10 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.utils.glidetransforms.GlideCircleTransform;
 
 /**
  * 图片加载工具类
@@ -29,9 +28,9 @@ public class ImgUtils {
         }
 
         if (isHaveHttp(imgid)) {
-            Glide.with(context).load(imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
+            GlideApp.with(context).load(imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new CircleCrop()).into(img);
         } else {
-            Glide.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
+            GlideApp.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new CircleCrop()).into(img);
         }
 
     }
@@ -45,9 +44,9 @@ public class ImgUtils {
         }
 
         if (isHaveHttp(imgid)) {
-            Glide.with(context).load(imgid).transform(new GlideCircleTransform(context)).into(img);
+            GlideApp.with(context).load(imgid).transform(new CircleCrop()).into(img);
         } else {
-            Glide.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).transform(new GlideCircleTransform(context)).into(img);
+            GlideApp.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).transform(new CircleCrop()).into(img);
         }
 
     }
@@ -61,7 +60,7 @@ public class ImgUtils {
             return;
         }
 
-        Glide.with(context).load(imgid).dontAnimate().into(img);
+        GlideApp.with(context).load(imgid).dontAnimate().into(img);
     }
 
     /**
@@ -85,9 +84,9 @@ public class ImgUtils {
 
         try {
             if (isHaveHttp(imgid)) {
-                Glide.with(context).load(imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
+                GlideApp.with(context).load(imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new CircleCrop()).into(img);
             } else {
-                Glide.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new GlideCircleTransform(context)).into(img);
+                GlideApp.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).placeholder(R.drawable.photo_default).error(R.drawable.photo_default).transform(new CircleCrop()).into(img);
             }
         } catch (Exception e) {
         }
@@ -105,9 +104,9 @@ public class ImgUtils {
         }
 
         if (isHaveHttp(imgid)) {
-            Glide.with(context).load(imgid).placeholder(R.drawable.default_pic).error(R.drawable.default_pic).into(img);
+            GlideApp.with(context).load(imgid).placeholder(R.drawable.default_pic).error(R.drawable.default_pic).into(img);
         } else {
-            Glide.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).placeholder(R.drawable.default_pic).error(R.drawable.default_pic).into(img);
+            GlideApp.with(context).load(SPUtilHelper.getQiniuUrl() + imgid).placeholder(R.drawable.default_pic).error(R.drawable.default_pic).into(img);
         }
 
 
@@ -124,7 +123,7 @@ public class ImgUtils {
             return;
         }
 
-        Glide.with(context).load(imgid).diskCacheStrategy(DiskCacheStrategy.NONE)
+        GlideApp.with(context).load(imgid).diskCacheStrategy(DiskCacheStrategy.NONE)
                 .skipMemoryCache(true).into(img);
     }
 
@@ -137,7 +136,7 @@ public class ImgUtils {
 
 
         try {
-            Glide.with(context).load(imgid).placeholder(R.drawable.default_pic).error(R.drawable.default_pic).into(img);
+            GlideApp.with(context).load(imgid).placeholder(R.drawable.default_pic).error(R.drawable.default_pic).into(img);
         } catch (Exception e) {
         }
 
@@ -150,15 +149,26 @@ public class ImgUtils {
 
 
         if (isHaveHttp(path)) {
-            Glide.with(context)
+            GlideApp.with(context)
                     .load(path.toString())
                     .into(iv);
         } else {
 
-            Glide.with(context)
+            GlideApp.with(context)
                     .load(SPUtilHelper.getQiniuUrl() + path.toString())
                     .into(iv);
         }
+
+    }
+
+    public static void loadLocalImage(Context context, String path, ImageView iv) {
+
+        if (context == null || path == null)
+            return;
+
+        GlideApp.with(context)
+                .load( path.toString())
+                .into(iv);
 
     }
 
@@ -193,14 +203,14 @@ public class ImgUtils {
             imgAvatar.setVisibility(View.VISIBLE);
 
             try {
-                Glide.with(context)
+                GlideApp.with(context)
                         .load(SPUtilHelper.getQiniuUrl() + imgUrl)
                         .placeholder(R.drawable.photo_default)
                         .error(R.drawable.photo_default)
-                        .transform(new GlideCircleTransform(context)).into(imgAvatar);
+                        .transform(new CircleCrop()).into(imgAvatar);
 
 //                if (imgUrl.indexOf("http://") != -1){
-//                    Glide.with(context)
+//                    GlideApp.with(context)
 //                            .load(imgUrl)
 //                            .placeholder(R.drawable.photo_default)
 //                            .error(R.drawable.photo_default)

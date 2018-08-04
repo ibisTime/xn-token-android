@@ -1,7 +1,9 @@
 package com.cdkj.token.adapter;
 
 import android.support.annotation.Nullable;
+import android.view.ViewGroup;
 
+import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.CoinModel;

@@ -38,8 +38,17 @@ public class UserInfoModel {
     private boolean loginPwdFlag;  //是否设置过登录密码
     private int totalFollowNum;
     private int totalFansNum;
+    private long createNo;//用户编号
     private RefereeUserBean refereeUser;
     private UserStatisticsBean userStatistics;
+
+    public long getCreateNo() {
+        return createNo;
+    }
+
+    public void setCreateNo(long createNo) {
+        this.createNo = createNo;
+    }
 
     public boolean isLoginPwdFlag() {
         return loginPwdFlag;

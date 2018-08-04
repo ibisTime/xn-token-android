@@ -258,6 +258,15 @@
             android:name=".user.pattern_lock.PatternLockCheckActivity"
             android:launchMode="singleTask"
             android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.question_feedback.QuestionFeedbackHistoryListActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.question_feedback.QuestionFeedbackSubmitActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".user.question_feedback.QuestionFeedbackDetailsActivity"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

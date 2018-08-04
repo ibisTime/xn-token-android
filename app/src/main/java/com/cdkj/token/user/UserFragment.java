@@ -27,6 +27,7 @@ import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
+import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
 import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
@@ -71,9 +72,14 @@ public class UserFragment extends BaseLazyFragment {
 
     private void initClickListener() {
 
+        //问题反馈
+        mBinding.linLayoutFeedback.setOnClickListener(view -> {
+            QuestionFeedbackSubmitActivity.open(mActivity);
+        });
+
         //修改昵称
         mBinding.linLayoutNickName.setOnClickListener(view -> {
-            NickModifyActivity.open(mActivity,SPUtilHelper.getUserName());
+            NickModifyActivity.open(mActivity, SPUtilHelper.getUserName());
         });
 
         //本地货币
@@ -183,12 +189,17 @@ public class UserFragment extends BaseLazyFragment {
             return;
         }
 
+        if (data.getCreateNo() < 10000) {
+            mBinding.imgCrown.setVisibility(View.VISIBLE);
+        } else {
+            mBinding.imgCrown.setVisibility(View.GONE);
+        }
+
         if (data.getNickname() == null) return;
 
         mBinding.tvNickName.setText(data.getNickname());
         mBinding.tvPhoneNumber.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()) + " " + StringUtils.ttransformShowPhone(data.getMobile()));
         ImgUtils.loadLogo(mActivity, data.getPhoto(), mBinding.imgLogo);
-
     }
 
     @Override
@@ -277,8 +288,8 @@ public class UserFragment extends BaseLazyFragment {
     }
 
     @Subscribe
-    public void nickNameUpdate(NickNameUpdate nickNameUpdate){
-        if(mBinding!=null){
+    public void nickNameUpdate(NickNameUpdate nickNameUpdate) {
+        if (mBinding != null) {
             mBinding.tvNickName.setText(SPUtilHelper.getUserName());
         }
     }

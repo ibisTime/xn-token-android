@@ -196,6 +196,7 @@ public class QiNiuHelper {
     }
 
 
+    //TODO 多图上传优化
     /**
      * 多图片上传
      *
@@ -233,15 +234,15 @@ public class QiNiuHelper {
     }
 
     /**
-     * 递归实现多图片上传
+     * 循环调用实现多图片上传
      *
      * @param dataList
      * @param token
      * @param listListener
      */
-    public void upLoadListPic(int index, final List<String> dataList, final String token, final upLoadListImageListener listListener) {
+    private void upLoadListPic(int index, final List<String> dataList, final String token, final upLoadListImageListener listListener) {
         this.upLoadListIndex = index;
-        if (TextUtils.isEmpty(token)) {
+        if (TextUtils.isEmpty(token) || TextUtils.isEmpty(dataList.get(index))) {
             if (listListener != null) {
                 listListener.onFal(CdApplication.getContext().getString(R.string.upload_pic_fail));
             }

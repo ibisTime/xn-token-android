@@ -575,6 +575,80 @@
     <string name="yubibao_intro">Flexible financial management,Save in and cash the balance anytime</string>
     <string name="lianghualicai_intro">Regular financial product,Low risk high return </string>
     <string name="first_play_intro">Two-way incentive mechanism,master and apprentice orientation</string>
+    <string name="android_txt">Android</string>
+    <string name="ios_text">iOS</string>
+
+    <string name="commit_time">提交时间</string>
+    <string name="final_money">最终发放奖励金额</string>
+    <string name="question_state_6">待奖励</string>
+    <string name="question_state_7">已奖励</string>
+    <string name="bug_level_1">严重缺陷</string>
+    <string name="bug_level_2">一般缺陷</string>
+    <string name="bug_level_3">优化缺陷</string>
+    <string name="question_state_8">奖励发放中</string>
+
+    <string name="bga_pp_toast_photo_picker_max">choose %d pictures at most</string>
+
+    <string name="bga_pp_all_image">all pictures</string>
+
+    <string name="bga_pp_choose">choose picture</string>
+
+    <string name="bga_pp_view_photo">view picture</string>
+
+    <string name="h5_text">H5 site</string>
+
+    <string name="question_hint_1">problem discrption (must)</string>
+
+    <string name="question_hint_2">please describe problem in details</string>
+
+    <string name="question_hint_3">reproduction steps (must)</string>
+
+    <string name="question_hint_4">please fill in reproduction steps</string>
+
+    <string name="question_hint_5">problem screenshot (option)</string>
+
+    <string name="question_hint_6">remark (option)</string>
+
+    <string name="question_submit">submit</string>
+
+    <string name="question_history">feedback history</string>
+
+    <string name="question_feedback">problem feedback</string>
+
+    <string name="question_input_hint_1">please fill in problem description</string>
+
+    <string name="question_input_hint_2">please fill in reproduction steps</string>
+
+    <string name="question_submit_success">problem feedback submit successful</string>
+
+    <string name="no_question_history">no feedback history</string>
+
+    <string name="question_details">problem details</string>
+
+    <string name="question_from">device</string>
+
+    <string name="question_intro">problem description</string>
+
+    <string name="question_find_step">reproduction steps</string>
+
+    <string name="question_photo">problem screenshot</string>
+
+    <string name="question_remark">remark</string>
+
+    <string name="question_bug_state">bug status</string>
+
+    <string name="question_final_level">final level confirmation</string>
+
+    <string name="question_state_1">to be confirmed</string>
+
+    <string name="question_state_2">reproduction failed</string>
+
+    <string name="question_state_3">confirmed</string>
+
+    <string name="question_state_4">reward</string>
+
+    <string name="question_state_5">reward confirmation processing</string>
+    <string name="bga_pp_confirm">Confirm </string>
 </resources>
 
 
