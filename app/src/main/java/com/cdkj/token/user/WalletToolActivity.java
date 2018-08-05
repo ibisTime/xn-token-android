@@ -71,7 +71,6 @@ public class WalletToolActivity extends AbsLoadActivity {
         });
 
         mBinding.llModify.setOnClickListener(view -> WalletPasswordModifyActivity.open(this));
-        mBinding.btnDelete.setOnClickListener(view -> WallteDeleteStartActivity.open(this));
         mBinding.llOut.setOnClickListener(view -> WalletExportPasswordCheckActivity.open(this));
 
         mBinding.btnDelete.setOnClickListener(view -> {
