@@ -53,6 +53,7 @@ public class MyApplication extends Application {
         LogUtil.E("Aapplication启动");
     }
 
+
     void init() {
         initLitePal();
         CdApplication.initialize(this);

@@ -96,7 +96,7 @@ public class QuestionHistoryListAdapter extends BaseQuickAdapter<QuestionFeedbac
                 dataTime = item.getApproveDatetime();
                 break;
             case "2":
-                dataTime = item.getApproveDatetime();
+                dataTime = item.getCommitDatetime();
                 break;
             case "3":
                 dataTime = item.getPayDatetime();
@@ -104,7 +104,7 @@ public class QuestionHistoryListAdapter extends BaseQuickAdapter<QuestionFeedbac
         }
 
 
-        return DateUtil.formatStringData(dataTime, "yy-dd HH:MM");
+        return DateUtil.formatStringData(dataTime, "MM-dd HH:mm");
     }
 
 
@@ -127,9 +127,9 @@ public class QuestionHistoryListAdapter extends BaseQuickAdapter<QuestionFeedbac
             case "2":
                 return mContext.getString(R.string.question_state_4) + "0";
             case "3":
-                return Html.fromHtml(mContext.getString(R.string.question_state_4) +
-                        "<p color='#007AFF'" + AccountUtil.amountFormatUnitForShow(questionFeedbackModel.getPayAmount(), AccountUtil.ALLSCALE) + "wan</p>-" + getLevelString(questionFeedbackModel.getLevel())
-                        + ",已于" + questionFeedbackModel.getLevel() + "版本修复");
+                String money = AccountUtil.amountFormatUnitForShow(questionFeedbackModel.getPayAmount(), AccountUtil.ALLSCALE) + "wan";
+                return Html.fromHtml(mContext.getString(R.string.question_done,
+                        money, getLevelString(questionFeedbackModel.getLevel()), questionFeedbackModel.getRepairVersionCode()));
         }
 
         return "";

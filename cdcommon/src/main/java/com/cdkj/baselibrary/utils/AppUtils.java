@@ -13,6 +13,7 @@ import android.content.res.Resources;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Build;
+import android.os.LocaleList;
 import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
@@ -524,11 +525,35 @@ public class AppUtils {
             Resources res = context.getResources();
             DisplayMetrics dm = res.getDisplayMetrics();
             Configuration conf = res.getConfiguration();
-            conf.locale = locale;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                conf.setLocale(locale);
+            } else {
+                conf.locale = locale;
+            }
             res.updateConfiguration(conf, dm);
+            updateResources(context, locale);
+            updateResources(CdApplication.getContext(), locale);
         } catch (Exception e) {
         }
     }
 
+
+    @TargetApi(Build.VERSION_CODES.N)
+    private static void updateResources(Context context, Locale locale) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            try {
+
+                Resources resources = context.getResources();
+                Configuration configuration = resources.getConfiguration();
+                configuration.setLocale(locale);
+                configuration.setLocales(new LocaleList(locale));
+                context.createConfigurationContext(configuration);
+
+            } catch (Exception e) {
+
+            }
+
+        }
+    }
 
 }

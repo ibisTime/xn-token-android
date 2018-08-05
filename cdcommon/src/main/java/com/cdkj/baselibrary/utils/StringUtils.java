@@ -145,6 +145,21 @@ public class StringUtils {
         return splitAsList(s, "\\|\\|");
     }
 
+    /**
+     * 切割获取广告图片
+     *
+     * @param s
+     * @return
+     */
+    public static ArrayList<String> splitBannerArrayList(String s) {
+
+        ArrayList arrayList = new ArrayList();
+
+        arrayList.addAll(splitAsList(s, "\\|\\|"));
+
+        return arrayList;
+    }
+
     public static String subStringEnd(String s, int start) {
         if (TextUtils.isEmpty(s) || start < 0) {
             return s;

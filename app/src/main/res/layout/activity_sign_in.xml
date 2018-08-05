@@ -18,7 +18,7 @@
                 android:layout_height="49dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="43dp"
-                android:src="@drawable/sign_tha_logo" />
+                android:src="@drawable/icon_sign_in" />
 
             <com.cdkj.token.views.SignInPageCardLayout
                 android:layout_width="match_parent"

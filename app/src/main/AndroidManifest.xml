@@ -24,6 +24,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:allowBackup">
+
         <activity android:name=".user.login.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

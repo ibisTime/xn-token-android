@@ -602,6 +602,14 @@
     <string name="bug_level_2">一般缺陷</string>
     <string name="bug_level_3">优化缺陷</string>
     <string name="question_state_8">奖励发放中</string>
+    <string name="question_fix">版本修复</string>
 
+    <string name="bug_level_1_1">严重</string>
 
+    <string name="bug_level_2_1">一般</string>
+
+    <string name="bug_level_3_1">优化</string>
+    <string name="bga_pp_take_picture">拍摄照片</string>
+    <!--奖励金额   bug等级  修复版本-->
+    <string name="question_done"><Data><![CDATA[奖励<font color="#007AFF">%1$s</font>--%2$s, 已于 %3$s 版本修复]]></Data></string>
 </resources>

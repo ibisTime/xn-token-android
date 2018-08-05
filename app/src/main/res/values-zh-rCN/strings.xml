@@ -557,7 +557,7 @@
     <string name="first_play_intro">师徒教育玩法、双向奖励机制</string>
     <string name="android_txt">Android</string>
     <string name="ios_text">iOS</string>
-    <string name="h5_text">H5</string>
+    <string name="h5_text">H5网页</string>
     <string name="question_hint_1">问题描述（必填）</string>
     <string name="question_hint_2">请详细描述一下问题</string>
     <string name="question_hint_3">复现步骤（必填）</string>
@@ -597,4 +597,14 @@
     <string name="question_state_3">已确认</string>
     <string name="question_state_4">奖励</string>
     <string name="question_state_5">奖励确认中</string>
+    <string name="question_fix">版本修复</string>
+    <string name="bug_level_1_1">严重</string>
+
+    <string name="bug_level_2_1">一般</string>
+
+    <string name="bug_level_3_1">优化</string>
+    <string name="bga_pp_take_picture">拍摄照片</string>
+    <!--奖励金额   bug等级  修复版本-->
+    <string name="question_done"><Data><![CDATA[奖励<font color="#007AFF">%1$s</font>--%2$s, 已于 %3$s 版本修复]]></Data></string>
+
 </resources>

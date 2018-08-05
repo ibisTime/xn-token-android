@@ -95,8 +95,6 @@ public class OkHttpUtils {
      */
     public static OkHttpClient getInstance() {
         if (client == null) {
-
-
             client = new OkHttpClient.Builder()
                     .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
                     .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)

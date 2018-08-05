@@ -8,6 +8,7 @@ import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.cdkj.baselibrary.activitys.PhotoViewPagerActivity;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
@@ -115,7 +116,7 @@ public class QuestionFeedbackDetailsActivity extends AbsLoadActivity {
         mBinding.tvQuestionTro.setText(data.getDescription());
         mBinding.tvShowStep.setText(data.getReappear());
         mBinding.tvRemark.setText(data.getCommitNote());
-        mBinding.tvBugState.setText(getLevelString(data.getLevel()));
+        mBinding.tvBugState.setText(getStateString(data.getStatus()));
         mBinding.tvFinalLevel.setText(data.getLevel());
         mBinding.tvMoney.setText(AccountUtil.amountFormatUnitForShow(data.getPayAmount(), AccountUtil.ALLSCALE) + "wan");
         mBinding.tvCommitTime.setText(DateUtil.formatStringData(data.getCommitDatetime(), DATE_YMD));
@@ -126,8 +127,13 @@ public class QuestionFeedbackDetailsActivity extends AbsLoadActivity {
                 return false;
             }
         });
+        QuestionPhotoAdapter questionPhotoAdapter = new QuestionPhotoAdapter(StringUtils.splitBannerList(data.getPic()));
 
-        mBinding.recycler.setAdapter(new QuestionPhotoAdapter(StringUtils.splitBannerList(data.getPic())));
+        questionPhotoAdapter.setOnItemClickListener((adapter, view, position) -> {
+            PhotoViewPagerActivity.open(QuestionFeedbackDetailsActivity.this,StringUtils.splitBannerArrayList(data.getPic()), position);
+        });
+
+        mBinding.recycler.setAdapter(questionPhotoAdapter);
     }
 
     /**
@@ -174,5 +180,34 @@ public class QuestionFeedbackDetailsActivity extends AbsLoadActivity {
 
         return "";
     }
+
+        /*0待审批 1审批通过待支付 2审批不通过 3已支付*/
+
+    /**
+     * 状态
+     *
+     * @param status
+     * @return
+     */
+    public String getStateString(String status) {
+
+        if (TextUtils.isEmpty(status)) {
+            return "";
+        }
+
+        switch (status) {
+            case "0":
+                return getString(R.string.question_state_1);
+            case "1":
+                return getString(R.string.question_state_6);
+            case "2":
+                return getString(R.string.question_state_2);
+            case "3":
+                return getString(R.string.question_state_7);
+        }
+
+        return "";
+    }
+
 
 }

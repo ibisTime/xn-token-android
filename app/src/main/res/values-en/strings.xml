@@ -36,9 +36,9 @@
     <string name="bill_type_all">All </string>
     <string name="bill_type_charge"> Coin-filled </string>
     <string name="bill_type_withdraw">Now </string>
-    <string name="bill_type_withdrawfee"> The Handling fee is</string>
+    <string name="bill_type_withdrawfee">The Handling fee is</string>
 
-    <string name="bill_type_withdrawfrozen"> Frozen is</string>
+    <string name="bill_type_withdrawfrozen">Frozen is</string>
 
     <string name="bill_type_withdrawunfrozen"> The to unfreeze</string>
     <string name="bill_type_select">Filter to</string>
@@ -127,10 +127,10 @@
     <string name="user_sign_up_agree"> I\'ve read and agreed to </string>
     <string name="user_sign_up_profile"> registration Agreement </string>
     <string name="user_sign_up_confirm"> Confirm registration </string>
-    <string name="user_password_new_hint"> not less than 6-bit </string>
+    <string name="user_password_new_hint">Not less than 6-bit </string>
     <string name="user_password_re"> Confirm password </string>
-    <string name="user_password_re_hint"> not less than 6-bit </string>
-    <string name="user_password_title">modify password the to</string>
+    <string name="user_password_re_hint">Not less than 6-bit </string>
+    <string name="user_password_title">Modify password the to</string>
     <string name="user_password_pwdold_hint">Please enter original password the</string>
     <string name="user_password_google_hint">Google Please authentication code enter</string>
     <string name="user_password_pwdnew_hint">Please a enter new password</string>
@@ -142,10 +142,10 @@
     <string name="user_password_failure"> password modification failed </string>
     <string name="user_password_google"> Google verification code </string>
 
-    <string name="user_password_google_paste"> paste </string>
+    <string name="user_password_google_paste"> Paste </string>
     <string name="user_setting_trade_pwd">Capital password </string>
 
-    <string name="user_setting_identity"> real name authentication </string>
+    <string name="user_setting_identity">Real name authentication </string>
     <string name="user_setting_mail"> Binding mailbox </string>
 
     <string name="sms_code_send">Authenticode Get</string>
@@ -159,42 +159,42 @@
     <string name="user_about_copyright">2018tha All rights reserved </string>
     <string name="coin_eth"> Ethernet currency </string>
 
-    <string name="coin_btc"> bit currency </string>
-    <string name="biz_type_charge"> recharge </string>
-    <string name="biz_type_withdraw"> take the present </string>
-    <string name="biz_type_tradefee"> transaction fees </string>
+    <string name="coin_btc">Bit currency </string>
+    <string name="biz_type_charge">Recharge </string>
+    <string name="biz_type_withdraw">Take the present </string>
+    <string name="biz_type_tradefee">Transaction fees </string>
 
-    <string name="biz_type_withdrawfee"> a fee </string>
-    <string name="biz_status_daiduizhang"> to be reconciled </string>
-    <string name="biz_status_yiduiyiping"> account and been been flat. has has reconciled the
+    <string name="biz_type_withdrawfee">A fee </string>
+    <string name="biz_status_daiduizhang">To be reconciled </string>
+    <string name="biz_status_yiduiyiping">Account and been been flat. has has reconciled the
 </string>
-    <string name="biz_status_zhangbuping"> account account adjusted approval be for is not the to</string>
+    <string name="biz_status_zhangbuping">Account account adjusted approval be for is not the to</string>
 
-    <string name="biz_status_yiduibuping"> account and been has is reconciled the uneven</string>
+    <string name="biz_status_yiduibuping">Account and been has is reconciled the uneven</string>
 
-    <string name="biz_status_wuxuduizhang"> no reconciliation required</string>
+    <string name="biz_status_wuxuduizhang">No reconciliation required</string>
 
 
     <string name="wallet_withdraw_balance">Available balance </string>
-    <string name="wallet_withdraw_address">receive address </string>
+    <string name="wallet_withdraw_address">Receive address </string>
     <string name="wallet_withdraw_address_input_hint">Please paste the address or scan code entry </string>
-    <string name="wallet_withdraw_amount">withdraw amount </string>
-    <string name="wallet_withdraw_free">withdraw fee\u3000</string>
+    <string name="wallet_withdraw_amount">Withdraw amount </string>
+    <string name="wallet_withdraw_free">Withdraw fee\u3000</string>
     <string name="wallet_withdraw_tip">The withdraw fee will be deducted from the cash amount </string>
     <string name="wallet_withdraw_confirm"> Withdraw confirm </string>
     <string name="wallet_withdraw_order_title">Withdraw order </string>
-    <string name="wallet_withdraw_order_none">no withdraw records </string>
+    <string name="wallet_withdraw_order_none">No withdraw records </string>
     <string name="wallet_title">My assets</string>
     <string name="bill_frozen_none">No frozen details</string>
-    <string name="wallet_title_bill_detail">billing details </string>
+    <string name="wallet_title_bill_detail">Billing details </string>
     <string name="wallet_bill_detail_before">Amount before the change</string>
     <string name="wallet_bill_detail_after">Amount after Change</string>
     <string name="wallet_bill_detail_date">Change date </string>
     <string name="wallet_bill_detail_status">Detail status </string>
     <string name="wallet_bill_detail_type">Detail summary </string>
-    <string name="wallet_title_bill_list">billing </string>
+    <string name="wallet_title_bill_list">Billing </string>
     <string name="wallet_title_charge">Top up </string>
-    <string name="wallet_charge_record">record </string>
+    <string name="wallet_charge_record">Record </string>
 
     <string name="wallet_charge_address_copy_success">Address has been copied</string>
     <string name="wallet_title_withdraw">Withdraw </string>
@@ -203,7 +203,7 @@
     <string name="wallet_transfer_success">Transfer application successfully </string>
     <string name="user_address_tag_hint">Please input the address tag </string>
     <string name="user_address_hint">Please input the address </string>
-    <string name="user_title_address">address management </string>
+    <string name="user_title_address">Address management </string>
     <string name="user_address_none">No address </string>
     <string name="user_address_delete_confirm">Are you sure you want to delete this address? </string>
     <string name="user_address_delete_success">delete successfully </string>
@@ -224,38 +224,38 @@
     <string name="user_repassword_hint">Confirm  password </string>
     <string name="user_repassword_two_hint">The passwords must be same </string>
     <string name="user_protocol_hint">Please read and agree to the terms </string>
-    <string name="user_sign_up_success"> registration is successful, log in automatically for you </string>
-    <string name="user_sign_up_failure"> registration failed </string>
+    <string name="user_sign_up_success">Registration is successful, log in automatically for you </string>
+    <string name="user_sign_up_failure">Registration failed </string>
 
 
-    <string name="user_address_add_address">withdraw address </string>
-    <string name="user_address_add_code"> verification code </string>
+    <string name="user_address_add_address">Withdraw address </string>
+    <string name="user_address_add_code">Verification code </string>
     <string name="user_address_add_code_hint">Enter code </string>
     <string name="user_address_add_is_default">Set this account as an authentication account </string>
-    <string name="user_address_add_tip"> withdraw the funds to the authentication account and no longer input the fund password, Google verification code </string>
-    <string name="user_title_email_bind">bind mailbox</string>
-    <string name="user_title_email_modify"> modify the mailbox </string>
-    <string name="user_email_bind_success">binding success </string>
-    <string name="user_email_modify_success">modifying success </string>
-    <string name="user_email">mailbox </string>
+    <string name="user_address_add_tip">Withdraw the funds to the authentication account and no longer input the fund password, Google verification code </string>
+    <string name="user_title_email_bind">Bind mailbox</string>
+    <string name="user_title_email_modify">Modify the mailbox </string>
+    <string name="user_email_bind_success">Binding success </string>
+    <string name="user_email_modify_success">Modifying success </string>
+    <string name="user_email">Mailbox </string>
     <string name="user_email_hint">Please input the mailbox </string>
-    <string name="user_email_code">mailbox verification code </string>
+    <string name="user_email_code">Mailbox verification code </string>
     <string name="user_email_code_hint">Please input the email verification code </string>
 
 
-    <string name="user_google_key">key </string>
-    <string name="user_google_copy">copy </string>
-    <string name="user_google_paste">paste</string>
+    <string name="user_google_key">Key </string>
+    <string name="user_google_copy">Copy </string>
+    <string name="user_google_paste">Paste</string>
 
 
-    <string name="user_password_old">old password </string>
+    <string name="user_password_old">Old password </string>
     <string name="user_password_old_hint">Please input the old password </string>
-    <string name="user_password_new"> new password </string>
+    <string name="user_password_new"> New password </string>
     <string name="user_setting_mobile"> Modify the phone number </string>
     <string name="user_setting_password"> Modify login password </string>
     <string name="user_setting_google">Google Verification</string>
-    <string name="user_setting_sign_out"> log out </string>
-    <string name="user_tip_language">language settings </string>
+    <string name="user_setting_sign_out">Log out </string>
+    <string name="user_tip_language">Language settings </string>
     <string name="user_address_add">Add a new address</string>
     <string name="user_address">My address </string>
     <string name="user_setting">System Settings </string>
@@ -267,13 +267,13 @@
     <string name="user_about_updated">Is already the latest version </string>
 
 
-    <string name="user_sign_up_referee">referee mobile phone </string>
-    <string name="user_sign_up_referee_hint">referee mobile phone number (optional) </string>
-    <string name="user_invite_url"> share link </string>
+    <string name="user_sign_up_referee">Referee mobile phone </string>
+    <string name="user_sign_up_referee_hint">Referee mobile phone number (optional) </string>
+    <string name="user_invite_url">Share link </string>
     <string name="user_invite_pic">Share QR code</string>
 
 
-    <string name="email_code_send_success"> verification code has been sent to the email, please check </string>
+    <string name="email_code_send_success">Verification code has been sent to the email, please check </string>
     <string name="email_code_send_failure">Mailbox verification code failed to send </string>
     <string name="sms_code_title">Mobile Verification Code </string>
     <string name="consult_title">Home </string>
@@ -283,22 +283,22 @@
     <string name="wallet_withdraw_amount_hint2">You can withdraw up to </string>
     <string name="wallet_withdraw_amount_hint">Please enter the quantity </string>
     <string name="call_phone">Contact the other party </string>
-    <string name="want_to_pay"> I want to pay </string>
+    <string name="want_to_pay">I want to pay </string>
 
-    <string name="pay_confirm">confirm payment </string>
+    <string name="pay_confirm">Confirm payment </string>
 
-    <string name="pay_amount">payment amount </string>
+    <string name="pay_amount">Payment amount </string>
 
-    <string name="pay_succ">payment success </string>
-    <string name="pay_fall">payment failed </string>
+    <string name="pay_succ">Payment success </string>
+    <string name="pay_fall">Payment failed </string>
     <string name="biz_type_trans">transaction </string>
 
 
-    <string name="consult_none_title"> Stay tuned </string>
-    <string name="user_wallet_setting">wallet settings </string>
+    <string name="consult_none_title">Stay tuned </string>
+    <string name="user_wallet_setting">Wallet settings </string>
     <string name="user_join">Join the community</string>
-    <string name="wallet_bill_list_charge">charge </string>
-    <string name="wallet_bill_list_withdraw">withdraw </string>
+    <string name="wallet_bill_list_charge">Charge </string>
+    <string name="wallet_bill_list_withdraw">Withdraw </string>
     <string name="create_wallet">Create a wallet</string>
     <string name="put_wallet">Import wallet </string>
     <string name="please_set_transaction_pass_word">Please set the transaction password </string>
@@ -578,77 +578,99 @@
     <string name="android_txt">Android</string>
     <string name="ios_text">iOS</string>
 
-    <string name="commit_time">提交时间</string>
-    <string name="final_money">最终发放奖励金额</string>
-    <string name="question_state_6">待奖励</string>
-    <string name="question_state_7">已奖励</string>
-    <string name="bug_level_1">严重缺陷</string>
-    <string name="bug_level_2">一般缺陷</string>
-    <string name="bug_level_3">优化缺陷</string>
-    <string name="question_state_8">奖励发放中</string>
+    <string name="bga_pp_toast_photo_picker_max">Choose %d pictures at most</string>
 
-    <string name="bga_pp_toast_photo_picker_max">choose %d pictures at most</string>
+    <string name="bga_pp_all_image">All pictures</string>
 
-    <string name="bga_pp_all_image">all pictures</string>
+    <string name="bga_pp_choose">Choose picture</string>
 
-    <string name="bga_pp_choose">choose picture</string>
-
-    <string name="bga_pp_view_photo">view picture</string>
+    <string name="bga_pp_view_photo">View picture</string>
 
     <string name="h5_text">H5 site</string>
 
-    <string name="question_hint_1">problem discrption (must)</string>
+    <string name="question_hint_1">Problem discrption (must)</string>
 
-    <string name="question_hint_2">please describe problem in details</string>
+    <string name="question_hint_2">Please describe problem in details</string>
 
-    <string name="question_hint_3">reproduction steps (must)</string>
+    <string name="question_hint_3">Reproduction steps (must)</string>
 
-    <string name="question_hint_4">please fill in reproduction steps</string>
+    <string name="question_hint_4">Please fill in reproduction steps</string>
 
-    <string name="question_hint_5">problem screenshot (option)</string>
+    <string name="question_hint_5">Problem screenshot (option)</string>
 
-    <string name="question_hint_6">remark (option)</string>
+    <string name="question_hint_6">Remark (option)</string>
 
-    <string name="question_submit">submit</string>
+    <string name="question_submit">Submit</string>
 
-    <string name="question_history">feedback history</string>
+    <string name="question_history">Feedback history</string>
 
-    <string name="question_feedback">problem feedback</string>
+    <string name="question_feedback">Problem feedback</string>
 
-    <string name="question_input_hint_1">please fill in problem description</string>
+    <string name="question_input_hint_1">Please fill in problem description</string>
 
-    <string name="question_input_hint_2">please fill in reproduction steps</string>
+    <string name="question_input_hint_2">Please fill in reproduction steps</string>
 
-    <string name="question_submit_success">problem feedback submit successful</string>
+    <string name="question_submit_success">Problem feedback submit successful</string>
 
-    <string name="no_question_history">no feedback history</string>
+    <string name="no_question_history">No feedback history</string>
 
-    <string name="question_details">problem details</string>
+    <string name="question_details">Problem details</string>
 
-    <string name="question_from">device</string>
+    <string name="question_from">Device</string>
 
-    <string name="question_intro">problem description</string>
+    <string name="question_intro">Problem description</string>
 
-    <string name="question_find_step">reproduction steps</string>
+    <string name="question_find_step">Reproduction steps</string>
 
-    <string name="question_photo">problem screenshot</string>
+    <string name="question_photo">Problem screenshot</string>
 
-    <string name="question_remark">remark</string>
+    <string name="question_remark">Remark</string>
 
-    <string name="question_bug_state">bug status</string>
+    <string name="question_bug_state">Bug status</string>
 
-    <string name="question_final_level">final level confirmation</string>
+    <string name="question_final_level">Final level confirmation</string>
 
-    <string name="question_state_1">to be confirmed</string>
+    <string name="question_state_1">To be confirmed</string>
 
-    <string name="question_state_2">reproduction failed</string>
+    <string name="question_state_2">Reproduction failed</string>
 
-    <string name="question_state_3">confirmed</string>
+    <string name="question_state_3">Confirmed</string>
 
-    <string name="question_state_4">reward</string>
+    <string name="question_state_4">Reward</string>
 
-    <string name="question_state_5">reward confirmation processing</string>
+    <string name="question_state_5">Reward confirmation processing</string>
     <string name="bga_pp_confirm">Confirm </string>
+    <string name="bga_pp_take_picture">Take a photo</string>
+
+
+    <string name="commit_time">Submission Time</string>
+
+    <string name="final_money">Final award Payment</string>
+
+    <string name="question_state_6">Pending rewards</string>
+
+    <string name="question_state_7">Has been rewarded</string>
+
+    <string name="bug_level_1">Serious defects</string>
+
+    <string name="bug_level_2">General defects</string>
+
+    <string name="bug_level_3">Optimization defects</string>
+
+    <string name="question_state_8">In the award release</string>
+
+    <string name="question_fix">Repair Version</string>
+
+    <!--<string name="question_done">Reward %1$s&#45;&#45;Optimization flaw, has been repaired in %2$s version</string>-->
+    <!--奖励金额   bug等级  修复版本-->
+    <string name="question_done"><Data><![CDATA[Reward<font color="#007AFF">%1$s</font>--%2$s, has been repaired in %3$s version]]></Data></string>
+
+    <string name="bug_level_1_1">Serious</string>
+
+    <string name="bug_level_2_1">Normal</string>
+
+    <string name="bug_level_3_1">Optimization</string>
+
 </resources>
 
 

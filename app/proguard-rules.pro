@@ -155,6 +155,9 @@
   **[] $VALUES;
   public *;
 }
+-keepnames class com.mypackage.MyGlideModule
+
+
 
 #litepal
 -keepattributes *Annotation*

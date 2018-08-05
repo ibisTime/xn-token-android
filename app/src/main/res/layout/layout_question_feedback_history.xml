@@ -56,10 +56,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:singleLine="true"
                     android:textColor="@color/text_black_cd"
                     android:textSize="14sp"
-                    tools:text="奖励确认中" />
+                    tools:text="奖励确认中奖励确认中奖励确认中奖励确认中" />
 
 
                 <ImageView

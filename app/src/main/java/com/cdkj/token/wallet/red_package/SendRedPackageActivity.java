@@ -24,6 +24,7 @@ import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
@@ -241,12 +242,12 @@ public class SendRedPackageActivity extends AbsLoadActivity {
             return;
         }
 
-        if (TextUtils.isEmpty(mBinding.tvSumNumber.getText().toString().trim())) {
+        if (TextUtils.isEmpty(mBinding.etNumber.getText().toString().trim())) {
             UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_piease_send_number));
             return;
         }
 
-        moneyNumber = Double.parseDouble(mBinding.tvSumNumber.getText().toString().trim());
+        moneyNumber = Double.parseDouble(mBinding.etNumber.getText().toString().trim());
 
         if (moneyNumber < 0.001) {
             UITipDialog.showInfoNoIcon(this, getString(R.string.red_package_min_numer));
@@ -288,7 +289,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
      * @param tradePwd 支付密码
      */
     private void sendDatas(String tradePwd) {
-        if (TextUtils.isEmpty(tradePwd)) return;
+
         showLoadingDialog();
         Map<String, String> map = new HashMap<>();
         map.put("userId", SPUtilHelper.getUserId());
@@ -520,7 +521,6 @@ public class SendRedPackageActivity extends AbsLoadActivity {
      */
     private void setShowData(UserInfoModel data) {
         if (data == null) {
-
             mBinding.imgLogo.setImageResource(R.drawable.photo_default);
             return;
         }

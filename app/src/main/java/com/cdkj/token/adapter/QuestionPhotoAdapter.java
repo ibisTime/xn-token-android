@@ -26,7 +26,7 @@ public class QuestionPhotoAdapter extends BaseQuickAdapter<String, BaseViewHolde
     @Override
     protected void convert(BaseViewHolder helper, String item) {
         ViewGroup.LayoutParams params = helper.getView(R.id.img_center).getLayoutParams();
-        params.height = DisplayHelper.getScreenWidth(mContext) / 3;  //设置item宽高
+        params.height = DisplayHelper.getScreenWidth(mContext) / 4;  //设置item宽高
         params.width = params.height - DisplayHelper.dp2px(mContext, 15);
         helper.getView(R.id.img_center).setLayoutParams(params);
 

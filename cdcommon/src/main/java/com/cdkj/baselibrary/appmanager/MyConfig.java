@@ -57,7 +57,7 @@ public class MyConfig {
      * @return
      */
     public static int getThisNodeType() {
-        if (LogUtil.isLog) {
+        if (false) {
             return NODE_DEV;
         }
         return NODE_REALSE;
@@ -69,7 +69,7 @@ public class MyConfig {
      * @return
      */
     public static String getBaseURL() {
-        if (LogUtil.isLog) {
+        if (false) {
             switch (SPUtilHelper.getAPPBuildType()) {
                 case BUILD_TYPE_TEST: // 测试
                     return MyConfig.BASE_URL_DEV;

@@ -266,7 +266,7 @@ public class BitmapUtils {
      * 获得缓存目录
      **/
     public static String getDirectory() {
-        String dir = getSDPath() + "/" + MyConfig.CACHDIR;
+        String dir = getSDPath() + File.separator + MyConfig.CACHDIR;
         LogUtil.E("拍照图片路径" + dir);
         return dir;
     }
@@ -277,8 +277,7 @@ public class BitmapUtils {
      **/
     private static String getSDPath() {
         File sdDir = null;
-        boolean sdCardExist = Environment.getExternalStorageState().equals(
-                Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
+        boolean sdCardExist = TextUtils.equals(Environment.getExternalStorageState(), Environment.MEDIA_MOUNTED); // 判断sd卡是否存在
         if (sdCardExist) {
             sdDir = Environment.getExternalStorageDirectory(); // 获取根目录
         }

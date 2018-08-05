@@ -13,6 +13,7 @@ import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
@@ -162,9 +163,9 @@ public class FindFragment extends BaseLazyFragment {
 
             if (bannerData == null || position > bannerData.size()) return;
 
-            if (bannerData.get(position).getUrl() != null) {
-                if (bannerData.get(position).getUrl().indexOf("http://") != -1 || bannerData.get(position).getUrl().indexOf("https://") != -1) {
-                    WebViewActivity.openURL(mActivity, "", bannerData.get(position).getUrl());
+            if (bannerData.get(position) != null) {
+                if (ImgUtils.isHaveHttp(bannerData.get(position).getUrl())) {
+                    WebViewImgBgActivity.openURL(mActivity, "", bannerData.get(position).getUrl());
                 }
             }
 

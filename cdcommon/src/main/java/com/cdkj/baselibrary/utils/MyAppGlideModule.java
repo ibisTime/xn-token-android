@@ -13,7 +13,7 @@ public final class MyAppGlideModule extends AppGlideModule {
 
     @Override
     public void applyOptions(Context context, GlideBuilder builder) {
-        builder.setDefaultRequestOptions(new RequestOptions().format(DecodeFormat.DEFAULT));
+        builder.setDefaultRequestOptions(new RequestOptions().format(DecodeFormat.PREFER_RGB_565));
     }
 
     @Override

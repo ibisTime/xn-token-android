@@ -23,7 +23,7 @@
             android:layout_weight="1"
             app:srlAccentColor="@android:color/tertiary_text_dark"
             app:srlEnablePreviewInEditMode="true"
-            app:srlPrimaryColor="@color/transparent">
+            app:srlPrimaryColor="#00000000">
             <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
             <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
             <com.cdkj.baselibrary.views.refresh.ClassicsHeader2

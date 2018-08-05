@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.cdkj.baselibrary.api.BaseResponseModel;
+import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -30,6 +32,7 @@ import com.cdkj.token.databinding.ActivityQuestionFeedbackBinding;
 import com.cdkj.token.model.ClientPickerModel;
 import com.cdkj.token.utils.StringUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -202,7 +205,7 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
      * @return
      */
     private String getSelectPicUrls() {
-        return StringUtils.listToString(imgStringList);
+        return StringUtils.listToString(imgStringList, "||");
     }
 
 
@@ -291,7 +294,7 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
      * 初始化权限请求
      */
     private void initPermissionHelper() {
-        needLocationPermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+        needLocationPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
         mPreHelper = new PermissionHelper(this);
     }
 
@@ -317,7 +320,13 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
      * 打开相册选择
      */
     private void choicePhotoWrapper() {
+        // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话就没有拍照功能
+        File takePhotoDir = null;
+        if (TextUtils.equals(Environment.getExternalStorageState(), Environment.MEDIA_MOUNTED)) { //判断sd卡是否存在
+            takePhotoDir = new File(Environment.getExternalStorageDirectory(), MyConfig.CACHDIR);
+        }
         Intent photoPickerIntent = new BGAPhotoPickerActivity.IntentBuilder(this)
+                .cameraFileDir(takePhotoDir)
                 .maxChooseCount(AddPhotoAdapter.PHOTOCOUNT) // 图片选择张数的最大值
                 .selectedPhotos(mAddpAdapter.getSelectUrlList()) // 当前已选中的图片路径集合
                 .pauseOnScroll(true) // 滚动列表时是否暂停加载图片

@@ -39,6 +39,7 @@
         <activity
             android:name=".activitys.NickModifyActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".activitys.PhotoViewPagerActivity" />
 
     </application>
 

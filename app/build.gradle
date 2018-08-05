@@ -6,8 +6,8 @@ android {
         applicationId "com.cdkj.tha"
         minSdkVersion 14
         targetSdkVersion 26
-        versionCode 5
-        versionName "1.6.0"
+        versionCode 6
+        versionName "1.6.1"
 
         multiDexEnabled true
 
@@ -102,12 +102,6 @@ dependencies {
 
     //选择框
     implementation 'com.contrarywind:Android-PickerView:4.1.4'
-
-    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
-    implementation 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
-    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.8@aar'
-    implementation 'cn.bingoogolapple:bga-baseadapter:1.2.8@aar'
-
 
 }
 ///格式化打完完成后APK名称中的时间

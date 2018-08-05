@@ -519,15 +519,6 @@
     <string name="android_txt">Android</string>
     <string name="ios_text">iOS</string>
 
-    <string name="commit_time">提交时间</string>
-    <string name="final_money">最终发放奖励金额</string>
-    <string name="question_state_6">待奖励</string>
-    <string name="question_state_7">已奖励</string>
-    <string name="bug_level_1">严重缺陷</string>
-    <string name="bug_level_2">一般缺陷</string>
-    <string name="bug_level_3">优化缺陷</string>
-    <string name="question_state_8">奖励发放中</string>
-
 
     <string name="bga_pp_toast_photo_picker_max">최대 %d개그림 선택</string>
 
@@ -592,4 +583,32 @@
     <string name="question_state_5">포상확인중</string>
 
     <string name="bga_pp_confirm">확인</string>
+    <string name="bga_pp_take_picture">사진 찍기</string>
+
+    <string name="commit_time">제출시간</string>
+
+    <string name="final_money">최종지급장려금</string>
+
+    <string name="question_state_6">지급중</string>
+
+    <string name="question_state_7">지급완료</string>
+
+    <string name="bug_level_1">심각한결함</string>
+
+    <string name="bug_level_2">일반적결함</string>
+
+    <string name="bug_level_3">최적화결함</string>
+
+    <string name="question_state_8">장려금지급중</string>
+
+    <string name="question_fix">버전복원</string>
+    <!--奖励金额   bug等级  修复版本-->
+
+    <string name="question_done"><Data><![CDATA[<font color="#007AFF">%1$s</font> %2$s 장려하고 이미 %3$s 버전으로 복원함]]></Data></string>
+
+    <string name="bug_level_1_1">심각</string>
+
+    <string name="bug_level_2_1">일반</string>
+
+    <string name="bug_level_3_1">최적</string>
 </resources>

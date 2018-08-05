@@ -109,11 +109,12 @@
 
                             <ImageView
                                 android:id="@+id/img_crown"
-                                android:layout_width="18dp"
-                                android:layout_height="16dp"
+                                android:layout_width="22dp"
+                                android:layout_height="20dp"
                                 android:layout_gravity="center_horizontal"
                                 android:src="@drawable/crown"
-                                android:visibility="gone" />
+                                android:visibility="gone"
+                                />
 
                             <ImageView
                                 android:id="@+id/img_logo"
