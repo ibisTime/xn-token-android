@@ -26,6 +26,7 @@ import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.baselibrary.utils.QiNiuHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.AddPhotoAdapter;
 import com.cdkj.token.databinding.ActivityQuestionFeedbackBinding;
@@ -122,7 +123,7 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
                 uploadPhotosAndSubmit();
                 return;
             }
-            showLoadingDialog();
+
             submitRequest();
         });
 
@@ -137,7 +138,8 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
         }
         imgStringList = new ArrayList<>();
         showLoadingDialog();
-        qiNiuHelper.upLoadListPic(mAddpAdapter.getSelectUrlList(), new QiNiuHelper.upLoadListImageListener() {
+        ArrayList<String> selectUrlList = mAddpAdapter.getSelectUrlList();
+        qiNiuHelper.upLoadListPic(selectUrlList, new QiNiuHelper.upLoadListImageListener() {
             @Override
             public void onChange(int index, String url) {
                 imgStringList.add(url);
@@ -145,18 +147,19 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
 
             @Override
             public void onSuccess() {
-
                 submitRequest();
             }
 
             @Override
             public void onFal(String info) {
                 disMissLoading();
+                ToastUtil.show(QuestionFeedbackSubmitActivity.this, info);
             }
 
             @Override
             public void onError(String info) {
                 disMissLoading();
+                ToastUtil.show(QuestionFeedbackSubmitActivity.this, info);
             }
         });
     }
@@ -165,7 +168,7 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
      * 提交请求
      */
     private void submitRequest() {
-
+        showLoadingDialog();
         Map<String, String> map = new HashMap<>();
 
         map.put("deviceSystem", mFromType);

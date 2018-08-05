@@ -197,6 +197,7 @@ public class QiNiuHelper {
 
 
     //TODO 多图上传优化
+
     /**
      * 多图片上传
      *
@@ -289,8 +290,9 @@ public class QiNiuHelper {
                             @Override
                             public void onFal(String info) {
                                 if (listListener != null) {
-                                    listListener.onFal(info);
+                                    listListener.onFal(CdApplication.getContext().getString(R.string.upload_pic_fail));
                                 }
+
                             }
                         }, bytes, token);
                     }
@@ -298,7 +300,8 @@ public class QiNiuHelper {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
                         if (listListener != null) {
-                            listListener.onError(CdApplication.getContext().getString(R.string.error_unknown));
+//                            listListener.onError(CdApplication.getContext().getString(R.string.error_unknown));
+                            listListener.onError(CdApplication.getContext().getString(R.string.upload_pic_fail));
                         }
                     }
                 }));
