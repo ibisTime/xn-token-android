@@ -144,18 +144,18 @@ public class ImgUtils {
 
     public static void loadImage(Context context, String path, ImageView iv) {
 
-        if (context == null || path == null)
+        if (context == null)
             return;
 
 
         if (isHaveHttp(path)) {
             GlideApp.with(context)
-                    .load(path.toString())
+                    .load(path)
                     .into(iv);
         } else {
 
             GlideApp.with(context)
-                    .load(SPUtilHelper.getQiniuUrl() + path.toString())
+                    .load(SPUtilHelper.getQiniuUrl() + path)
                     .into(iv);
         }
 
@@ -163,67 +163,15 @@ public class ImgUtils {
 
     public static void loadLocalImage(Context context, String path, ImageView iv) {
 
-        if (context == null || path == null)
+        if (context == null)
             return;
 
         GlideApp.with(context)
-                .load( path.toString())
+                .load(path)
                 .into(iv);
 
     }
 
-    /**
-     * 设置头像，头像为空时用昵称首字符作为头像，英文则须大写
-     *
-     * @param context   上下文
-     * @param imgUrl    图片URL
-     * @param nickName  用于设置文字头像的用户昵称
-     * @param imgAvatar 图片头像
-     * @param txtAvatar 文字头像(取用户昵称的第一个字符)
-     */
-    public static void loadAvatar(Context context, String imgUrl, String nickName, ImageView imgAvatar, TextView txtAvatar) {
 
-        if (context == null || imgUrl == null)
-            return;
-
-        if (imgUrl.equals("")) { // 没有头像
-            // 隐藏图片头像
-            imgAvatar.setVisibility(View.GONE);
-            // 设置文字头像
-            txtAvatar.setVisibility(View.VISIBLE);
-
-            if (nickName.length() > 1) {
-                txtAvatar.setText(nickName.substring(0, 1).toUpperCase());
-            }
-
-        } else {
-            // 隐藏文字头像
-            txtAvatar.setVisibility(View.GONE);
-            // 设置图片头像
-            imgAvatar.setVisibility(View.VISIBLE);
-
-            try {
-                GlideApp.with(context)
-                        .load(SPUtilHelper.getQiniuUrl() + imgUrl)
-                        .placeholder(R.drawable.photo_default)
-                        .error(R.drawable.photo_default)
-                        .transform(new CircleCrop()).into(imgAvatar);
-
-//                if (imgUrl.indexOf("http://") != -1){
-//                    GlideApp.with(context)
-//                            .load(imgUrl)
-//                            .placeholder(R.drawable.photo_default)
-//                            .error(R.drawable.photo_default)
-//                            .transform(new GlideCircleTransform(context)).into(imgAvatar);
-//                }else {
-//
-//                }
-
-            } catch (Exception e) {
-                LogUtil.E("图片加载错误");
-            }
-        }
-
-    }
 
 }

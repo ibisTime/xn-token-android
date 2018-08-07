@@ -49,8 +49,15 @@ android {
             buildConfigField "boolean", "IS_DEBUG", "true"
             minifyEnabled false //开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-
+            android.applicationVariants.all { variant ->
+                variant.outputs.all {
+                    outputFileName = "THA_Debug_${variant.versionName}_${releaseTime()}.apk"
+                }
+            }
         }
+
+
+
     }
 
     compileOptions {
