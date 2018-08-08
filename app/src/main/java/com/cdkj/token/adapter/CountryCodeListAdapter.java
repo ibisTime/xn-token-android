@@ -3,6 +3,7 @@ package com.cdkj.token.adapter;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
+import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -12,8 +13,6 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
-
-import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
 
 
 /**
@@ -44,7 +43,7 @@ public class CountryCodeListAdapter extends BaseQuickAdapter<CountryCodeMode, Ba
     }
 
     public String getSelectCountryName(int postion) {
-        if (TextUtils.equals(SPUtilHelper.getLanguage(), ENGLISH)) {
+        if (!TextUtils.equals(SPUtilHelper.getLanguage(), MyConfig.SIMPLIFIED)) {
             return mData.get(postion).getInterName();
         } else {
             return mData.get(postion).getChineseName();
