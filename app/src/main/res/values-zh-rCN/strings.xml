@@ -606,5 +606,9 @@
     <string name="bga_pp_take_picture">拍摄照片</string>
     <!--奖励金额   bug等级  修复版本-->
     <string name="question_done"><Data><![CDATA[奖励<font color="#007AFF">%1$s</font>--%2$s, 已于 %3$s 版本修复]]></Data></string>
+    <string name="setting">设置</string>
+    <string name="version_update">版本更新</string>
+    <string name="version_update_info">有可更新版本</string>
+    <string name="invite_gift">邀请有礼</string>
 
 </resources>

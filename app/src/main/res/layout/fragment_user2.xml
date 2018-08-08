@@ -113,8 +113,7 @@
                                 android:layout_height="20dp"
                                 android:layout_gravity="center_horizontal"
                                 android:src="@drawable/crown"
-                                android:visibility="gone"
-                                />
+                                android:visibility="gone" />
 
                             <ImageView
                                 android:id="@+id/img_logo"
@@ -206,7 +205,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
                                 android:layout_weight="1"
-                                android:text="@string/local_coin"
+                                android:text="@string/invite_gift"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
@@ -223,24 +222,29 @@
                             android:layout_marginLeft="48dp" />
 
                         <LinearLayout
-                            android:id="@+id/language_change"
+                            android:id="@+id/linLayout_feedback"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:background="?attr/selectableItemBackground"
                             android:gravity="center_vertical">
 
+                            <!--   <ImageView
+                                   android:layout_width="@dimen/user_fragment_item_img_width"
+                                   android:layout_height="@dimen/user_fragment_item_img_height"
+                                   android:layout_marginLeft="15dp"
+                                   android:src="@drawable/user_item_3" />-->
                             <ImageView
                                 android:layout_width="@dimen/user_fragment_item_img_width"
                                 android:layout_height="@dimen/user_fragment_item_img_height"
                                 android:layout_marginLeft="15dp"
-                                android:src="@drawable/user_item_3" />
+                                android:src="@drawable/question_feedback" />
 
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
                                 android:layout_weight="1"
-                                android:text="@string/language"
+                                android:text="@string/question_feedback"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 
@@ -337,39 +341,6 @@
 
                         </LinearLayout>
 
-                        <View
-                            style="@style/style_split_line"
-                            android:layout_marginLeft="48dp" />
-
-                        <LinearLayout
-                            android:id="@+id/linLayout_feedback"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:background="?attr/selectableItemBackground"
-                            android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="@dimen/user_fragment_item_img_width"
-                                android:layout_height="@dimen/user_fragment_item_img_height"
-                                android:layout_marginLeft="15dp"
-                                android:src="@drawable/question_feedback" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_weight="1"
-                                android:text="@string/question_feedback"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="15dp"
-                                android:background="@mipmap/more" />
-
-                        </LinearLayout>
 
                         <View
                             style="@style/style_split_line"
@@ -410,7 +381,7 @@
                             android:layout_marginLeft="48dp" />
 
                         <LinearLayout
-                            android:id="@+id/about_us"
+                            android:id="@+id/setting"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:background="?attr/selectableItemBackground"
@@ -427,7 +398,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="15dp"
                                 android:layout_weight="1"
-                                android:text="@string/user_about"
+                                android:text="@string/setting"
                                 android:textColor="@color/black"
                                 android:textSize="14sp" />
 

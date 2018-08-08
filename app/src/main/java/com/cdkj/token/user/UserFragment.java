@@ -28,6 +28,9 @@ import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
 import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
+import com.cdkj.token.user.setting.LocalCoinTypeChooseActivity;
+import com.cdkj.token.user.setting.UserLanguageActivity;
+import com.cdkj.token.user.setting.UserSettingActivity;
 import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
@@ -40,6 +43,7 @@ import java.util.Map;
 import retrofit2.Call;
 
 /**
+ * 我的
  * Created by cdkj on 2018/6/28.
  */
 
@@ -92,10 +96,10 @@ public class UserFragment extends BaseLazyFragment {
             ImageSelectActivity.launchFragment(this, PHOTOFLAG);
         });
         //账户与安全
-        mBinding.linLayoutUserAccount.setOnClickListener(view -> UserSettingActivity.open(mActivity));
+        mBinding.linLayoutUserAccount.setOnClickListener(view -> UserSecurityActivity.open(mActivity));
 
         //语言
-        mBinding.languageChange.setOnClickListener(view -> UserLanguageActivity.open(mActivity));
+//        mBinding.languageChange.setOnClickListener(view -> UserLanguageActivity.open(mActivity));
 
         //加入社群
         mBinding.joinUs.setOnClickListener(view -> UserJoinActivity.open(mActivity));
@@ -117,8 +121,8 @@ public class UserFragment extends BaseLazyFragment {
             WebViewImgBgActivity.openkey(mActivity, getStrRes(R.string.user_issue), ThaAppConstant.getH5UrlLangage(ThaAppConstant.QUESTIONS));
         });
 
-        //关于我们
-        mBinding.aboutUs.setOnClickListener(view -> UserAboutActivity.open(mActivity));
+        //设置
+        mBinding.setting.setOnClickListener(view -> UserSettingActivity.open(mActivity));
 
 
     }

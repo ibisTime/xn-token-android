@@ -611,4 +611,8 @@
     <string name="bug_level_2_1">일반</string>
 
     <string name="bug_level_3_1">최적</string>
+    <string name="setting">设置</string>
+    <string name="version_update">版本更新</string>
+    <string name="version_update_info">有可更新版本</string>
+    <string name="invite_gift">邀请有礼</string>
 </resources>

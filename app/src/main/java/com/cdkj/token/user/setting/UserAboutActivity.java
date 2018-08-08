@@ -1,22 +1,15 @@
-package com.cdkj.token.user;
+package com.cdkj.token.user.setting;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
-import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserAboutBinding;
-
-import org.greenrobot.eventbus.EventBus;
-
-import static com.cdkj.token.utils.UpdateUtil.startWeb;
 
 
 /**

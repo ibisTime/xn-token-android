@@ -209,7 +209,6 @@ public class MainActivity extends BaseActivity {
                 disMissLoading();
             }
         });
-
     }
 
     /**

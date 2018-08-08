@@ -4,45 +4,42 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.PopupWindow;
 
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.activitys.UpdatePhoneActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.R;
-import com.cdkj.token.databinding.ActivityUserSettingBinding;
-import com.cdkj.token.databinding.PopupGoogleBinding;
+import com.cdkj.token.databinding.ActivityUserSecurityBinding;
 import com.cdkj.token.user.login.SetLoginPwdActivity;
 import com.cdkj.token.user.login.SignInActivity;
 import com.cdkj.token.user.pattern_lock.PatternLockSettingActivity;
+import com.cdkj.token.user.setting.UserLanguageActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
 /**
+ * 账户安全
  * Created by lei on 2017/11/1.
  */
 
-public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
+public class UserSecurityActivity extends AbsStatusBarTranslucentActivity {
 
-    private ActivityUserSettingBinding mBinding;
+    private ActivityUserSecurityBinding mBinding;
 
     public static void open(Context context) {
         if (context == null) {
             return;
         }
-        context.startActivity(new Intent(context, UserSettingActivity.class));
+        context.startActivity(new Intent(context, UserSecurityActivity.class));
     }
 
     @Override
     public View addContentView() {
-        mBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_user_setting, null, false);
+        mBinding = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.activity_user_security, null, false);
         return mBinding.getRoot();
     }
 
@@ -145,7 +142,7 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
             showDoubleWarnListen(getStrRes(R.string.user_setting_sign_out) + "?", view1 -> {
                 SPUtilHelper.logOutClear();
                 EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
-                SignInActivity.open(UserSettingActivity.this, true);
+                SignInActivity.open(UserSecurityActivity.this, true);
                 finish();
             });
         });

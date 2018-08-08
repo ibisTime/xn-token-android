@@ -1,4 +1,4 @@
-package com.cdkj.token.user;
+package com.cdkj.token.user.setting;
 
 import android.content.Context;
 import android.content.Intent;
