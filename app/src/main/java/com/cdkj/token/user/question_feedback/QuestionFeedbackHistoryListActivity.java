@@ -19,7 +19,7 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.QuestionHistoryListAdapter;
 import com.cdkj.token.api.MyApi;
-import com.cdkj.token.databinding.ActivityQuestionFeedbackHistoryBinding;
+import com.cdkj.token.databinding.ActivityRefreshClipBinding;
 import com.cdkj.token.model.QuestionFeedbackModel;
 
 import java.util.HashMap;
@@ -35,7 +35,7 @@ import retrofit2.Call;
 
 public class QuestionFeedbackHistoryListActivity extends AbsLoadActivity {
 
-    private ActivityQuestionFeedbackHistoryBinding mbinding;
+    private ActivityRefreshClipBinding mbinding;
 
     private RefreshHelper mRefreshHelper;
 
@@ -51,7 +51,7 @@ public class QuestionFeedbackHistoryListActivity extends AbsLoadActivity {
 
     @Override
     public View addMainView() {
-        mbinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_question_feedback_history, null, false);
+        mbinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_refresh_clip, null, false);
         return mbinding.getRoot();
     }
 

@@ -2,7 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <LinearLayout
+    <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/white"
@@ -16,17 +16,17 @@
         <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="-60dp"
+            android:layout_marginTop="20dp"
             android:layout_weight="1"
             app:srlAccentColor="@android:color/tertiary_text_dark"
             app:srlEnablePreviewInEditMode="true"
             app:srlPrimaryColor="#00000000">
             <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
             <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
-            <com.cdkj.baselibrary.views.refresh.ClassicsHeader2
+            <com.cdkj.baselibrary.views.refresh.ClassicsClipHeader
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
 
@@ -43,5 +43,5 @@
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
 
-    </LinearLayout>
+    </FrameLayout>
 </layout>
