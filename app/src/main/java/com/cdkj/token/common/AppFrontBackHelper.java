@@ -1,4 +1,4 @@
-package com.cdkj.token;
+package com.cdkj.token.common;
 
 /**
  * Created by cdkj on 2018/7/26.

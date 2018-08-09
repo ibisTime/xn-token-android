@@ -7,16 +7,14 @@ import android.support.multidex.MultiDex;
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
+import com.cdkj.token.common.AppFrontBackHelper;
 import com.cdkj.token.model.PatternLockCheckFinish;
 import com.cdkj.token.user.pattern_lock.PatternLockCheckActivity;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
-
-import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
 
 /**
  * Created by lei on 2017/10/20.

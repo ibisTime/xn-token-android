@@ -8,7 +8,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
@@ -18,7 +17,7 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentFindBinding;
-import com.cdkj.token.loader.BannerImageLoader;
+import com.cdkj.token.common.loader.BannerImageLoader;
 import com.cdkj.token.model.BannerModel;
 import com.cdkj.token.user.WebViewImgBgActivity;
 import com.cdkj.token.utils.ThaAppConstant;

@@ -1,4 +1,4 @@
-package com.cdkj.token.loader;
+package com.cdkj.token.common.loader;
 
 import android.content.Context;
 import android.widget.ImageView;
