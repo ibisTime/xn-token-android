@@ -269,6 +269,8 @@
             android:name=".user.question_feedback.QuestionFeedbackDetailsActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".user.setting.UserSettingActivity" />
+        <activity android:name=".user.invite.InviteFriendActivity" />
+        <activity android:name=".user.invite.InviteFriendQrImgShowActivity" />
     </application>
 
 </manifest>

@@ -188,7 +188,7 @@
 
 
                         <LinearLayout
-                            android:id="@+id/linLayout_local_coin"
+                            android:id="@+id/linLayout_invite"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:background="?attr/selectableItemBackground"

@@ -45,8 +45,6 @@
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="15dp"
-                android:paddingLeft="5dp"
-                android:paddingRight="5dp"
                 android:src="@mipmap/icon_left_arrow" />
 
         </FrameLayout>

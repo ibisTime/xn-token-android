@@ -68,7 +68,16 @@ public abstract class AbsStatusBarTranslucentActivity extends BaseActivity {
     }
 
     public void sheShowTitle(boolean isShow) {
-        mBaseBinding.fraLayoutTitle.setVisibility(isShow?View.VISIBLE:View.GONE);
+        mBaseBinding.fraLayoutTitle.setVisibility(isShow ? View.VISIBLE : View.GONE);
+    }
+
+    public void setWhiteTitle() {
+        mBaseBinding.tvTitle.setTextColor(ContextCompat.getColor(this, R.color.white));
+        mBaseBinding.imgBack.setImageResource(R.drawable.back_img);
+    }
+
+    public void setStatusBarWhite() {
+        UIStatusBarHelper.setStatusBarDarkMode(this);
     }
 
 }

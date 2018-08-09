@@ -27,6 +27,7 @@ import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
+import com.cdkj.token.user.invite.InviteFriendActivity;
 import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
 import com.cdkj.token.user.setting.LocalCoinTypeChooseActivity;
 import com.cdkj.token.user.setting.UserLanguageActivity;
@@ -86,9 +87,9 @@ public class UserFragment extends BaseLazyFragment {
             NickModifyActivity.open(mActivity, SPUtilHelper.getUserName());
         });
 
-        //本地货币
-        mBinding.linLayoutLocalCoin.setOnClickListener(view -> {
-            LocalCoinTypeChooseActivity.open(mActivity);
+        //邀请有礼
+        mBinding.linLayoutInvite.setOnClickListener(view -> {
+            InviteFriendActivity.open(mActivity);
         });
 
         //更换头像

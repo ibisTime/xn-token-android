@@ -1,52 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/invite_bg_1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        tools:background="@drawable/invite_bg_1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingTop="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/invite_text_2"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/invite_text_3"
+                android:textColor="@color/white"
+                android:textSize="30sp" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:layout_marginBottom="58dp"
+            android:layout_marginBottom="25dp"
             android:orientation="horizontal"
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
 
-            <Button
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_qr_img"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/btn_height"
                 android:layout_weight="1"
                 android:background="@drawable/selector_btn_invite_friend_change"
-                android:text="海报邀请"
-                android:textColor="@color/white" />
+                android:gravity="center"
+                android:text="@string/invite_btn_1"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
 
-            <Button
-                android:layout_width="wrap_content"
+            <TextView
+                android:id="@+id/tv_red_packet"
+                android:layout_width="0dp"
                 android:layout_height="@dimen/btn_height"
                 android:layout_marginLeft="30dp"
                 android:layout_weight="1"
                 android:background="@drawable/selector_btn_invite_friend_change"
-                android:text="发红包邀请好友"
-                android:textColor="@color/white" />
+                android:gravity="center"
+                android:text="@string/invite_btn_2"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
 
 
         </LinearLayout>
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center|bottom"
             android:layout_marginBottom="28dp"
-            android:text="点击生成邀请海报并截图给好友"
-            android:textColor="@color/white"
-            android:textSize="12sp" />
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:src="@drawable/invite_right_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/invite_text_1"
+                android:textColor="@color/white"
+                android:textSize="12sp" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:src="@drawable/invite_left_icon" />
+
+        </LinearLayout>
 
 
-    </FrameLayout>
+    </LinearLayout>
 </layout>

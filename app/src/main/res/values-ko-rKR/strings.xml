@@ -615,4 +615,10 @@
     <string name="version_update">版本更新</string>
     <string name="version_update_info">有可更新版本</string>
     <string name="invite_gift">邀请有礼</string>
+    <string name="invite_btn_1">海报邀请</string>
+    <string name="invite_btn_2">发红包邀请好友</string>
+    <string name="invite_text_1">点击生成邀请海报并截图给好友</string>
+    <string name="friend_qrimg_1">扫描二维码领取奖励</string>
+    <string name="invite_text_2">邀请好友</string>
+    <string name="invite_text_3">注册THA钱包</string>
 </resources>
