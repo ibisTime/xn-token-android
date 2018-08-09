@@ -38,11 +38,11 @@
                 android:padding="10dp">
 
                 <ImageView
+                    android:id="@+id/ivQrImg"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
-                    android:scaleType="fitXY"
-                    android:src="@mipmap/default_pic" />
+                    android:scaleType="fitXY" />
 
             </FrameLayout>
 

@@ -53,4 +53,25 @@ public class ThaAppConstant {
         return stringBuffer.toString();
     }
 
+
+    /**
+     * 获取邀请好友url :http://m.thadev.hichengdai.com/user/register.html?inviteCode=U201807030441369491006&lang=ZH_CN
+     *
+     * @param inviteCode
+     * @return
+     */
+    public static String getInviteFriendUrl(String inviteCode) {
+
+        StringBuffer stringBuffer = new StringBuffer();
+
+        stringBuffer.append("/user/register.html");
+
+        stringBuffer.append("?inviteCode=" + inviteCode);// 邀请码
+
+        stringBuffer.append("&lang=" + SPUtilHelper.getLanguage());//国际化
+
+        return stringBuffer.toString();
+    }
+
+
 }

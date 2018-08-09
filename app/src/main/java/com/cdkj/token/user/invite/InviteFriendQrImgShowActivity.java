@@ -3,15 +3,33 @@ package com.cdkj.token.user.invite;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.base.BaseActivity;
+import com.cdkj.baselibrary.model.IntroductionInfoModel;
+import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
+import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityInviteFriendQrcodeBinding;
+import com.cdkj.token.utils.ThaAppConstant;
+import com.cdkj.token.wallet.red_package.QRRedPackageImgActivity;
+import com.uuzuche.lib_zxing.activity.CodeUtils;
+
+import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.Map;
+
+import retrofit2.Call;
 
 /**
  * 邀请好友二维码
@@ -38,6 +56,43 @@ public class InviteFriendQrImgShowActivity extends BaseActivity {
         UIStatusBarHelper.translucent(this);
 
         mBinding.imgBack.setOnClickListener(view -> finish());
+        getRedPacketShareUrlRequest();
+    }
+
+
+    public void getRedPacketShareUrlRequest() {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("ckey", "redPacketShareUrl");
+        map.put("systemCode", MyConfig.SYSTEMCODE);
+        map.put("companyCode", MyConfig.COMPANYCODE);
+
+        Call call = RetrofitUtils.getBaseAPiService().getKeySystemInfo("660917", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        showLoadingDialog();
+
+        call.enqueue(new BaseResponseModelCallBack<IntroductionInfoModel>(this) {
+            @Override
+            protected void onSuccess(IntroductionInfoModel data, String SucMessage) {
+                if (TextUtils.isEmpty(data.getCvalue())) {
+                    return;
+                }
+
+                Bitmap bitmap = CodeUtils.createImage(data.getCvalue() + ThaAppConstant.getInviteFriendUrl(SPUtilHelper.getSecretUserId()), 500, 500, null);
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                byte[] datas = baos.toByteArray();
+
+                ImgUtils.loadByte(InviteFriendQrImgShowActivity.this, datas, mBinding.ivQrImg);
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
 
     }
 
