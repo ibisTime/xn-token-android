@@ -1,4 +1,4 @@
-package com.cdkj.token.wallet.red_package;
+package com.cdkj.token.consult.product_application.red_package;
 
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +16,6 @@ import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityRedPackageShearBinding;

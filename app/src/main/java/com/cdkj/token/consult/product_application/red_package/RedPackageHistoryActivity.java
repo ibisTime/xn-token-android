@@ -1,4 +1,4 @@
-package com.cdkj.token.wallet.red_package;
+package com.cdkj.token.consult.product_application.red_package;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,6 @@ import android.view.View;
 
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
-import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityRedPackageHistoryBinding;
 

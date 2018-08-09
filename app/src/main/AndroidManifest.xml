@@ -210,20 +210,20 @@
             android:name=".wallet.coin_detail.TransactionDetailsActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.red_package.SendRedPackageActivity"
+            android:name=".consult.product_application.red_package.SendRedPackageActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.red_package.RedPackageShearActivity"
+            android:name=".consult.product_application.red_package.RedPackageShearActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.red_package.RedPackageHistoryActivity"
+            android:name=".consult.product_application.red_package.RedPackageHistoryActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".user.CountryCodeListActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.red_package.QRRedPackageImgActivity"
+            android:name=".consult.product_application.red_package.QRRedPackageImgActivity"
             android:theme="@style/ActivityDialogStyleBottom" />
         <activity
             android:name=".user.GoogleCodeSetActivity"

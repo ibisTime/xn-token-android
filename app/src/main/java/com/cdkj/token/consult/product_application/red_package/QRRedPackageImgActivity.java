@@ -1,4 +1,4 @@
-package com.cdkj.token.wallet.red_package;
+package com.cdkj.token.consult.product_application.red_package;
 
 import android.content.Context;
 import android.content.Intent;
@@ -11,7 +11,6 @@ import android.view.View;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.model.IntroductionInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -31,8 +30,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
-
-import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
 
 
 public class QRRedPackageImgActivity extends BaseActivity {

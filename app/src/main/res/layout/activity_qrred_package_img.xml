@@ -9,7 +9,7 @@
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
         android:orientation="vertical"
-        tools:context="com.cdkj.token.wallet.red_package.QRRedPackageImgActivity">
+        tools:context=".consult.product_application.red_package.QRRedPackageImgActivity">
 
         <LinearLayout
             android:layout_width="match_parent"
