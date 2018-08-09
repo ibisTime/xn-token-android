@@ -6,12 +6,9 @@ import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsActivity;
-import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.model.IntroductionInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -22,7 +19,6 @@ import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityInviteFriendQrcodeBinding;
 import com.cdkj.token.utils.ThaAppConstant;
-import com.cdkj.token.wallet.red_package.QRRedPackageImgActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -56,6 +52,9 @@ public class InviteFriendQrImgShowActivity extends BaseActivity {
         UIStatusBarHelper.translucent(this);
 
         mBinding.imgBack.setOnClickListener(view -> finish());
+
+        mBinding.tvName.setText(getString(R.string.invite_my_name, SPUtilHelper.getUserName()));
+
         getRedPacketShareUrlRequest();
     }
 

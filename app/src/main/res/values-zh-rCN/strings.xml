@@ -616,5 +616,19 @@
     <string name="friend_qrimg_1">扫描二维码领取奖励</string>
     <string name="invite_text_2">邀请好友</string>
     <string name="invite_text_3">注册THA钱包</string>
+    <string name="my_management_money">我的理财</string>
+    <string name="item_management_meony_1">购买金额</string>
+    <string name="item_management_meony_2">总收益</string>
+    <string name="item_management_meony_3">到期时间</string>
+    <string name="invite_my_name">我是%s,邀请您使用THA钱包</string>
+    <string name="buy_success">购买成功</string>
+    <string name="management_money_detail_1">合约编号</string>
+    <string name="management_money_detail_2">交易时间</string>
+    <string name="management_money_detail_3">产品期限</string>
+    <string name="management_money_detail_4">年收益率</string>
+    <string name="management_money_detail_5">购买金额</string>
+    <string name="management_money_detail_6">总收益</string>
+    <string name="management_money_detail_7">起息时间</string>
+    <string name="management_money_detail_8">到期时间</string>
 
 </resources>

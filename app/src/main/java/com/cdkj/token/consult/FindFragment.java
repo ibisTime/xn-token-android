@@ -16,6 +16,7 @@ import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
+import com.cdkj.token.consult.product_application.management_money.ManagementMoneyListActivity;
 import com.cdkj.token.databinding.FragmentFindBinding;
 import com.cdkj.token.common.loader.BannerImageLoader;
 import com.cdkj.token.model.BannerModel;
@@ -84,7 +85,8 @@ public class FindFragment extends BaseLazyFragment {
 
         mHeadBinding.linLayoutLhlc.setOnClickListener(view -> {
 //            NoneActivity.open(mActivity, NoneActivity.LHLC);
-            WebViewImgBgActivity.openkey(mActivity, getString(R.string.lianghualicai), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_QUANTITATIVE_FINANCE));
+//            WebViewImgBgActivity.openkey(mActivity, getString(R.string.lianghualicai), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_QUANTITATIVE_FINANCE));
+            ManagementMoneyListActivity.open(mActivity);
         });
 
         mHeadBinding.linLayoutRedPacket.setOnClickListener(view -> {

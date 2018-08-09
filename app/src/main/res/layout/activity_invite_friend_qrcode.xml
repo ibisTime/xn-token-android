@@ -11,29 +11,51 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="405dp"
+            android:layout_height="match_parent"
             android:layout_gravity="bottom"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="140dp"
-            android:background="@drawable/backup_bg"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="165dp"
+            android:background="@drawable/dialog_tips_bg"
             android:orientation="vertical">
 
-            <com.cdkj.token.views.DashLineView
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="30dp"
+                android:maxLines="2"
+                android:textColor="@color/text_black_cd"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="@string/invite_my_name" />
+
+            <ImageView
                 android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="125dp" />
+                android:layout_height="32dp"
+                android:layout_marginTop="50dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/clip_qr" />
+
+            <!--<com.cdkj.token.views.DashLineView-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="2dp"-->
+            <!--android:layout_marginLeft="40dp"-->
+            <!--android:layout_marginRight="40dp"-->
+            <!--android:layout_marginTop="75dp" />-->
 
             <FrameLayout
                 android:layout_width="@dimen/friend_qrimg_friend_width"
                 android:layout_height="@dimen/friend_qrimg_friend_width"
                 android:layout_gravity="center"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="10dp"
                 android:layout_marginLeft="65dp"
                 android:layout_marginRight="65dp"
-                android:layout_marginTop="50dp"
+                android:layout_marginTop="10dp"
                 android:background="#F8F8F8"
                 android:padding="10dp">
 

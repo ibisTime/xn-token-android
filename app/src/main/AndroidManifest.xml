@@ -271,6 +271,9 @@
         <activity android:name=".user.setting.UserSettingActivity" />
         <activity android:name=".user.invite.InviteFriendActivity" />
         <activity android:name=".user.invite.InviteFriendQrImgShowActivity" />
+        <activity android:name=".consult.product_application.management_money.ManagementMoneyListActivity" />
+        <activity android:name=".consult.product_application.management_money.MyManagementMoneyListActivity" />
+        <activity android:name=".consult.product_application.management_money.MyManagementMoneyDetailsActivity" />
     </application>
 
 </manifest>

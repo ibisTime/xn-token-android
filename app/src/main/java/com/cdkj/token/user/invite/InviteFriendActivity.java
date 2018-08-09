@@ -7,10 +7,9 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
-import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityInviteFriendBinding;
-import com.cdkj.token.wallet.red_package.SendRedPackageActivity;
+import com.cdkj.token.consult.product_application.red_package.SendRedPackageActivity;
 
 /**
  * 邀请有礼
