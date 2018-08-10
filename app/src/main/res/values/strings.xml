@@ -636,4 +636,7 @@
     <string name="management_money_detail_6">总收益</string>
     <string name="management_money_detail_7">起息时间</string>
     <string name="management_money_detail_8">到期时间</string>
+    <string name="backup_start_dialog_1">请勿截图</string>
+    <string name="backup_start_dialog_2">请确保四周无人及无任何摄像头！</string>
+    <string name="backup_start_dialog_3">勿用截图或者拍照方式备份助记词。</string>
 </resources>

@@ -70,6 +70,7 @@ import static com.cdkj.token.utils.wallet.WalletDBColumn.WALLET_NAME;
  * Created by cdkj on 2018/6/6.
  */
 //TODO 加密方法抽取
+//TODO 工具类方法优化  私钥生成/转账等待
 public class WalletHelper {
 
     //助记词分隔符
@@ -78,6 +79,7 @@ public class WalletHelper {
     public final static String HDPATH = "M/44H/60H/0H/0/0";//生成助记词和解析时使用
 
     public final static String WALLPASS = "tha_etc";//
+
 
 
     //TODO 币种使用枚举类
