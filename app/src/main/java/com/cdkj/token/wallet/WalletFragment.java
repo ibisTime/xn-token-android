@@ -42,6 +42,7 @@ import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.wallet.WalletDBAegisUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.CardChangeLayout;
 import com.cdkj.token.views.dialogs.InfoSureDialog;
@@ -201,7 +202,7 @@ public class WalletFragment extends BaseLazyFragment {
         mBinding.cardChangeLayout.cardChangeLayout.setChangeCallBack(new CardChangeLayout.ChangeCallBack() {
             @Override
             public boolean onChangeStart(int index) {
-                if (!SPUtilHelper.isLoginNoStart()) {
+                if (!SPUtilHelper.isLoginNoStart()) {   //如果用户没登录则跳转的登录界面
                     EventBus.getDefault().post(new AllFinishEvent());
                     CdRouteHelper.openLogin(true);
                     if (mActivity != null) {
@@ -209,6 +210,7 @@ public class WalletFragment extends BaseLazyFragment {
                     }
                     return false;
                 }
+
                 return true;
             }
 

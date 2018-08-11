@@ -39,6 +39,7 @@ import static com.cdkj.token.utils.CoinUtil.COIN_SYMBOL_SPACE_SYMBOL;
 import static com.cdkj.token.utils.CoinUtil.updateLocalCoinList;
 
 /**
+ * //TODO 资产配置数据存取优化
  * 资产配置
  * Created by cdkj on 2018/5/25.
  */

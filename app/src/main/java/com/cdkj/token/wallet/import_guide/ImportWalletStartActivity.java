@@ -11,7 +11,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
-import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -206,7 +205,7 @@ public class ImportWalletStartActivity extends AbsLoadActivity {
                         })
                         .subscribeOn(Schedulers.newThread())
                         .map(isPass -> {
-                            WalletDBModel dbModel2 = WalletHelper.createEthAndWanPrivateKeybyMnenonic(mWordList); //TODO 导入缺少BTC
+                            WalletDBModel dbModel2 = WalletHelper.createAllCoinPrivateKeybyMnenonic(mWordList); //TODO 导入缺少BTC
                             dbModel2.setWalletPassWord(WalletHelper.encrypt(mPassword));
                             dbModel2.setUserId(SPUtilHelper.getUserId());
                             dbModel2.setWalletName(mBinding.editWalletName.getText());

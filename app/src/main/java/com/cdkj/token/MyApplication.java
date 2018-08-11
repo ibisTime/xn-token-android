@@ -11,6 +11,7 @@ import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.token.common.AppFrontBackHelper;
 import com.cdkj.token.model.PatternLockCheckFinish;
 import com.cdkj.token.user.pattern_lock.PatternLockCheckActivity;
+import com.cdkj.token.utils.wallet.WalletDBAegisUtils;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import org.greenrobot.eventbus.EventBus;

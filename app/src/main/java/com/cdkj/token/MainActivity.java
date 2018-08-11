@@ -63,7 +63,6 @@ public class MainActivity extends BaseActivity {
         initListener();
         init();
         initViewPager();
-        getVersion();
     }
 
 
@@ -173,65 +172,6 @@ public class MainActivity extends BaseActivity {
         });
     }
 
-    /**
-     * 获取最新版本
-     *
-     * @return
-     */
-    private void getVersion() {
-        Map<String, String> map = new HashMap<>();
-        map.put("type", "android-c");
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-        call.enqueue(new BaseResponseModelCallBack<VersionModel>(this) {
-
-            @Override
-            protected void onSuccess(VersionModel data, String SucMessage) {
-                if (data == null)
-                    return;
-                if (data.getVersion() > AppUtils.getAppVersionCode(MainActivity.this)) {  //版本号不一致说明有更新
-                    showUploadDialog(data);
-                }
-            }
-
-            @Override
-            protected void onReqFailure(String errorCode, String errorMessage) {
-
-            }
-
-            @Override
-            protected void onFinish() {
-                disMissLoading();
-            }
-        });
-    }
-
-    /**
-     * 显示更新dialog
-     *
-     * @param versionModel
-     */
-    private void showUploadDialog(VersionModel versionModel) {
-
-        if (isForceUpload(versionModel.getForceUpdate())) { // 强制更新
-
-            showSureDialog(getStrRes(R.string.tip_update), versionModel.getNote(), view -> {
-                startWeb(MainActivity.this, versionModel.getDownloadUrl());
-                EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
-                finish();
-            });
-
-        } else {
-            showDoubleWarnListen(getStrRes(R.string.tip_update), versionModel.getNote(), view -> {
-                startWeb(MainActivity.this, versionModel.getDownloadUrl());
-            });
-        }
-    }
 
     @Override
     protected void onDestroy() {
@@ -239,25 +179,5 @@ public class MainActivity extends BaseActivity {
 //        CoinListService.close(this);
     }
 
-    /**
-     * 只显示确认弹框的按钮
-     *
-     * @param title
-     * @param str
-     * @param onPositiveListener
-     */
-    protected void showSureDialog(String title, String str, CommonDialog.OnPositiveListener onPositiveListener) {
-
-        if (this == null || isFinishing()) {
-            return;
-        }
-
-        CommonDialog commonDialog = new CommonDialog(this).builder()
-                .setTitle(title)
-                .setContentMsg(str)
-                .setPositiveBtn(getString(com.cdkj.baselibrary.R.string.activity_base_confirm), onPositiveListener);
-
-        commonDialog.show();
-    }
 
 }

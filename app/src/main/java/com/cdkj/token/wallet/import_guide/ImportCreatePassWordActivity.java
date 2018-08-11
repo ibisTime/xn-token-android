@@ -114,7 +114,7 @@ public class ImportCreatePassWordActivity extends AbsLoadActivity {
                 Observable.just(paword)
                         .subscribeOn(Schedulers.newThread())
                         .map(isSavePass -> {
-                            WalletDBModel dbModel2 = WalletHelper.createEthAndWanPrivateKeybyMnenonic(mWords); //TODO 导入缺少BTC
+                            WalletDBModel dbModel2 = WalletHelper.createAllCoinPrivateKeybyMnenonic(mWords); //TODO 导入缺少BTC
                             dbModel2.setWalletPassWord(WalletHelper.encrypt(paword));
                             dbModel2.setUserId(SPUtilHelper.getUserId());
                             return dbModel2.save();

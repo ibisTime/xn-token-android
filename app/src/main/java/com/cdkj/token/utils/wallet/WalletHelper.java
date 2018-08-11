@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.alibaba.fastjson.JSON;
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.LogUtil;
@@ -11,17 +12,24 @@ import com.cdkj.baselibrary.utils.MoneyUtils;
 import com.cdkj.baselibrary.utils.SPUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
+import com.cdkj.token.model.DbCoinInfo;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.UserConfigDBModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wan.WanRawTransaction;
 import com.cdkj.token.utils.wan.WanTransactionEncoder;
 
+import org.bitcoinj.core.ECKey;
 import org.bitcoinj.core.Utils;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicKey;
+import org.bitcoinj.crypto.HDKeyDerivation;
 import org.bitcoinj.crypto.HDUtils;
 import org.bitcoinj.crypto.MnemonicCode;
+import org.bitcoinj.params.AbstractBitcoinNetParams;
+import org.bitcoinj.params.MainNetParams;
+import org.bitcoinj.params.RegTestParams;
+import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.wallet.DeterministicKeyChain;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.litepal.crud.DataSupport;
@@ -76,11 +84,11 @@ public class WalletHelper {
     //助记词分隔符
     public final static String HELPWORD_SPACE_SYMBOL = ",";
 
-    public final static String HDPATH = "M/44H/60H/0H/0/0";//生成助记词和解析时使用
+    public final static String HDPATHETH = "M/44H/60H/0H/0/0";//ETH生成助记词和解析时使用
+
+    public final static String HDPATHBTC = "M/44H/0H/0H/0/0";//BTC生成助记词和解析时使用
 
     public final static String WALLPASS = "tha_etc";//
-
-
 
     //TODO 币种使用枚举类
     public final static String COIN_ETH = "ETH";// 币种类型 ETH
@@ -92,6 +100,15 @@ public class WalletHelper {
 
     public final static String LOCAL_COIN_USD_SYMBOL = "$";// 币种显示类型 美元
     public final static String LOCAL_COIN_CNY_SYMBOL = MoneyUtils.MONEYSING;// 币种显示类型 美元
+
+
+    //ETH 节点地址
+    public final static String ETH_NODE_URL = "https://mainnet.infura.io/qfyZa8diWhk28tT9Cwft";
+    public final static String ETH_NODE_URL_DEV = "https://rinkeby.infura.io/qfyZa8diWhk28tT9Cwft";
+
+    //WAN 节点地址
+    public final static String WAN_NODE_URL = "http://47.75.165.70:8546";
+    public final static String WAN_NODE_URL_DEV = "http://120.26.6.213:8546";
 
     /**
      * 根据本地货币获取显示货币符号
@@ -126,13 +143,13 @@ public class WalletHelper {
 
         switch (coinType.toUpperCase()) {
             case COIN_ETH:
-                devUrl = "https://rinkeby.infura.io/qfyZa8diWhk28tT9Cwft";
-                url = "https://mainnet.infura.io/qfyZa8diWhk28tT9Cwft";
+                devUrl = ETH_NODE_URL_DEV;
+                url = ETH_NODE_URL;
                 break;
 
             case COIN_WAN:
-                devUrl = "http://120.26.6.213:8546";
-                url = "http://47.75.165.70:8546";
+                devUrl = WAN_NODE_URL_DEV;
+                url = WAN_NODE_URL;
                 break;
         }
 
@@ -181,6 +198,21 @@ public class WalletHelper {
         }
 
         return url;
+    }
+
+
+    /**
+     * 获取比特币MainNetParams
+     *
+     * @return
+     */
+    private static AbstractBitcoinNetParams getBtcMainNetParams() {
+        switch (getThisNodeType()) {
+            case NODE_DEV:
+                return RegTestParams.get();
+            default:
+                return MainNetParams.get();
+        }
     }
 
 
@@ -320,12 +352,66 @@ public class WalletHelper {
 
 
     /**
-     * 创建Eth币种私钥 、地址、助记词
+     * 创建助记词
+     *
+     * @return
+     */
+    public static List<String> createMnemonic() throws Exception {
+        // 钱包种子
+        DeterministicSeed seed = new DeterministicSeed(new SecureRandom(),
+                128, "", Utils.currentTimeSeconds());
+
+        return seed.getMnemonicCode();
+    }
+
+
+    /**
+     * 根据
+     *
+     * @param defaultMnenonic
+     * @return
+     */
+    public static DbCoinInfo createBTCInfoByMnemonic(List<String> defaultMnenonic) {
+
+        if (!checkMnenonic(defaultMnenonic)) {
+            return null;
+        }
+
+        DbCoinInfo dbCoinInfo = new DbCoinInfo();
+
+        //钱包种子
+        DeterministicSeed seed = new DeterministicSeed(defaultMnenonic,
+                null, "", Utils.currentTimeSeconds());
+
+        DeterministicKeyChain keyChain = DeterministicKeyChain.builder()
+                .seed(seed).build();
+
+        List<ChildNumber> keyPathBTC = HDUtils.parsePath(HDPATHBTC);
+
+        BigInteger privkeybtc = keyChain.getKeyByPath(keyPathBTC, true).getPrivKey();
+
+        ECKey ecKey = ECKey.fromPrivate(privkeybtc);
+
+        String privateKey = ecKey.getPrivateKeyEncoded(getBtcMainNetParams()).toString();
+
+        String addressBTC = ecKey.toAddress(getBtcMainNetParams()).toString();
+
+        dbCoinInfo.setAddress(addressBTC);
+
+        dbCoinInfo.setPrivateKey(privateKey);
+
+        return dbCoinInfo;
+
+    }
+
+
+    /**
+     * 创建币种私钥 、地址、助记词
      *
      * @param
      * @return
      */
-    public static WalletDBModel createEthPrivateKey() throws Exception {
+    public static WalletDBModel createAllPrivateKey() throws Exception {
         // 钱包种子
         DeterministicSeed seed1 = new DeterministicSeed(new SecureRandom(),
                 128, "", Utils.currentTimeSeconds());
@@ -333,29 +419,125 @@ public class WalletHelper {
         // 助记词
         List<String> mnemonicList = seed1.getMnemonicCode();
 
-        DeterministicKeyChain keyChain1 = DeterministicKeyChain.builder()
+        DeterministicKeyChain keyChain = DeterministicKeyChain.builder()
                 .seed(seed1).build();
 
-        List<ChildNumber> keyPath = HDUtils.parsePath(HDPATH);
+        List<ChildNumber> keyPathETH = HDUtils.parsePath(HDPATHETH);
 
-        DeterministicKey key1 = keyChain1.getKeyByPath(keyPath, true);
-        BigInteger privKey1 = key1.getPrivKey();
+        DeterministicKey keyEth = keyChain.getKeyByPath(keyPathETH, true);
 
-        Credentials credentials1 = Credentials
-                .create(privKey1.toString(16));
+        Credentials credentialsETH = Credentials
+                .create(keyEth.getPrivKey().toString(16));
 
         WalletDBModel walletDBModel = new WalletDBModel();
 
         walletDBModel.setHelpWordsEn(encrypt(StringUtils.listToString(mnemonicList, HELPWORD_SPACE_SYMBOL))); //储存下来 用，分割
 
-        walletDBModel.setEthAddress(encrypt(credentials1.getAddress()));
-        walletDBModel.setEthPrivateKey(encrypt(key1.getPrivateKeyAsHex()));
 
-        walletDBModel.setWanAddress(encrypt(credentials1.getAddress()));
-        walletDBModel.setWanPrivateKey(encrypt(key1.getPrivateKeyAsHex()));
+        //ETH WAN
+        walletDBModel.setEthAddress(encrypt(credentialsETH.getAddress()));
+        walletDBModel.setEthPrivateKey(encrypt(keyEth.getPrivateKeyAsHex()));
+
+        walletDBModel.setWanAddress(encrypt(credentialsETH.getAddress()));
+        walletDBModel.setWanPrivateKey(encrypt(keyEth.getPrivateKeyAsHex()));
+
+
+        //BTC
+
+        // 钱包主秘钥
+        DeterministicKey keyBTC = HDKeyDerivation
+                .createMasterPrivateKey(seed1.getSeedBytes());
+
+        String privateKeyBTC = keyBTC.getPrivateKeyEncoded(getBtcMainNetParams()).toString();
+
+        String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
+
+        walletDBModel.setBtcAddress(encrypt(addressBTC));
+        walletDBModel.setBtcPrivateKey(encrypt(privateKeyBTC));
 
         return walletDBModel;
     }
+
+
+    /**
+     * 根据助记词生成ETH WAN BTC私钥和地址
+     *
+     * @param defaultMnenonic
+     */
+    public static WalletDBModel createAllCoinPrivateKeybyMnenonic(List<String> defaultMnenonic) {
+
+
+        DeterministicSeed seed = new DeterministicSeed(defaultMnenonic,
+                null, "", Utils.currentTimeSeconds());
+
+        DeterministicKeyChain keyChain2 = DeterministicKeyChain.builder()
+                .seed(seed).build();
+        List<ChildNumber> keyPath = HDUtils.parsePath(HDPATHETH);
+        DeterministicKey key = keyChain2.getKeyByPath(keyPath, true);
+        BigInteger privKey = key.getPrivKey();
+
+        Credentials credentials = Credentials
+                .create(privKey.toString(16));
+
+        WalletDBModel walletDBModel = new WalletDBModel();
+
+        walletDBModel.setHelpWordsEn(encrypt(StringUtils.listToString(defaultMnenonic, HELPWORD_SPACE_SYMBOL))); //储存下来 用，分割
+
+        //ETH WAN
+        walletDBModel.setEthAddress(credentials.getAddress());
+        walletDBModel.setEthPrivateKey(encrypt(key.getPrivateKeyAsHex()));
+
+        walletDBModel.setWanAddress(credentials.getAddress());
+        walletDBModel.setWanPrivateKey(encrypt(key.getPrivateKeyAsHex()));
+
+
+        //__________________________1____________________________________
+
+//        List<ChildNumber> keyPathBTC = HDUtils.parsePath(HDPATHBTC);
+//
+//        DeterministicKey keyEth = keyChain2.getKeyByPath(keyPathBTC, true);
+//
+//        Credentials credentials2 = Credentials
+//                .create(keyEth.getPrivKey().toString(16));
+//
+
+//
+//        LogUtil.E("地址  " + credentials2.getAddress());
+//        LogUtil.E("私钥  " + keyEth.getPrivateKeyAsHex());
+//
+//        LogUtil.E("________");
+
+        //————————————————————2
+        DeterministicKey keyBTC = HDKeyDerivation
+                .createMasterPrivateKey(seed.getSeedBytes());
+
+        String privateKeyBTC = keyBTC.getPrivateKeyEncoded(MainNetParams.get()).toString();
+
+        String addressBTC = keyBTC.toAddress(MainNetParams.get()).toString();
+
+        LogUtil.E("地址2  " + addressBTC);
+        LogUtil.E("私钥2  " + privateKeyBTC);
+
+        walletDBModel.setBtcAddress(encrypt(addressBTC));
+        walletDBModel.setBtcPrivateKey(encrypt(privateKeyBTC));
+
+        //__________3
+
+//        BigInteger privkeybtc = keyChain2.getKeyByPath(keyPathBTC, true).getPrivKey();
+//
+//        ECKey ecKey = ECKey.fromPrivate(privkeybtc);
+//
+//        String privateKeyBTC3 = ecKey.getPrivateKeyEncoded(MainNetParams.get()).toString();
+//
+//        String addressBTC3 = ecKey.toAddress(MainNetParams.get()).toString();
+//
+//        LogUtil.E("地址3  " + addressBTC3);
+//        LogUtil.E("私钥3  " + privateKeyBTC3);
+
+
+        return walletDBModel;
+    }
+
 
     /**
      * 加密
@@ -391,7 +573,7 @@ public class WalletHelper {
 
 
     /**
-     * 根据币种获取保存的助记词列表
+     * 获取保存的助记词列表
      *
      * @param userId
      * @return
@@ -556,38 +738,6 @@ public class WalletHelper {
         }
     }
 
-    /**
-     * 根据助记词生成ETH WAN 私钥和地址
-     *
-     * @param defaultMnenonic
-     */
-    public static WalletDBModel createEthAndWanPrivateKeybyMnenonic(List<String> defaultMnenonic) {
-
-        DeterministicSeed seed = new DeterministicSeed(defaultMnenonic,
-                null, "", Utils.currentTimeSeconds());
-
-        DeterministicKeyChain keyChain2 = DeterministicKeyChain.builder()
-                .seed(seed).build();
-        List<ChildNumber> keyPath = HDUtils.parsePath(HDPATH);
-        DeterministicKey key = keyChain2.getKeyByPath(keyPath, true);
-        BigInteger privKey = key.getPrivKey();
-
-        Credentials credentials = Credentials
-                .create(privKey.toString(16));
-
-        WalletDBModel walletDBModel = new WalletDBModel();
-        walletDBModel.setHelpWordsEn(encrypt(StringUtils.listToString(defaultMnenonic, HELPWORD_SPACE_SYMBOL))); //储存下来 用，分割
-
-        walletDBModel.setEthAddress(credentials.getAddress());
-        walletDBModel.setEthPrivateKey(encrypt(key.getPrivateKeyAsHex()));
-
-        walletDBModel.setWanAddress(credentials.getAddress());
-        walletDBModel.setWanPrivateKey(encrypt(key.getPrivateKeyAsHex()));
-
-
-        return walletDBModel;
-    }
-
 
     /**
      * 修改用户钱包密码
@@ -656,6 +806,12 @@ public class WalletHelper {
         return "";
     }
 
+    /**
+     * 根据用户Id获取钱包表 Cursor
+     *
+     * @param userId
+     * @return
+     */
     public static Cursor getUserInfoCursorByUserId(String userId) {
         if (TextUtils.isEmpty(userId)) {
             return null;

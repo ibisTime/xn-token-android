@@ -18,7 +18,6 @@ import com.cdkj.token.databinding.ActivityUserWalletBinding;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.WalletPasswordModifyActivity;
 import com.cdkj.token.wallet.backup_guide.BackupWalletStartActivity;
-import com.cdkj.token.wallet.delete_guide.WallteDeleteStartActivity;
 import com.cdkj.token.wallet.export.WalletExportPasswordCheckActivity;
 
 import org.greenrobot.eventbus.EventBus;

@@ -147,12 +147,6 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
-            android:name=".wallet.IntoWalletBeforeActivity"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".wallet.create_guide.CreatePassWordActivity"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".wallet.create_guide.CreateWalletSuccessActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
@@ -161,9 +155,7 @@
         <activity
             android:name=".wallet.create_guide.WalletHelpWordsShowActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".wallet.import_guide.WalletImportWordsInputActivity"
-            android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".wallet.import_guide.ImportWalletSuccessActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -179,12 +171,7 @@
         <activity
             android:name=".wallet.backup_guide.WalletBackupPasswordCheckActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".wallet.delete_guide.WallteDeleteStartActivity"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".wallet.delete_guide.WalletDeleteWordsInputActivity"
-            android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".wallet.export.CoinKeySelectActivity"
             android:windowSoftInputMode="adjustPan" />

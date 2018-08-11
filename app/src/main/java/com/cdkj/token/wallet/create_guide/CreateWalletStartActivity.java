@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.os.health.UidHealthStats;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -16,20 +15,14 @@ import com.alibaba.fastjson.JSON;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreateWalletStartBinding;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.user.WebViewImgBgActivity;
-import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.import_guide.ImportWalletStartActivity;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-import java.util.regex.PatternSyntaxException;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -191,7 +184,7 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
                         .subscribeOn(Schedulers.newThread())
                         .map(pass -> {
 
-                            WalletDBModel walletDBModel2 = WalletHelper.createEthPrivateKey();
+                            WalletDBModel walletDBModel2 = WalletHelper.createAllPrivateKey();
 
                             walletDBModel2.setWalletPassWord(WalletHelper.encrypt(pass));  //TODO 缺少BTC
 
