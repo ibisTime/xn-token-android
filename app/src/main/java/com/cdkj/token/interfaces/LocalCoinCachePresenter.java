@@ -1,18 +1,10 @@
 package com.cdkj.token.interfaces;
 
 import android.content.Context;
-import android.text.TextUtils;
 
-import com.cdkj.baselibrary.CdApplication;
-import com.cdkj.baselibrary.R;
-import com.cdkj.baselibrary.appmanager.MyConfig;
-import com.cdkj.baselibrary.interfaces.LoginInterface;
-import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
-import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 
@@ -26,7 +18,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
-import static com.cdkj.token.utils.CoinUtil.updateLocalCoinList;
+import static com.cdkj.token.utils.LocalCoinDBUtils.updateLocalCoinList;
 
 /**
  * 本地币种缓存

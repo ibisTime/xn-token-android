@@ -15,6 +15,7 @@ import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.QuestionFeedbackModel;
 import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -127,7 +128,7 @@ public class QuestionHistoryListAdapter extends BaseQuickAdapter<QuestionFeedbac
             case "2":
                 return mContext.getString(R.string.question_state_4) + "0";
             case "3":
-                String money = AccountUtil.amountFormatUnitForShow(questionFeedbackModel.getPayAmount(), AccountUtil.ALLSCALE) + "wan";
+                String money = AccountUtil.amountFormatUnitForShow(questionFeedbackModel.getPayAmount(), WalletHelper.COIN_WAN, AccountUtil.ALLSCALE) + "wan";
                 return Html.fromHtml(mContext.getString(R.string.question_done,
                         money, getLevelString(questionFeedbackModel.getLevel()), questionFeedbackModel.getRepairVersionCode()));
         }

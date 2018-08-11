@@ -98,7 +98,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
      */
     void setAmountInfo() {
         if (!TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), ETHSCALE) + accountListBean.getCoinName());
+            mBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()),accountListBean.getCoinName(), ETHSCALE) + accountListBean.getCoinName());
 
         }
 
@@ -144,8 +144,17 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
             if (accountListBean == null) return;
 
+            //BTC转账
+            if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_BTC)) {
+
+                WalletBTCTransferActivity.open(this, accountListBean);
+
+                return;
+            }
+
+
             WalletTransferActivity.open(this, accountListBean);
-            ;
+
         });
 
     }

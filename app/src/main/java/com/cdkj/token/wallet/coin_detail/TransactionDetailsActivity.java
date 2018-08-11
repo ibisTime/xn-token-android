@@ -14,12 +14,12 @@ import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityTransctionDetailsBinding;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.utils.AccountUtil;
-import com.cdkj.token.utils.CoinUtil;
+import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import static com.cdkj.baselibrary.utils.DateUtil.DEFAULT_DATE_FMT;
 import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
-import static com.cdkj.token.utils.CoinUtil.getMoneyStateByState;
+import static com.cdkj.token.utils.LocalCoinDBUtils.getMoneyStateByState;
 
 /**
  * 交易详情
@@ -86,19 +86,19 @@ public class TransactionDetailsActivity extends AbsLoadActivity {
 
 //        mBinding.imgStateIcon.setImageResource(CoinUtil.getStataIconByState(localCoinBill.getDirection()));
 
-        if (CoinUtil.isInState(localCoinBill.getDirection())) {
+        if (LocalCoinDBUtils.isInState(localCoinBill.getDirection())) {
             mBinding.tvStateString.setText(R.string.withdraw);
         } else {
             mBinding.tvStateString.setText(R.string.transfer);
         }
 
-        mBinding.tvMoney.setText(getMoneyStateByState(localCoinBill.getDirection()) + AccountUtil.amountFormatUnitForShow(localCoinBill.getValue(), ETHSCALE) + " " + coinType);
+        mBinding.tvMoney.setText(getMoneyStateByState(localCoinBill.getDirection()) + AccountUtil.amountFormatUnitForShow(localCoinBill.getValue(), "", ETHSCALE) + " " + coinType);
 
         mBinding.tvToAddress.setText(localCoinBill.getTo());
         mBinding.tvFromAddress.setText(localCoinBill.getFrom());
         mBinding.tvBlockHeight.setText(localCoinBill.getHeight());
         mBinding.tvDate.setText(DateUtil.formatStringData(localCoinBill.getTransDatetime(), DEFAULT_DATE_FMT));
-        mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShow(localCoinBill.getTxFee(), ETHSCALE));
+        mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShow(localCoinBill.getTxFee(), "", ETHSCALE));
         mBinding.tvTransctionCode.setText(localCoinBill.getTxHash());
 
 

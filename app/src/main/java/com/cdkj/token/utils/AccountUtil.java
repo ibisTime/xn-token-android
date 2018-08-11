@@ -1,10 +1,12 @@
 package com.cdkj.token.utils;
 
 
+import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.R;
+import com.cdkj.token.utils.wallet.WalletDBColumn;
 
 import org.litepal.crud.DataSupport;
 
@@ -12,6 +14,8 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 
+import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_COIN_SQL;
+import static com.cdkj.token.utils.wallet.WalletDBColumn.FIND_LOCAL_COIN_SQL;
 import static java.math.BigDecimal.ROUND_HALF_DOWN;
 import static java.math.BigDecimal.ROUND_HALF_EVEN;
 
@@ -21,11 +25,7 @@ import static java.math.BigDecimal.ROUND_HALF_EVEN;
 
 public class AccountUtil {
 
-    public static BigDecimal UNIT_MIN = new BigDecimal("10");
-    public static final int UNIT_POW = 18;
-
-    public static final String OGC = "OGC";
-    public static final int OGCSCALE = 8;
+    public static final int ETH_UNIT_UNIT = 18;
     public static final int ETHSCALE = 8;
     public static final int ALLSCALE = 8;
 
@@ -42,43 +42,13 @@ public class AccountUtil {
             return "0.00";
         }
 
-        return scale(amount.divide(getUnit(coin)).toPlainString(), scale);
-
-    }
-
-    /**
-     * 货币单位转换 带单位 OGC
-     *
-     * @param amount
-     * @param coin
-     * @return
-     */
-    public static String amountFormatUnitForShowOGC(BigDecimal amount, String coin, int scale) {
-
-        if (amount == null || amount.compareTo(BigDecimal.ZERO) == 0) {
-            return "0 " + OGC;
+        if (TextUtils.isEmpty(coin)) {
+            return scale(amount.divide(BigDecimal.TEN.pow(18)).toPlainString(), scale);
         }
 
-        return scale(amount.divide(getUnit(coin)).toPlainString(), scale) + " " + OGC;
-
+        return scale(amount.divide(getLocalCoinUnit(coin)).toPlainString(), scale);
     }
 
-    /**
-     * 货币单位转换 带单位 ETH
-     *
-     * @param amount
-     * @param
-     * @return
-     */
-    public static String amountFormatUnitForShowETH(BigDecimal amount, int scale) {
-
-        if (amount == null || amount.compareTo(BigDecimal.ZERO) == 0) {
-            return "0 " + "ETH";
-        }
-
-        return amount.divide(UNIT_MIN.pow(UNIT_POW), scale, ROUND_HALF_EVEN).toPlainString() + " " + "ETH";
-
-    }
 
     /**
      * 货币单位转换 带单位
@@ -87,12 +57,16 @@ public class AccountUtil {
      * @param
      * @return
      */
-    public static String amountFormatUnitForShow(BigDecimal amount, int scale) {
+    public static String amountFormatUnitForShow(BigDecimal amount, String coinSymbol, int scale) {
         if (amount == null) {
             return "0";
         }
 
-        return formatDouble(amount.divide(UNIT_MIN.pow(UNIT_POW), scale, ROUND_HALF_EVEN));
+        if (TextUtils.isEmpty(coinSymbol)) {
+            return formatDouble(amount.divide(BigDecimal.TEN.pow(18), scale, ROUND_HALF_EVEN));
+        }
+
+        return formatDouble(amount.divide(getLocalCoinUnit(coinSymbol), scale, ROUND_HALF_EVEN));
     }
 
 
@@ -102,13 +76,13 @@ public class AccountUtil {
      * @param amount
      * @return
      */
-    public static BigInteger bigIntegerFormat(BigDecimal amount) {
+    public static BigInteger bigIntegerFormat(BigDecimal amount, String coin) {
 
         if (amount == null) {
             return BigInteger.ZERO;
         }
 
-        return amount.multiply(UNIT_MIN.pow(UNIT_POW)).toBigInteger();
+        return amount.multiply(getLocalCoinUnit(coin)).toBigInteger();
     }
 
     /**
@@ -130,24 +104,33 @@ public class AccountUtil {
         }
     }
 
+
     /**
-     * 根据货币获取最小单位
+     * 根据货币获取最小单位 getLocalCoinUnit
      *
-     * @param coin
+     * @param
      * @return
      */
-    public static BigDecimal getUnit(String coin) {
+    public static BigDecimal getLocalCoinUnit(String coinSymbol) {
 
-        for (LocalCoinDbModel model : DataSupport.findAll(LocalCoinDbModel.class)) {
+        Cursor cursor = DataSupport.findBySQL(FIND_LOCAL_COIN_SQL, coinSymbol);
 
-            if (model.getSymbol().equals(coin)) {
-                return UNIT_MIN.pow(model.getUnit());
+        int unit = 1;
+
+        if (cursor != null && cursor.moveToFirst()) {
+
+            try {
+                unit = cursor.getInt(cursor.getColumnIndex(WalletDBColumn.COIN_UNIT));
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                cursor.close();
             }
-
         }
 
-        return new BigDecimal(1);
+        return BigDecimal.TEN.pow(unit);
     }
+
 
     /**
      * 根据货币获取提现手续费

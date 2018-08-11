@@ -14,10 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 本地缓存币种数据库
  * Created by lei on 2018/2/8.
  */
 
-public class CoinUtil {
+public class LocalCoinDBUtils {
 
     //自选分隔符
     public final static String COIN_SYMBOL_SPACE_SYMBOL = ",";
@@ -144,27 +145,6 @@ public class CoinUtil {
         }
 
         return "";
-
-    }
-
-    /**
-     * 获取所有第一个币种的简称
-     *
-     * @return
-     */
-    public static String getFirstTokenCoin() {
-
-        for (LocalCoinDbModel model : DataSupport.findAll(LocalCoinDbModel.class)) {
-
-            // type = 1: Token币
-            if (model.getType().equals("1")) {
-                return model.getSymbol();
-            }
-
-        }
-
-        // 默认返回OGC
-        return AccountUtil.OGC;
 
     }
 

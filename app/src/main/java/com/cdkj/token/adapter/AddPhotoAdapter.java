@@ -1,20 +1,16 @@
 package com.cdkj.token.adapter;
 
-import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 
 /**
  * 添加相册图片适配器

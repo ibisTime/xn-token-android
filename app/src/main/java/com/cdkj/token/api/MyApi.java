@@ -38,6 +38,7 @@ import com.cdkj.token.model.SystemMessageModel;
 import com.cdkj.token.model.SystemParameterListModel;
 import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.TrustModel;
+import com.cdkj.token.model.UTXOListModel;
 import com.cdkj.token.model.UserRefereeModel;
 import com.cdkj.token.model.UserSettingModel;
 import com.cdkj.token.model.VersionModel;
@@ -57,6 +58,18 @@ import retrofit2.http.Url;
  */
 
 public interface MyApi {
+
+
+    /**
+     * 获取国家列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<UTXOListModel>> getUtxoList(@Field("code") String code, @Field("json") String json);
+
+
     /**
      * 根据Ip获取国家信息
      *

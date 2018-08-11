@@ -13,8 +13,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
-import static com.cdkj.token.utils.CoinUtil.getCoinENameWithCurrency;
-import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
+import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinENameWithCurrency;
+import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
 
 
 /**

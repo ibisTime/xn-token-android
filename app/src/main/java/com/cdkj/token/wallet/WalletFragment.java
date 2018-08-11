@@ -42,7 +42,6 @@ import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.AccountUtil;
-import com.cdkj.token.utils.wallet.WalletDBAegisUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.CardChangeLayout;
 import com.cdkj.token.views.dialogs.InfoSureDialog;
@@ -64,7 +63,7 @@ import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 
 import static com.cdkj.token.utils.AccountUtil.ALLSCALE;
-import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
+import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
 import static com.cdkj.token.views.CardChangeLayout.BOTTOMVIEW;
 import static com.cdkj.token.views.CardChangeLayout.TOPVIEW;
 
@@ -597,7 +596,7 @@ public class WalletFragment extends BaseLazyFragment {
     }
 
     /**
-     * 转换为adapter数据 （我的钱包）
+     * 转换为adapter数据 （我的钱包） getUnit
      *
      * @param data
      * @return
@@ -611,8 +610,11 @@ public class WalletFragment extends BaseLazyFragment {
             walletBalanceModel.setCoinName(accountListBean.getCurrency());
 
             if (!TextUtils.isEmpty(accountListBean.getAmountString()) && !TextUtils.isEmpty(accountListBean.getFrozenAmountString())) {
+
                 BigDecimal amount = new BigDecimal(accountListBean.getAmountString());
+
                 BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
+
                 walletBalanceModel.setAmount(AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), ALLSCALE));
             }
 
@@ -660,7 +662,7 @@ public class WalletFragment extends BaseLazyFragment {
 
             walletBalanceModel.setCoinName(accountListBean.getSymbol());
 
-            walletBalanceModel.setAmount(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), 8));
+            walletBalanceModel.setAmount(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()),accountListBean.getSymbol(), 8));
 
             walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getSymbol(), 1));
 

@@ -11,19 +11,26 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.NumberPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
+import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
+import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityTransferBinding;
+import com.cdkj.token.model.UTXOListModel;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
+import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -32,19 +39,22 @@ import org.web3j.crypto.WalletUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
 
 import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
 
 /**
- * 钱包转账
+ * 钱包转账（BTC）
  * Created by cdkj on 2018/6/8.
  */
 
-public class WalletTransferActivity extends AbsLoadActivity {
+public class WalletBTCTransferActivity extends AbsLoadActivity {
 
     private ActivityTransferBinding mBinding;
 
@@ -72,7 +82,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
         if (context == null) {
             return;
         }
-        Intent intent = new Intent(context, WalletTransferActivity.class);
+        Intent intent = new Intent(context, WalletBTCTransferActivity.class);
         intent.putExtra(CdRouteHelper.DATASIGN, accountListBean);
         context.startActivity(intent);
     }
@@ -93,7 +103,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()),accountListBean.getCoinName(), ETHSCALE) + " " + accountListBean.getCoinName());
+            mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ETHSCALE) + " " + accountListBean.getCoinName());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
         }
 
@@ -106,10 +116,41 @@ public class WalletTransferActivity extends AbsLoadActivity {
 
         mBinding.btnNext.setOnClickListener(view -> {
 
-            if (transferInputCheck()) return;
-            showPasswordInputDialog();
+            getUtxoListRequest();
 
+
+//            if (transferInputCheck()) return;
+//            showPasswordInputDialog();
         });
+    }
+
+    private void getUtxoListRequest() {
+
+        Map<String, String> map = new HashMap<>();
+
+        WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+
+        if (userWalletIn == null) return;
+
+        map.put("address", userWalletIn.getBtcAddress());
+
+        showLoadingDialog();
+
+        Call<BaseResponseModel<UTXOListModel>> call = RetrofitUtils.createApi(MyApi.class).getUtxoList("802220", StringUtils.getJsonToString(map));
+
+        call.enqueue(new BaseResponseModelCallBack<UTXOListModel>(this) {
+            @Override
+            protected void onSuccess(UTXOListModel data, String SucMessage) {
+
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+
+
     }
 
     /**
@@ -173,7 +214,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
         mPermissionHelper.requestPermissions(new PermissionHelper.PermissionListener() {
             @Override
             public void doAfterGrand(String... permission) {
-                Intent intent = new Intent(WalletTransferActivity.this, CaptureActivity.class);
+                Intent intent = new Intent(WalletBTCTransferActivity.this, CaptureActivity.class);
                 startActivityForResult(intent, CODEPERSE);
             }
 
@@ -212,16 +253,16 @@ public class WalletTransferActivity extends AbsLoadActivity {
                 .subscribe(s -> {
                     if (s == null || s.getError() != null) {
                         LogUtil.E("has————" + s.getError().getMessage());
-                        UITipDialog.showFail(WalletTransferActivity.this, getString(R.string.transfer_fail));
+                        UITipDialog.showFail(WalletBTCTransferActivity.this, getString(R.string.transfer_fail));
                         return;
                     }
 
                     if (!TextUtils.isEmpty(s.getTransactionHash())) {
-                        UITipDialog.showSuccess(WalletTransferActivity.this, getString(R.string.transaction_success), dialogInterface -> finish());
+                        UITipDialog.showSuccess(WalletBTCTransferActivity.this, getString(R.string.transaction_success), dialogInterface -> finish());
                     }
 
                 }, throwable -> {
-                    UITipDialog.showFail(WalletTransferActivity.this, getString(R.string.transfer_fail));
+                    UITipDialog.showFail(WalletBTCTransferActivity.this, getString(R.string.transfer_fail));
                     LogUtil.E("has————" + throwable);
                 }));
     }
@@ -264,7 +305,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                         String tradePwd = passWordInputDialog.getContentView().getText().toString().trim();
 
                         if (TextUtils.isEmpty(tradePwd)) {
-                            UITipDialog.showInfoNoIcon(WalletTransferActivity.this, getString(R.string.please_input_transaction_pwd));
+                            UITipDialog.showInfoNoIcon(WalletBTCTransferActivity.this, getString(R.string.please_input_transaction_pwd));
                             return;
                         }
 
@@ -292,7 +333,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
         if (accountListBean == null || gasPrice == null) return;
         mBinding.tvGas.setText(
                 AccountUtil.amountFormatUnitForShow(new BigDecimal(WalletHelper.getGasLimit())                   //limite * gasPrice
-                        .multiply(new BigDecimal(gasPrice)), accountListBean.getCoinName(), ETHSCALE) + " " + accountListBean.getCoinName());
+                        .multiply(new BigDecimal(gasPrice)), "", ETHSCALE) + " " + accountListBean.getCoinName());
     }
 
     private void initClickListener() {
@@ -362,10 +403,10 @@ public class WalletTransferActivity extends AbsLoadActivity {
                     if (WalletUtils.isValidAddress(result)) {
                         mBinding.editToAddress.setText(result);
                     } else {
-                        Toast.makeText(WalletTransferActivity.this, R.string.error_wallet_address, Toast.LENGTH_LONG).show();
+                        Toast.makeText(WalletBTCTransferActivity.this, R.string.error_wallet_address, Toast.LENGTH_LONG).show();
                     }
                 } else if (bundle.getInt(CodeUtils.RESULT_TYPE) == CodeUtils.RESULT_FAILED) {
-                    Toast.makeText(WalletTransferActivity.this, R.string.resolve_wallet_address_fail, Toast.LENGTH_LONG).show();
+                    Toast.makeText(WalletBTCTransferActivity.this, R.string.resolve_wallet_address_fail, Toast.LENGTH_LONG).show();
                 }
             }
         }

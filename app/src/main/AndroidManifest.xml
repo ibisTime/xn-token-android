@@ -106,9 +106,7 @@
                     android:scheme="orangecoin" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".consult.StatisticsActivity"
-            android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".wallet.account.WithdrawOrderActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -122,11 +120,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/ActivityDialogStyleBottom"
             android:windowSoftInputMode="adjustPan" />
-        <!--店铺支付-->
-        <activity
-            android:name=".consult.StorePayActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".consult.NoneActivity"
             android:windowSoftInputMode="adjustPan" />
@@ -261,6 +255,7 @@
         <activity android:name=".consult.product_application.management_money.ManagementMoneyListActivity" />
         <activity android:name=".consult.product_application.management_money.MyManagementMoneyListActivity" />
         <activity android:name=".consult.product_application.management_money.MyManagementMoneyDetailsActivity" />
+        <activity android:name=".wallet.coin_detail.WalletBTCTransferActivity" />
     </application>
 
 </manifest>

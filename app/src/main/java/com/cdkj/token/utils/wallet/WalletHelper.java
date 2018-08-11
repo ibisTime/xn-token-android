@@ -4,7 +4,6 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 
-import com.alibaba.fastjson.JSON;
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.LogUtil;
@@ -29,7 +28,6 @@ import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.params.AbstractBitcoinNetParams;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.RegTestParams;
-import org.bitcoinj.params.TestNet3Params;
 import org.bitcoinj.wallet.DeterministicKeyChain;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.litepal.crud.DataSupport;
@@ -64,8 +62,7 @@ import static com.cdkj.baselibrary.appmanager.MyConfig.NODE_DEV;
 import static com.cdkj.baselibrary.appmanager.MyConfig.NODE_REALSE;
 import static com.cdkj.baselibrary.appmanager.MyConfig.getThisNodeType;
 import static com.cdkj.baselibrary.utils.StringUtils.SPACE_SYMBOL;
-import static com.cdkj.token.utils.AccountUtil.UNIT_MIN;
-import static com.cdkj.token.utils.AccountUtil.UNIT_POW;
+import static com.cdkj.token.utils.AccountUtil.ETH_UNIT_UNIT;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.DELETE_LOCAL_COIN;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_COIN_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_SQL;
@@ -266,6 +263,7 @@ public class WalletHelper {
         if (TextUtils.isEmpty(userId)) {
             return "";
         }
+
         Cursor cursor = DataSupport.findBySQL(FINDUSER_COIN_SQL, userId);
 
         String string = "";
@@ -875,7 +873,7 @@ public class WalletHelper {
         //矿工费
         BigInteger gasPrice = web3j.ethGasPrice().send().getGasPrice();
 
-        BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(UNIT_POW)).toBigInteger(); //需要转账的金额
+        BigInteger priceValue = new BigDecimal(money).multiply(BigDecimal.TEN.pow(ETH_UNIT_UNIT)).toBigInteger(); //需要转账的金额
 
         // 本地签名的
         RawTransaction rawTransaction = RawTransaction.createTransaction(
@@ -947,7 +945,7 @@ public class WalletHelper {
 
 
         //创建交易，这里是转x个以太币
-        BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(UNIT_POW)).toBigInteger(); //需要转账的金额
+        BigInteger priceValue = new BigDecimal(money).multiply(BigDecimal.TEN.pow(ETH_UNIT_UNIT)).toBigInteger(); //需要转账的金额
 
         RawTransaction rawTransaction = RawTransaction.createEtherTransaction(
                 nonce, gas_price, gas_limit, toAddress, priceValue);
@@ -994,7 +992,7 @@ public class WalletHelper {
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
 
         //创建交易
-        BigInteger priceValue = new BigDecimal(money).multiply(UNIT_MIN.pow(UNIT_POW)).toBigInteger(); //需要转账的金额
+        BigInteger priceValue = new BigDecimal(money).multiply(BigDecimal.TEN.pow(ETH_UNIT_UNIT)).toBigInteger(); //需要转账的金额
 
         WanRawTransaction rawTransaction = WanRawTransaction.createTransaction(
                 nonce, gas_price, gas_limit, toAddress, priceValue, "");

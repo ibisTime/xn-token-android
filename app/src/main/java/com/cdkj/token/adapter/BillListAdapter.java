@@ -16,12 +16,8 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.math.BigDecimal;
 import java.util.List;
 
-import static com.cdkj.baselibrary.utils.DateUtil.DATE_DAY;
-import static com.cdkj.baselibrary.utils.DateUtil.DATE_HM;
-import static com.cdkj.baselibrary.utils.DateUtil.DATE_M;
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_MMddHHmm;
-import static com.cdkj.baselibrary.utils.DateUtil.DATE_YM;
-import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
+import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
 
 /**
  * Created by lei on 2017/8/22.

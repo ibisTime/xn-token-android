@@ -8,13 +8,10 @@ import android.text.TextUtils;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsRefreshListActivity;
-import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
-import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.AddChoiceAdapter;
-import com.cdkj.token.api.MyApi;
 import com.cdkj.token.interfaces.LocalCoinCacheInterface;
 import com.cdkj.token.interfaces.LocalCoinCachePresenter;
 import com.cdkj.token.model.AddCoinChangeEvent;
@@ -23,20 +20,11 @@ import com.cdkj.token.model.db.UserConfigDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.greenrobot.eventbus.EventBus;
-import org.litepal.crud.DataSupport;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
-
-import static com.cdkj.token.utils.CoinUtil.COIN_SYMBOL_SPACE_SYMBOL;
-import static com.cdkj.token.utils.CoinUtil.updateLocalCoinList;
+import static com.cdkj.token.utils.LocalCoinDBUtils.COIN_SYMBOL_SPACE_SYMBOL;
 
 /**
  * //TODO 资产配置数据存取优化

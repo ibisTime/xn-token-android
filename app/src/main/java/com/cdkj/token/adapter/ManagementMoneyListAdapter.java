@@ -2,15 +2,11 @@ package com.cdkj.token.adapter;
 
 import android.support.annotation.Nullable;
 
-import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
-
-import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 
 /**
  * 理财列表

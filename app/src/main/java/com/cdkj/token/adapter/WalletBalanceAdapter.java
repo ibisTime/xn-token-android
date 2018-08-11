@@ -2,22 +2,16 @@ package com.cdkj.token.adapter;
 
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
-import android.widget.ImageView;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.WalletBalanceModel;
-import com.cdkj.token.utils.AccountUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import java.math.BigDecimal;
 import java.util.List;
-
-import static com.cdkj.token.utils.CoinUtil.getCoinWatermarkWithCurrency;
 
 /**
  * Created by lei on 2017/10/25.

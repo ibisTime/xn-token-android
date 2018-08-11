@@ -23,6 +23,7 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityQuestionFeedbackDetailsBinding;
 import com.cdkj.token.model.QuestionFeedbackModel;
 import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -118,7 +119,7 @@ public class QuestionFeedbackDetailsActivity extends AbsLoadActivity {
         mBinding.tvRemark.setText(data.getCommitNote());
         mBinding.tvBugState.setText(getStateString(data.getStatus()));
         mBinding.tvFinalLevel.setText(data.getLevel());
-        mBinding.tvMoney.setText(AccountUtil.amountFormatUnitForShow(data.getPayAmount(), AccountUtil.ALLSCALE) + "wan");
+        mBinding.tvMoney.setText(AccountUtil.amountFormatUnitForShow(data.getPayAmount(), WalletHelper.COIN_WAN, AccountUtil.ALLSCALE) + "wan");
         mBinding.tvCommitTime.setText(DateUtil.formatStringData(data.getCommitDatetime(), DATE_YMD));
 
         mBinding.recycler.setLayoutManager(new GridLayoutManager(this, 3) {

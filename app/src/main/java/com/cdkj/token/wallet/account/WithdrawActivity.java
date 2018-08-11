@@ -44,7 +44,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-import static com.cdkj.token.utils.AccountUtil.getUnit;
+import static com.cdkj.token.utils.AccountUtil.getLocalCoinUnit;
 
 /**
  * 提币
@@ -290,7 +290,7 @@ public class WithdrawActivity extends AbsLoadActivity {
         map.put("applyUser", SPUtilHelper.getUserId());
         map.put("systemCode", MyConfig.SYSTEMCODE);
         map.put("accountNumber", model.getAccountNumber());
-        map.put("amount", bigDecimal.multiply(getUnit(model.getCoinName())).toString().split("\\.")[0]);
+        map.put("amount", bigDecimal.multiply(getLocalCoinUnit(model.getCoinName())).toString().split("\\.")[0]);
         map.put("payCardNo", mBinding.editToAddress.getText().toString().trim());
         map.put("payCardInfo", model.getCoinName());
         map.put("applyNote", model.getCoinName() + getString(R.string.bill_type_withdraw));

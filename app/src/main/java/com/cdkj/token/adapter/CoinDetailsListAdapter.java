@@ -15,9 +15,9 @@ import java.util.List;
 
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_MMddHHmm;
 import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
-import static com.cdkj.token.utils.CoinUtil.getMoneyStateByState;
-import static com.cdkj.token.utils.CoinUtil.getPrivateCoinStataIconByState;
-import static com.cdkj.token.utils.CoinUtil.isInState;
+import static com.cdkj.token.utils.LocalCoinDBUtils.getMoneyStateByState;
+import static com.cdkj.token.utils.LocalCoinDBUtils.getPrivateCoinStataIconByState;
+import static com.cdkj.token.utils.LocalCoinDBUtils.isInState;
 
 /**
  * 去中心钱包流水
@@ -41,16 +41,16 @@ public class CoinDetailsListAdapter extends BaseQuickAdapter<LocalCoinBill, Base
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getTransDatetime(), DATE_MMddHHmm));
         helper.setImageResource(R.id.iv_type, getPrivateCoinStataIconByState(item.getDirection()));
 
-        helper.setText(R.id.tv_amount, getMoneyStateByState(item.getDirection()) + AccountUtil.amountFormatUnitForShow(item.getValue(), ETHSCALE) + " " + this.coinSymbol);
+        helper.setText(R.id.tv_amount, getMoneyStateByState(item.getDirection()) + AccountUtil.amountFormatUnitForShow(item.getValue(), "", ETHSCALE) + " " + this.coinSymbol);
 
         if (isInState(item.getDirection())) {
             helper.setText(R.id.tv_remark, mContext.getString(R.string.get_money));
-            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext,R.color.in_money));
+            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.in_money));
             helper.setText(R.id.tv_address, item.getFrom());
         } else {
             helper.setText(R.id.tv_remark, mContext.getString(R.string.transfer));
             helper.setText(R.id.tv_address, item.getTo());
-            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext,R.color.out_money));
+            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.out_money));
         }
 
     }
