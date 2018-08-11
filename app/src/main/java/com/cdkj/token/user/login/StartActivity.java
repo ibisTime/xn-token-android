@@ -12,10 +12,13 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
+import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.AppUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.SystemUtils;
 import com.cdkj.token.MainActivity;
@@ -24,18 +27,26 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.CountryCodeMode;
 import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.token.model.SystemParameterModel;
+import com.cdkj.token.model.VersionModel;
+import com.cdkj.token.utils.wallet.WalletDBAegisUtils;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.cdkj.token.utils.UpdateUtil.isForceUpload;
+import static com.cdkj.token.utils.UpdateUtil.startWeb;
 
 
 @Route(path = CdRouteHelper.APPSTART)
@@ -62,13 +73,24 @@ public class StartActivity extends BaseActivity {
         }
         setContentView(R.layout.activity_start);
 
+//        List<String> string = new ArrayList<>();
+//        string.add("uniform");
+//        string.add("claim");
+//        string.add("drum");
+//        string.add("stool");
+//        string.add("evidence");
+//        string.add("stage");
+//        string.add("prevent");
+//        string.add("quiz");
+//        string.add("lunar");
+//        string.add("dove");
+//        string.add("record");
+//        string.add("kit");
+//        LogUtil.E("钱包" + JSON.toJSONString(WalletHelper.createAllCoinPrivateKeybyMnenonic(string)));
+
+        getVersion();
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        getQiniuAndNextTo();  //获取七牛地址
-    }
 
     /**
      * 获取IP地址并匹配国家
@@ -224,6 +246,126 @@ public class StartActivity extends BaseActivity {
                 break;
             }
         }
+    }
+
+    /**
+     * 获取最新版本
+     *
+     * @return
+     */
+    private void getVersion() {
+        Map<String, String> map = new HashMap<>();
+        map.put("type", "android-c");
+        map.put("systemCode", MyConfig.SYSTEMCODE);
+        map.put("companyCode", MyConfig.COMPANYCODE);
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        call.enqueue(new BaseResponseModelCallBack<VersionModel>(this) {
+
+            @Override
+            protected void onSuccess(VersionModel data, String SucMessage) {
+                if (data == null) {
+                    checkDbAegis();
+                    return;
+                }
+
+                if (data.getVersion() > AppUtils.getAppVersionCode(StartActivity.this)) {  //版本号不一致说明有更新
+                    showUploadDialog(data);
+                } else {
+                    checkDbAegis();
+                }
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+    }
+
+
+    /**
+     * 显示更新dialog
+     *
+     * @param versionModel
+     */
+    private void showUploadDialog(VersionModel versionModel) {
+
+        if (isForceUpload(versionModel.getForceUpdate())) { // 强制更新
+
+            showSureDialog(getStrRes(R.string.tip_update), versionModel.getNote(), view -> {
+                startWeb(StartActivity.this, versionModel.getDownloadUrl());
+                EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
+                finish();
+            });
+
+        } else {
+            showDoubleWarnListen(getStrRes(R.string.tip_update), versionModel.getNote(), view -> {
+                startWeb(StartActivity.this, versionModel.getDownloadUrl());
+            }, view -> {
+                checkDbAegis();
+            });
+        }
+    }
+
+    /**
+     * 数据库兼容检测
+     */
+    private void checkDbAegis() {
+        mSubscription.add(Observable.just("")
+                .subscribeOn(Schedulers.newThread())
+                .doOnComplete(() -> {
+                    getQiniuAndNextTo();  //获取七牛地址
+                })
+                .subscribe(s -> {
+                    if (SPUtilHelper.isLoginNoStart() && !WalletDBAegisUtils.checkBTCInfoNotNull(SPUtilHelper.getUserId())) { //DB兼容  1.7.0以下版本更新，如果没有btc币种信息则更新btc信息
+                        WalletDBAegisUtils.createBTCInfoAndUpdate(SPUtilHelper.getUserId());
+                    }
+                }));
+    }
+
+
+    protected void showDoubleWarnListen(String title, String content, CommonDialog.OnPositiveListener onPositiveListener, CommonDialog.OnNegativeListener onNegativeListener) {
+
+        if (isFinishing()) {
+            return;
+        }
+
+        CommonDialog commonDialog = new CommonDialog(this).builder()
+                .setTitle(title).setContentMsg(content)
+                .setPositiveBtn(getString(com.cdkj.baselibrary.R.string.activity_base_confirm), onPositiveListener)
+                .setNegativeBtn(getString(com.cdkj.baselibrary.R.string.activity_base_cancel), onNegativeListener, false);
+
+        commonDialog.show();
+    }
+
+    /**
+     * 只显示确认弹框的按钮
+     *
+     * @param title
+     * @param str
+     * @param onPositiveListener
+     */
+    protected void showSureDialog(String title, String str, CommonDialog.OnPositiveListener onPositiveListener) {
+
+        if (this == null || isFinishing()) {
+            return;
+        }
+
+        CommonDialog commonDialog = new CommonDialog(this).builder()
+                .setTitle(title)
+                .setContentMsg(str)
+                .setPositiveBtn(getString(com.cdkj.baselibrary.R.string.activity_base_confirm), onPositiveListener);
+
+        commonDialog.show();
     }
 
 
