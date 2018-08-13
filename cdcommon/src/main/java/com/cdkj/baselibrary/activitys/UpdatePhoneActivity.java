@@ -73,7 +73,7 @@ public class UpdatePhoneActivity extends AbsActivity implements SendCodeInterfac
         mBinding.btnSendNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSendCodePresenter.sendCodeRequest(mBinding.edtPhoneNew.getText().toString(), "805061", MyConfig.USERTYPE, SPUtilHelper.getCountryCode(),UpdatePhoneActivity.this);
+                mSendCodePresenter.sendCodeRequest(mBinding.edtPhoneNew.getText().toString(), "805061", MyConfig.USERTYPE, SPUtilHelper.getCountryInterCode(),UpdatePhoneActivity.this);
             }
         });
 

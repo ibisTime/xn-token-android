@@ -14,8 +14,6 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsActivity;
-import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.LoginInterface;
@@ -36,8 +34,6 @@ import com.cdkj.token.user.CountryCodeListActivity;
 import java.util.HashMap;
 
 import retrofit2.Call;
-
-import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
 
 @Route(path = CdRouteHelper.APPLOGIN)
 public class SignInActivity extends AbsStatusBarTranslucentActivity implements LoginInterface, SendCodeInterface {
@@ -89,7 +85,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
     @Override
     protected void onResume() {
         super.onResume();
-        mBinding.edtUsername.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+        mBinding.edtUsername.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()));
         ImgUtils.loadActImg(this, SPUtilHelper.getCountryFlag(), mBinding.edtUsername.getLeftImage());
     }
 
@@ -124,11 +120,11 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         //发送验证码
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(view -> {
             if (TextUtils.isEmpty(mBinding.edtUsername.getText().toString().trim())) {
-                UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_mobile_hint));
+                UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_mobile_hint));
                 return;
             }
 
-            mSendPhoneCodePresenter.sendCodeRequest(mBinding.edtUsername.getText().toString().trim(), CODE_LOGIN_CODE, "C", SPUtilHelper.getCountryCode(), this);
+            mSendPhoneCodePresenter.sendCodeRequest(mBinding.edtUsername.getText().toString().trim(), CODE_LOGIN_CODE, "C", SPUtilHelper.getCountryInterCode(), this);
         });
 
         //登录
@@ -158,13 +154,13 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
     private void checkInputAndLogin() {
 
         if (TextUtils.isEmpty(mBinding.edtUsername.getText().toString().trim())) {
-            UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_mobile_hint));
+            UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_mobile_hint));
             return;
         }
 
         if (isCodeLogin()) {
             if (TextUtils.isEmpty(mBinding.edtCode.getEditText().getText().toString().trim())) {
-                UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_code_hint));
+                UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_code_hint));
                 return;
             }
             codeLoginRequest();
@@ -172,11 +168,11 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         } else {
 
             if (mBinding.edtPassword.getText().toString().trim().length() < 6) {
-                UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_password_format_hint));
+                UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_password_format_hint));
                 return;
             }
 
-            mPresenter.login(mBinding.edtUsername.getText().toString(), mBinding.edtPassword.getText().toString(), SPUtilHelper.getCountryCode(), this);
+            mPresenter.login(mBinding.edtUsername.getText().toString(), mBinding.edtPassword.getText().toString(), SPUtilHelper.getCountryInterCode(), this);
         }
     }
 
@@ -188,12 +184,12 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
 
         HashMap<String, String> hashMap = new HashMap<>();
 
-        hashMap.put("interCode", SPUtilHelper.getCountryCode());
+        hashMap.put("countryCode", SPUtilHelper.getCountryCode());
         hashMap.put("mobile", mBinding.edtUsername.getEditText().getText().toString());
         hashMap.put("smsCaptcha", mBinding.edtCode.getEditText().getText().toString());
         hashMap.put("systemCode", MyConfig.SYSTEMCODE);
         hashMap.put("companyCode", MyConfig.COMPANYCODE);
-
+        hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
         Call call = RetrofitUtils.getBaseAPiService().userLogin(CODE_LOGIN_CODE, StringUtils.getJsonToString(hashMap));
 
         showLoadingDialog();
@@ -205,7 +201,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
                     loginSuccessNext(data);
                 } else {
                     disMissLoading();
-                    UITipDialog.showInfoNoIcon(SignInActivity.this,SucMessage);
+                    UITipDialog.showInfoNoIcon(SignInActivity.this, SucMessage);
                 }
             }
 
@@ -293,7 +289,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
 
     @Override
     public void CodeFailed(String code, String msg) {
-        UITipDialog.showInfoNoIcon(this,msg);
+        UITipDialog.showInfoNoIcon(this, msg);
     }
 
     @Override

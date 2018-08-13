@@ -387,7 +387,7 @@
     <string name="add_assets">添加资产</string>
     <string name="error_wallet_address">错误的地址</string>
     <string name="resolve_wallet_address_fail">解析地址失败</string>
-    <string name="transaction_success">转账成功，正在同步中</string>
+    <string name="transaction_success">广播成功，正在同步中</string>
     <string name="please_correct_transaction_number">请输入正确的转账数量</string>
     <string name="please_to_address">请输入接收地址</string>
     <string name="no_balance">可用余额不足</string>
@@ -633,5 +633,7 @@
     <string name="backup_start_dialog_1">请勿截图</string>
     <string name="backup_start_dialog_2">请确保四周无人及无任何摄像头！</string>
     <string name="backup_start_dialog_3">勿用截图或者拍照方式备份助记词。</string>
+    <string name="transaction_in">即将到账...</string>
+    <string name="transaction_out">同步打包中...</string>
 
 </resources>

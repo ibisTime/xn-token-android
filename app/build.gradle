@@ -87,8 +87,8 @@ dependencies {
     implementation project(':cdcommon')
     // Banner
     implementation 'com.youth.banner:banner:1.4.10'
-    // SwitchButton
-    implementation 'com.kyleduo.switchbutton:library:1.4.4'
+//    // SwitchButton
+//    implementation 'com.kyleduo.switchbutton:library:1.4.4'
     //路由
     api 'com.alibaba:arouter-api:1.3.1'
 

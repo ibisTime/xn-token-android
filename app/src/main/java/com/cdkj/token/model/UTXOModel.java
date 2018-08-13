@@ -7,10 +7,11 @@ package com.cdkj.token.model;
 public class UTXOModel {
 
     private String txid;
-    private int vout;
-    private int count;
+    private long vout;
+    private long count;
     private String scriptPubKey;
     private String address;
+
 
     public String getTxid() {
         return txid;
@@ -20,19 +21,19 @@ public class UTXOModel {
         this.txid = txid;
     }
 
-    public int getVout() {
+    public long getVout() {
         return vout;
     }
 
-    public void setVout(int vout) {
+    public void setVout(long vout) {
         this.vout = vout;
     }
 
-    public int getCount() {
+    public long getCount() {
         return count;
     }
 
-    public void setCount(int count) {
+    public void setCount(long count) {
         this.count = count;
     }
 

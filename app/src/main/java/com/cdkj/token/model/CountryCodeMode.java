@@ -19,13 +19,31 @@ public class CountryCodeMode {
      */
 
     private String interCode;
+    private String code;
     private String interName;
     private String chineseName;
+    private String localName;
     private String interSimpleCode;
     private String continent;
     private int orderNo;
     private String status;
     private String pic;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getLocalName() {
+        return localName;
+    }
+
+    public void setLocalName(String localName) {
+        this.localName = localName;
+    }
 
     public String getPic() {
         return pic;

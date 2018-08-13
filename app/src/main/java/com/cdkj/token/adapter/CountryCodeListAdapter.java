@@ -3,7 +3,6 @@ package com.cdkj.token.adapter;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
-import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -35,7 +34,7 @@ public class CountryCodeListAdapter extends BaseQuickAdapter<CountryCodeMode, Ba
 
         ImgUtils.loadImage(mContext, item.getPic(), helper.getView(R.id.img_country));
 
-        if (TextUtils.equals(item.getInterCode(), SPUtilHelper.getCountryCode())) {  //显示选择图标
+        if (TextUtils.equals(item.getInterCode(), SPUtilHelper.getCountryInterCode())) {  //显示选择图标
             helper.setVisible(R.id.img_choose, true);
         } else {
             helper.setVisible(R.id.img_choose, false);
@@ -43,19 +42,19 @@ public class CountryCodeListAdapter extends BaseQuickAdapter<CountryCodeMode, Ba
     }
 
     public String getSelectCountryName(int postion) {
-        if (!TextUtils.equals(SPUtilHelper.getLanguage(), MyConfig.SIMPLIFIED)) {
-            return mData.get(postion).getInterName();
-        } else {
-            return mData.get(postion).getChineseName();
-        }
+        return mData.get(postion).getInterName();
     }
 
     public String getSelectPic(int postion) {
         return mData.get(postion).getPic();
     }
 
-    public String getSelectCountryCode(int postion) {
+    public String getSelectInterCode(int postion) {
         return mData.get(postion).getInterCode();
+    }
+
+    public String getSelectCountryCode(int postion) {
+        return mData.get(postion).getCode();
     }
 
 

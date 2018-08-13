@@ -2,6 +2,7 @@ package com.cdkj.token.utils.wallet;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
 import com.cdkj.baselibrary.CdApplication;
@@ -11,14 +12,25 @@ import com.cdkj.baselibrary.utils.MoneyUtils;
 import com.cdkj.baselibrary.utils.SPUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
+import com.cdkj.token.model.BtcSignUTXO;
 import com.cdkj.token.model.DbCoinInfo;
+import com.cdkj.token.model.UTXOModel;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.UserConfigDBModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wan.WanRawTransaction;
 import com.cdkj.token.utils.wan.WanTransactionEncoder;
 
+import org.bitcoinj.core.Address;
+import org.bitcoinj.core.AddressFormatException;
+import org.bitcoinj.core.Coin;
+import org.bitcoinj.core.DumpedPrivateKey;
 import org.bitcoinj.core.ECKey;
+import org.bitcoinj.core.NetworkParameters;
+import org.bitcoinj.core.Sha256Hash;
+import org.bitcoinj.core.Transaction;
+import org.bitcoinj.core.TransactionOutPoint;
+import org.bitcoinj.core.UTXO;
 import org.bitcoinj.core.Utils;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicKey;
@@ -28,9 +40,11 @@ import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.params.AbstractBitcoinNetParams;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.RegTestParams;
+import org.bitcoinj.script.Script;
 import org.bitcoinj.wallet.DeterministicKeyChain;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.litepal.crud.DataSupport;
+import org.spongycastle.util.encoders.Hex;
 import org.web3j.crypto.Credentials;
 import org.web3j.crypto.RawTransaction;
 import org.web3j.crypto.TransactionEncoder;
@@ -509,9 +523,9 @@ public class WalletHelper {
         DeterministicKey keyBTC = HDKeyDerivation
                 .createMasterPrivateKey(seed.getSeedBytes());
 
-        String privateKeyBTC = keyBTC.getPrivateKeyEncoded(MainNetParams.get()).toString();
+        String privateKeyBTC = keyBTC.getPrivateKeyEncoded(getBtcMainNetParams()).toString();
 
-        String addressBTC = keyBTC.toAddress(MainNetParams.get()).toString();
+        String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
 
         LogUtil.E("地址2  " + addressBTC);
         LogUtil.E("私钥2  " + privateKeyBTC);
@@ -663,6 +677,31 @@ public class WalletHelper {
      * @return
      */
     public static String getPrivateKeyByCoinType(WalletDBModel walletDBModel2, String coinType) {
+
+        if (walletDBModel2 == null || TextUtils.isEmpty(coinType)) {
+            return "";
+        }
+        switch (coinType.toUpperCase()) {
+            case COIN_ETH:
+                return walletDBModel2.getEthPrivateKey();
+            case COIN_WAN:
+                return walletDBModel2.getWanPrivateKey();
+            case COIN_BTC:
+                return walletDBModel2.getBtcPrivateKey();
+        }
+        return "";
+    }
+
+    /**
+     * 根据币种类型获取币种私钥
+     *
+     * @param coinType
+     * @return
+     */
+    public static String getPrivateKeyByCoinType(String userId, String coinType) {
+
+        WalletDBModel walletDBModel2 =
+                WalletHelper.getUserWalletInfoByUsreId(userId);
 
         if (walletDBModel2 == null || TextUtils.isEmpty(coinType)) {
             return "";
@@ -1010,6 +1049,61 @@ public class WalletHelper {
         return ethSendTransaction;
     }
 
+    public static void transferBtc() {
+
+    }
+
+    /**
+     * 对btc交易进行签名
+     *
+     * @param unSpentBTCList
+     * @param from
+     * @param to
+     * @param privateKey
+     * @param value
+     * @param fee
+     * @return
+     * @throws Exception
+     */
+    public static String signBTCTransactionData(@NonNull List<UTXOModel> unSpentBTCList, @NonNull String from, @NonNull String to, @NonNull String privateKey, long value, long fee) throws Exception {
+
+        Transaction transaction = new Transaction(getBtcMainNetParams());
+
+        DumpedPrivateKey dumpedPrivateKey = DumpedPrivateKey.fromBase58(getBtcMainNetParams(), privateKey);
+
+        ECKey ecKey = dumpedPrivateKey.getKey();
+
+        long totalMoney = 0;
+
+        List<BtcSignUTXO> utxos = new ArrayList<>();
+        //遍历未花费列表，组装合适的item
+        for (UTXOModel us : unSpentBTCList) {
+            if (totalMoney >= (value + fee))
+                break;
+            BtcSignUTXO utxo = new BtcSignUTXO(Sha256Hash.wrap(us.getTxid()), us.getVout(),
+                    new Script(Hex.decode(us.getScriptPubKey())));
+            utxos.add(utxo);
+
+            totalMoney += us.getCount();
+        }
+
+        transaction.addOutput(Coin.valueOf(value), Address.fromBase58(getBtcMainNetParams(), to));
+
+        // transaction.
+        //消费列表总金额 - 已经转账的金额 - 手续费 就等于需要返回给自己的金额了
+        long balance = totalMoney - value - fee;
+        //输出-转给自己
+        if (balance > 0) {
+            transaction.addOutput(Coin.valueOf(balance), Address.fromBase58(getBtcMainNetParams(), from));
+        }
+        //输入未消费列表项
+        for (BtcSignUTXO utxo : utxos) {
+            TransactionOutPoint outPoint = new TransactionOutPoint(getBtcMainNetParams(), utxo.getIndex(), utxo.getHash());
+            transaction.addSignedInput(outPoint, utxo.getScript(), ecKey, Transaction.SigHash.ALL, true);
+        }
+
+        return Hex.toHexString(transaction.bitcoinSerialize());
+    }
 
     /**
      * 获取手续费（矿工费）
@@ -1101,5 +1195,20 @@ public class WalletHelper {
         void onGetLocalCoinList(List<LocalCoinDbModel> localCoinDbModels);
     }
 
+    /**
+     * 判断btc方法是否合法
+     *
+     * @param address
+     * @return
+     */
+    public static boolean verifyBTCAddress(String address) {
+        NetworkParameters params = getBtcMainNetParams();
+        try {
+            Address.fromBase58(params, address);
+            return true;
+        } catch (AddressFormatException e) {
+            return false;
+        }
+    }
 
 }

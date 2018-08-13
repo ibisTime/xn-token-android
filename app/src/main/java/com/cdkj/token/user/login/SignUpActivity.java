@@ -86,7 +86,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
     @Override
     protected void onResume() {
         super.onResume();
-        mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+        mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()));
         ImgUtils.loadActImg(this, SPUtilHelper.getCountryFlag(), mBinding.edtMobile.getLeftImage());
     }
 
@@ -101,7 +101,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(view -> {
             if (check("code")) {
-                mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(), "805041", "C", SPUtilHelper.getCountryCode(), this);
+                mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(), "805041", "C", SPUtilHelper.getCountryInterCode(), this);
             }
         });
 
@@ -156,8 +156,8 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
         map.put("smsCaptcha", mBinding.edtCode.getText().toString().trim());
         map.put("systemCode", MyConfig.SYSTEMCODE);
         map.put("companyCode", MyConfig.COMPANYCODE);
-        map.put("interCode", SPUtilHelper.getCountryCode());
-
+        map.put("countryCode", SPUtilHelper.getCountryCode());
+        map.put("interCode", SPUtilHelper.getCountryInterCode());
         Call call = RetrofitUtils.createApi(MyApi.class).signUp("805041", StringUtils.getJsonToString(map));
 
         addCall(call);

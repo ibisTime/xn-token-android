@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -174,6 +175,20 @@ public class FindFragment extends BaseLazyFragment {
 
         // 设置在操作Banner时listView事件不触发
 //        mHeadBinding.banner.setOnPageChangeListener(new MyPageChangeListener());
+    }
+
+    /**
+     * 获取应用列表
+     */
+    public void getAppList() {
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("language", SPUtilHelper.getLanguage());
+        map.put("location", "0");
+        map.put("status", "1");
+
+
     }
 
     @Override

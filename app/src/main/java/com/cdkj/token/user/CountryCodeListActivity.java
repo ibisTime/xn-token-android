@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.api.BaseResponseListModel;
@@ -17,7 +16,6 @@ import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.model.CountrySelectEvent;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
-import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.CountryCodeListAdapter;
@@ -32,8 +30,6 @@ import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
-
-import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
 
 /**
  * 国家区号列表
@@ -63,20 +59,21 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
         CountryCodeListAdapter countryCodeListAdapter = new CountryCodeListAdapter(listData);
         countryCodeListAdapter.setOnItemClickListener((adapter, view, position) -> {
             if (isSave) {
+                SPUtilHelper.saveCountryInterCode(countryCodeListAdapter.getSelectInterCode(position));
                 SPUtilHelper.saveCountryCode(countryCodeListAdapter.getSelectCountryCode(position));
                 SPUtilHelper.saveCountryFlag(countryCodeListAdapter.getSelectPic(position));
 
             } else {
                 CountrySelectEvent countrySelectEvent = new CountrySelectEvent();
 
-                countrySelectEvent.setCountryCode(countryCodeListAdapter.getSelectCountryCode(position));
+                countrySelectEvent.setCountryCode(countryCodeListAdapter.getSelectInterCode(position));
                 countrySelectEvent.setCountryName(countryCodeListAdapter.getSelectCountryName(position));
                 countrySelectEvent.setCountryFlag(countryCodeListAdapter.getSelectPic(position));
 
                 EventBus.getDefault().post(countrySelectEvent);     //发送国家选择通知
             }
 
-            MyConfig.changeLanguageForCountry(this, countryCodeListAdapter.getSelectCountryCode(position));
+            MyConfig.changeLanguageForCountry(this, countryCodeListAdapter.getSelectInterCode(position));
             EventBus.getDefault().post(new AllFinishEvent());
             SignInActivity.open(this, true);
             finish();

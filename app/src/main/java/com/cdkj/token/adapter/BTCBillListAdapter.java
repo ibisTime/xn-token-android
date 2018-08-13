@@ -45,10 +45,16 @@ public class BTCBillListAdapter extends BaseQuickAdapter<BTCBillModel, BaseViewH
             helper.setText(R.id.tv_remark, mContext.getString(R.string.get_money));
             helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.in_money));
 
+            if (item.getHeight() < 0) {
+                helper.setText(R.id.tv_amount, R.string.transaction_in);
+            }
+
         } else {
             helper.setText(R.id.tv_remark, mContext.getString(R.string.transfer));
-
             helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.out_money));
+            if (item.getHeight() < 0) {
+                helper.setText(R.id.tv_amount, R.string.transaction_out);
+            }
         }
 
         helper.setText(R.id.tv_address, item.getTxHash());

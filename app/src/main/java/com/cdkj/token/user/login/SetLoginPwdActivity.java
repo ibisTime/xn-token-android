@@ -93,7 +93,7 @@ public class SetLoginPwdActivity extends AbsActivity implements SendCodeInterfac
     @Override
     protected void onResume() {
         super.onResume();
-        mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+        mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()));
         ImgUtils.loadActImg(this, SPUtilHelper.getCountryFlag(), mBinding.edtMobile.getLeftImage());
     }
 
@@ -112,7 +112,7 @@ public class SetLoginPwdActivity extends AbsActivity implements SendCodeInterfac
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSendCOdePresenter.sendCodeRequest(mBinding.edtMobile.getText().toString(), "805063", MyConfig.USERTYPE, SPUtilHelper.getCountryCode(), SetLoginPwdActivity.this);
+                mSendCOdePresenter.sendCodeRequest(mBinding.edtMobile.getText().toString(), "805063", MyConfig.USERTYPE, SPUtilHelper.getCountryInterCode(), SetLoginPwdActivity.this);
             }
         });
 
@@ -177,9 +177,8 @@ public class SetLoginPwdActivity extends AbsActivity implements SendCodeInterfac
 //        hashMap.put("googleCaptcha", mBinding.edtGoogle.getText().toString());
         hashMap.put("systemCode", MyConfig.SYSTEMCODE);
         hashMap.put("companyCode", MyConfig.COMPANYCODE);
-        hashMap.put("companyCode", MyConfig.COMPANYCODE);
-        hashMap.put("interCode", SPUtilHelper.getCountryCode());
-
+        hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
+        hashMap.put("countryCode", SPUtilHelper.getCountryCode());
         Call call = RetrofitUtils.getBaseAPiService().successRequest("805063", StringUtils.getJsonToString(hashMap));
 
         addCall(call);

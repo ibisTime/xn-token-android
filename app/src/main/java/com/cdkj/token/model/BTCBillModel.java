@@ -30,7 +30,7 @@ public class BTCBillModel implements Parcelable {
      */
 
     private String txHash;
-    private String height;
+    private long height;
     private String direction;
     private BigDecimal value;
     private BigDecimal txFee;
@@ -59,11 +59,11 @@ public class BTCBillModel implements Parcelable {
         this.txHash = txHash;
     }
 
-    public String getHeight() {
+    public long getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(long height) {
         this.height = height;
     }
 
@@ -348,7 +348,7 @@ public class BTCBillModel implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.txHash);
-        dest.writeString(this.height);
+        dest.writeLong(this.height);
         dest.writeString(this.direction);
         dest.writeSerializable(this.value);
         dest.writeSerializable(this.txFee);
@@ -363,7 +363,7 @@ public class BTCBillModel implements Parcelable {
 
     protected BTCBillModel(Parcel in) {
         this.txHash = in.readString();
-        this.height = in.readString();
+        this.height = in.readLong();
         this.direction = in.readString();
         this.value = (BigDecimal) in.readSerializable();
         this.txFee = (BigDecimal) in.readSerializable();

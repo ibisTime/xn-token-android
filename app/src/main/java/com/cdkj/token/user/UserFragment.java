@@ -29,8 +29,6 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
 import com.cdkj.token.user.invite.InviteFriendActivity;
 import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
-import com.cdkj.token.user.setting.LocalCoinTypeChooseActivity;
-import com.cdkj.token.user.setting.UserLanguageActivity;
 import com.cdkj.token.user.setting.UserSettingActivity;
 import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
@@ -203,7 +201,7 @@ public class UserFragment extends BaseLazyFragment {
         if (data.getNickname() == null) return;
 
         mBinding.tvNickName.setText(data.getNickname());
-        mBinding.tvPhoneNumber.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()) + " " + StringUtils.ttransformShowPhone(data.getMobile()));
+        mBinding.tvPhoneNumber.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()) + " " + StringUtils.ttransformShowPhone(data.getMobile()));
         ImgUtils.loadLogo(mActivity, data.getPhoto(), mBinding.imgLogo);
     }
 

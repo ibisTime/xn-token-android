@@ -88,7 +88,7 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
     @Override
     protected void onResume() {
         super.onResume();
-        mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+        mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()));
         ImgUtils.loadActImg(this, SPUtilHelper.getCountryFlag(), mBinding.edtMobile.getLeftImage());
     }
 
@@ -107,7 +107,7 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSendCOdePresenter.sendCodeRequest(mBinding.edtMobile.getText().toString(), "805063", MyConfig.USERTYPE, SPUtilHelper.getCountryCode(), FindLoginPwdActivity.this);
+                mSendCOdePresenter.sendCodeRequest(mBinding.edtMobile.getText().toString(), "805063", MyConfig.USERTYPE, SPUtilHelper.getCountryInterCode(), FindLoginPwdActivity.this);
             }
         });
 
@@ -173,7 +173,8 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
         hashMap.put("systemCode", MyConfig.SYSTEMCODE);
         hashMap.put("companyCode", MyConfig.COMPANYCODE);
         hashMap.put("companyCode", MyConfig.COMPANYCODE);
-        hashMap.put("interCode", SPUtilHelper.getCountryCode());
+        hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
+        hashMap.put("countryCode", SPUtilHelper.getCountryCode());
 
         Call call = RetrofitUtils.getBaseAPiService().successRequest("805063", StringUtils.getJsonToString(hashMap));
 

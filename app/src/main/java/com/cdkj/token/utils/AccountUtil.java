@@ -86,6 +86,21 @@ public class AccountUtil {
     }
 
     /**
+     * BigInteger
+     *
+     * @param amount
+     * @return
+     */
+    public static BigDecimal bigDecimalFormat(BigDecimal amount, String coin) {
+
+        if (amount == null) {
+            return BigDecimal.ZERO;
+        }
+
+        return amount.multiply(getLocalCoinUnit(coin));
+    }
+
+    /**
      * 格式化输出的金额格式，最多8位小数
      *
      * @param s

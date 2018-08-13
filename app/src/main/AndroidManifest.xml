@@ -255,8 +255,12 @@
         <activity android:name=".consult.product_application.management_money.ManagementMoneyListActivity" />
         <activity android:name=".consult.product_application.management_money.MyManagementMoneyListActivity" />
         <activity android:name=".consult.product_application.management_money.MyManagementMoneyDetailsActivity" />
-        <activity android:name=".wallet.coin_detail.WalletBTCTransferActivity" />
-        <activity android:name=".wallet.coin_detail.BTCTransactionDetailsActivity" />
+        <activity
+            android:name=".wallet.coin_detail.WalletBTCTransferActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".wallet.coin_detail.BTCTransactionDetailsActivity"
+            android:windowSoftInputMode="adjustPan" />
     </application>
 
 </manifest>

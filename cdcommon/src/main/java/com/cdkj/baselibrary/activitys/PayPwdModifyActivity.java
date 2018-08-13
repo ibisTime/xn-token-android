@@ -73,9 +73,9 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
     public void afterCreate(Bundle savedInstanceState) {
 
         ImgUtils.loadActImg(this, SPUtilHelper.getCountryFlag(), mBinding.imgCountry);
-        mBinding.tvCountryCode.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryCode()));
+        mBinding.tvCountryCode.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()));
 
-        selectCountryCode = SPUtilHelper.getCountryCode();
+        selectCountryCode = SPUtilHelper.getCountryInterCode();
 
         setSubLeftImgState(true);
 

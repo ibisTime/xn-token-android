@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -47,7 +48,8 @@ public class LoginPresenter {
 
         hashMap.put("loginName", username);
         hashMap.put("loginPwd", password);
-        hashMap.put("interCode", countryCode); //国际区号
+        hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
+        hashMap.put("countryCode", SPUtilHelper.getCountryCode());
         hashMap.put("kind", MyConfig.USERTYPE);
         hashMap.put("systemCode", MyConfig.SYSTEMCODE);
 

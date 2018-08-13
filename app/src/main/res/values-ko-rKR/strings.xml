@@ -211,7 +211,7 @@
     <string name="add_assets">자산추가</string>
     <string name="error_wallet_address">잘못된 주소</string>
     <string name="resolve_wallet_address_fail">실패원인 분석중</string>
-    <string name="transaction_success">이체완료 준비 중</string>
+
     <string name="please_correct_transaction_number">정확한 이체수량 입력</string>
     <string name="please_to_address">입금주소 입력</string>
     <string name="no_balance">잔액부족</string>
@@ -638,4 +638,7 @@
     <string name="backup_start_dialog_1">请勿截图</string>
     <string name="backup_start_dialog_2">请确保四周无人及无任何摄像头！</string>
     <string name="backup_start_dialog_3">勿用截图或者拍照方式备份助记词。</string>
+    <string name="transaction_in">即将到账...</string>
+    <string name="transaction_out">同步打包中...</string>
+    <string name="transaction_success">广播成功，正在同步中</string>
 </resources>

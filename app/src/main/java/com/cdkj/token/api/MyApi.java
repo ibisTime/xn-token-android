@@ -10,6 +10,7 @@ import com.cdkj.token.model.BTCBillModel;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.BannerModel;
 import com.cdkj.token.model.BillModel;
+import com.cdkj.token.model.BtcFeesModel;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.ConsultListModel;
 import com.cdkj.token.model.ConsultModel;
@@ -32,6 +33,7 @@ import com.cdkj.token.model.OrderDetailModel;
 import com.cdkj.token.model.OrderModel;
 import com.cdkj.token.model.QuestionFeedbackModel;
 import com.cdkj.token.model.RateModel;
+import com.cdkj.token.model.RecommendAppModel;
 import com.cdkj.token.model.RedPackageDetialsBean;
 import com.cdkj.token.model.RedPackageHistoryBean;
 import com.cdkj.token.model.StatisticsListModel;
@@ -39,6 +41,7 @@ import com.cdkj.token.model.SystemMessageModel;
 import com.cdkj.token.model.SystemParameterListModel;
 import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.TrustModel;
+import com.cdkj.token.model.TxHashModel;
 import com.cdkj.token.model.UTXOListModel;
 import com.cdkj.token.model.UserRefereeModel;
 import com.cdkj.token.model.UserSettingModel;
@@ -70,6 +73,15 @@ public interface MyApi {
     @POST("api")
     Call<BaseResponseModel<UTXOListModel>> getUtxoList(@Field("code") String code, @Field("json") String json);
 
+    /**
+     * 获取应用列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ResponseInListModel<RecommendAppModel>>> getAppList(@Field("code") String code, @Field("json") String json);
+
 
     /**
      * 获取BTC流水记录（去中心化钱包）
@@ -79,6 +91,25 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<ResponseInListModel<BTCBillModel>>> getBTCBillList(@Field("code") String code, @Field("json") String json);
+
+
+    /**
+     * 获取BTC矿工费用
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<BtcFeesModel>> getBtcFees(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * btc交易广播
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<TxHashModel>> btcTransactionBroadcast(@Field("code") String code, @Field("json") String json);
 
 
     /**

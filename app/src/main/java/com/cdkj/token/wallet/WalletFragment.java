@@ -85,6 +85,9 @@ public class WalletFragment extends BaseLazyFragment {
 
     private boolean isFirstCache = false;//是否进行了第一次币种缓存
     private View mImportGuideView;  //导入钱包引导
+    private CoinModel mWalletData;
+    private BalanceListModel mPrivateWalletData;
+
 
     public static WalletFragment getInstance() {
         WalletFragment fragment = new WalletFragment();
@@ -156,6 +159,16 @@ public class WalletFragment extends BaseLazyFragment {
      */
     private void initClickListener() {
 
+        //资产显示隐藏
+
+        mBinding.tvAssetsShow.setOnClickListener(view -> {
+
+            boolean isShow = SPUtilHelper.isAssetsShow();
+            toggleAssectsByEyeState(isShow);
+            SPUtilHelper.saveIsAssetsShow(!isShow);
+
+        });
+
         //公告信息
         mBinding.tvBulletin.setOnClickListener(view -> {
             MsgListActivity.open(mActivity);
@@ -192,6 +205,25 @@ public class WalletFragment extends BaseLazyFragment {
         });
 
 
+    }
+
+    /**
+     * 是否显示资产
+     *
+     * @param isShow
+     */
+    private void toggleAssectsByEyeState(boolean isShow) {
+        if (isShow) {
+            mBinding.tvAssetsShow.setImageResource(R.drawable.eye_open);
+            setWalletAssetsText(mWalletData);
+            shePrivateWalletAssectText(mPrivateWalletData);
+            countAllWalletAmount();
+        } else {
+            mBinding.tvAllWalletAmount.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()) + "***");
+            mBinding.cardChangeLayout.tvWalletAmount.setText("***");
+            mBinding.cardChangeLayout.tvPriWalletAmount.setText("***");
+            mBinding.tvAssetsShow.setImageResource(R.drawable.eye_close);
+        }
     }
 
     /**
@@ -416,17 +448,13 @@ public class WalletFragment extends BaseLazyFragment {
             @Override
             protected void onSuccess(CoinModel data, String SucMessage) {
 
-                if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-                    mBinding.cardChangeLayout.tvWalletAmount.setText(data.getTotalAmountCNY());
-                } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
-                    mBinding.cardChangeLayout.tvWalletAmount.setText(data.getTotalAmountUSD());
-                }
+                mWalletData = data;
 
+                toggleAssectsByEyeState(SPUtilHelper.isAssetsShow());
 
                 mRefreshHelper.setPageIndex(1);
                 mRefreshHelper.setData(transformToAdapterData(data), getString(R.string.no_assets), R.mipmap.order_none);
 
-                countAllWalletAmount();
 
                 if (isRequstPrivateWallet && WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId())) {  //没有添加钱包不用请求私钥钱包数据
                     getPriWalletAssetsData(false, true);
@@ -445,6 +473,15 @@ public class WalletFragment extends BaseLazyFragment {
                 disMissLoading();
             }
         });
+    }
+
+    private void setWalletAssetsText(CoinModel data) {
+        if (data == null) return;
+        if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
+            mBinding.cardChangeLayout.tvWalletAmount.setText(data.getTotalAmountCNY());
+        } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
+            mBinding.cardChangeLayout.tvWalletAmount.setText(data.getTotalAmountUSD());
+        }
     }
 
 
@@ -483,14 +520,10 @@ public class WalletFragment extends BaseLazyFragment {
             @Override
             protected void onSuccess(BalanceListModel data, String SucMessage) {
 
+                mPrivateWalletData = data;
 
-                if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-                    mBinding.cardChangeLayout.tvPriWalletAmount.setText(data.getTotalAmountCNY());
-                } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
-                    mBinding.cardChangeLayout.tvPriWalletAmount.setText(data.getTotalAmountUSD());
-                }
+                toggleAssectsByEyeState(SPUtilHelper.isAssetsShow());
 
-                countAllWalletAmount();
                 if (isSetRecyclerData) {
                     List<WalletBalanceModel> walletBalanceModels = transformToAdapterData(data);
                     mRefreshHelper.setPageIndex(1);
@@ -510,6 +543,17 @@ public class WalletFragment extends BaseLazyFragment {
                 disMissLoading();
             }
         });
+    }
+
+    private void shePrivateWalletAssectText(BalanceListModel data) {
+        if (data == null) {
+            return;
+        }
+        if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
+            mBinding.cardChangeLayout.tvPriWalletAmount.setText(data.getTotalAmountCNY());
+        } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
+            mBinding.cardChangeLayout.tvPriWalletAmount.setText(data.getTotalAmountUSD());
+        }
     }
 
     /**
@@ -585,13 +629,19 @@ public class WalletFragment extends BaseLazyFragment {
      * 计算所有钱包资产(个人 + 私有)
      */
     private void countAllWalletAmount() {
-        if (TextUtils.isEmpty(mBinding.cardChangeLayout.tvWalletAmount.getText().toString()) || TextUtils.isEmpty(mBinding.cardChangeLayout.tvPriWalletAmount.getText().toString())) {
+        if (mWalletData==null || mPrivateWalletData==null) {
             return;
         }
-        BigDecimal wallAmount = new BigDecimal(mBinding.cardChangeLayout.tvWalletAmount.getText().toString());
-        BigDecimal priWallAmount = new BigDecimal(mBinding.cardChangeLayout.tvPriWalletAmount.getText().toString());
 
-        mBinding.tvAllWalletAmount.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()) + BigDecimalUtils.add(wallAmount, priWallAmount).toPlainString());
+        if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
+            BigDecimal wallAmount = new BigDecimal(mWalletData.getTotalAmountCNY());
+            BigDecimal priWallAmount = new BigDecimal(mPrivateWalletData.getTotalAmountCNY());
+            mBinding.tvAllWalletAmount.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()) + BigDecimalUtils.add(wallAmount, priWallAmount).toPlainString());
+        } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
+            BigDecimal wallAmount = new BigDecimal(mWalletData.getTotalAmountUSD());
+            BigDecimal priWallAmount = new BigDecimal(mPrivateWalletData.getTotalAmountUSD());
+            mBinding.tvAllWalletAmount.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()) + BigDecimalUtils.add(wallAmount, priWallAmount).toPlainString());
+        }
 
     }
 
@@ -662,7 +712,7 @@ public class WalletFragment extends BaseLazyFragment {
 
             walletBalanceModel.setCoinName(accountListBean.getSymbol());
 
-            walletBalanceModel.setAmount(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()),accountListBean.getSymbol(), 8));
+            walletBalanceModel.setAmount(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), accountListBean.getSymbol(), 8));
 
             walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getSymbol(), 1));
 
@@ -717,28 +767,6 @@ public class WalletFragment extends BaseLazyFragment {
             protected void onFinish() {
             }
         });
-    }
-
-    /**
-     * 显示确认取消dialog
-     *
-     * @param str
-     * @param onPositiveListener
-     */
-    protected void showDoubleWarnListen(String str, CommonDialog.OnPositiveListener onPositiveListener) {
-
-        if (mActivity == null || mActivity.isFinishing()) {
-            return;
-        }
-
-        if (commonDialog == null) {
-            commonDialog = new CommonDialog(mActivity).builder()
-                    .setTitle(getString(com.cdkj.baselibrary.R.string.activity_base_tip)).setContentMsg(str)
-                    .setPositiveBtn(getString(com.cdkj.baselibrary.R.string.activity_base_confirm), onPositiveListener)
-                    .setNegativeBtn(getString(com.cdkj.baselibrary.R.string.activity_base_cancel), null, false);
-        }
-
-        commonDialog.show();
     }
 
 

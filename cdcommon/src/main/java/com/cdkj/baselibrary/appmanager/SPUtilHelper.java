@@ -124,14 +124,14 @@ public class SPUtilHelper {
      * @param s
      */
 
-    public static void saveCountryCode(String s) {
+    public static void saveCountryInterCode(String s) {
         SPUtils.put(CdApplication.getContext(), "country_code", s);
     }
 
     /**
      * 获取国家编号
      */
-    public static String getCountryCode() {
+    public static String getCountryInterCode() {
         return SPUtils.getString(CdApplication.getContext(), "country_code", "0086");
     }
 
@@ -144,6 +144,24 @@ public class SPUtilHelper {
     public static void saveCountryFlag(String s) {
         SPUtils.put(CdApplication.getContext(), "country_flag", s);
     }
+
+    /**
+     * 获取国家编号
+     */
+    public static String getCountryCode() {
+        return SPUtils.getString(CdApplication.getContext(), "country_code_2", "0086");
+    }
+
+    /**
+     * 设置用户选择的国家编号
+     *
+     * @param s
+     */
+
+    public static void saveCountryCode(String s) {
+        SPUtils.put(CdApplication.getContext(), "country_code_2", s);
+    }
+
 
     /**
      * 获取国家编号
@@ -398,6 +416,22 @@ public class SPUtilHelper {
      */
     public static String getWalletCache() {
         return SPUtils.getString(CdApplication.getContext(), "create_wallet_cache", "");
+    }
+
+    /**
+     * 钱包界面资产显示还是隐藏
+     *
+     * @param isShow
+     */
+    public static void saveIsAssetsShow(boolean isShow) {
+        SPUtils.put(CdApplication.getContext(), "is_assets_show", isShow);
+    }
+
+    /**
+     * 钱包界面资产显示还是隐藏
+     */
+    public static boolean isAssetsShow() {
+        return SPUtils.getBoolean(CdApplication.getContext(), "is_assets_show", true);
     }
 
     /**

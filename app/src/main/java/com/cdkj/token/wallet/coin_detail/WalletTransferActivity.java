@@ -40,7 +40,7 @@ import io.reactivex.schedulers.Schedulers;
 import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
 
 /**
- * 钱包转账
+ * 钱包转账 (BTC WAN) //TODO 地址检测方法 lxjtest地址合法判断
  * Created by cdkj on 2018/6/8.
  */
 
@@ -93,7 +93,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()),accountListBean.getCoinName(), ETHSCALE) + " " + accountListBean.getCoinName());
+            mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ETHSCALE) + " " + accountListBean.getCoinName());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
         }
 

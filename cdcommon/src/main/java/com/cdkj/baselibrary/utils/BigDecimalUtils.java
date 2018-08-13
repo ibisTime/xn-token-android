@@ -32,7 +32,7 @@ public class BigDecimalUtils {
             return b.subtract(b1);
         }
 
-        return new BigDecimal(0);
+        return BigDecimal.ZERO;
     }
 
     //乘法
@@ -41,7 +41,7 @@ public class BigDecimalUtils {
             return b.multiply(b1);
         }
 
-        return new BigDecimal(0);
+        return BigDecimal.ZERO;
     }
 
     //加法
@@ -50,7 +50,7 @@ public class BigDecimalUtils {
             return b.add(b1);
         }
 
-        return new BigDecimal(0);
+        return BigDecimal.ZERO;
     }
 
     public static BigDecimal div(BigDecimal b, BigDecimal b1, int sca) {
@@ -58,7 +58,7 @@ public class BigDecimalUtils {
         if (b != null && b1 != null) {
             return b.divide(b1, sca, ROUND_CEILING);
         }
-        return new BigDecimal(0);
+        return BigDecimal.ZERO;
     }
 
 }

@@ -18,7 +18,6 @@ import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
-import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.SystemUtils;
 import com.cdkj.token.MainActivity;
@@ -29,17 +28,14 @@ import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.utils.wallet.WalletDBAegisUtils;
-import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -240,9 +236,10 @@ public class StartActivity extends BaseActivity {
         for (CountryCodeMode datum : data) {
             if (datum == null) continue;
             if (TextUtils.equals(countryId, datum.getInterSimpleCode())) {
-                SPUtilHelper.saveCountryCode(datum.getInterCode());
+                SPUtilHelper.saveCountryInterCode(datum.getInterCode());
+                SPUtilHelper.saveCountryCode(datum.getCode());
                 SPUtilHelper.saveCountryFlag(datum.getPic());
-                MyConfig.changeLanguageForCountry(this, datum.getInterCode());
+                MyConfig.changeLanguageForCountry(this, datum.getCode());
                 break;
             }
         }
