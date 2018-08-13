@@ -22,9 +22,11 @@ import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.adapter.CoinDetailsListAdapter;
+import com.cdkj.token.adapter.BTCBillListAdapter;
+import com.cdkj.token.adapter.CoinBillListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWalletBillBinding;
+import com.cdkj.token.model.BTCBillModel;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.utils.AccountUtil;
@@ -40,7 +42,7 @@ import retrofit2.Call;
 import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
 
 /**
- * 钱包币种 详情
+ * 去中心化钱包币种详情
  * Created by cdkj on 2018/6/8.
  */
 
@@ -98,7 +100,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
      */
     void setAmountInfo() {
         if (!TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()),accountListBean.getCoinName(), ETHSCALE) + accountListBean.getCoinName());
+            mBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ETHSCALE) + accountListBean.getCoinName());
 
         }
 
@@ -141,20 +143,12 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
                 UITipDialog.showInfo(this, getString(R.string.please_open_the_net));
                 return;
             }
-
-            if (accountListBean == null) return;
-
             //BTC转账
-            if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_BTC)) {
-
+            if (isBTC()) {
                 WalletBTCTransferActivity.open(this, accountListBean);
-
                 return;
             }
-
-
             WalletTransferActivity.open(this, accountListBean);
-
         });
 
     }
@@ -173,18 +167,78 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
             @Override
             public RecyclerView.Adapter getAdapter(List listData) {
-                CoinDetailsListAdapter coinDetailsListAdapter = getCoinDetailsListAdapter(listData);
-                return coinDetailsListAdapter;
+                if (isBTC()) {
+                    return getBTCBillListAdapter(listData);
+                }
+                return getCoinDetailsListAdapter(listData);
             }
 
             @Override
             public void getListDataRequest(int pageindex, int limit, boolean isShowDialog) {
-                getBillRequest(pageindex, limit, isShowDialog);
+                if (isBTC()) {
+                    getBTCBillRequest(pageindex, limit, isShowDialog);
+                } else {
+                    getBillRequest(pageindex, limit, isShowDialog);
+                }
             }
 
         });
 
         mRefreshHelper.init(RefreshHelper.LIMITE);
+    }
+
+    /**
+     * 获取比特币流水列表
+     *
+     * @param listData
+     * @return
+     */
+    private RecyclerView.Adapter getBTCBillListAdapter(List listData) {
+
+        BTCBillListAdapter coinDetailsListAdapter = new BTCBillListAdapter(listData);
+
+        coinDetailsListAdapter.setOnItemClickListener((adapter, view, position) -> {
+            BTCTransactionDetailsActivity.open(this,coinDetailsListAdapter.getItem(position));
+        });
+
+        return coinDetailsListAdapter;
+    }
+
+
+    /**
+     * 获取BTC流水
+     *
+     * @param pageindex
+     * @param limit
+     * @param isShowDialog
+     */
+    private void getBTCBillRequest(int pageindex, int limit, boolean isShowDialog) {
+
+        if (accountListBean == null) return;
+
+        Map<String, String> map = new HashMap<>();
+        map.put("address", accountListBean.getAddress());
+        map.put("start", pageindex + "");
+        map.put("limit", limit + "");
+
+        Call<BaseResponseModel<ResponseInListModel<BTCBillModel>>> btcBillCall = RetrofitUtils.createApi(MyApi.class).getBTCBillList("802221", StringUtils.getJsonToString(map));
+
+        addCall(btcBillCall);
+
+        if (isShowDialog) showLoadingDialog();
+
+        btcBillCall.enqueue(new BaseResponseModelCallBack<ResponseInListModel<BTCBillModel>>(this) {
+            @Override
+            protected void onSuccess(ResponseInListModel<BTCBillModel> data, String SucMessage) {
+                mRefreshHelper.setData(data.getList(), getString(R.string.no_record), R.mipmap.order_none);
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+
     }
 
     /**
@@ -194,14 +248,12 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
      * @return
      */
     @NonNull
-    CoinDetailsListAdapter getCoinDetailsListAdapter(List listData) {
+    CoinBillListAdapter getCoinDetailsListAdapter(List listData) {
         String coinSymbol = "";
         if (accountListBean != null) {
             coinSymbol = accountListBean.getCoinName();
         }
-
-        CoinDetailsListAdapter coinDetailsListAdapter = new CoinDetailsListAdapter(listData, coinSymbol);
-
+        CoinBillListAdapter coinDetailsListAdapter = new CoinBillListAdapter(listData, coinSymbol);
         coinDetailsListAdapter.setOnItemClickListener((adapter, view, position) -> {
             String coinType = "";
             if (accountListBean != null) {
@@ -250,8 +302,19 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
                 disMissLoading();
             }
         });
+    }
 
-
+    /**
+     * lxjtest 只是比特币还是btc token币也要
+     * 判断当前所属是否比特币
+     *
+     * @return
+     */
+    public boolean isBTC() {
+        if (accountListBean == null) {
+            return false;
+        }
+        return TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_BTC);
     }
 
 }

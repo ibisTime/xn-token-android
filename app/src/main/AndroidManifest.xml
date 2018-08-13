@@ -256,6 +256,7 @@
         <activity android:name=".consult.product_application.management_money.MyManagementMoneyListActivity" />
         <activity android:name=".consult.product_application.management_money.MyManagementMoneyDetailsActivity" />
         <activity android:name=".wallet.coin_detail.WalletBTCTransferActivity" />
+        <activity android:name=".wallet.coin_detail.BTCTransactionDetailsActivity" />
     </application>
 
 </manifest>

@@ -24,12 +24,12 @@ import static com.cdkj.token.utils.LocalCoinDBUtils.isInState;
  * Created by lei on 2017/10/25.
  */
 
-public class CoinDetailsListAdapter extends BaseQuickAdapter<LocalCoinBill, BaseViewHolder> {
+public class CoinBillListAdapter extends BaseQuickAdapter<LocalCoinBill, BaseViewHolder> {
 
     private String coinSymbol;
 
 
-    public CoinDetailsListAdapter(@Nullable List<LocalCoinBill> data, String coinSymbol) {
+    public CoinBillListAdapter(@Nullable List<LocalCoinBill> data, String coinSymbol) {
         super(R.layout.item_bill_2, data);
         this.coinSymbol = coinSymbol;
     }
@@ -41,7 +41,7 @@ public class CoinDetailsListAdapter extends BaseQuickAdapter<LocalCoinBill, Base
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getTransDatetime(), DATE_MMddHHmm));
         helper.setImageResource(R.id.iv_type, getPrivateCoinStataIconByState(item.getDirection()));
 
-        helper.setText(R.id.tv_amount, getMoneyStateByState(item.getDirection()) + AccountUtil.amountFormatUnitForShow(item.getValue(), "", ETHSCALE) + " " + this.coinSymbol);
+        helper.setText(R.id.tv_amount, getMoneyStateByState(item.getDirection()) + AccountUtil.amountFormatUnitForShow(item.getValue(), this.coinSymbol, ETHSCALE) + " " + this.coinSymbol);
 
         if (isInState(item.getDirection())) {
             helper.setText(R.id.tv_remark, mContext.getString(R.string.get_money));
