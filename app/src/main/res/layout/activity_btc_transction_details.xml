@@ -71,12 +71,14 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:background="@color/white"
+                android:orientation="vertical"
                 android:paddingLeft="15dp"
                 android:paddingTop="15dp">
 
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
                     android:text="@string/withdraw_address"
                     android:textColor="@color/gray_666666"
                     android:textSize="14sp" />
@@ -99,12 +101,14 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:background="@color/white"
+                android:orientation="vertical"
                 android:paddingLeft="15dp"
                 android:paddingTop="15dp">
 
                 <TextView
                     android:layout_width="80dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="15dp"
                     android:text="@string/transfer_out_address"
                     android:textColor="@color/gray_666666"
                     android:textSize="14sp" />

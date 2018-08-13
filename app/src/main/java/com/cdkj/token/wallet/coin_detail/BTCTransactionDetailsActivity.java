@@ -91,7 +91,7 @@ public class BTCTransactionDetailsActivity extends AbsLoadActivity {
                 return false;
             }
         });
-        mBinding.recyclerViewToAddress.setAdapter(new BTCToAddressListAdapter(btcBillModel.getVout()));
+        mBinding.recyclerViewToAddress.setAdapter(new BTCToAddressListAdapter(btcBillModel.getVout(), btcBillModel.getAddress()));
 
     }
 
@@ -107,7 +107,8 @@ public class BTCTransactionDetailsActivity extends AbsLoadActivity {
                 return false;
             }
         });
-        mBinding.recyclerViewFromAddress.setAdapter(new BTCFromAddressListAdapter(btcBillModel.getVin()));
+
+        mBinding.recyclerViewFromAddress.setAdapter(new BTCFromAddressListAdapter(btcBillModel.getVin(), btcBillModel.getAddress()));
     }
 
     /**

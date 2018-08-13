@@ -22,6 +22,7 @@ import com.cdkj.token.adapter.HelpWordsGridAdapter;
 import com.cdkj.token.databinding.ActivityBackupWalletStartBinding;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
+import com.cdkj.token.views.dialogs.BackupPromptDialog;
 import com.cdkj.token.views.recycler.GridDivider;
 
 import org.spongycastle.asn1.esf.SPuri;
@@ -84,6 +85,9 @@ public class BackupWalletStartActivity extends AbsLoadActivity {
         });
 
         setWordsData();
+
+        //截图提示弹框
+        new BackupPromptDialog(this).show();
     }
 
     /**
@@ -102,6 +106,7 @@ public class BackupWalletStartActivity extends AbsLoadActivity {
 
     /**
      * 不同界面获取不同数据
+     *
      * @return
      */
     public List<String> getWordsisFromBackup() {

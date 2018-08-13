@@ -27,8 +27,15 @@ import static com.cdkj.token.utils.LocalCoinDBUtils.isInState;
 
 public class BTCFromAddressListAdapter extends BaseQuickAdapter<BTCBillModel.VinBean, BaseViewHolder> {
 
-    public BTCFromAddressListAdapter(@Nullable List<BTCBillModel.VinBean> data) {
+    private String address;
+
+    /**
+     * @param data
+     * @param address 用户进行请求的地址
+     */
+    public BTCFromAddressListAdapter(@Nullable List<BTCBillModel.VinBean> data, String address) {
         super(R.layout.item_coin_address, data);
+        this.address = address;
     }
 
     @Override
@@ -36,6 +43,16 @@ public class BTCFromAddressListAdapter extends BaseQuickAdapter<BTCBillModel.Vin
         if (item == null) return;
 
         helper.setText(R.id.tv_address, item.getAddr());
+
+        helper.setText(R.id.tv_amount, item.getValue() + WalletHelper.COIN_BTC);
+
+        if (TextUtils.equals(item.getAddr(), address)) {
+            helper.setTextColor(R.id.tv_address, ContextCompat.getColor(mContext, R.color.text_blue));
+            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.text_blue));
+        } else {
+            helper.setTextColor(R.id.tv_address, ContextCompat.getColor(mContext, R.color.text_black_cd));
+            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.text_black_cd));
+        }
     }
 
 

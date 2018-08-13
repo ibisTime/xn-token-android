@@ -198,7 +198,11 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
         BTCBillListAdapter coinDetailsListAdapter = new BTCBillListAdapter(listData);
 
         coinDetailsListAdapter.setOnItemClickListener((adapter, view, position) -> {
-            BTCTransactionDetailsActivity.open(this,coinDetailsListAdapter.getItem(position));
+            BTCBillModel btcBillModel = coinDetailsListAdapter.getItem(position);
+            if (accountListBean != null) {
+                btcBillModel.setAddress(accountListBean.getAddress());
+            }
+            BTCTransactionDetailsActivity.open(this, btcBillModel);
         });
 
         return coinDetailsListAdapter;

@@ -26,16 +26,27 @@ import static com.cdkj.token.utils.LocalCoinDBUtils.isInState;
  */
 
 public class BTCToAddressListAdapter extends BaseQuickAdapter<BTCBillModel.VoutBean, BaseViewHolder> {
+    private String address;
 
-    public BTCToAddressListAdapter(@Nullable List<BTCBillModel.VoutBean> data) {
+    public BTCToAddressListAdapter(@Nullable List<BTCBillModel.VoutBean> data, String address) {
         super(R.layout.item_coin_address, data);
+        this.address = address;
     }
 
     @Override
     protected void convert(BaseViewHolder helper, BTCBillModel.VoutBean item) {
         if (item == null) return;
-
         helper.setText(R.id.tv_address, item.getAddr());
+
+        helper.setText(R.id.tv_amount, item.getValue() + WalletHelper.COIN_BTC);
+
+        if (TextUtils.equals(item.getAddr(), address)) {
+            helper.setTextColor(R.id.tv_address, ContextCompat.getColor(mContext, R.color.text_blue));
+            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.text_blue));
+        } else {
+            helper.setTextColor(R.id.tv_address, ContextCompat.getColor(mContext, R.color.text_black_cd));
+            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.text_black_cd));
+        }
     }
 
 

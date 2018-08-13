@@ -41,6 +41,16 @@ public class BTCBillModel implements Parcelable {
     private List<VinBean> vin;
     private List<VoutBean> vout;
 
+    private String address;
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
     public String getTxHash() {
         return txHash;
     }
@@ -144,7 +154,7 @@ public class BTCBillModel implements Parcelable {
         private int vout;
         private String addr;
         private long valueSat;
-        private double value;
+        private String value;
 
         public String getTxid() {
             return txid;
@@ -186,12 +196,15 @@ public class BTCBillModel implements Parcelable {
             this.valueSat = valueSat;
         }
 
-        public double getValue() {
+        public String getValue() {
             return value;
         }
 
-        public void setValue(double value) {
+        public void setValue(String value) {
             this.value = value;
+        }
+
+        public VinBean() {
         }
 
         @Override
@@ -206,10 +219,7 @@ public class BTCBillModel implements Parcelable {
             dest.writeInt(this.vout);
             dest.writeString(this.addr);
             dest.writeLong(this.valueSat);
-            dest.writeDouble(this.value);
-        }
-
-        public VinBean() {
+            dest.writeString(this.value);
         }
 
         protected VinBean(Parcel in) {
@@ -218,7 +228,7 @@ public class BTCBillModel implements Parcelable {
             this.vout = in.readInt();
             this.addr = in.readString();
             this.valueSat = in.readLong();
-            this.value = in.readDouble();
+            this.value = in.readString();
         }
 
         public static final Creator<VinBean> CREATOR = new Creator<VinBean>() {
@@ -247,7 +257,7 @@ public class BTCBillModel implements Parcelable {
         private String scriptPubKey;
         private String addr;
         private long valueSat;
-        private double value;
+        private String value;
 
         public int getN() {
             return n;
@@ -281,12 +291,15 @@ public class BTCBillModel implements Parcelable {
             this.valueSat = valueSat;
         }
 
-        public double getValue() {
+        public String getValue() {
             return value;
         }
 
-        public void setValue(double value) {
+        public void setValue(String value) {
             this.value = value;
+        }
+
+        public VoutBean() {
         }
 
         @Override
@@ -300,10 +313,7 @@ public class BTCBillModel implements Parcelable {
             dest.writeString(this.scriptPubKey);
             dest.writeString(this.addr);
             dest.writeLong(this.valueSat);
-            dest.writeDouble(this.value);
-        }
-
-        public VoutBean() {
+            dest.writeString(this.value);
         }
 
         protected VoutBean(Parcel in) {
@@ -311,7 +321,7 @@ public class BTCBillModel implements Parcelable {
             this.scriptPubKey = in.readString();
             this.addr = in.readString();
             this.valueSat = in.readLong();
-            this.value = in.readDouble();
+            this.value = in.readString();
         }
 
         public static final Creator<VoutBean> CREATOR = new Creator<VoutBean>() {
@@ -325,6 +335,9 @@ public class BTCBillModel implements Parcelable {
                 return new VoutBean[size];
             }
         };
+    }
+
+    public BTCBillModel() {
     }
 
     @Override
@@ -343,11 +356,9 @@ public class BTCBillModel implements Parcelable {
         dest.writeLong(this.valueOut);
         dest.writeInt(this.size);
         dest.writeString(this.transDatetime);
-        dest.writeList(this.vin);
-        dest.writeList(this.vout);
-    }
-
-    public BTCBillModel() {
+        dest.writeTypedList(this.vin);
+        dest.writeTypedList(this.vout);
+        dest.writeString(this.address);
     }
 
     protected BTCBillModel(Parcel in) {
@@ -360,13 +371,12 @@ public class BTCBillModel implements Parcelable {
         this.valueOut = in.readLong();
         this.size = in.readInt();
         this.transDatetime = in.readString();
-        this.vin = new ArrayList<VinBean>();
-        in.readList(this.vin, VinBean.class.getClassLoader());
-        this.vout = new ArrayList<VoutBean>();
-        in.readList(this.vout, VoutBean.class.getClassLoader());
+        this.vin = in.createTypedArrayList(VinBean.CREATOR);
+        this.vout = in.createTypedArrayList(VoutBean.CREATOR);
+        this.address = in.readString();
     }
 
-    public static final Parcelable.Creator<BTCBillModel> CREATOR = new Parcelable.Creator<BTCBillModel>() {
+    public static final Creator<BTCBillModel> CREATOR = new Creator<BTCBillModel>() {
         @Override
         public BTCBillModel createFromParcel(Parcel source) {
             return new BTCBillModel(source);
