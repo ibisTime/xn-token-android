@@ -80,7 +80,7 @@ public interface MyApi {
      */
     @FormUrlEncoded
     @POST("api")
-    Call<BaseResponseModel<ResponseInListModel<RecommendAppModel>>> getAppList(@Field("code") String code, @Field("json") String json);
+    Call<BaseResponseListModel<RecommendAppModel>> getAppList(@Field("code") String code, @Field("json") String json);
 
 
     /**

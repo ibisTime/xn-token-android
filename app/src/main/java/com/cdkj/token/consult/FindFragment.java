@@ -4,23 +4,31 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cdkj.baselibrary.api.BaseResponseListModel;
+import com.cdkj.baselibrary.api.BaseResponseModel;
+import com.cdkj.baselibrary.api.ResponseInListModel;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
+import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
+import com.cdkj.token.adapter.AppListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.consult.product_application.management_money.ManagementMoneyListActivity;
 import com.cdkj.token.databinding.FragmentFindBinding;
 import com.cdkj.token.common.loader.BannerImageLoader;
 import com.cdkj.token.model.BannerModel;
+import com.cdkj.token.model.RecommendAppModel;
 import com.cdkj.token.user.WebViewImgBgActivity;
 import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.consult.product_application.red_package.SendRedPackageActivity;
@@ -40,8 +48,10 @@ import retrofit2.Call;
 
 public class FindFragment extends BaseLazyFragment {
 
-    private FragmentFindBinding mHeadBinding;
+    private FragmentFindBinding mBinding;
     private List<BannerModel> bannerData = new ArrayList<>();
+
+    private AppListAdapter appListAdapter;
 
     /**
      * 获得fragment实例
@@ -57,43 +67,82 @@ public class FindFragment extends BaseLazyFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mHeadBinding = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.fragment_find, null, false);
+        mBinding = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.fragment_find, null, false);
+
+        initAdapter();
 
         initListener();
 
         initBanner();
 
-        return mHeadBinding.getRoot();
+        return mBinding.getRoot();
 
+    }
+
+    /**
+     * 初始化适配器
+     */
+    void initAdapter() {
+        mBinding.recyclerViewApp.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false) {
+            @Override
+            public boolean canScrollVertically() {
+                return false;
+            }
+        });
+
+        appListAdapter = new AppListAdapter(null);
+
+        appListAdapter.setOnItemClickListener((adapter, view, position) -> {
+
+            if (position < 0 || position > adapter.getData().size()) {
+                return;
+            }
+
+            RecommendAppModel recommendAppModel = appListAdapter.getItem(position);
+
+            if (recommendAppModel == null || TextUtils.isEmpty(recommendAppModel.getAction())) {
+                return;
+            }
+
+            switch (recommendAppModel.getAction()) {
+                case "red_packet"://跳到红包
+                    SendRedPackageActivity.open(mActivity);
+                    break;
+            }
+
+
+        });
+
+        mBinding.recyclerViewApp.setAdapter(appListAdapter);
     }
 
     private void initListener() {
         //消息
-        mHeadBinding.flRight.setOnClickListener(view -> {
+        mBinding.flRight.setOnClickListener(view -> {
             MsgListActivity.open(mActivity);
         });
 
-        //首创玩法
-        mHeadBinding.linLayoutFirstPlay.setOnClickListener(view -> {
-//            NoneActivity.open(mActivity, NoneActivity.FIRST_CREATE);
-            WebViewImgBgActivity.openkey(mActivity, getString(R.string.consult_1), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_GLOBAL_MASTER));
-        });
-
-        mHeadBinding.linLayoutYbb.setOnClickListener(view -> {
-//            NoneActivity.open(mActivity, NoneActivity.YBB);
-            WebViewImgBgActivity.openkey(mActivity, getString(R.string.yibibao), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_YUBIBAO));
-        });
-
-        mHeadBinding.linLayoutLhlc.setOnClickListener(view -> {
-//            NoneActivity.open(mActivity, NoneActivity.LHLC);
-//            WebViewImgBgActivity.openkey(mActivity, getString(R.string.lianghualicai), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_QUANTITATIVE_FINANCE));
-            ManagementMoneyListActivity.open(mActivity);
-        });
-
-        mHeadBinding.linLayoutRedPacket.setOnClickListener(view -> {
-            //跳转到红包
-            SendRedPackageActivity.open(mActivity);
-        });
+//        //首创玩法
+//        mBinding.linLayoutFirstPlay.setOnClickListener(view -> {
+////            NoneActivity.open(mActivity, NoneActivity.FIRST_CREATE);
+//            WebViewImgBgActivity.openkey(mActivity, getString(R.string.consult_1), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_GLOBAL_MASTER));
+//        });
+//
+//        mBinding.linLayoutYbb.setOnClickListener(view -> {
+////            NoneActivity.open(mActivity, NoneActivity.YBB);
+//            WebViewImgBgActivity.openkey(mActivity, getString(R.string.yibibao), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_YUBIBAO));
+//        });
+//
+//        mBinding.linLayoutLhlc.setOnClickListener(view -> {
+////            NoneActivity.open(mActivity, NoneActivity.LHLC);
+////            WebViewImgBgActivity.openkey(mActivity, getString(R.string.lianghualicai), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_QUANTITATIVE_FINANCE));
+//            ManagementMoneyListActivity.open(mActivity);
+//        });
+//
+//        mBinding.linLayoutRedPacket.setOnClickListener(view -> {
+//            //跳转到红包
+//            SendRedPackageActivity.open(mActivity);
+//        });
 
     }
 
@@ -101,7 +150,7 @@ public class FindFragment extends BaseLazyFragment {
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mHeadBinding.banner.stopAutoPlay();
+        mBinding.banner.stopAutoPlay();
     }
 
 
@@ -128,11 +177,11 @@ public class FindFragment extends BaseLazyFragment {
 
                 if (bannerData == null || bannerData.isEmpty()) return;
                 //设置图片集合
-                mHeadBinding.banner.setImages(bannerData);
+                mBinding.banner.setImages(bannerData);
                 //banner设置方法全部调用完毕时最后调用
-                mHeadBinding.banner.start();
+                mBinding.banner.start();
 
-                mHeadBinding.banner.startAutoPlay();
+                mBinding.banner.startAutoPlay();
 
             }
 
@@ -146,22 +195,22 @@ public class FindFragment extends BaseLazyFragment {
     private void initBanner() {
 
         //设置banner样式
-        mHeadBinding.banner.setBannerStyle(BannerConfig.CENTER);
+        mBinding.banner.setBannerStyle(BannerConfig.CENTER);
         //设置图片加载器
-        mHeadBinding.banner.setImageLoader(new BannerImageLoader());
+        mBinding.banner.setImageLoader(new BannerImageLoader());
 
         //设置banner动画效果
-//        mHeadBinding.banner.setBannerAnimation(Transformer.DepthPage);
+//        mBinding.banner.setBannerAnimation(Transformer.DepthPage);
         //设置标题集合（当banner样式有显示title时）
 //        banner.setBannerTitles(Arrays.asList(titles));
         //设置自动轮播，默认为true
-        mHeadBinding.banner.isAutoPlay(true);
+        mBinding.banner.isAutoPlay(true);
         //设置轮播时间
-        mHeadBinding.banner.setDelayTime(3500);
+        mBinding.banner.setDelayTime(3500);
         //设置指示器位置（当banner模式中有指示器时）
-        mHeadBinding.banner.setIndicatorGravity(BannerConfig.CENTER);
+        mBinding.banner.setIndicatorGravity(BannerConfig.CENTER);
         //设置banner点击事件
-        mHeadBinding.banner.setOnBannerListener(position -> {
+        mBinding.banner.setOnBannerListener(position -> {
 
             if (bannerData == null || position > bannerData.size()) return;
 
@@ -174,7 +223,7 @@ public class FindFragment extends BaseLazyFragment {
         });
 
         // 设置在操作Banner时listView事件不触发
-//        mHeadBinding.banner.setOnPageChangeListener(new MyPageChangeListener());
+//        mBinding.banner.setOnPageChangeListener(new MyPageChangeListener());
     }
 
     /**
@@ -188,17 +237,33 @@ public class FindFragment extends BaseLazyFragment {
         map.put("location", "0");
         map.put("status", "1");
 
+        showLoadingDialog();
+
+        Call<BaseResponseListModel<RecommendAppModel>> call = RetrofitUtils.createApi(MyApi.class).getAppList("625412", StringUtils.getJsonToString(map));
+
+        call.enqueue(new BaseResponseListCallBack<RecommendAppModel>(mActivity) {
+            @Override
+            protected void onSuccess(List<RecommendAppModel> data, String SucMessage) {
+                appListAdapter.replaceData(data);
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
 
     }
 
     @Override
     protected void lazyLoad() {
-        if (mHeadBinding == null) {
+        if (mBinding == null) {
             return;
         }
+        getAppList();
         // 刷新轮播图
         if (bannerData != null && !bannerData.isEmpty()) {
-            mHeadBinding.banner.startAutoPlay();
+            mBinding.banner.startAutoPlay();
         } else {
             getBanner();
         }
@@ -207,18 +272,18 @@ public class FindFragment extends BaseLazyFragment {
 
     @Override
     protected void onInvisible() {
-        if (mHeadBinding == null) {
+        if (mBinding == null) {
             return;
         }
-        mHeadBinding.banner.stopAutoPlay();
+        mBinding.banner.stopAutoPlay();
     }
 
     @Override
     public void onDestroyView() {
-        if (mHeadBinding == null) {
+        if (mBinding == null) {
             return;
         }
-        mHeadBinding.banner.stopAutoPlay();
+        mBinding.banner.stopAutoPlay();
         super.onDestroyView();
     }
 }
