@@ -26,7 +26,7 @@ import com.cdkj.token.databinding.ActivityWalletBillBinding;
 import com.cdkj.token.model.BillFilterModel;
 import com.cdkj.token.model.BillModel;
 import com.cdkj.token.model.WalletBalanceModel;
-import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.ScrollPicker;
 import com.cdkj.token.views.pop.PickerPop;
@@ -128,7 +128,7 @@ public class BillListActivity extends AbsLoadActivity {
         if (!TextUtils.isEmpty(mAccountBean.getAmountString()) || !TextUtils.isEmpty(mAccountBean.getFrozenAmountString())) {
             BigDecimal amount = new BigDecimal(mAccountBean.getAmountString());
             BigDecimal frozenAmount = new BigDecimal(mAccountBean.getFrozenAmountString());
-            mBinding.tvAmount.setText(AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), mAccountBean.getCoinName(), 8));
+            mBinding.tvAmount.setText(AmountUtil.amountFormatUnit(amount.subtract(frozenAmount), mAccountBean.getCoinName(), 8) + " " + mAccountBean.getCoinName());
         }
 
 

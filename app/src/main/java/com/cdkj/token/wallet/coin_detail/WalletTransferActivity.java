@@ -22,8 +22,9 @@ import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityTransferBinding;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.WalletDBModel;
-import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
+import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -37,10 +38,11 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
+import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
+import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinUnitName;
 
 /**
- * 钱包转账 (BTC WAN) //TODO 地址检测方法 lxjtest地址合法判断
+ * 钱包转账 (BTC WAN)
  * Created by cdkj on 2018/6/8.
  */
 
@@ -93,7 +95,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ETHSCALE) + " " + accountListBean.getCoinName());
+            mBinding.tvCurrency.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ETHSCALE) + " " + accountListBean.getCoinName());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
         }
 
@@ -105,7 +107,6 @@ public class WalletTransferActivity extends AbsLoadActivity {
         initClickListener();
 
         mBinding.btnNext.setOnClickListener(view -> {
-
             if (transferInputCheck()) return;
             showPasswordInputDialog();
 
@@ -140,7 +141,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                 return true;
             }
 
-            BigInteger amountBigInteger = AccountUtil.bigIntegerFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), accountListBean.getCoinName()); //转账数量
+            BigInteger amountBigInteger = AmountUtil.bigIntegerFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), accountListBean.getCoinName()); //转账数量
 
             if (amountBigInteger.compareTo(BigInteger.ZERO) == 0 || amountBigInteger.compareTo(BigInteger.ZERO) == -1) {
                 UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
@@ -199,31 +200,58 @@ public class WalletTransferActivity extends AbsLoadActivity {
         showLoadingDialog();
         mSubscription.add(Observable.just("")
                 .subscribeOn(Schedulers.newThread())
-                .map(s -> {
-                    WalletDBModel w = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
-
-                    if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_WAN)) {   //TODO 转账地址优化
-                        return WalletHelper.transferWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getGasLimit(), transferGasPrice);
-                    }
-                    return WalletHelper.transfer(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getGasLimit(), transferGasPrice);
-                })
+                .map(s -> transferByCoin())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doFinally(() -> disMissLoading())
                 .subscribe(s -> {
-                    if (s == null || s.getError() != null) {
-                        LogUtil.E("has————" + s.getError().getMessage());
+
+                    if (TextUtils.isEmpty(s)) {
                         UITipDialog.showFail(WalletTransferActivity.this, getString(R.string.transfer_fail));
                         return;
                     }
 
-                    if (!TextUtils.isEmpty(s.getTransactionHash())) {
-                        UITipDialog.showSuccess(WalletTransferActivity.this, getString(R.string.transaction_success), dialogInterface -> finish());
-                    }
+                    LogUtil.E("交易hash" + s);
+
+                    UITipDialog.showSuccess(WalletTransferActivity.this, getString(R.string.transaction_success), dialogInterface -> finish());
 
                 }, throwable -> {
                     UITipDialog.showFail(WalletTransferActivity.this, getString(R.string.transfer_fail));
                     LogUtil.E("has————" + throwable);
                 }));
+    }
+
+    /**
+     * 根据币种类型进行转账操作
+     *
+     * @return
+     * @throws Exception
+     */
+    private String transferByCoin() throws Exception {
+
+        WalletDBModel w = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+
+        if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_WAN)) {   //TODO 转账地址优化
+            return WalletHelper.transferForWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getGasLimit(), transferGasPrice);
+        }
+
+        if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_ETH)) {
+            return WalletHelper.transferForEth(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getGasLimit(), transferGasPrice);
+        }
+
+        //币种类型
+        String coinType = LocalCoinDBUtils.getLocalCoinType(accountListBean.getCoinName());
+        //合约地址
+        String contractAddress = LocalCoinDBUtils.getLocalCoinContractAddress(accountListBean.getCoinName());
+
+        if (LocalCoinDBUtils.isEthTokenCoin(coinType)) {
+            return WalletHelper.transferForEthTokenCoin(w, mBinding.editToAddress.getText().toString(), WalletHelper.getUnitAmountValue(mBinding.edtAmount.getText().toString(), accountListBean.getCoinName()), contractAddress, transferGasPrice);
+        }
+
+        if (LocalCoinDBUtils.isWanTokenCoin(coinType)) {
+            return WalletHelper.transferForWanTokenCoin(w, mBinding.editToAddress.getText().toString(), WalletHelper.getUnitAmountValue(mBinding.edtAmount.getText().toString(), accountListBean.getCoinName()), contractAddress, transferGasPrice);
+        }
+
+        return "";
     }
 
     /**
@@ -238,12 +266,15 @@ public class WalletTransferActivity extends AbsLoadActivity {
         mSubscription.add(
                 Observable.just("")
                         .subscribeOn(Schedulers.newThread())
-                        .map(s -> WalletHelper.getGasValue(accountListBean.getCoinName()))
+                        .map(s -> WalletHelper.getGasValue(getCoinUnitName(accountListBean.getCoinName())))
                         .observeOn(AndroidSchedulers.mainThread())
                         .doFinally(() -> disMissLoading())
                         .subscribe(gasPrice -> {
                             this.mGasPrice = gasPrice;
                             this.transferGasPrice = gasPrice;
+
+                            LogUtil.E("交易1" + this.transferGasPrice);
+
                             setShowGasPrice(mGasPrice);
 
                         }, throwable -> {
@@ -291,9 +322,10 @@ public class WalletTransferActivity extends AbsLoadActivity {
     private void setShowGasPrice(BigInteger gasPrice) {
         if (accountListBean == null || gasPrice == null) return;
         mBinding.tvGas.setText(
-                AccountUtil.amountFormatUnitForShow(new BigDecimal(WalletHelper.getGasLimit())                   //limite * gasPrice
-                        .multiply(new BigDecimal(gasPrice)), accountListBean.getCoinName(), ETHSCALE) + " " + accountListBean.getCoinName());
+                AmountUtil.amountFormatUnitForShow(new BigDecimal(WalletHelper.getGasLimit())                   //limite * gasPrice
+                        .multiply(new BigDecimal(gasPrice)), accountListBean.getCoinName(), ETHSCALE) + " " + getCoinUnitName(accountListBean.getCoinName()));
     }
+
 
     private void initClickListener() {
         //扫码

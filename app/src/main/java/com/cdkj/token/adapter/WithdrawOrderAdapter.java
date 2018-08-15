@@ -4,7 +4,7 @@ import android.support.annotation.Nullable;
 
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.token.R;
-import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.model.WithdrawOrderModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,8 +26,8 @@ public class WithdrawOrderAdapter extends BaseQuickAdapter<WithdrawOrderModel.Li
     @Override
     protected void convert(BaseViewHolder helper, WithdrawOrderModel.ListBean item) {
 
-        helper.setText(R.id.tv_price, AccountUtil.amountFormatUnit(new BigDecimal(item.getAmountString()), item.getCurrency(), 8)+" "+item.getCurrency());
-        helper.setText(R.id.tv_fee,AccountUtil.amountFormatUnit(new BigDecimal(item.getFeeString()), item.getCurrency(), 8)+" "+item.getCurrency());
+        helper.setText(R.id.tv_price, AmountUtil.amountFormatUnit(new BigDecimal(item.getAmountString()), item.getCurrency(), 8)+" "+item.getCurrency());
+        helper.setText(R.id.tv_fee, AmountUtil.amountFormatUnit(new BigDecimal(item.getFeeString()), item.getCurrency(), 8)+" "+item.getCurrency());
         helper.setText(R.id.tv_status, getStatus(item.getStatus()));
         helper.setText(R.id.tv_date, DateUtil.formatStringData(item.getApplyDatetime(), DateUtil.DEFAULT_DATE_FMT));
     }

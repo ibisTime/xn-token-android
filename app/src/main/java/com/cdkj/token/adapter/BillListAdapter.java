@@ -8,7 +8,7 @@ import android.widget.ImageView;
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.model.BillModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -47,10 +47,10 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
         BigDecimal tas = new BigDecimal(item.getTransAmountString());
         int i = tas.compareTo(BigDecimal.ZERO);
         if (i == 1) {
-            helper.setText(R.id.tv_amount, "+" + AccountUtil.amountFormatUnit(tas, item.getCurrency(), 8));
+            helper.setText(R.id.tv_amount, "+" + AmountUtil.amountFormatUnit(tas, item.getCurrency(), 8));
             helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext,R.color.in_money));
         } else {
-            helper.setText(R.id.tv_amount, AccountUtil.amountFormatUnit(tas, item.getCurrency(), 8));
+            helper.setText(R.id.tv_amount, AmountUtil.amountFormatUnit(tas, item.getCurrency(), 8));
             helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext,R.color.out_money));
         }
 

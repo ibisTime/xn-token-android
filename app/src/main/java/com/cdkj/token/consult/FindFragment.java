@@ -11,26 +11,21 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.api.BaseResponseListModel;
-import com.cdkj.baselibrary.api.BaseResponseModel;
-import com.cdkj.baselibrary.api.ResponseInListModel;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
-import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.AppListAdapter;
 import com.cdkj.token.api.MyApi;
-import com.cdkj.token.consult.product_application.management_money.ManagementMoneyListActivity;
 import com.cdkj.token.databinding.FragmentFindBinding;
 import com.cdkj.token.common.loader.BannerImageLoader;
 import com.cdkj.token.model.BannerModel;
 import com.cdkj.token.model.RecommendAppModel;
 import com.cdkj.token.user.WebViewImgBgActivity;
-import com.cdkj.token.utils.ThaAppConstant;
 import com.cdkj.token.consult.product_application.red_package.SendRedPackageActivity;
 import com.youth.banner.BannerConfig;
 
@@ -69,7 +64,7 @@ public class FindFragment extends BaseLazyFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.fragment_find, null, false);
 
-        initAdapter();
+        initRecyclerViewAndAdapter();
 
         initListener();
 
@@ -80,9 +75,9 @@ public class FindFragment extends BaseLazyFragment {
     }
 
     /**
-     * 初始化适配器
+     * 初始化recyclerView适配器
      */
-    void initAdapter() {
+    void initRecyclerViewAndAdapter() {
         mBinding.recyclerViewApp.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false) {
             @Override
             public boolean canScrollVertically() {
@@ -107,6 +102,9 @@ public class FindFragment extends BaseLazyFragment {
             switch (recommendAppModel.getAction()) {
                 case "red_packet"://跳到红包
                     SendRedPackageActivity.open(mActivity);
+                    break;
+                case "none":
+                    WebViewImgBgActivity.openContent(mActivity, "name", recommendAppModel.getDescription());
                     break;
             }
 

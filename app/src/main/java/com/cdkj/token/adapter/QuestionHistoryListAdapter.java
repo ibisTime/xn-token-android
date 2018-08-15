@@ -5,21 +5,16 @@ import android.support.annotation.ColorInt;
 import android.support.v4.content.ContextCompat;
 import android.text.Html;
 import android.text.TextUtils;
-import android.view.ViewGroup;
-import android.widget.Switch;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.DateUtil;
-import com.cdkj.baselibrary.utils.DisplayHelper;
-import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.QuestionFeedbackModel;
-import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -128,7 +123,7 @@ public class QuestionHistoryListAdapter extends BaseQuickAdapter<QuestionFeedbac
             case "2":
                 return mContext.getString(R.string.question_state_4) + "0";
             case "3":
-                String money = AccountUtil.amountFormatUnitForShow(questionFeedbackModel.getPayAmount(), WalletHelper.COIN_WAN, AccountUtil.ALLSCALE) + "wan";
+                String money = AmountUtil.amountFormatUnitForShow(questionFeedbackModel.getPayAmount(), WalletHelper.COIN_WAN, AmountUtil.ALLSCALE) + "wan";
                 return Html.fromHtml(mContext.getString(R.string.question_done,
                         money, getLevelString(questionFeedbackModel.getLevel()), questionFeedbackModel.getRepairVersionCode()));
         }

@@ -20,7 +20,7 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityQrredPackageImgBinding;
 import com.cdkj.token.model.RedPackageEventBusBean;
-import com.cdkj.token.utils.ThaAppConstant;
+import com.cdkj.token.common.ThaAppConstant;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import org.greenrobot.eventbus.EventBus;

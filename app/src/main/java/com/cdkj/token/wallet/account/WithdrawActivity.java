@@ -31,7 +31,7 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWithdrawBinding;
 import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.WalletBalanceModel;
-import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -44,7 +44,8 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-import static com.cdkj.token.utils.AccountUtil.getLocalCoinUnit;
+import static com.cdkj.token.utils.LocalCoinDBUtils.getLocalCoinUnit;
+
 
 /**
  * 提币
@@ -114,21 +115,22 @@ public class WithdrawActivity extends AbsLoadActivity {
             return;
         }
 
+
         model = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
         if (model == null) {
             return;
         }
-        mBinding.tvBalance.setText(AccountUtil.sub(Double.parseDouble(model.getAmountString()),
-                Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()));
+        mBinding.tvBalance.setText(AmountUtil.sub(Double.parseDouble(model.getAmountString()),
+                Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()) + " " + model.getCoinName());
         mBinding.tvFee.setText(model.getCoinName());
 
         if (model.getCoinBalance() != null)
-            mBinding.edtAmount.setHint(getString(R.string.wallet_withdraw_amount_hint2) + AccountUtil.sub(Double.parseDouble(model.getCoinBalance()),
+            mBinding.edtAmount.setHint(getString(R.string.wallet_withdraw_amount_hint2) + AmountUtil.sub(Double.parseDouble(model.getCoinBalance()),
                     Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()));
 
         // 设置提现手续费
-        mBinding.edtCommission.setText(AccountUtil.getWithdrawFee(model.getCoinName()));
+        mBinding.edtCommission.setText(AmountUtil.getWithdrawFee(model.getCoinName()));
 
     }
 

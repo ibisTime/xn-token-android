@@ -83,6 +83,7 @@
                     tools:text="@string/wallet_assets" />
 
                 <ImageView
+                    android:padding="3dp"
                     android:id="@+id/tv_assets_show"
                     android:layout_width="20dp"
                     android:layout_height="20dp"

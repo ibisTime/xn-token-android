@@ -10,6 +10,16 @@ public class UserLoginModel {
 
     private String token;
 
+    private String isRegister; //用于验证码登录时 用户是否时新用户
+
+    public String getIsRegister() {
+        return isRegister;
+    }
+
+    public void setIsRegister(String isRegister) {
+        this.isRegister = isRegister;
+    }
+
     public String getUserId() {
         return userId;
     }

@@ -20,7 +20,7 @@ import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreateWalletStartBinding;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.user.WebViewImgBgActivity;
-import com.cdkj.token.utils.ThaAppConstant;
+import com.cdkj.token.common.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.import_guide.ImportWalletStartActivity;
 

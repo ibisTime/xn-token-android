@@ -12,6 +12,7 @@ import android.view.View;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.api.ResponseInListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
@@ -27,19 +28,22 @@ import com.cdkj.token.adapter.CoinBillListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWalletBillBinding;
 import com.cdkj.token.model.BTCBillModel;
+import com.cdkj.token.model.BalanceListModel;
+import com.cdkj.token.model.CoinTypeAndAddress;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.WalletBalanceModel;
-import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
 
-import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
+import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
 
 /**
  * 去中心化钱包币种详情
@@ -100,7 +104,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
      */
     void setAmountInfo() {
         if (!TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvAmount.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ETHSCALE) + accountListBean.getCoinName());
+            mBinding.tvAmount.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ETHSCALE) + accountListBean.getCoinName());
 
         }
 
@@ -239,7 +243,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                getCoinBalance(accountListBean.getCoinName());
             }
         });
 
@@ -303,13 +307,12 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                getCoinBalance(accountListBean.getCoinName());
             }
         });
     }
 
     /**
-     * lxjtest 只是比特币还是btc token币也要
      * 判断当前所属是否比特币
      *
      * @return
@@ -320,5 +323,49 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
         }
         return TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_BTC);
     }
+
+    /**
+     * 获取币种余额
+     */
+    private void getCoinBalance(String coin) {
+
+        if (accountListBean == null) return;
+
+        List<CoinTypeAndAddress> coinList = new ArrayList<>();
+
+        CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();
+
+        coinTypeAndAddress.setSymbol(coin);
+        coinTypeAndAddress.setAddress(accountListBean.getAddress());
+
+        coinList.add(coinTypeAndAddress);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("accountList", coinList);
+
+        Call<BaseResponseModel<BalanceListModel>> call = RetrofitUtils.createApi(MyApi.class).getBalanceList("802270", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        call.enqueue(new BaseResponseModelCallBack<BalanceListModel>(this) {
+            @Override
+            protected void onSuccess(BalanceListModel data, String SucMessage) {
+
+                if (data == null || data.getAccountList() == null
+                        || data.getAccountList().size() == 0 || data.getAccountList().get(0) == null) {
+                    return;
+                }
+
+                accountListBean.setCoinBalance(data.getAccountList().get(0).getBalance().toString());
+                setAmountInfo();
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+    }
+
 
 }

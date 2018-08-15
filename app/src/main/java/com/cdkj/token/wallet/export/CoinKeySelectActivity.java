@@ -8,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import com.cdkj.baselibrary.base.AbsRefreshListActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.CoinKeySelectAdapter;
+import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.util.List;
@@ -56,7 +57,7 @@ public class CoinKeySelectActivity extends AbsRefreshListActivity {
         mSubscription.add(
                 Observable.just("")
                         .subscribeOn(Schedulers.newThread())
-                        .map(s -> WalletHelper.getLocalCoinList())
+                        .map(s -> LocalCoinDBUtils.getLocalCoinList())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnComplete(() -> disMissLoading())
                         .subscribe(s -> {

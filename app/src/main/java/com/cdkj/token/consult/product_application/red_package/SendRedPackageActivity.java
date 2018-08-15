@@ -31,8 +31,8 @@ import com.cdkj.token.databinding.ActivitySendRedPackageBinding;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.RedPackageHistoryBean;
 import com.cdkj.token.user.WebViewImgBgActivity;
-import com.cdkj.token.utils.AccountUtil;
-import com.cdkj.token.utils.ThaAppConstant;
+import com.cdkj.token.utils.AmountUtil;
+import com.cdkj.token.common.ThaAppConstant;
 import com.cdkj.token.views.dialogs.UserBalanceDialog;
 import com.cdkj.token.views.dialogs.UserPayPasswordInputDialog;
 import com.cdkj.token.wallet.account.RechargeAddressQRActivity;
@@ -463,7 +463,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
         if (!TextUtils.isEmpty(accountListBean.getAmountString()) && !TextUtils.isEmpty(accountListBean.getFrozenAmountString())) {
             BigDecimal amount = new BigDecimal(accountListBean.getAmountString());
             BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
-            String yue = AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), 8);
+            String yue = AmountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), 8);
             balanString = yue;
             mBinding.tvBalance.setText(getString(R.string.red_package_have) + ":" + yue);
         }

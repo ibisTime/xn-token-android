@@ -20,7 +20,6 @@ import com.cdkj.baselibrary.dialog.NumberPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
-import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
@@ -32,7 +31,7 @@ import com.cdkj.token.model.UTXOListModel;
 import com.cdkj.token.model.UTXOModel;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.WalletDBModel;
-import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
@@ -46,7 +45,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
+import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
 
 /**
  * 钱包转账（BTC）
@@ -106,7 +105,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvCurrency.setText(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ETHSCALE) + " " + accountListBean.getCoinName());
+            mBinding.tvCurrency.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ETHSCALE) + " " + accountListBean.getCoinName());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
         }
 
@@ -253,7 +252,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             }
 
             //转账数量
-            amountBigDecimal = AccountUtil.bigDecimalFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), WalletHelper.COIN_BTC);
+            amountBigDecimal = AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), WalletHelper.COIN_BTC);
 
             if (amountBigDecimal.compareTo(BigDecimal.ZERO) == 0 || amountBigDecimal.compareTo(BigDecimal.ZERO) == -1) {
                 UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
@@ -362,7 +361,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
                         try {
 
                             String sign = WalletHelper.signBTCTransactionData(unSpentBTCList, WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId()).getBtcAddress(), mBinding.editToAddress.getText().toString().trim(),
-                                    WalletHelper.getPrivateKeyByCoinType(SPUtilHelper.getUserId(), WalletHelper.COIN_BTC), AccountUtil.bigDecimalFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), WalletHelper.COIN_BTC).longValue(), getFee(unSpentBTCList, amountBigDecimal.longValue(), mfees.intValue()));
+                                    WalletHelper.getPrivateKeyByCoinType(SPUtilHelper.getUserId(), WalletHelper.COIN_BTC), AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), WalletHelper.COIN_BTC).longValue(), getFee(unSpentBTCList, amountBigDecimal.longValue(), mfees.intValue()));
 
                             btcTransactionBroadcast(sign);
 

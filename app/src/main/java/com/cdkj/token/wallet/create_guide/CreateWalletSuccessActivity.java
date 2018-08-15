@@ -10,7 +10,7 @@ import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreateWalletSuccessBinding;
 import com.cdkj.token.user.WebViewImgBgActivity;
-import com.cdkj.token.utils.ThaAppConstant;
+import com.cdkj.token.common.ThaAppConstant;
 import com.cdkj.token.wallet.backup_guide.BackupWalletStartActivity;
 
 /**

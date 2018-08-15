@@ -50,7 +50,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="40dp"
                 android:layout_marginTop="15dp"
-                android:src="@mipmap/default_pic" />
+                android:src="@drawable/backup_start_dialog" />
 
 
         </LinearLayout>

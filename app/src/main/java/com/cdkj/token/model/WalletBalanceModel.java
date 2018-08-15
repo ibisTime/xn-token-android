@@ -18,6 +18,7 @@ public class WalletBalanceModel implements Parcelable {
     private String marketPriceUSD;
     private String amountCny;
     private String amountUSD;
+    private String coinType;
 
     private String accountNumber;
 
@@ -26,6 +27,14 @@ public class WalletBalanceModel implements Parcelable {
     private String coinBalance="0";
     private String frozenAmountString="0";
     private String amountString="0";
+
+    public String getCoinType() {
+        return coinType;
+    }
+
+    public void setCoinType(String coinType) {
+        this.coinType = coinType;
+    }
 
     public String getCoinBalance() {
         return coinBalance;
@@ -141,6 +150,7 @@ public class WalletBalanceModel implements Parcelable {
         dest.writeString(this.marketPriceUSD);
         dest.writeString(this.amountCny);
         dest.writeString(this.amountUSD);
+        dest.writeString(this.coinType);
         dest.writeString(this.accountNumber);
         dest.writeString(this.address);
         dest.writeString(this.coinBalance);
@@ -156,6 +166,7 @@ public class WalletBalanceModel implements Parcelable {
         this.marketPriceUSD = in.readString();
         this.amountCny = in.readString();
         this.amountUSD = in.readString();
+        this.coinType = in.readString();
         this.accountNumber = in.readString();
         this.address = in.readString();
         this.coinBalance = in.readString();

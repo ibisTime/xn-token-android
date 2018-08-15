@@ -18,7 +18,7 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityInviteFriendQrcodeBinding;
-import com.cdkj.token.utils.ThaAppConstant;
+import com.cdkj.token.common.ThaAppConstant;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.io.ByteArrayOutputStream;

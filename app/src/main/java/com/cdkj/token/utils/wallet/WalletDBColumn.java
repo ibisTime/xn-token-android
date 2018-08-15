@@ -11,8 +11,17 @@ public class WalletDBColumn {
     public static final String FINDUSER_SQL = "select * from walletdbmodel where " + WalletDBColumn.USERID + "=?";
     //查找用户选择币种
     public static final String FINDUSER_COIN_SQL = "select * from userconfigdbmodel where " + WalletDBColumn.USERID + "=?";
-    //查找本地币种单位
-    public static final String FIND_LOCAL_COIN_SQL = "select " + WalletDBColumn.COIN_UNIT + " from localcoindbmodel where " + WalletDBColumn.COIN_SYMBOL + "=?";
+
+    /**
+     * 根据币种名获取某种币种的属性
+     *
+     * @param attributes
+     * @return
+     */
+    public static String getLocalCoinAttributesSqlByCoinSymbol(String attributes) {
+        return "select " + attributes + " from localcoindbmodel where " + WalletDBColumn.COIN_SYMBOL + "=?";
+    }
+
     //删除用户钱包
     public static final String FIND_USER_SQL = WalletDBColumn.USERID + "=?";
 
@@ -47,7 +56,12 @@ public class WalletDBColumn {
     public static final String BTC_PRIVATEKEY = "btcprivatekey";
 
     public static final String COIN_SYMBOL = "symbol";
+
     public static final String COIN_UNIT = "unit";
+
+    public static final String COIN_TYPE = "type";
+
+    public static final String COIN_CONTRACTADDRESS = "contractaddress";
 
 
 }

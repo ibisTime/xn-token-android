@@ -15,15 +15,13 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.BTCFromAddressListAdapter;
 import com.cdkj.token.adapter.BTCToAddressListAdapter;
 import com.cdkj.token.databinding.ActivityBtcTransctionDetailsBinding;
-import com.cdkj.token.databinding.ActivityTransctionDetailsBinding;
 import com.cdkj.token.model.BTCBillModel;
-import com.cdkj.token.model.LocalCoinBill;
-import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import static com.cdkj.baselibrary.utils.DateUtil.DEFAULT_DATE_FMT;
-import static com.cdkj.token.utils.AccountUtil.ETHSCALE;
+import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getMoneyStateByState;
 
 /**
@@ -126,11 +124,11 @@ public class BTCTransactionDetailsActivity extends AbsLoadActivity {
             mBinding.tvStateString.setText(R.string.transfer);
         }
 
-        mBinding.tvMoney.setText(getMoneyStateByState(btcBillModel.getDirection()) + AccountUtil.amountFormatUnitForShow(btcBillModel.getValue(), WalletHelper.COIN_BTC, ETHSCALE) + " " + WalletHelper.COIN_BTC);
+        mBinding.tvMoney.setText(getMoneyStateByState(btcBillModel.getDirection()) + AmountUtil.amountFormatUnitForShow(btcBillModel.getValue(), WalletHelper.COIN_BTC, ETHSCALE) + " " + WalletHelper.COIN_BTC);
 
         mBinding.tvBlockHeight.setText(btcBillModel.getHeight()+"");
         mBinding.tvDate.setText(DateUtil.formatStringData(btcBillModel.getTransDatetime(), DEFAULT_DATE_FMT));
-        mBinding.tvGas.setText(AccountUtil.amountFormatUnitForShow(btcBillModel.getTxFee(), WalletHelper.COIN_BTC, ETHSCALE));
+        mBinding.tvGas.setText(AmountUtil.amountFormatUnitForShow(btcBillModel.getTxFee(), WalletHelper.COIN_BTC, ETHSCALE));
         mBinding.tvTransctionCode.setText(btcBillModel.getTxHash());
 
 

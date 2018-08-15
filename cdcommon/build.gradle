@@ -81,10 +81,10 @@ dependencies {
     api 'org.litepal.android:core:1.6.1'
 
     api 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
-    api 'cn.bingoogolapple:bga-photopicker:1.2.8@aar'
-    api 'cn.bingoogolapple:bga-baseadapter:1.2.8@aar'
     api 'cn.bingoogolapple:bga-baseadapter:1.2.8@aar'
 
+    api 'com.umeng.sdk:common:latest.integration'
+    api 'com.umeng.sdk:analytics:latest.integration'
 //    debugApi 'com.facebook.stetho:stetho:1.5.0'
 //    debugApi 'com.facebook.stetho:stetho-okhttp3:1.4.2'
 //    debugApi 'com.facebook.stetho:stetho-js-rhino:1.3.1'

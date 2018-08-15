@@ -16,7 +16,6 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
-import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -41,7 +40,8 @@ import com.cdkj.token.model.MsgListModel;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.WalletDBModel;
-import com.cdkj.token.utils.AccountUtil;
+import com.cdkj.token.utils.AmountUtil;
+import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.CardChangeLayout;
 import com.cdkj.token.views.dialogs.InfoSureDialog;
@@ -62,7 +62,7 @@ import java.util.Map;
 import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 
-import static com.cdkj.token.utils.AccountUtil.ALLSCALE;
+import static com.cdkj.token.utils.AmountUtil.ALLSCALE;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
 import static com.cdkj.token.views.CardChangeLayout.BOTTOMVIEW;
 import static com.cdkj.token.views.CardChangeLayout.TOPVIEW;
@@ -80,13 +80,14 @@ public class WalletFragment extends BaseLazyFragment {
     private List<CoinTypeAndAddress> mChooseCoinList;
 
     private boolean isPrivateWallet = false;//当前是否是私密钱包 默认我的钱包
-    private CommonDialog commonDialog;
     private LocalCoinCachePresenter mlLocalCoinCachePresenter;
 
     private boolean isFirstCache = false;//是否进行了第一次币种缓存
     private View mImportGuideView;  //导入钱包引导
     private CoinModel mWalletData;
     private BalanceListModel mPrivateWalletData;
+
+    private final String HIND_SIGN = "****";
 
 
     public static WalletFragment getInstance() {
@@ -113,6 +114,8 @@ public class WalletFragment extends BaseLazyFragment {
         getMsgRequest();
 
         initLocalCoinPresenter();
+
+        initAssectsByEyeState(SPUtilHelper.isAssetsShow());
 
         mlLocalCoinCachePresenter.getCoinList(mActivity, true);  //开始时请求币种缓存
 
@@ -163,9 +166,9 @@ public class WalletFragment extends BaseLazyFragment {
 
         mBinding.tvAssetsShow.setOnClickListener(view -> {
 
-            boolean isShow = SPUtilHelper.isAssetsShow();
+            boolean isShow = !SPUtilHelper.isAssetsShow();
             toggleAssectsByEyeState(isShow);
-            SPUtilHelper.saveIsAssetsShow(!isShow);
+            SPUtilHelper.saveIsAssetsShow(isShow);
 
         });
 
@@ -218,10 +221,31 @@ public class WalletFragment extends BaseLazyFragment {
             setWalletAssetsText(mWalletData);
             shePrivateWalletAssectText(mPrivateWalletData);
             countAllWalletAmount();
+
         } else {
-            mBinding.tvAllWalletAmount.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()) + "***");
-            mBinding.cardChangeLayout.tvWalletAmount.setText("***");
-            mBinding.cardChangeLayout.tvPriWalletAmount.setText("***");
+
+            mBinding.tvAllWalletAmount.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()) + HIND_SIGN);
+            mBinding.cardChangeLayout.tvWalletAmount.setText(HIND_SIGN);
+            mBinding.cardChangeLayout.tvPriWalletAmount.setText(HIND_SIGN);
+            mBinding.tvAssetsShow.setImageResource(R.drawable.eye_close);
+        }
+    }
+
+    /**
+     * 是否显示资产
+     *
+     * @param isShow
+     */
+    private void initAssectsByEyeState(boolean isShow) {
+        if (isShow) {
+            mBinding.tvAssetsShow.setImageResource(R.drawable.eye_open);
+            mBinding.cardChangeLayout.tvWalletAmount.setText("0.00");
+            mBinding.cardChangeLayout.tvPriWalletAmount.setText("0.00");
+            mBinding.tvAllWalletAmount.setText("0.00");
+        } else {
+            mBinding.tvAllWalletAmount.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()) + HIND_SIGN);
+            mBinding.cardChangeLayout.tvWalletAmount.setText(HIND_SIGN);
+            mBinding.cardChangeLayout.tvPriWalletAmount.setText(HIND_SIGN);
             mBinding.tvAssetsShow.setImageResource(R.drawable.eye_close);
         }
     }
@@ -239,6 +263,10 @@ public class WalletFragment extends BaseLazyFragment {
                     if (mActivity != null) {
                         mActivity.finish();
                     }
+                    return false;
+                }
+
+                if (mBinding.refreshLayout.isRefreshing() || mBinding.refreshLayout.isLoading()) {
                     return false;
                 }
 
@@ -565,7 +593,6 @@ public class WalletFragment extends BaseLazyFragment {
     public void getLocalCoinAndRequestWalletDdata(boolean isSetRecyclerData, boolean isShowDialog) {
         Disposable disposable = WalletHelper.getLocalCoinListAsync(localCoinDbModels -> {
             if (localCoinDbModels != null) {
-
                 mChooseCoinList = getChooseCoinList(localCoinDbModels);
                 getPriWalletAssetsData(isSetRecyclerData, isShowDialog);
             }
@@ -599,7 +626,7 @@ public class WalletFragment extends BaseLazyFragment {
 
             CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();    //0 公链币（ETH BTC WAN） 1 ethtoken（ETH） 2 wantoken（WAN）        通过币种和type 添加地址
 
-            if (TextUtils.equals(localCoinDbModel.getType(), "0")) {
+            if (LocalCoinDBUtils.isCommonChainCoin(localCoinDbModel.getType())) {
 
                 if (TextUtils.equals(WalletHelper.COIN_BTC, localCoinDbModel.getSymbol())) {
                     coinTypeAndAddress.setAddress(walletDBModel.getBtcAddress());
@@ -609,11 +636,11 @@ public class WalletFragment extends BaseLazyFragment {
                     coinTypeAndAddress.setAddress(walletDBModel.getWanAddress());
                 }
 
-            } else if (TextUtils.equals(localCoinDbModel.getType(), "1")) {
+            } else if (LocalCoinDBUtils.isEthTokenCoin(localCoinDbModel.getType())) {
 
                 coinTypeAndAddress.setAddress(walletDBModel.getEthAddress());
 
-            } else if (TextUtils.equals(localCoinDbModel.getType(), "2")) {
+            } else if (LocalCoinDBUtils.isWanTokenCoin(localCoinDbModel.getType())) {
 
                 coinTypeAndAddress.setAddress(walletDBModel.getWanAddress());
 
@@ -629,7 +656,7 @@ public class WalletFragment extends BaseLazyFragment {
      * 计算所有钱包资产(个人 + 私有)
      */
     private void countAllWalletAmount() {
-        if (mWalletData==null || mPrivateWalletData==null) {
+        if (mWalletData == null || mPrivateWalletData == null) {
             return;
         }
 
@@ -665,7 +692,7 @@ public class WalletFragment extends BaseLazyFragment {
 
                 BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
 
-                walletBalanceModel.setAmount(AccountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), ALLSCALE));
+                walletBalanceModel.setAmount(AmountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), ALLSCALE));
             }
 
             walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getCurrency(), 1));
@@ -712,7 +739,7 @@ public class WalletFragment extends BaseLazyFragment {
 
             walletBalanceModel.setCoinName(accountListBean.getSymbol());
 
-            walletBalanceModel.setAmount(AccountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), accountListBean.getSymbol(), 8));
+            walletBalanceModel.setAmount(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), accountListBean.getSymbol(), 8));
 
             walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getSymbol(), 1));
 
@@ -726,7 +753,10 @@ public class WalletFragment extends BaseLazyFragment {
 
             walletBalanceModel.setAddress(accountListBean.getAddress());
 
-            walletBalanceModel.setCoinBalance(accountListBean.getBalance() + "");
+            if (accountListBean.getBalance() != null) {
+                walletBalanceModel.setCoinBalance(accountListBean.getBalance().toString());
+            }
+
 
             walletBalanceModels.add(walletBalanceModel);
         }
@@ -787,9 +817,6 @@ public class WalletFragment extends BaseLazyFragment {
 
     @Override
     public void onDestroy() {
-        if (commonDialog != null) {
-            commonDialog.closeDialog();
-        }
         if (mlLocalCoinCachePresenter != null) {
             mlLocalCoinCachePresenter.clear();
         }

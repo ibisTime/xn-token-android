@@ -1,17 +1,23 @@
 package com.cdkj.token.utils;
 
+import android.database.Cursor;
 import android.text.TextUtils;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.R;
+import com.cdkj.token.utils.wallet.WalletDBColumn;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.litepal.crud.DataSupport;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.cdkj.token.utils.wallet.WalletDBColumn.DELETE_LOCAL_COIN;
+import static com.cdkj.token.utils.wallet.WalletDBColumn.getLocalCoinAttributesSqlByCoinSymbol;
 
 /**
  * 本地缓存币种数据库
@@ -22,6 +28,40 @@ public class LocalCoinDBUtils {
 
     //自选分隔符
     public final static String COIN_SYMBOL_SPACE_SYMBOL = ",";
+
+    //0 公链币（ETH BTC WAN） 1 ethtoken（ETH） 2 wantoken（WAN）
+
+
+    /**
+     * 判断是否公链币
+     *
+     * @param coinType 0 公链币（ETH BTC WAN）
+     * @return
+     */
+    public static boolean isCommonChainCoin(String coinType) {
+        return TextUtils.equals("0", coinType);
+    }
+
+
+    /**
+     * 判断是否ETH token币
+     *
+     * @param coinType 1 ethtoken（ETH）
+     * @return
+     */
+    public static boolean isEthTokenCoin(String coinType) {
+        return TextUtils.equals("1", coinType);
+    }
+
+    /**
+     * 判断是否Wan token币
+     *
+     * @param coinType 2 wantoken（WAN）
+     * @return
+     */
+    public static boolean isWanTokenCoin(String coinType) {
+        return TextUtils.equals("2", coinType);
+    }
 
 
     /**
@@ -42,7 +82,7 @@ public class LocalCoinDBUtils {
             return;
         }
 
-        List<LocalCoinDbModel> myLocalCoinList = WalletHelper.getLocalCoinList();  //本地缓存列表
+        List<LocalCoinDbModel> myLocalCoinList = getLocalCoinList();  //本地缓存列表
 
         updateLocalCoinByAdd(requestCoins, myLocalCoinList);
 
@@ -60,7 +100,7 @@ public class LocalCoinDBUtils {
         //本地缓存和请求到的数据比对 找出需要删除的币种
         for (LocalCoinDbModel localCoinDbModel : myLocalCoinList) {
             if (!requestCoins.contains(localCoinDbModel)) {  //数据不存在 则删除本地缓存
-                WalletHelper.deleteLocalCoinBySymbol(localCoinDbModel.getSymbol());
+                deleteLocalCoinBySymbol(localCoinDbModel.getSymbol());
                 LogUtil.E("localCoin delete：" + localCoinDbModel.getSymbol());
             }
         }
@@ -186,5 +226,116 @@ public class LocalCoinDBUtils {
     public static boolean isInState(String direction) {
         return TextUtils.equals(direction, "1");
     }
+
+
+    /**
+     * 根据货币获取最小单位
+     *
+     * @param
+     * @return
+     */
+    public static BigDecimal getLocalCoinUnit(String coinSymbol) {
+
+        Cursor cursor = DataSupport.findBySQL(getLocalCoinAttributesSqlByCoinSymbol(WalletDBColumn.COIN_UNIT), coinSymbol);
+
+        int unit = 1;
+
+        if (cursor != null && cursor.moveToFirst()) {
+
+            try {
+                unit = cursor.getInt(cursor.getColumnIndex(WalletDBColumn.COIN_UNIT));
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                cursor.close();
+            }
+        }
+
+        return BigDecimal.TEN.pow(unit);
+    }
+
+
+    /**
+     * 根据货币获取币种类型
+     *
+     * @param
+     * @return
+     */
+    public static String getLocalCoinType(String coinSymbol) {
+
+        Cursor cursor = DataSupport.findBySQL(getLocalCoinAttributesSqlByCoinSymbol(WalletDBColumn.COIN_TYPE), coinSymbol);
+
+        String coinType = "";
+
+        if (cursor != null && cursor.moveToFirst()) {
+
+            try {
+                coinType = cursor.getString(cursor.getColumnIndex(WalletDBColumn.COIN_TYPE));
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                cursor.close();
+            }
+        }
+
+        return coinType;
+    }
+
+
+    /**
+     * 根据货币获取币种合约地址
+     *
+     * @param
+     * @return
+     */
+    public static String getLocalCoinContractAddress(String coinSymbol) {
+
+        Cursor cursor = DataSupport.findBySQL(getLocalCoinAttributesSqlByCoinSymbol(WalletDBColumn.COIN_CONTRACTADDRESS), coinSymbol);
+
+        String contractaddress = "";
+
+        if (cursor != null && cursor.moveToFirst()) {
+
+            try {
+                contractaddress = cursor.getString(cursor.getColumnIndex(WalletDBColumn.COIN_CONTRACTADDRESS));
+            } catch (Exception e) {
+                e.printStackTrace();
+            } finally {
+                cursor.close();
+            }
+        }
+
+        return contractaddress;
+    }
+
+    //获取本地所有缓存币种
+    public static List<LocalCoinDbModel> getLocalCoinList() {
+        return DataSupport.findAll(LocalCoinDbModel.class);
+    }
+
+    public static boolean deleteLocalCoinBySymbol(String symbol) {
+        return DataSupport.deleteAll(LocalCoinDbModel.class, DELETE_LOCAL_COIN, symbol) > 0;
+    }
+
+
+    /**
+     * 根据币种获取当前币种的名称 公链币显示当前名称 token币显示 wan 或 eth
+     *
+     * @param coin
+     * @return
+     */
+    public static String getCoinUnitName(String coin) {
+
+        String coinType = getLocalCoinType(coin);
+
+        if (isWanTokenCoin(coinType)) {
+            return WalletHelper.COIN_WAN;
+        }
+        if (isEthTokenCoin(coinType)) {
+            return WalletHelper.COIN_ETH;
+        }
+        return coin;
+    }
+
 
 }

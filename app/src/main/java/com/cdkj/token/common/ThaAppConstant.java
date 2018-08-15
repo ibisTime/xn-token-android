@@ -1,4 +1,4 @@
-package com.cdkj.token.utils;
+package com.cdkj.token.common;
 
 import android.text.TextUtils;
 

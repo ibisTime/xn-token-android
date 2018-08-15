@@ -12,6 +12,7 @@ import com.cdkj.token.common.AppFrontBackHelper;
 import com.cdkj.token.model.PatternLockCheckFinish;
 import com.cdkj.token.user.pattern_lock.PatternLockCheckActivity;
 import com.cdkj.token.utils.wallet.WalletDBAegisUtils;
+import com.umeng.commonsdk.UMConfigure;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,7 +29,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
-        LogUtil.isLog = BuildConfig.IS_DEBUG;
+        LogUtil.isLog = true;
 
         init();
 
@@ -49,7 +50,7 @@ public class MyApplication extends Application {
 
             }
         });
-        LogUtil.E("Aapplication启动");
+
     }
 
 
@@ -64,11 +65,14 @@ public class MyApplication extends Application {
         initZXing();
         EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
 
+        //友盟
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, BuildConfig.umeng);
+        UMConfigure.setLogEnabled(LogUtil.isLog);
+        UMConfigure.setEncryptEnabled(true);
     }
 
     private void initLitePal() {
         LitePal.initialize(this);
-        LitePal.aesKey("tha_wallet");
     }
 
     private void initZXing() {

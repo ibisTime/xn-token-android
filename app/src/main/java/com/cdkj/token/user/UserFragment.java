@@ -30,7 +30,7 @@ import com.cdkj.token.databinding.FragmentUser2Binding;
 import com.cdkj.token.user.invite.InviteFriendActivity;
 import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
 import com.cdkj.token.user.setting.UserSettingActivity;
-import com.cdkj.token.utils.ThaAppConstant;
+import com.cdkj.token.common.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
 
