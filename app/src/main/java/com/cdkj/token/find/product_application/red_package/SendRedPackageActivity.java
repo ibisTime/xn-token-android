@@ -1,4 +1,4 @@
-package com.cdkj.token.consult.product_application.red_package;
+package com.cdkj.token.find.product_application.red_package;
 
 import android.annotation.SuppressLint;
 import android.content.Context;

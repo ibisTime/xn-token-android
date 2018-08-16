@@ -1,4 +1,4 @@
-package com.cdkj.token.consult.product_application.management_money;
+package com.cdkj.token.find.product_application.management_money;
 
 import android.content.Context;
 import android.content.Intent;

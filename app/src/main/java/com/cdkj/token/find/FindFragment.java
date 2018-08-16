@@ -1,4 +1,4 @@
-package com.cdkj.token.consult;
+package com.cdkj.token.find;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
@@ -26,7 +26,7 @@ import com.cdkj.token.common.loader.BannerImageLoader;
 import com.cdkj.token.model.BannerModel;
 import com.cdkj.token.model.RecommendAppModel;
 import com.cdkj.token.user.WebViewImgBgActivity;
-import com.cdkj.token.consult.product_application.red_package.SendRedPackageActivity;
+import com.cdkj.token.find.product_application.red_package.SendRedPackageActivity;
 import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;

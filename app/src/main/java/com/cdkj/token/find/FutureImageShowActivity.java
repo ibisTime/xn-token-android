@@ -1,4 +1,4 @@
-package com.cdkj.token.consult;
+package com.cdkj.token.find;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,8 +12,8 @@ import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityFutureImgShowBinding;
 
-import static com.cdkj.token.consult.NoneActivity.FLASH;
-import static com.cdkj.token.consult.NoneActivity.ONE_CLICK;
+import static com.cdkj.token.find.NoneActivity.FLASH;
+import static com.cdkj.token.find.NoneActivity.ONE_CLICK;
 
 /**
  * 功能说明图片展示

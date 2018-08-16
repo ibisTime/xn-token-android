@@ -8,32 +8,17 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
-import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.base.BaseActivity;
-import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
-import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
-import com.cdkj.baselibrary.nets.RetrofitUtils;
-import com.cdkj.baselibrary.utils.AppUtils;
-import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.token.api.MyApi;
-import com.cdkj.token.consult.FindFragment;
+import com.cdkj.token.find.FindFragment;
 import com.cdkj.token.databinding.ActivityMainBinding;
-import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.user.UserFragment;
 import com.cdkj.token.wallet.WalletFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-
-import retrofit2.Call;
-
-import static com.cdkj.token.utils.UpdateUtil.isForceUpload;
-import static com.cdkj.token.utils.UpdateUtil.startWeb;
 
 public class MainActivity extends BaseActivity {
 

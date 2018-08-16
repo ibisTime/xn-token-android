@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".consult.product_application.red_package.RedPackageHistoryActivity">
+        tools:context=".find.product_application.red_package.RedPackageHistoryActivity">
 
 
         <RelativeLayout
