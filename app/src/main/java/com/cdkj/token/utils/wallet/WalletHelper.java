@@ -1119,7 +1119,7 @@ public class WalletHelper {
 
         Credentials credentials = Credentials.create(walletDBModel.getEthPrivateKey());
 
-        BigInteger gasLimit = BigInteger.valueOf(90000);
+        BigInteger gasLimit = BigInteger.valueOf(210000);
 
         LogUtil.E("交易" + gasPrice.toString());
 
@@ -1130,7 +1130,7 @@ public class WalletHelper {
 
                         new org.web3j.abi.datatypes.Address(toAddress),
 
-                        new Uint256(new BigDecimal("100000000000000000000").toBigInteger())),  //最小精度
+                        new Uint256(priceValue)),  //最小精度
 
                 Collections.<TypeReference<?>>emptyList());
 
@@ -1149,7 +1149,7 @@ public class WalletHelper {
 
         // 未签名的交易
         RawTransaction rawTransaction = RawTransaction.createTransaction(
-                nonce, new BigDecimal("3000000000").toBigInteger(), gasLimit, contractAddress, BigInteger.ZERO,
+                nonce, gasPrice, gasLimit, contractAddress, BigInteger.ZERO,
                 encodedFunction);
 
         // 签名并发送

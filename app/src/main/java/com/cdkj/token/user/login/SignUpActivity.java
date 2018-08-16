@@ -68,11 +68,6 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
     public void afterCreate(Bundle savedInstanceState) {
         setTopTitle(getStrRes(R.string.user_title_sign_up));
         setSubLeftImgState(true);
-        if (LogUtil.isLog) {
-            setSubRightTitleAndClick(getStrRes(R.string.build_type), v -> {
-                AppBuildTypeActivity.open(this);
-            });
-        }
 
         mPresenter = new SendPhoneCodePresenter(this);
 

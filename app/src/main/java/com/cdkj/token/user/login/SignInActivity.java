@@ -11,6 +11,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.cdkj.baselibrary.activitys.AppBuildTypeActivity;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
@@ -25,6 +26,7 @@ import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
@@ -45,6 +47,9 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
     private ActivitySignInBinding mBinding;
 
     private final String CODE_LOGIN_CODE = "805044";//验证码登录接口编号
+
+    private int changeDevCount = 0;//用于记录研发或测试环境切换条件
+
 
     /**
      * 打开当前页面
@@ -85,6 +90,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
     @Override
     protected void onResume() {
         super.onResume();
+        changeDevCount = 0;
         mBinding.edtUsername.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()));
         ImgUtils.loadActImg(this, SPUtilHelper.getCountryFlag(), mBinding.edtUsername.getLeftImage());
     }
@@ -146,6 +152,20 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         mBinding.edtUsername.getLeftRootView().setOnClickListener(view -> {
             CountryCodeListActivity.open(this, true);
         });
+
+
+        /**
+         * 切换环境
+         */
+        if (LogUtil.isLog) {
+            mBinding.imgTha.setOnClickListener(view -> {
+                changeDevCount++;
+                if (changeDevCount > 8) {           //连续点击8次以上才可以切换环境
+                    AppBuildTypeActivity.open(this);
+                }
+            });
+        }
+
     }
 
     /**

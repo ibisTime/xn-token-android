@@ -29,6 +29,10 @@ public class WalletDBAegisUtils {
      */
     public static boolean checkBTCInfoNotNull(String userId) {
 
+        if (TextUtils.isEmpty(userId)) {
+            return false;
+        }
+
         Cursor cursor = WalletHelper.getUserInfoCursorByUserId(userId);
 
         try {

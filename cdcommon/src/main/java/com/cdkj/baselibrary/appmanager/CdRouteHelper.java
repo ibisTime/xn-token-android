@@ -67,7 +67,7 @@ public class CdRouteHelper {
      */
     public static void openStar() {
         // 路由跳转开始页面
-        ARouter.getInstance().build("/user/start")
+        ARouter.getInstance().build(APPSTART)
                 .navigation();
     }
 

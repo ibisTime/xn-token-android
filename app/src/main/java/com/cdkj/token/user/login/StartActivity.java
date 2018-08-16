@@ -28,6 +28,7 @@ import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.utils.wallet.WalletDBAegisUtils;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -68,21 +69,6 @@ public class StartActivity extends BaseActivity {
             e.printStackTrace();
         }
         setContentView(R.layout.activity_start);
-
-//        List<String> string = new ArrayList<>();
-//        string.add("uniform");
-//        string.add("claim");
-//        string.add("drum");
-//        string.add("stool");
-//        string.add("evidence");
-//        string.add("stage");
-//        string.add("prevent");
-//        string.add("quiz");
-//        string.add("lunar");
-//        string.add("dove");
-//        string.add("record");
-//        string.add("kit");
-//        LogUtil.E("钱包" + JSON.toJSONString(WalletHelper.createAllCoinPrivateKeybyMnenonic(string)));
 
         getVersion();
     }
@@ -278,7 +264,7 @@ public class StartActivity extends BaseActivity {
 
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
-
+                checkDbAegis();
             }
 
             @Override
@@ -323,7 +309,8 @@ public class StartActivity extends BaseActivity {
                     getQiniuAndNextTo();  //获取七牛地址
                 })
                 .subscribe(s -> {
-                    if (SPUtilHelper.isLoginNoStart() && !WalletDBAegisUtils.checkBTCInfoNotNull(SPUtilHelper.getUserId())) { //DB兼容  1.7.0以下版本更新，如果没有btc币种信息则更新btc信息
+                    //当前已经登录用户已经创建或导入过钱包并且没有btc信息
+                    if (WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId()) && !WalletDBAegisUtils.checkBTCInfoNotNull(SPUtilHelper.getUserId())) { //DB兼容  1.7.0以下版本更新，如果没有btc币种信息则更新btc信息
                         WalletDBAegisUtils.createBTCInfoAndUpdate(SPUtilHelper.getUserId());
                     }
                 }));

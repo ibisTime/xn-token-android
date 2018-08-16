@@ -47,7 +47,7 @@ public class MyConfig {
 
     // 环境访问地址
     public static final String BASE_URL_DEV = "http://120.26.6.213:2101/forward-service/"; // 研发
-    public static final String BASE_URL_TEST = "http://120.26.6.213:2101/forward-service/"; // 测试
+    public static final String BASE_URL_TEST = "http://47.96.161.183:2101/forward-service/"; // 测试
     public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
 
 
@@ -72,7 +72,7 @@ public class MyConfig {
         if (LogUtil.isLog) {
             switch (SPUtilHelper.getAPPBuildType()) {
                 case BUILD_TYPE_TEST: // 测试
-                    return MyConfig.BASE_URL_DEV;
+                    return MyConfig.BASE_URL_TEST;
                 default: // 研发
                     return MyConfig.BASE_URL_DEV;
             }
