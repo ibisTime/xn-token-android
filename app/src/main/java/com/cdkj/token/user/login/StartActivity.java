@@ -23,6 +23,7 @@ import com.cdkj.baselibrary.utils.SystemUtils;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
+import com.cdkj.token.find.product_application.management_money.ManagementMoneyListActivity;
 import com.cdkj.token.model.CountryCodeMode;
 import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.token.model.SystemParameterModel;
@@ -69,7 +70,6 @@ public class StartActivity extends BaseActivity {
             e.printStackTrace();
         }
         setContentView(R.layout.activity_start);
-
         getVersion();
     }
 
@@ -81,7 +81,7 @@ public class StartActivity extends BaseActivity {
         mSubscription.add(Observable.just("")
                 .subscribeOn(Schedulers.newThread())
                 .map(s -> {
-                    return SystemUtils.getPublicIp(false);
+                    return SystemUtils.getPublicIp(false);//lxjtest ip地址请求失败检查  数据库兼容检查
                 })
                 .subscribe(s -> {
                     getCountryInfo(s);

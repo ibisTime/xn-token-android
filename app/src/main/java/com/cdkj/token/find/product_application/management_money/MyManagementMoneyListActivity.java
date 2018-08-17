@@ -32,7 +32,7 @@ public class MyManagementMoneyListActivity extends AbsRefreshClipListActivity {
         setStatusBarBlue();
         setTitleBgBlue();
         mBaseBinding.titleView.setMidTitle(getString(R.string.my_management_money));
-        initRefreshHelper(10);
+        initRefreshHelper();
     }
 
     @Override

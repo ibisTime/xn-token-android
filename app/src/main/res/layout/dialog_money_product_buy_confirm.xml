@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_tips_bg"
+        android:orientation="vertical">
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
+            android:src="@drawable/delete" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/coin_name"
+                android:textColor="@color/gray_666666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_coin_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="right"
+                android:textColor="@color/text_black_cd"
+                android:textSize="14sp"
+                tools:text="合约编号" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:paddingLeft="15dp"
+            android:paddingRight="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/user_account_balance"
+                android:textColor="@color/gray_666666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/tv_balance"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:textColor="@color/text_black_cd"
+                android:textSize="14sp"
+                tools:text="合约编号" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="right"
+                android:text="转入资金"
+                android:textColor="@color/text_black_cd"
+                android:textSize="13sp" />
+
+
+        </LinearLayout>
+
+        <View
+            style="@style/style_split_line"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp" />
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:text="@string/product_buy_total"
+            android:textColor="@color/gray_666666"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp">
+
+            <EditText
+                android:id="@+id/edit_buy_count"
+                android:layout_width="0dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="15dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:hint="@string/product_buy_hint"
+                android:inputType="numberDecimal"
+                android:textColorHint="#AAAAAA"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_coin_name_2"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginRight="15dp"
+                android:textColor="@color/text_black_cd"
+                android:textSize="16sp"
+                tools:text="BTC" />
+
+
+        </LinearLayout>
+
+        <View
+            style="@style/style_split_line"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp" />
+
+        <TextView
+            android:id="@+id/tv_income_forecast"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:textColor="@color/gray_666666"
+            android:textSize="15sp"
+            tools:text="@string/product_forecast_income" />
+
+        <Button
+            android:id="@+id/btn_buy"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginBottom="30dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/selector_btn_blue_change"
+            android:text="确认购买"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+</layout>

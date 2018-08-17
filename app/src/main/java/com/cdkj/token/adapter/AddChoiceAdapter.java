@@ -28,7 +28,7 @@ public class AddChoiceAdapter extends BaseQuickAdapter<LocalCoinDbModel, BaseVie
 
         helper.setText(R.id.tv_name, item.getSymbol());
 
-        ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getSymbol(), 1), helper.getView(R.id.iv_watermark));
+        ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getSymbol(), 0), helper.getView(R.id.iv_watermark));
 
         if (item.isChoose()) {
             helper.setImageResource(R.id.iv_choice, R.mipmap.choice_confirm);

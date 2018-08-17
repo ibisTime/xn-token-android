@@ -7,6 +7,9 @@ import android.widget.EditText;
 
 import com.alibaba.fastjson.JSON;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -362,4 +365,17 @@ public class StringUtils {
         return m.replaceAll("").trim();
     }
 
+    /**
+     * 百分比
+     *
+     * @param money
+     * @return
+     */
+    public static String showformatPercentage(float money) {
+//获取格式化对象
+        NumberFormat nt = NumberFormat.getPercentInstance();
+        //设置百分数精确度2即保留两位小数
+        nt.setMinimumFractionDigits(2);
+        return nt.format(money);
+    }
 }

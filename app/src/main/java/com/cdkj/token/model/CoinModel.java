@@ -56,7 +56,7 @@ public class CoinModel implements Serializable {
         this.accountList = accountList;
     }
 
-    public static class AccountListBean implements Serializable,IPickerViewData {
+    public static class AccountListBean implements Serializable, IPickerViewData {
         /**
          * accountNumber : A201711212030187096126
          * userId : U201711212030187015235
@@ -82,8 +82,8 @@ public class CoinModel implements Serializable {
         private String type;
         private String status;
         private String currency;
-        private String amountString;
-        private String frozenAmountString;
+        private String amountString;  //可用余额
+        private String frozenAmountString;//冻结余额
         private String md5;
         private String addAmountString;
         private String inAmountString;

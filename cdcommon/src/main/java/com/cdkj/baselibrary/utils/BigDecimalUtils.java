@@ -61,4 +61,29 @@ public class BigDecimalUtils {
         return BigDecimal.ZERO;
     }
 
+    /**
+     * 判断b是否大于b1
+     *
+     * @param b
+     * @param b1
+     * @return
+     */
+    public static boolean compareTo(BigDecimal b, BigDecimal b1) {
+        if (b == null || b1 == null) return false;
+        return b.compareTo(b1) == 1;
+    }
+
+    /**
+     * 判断b是否大于等于b1
+     *
+     * @param b
+     * @param b1
+     * @return
+     */
+    public static boolean compareTo2(BigDecimal b, BigDecimal b1) {
+        if (b == null || b1 == null) return false;
+        return b.compareTo(b1) == 1 || b.compareTo(b1) == 0;
+    }
+
+
 }

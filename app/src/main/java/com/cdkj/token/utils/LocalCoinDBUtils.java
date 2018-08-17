@@ -147,6 +147,7 @@ public class LocalCoinDBUtils {
         }
     }
 
+    //lxjtest  findALl查找优化
     public static String getCoinENameWithCurrency(String currency) {
 
         for (LocalCoinDbModel model : DataSupport.findAll(LocalCoinDbModel.class)) {

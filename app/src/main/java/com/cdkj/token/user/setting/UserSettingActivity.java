@@ -33,7 +33,6 @@ import static com.cdkj.token.utils.UpdateUtil.startWeb;
  * 设置
  * Created by cdkj on 2018/8/8.
  */
-
 public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
 
     private ActivityUserSettingBinding mBinding;
@@ -80,7 +79,6 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
                 UserAboutActivity.open(this);
             }
         });
-
     }
 
     /**
@@ -98,13 +96,16 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
 
         addCall(call);
 
-        call.enqueue(new BaseResponseModelCallBack<VersionModel>(this) {
+        showLoadingDialog();
 
+        call.enqueue(new BaseResponseModelCallBack<VersionModel>(this) {
 
             @Override
             protected void onSuccess(VersionModel data, String SucMessage) {
-                if (data == null)
+                if (data == null) {
+                    mBinding.tvVersionInfo.setText(AppUtils.getAppVersionName(UserSettingActivity.this));
                     return;
+                }
                 versionModel = data;
                 //版本号不一致说明有更新
                 isUpdate = data.getVersion() > AppUtils.getAppVersionCode(UserSettingActivity.this);

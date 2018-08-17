@@ -80,7 +80,7 @@ public class QuestionFeedbackHistoryListActivity extends AbsRefreshClipListActiv
         setTitleBgBlue();
         setStatusBarBlue();
         mBaseBinding.titleView.setMidTitle(R.string.question_history);
-        initRefreshHelper(10);
+        initRefreshHelper();
         mRefreshHelper.onDefaluteMRefresh(true);
     }
 

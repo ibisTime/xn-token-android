@@ -261,6 +261,7 @@
         <activity
             android:name=".wallet.coin_detail.BTCTransactionDetailsActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".find.product_application.management_money.ManagementMoneyDetailsActivity" />
     </application>
 
 </manifest>

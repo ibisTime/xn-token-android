@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="80dp"
+                    android:background="@color/title_bg_blue" />
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="20dp"
+                        app:cardBackgroundColor="@color/white"
+                        app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
+                        app:cardElevation="@dimen/user_fragment_card_elevation"
+                        app:cardUseCompatPadding="true">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:paddingTop="20dp">
+
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tv_buy_totla_ratio"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="10.4%"
+                                        android:textColor="#FF6400"
+                                        android:textSize="18sp" />
+
+                                    <TextView
+                                        android:id="@+id/tv_time_1"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="6dp"
+                                        android:textColor="@color/gray_666666"
+                                        android:textSize="12sp"
+                                        tools:text="10.4R" />
+
+
+                                </LinearLayout>
+
+                                <com.cdkj.token.views.DashVLineView
+                                    android:layout_width="2dp"
+                                    android:layout_height="match_parent" />
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tv_time_2"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/text_black_cd"
+                                        android:textSize="18sp"
+                                        tools:text="24个月" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="6dp"
+                                        android:text="@string/product_deadline"
+                                        android:textColor="@color/gray_666666"
+                                        android:textSize="12sp" />
+
+
+                                </LinearLayout>
+
+                                <com.cdkj.token.views.DashVLineView
+                                    android:layout_width="2dp"
+                                    android:layout_height="match_parent" />
+
+                                <LinearLayout
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:id="@+id/tv_total_amount"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:textColor="@color/text_black_cd"
+                                        android:textSize="18sp"
+                                        tools:text="10.4%" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="6dp"
+                                        android:text="@string/product_total"
+                                        android:textColor="@color/gray_666666"
+                                        android:textSize="12sp" />
+
+
+                                </LinearLayout>
+
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginTop="15dp"
+                                android:gravity="center"
+                                android:orientation="horizontal">
+
+                                <ProgressBar
+                                    android:id="@+id/progressbar"
+                                    style="?android:attr/progressBarStyleHorizontal"
+                                    android:layout_width="0dp"
+                                    android:layout_height="8dp"
+                                    android:layout_weight="1"
+                                    android:indeterminateOnly="false"
+                                    android:max="100"
+                                    android:progressDrawable="@drawable/shape_progress"
+                                    tools:progress="80" />
+
+
+                                <TextView
+                                    android:id="@+id/tv_state"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:ellipsize="end"
+                                    android:maxLines="2"
+                                    android:textColor="#007AFF"
+                                    android:textSize="14sp"
+                                    tools:text="@string/product_buy" />
+
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginTop="23dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/buy_end"
+                                    android:textColor="@color/gray_666666"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_last_amunt"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:textColor="@color/text_black_cd"
+                                    android:textSize="14sp"
+                                    tools:text="001522" />
+
+
+                            </LinearLayout>
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="20dp"
+                                android:layout_marginLeft="15dp"
+                                android:layout_marginRight="15dp"
+                                android:layout_marginTop="23dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="@string/buy_start"
+                                    android:textColor="@color/gray_666666"
+                                    android:textSize="14sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_min_money"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="15dp"
+                                    android:textColor="@color/text_black_cd"
+                                    android:textSize="14sp"
+                                    tools:text="001522" />
+
+
+                            </LinearLayout>
+
+
+                        </LinearLayout>
+
+
+                    </android.support.v7.widget.CardView>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="6dp"
+                            android:background="@drawable/line_blue_gradient" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="@string/product_details"
+                            android:textColor="@color/text_black_cd"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="25dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="30dp"
+                        android:paddingRight="30dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/product_name"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_product_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:gravity="right"
+                            android:textColor="@color/text_black_cd"
+                            android:textSize="14sp"
+                            tools:text="合约编号" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/style_split_line"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="15dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="30dp"
+                        android:paddingRight="30dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/product_coin"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_coin_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:gravity="right"
+                            android:textColor="@color/text_black_cd"
+                            android:textSize="14sp"
+                            tools:text="合约编号" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/style_split_line"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="15dp" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="15dp"
+                        android:orientation="horizontal"
+                        android:paddingLeft="30dp"
+                        android:paddingRight="30dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/back_money_type"
+                            android:textColor="@color/gray_666666"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tv_back_money_type"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="20dp"
+                            android:gravity="right"
+                            android:textColor="@color/text_black_cd"
+                            android:textSize="15sp"
+                            tools:text="合约编号" />
+
+
+                    </LinearLayout>
+
+                    <View
+                        style="@style/style_split_line"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="15dp" />
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="6dp"
+                            android:background="@drawable/line_blue_gradient" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="15dp"
+                            android:text="@string/product_introduction"
+                            android:textColor="@color/text_black_cd"
+                            android:textSize="15sp" />
+
+                    </LinearLayout>
+
+
+                    <WebView
+                        android:id="@+id/webview_product_introduction"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="25dp"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="15dp"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/gray_666666"
+                        android:textSize="15sp"
+                        tools:text="产品介绍" />
+
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+        </ScrollView>
+
+        <Button
+            android:id="@+id/btn_buy"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginBottom="15dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/selector_btn_blue_change"
+            android:text="购买"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</layout>

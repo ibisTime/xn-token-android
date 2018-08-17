@@ -167,7 +167,7 @@ public class WithdrawActivity extends AbsLoadActivity {
         });
 
 
-        mBinding.edtAmount.addTextChangedListener(new EditTextJudgeNumberWatcher(mBinding.edtAmount, 8, 8));
+        mBinding.edtAmount.addTextChangedListener(new EditTextJudgeNumberWatcher(mBinding.edtAmount, 15, 8));
     }
 
     //权限处理

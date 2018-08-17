@@ -24,6 +24,7 @@ import com.cdkj.token.model.DealUserDataModel;
 import com.cdkj.token.model.ExchangeModel;
 import com.cdkj.token.model.InviteModel;
 import com.cdkj.token.model.LocalCoinBill;
+import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.model.MarketCoinModel;
 import com.cdkj.token.model.MarketModel;
 import com.cdkj.token.model.MsgListModel;
@@ -72,6 +73,24 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<UTXOListModel>> getUtxoList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取理财产品列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ResponseInListModel<ManagementMoney>>> getMoneyManageProductList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取理财产品详情
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ManagementMoney>> getMoneyManageProductDetails(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取应用列表

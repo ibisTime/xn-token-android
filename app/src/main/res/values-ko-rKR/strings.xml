@@ -641,4 +641,31 @@
     <string name="transaction_in">即将到账...</string>
     <string name="transaction_out">同步打包中...</string>
     <string name="transaction_success">广播成功，正在同步中</string>
+    <string name="product_deadline">产品期限</string>
+    <string name="product_total">产品总额</string>
+    <string name="product_buy">已认购%s</string>
+    <string name="buy_end">剩余</string>
+    <string name="buy_start">起购</string>
+    <string name="product_details">产品详情</string>
+    <string name="product_introduction">产品介绍</string>
+    <string name="product_name">产品名称</string>
+    <string name="product_coin">认购币种</string>
+    <string name="back_money_type">回款方式</string>
+    <string name="product_buy_hint">请输入购买额度</string>
+    <string name="product_forecast_income">预计收入</string>
+    <string name="coin_name">代币名称</string>
+    <string name="user_account_balance">可用余额</string>
+    <string name="buy_product_name">购买产品</string>
+    <string name="buy_product_count">购买额度</string>
+    <string name="buy_product_income_date">本息到期日期</string>
+    <string name="buy_product_get_income">预计收入</string>
+    <string name="delay_to_start">%s秒后自动跳转</string>
+    <string name="look_buy_history">查看购买记录</string>
+    <string name="no_product">暂无产品</string>
+    <string name="product_buy_minamount"><Data><![CDATA[%1$s<font color="#999999">\u3000起购</font>]]></Data></string>
+    <string name="money_product_details">理财产品详情</string>
+    <string name="product_days">%s天</string>
+    <string name="payment_type">期满自动转入个人账户</string>
+    <string name="limit_amount"><Data><![CDATA[<font color="#666666">\u3000（每人限购%s)</font>]]></Data></string>
+    <string name="product_buy_total">购买额度</string>
 </resources>

@@ -87,7 +87,7 @@ public class UITipDialog extends Dialog {
 
     private static void timerDismiss() {
         if (tipDialog == null) return;
-        Observable.timer(1200, TimeUnit.MILLISECONDS)
+        Observable.timer(1300, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Consumer<Long>() {
                     @Override

@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/dialog_tips_bg"
+        android:orientation="vertical"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp">
+
+        <ImageView
+            android:id="@+id/img_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginTop="5dp"
+            android:padding="10dp"
+            android:src="@drawable/delete" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:orientation="horizontal"
+            android:paddingRight="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text="@string/buy_product_name"
+                android:textColor="@color/gray_666666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="right"
+                android:textColor="@color/text_black_cd"
+                android:textSize="15sp"
+                tools:text="合约编号" />
+
+
+        </LinearLayout>
+
+        <View style="@style/style_split_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:paddingRight="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text="@string/buy_product_count"
+                android:textColor="@color/gray_666666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="right"
+                android:textColor="@color/text_black_cd"
+                android:textSize="15sp"
+                tools:text="合约编号" />
+
+
+        </LinearLayout>
+
+        <View style="@style/style_split_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:paddingRight="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/buy_product_income_date"
+                android:textColor="@color/gray_666666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="right"
+                android:textColor="@color/text_black_cd"
+                android:textSize="15sp"
+                tools:text="合约编号" />
+
+
+        </LinearLayout>
+
+        <View style="@style/style_split_line" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:layout_marginTop="15dp"
+            android:orientation="horizontal"
+            android:paddingRight="30dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="25dp"
+                android:text="@string/buy_product_get_income"
+                android:textColor="@color/gray_666666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:gravity="right"
+                android:textColor="@color/text_black_cd"
+                android:textSize="15sp"
+                tools:text="合约编号" />
+
+
+        </LinearLayout>
+
+        <View style="@style/style_split_line" />
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/btn_height"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/selector_btn_blue_change"
+            android:text="@string/sure_pay"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+
+    </LinearLayout>
+</layout>

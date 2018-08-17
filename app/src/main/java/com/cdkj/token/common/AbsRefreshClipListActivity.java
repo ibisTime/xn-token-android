@@ -57,7 +57,35 @@ public abstract class AbsRefreshClipListActivity<T> extends AbsLoadActivity {
             }
         });
         mRefreshHelper.init(limit);
+    }
 
+    /**
+     * 初始化刷新相关
+     */
+    protected void initRefreshHelper() {
+        mRefreshHelper = new RefreshHelper(this, new BaseRefreshCallBack<T>(this) {
+            @Override
+            public View getRefreshLayout() {
+                return mRefreshBinding.refreshLayout;
+            }
+
+            @Override
+            public RecyclerView getRecyclerView() {
+                ((DefaultItemAnimator) mRefreshBinding.recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
+                return mRefreshBinding.recyclerView;
+            }
+
+            @Override
+            public RecyclerView.Adapter getAdapter(List<T> listData) {
+                return getListAdapter(listData);
+            }
+
+            @Override
+            public void getListDataRequest(int pageindex, int limit, boolean isShowDialog) {
+                getListRequest(pageindex, limit, isShowDialog);
+            }
+        });
+        mRefreshHelper.init(10);
     }
 
 

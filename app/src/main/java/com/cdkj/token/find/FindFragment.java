@@ -23,7 +23,9 @@ import com.cdkj.token.adapter.AppListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentFindBinding;
 import com.cdkj.token.common.loader.BannerImageLoader;
+import com.cdkj.token.find.product_application.management_money.ManagementMoneyListActivity;
 import com.cdkj.token.model.BannerModel;
+import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.model.RecommendAppModel;
 import com.cdkj.token.user.WebViewImgBgActivity;
 import com.cdkj.token.find.product_application.red_package.SendRedPackageActivity;
@@ -103,8 +105,12 @@ public class FindFragment extends BaseLazyFragment {
                 case "red_packet"://跳到红包
                     SendRedPackageActivity.open(mActivity);
                     break;
+                case "money_manage"://跳到量化理财
+                    ManagementMoneyListActivity.open(mActivity);
+                    break;
                 case "none":
-                    WebViewImgBgActivity.openContent(mActivity, "name", recommendAppModel.getDescription());
+                    ManagementMoneyListActivity.open(mActivity);
+//                    WebViewImgBgActivity.openContent(mActivity, recommendAppModel.getName(), recommendAppModel.getDescription());
                     break;
             }
 

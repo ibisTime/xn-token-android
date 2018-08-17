@@ -34,7 +34,7 @@ public class AddChoiceAdapter2 extends BaseQuickAdapter<CoinModel.AccountListBea
         helper.setText(R.id.tv_name, item.getCurrency() + "--" + getCoinENameWithCurrency(item.getCurrency()));
 
         ImageView ivCoin = helper.getView(R.id.iv_watermark);
-        ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(), 1), ivCoin);
+        ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(), 0), ivCoin);
 
         LinearLayout llChoice = helper.getView(R.id.linLayout_choose);
         ImageView ivChoice = helper.getView(R.id.iv_choice);

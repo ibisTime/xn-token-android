@@ -189,6 +189,9 @@ public class RefreshHelper<T> {
     public void loadError(String str, int img) {
 
         refreshLayoutStop();
+        mPageIndex = 1;
+        mDataList.clear();
+        mAdapter.notifyDataSetChanged();
 
         if (mEmptyView != null && mDataList.isEmpty()) {
             if (mRefreshInterface != null) {

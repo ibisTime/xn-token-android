@@ -29,7 +29,9 @@ public abstract class BaseRefreshCallBack<T> implements RefreshInterface<T> {
         if (context == null) {
             return null;
         }
-        emptyViewBinding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.empty_view, null, false);
+        if(emptyViewBinding==null){
+            emptyViewBinding = DataBindingUtil.inflate(context.getLayoutInflater(), R.layout.empty_view, null, false);
+        }
         return emptyViewBinding.getRoot();
     }
 

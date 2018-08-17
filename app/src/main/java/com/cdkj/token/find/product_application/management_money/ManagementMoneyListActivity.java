@@ -5,11 +5,24 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 
+import com.cdkj.baselibrary.api.BaseResponseModel;
+import com.cdkj.baselibrary.api.ResponseInListModel;
+import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
+import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.ManagementMoneyListAdapter;
+import com.cdkj.token.api.MyApi;
 import com.cdkj.token.common.AbsRefreshClipListActivity;
+import com.cdkj.token.model.ManagementMoney;
+import com.cdkj.token.utils.StringUtil;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
 
 /**
  * 量化理财
@@ -39,24 +52,20 @@ public class ManagementMoneyListActivity extends AbsRefreshClipListActivity {
 
         mBaseBinding.titleView.setMidTitle(R.string.lianghualicai);
         mBaseBinding.titleView.setRightTitle(getString(R.string.my_management_money));
-        initRefreshHelper(10);
+        initRefreshHelper();
+
+        mRefreshHelper.onDefaluteMRefresh(true);
     }
 
     @Override
     public RecyclerView.Adapter getListAdapter(List listData) {
 
-        listData.add("");
-        listData.add("");
-        listData.add("");
-        listData.add("");
-        listData.add("");
-        listData.add("");
-        listData.add("");
-        listData.add("");
         ManagementMoneyListAdapter managementMoneyListAdapter = new ManagementMoneyListAdapter(listData);
 
         managementMoneyListAdapter.setOnItemClickListener((adapter, view, position) -> {
-
+            ManagementMoney managementMoney = managementMoneyListAdapter.getItem(position);
+            if (managementMoney == null) return;
+            ManagementMoneyDetailsActivity.open(ManagementMoneyListActivity.this, managementMoney.getCode());
         });
 
         return managementMoneyListAdapter;
@@ -64,6 +73,42 @@ public class ManagementMoneyListActivity extends AbsRefreshClipListActivity {
 
     @Override
     public void getListRequest(int pageindex, int limit, boolean isShowDialog) {
+
+        Map<String, Object> map = new HashMap<>();
+
+        List<String> list = new ArrayList<>();
+//        list.add("4");
+//        list.add("5");
+//        list.add("6");
+//        list.add("7");
+//        map.put("statusList", list);
+        map.put("start", pageindex + "");
+        map.put("limit", limit + "");
+
+        if (isShowDialog) {
+            showLoadingDialog();
+        }
+
+        Call<BaseResponseModel<ResponseInListModel<ManagementMoney>>> call = RetrofitUtils.createApi(MyApi.class).getMoneyManageProductList("625510", StringUtils.getJsonToString(map));
+
+        call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<ManagementMoney>>(this) {
+            @Override
+            protected void onSuccess(ResponseInListModel<ManagementMoney> data, String SucMessage) {
+                mRefreshHelper.setData(data.getList(), getString(R.string.no_product), 0);
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+                super.onReqFailure(errorCode, errorMessage);
+                mRefreshHelper.loadError(errorMessage, 0);
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+
 
     }
 

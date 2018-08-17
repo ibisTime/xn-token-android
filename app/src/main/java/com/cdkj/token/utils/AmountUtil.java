@@ -59,10 +59,26 @@ public class AmountUtil {
         }
 
         if (TextUtils.isEmpty(coinSymbol)) {
-            return formatDouble(amount.divide(BigDecimal.TEN.pow(18), scale, ROUND_HALF_EVEN));
+            return formatCoinAmount(amount.divide(BigDecimal.TEN.pow(18), scale, ROUND_HALF_EVEN));
         }
 
-        return formatDouble(amount.divide(getLocalCoinUnit(coinSymbol), scale, ROUND_HALF_EVEN));
+        return formatCoinAmount(amount.divide(getLocalCoinUnit(coinSymbol), scale, ROUND_HALF_EVEN));
+    }
+
+
+    /**
+     * 货币单位转换 带单位
+     *
+     * @param amount
+     * @param
+     * @return
+     */
+    public static String amountFormatUnitForShow(BigDecimal amount, BigDecimal unit, int scale) {
+        if (amount == null) {
+            return "0";
+        }
+
+        return formatCoinAmount(amount.divide(unit, scale, ROUND_HALF_EVEN));
     }
 
 
@@ -88,12 +104,22 @@ public class AmountUtil {
      * @return
      */
     public static BigDecimal bigDecimalFormat(BigDecimal amount, String coin) {
+        return bigDecimalFormat(amount, getLocalCoinUnit(coin));
+    }
+
+    /**
+     * BigInteger
+     *
+     * @param amount
+     * @return
+     */
+    public static BigDecimal bigDecimalFormat(BigDecimal amount, BigDecimal coinUnit) {
 
         if (amount == null) {
             return BigDecimal.ZERO;
         }
 
-        return amount.multiply(getLocalCoinUnit(coin));
+        return amount.multiply(coinUnit);
     }
 
     /**
@@ -135,7 +161,14 @@ public class AmountUtil {
     }
 
 
-    public static String formatDouble(BigDecimal money) {
+    public static String formatCoinAmount(BigDecimal money) {
+        DecimalFormat df = new DecimalFormat("#######0.########");
+        String showMoney = df.format(money);
+
+        return showMoney;
+    }
+
+    public static String formatCoinAmount(float money) {
         DecimalFormat df = new DecimalFormat("#######0.########");
         String showMoney = df.format(money);
 

@@ -477,13 +477,9 @@ public class WalletFragment extends BaseLazyFragment {
             protected void onSuccess(CoinModel data, String SucMessage) {
 
                 mWalletData = data;
-
                 toggleAssectsByEyeState(SPUtilHelper.isAssetsShow());
-
                 mRefreshHelper.setPageIndex(1);
                 mRefreshHelper.setData(transformToAdapterData(data), getString(R.string.no_assets), R.mipmap.order_none);
-
-
                 if (isRequstPrivateWallet && WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId())) {  //没有添加钱包不用请求私钥钱包数据
                     getPriWalletAssetsData(false, true);
                 }
@@ -680,6 +676,7 @@ public class WalletFragment extends BaseLazyFragment {
      */
     private List<WalletBalanceModel> transformToAdapterData(CoinModel data) {
         List<WalletBalanceModel> walletBalanceModels = new ArrayList<>();
+
         for (CoinModel.AccountListBean accountListBean : data.getAccountList()) {
 
             WalletBalanceModel walletBalanceModel = new WalletBalanceModel();
@@ -692,10 +689,11 @@ public class WalletFragment extends BaseLazyFragment {
 
                 BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
 
+                //总资产=可用+冻结
                 walletBalanceModel.setAmount(AmountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), ALLSCALE));
             }
 
-            walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getCurrency(), 1));
+            walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getCurrency(), 0));
 
             walletBalanceModel.setMarketPriceCNY(accountListBean.getPriceCNY());
 
@@ -741,7 +739,7 @@ public class WalletFragment extends BaseLazyFragment {
 
             walletBalanceModel.setAmount(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), accountListBean.getSymbol(), 8));
 
-            walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getSymbol(), 1));
+            walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getSymbol(), 0));
 
             walletBalanceModel.setMarketPriceCNY(accountListBean.getPriceCNY());
 

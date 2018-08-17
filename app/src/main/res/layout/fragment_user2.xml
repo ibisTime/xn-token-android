@@ -41,7 +41,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="120dp"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
                     app:cardElevation="@dimen/user_fragment_card_elevation"
@@ -175,7 +175,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="5dp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
                     app:cardElevation="@dimen/user_fragment_card_elevation"
@@ -198,7 +198,7 @@
                                 android:layout_width="@dimen/user_fragment_item_img_width"
                                 android:layout_height="@dimen/user_fragment_item_img_height"
                                 android:layout_marginLeft="15dp"
-                                android:src="@drawable/user_item_2" />
+                                android:src="@drawable/friend" />
 
                             <TextView
                                 android:layout_width="0dp"
@@ -265,7 +265,7 @@
                 <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="5dp"
                     app:cardBackgroundColor="@color/white"
                     app:cardCornerRadius="@dimen/user_fragment_card_cornerradius"
                     app:cardElevation="@dimen/user_fragment_card_elevation"
@@ -391,7 +391,7 @@
                                 android:layout_width="@dimen/user_fragment_item_img_width"
                                 android:layout_height="@dimen/user_fragment_item_img_height"
                                 android:layout_marginLeft="15dp"
-                                android:src="@drawable/user_item_7" />
+                                android:src="@drawable/setting" />
 
                             <TextView
                                 android:layout_width="0dp"

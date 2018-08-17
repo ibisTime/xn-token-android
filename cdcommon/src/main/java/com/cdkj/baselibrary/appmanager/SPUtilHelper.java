@@ -7,7 +7,8 @@ import android.text.TextUtils;
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.utils.SPUtils;
 
-import static com.cdkj.baselibrary.appmanager.MyConfig.BUILD_TYPE_DEBUG;
+import static com.cdkj.baselibrary.appmanager.MyConfig.BASE_URL_TEST;
+import static com.cdkj.baselibrary.appmanager.MyConfig.BUILD_TYPE_TEST;
 
 /**
  * SPUtils 工具辅助类
@@ -76,12 +77,12 @@ public class SPUtilHelper {
     }
 
     /**
-     * 获取APP运行环境，默认DEBUG
+     * 获取APP运行环境，默认测试
      *
      * @param
      */
     public static String getAPPBuildType() {
-        return SPUtils.getString(CdApplication.getContext(), BUILD_TYPE_KEY, BUILD_TYPE_DEBUG);
+        return SPUtils.getString(CdApplication.getContext(), BUILD_TYPE_KEY, BUILD_TYPE_TEST);
     }
 
     /**

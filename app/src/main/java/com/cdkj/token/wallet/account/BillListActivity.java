@@ -119,7 +119,7 @@ public class BillListActivity extends AbsLoadActivity {
     }
 
     private void initView() {
-        ImgUtils.loadCircleImg(this, getCoinWatermarkWithCurrency(mAccountBean.getCoinName(), 1), mBinding.ivIcon);
+        ImgUtils.loadCircleImg(this, getCoinWatermarkWithCurrency(mAccountBean.getCoinName(), 0), mBinding.ivIcon);
         mBinding.tvFilter.setVisibility(View.VISIBLE);
 
         mBinding.tvInMoney.setText(R.string.wallet_bill_list_charge);

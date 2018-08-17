@@ -471,6 +471,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
 
     /**
+     * lxjtest 获取用户信息抽取
      * 获取用户信息
      */
     public void getUserInfoRequest() {

@@ -42,25 +42,22 @@ public abstract class BaseResponseModelCallBack<T> implements Callback<BaseRespo
             onReqFailure(DATA_NULL, CdApplication.getContext().getString(R.string.net_data_is_null));
             return;
         }
-        BaseResponseModel t = response.body();
-        checkState(t);      //根据返回错误的状态码实现相应的操作
 
-//        if (response.isSuccessful()) {
-//
-//            try {
-//                BaseResponseModel t = response.body();
-//                checkState(t);      //根据返回错误的状态码实现相应的操作
-//            } catch (Exception e) {
-//                if (LogUtil.isLog) {
-//                    onReqFailure(NETERRORCODE4, "未知错误" + e);
-//                } else {
-//                    onReqFailure(NETERRORCODE4, CdApplication.getContext().getString(R.string.error_unknown));
-//                }
-//            }
-//
-//        } else {
-//            onReqFailure(NETERRORCODE4, CdApplication.getContext().getString(R.string.net_req_fail));
-//        }
+        if (response.isSuccessful()) {
+            try {
+                BaseResponseModel t = response.body();
+                checkState(t);      //根据返回错误的状态码实现相应的操作
+            } catch (Exception e) {
+                if (LogUtil.isLog) {
+                    onReqFailure(NETERRORCODE4, "未知错误" + e);
+                } else {
+                    onReqFailure(NETERRORCODE4, CdApplication.getContext().getString(R.string.error_unknown));
+                }
+            }
+
+        } else {
+            onReqFailure(NETERRORCODE4, CdApplication.getContext().getString(R.string.net_req_fail));
+        }
 
     }
 
@@ -90,9 +87,9 @@ public abstract class BaseResponseModelCallBack<T> implements Callback<BaseRespo
 
         String state = baseModelNew.getErrorCode();
 
-        LogUtil.E("登录"+TextUtils.equals(state,REQUESTFECODE4));
+        LogUtil.E("登录" + TextUtils.equals(state, REQUESTFECODE4));
 
-        if (TextUtils.equals(state,REQUESTOK)) { //请求成功
+        if (TextUtils.equals(state, REQUESTOK)) { //请求成功
 
             T t = (T) baseModelNew.getData();
 
@@ -103,7 +100,7 @@ public abstract class BaseResponseModelCallBack<T> implements Callback<BaseRespo
 
             onSuccess(t, baseModelNew.getErrorInfo());
 
-        } else if (TextUtils.equals(state,REQUESTFECODE4)) {
+        } else if (TextUtils.equals(state, REQUESTFECODE4)) {
             onLoginFailure(context, baseModelNew.getErrorInfo());
         } else {
             onReqFailure(state, baseModelNew.getErrorInfo());
