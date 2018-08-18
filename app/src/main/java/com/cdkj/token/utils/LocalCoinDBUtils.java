@@ -101,7 +101,6 @@ public class LocalCoinDBUtils {
         for (LocalCoinDbModel localCoinDbModel : myLocalCoinList) {
             if (!requestCoins.contains(localCoinDbModel)) {  //数据不存在 则删除本地缓存
                 deleteLocalCoinBySymbol(localCoinDbModel.getSymbol());
-                LogUtil.E("localCoin delete：" + localCoinDbModel.getSymbol());
             }
         }
     }
@@ -130,10 +129,6 @@ public class LocalCoinDBUtils {
                 }
 
                 saveLocals.add(localCoinDbModel);
-
-
-                LogUtil.E("localCoin add：" + localCoinDbModel.getSymbol());
-
             }
         }
 

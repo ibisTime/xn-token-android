@@ -15,6 +15,7 @@ import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.NumberPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.IsSuccessModes;
+import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.BigDecimalUtils;
@@ -22,11 +23,12 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityManageMoneyDetailsBinding;
+import com.cdkj.token.interfaces.UserInfoInterface;
+import com.cdkj.token.interfaces.UserInfoPresenter;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
-import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.views.dialogs.MoneyProductBuyStep1Dialog;
 
 import java.math.BigDecimal;
@@ -40,7 +42,7 @@ import retrofit2.Call;
  * Created by cdkj on 2018/8/9.
  */
 
-public class ManagementMoneyDetailsActivity extends AbsLoadActivity {
+public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements UserInfoInterface {
 
     private ActivityManageMoneyDetailsBinding mBinding;
 
@@ -49,6 +51,9 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity {
     private ManagementMoney managementMoney;
 
     private NumberPwdInputDialog inputDialog;
+
+    private UserInfoPresenter mGetUserInfoPresenter;//获取用户信息
+
 
     /**
      * @param context
@@ -83,13 +88,22 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity {
 
         initClickListener();
 
-        getProductDetailsRequest();
+        mGetUserInfoPresenter = new UserInfoPresenter(this, this);
+
+        mGetUserInfoPresenter.getUserInfoPayPwdStateRequest();
     }
 
+    /**
+     * 点击事件
+     */
     private void initClickListener() {
 
         mBinding.btnBuy.setOnClickListener(view -> {
             if (managementMoney == null) return;
+
+            if (mGetUserInfoPresenter != null && !mGetUserInfoPresenter.checkPayPwdAndStartSetPage()) {  //判断用户是否设置过支付密码
+                return;
+            }
 
             getUserBalance(managementMoney.getSymbol());
 
@@ -311,6 +325,23 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity {
         if (inputDialog != null) {
             inputDialog.dismiss();
         }
+        if (mGetUserInfoPresenter != null) {
+            mGetUserInfoPresenter.clear();
+            mGetUserInfoPresenter = null;
+        }
         super.onDestroy();
     }
+
+    //获取用户信息
+    @Override
+    public void onStartGetUserInfo() {
+        showLoadingDialog();
+    }
+
+    @Override
+    public void onFinishedGetUserInfo(UserInfoModel userInfo, String errorMsg) {
+        getProductDetailsRequest();     //用户信息获取完成后获取产品信息
+    }
+
+
 }

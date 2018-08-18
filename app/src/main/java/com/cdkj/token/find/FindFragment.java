@@ -240,6 +240,8 @@ public class FindFragment extends BaseLazyFragment {
         map.put("language", SPUtilHelper.getLanguage());
         map.put("location", "0");
         map.put("status", "1");
+//        map.put("orderColumn", "order_number");
+//        map.put("orderDir", "desc");
 
         showLoadingDialog();
 

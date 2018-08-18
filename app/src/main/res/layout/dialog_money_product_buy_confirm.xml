@@ -48,10 +48,11 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginTop="15dp"
             android:orientation="horizontal"
             android:paddingLeft="15dp"
-            android:paddingRight="30dp">
+            android:paddingRight="15dp">
 
             <TextView
                 android:layout_width="wrap_content"
@@ -71,10 +72,16 @@
                 tools:text="合约编号" />
 
             <TextView
+                android:id="@+id/tv_in_money"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:background="@drawable/btn_rect_black_line"
                 android:gravity="right"
+                android:paddingBottom="5dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingTop="5dp"
                 android:text="转入资金"
                 android:textColor="@color/text_black_cd"
                 android:textSize="13sp" />
@@ -106,7 +113,7 @@
             <EditText
                 android:id="@+id/edit_buy_count"
                 android:layout_width="0dp"
-                android:layout_height="50dp"
+                android:layout_height="58dp"
                 android:layout_marginLeft="15dp"
                 android:layout_weight="1"
                 android:background="@null"

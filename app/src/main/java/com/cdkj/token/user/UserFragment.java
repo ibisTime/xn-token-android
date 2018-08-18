@@ -25,8 +25,9 @@ import com.cdkj.baselibrary.utils.QiNiuHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
-import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentUser2Binding;
+import com.cdkj.token.interfaces.UserInfoInterface;
+import com.cdkj.token.interfaces.UserInfoPresenter;
 import com.cdkj.token.user.invite.InviteFriendActivity;
 import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
 import com.cdkj.token.user.setting.UserSettingActivity;
@@ -46,7 +47,7 @@ import retrofit2.Call;
  * Created by cdkj on 2018/6/28.
  */
 
-public class UserFragment extends BaseLazyFragment {
+public class UserFragment extends BaseLazyFragment implements UserInfoInterface {
 
     private FragmentUser2Binding mBinding;
 
@@ -54,12 +55,8 @@ public class UserFragment extends BaseLazyFragment {
 
     private CommonDialog commonDialog;
 
-    public static UserFragment getInstance() {
-        UserFragment fragment = new UserFragment();
-        Bundle bundle = new Bundle();
-        fragment.setArguments(bundle);
-        return fragment;
-    }
+    private UserInfoPresenter mGetUserInfoPresenter;//获取用户信息
+
 
     @Nullable
     @Override
@@ -69,7 +66,27 @@ public class UserFragment extends BaseLazyFragment {
 
         initClickListener();
 
+        mGetUserInfoPresenter = new UserInfoPresenter(this, mActivity);
+
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onDestroy() {
+        if (commonDialog != null) {
+            commonDialog.closeDialog();
+        }
+        if (mGetUserInfoPresenter != null) {
+            mGetUserInfoPresenter.clear();
+        }
+        super.onDestroy();
+    }
+
+    public static UserFragment getInstance() {
+        UserFragment fragment = new UserFragment();
+        Bundle bundle = new Bundle();
+        fragment.setArguments(bundle);
+        return fragment;
     }
 
 
@@ -107,9 +124,6 @@ public class UserFragment extends BaseLazyFragment {
             boolean isHasInfo = WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId());
             if (!isHasInfo) {
                 CreateWalletStartActivity.open(mActivity);
-//                showDoubleWarnListen(getString(R.string.please_create_or_import_wallet), view1 -> {
-//                    CreateWalletStartActivity.open(mActivity);
-//                });
                 return;
             }
             WalletToolActivity.open(mActivity);
@@ -128,8 +142,8 @@ public class UserFragment extends BaseLazyFragment {
 
     @Override
     protected void lazyLoad() {
-        if (mBinding != null) {
-            getUserInfoRequest();
+        if (mBinding != null && mGetUserInfoPresenter != null) {
+            mGetUserInfoPresenter.getUserInfoRequest();
         }
     }
 
@@ -138,52 +152,12 @@ public class UserFragment extends BaseLazyFragment {
 
     }
 
+
     /**
-     * 获取用户信息
+     * 设置用户数据显示
+     *
+     * @param data
      */
-    public void getUserInfoRequest() {
-
-        if (!SPUtilHelper.isLoginNoStart()) {
-            setShowData(null);
-            return;
-        }
-
-        Map<String, String> map = new HashMap<>();
-
-        map.put("userId", SPUtilHelper.getUserId());
-        map.put("token", SPUtilHelper.getUserToken());
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-        call.enqueue(new BaseResponseModelCallBack<UserInfoModel>(mActivity) {
-            @Override
-            protected void onSuccess(UserInfoModel data, String SucMessage) {
-                if (data == null)
-                    return;
-
-                SPUtilHelper.saveSecretUserId(data.getSecretUserId());
-                SPUtilHelper.saveUserPhoto(data.getPhoto());
-                SPUtilHelper.saveUserEmail(data.getEmail());
-                SPUtilHelper.saveUserName(data.getNickname());
-                SPUtilHelper.saveRealName(data.getRealName());
-                SPUtilHelper.saveUserPhoneNum(data.getMobile());
-                SPUtilHelper.saveTradePwdFlag(data.isTradepwdFlag());
-                SPUtilHelper.saveLoginPwdFlag(data.isLoginPwdFlag());
-                SPUtilHelper.saveGoogleAuthFlag(data.isGoogleAuthFlag());
-
-                setShowData(data);
-            }
-
-            @Override
-            protected void onFinish() {
-                disMissLoading();
-            }
-        });
-    }
-
-
     private void setShowData(UserInfoModel data) {
         if (data == null) {
             mBinding.tvNickName.setText("");
@@ -192,7 +166,7 @@ public class UserFragment extends BaseLazyFragment {
             return;
         }
 
-        if (data.getCreateNo() < 10000) {
+        if (isShowUserCrown(data.getCreateNo())) {
             mBinding.imgCrown.setVisibility(View.VISIBLE);
         } else {
             mBinding.imgCrown.setVisibility(View.GONE);
@@ -203,6 +177,16 @@ public class UserFragment extends BaseLazyFragment {
         mBinding.tvNickName.setText(data.getNickname());
         mBinding.tvPhoneNumber.setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()) + " " + StringUtils.ttransformShowPhone(data.getMobile()));
         ImgUtils.loadLogo(mActivity, data.getPhoto(), mBinding.imgLogo);
+    }
+
+    /**
+     * 判断能否显示创始图标
+     *
+     * @param userNo 用户编号
+     * @return
+     */
+    private boolean isShowUserCrown(long userNo) {
+        return userNo < 10000;
     }
 
     @Override
@@ -248,8 +232,9 @@ public class UserFragment extends BaseLazyFragment {
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(mActivity) {
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
-                if (data.isSuccess()) {
-                    getUserInfoRequest();
+                if (data.isSuccess() && mGetUserInfoPresenter != null) {
+
+                    mGetUserInfoPresenter.getUserInfoRequest();
                 }
             }
 
@@ -282,14 +267,11 @@ public class UserFragment extends BaseLazyFragment {
         commonDialog.show();
     }
 
-    @Override
-    public void onDestroy() {
-        if (commonDialog != null) {
-            commonDialog.closeDialog();
-        }
-        super.onDestroy();
-    }
-
+    /**
+     * 更新昵称
+     *
+     * @param nickNameUpdate
+     */
     @Subscribe
     public void nickNameUpdate(NickNameUpdate nickNameUpdate) {
         if (mBinding != null) {
@@ -297,4 +279,16 @@ public class UserFragment extends BaseLazyFragment {
         }
     }
 
+    /**
+     * 获取用户信息
+     */
+    @Override
+    public void onStartGetUserInfo() {
+
+    }
+
+    @Override
+    public void onFinishedGetUserInfo(UserInfoModel userInfo, String errorMsg) {
+        setShowData(userInfo);
+    }
 }

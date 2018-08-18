@@ -652,7 +652,7 @@
     <string name="product_coin">认购币种</string>
     <string name="back_money_type">回款方式</string>
     <string name="product_buy_hint">请输入购买额度</string>
-    <string name="product_forecast_income">预计收入</string>
+    <string name="product_forecast_income"><Data><![CDATA[预计收入<font color="#FF6400">%1$s</font>%2$s]]></Data></string>
     <string name="coin_name">代币名称</string>
     <string name="user_account_balance">可用余额</string>
     <string name="buy_product_name">购买产品</string>

@@ -29,6 +29,7 @@ import com.cdkj.token.model.MarketCoinModel;
 import com.cdkj.token.model.MarketModel;
 import com.cdkj.token.model.MsgListModel;
 import com.cdkj.token.model.MyGetRedPackageBean;
+import com.cdkj.token.model.MyManamentMoneyProduct;
 import com.cdkj.token.model.MySendRedPackageBean;
 import com.cdkj.token.model.OrderDetailModel;
 import com.cdkj.token.model.OrderModel;
@@ -82,6 +83,15 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<ResponseInListModel<ManagementMoney>>> getMoneyManageProductList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取理我的财产品列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ResponseInListModel<MyManamentMoneyProduct>>> getMyMoneyManageProductList(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取理财产品详情
