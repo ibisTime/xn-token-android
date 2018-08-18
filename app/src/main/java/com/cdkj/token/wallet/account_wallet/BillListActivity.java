@@ -1,4 +1,4 @@
-package com.cdkj.token.wallet.account;
+package com.cdkj.token.wallet.account_wallet;
 
 import android.content.Context;
 import android.content.Intent;
@@ -47,6 +47,7 @@ import static com.cdkj.baselibrary.appmanager.EventTags.BASE_COIN_LIST;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
 
 /**
+ * 中心化钱包流水
  * Created by cdkj on 2018/5/25.
  */
 
@@ -164,7 +165,6 @@ public class BillListActivity extends AbsLoadActivity {
     private void initListener() {
 
         //筛选
-
         mBinding.tvFilter.setOnClickListener(view -> {
             if (filterPickerPop == null) {
                 filterPickerPop = new PickerPop(this);
@@ -232,13 +232,20 @@ public class BillListActivity extends AbsLoadActivity {
 
             @Override
             public void getListDataRequest(int pageIndex, int limit, boolean isShowDialog) {
-                getListData(pageIndex, limit, isShowDialog);
+                getBillListData(pageIndex, limit, isShowDialog);
             }
         };
 
     }
 
-    private void getListData(int pageIndex, int limit, boolean isShowDialog) {
+    /**
+     * 获取流水
+     *
+     * @param pageIndex
+     * @param limit
+     * @param isShowDialog
+     */
+    private void getBillListData(int pageIndex, int limit, boolean isShowDialog) {
         Map<String, String> map = new HashMap<>();
         map.put("limit", limit + "");
         map.put("start", pageIndex + "");

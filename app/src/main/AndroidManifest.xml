@@ -36,13 +36,13 @@
             android:name=".MainActivity"
             android:launchMode="singleTask" />
         <activity
-            android:name=".wallet.account.BillDetailActivity"
+            android:name=".wallet.account_wallet.BillDetailActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.account.RechargeActivity"
+            android:name=".wallet.account_wallet.RechargeActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.account.WithdrawActivity"
+            android:name=".wallet.account_wallet.WithdrawActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".user.UserSecurityActivity"
@@ -108,7 +108,7 @@
         </activity>
 
         <activity
-            android:name=".wallet.account.WithdrawOrderActivity"
+            android:name=".wallet.account_wallet.WithdrawOrderActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".user.UserGoogleActivity"
@@ -125,7 +125,7 @@
             android:name=".find.NoneActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.account.BillListActivity"
+            android:name=".wallet.account_wallet.BillListActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".wallet.AddChoiceCoinActivity"
@@ -176,19 +176,19 @@
             android:name=".wallet.export.WalletExportPasswordCheckActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.coin_detail.WalletCoinDetailsActivity"
+            android:name=".wallet.private_wallet.WalletCoinDetailsActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.coin_detail.WalletAddressShowActivity"
+            android:name=".wallet.private_wallet.WalletAddressShowActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.coin_detail.WalletTransferActivity"
+            android:name=".wallet.private_wallet.WalletTransferActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".wallet.AddChoiceActivity2"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.coin_detail.TransactionDetailsActivity"
+            android:name=".wallet.private_wallet.TransactionDetailsActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".find.product_application.red_package.SendRedPackageActivity"
@@ -231,7 +231,7 @@
             android:name=".wallet.backup_guide.BackupWalletWordsCheckActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.account.RechargeAddressQRActivity"
+            android:name=".wallet.account_wallet.RechargeAddressQRActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".user.pattern_lock.PatternLockSettingActivity"
@@ -256,10 +256,10 @@
         <activity android:name=".find.product_application.management_money.MyManagementMoneyListActivity" />
         <activity android:name=".find.product_application.management_money.MyManagementMoneyDetailsActivity" />
         <activity
-            android:name=".wallet.coin_detail.WalletBTCTransferActivity"
+            android:name=".wallet.private_wallet.WalletBTCTransferActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.coin_detail.BTCTransactionDetailsActivity"
+            android:name=".wallet.private_wallet.BTCTransactionDetailsActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".find.product_application.management_money.ManagementMoneyDetailsActivity" />
     </application>

@@ -45,8 +45,8 @@ import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.CardChangeLayout;
 import com.cdkj.token.views.dialogs.InfoSureDialog;
-import com.cdkj.token.wallet.account.BillListActivity;
-import com.cdkj.token.wallet.coin_detail.WalletCoinDetailsActivity;
+import com.cdkj.token.wallet.account_wallet.BillListActivity;
+import com.cdkj.token.wallet.private_wallet.WalletCoinDetailsActivity;
 import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
 import com.cdkj.token.wallet.import_guide.ImportWalletStartActivity;
 

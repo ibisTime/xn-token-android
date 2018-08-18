@@ -1,4 +1,4 @@
-package com.cdkj.token.wallet.account;
+package com.cdkj.token.wallet.account_wallet;
 
 import android.content.Context;
 import android.content.Intent;

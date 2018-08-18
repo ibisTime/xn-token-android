@@ -1,4 +1,4 @@
-package com.cdkj.token.wallet.account;
+package com.cdkj.token.wallet.account_wallet;
 
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -20,8 +20,6 @@ import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityAddressQrimgShowBinding;
 import com.cdkj.token.model.CoinModel;
-import com.cdkj.token.model.WalletBalanceModel;
-import com.cdkj.token.utils.wallet.WalletHelper;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.util.HashMap;

@@ -35,7 +35,7 @@ import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.common.ThaAppConstant;
 import com.cdkj.token.views.dialogs.UserBalanceDialog;
 import com.cdkj.token.views.dialogs.UserPayPasswordInputDialog;
-import com.cdkj.token.wallet.account.RechargeAddressQRActivity;
+import com.cdkj.token.wallet.account_wallet.RechargeAddressQRActivity;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;

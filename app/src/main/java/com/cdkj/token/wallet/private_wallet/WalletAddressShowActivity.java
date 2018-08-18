@@ -1,4 +1,4 @@
-package com.cdkj.token.wallet.coin_detail;
+package com.cdkj.token.wallet.private_wallet;
 
 import android.content.ClipData;
 import android.content.ClipboardManager;
@@ -11,15 +11,10 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityAddressQrimgShowBinding;
-import com.cdkj.token.databinding.ActivityRechargeBinding;
-import com.cdkj.token.model.db.WalletDBModel;
-import com.cdkj.token.utils.wallet.WalletHelper;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 /**

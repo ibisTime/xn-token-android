@@ -1,4 +1,4 @@
-package com.cdkj.token.wallet.account;
+package com.cdkj.token.wallet.account_wallet;
 
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -10,15 +10,11 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityAddressQrimgShowBinding;
-import com.cdkj.token.databinding.ActivityRechargeBinding;
 import com.cdkj.token.model.WalletBalanceModel;
-import com.cdkj.token.wallet.coin_detail.WalletAddressShowActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 public class RechargeActivity extends AbsLoadActivity {

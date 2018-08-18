@@ -17,13 +17,12 @@ import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.token.R;
-import com.cdkj.token.databinding.DialogInfoSureBinding;
 import com.cdkj.token.databinding.DialogMoneyProductBuyConfirmBinding;
 import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.utils.LocalCoinDBUtils;
-import com.cdkj.token.wallet.account.RechargeAddressQRActivity;
+import com.cdkj.token.wallet.account_wallet.RechargeAddressQRActivity;
 
 import java.math.BigDecimal;
 

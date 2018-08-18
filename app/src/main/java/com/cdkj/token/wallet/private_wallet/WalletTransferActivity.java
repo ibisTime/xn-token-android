@@ -1,4 +1,4 @@
-package com.cdkj.token.wallet.coin_detail;
+package com.cdkj.token.wallet.private_wallet;
 
 import android.Manifest;
 import android.content.Context;
