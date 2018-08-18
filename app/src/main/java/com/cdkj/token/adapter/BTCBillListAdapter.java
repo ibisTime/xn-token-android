@@ -43,7 +43,7 @@ public class BTCBillListAdapter extends BaseQuickAdapter<BTCBillModel, BaseViewH
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getTransDatetime(), DATE_MMddHHmm));
         helper.setImageResource(R.id.iv_type, getPrivateCoinStataIconByState(item.getDirection()));
 
-        //lxjtest UNIT优化
+
         helper.setText(R.id.tv_amount, getMoneyStateByState(item.getDirection()) + AmountUtil.amountFormatUnitForShow(item.getValue(), btcUnit, ETHSCALE) + " " + WalletHelper.COIN_BTC);
 
         if (isInState(item.getDirection())) {

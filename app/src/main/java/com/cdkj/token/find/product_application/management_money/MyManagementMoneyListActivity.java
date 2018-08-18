@@ -45,6 +45,7 @@ public class MyManagementMoneyListActivity extends AbsRefreshClipListActivity {
         setTitleBgBlue();
         mBaseBinding.titleView.setMidTitle(getString(R.string.my_management_money));
         initRefreshHelper();
+        mRefreshHelper.onDefaluteMRefresh(true);
     }
 
     @Override
@@ -53,7 +54,7 @@ public class MyManagementMoneyListActivity extends AbsRefreshClipListActivity {
         MyManagementMoneyAdapter adapter = new MyManagementMoneyAdapter(listData);
 
         adapter.setOnItemClickListener((adapter1, view, position) -> {
-            MyManagementMoneyDetailsActivity.open(this);
+            MyManagementMoneyDetailsActivity.open(this, adapter.getItem(position));
         });
 
         return adapter;

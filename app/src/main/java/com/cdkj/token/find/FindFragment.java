@@ -109,8 +109,7 @@ public class FindFragment extends BaseLazyFragment {
                     ManagementMoneyListActivity.open(mActivity);
                     break;
                 case "none":
-                    ManagementMoneyListActivity.open(mActivity);
-//                    WebViewImgBgActivity.openContent(mActivity, recommendAppModel.getName(), recommendAppModel.getDescription());
+                    WebViewImgBgActivity.openContent(mActivity, recommendAppModel.getName(), recommendAppModel.getDescription());
                     break;
             }
 

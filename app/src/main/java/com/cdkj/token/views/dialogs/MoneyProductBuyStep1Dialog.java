@@ -18,6 +18,7 @@ import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.DialogMoneyProductBuyConfirmBinding;
+import com.cdkj.token.interfaces.ProductBuyListener;
 import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
@@ -48,18 +49,14 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
     private ManagementMoney managementMoney;
 
 
-    public toBuyListener toBuyListener;
+    public ProductBuyListener toBuyListener;
 
 
-    public MoneyProductBuyStep1Dialog setToBuyListener(MoneyProductBuyStep1Dialog.toBuyListener toBuyListener) {
+    public MoneyProductBuyStep1Dialog setToBuyListener(ProductBuyListener toBuyListener) {
         this.toBuyListener = toBuyListener;
         return this;
     }
 
-    //购买监听
-    public interface toBuyListener {
-        void onBuy(String money);
-    }
 
     public MoneyProductBuyStep1Dialog(@NonNull Activity activity) {
         super(activity, R.style.TipsDialog);
@@ -176,8 +173,10 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
             return;
         }
 
+
         if (toBuyListener != null) {
-            toBuyListener.onBuy(mBinding.editBuyCount.getText().toString());
+            dismiss();
+            toBuyListener.onBuyStep1(mBinding.editBuyCount.getText().toString());
         }
     }
 

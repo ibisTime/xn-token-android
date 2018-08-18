@@ -125,9 +125,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
         mBinding.btnSubmit.setOnClickListener(v -> {
             checkInputState();
         });
-        mBinding.llType.setOnClickListener(view -> {
 
-        });
         mBinding.tvRedType.setOnClickListener(view -> {
 
             if (redType == TYPE_LUCKY) {        //拼手气红包变为普通红包

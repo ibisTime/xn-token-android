@@ -24,9 +24,9 @@
     <string name="activity_image_system_content">access camera does have not to your, storage space,
     and this feature is not available. Please go to apply permission settings to open permissions.</string>
 
-    <string name="activity_find_password"> new password </string>
+    <string name="activity_find_password">New password </string>
     <string name="activity_find_repassword"> Confirm password </string>
-    <string name="activity_find_google_paste"> paste </string>
+    <string name="activity_find_google_paste">Paste </string>
     <string name="activity_find_google"> Google verification code </string>
     <string name="activity_find_send">Get code
 </string>

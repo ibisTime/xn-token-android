@@ -662,5 +662,9 @@
     <string name="limit_amount"><Data><![CDATA[<font color="#666666">\u3000（每人限购%s)</font>]]></Data></string>
     <string name="product_buy_total">购买额度</string>
     <string name="do_contract">执行合约</string>
+    <string name="buy_fail">购买失败</string>
+    <string name="old_password">旧密码</string>
+    <string name="modify_wallet_pwd">修改交易密码</string>
+    <string name="old_pwd_error">旧密码错误</string>
 
 </resources>

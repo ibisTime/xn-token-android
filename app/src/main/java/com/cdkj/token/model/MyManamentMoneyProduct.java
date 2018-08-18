@@ -1,11 +1,16 @@
 package com.cdkj.token.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import java.math.BigDecimal;
+
 /**
  * 我的理财产品
  * Created by cdkj on 2018/8/18.
  */
 
-public class MyManamentMoneyProduct {
+public class MyManamentMoneyProduct implements Parcelable {
 
 
     /**
@@ -31,7 +36,7 @@ public class MyManamentMoneyProduct {
     private String productCode;
     private String userId;
     private String investNum;
-    private String investAmount;
+    private BigDecimal investAmount;
     private String expectIncome;
     private String income;
     private String leftPrincipal;
@@ -76,11 +81,11 @@ public class MyManamentMoneyProduct {
         this.investNum = investNum;
     }
 
-    public String getInvestAmount() {
+    public BigDecimal getInvestAmount() {
         return investAmount;
     }
 
-    public void setInvestAmount(String investAmount) {
+    public void setInvestAmount(BigDecimal investAmount) {
         this.investAmount = investAmount;
     }
 
@@ -171,4 +176,63 @@ public class MyManamentMoneyProduct {
     public void setUserInfo(String userInfo) {
         this.userInfo = userInfo;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(this.code);
+        dest.writeString(this.productCode);
+        dest.writeString(this.userId);
+        dest.writeString(this.investNum);
+        dest.writeSerializable(this.investAmount);
+        dest.writeString(this.expectIncome);
+        dest.writeString(this.income);
+        dest.writeString(this.leftPrincipal);
+        dest.writeString(this.redeemAmount);
+        dest.writeString(this.redeemTimes);
+        dest.writeString(this.lastInvestDatetime);
+        dest.writeString(this.lastRedeemDatetime);
+        dest.writeString(this.createDatetime);
+        dest.writeString(this.status);
+        dest.writeString(this.productInfo);
+        dest.writeString(this.userInfo);
+    }
+
+    public MyManamentMoneyProduct() {
+    }
+
+    protected MyManamentMoneyProduct(Parcel in) {
+        this.code = in.readString();
+        this.productCode = in.readString();
+        this.userId = in.readString();
+        this.investNum = in.readString();
+        this.investAmount = (BigDecimal) in.readSerializable();
+        this.expectIncome = in.readString();
+        this.income = in.readString();
+        this.leftPrincipal = in.readString();
+        this.redeemAmount = in.readString();
+        this.redeemTimes = in.readString();
+        this.lastInvestDatetime = in.readString();
+        this.lastRedeemDatetime = in.readString();
+        this.createDatetime = in.readString();
+        this.status = in.readString();
+        this.productInfo = in.readString();
+        this.userInfo = in.readString();
+    }
+
+    public static final Parcelable.Creator<MyManamentMoneyProduct> CREATOR = new Parcelable.Creator<MyManamentMoneyProduct>() {
+        @Override
+        public MyManamentMoneyProduct createFromParcel(Parcel source) {
+            return new MyManamentMoneyProduct(source);
+        }
+
+        @Override
+        public MyManamentMoneyProduct[] newArray(int size) {
+            return new MyManamentMoneyProduct[size];
+        }
+    };
 }

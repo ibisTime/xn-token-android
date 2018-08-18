@@ -326,14 +326,14 @@
     <string name="words_tip_2">Please input the backup wallet mnemonic (12 English words), separated by space </string>
     <string name="check_your_words">Verify your wallet mnemonic </string>
     <string name="words_tip_3">According to the mnemonics you wrote down, click in the order to verify that the backup mnemonics you made are correct. </string>
-    <string name="update_password_success"> password modified successfully </string>
-    <string name="update_password_fail"> password modification failed </string>
+    <string name="update_password_success">Password modified successfully </string>
+    <string name="update_password_fail"> Password modification failed </string>
     <string name="modify_password">Modify password </string>
     <string name="please_set_transaction_password">Please set the transaction password </string>
-    <string name="transaction_password_error">transaction password error </string>f
+    <string name="transaction_password_error">Transaction password error </string>f
     <string name="wallet_backup">Wallet backup </string>
     <string name="wallet_backup_success">Wallet backup success </string>
-    <string name="i_know">know </string>
+    <string name="i_know">Know </string>
     <string name="delete_wallet">Delete wallet</string>
     <string name="please_input_help_words">Please input the mnemonic words </string>
     <string name="address">Address </string>
@@ -728,6 +728,10 @@
     <string name="limit_amount"><Data><![CDATA[<font color="#666666">\u3000（每人限购%s)</font>]]></Data></string>
     <string name="product_buy_total">购买额度</string>
     <string name="do_contract">执行合约</string>
+    <string name="buy_fail">购买失败</string>
+    <string name="old_password">旧密码</string>
+    <string name="modify_wallet_pwd">修改交易密码</string>
+    <string name="old_pwd_error">旧密码错误</string>
 </resources>
 
 

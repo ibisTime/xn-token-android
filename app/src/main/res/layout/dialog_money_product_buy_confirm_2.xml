@@ -29,7 +29,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
                 android:text="@string/buy_product_name"
                 android:textColor="@color/gray_666666"
                 android:textSize="14sp" />
@@ -59,7 +58,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
                 android:text="@string/buy_product_count"
                 android:textColor="@color/gray_666666"
                 android:textSize="14sp" />
@@ -118,7 +116,6 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="25dp"
                 android:text="@string/buy_product_get_income"
                 android:textColor="@color/gray_666666"
                 android:textSize="14sp" />

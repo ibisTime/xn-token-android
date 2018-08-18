@@ -33,6 +33,9 @@ public class ManagementMoneyListAdapter extends BaseQuickAdapter<ManagementMoney
     @Override
     protected void convert(BaseViewHolder helper, ManagementMoney item) {
 
+        if (item == null) return;
+
+
         BigDecimal unit = LocalCoinDBUtils.getLocalCoinUnit(item.getSymbol());
 
         helper.setText(R.id.tv_name, item.getName());

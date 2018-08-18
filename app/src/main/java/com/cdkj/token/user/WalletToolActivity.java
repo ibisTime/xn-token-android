@@ -16,7 +16,7 @@ import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserWalletBinding;
 import com.cdkj.token.utils.wallet.WalletHelper;
-import com.cdkj.token.wallet.WalletPasswordModifyActivity;
+import com.cdkj.token.wallet.WalletPasswordModifyActivity2;
 import com.cdkj.token.wallet.backup_guide.BackupWalletStartActivity;
 import com.cdkj.token.wallet.export.WalletExportPasswordCheckActivity;
 
@@ -69,7 +69,8 @@ public class WalletToolActivity extends AbsLoadActivity {
             showPasswordInputDialog(DIALOG_BACKUP);
         });
 
-        mBinding.llModify.setOnClickListener(view -> WalletPasswordModifyActivity.open(this));
+        //修改钱包密码
+        mBinding.llModify.setOnClickListener(view -> WalletPasswordModifyActivity2.open(this));
         mBinding.llOut.setOnClickListener(view -> WalletExportPasswordCheckActivity.open(this));
 
         mBinding.btnDelete.setOnClickListener(view -> {

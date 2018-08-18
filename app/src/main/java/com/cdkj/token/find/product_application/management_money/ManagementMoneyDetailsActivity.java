@@ -12,7 +12,6 @@ import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
-import com.cdkj.baselibrary.dialog.NumberPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.UserInfoModel;
@@ -25,11 +24,14 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityManageMoneyDetailsBinding;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;
+import com.cdkj.token.interfaces.ProductBuyListener;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.views.dialogs.MoneyProductBuyStep1Dialog;
+import com.cdkj.token.views.dialogs.MoneyProductBuyStep2Dialog;
+import com.cdkj.token.views.dialogs.UserPayPasswordInputDialog;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -42,7 +44,7 @@ import retrofit2.Call;
  * Created by cdkj on 2018/8/9.
  */
 
-public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements UserInfoInterface {
+public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements UserInfoInterface, ProductBuyListener {
 
     private ActivityManageMoneyDetailsBinding mBinding;
 
@@ -50,7 +52,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
 
     private ManagementMoney managementMoney;
 
-    private NumberPwdInputDialog inputDialog;
+    private UserPayPasswordInputDialog passInputDialog;
 
     private UserInfoPresenter mGetUserInfoPresenter;//获取用户信息
 
@@ -89,7 +91,6 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         initClickListener();
 
         mGetUserInfoPresenter = new UserInfoPresenter(this, this);
-
         mGetUserInfoPresenter.getUserInfoPayPwdStateRequest();
     }
 
@@ -198,6 +199,58 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         return AmountUtil.amountFormatUnitForShow(amount, coinUnit, AmountUtil.ALLSCALE) + data.getSymbol();
     }
 
+    //获取用户信息
+    @Override
+    public void onStartGetUserInfo() {
+        showLoadingDialog();
+    }
+
+    @Override
+    public void onFinishedGetUserInfo(UserInfoModel userInfo, String errorMsg) {
+        getProductDetailsRequest();     //用户信息获取完成后获取产品信息
+    }
+
+
+
+    /**
+     * 显示购买第一步dialog
+     *
+     * @param data
+     */
+    private void showBuyStp1Dialog(CoinModel data) {
+        BigDecimal amount = new BigDecimal(data.getAccountList().get(0).getAmountString());//可用余额
+        MoneyProductBuyStep1Dialog moneyProductBuyStep1Dialog = new MoneyProductBuyStep1Dialog(ManagementMoneyDetailsActivity.this);
+        moneyProductBuyStep1Dialog.
+                setShowData(amount, managementMoney)
+                .setToBuyListener(this)
+                .show();
+    }
+
+    //购买第一步
+    @Override
+    public void onBuyStep1(String money) {
+        new MoneyProductBuyStep2Dialog(ManagementMoneyDetailsActivity.this)
+                .setToBuyListener(this)
+                .show();
+    }
+
+
+    //购买第二步
+    @Override
+    public void onBuyStep2() {
+        showPasswordInputDialog("");
+    }
+
+    //购买成功
+    public void buySuccess() {
+
+    }
+
+    //购买失败
+    public void buyFail() {
+        UITipDialog.showFail(this, getString(R.string.buy_fail));
+    }
+
     /**
      * 获取余额
      */
@@ -239,47 +292,27 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         });
     }
 
-    /**
-     * 显示购买第一步dialog
-     *
-     * @param data
-     */
-    private void showBuyStp1Dialog(CoinModel data) {
-        BigDecimal amount = new BigDecimal(data.getAccountList().get(0).getAmountString());//可用余额
-        MoneyProductBuyStep1Dialog moneyProductBuyStep1Dialog = new MoneyProductBuyStep1Dialog(ManagementMoneyDetailsActivity.this);
-        moneyProductBuyStep1Dialog.
-                setShowData(amount, managementMoney)
-                .setToBuyListener(money -> {
-                    moneyProductBuyStep1Dialog.dismiss();
-                    showPasswordInputDialog(money);
-                })
-                .show();
-    }
-
 
     /**
-     * 显示密码输入框
+     * 显示密码输入
      */
     private void showPasswordInputDialog(String money) {
-        if (inputDialog == null) {
-            inputDialog = new NumberPwdInputDialog(this).builder().setTitle(getString(R.string.please_input_transaction_pwd))
-                    .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
-                        String tradePwd = inputDialog.getContentView().getText().toString().trim();
-                        if (TextUtils.isEmpty(tradePwd)) {
-                            UITipDialog.showInfoNoIcon(ManagementMoneyDetailsActivity.this, getString(R.string.please_input_transaction_pwd));
-                            return;
-                        }
-
-                        buyRequest(money, tradePwd);
-
-                    })
-                    .setNegativeBtn(getStrRes(R.string.cancel), null)
-                    .setContentMsg("");
+        if (passInputDialog == null) {
+            passInputDialog = new UserPayPasswordInputDialog(this);
+            passInputDialog.setPasswordInputEndListener(new UserPayPasswordInputDialog.PasswordInputEndListener() {
+                @Override
+                public void passEnd(String password) {
+                    passInputDialog.dismiss();
+                    if (TextUtils.isEmpty(password)) {
+                        UITipDialog.showInfoNoIcon(ManagementMoneyDetailsActivity.this, getString(R.string.please_input_transaction_pwd));
+                        return;
+                    }
+                    buyRequest(money, password);
+                }
+            });
         }
-        inputDialog.getContentView().setText("");
-        inputDialog.getContentView().setHint(getStrRes(R.string.please_input_transaction_pwd));
-        inputDialog.getContentView().setText("");
-        inputDialog.show();
+        passInputDialog.setPwdEmpty();
+        passInputDialog.show();
     }
 
 
@@ -307,7 +340,11 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(this) {
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
-
+                if (data != null && data.isSuccess()) {
+                    buySuccess();
+                } else {
+                    buyFail();
+                }
             }
 
             @Override
@@ -322,8 +359,8 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
 
     @Override
     protected void onDestroy() {
-        if (inputDialog != null) {
-            inputDialog.dismiss();
+        if (passInputDialog != null) {
+            passInputDialog.dismiss();
         }
         if (mGetUserInfoPresenter != null) {
             mGetUserInfoPresenter.clear();
@@ -331,17 +368,5 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         }
         super.onDestroy();
     }
-
-    //获取用户信息
-    @Override
-    public void onStartGetUserInfo() {
-        showLoadingDialog();
-    }
-
-    @Override
-    public void onFinishedGetUserInfo(UserInfoModel userInfo, String errorMsg) {
-        getProductDetailsRequest();     //用户信息获取完成后获取产品信息
-    }
-
 
 }
