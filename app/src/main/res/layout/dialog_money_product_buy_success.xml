@@ -7,7 +7,7 @@
         android:layout_height="wrap_content"
         android:background="@drawable/dialog_tips_bg"
         android:orientation="vertical"
-        android:paddingBottom="35dp"
+        android:paddingBottom="20dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp">
 
@@ -37,10 +37,12 @@
             android:textSize="20sp" />
 
         <TextView
+            android:id="@+id/tv_look_buy_history"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
+            android:background="@drawable/btn_rect_black_line"
             android:paddingBottom="10dp"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
@@ -50,13 +52,14 @@
             android:textSize="12sp" />
 
         <TextView
+            android:id="@+id/tv_delay_to_start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="10dp"
-            android:text="@string/delay_to_start"
             android:textColor="@color/gray_cccccc"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            tools:text="@string/delay_to_start" />
 
 
     </LinearLayout>

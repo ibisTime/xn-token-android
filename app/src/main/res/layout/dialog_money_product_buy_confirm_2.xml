@@ -34,6 +34,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -63,6 +64,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_buy_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -92,6 +94,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_end_time"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -121,6 +124,7 @@
                 android:textSize="14sp" />
 
             <TextView
+                android:id="@+id/tv_income"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
@@ -135,6 +139,7 @@
         <View style="@style/style_split_line" />
 
         <Button
+            android:id="@+id/tv_to_pay"
             android:layout_width="match_parent"
             android:layout_height="@dimen/btn_height"
             android:layout_marginBottom="30dp"

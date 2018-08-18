@@ -22,15 +22,17 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityManageMoneyDetailsBinding;
+import com.cdkj.token.interfaces.ProductBuyListener;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;
-import com.cdkj.token.interfaces.ProductBuyListener;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.ManagementMoney;
+import com.cdkj.token.model.ProductBuyStep2Model;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.views.dialogs.MoneyProductBuyStep1Dialog;
 import com.cdkj.token.views.dialogs.MoneyProductBuyStep2Dialog;
+import com.cdkj.token.views.dialogs.MoneyProductBuySuccessDialog;
 import com.cdkj.token.views.dialogs.UserPayPasswordInputDialog;
 
 import java.math.BigDecimal;
@@ -55,6 +57,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
     private UserPayPasswordInputDialog passInputDialog;
 
     private UserInfoPresenter mGetUserInfoPresenter;//获取用户信息
+    private MoneyProductBuyStep2Dialog moneyProductBuyStep2Dialog;
 
 
     /**
@@ -168,6 +171,8 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         mBinding.tvMinMoney.setText(Html.fromHtml(getCoinAmountText(data, coinUnit, data.getMinAmount()) +
                 getString(R.string.limit_amount, getCoinAmountText(data, coinUnit, data.getLimitAmount()))));//起购 +限购
 
+        mBinding.tvIncrementAmount.setText(getCoinAmountText(data, coinUnit, data.getIncreAmount()));  //递增金额
+
 
         BigDecimal sale = BigDecimalUtils.div(data.getSaleAmount(), data.getAmount(), 2);
         mBinding.progressbar.setProgress((int) (sale.floatValue() * 100));
@@ -182,6 +187,12 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         }
         //产品介绍
         mBinding.webviewProductIntroduction.loadData(data.getDescription(), "text/html;charset=UTF-8", "UTF-8");
+
+        if (TextUtils.equals("5", data.getStatus())) {           //5募集期  只有募集期才可以进行购买
+            mBinding.btnBuy.setVisibility(View.VISIBLE);
+        } else {
+            mBinding.btnBuy.setVisibility(View.GONE);
+        }
 
         mBinding.getRoot().setVisibility(View.VISIBLE);
     }
@@ -211,39 +222,48 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
     }
 
 
-
     /**
      * 显示购买第一步dialog
      *
      * @param data
      */
     private void showBuyStp1Dialog(CoinModel data) {
-        BigDecimal amount = new BigDecimal(data.getAccountList().get(0).getAmountString());//可用余额
+
+        //可用余额=总-冻结
+        BigDecimal balanceAmount = BigDecimalUtils.subtract(new BigDecimal(data.getAccountList().get(0).getAmountString())
+                , new BigDecimal(data.getAccountList().get(0).getFrozenAmountString()));//可用余额
+
         MoneyProductBuyStep1Dialog moneyProductBuyStep1Dialog = new MoneyProductBuyStep1Dialog(ManagementMoneyDetailsActivity.this);
         moneyProductBuyStep1Dialog.
-                setShowData(amount, managementMoney)
+                setShowData(balanceAmount, managementMoney)
                 .setToBuyListener(this)
                 .show();
     }
 
-    //购买第一步
+
     @Override
-    public void onBuyStep1(String money) {
-        new MoneyProductBuyStep2Dialog(ManagementMoneyDetailsActivity.this)
+    public void onBuyStep1(ProductBuyStep2Model buyStep2Model) {
+        moneyProductBuyStep2Dialog = new MoneyProductBuyStep2Dialog(ManagementMoneyDetailsActivity.this)
                 .setToBuyListener(this)
-                .show();
+                .setProductInfo(buyStep2Model);
+        moneyProductBuyStep2Dialog.show();
     }
-
 
     //购买第二步
     @Override
-    public void onBuyStep2() {
-        showPasswordInputDialog("");
+    public void onBuyStep2(ProductBuyStep2Model buyStep2Model) {
+        if (buyStep2Model == null) {
+            return;
+        }
+        showPasswordInputDialog(buyStep2Model.getBuyAmount().toPlainString());
     }
 
     //购买成功
     public void buySuccess() {
-
+        if (moneyProductBuyStep2Dialog != null) {
+            moneyProductBuyStep2Dialog.dismiss();
+        }
+        new MoneyProductBuySuccessDialog(this).show();
     }
 
     //购买失败
@@ -299,18 +319,19 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
     private void showPasswordInputDialog(String money) {
         if (passInputDialog == null) {
             passInputDialog = new UserPayPasswordInputDialog(this);
-            passInputDialog.setPasswordInputEndListener(new UserPayPasswordInputDialog.PasswordInputEndListener() {
-                @Override
-                public void passEnd(String password) {
-                    passInputDialog.dismiss();
-                    if (TextUtils.isEmpty(password)) {
-                        UITipDialog.showInfoNoIcon(ManagementMoneyDetailsActivity.this, getString(R.string.please_input_transaction_pwd));
-                        return;
-                    }
-                    buyRequest(money, password);
-                }
-            });
         }
+
+        passInputDialog.setPasswordInputEndListener(new UserPayPasswordInputDialog.PasswordInputEndListener() {
+            @Override
+            public void passEnd(String password) {
+                passInputDialog.dismiss();
+                if (TextUtils.isEmpty(password)) {
+                    UITipDialog.showInfoNoIcon(ManagementMoneyDetailsActivity.this, getString(R.string.please_input_transaction_pwd));
+                    return;
+                }
+                buyRequest(money, password);
+            }
+        });
         passInputDialog.setPwdEmpty();
         passInputDialog.show();
     }
@@ -331,7 +352,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         Map<String, String> map = new HashMap<>();
 
         map.put("code", mProductCode);
-        map.put("investAmount", AmountUtil.bigDecimalFormat(new BigDecimal(money), managementMoney.getSymbol()).toPlainString());
+        map.put("investAmount", money);
         map.put("tradePwd", pwd);
         map.put("userId", SPUtilHelper.getUserId());
 
@@ -361,6 +382,9 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
     protected void onDestroy() {
         if (passInputDialog != null) {
             passInputDialog.dismiss();
+        }
+        if (moneyProductBuyStep2Dialog != null) {
+            moneyProductBuyStep2Dialog.dismiss();
         }
         if (mGetUserInfoPresenter != null) {
             mGetUserInfoPresenter.clear();

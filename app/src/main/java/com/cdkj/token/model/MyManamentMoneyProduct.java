@@ -37,7 +37,7 @@ public class MyManamentMoneyProduct implements Parcelable {
     private String userId;
     private String investNum;
     private BigDecimal investAmount;
-    private String expectIncome;
+    private BigDecimal expectIncome;
     private String income;
     private String leftPrincipal;
     private String redeemAmount;
@@ -46,8 +46,17 @@ public class MyManamentMoneyProduct implements Parcelable {
     private String lastRedeemDatetime;
     private String createDatetime;
     private String status;
-    private String productInfo;
     private String userInfo;
+    private MyManagementMoney productInfo;
+
+
+    public MyManagementMoney getProductInfo() {
+        return productInfo;
+    }
+
+    public void setProductInfo(MyManagementMoney productInfo) {
+        this.productInfo = productInfo;
+    }
 
     public String getCode() {
         return code;
@@ -89,11 +98,11 @@ public class MyManamentMoneyProduct implements Parcelable {
         this.investAmount = investAmount;
     }
 
-    public String getExpectIncome() {
+    public BigDecimal getExpectIncome() {
         return expectIncome;
     }
 
-    public void setExpectIncome(String expectIncome) {
+    public void setExpectIncome(BigDecimal expectIncome) {
         this.expectIncome = expectIncome;
     }
 
@@ -161,13 +170,6 @@ public class MyManamentMoneyProduct implements Parcelable {
         this.status = status;
     }
 
-    public String getProductInfo() {
-        return productInfo;
-    }
-
-    public void setProductInfo(String productInfo) {
-        this.productInfo = productInfo;
-    }
 
     public String getUserInfo() {
         return userInfo;
@@ -175,6 +177,9 @@ public class MyManamentMoneyProduct implements Parcelable {
 
     public void setUserInfo(String userInfo) {
         this.userInfo = userInfo;
+    }
+
+    public MyManamentMoneyProduct() {
     }
 
     @Override
@@ -189,7 +194,7 @@ public class MyManamentMoneyProduct implements Parcelable {
         dest.writeString(this.userId);
         dest.writeString(this.investNum);
         dest.writeSerializable(this.investAmount);
-        dest.writeString(this.expectIncome);
+        dest.writeSerializable(this.expectIncome);
         dest.writeString(this.income);
         dest.writeString(this.leftPrincipal);
         dest.writeString(this.redeemAmount);
@@ -198,11 +203,8 @@ public class MyManamentMoneyProduct implements Parcelable {
         dest.writeString(this.lastRedeemDatetime);
         dest.writeString(this.createDatetime);
         dest.writeString(this.status);
-        dest.writeString(this.productInfo);
         dest.writeString(this.userInfo);
-    }
-
-    public MyManamentMoneyProduct() {
+        dest.writeParcelable(this.productInfo, flags);
     }
 
     protected MyManamentMoneyProduct(Parcel in) {
@@ -211,7 +213,7 @@ public class MyManamentMoneyProduct implements Parcelable {
         this.userId = in.readString();
         this.investNum = in.readString();
         this.investAmount = (BigDecimal) in.readSerializable();
-        this.expectIncome = in.readString();
+        this.expectIncome = (BigDecimal) in.readSerializable();
         this.income = in.readString();
         this.leftPrincipal = in.readString();
         this.redeemAmount = in.readString();
@@ -220,11 +222,11 @@ public class MyManamentMoneyProduct implements Parcelable {
         this.lastRedeemDatetime = in.readString();
         this.createDatetime = in.readString();
         this.status = in.readString();
-        this.productInfo = in.readString();
         this.userInfo = in.readString();
+        this.productInfo = in.readParcelable(MyManagementMoney.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<MyManamentMoneyProduct> CREATOR = new Parcelable.Creator<MyManamentMoneyProduct>() {
+    public static final Creator<MyManamentMoneyProduct> CREATOR = new Creator<MyManamentMoneyProduct>() {
         @Override
         public MyManamentMoneyProduct createFromParcel(Parcel source) {
             return new MyManamentMoneyProduct(source);

@@ -82,7 +82,7 @@ public class CoinModel implements Serializable {
         private String type;
         private String status;
         private String currency;
-        private String amountString;  //可用余额
+        private String amountString;  //总余额
         private String frozenAmountString;//冻结余额
         private String md5;
         private String addAmountString;

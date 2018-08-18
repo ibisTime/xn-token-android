@@ -12,7 +12,9 @@ import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityMyManageMoneyDetailsBinding;
+import com.cdkj.token.model.MyManagementMoney;
 import com.cdkj.token.model.MyManamentMoneyProduct;
+import com.cdkj.token.utils.AmountUtil;
 
 /**
  * 我的理财详情
@@ -43,6 +45,9 @@ public class MyManagementMoneyDetailsActivity extends AbsLoadActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+
+        mBaseBinding.titleView.setMidTitle(R.string.my_managment_money);
+
         setStatusBarBlue();
         setTitleBgBlue();
 
@@ -60,19 +65,26 @@ public class MyManagementMoneyDetailsActivity extends AbsLoadActivity {
      */
     private void setShowData(MyManamentMoneyProduct moneyProduct) {
 
-        if (moneyProduct == null) {
+        MyManagementMoney myManagementMoney = moneyProduct.getProductInfo();
+
+        if (moneyProduct == null || myManagementMoney == null) {
             return;
         }
 
+
+        mBinding.tvName.setText(myManagementMoney.getName());
+
         mBinding.tvCode.setText(moneyProduct.getCode());
         mBinding.tvTransctionTime.setText(DateUtil.formatStringData(moneyProduct.getCreateDatetime(), DateUtil.DEFAULT_DATE_FMT));
-        mBinding.tvProductLimit.setText("xx");
-        mBinding.tvIncomeRate.setText("xx");
+        mBinding.tvProductLimit.setText(getString(R.string.product_days, myManagementMoney.getLimitDays() + ""));
 
-        mBinding.tvBuyAmount.setText("xx");
-        mBinding.tvIncome.setText("xx");
-        mBinding.tvStartTime.setText("xx");
-        mBinding.tvEndTime.setText("xx");
+        mBinding.tvIncomeRate.setText(StringUtils.showformatPercentage(myManagementMoney.getExpectYield()));
+
+        mBinding.tvIncome.setText(AmountUtil.amountFormatUnitForShow(myManagementMoney.getExpectIncome(), myManagementMoney.getSymbol(), AmountUtil.ALLSCALE) + myManagementMoney.getSymbol());
+        mBinding.tvBuyAmount.setText(AmountUtil.amountFormatUnitForShow(myManagementMoney.getInvestAmount(), myManagementMoney.getSymbol(), AmountUtil.ALLSCALE) + myManagementMoney.getSymbol());
+
+        mBinding.tvStartTime.setText(DateUtil.formatStringData(myManagementMoney.getIncomeDatetime(), DateUtil.DEFAULT_DATE_FMT));
+        mBinding.tvEndTime.setText(DateUtil.formatStringData(myManagementMoney.getArriveDatetime(), DateUtil.DEFAULT_DATE_FMT));
 
     }
 

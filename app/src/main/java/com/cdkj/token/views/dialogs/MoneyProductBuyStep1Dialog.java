@@ -15,17 +15,21 @@ import android.widget.LinearLayout;
 
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.BigDecimalUtils;
+import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.DialogMoneyProductBuyConfirmBinding;
 import com.cdkj.token.interfaces.ProductBuyListener;
 import com.cdkj.token.model.ManagementMoney;
+import com.cdkj.token.model.ProductBuyStep2Model;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.wallet.account_wallet.RechargeAddressQRActivity;
 
 import java.math.BigDecimal;
+
+import static com.cdkj.baselibrary.utils.DateUtil.DATE_YMD;
 
 /**
  * 理财产品购买1dialog
@@ -50,6 +54,8 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
 
 
     public ProductBuyListener toBuyListener;
+
+    private String expectInComeAmountString;//预期收益金额
 
 
     public MoneyProductBuyStep1Dialog setToBuyListener(ProductBuyListener toBuyListener) {
@@ -97,6 +103,7 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
                 }
 
                 float buyamount = Float.valueOf(charSequence.toString());
+
                 setIncomeForecast(AmountUtil.formatCoinAmount(buyamount * inCome));
 
             }
@@ -131,6 +138,8 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
      * 2不能大于余额
      * 3不能大于限购金额
      * 4不能大于总额（可售额度）
+     * <p>
+     * 5递增金额
      */
     private void checkBuyState() {
 
@@ -140,43 +149,64 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
 
         //购买金额小于起购余额
         if (TextUtils.isEmpty(mBinding.editBuyCount.getText().toString())) {
-            UITipDialog.showInfoNoIcon(mActivity, "起购额度为" + AmountUtil.amountFormatUnitForShow(managementMoney.getMinAmount(), coinuUnit, AmountUtil.ALLSCALE));
+            UITipDialog.showInfoNoIcon(mActivity, mActivity.getString(R.string.product_buy_hint));
             return;
         }
-
 
         //购买金额
         BigDecimal buyAmount = AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.editBuyCount.getText().toString().trim()), coinuUnit);
 
         //购买金额小于起购余额
         if (!BigDecimalUtils.compareTo2(buyAmount, managementMoney.getMinAmount())) {
-            UITipDialog.showInfoNoIcon(mActivity, "起购额度为" + AmountUtil.amountFormatUnitForShow(managementMoney.getMinAmount(), coinuUnit, AmountUtil.ALLSCALE));
+            UITipDialog.showInfoNoIcon(mActivity, mActivity.getString(R.string.money_product_check_1) + AmountUtil.amountFormatUnitForShow(managementMoney.getMinAmount(), coinuUnit, AmountUtil.ALLSCALE));
+            return;
+        }
+
+        BigDecimal seccondAmount = buyAmount.subtract(managementMoney.getMinAmount())
+                .divideAndRemainder(managementMoney.getIncreAmount())[1];
+        //5递增金额判断
+        if (!BigDecimalUtils.compareEqualsZERO(seccondAmount)) {
+            UITipDialog.showInfoNoIcon(mActivity, mActivity.getString(R.string.money_product_check_2));
             return;
         }
 
         //2购买金额大于余额
         if (BigDecimalUtils.compareTo(buyAmount, balanceBigDecimal)) {
-            UITipDialog.showInfoNoIcon(mActivity, "可用余额不足");
+            UITipDialog.showInfoNoIcon(mActivity, mActivity.getString(R.string.money_product_check_3));
             return;
         }
 
         //3不能大于限购金额
         if (BigDecimalUtils.compareTo(buyAmount, managementMoney.getLimitAmount())) {
-            UITipDialog.showInfoNoIcon(mActivity, "限购额度为" + AmountUtil.amountFormatUnitForShow(managementMoney.getLimitAmount(), coinuUnit, AmountUtil.ALLSCALE));
+            UITipDialog.showInfoNoIcon(mActivity, mActivity.getString(R.string.money_product_check_4) + AmountUtil.amountFormatUnitForShow(managementMoney.getLimitAmount(), coinuUnit, AmountUtil.ALLSCALE));
             return;
         }
 
 
         //4购买金额大于总额（可售额度）
         if (BigDecimalUtils.compareTo(buyAmount, managementMoney.getAvilAmount())) {
-            UITipDialog.showInfoNoIcon(mActivity, "可售额度不足");
+            UITipDialog.showInfoNoIcon(mActivity, mActivity.getString(R.string.money_product_check_5));
             return;
         }
 
 
         if (toBuyListener != null) {
             dismiss();
-            toBuyListener.onBuyStep1(mBinding.editBuyCount.getText().toString());
+            ProductBuyStep2Model productBuyStep2Model = new ProductBuyStep2Model();
+
+            productBuyStep2Model.setBuyAmount(AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.editBuyCount.getText().toString()), coinuUnit));
+
+            productBuyStep2Model.setBuyAmountString(mBinding.editBuyCount.getText().toString());
+
+            productBuyStep2Model.setCoinSymbol(coinName);
+
+            productBuyStep2Model.setProductName(managementMoney.getName());
+
+            productBuyStep2Model.setEndTime(DateUtil.formatStringData(managementMoney.getArriveDatetime(), DATE_YMD));
+
+            productBuyStep2Model.setExpectInComeAmount(expectInComeAmountString);
+
+            toBuyListener.onBuyStep1(productBuyStep2Model);
         }
     }
 
@@ -210,6 +240,7 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
 
 
     void setIncomeForecast(String income) {
+        expectInComeAmountString = income;
         Spanned s = Html.fromHtml(mActivity.getString(R.string.product_forecast_income, income, coinName));
         mBinding.tvIncomeForecast.setText(s);
     }

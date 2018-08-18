@@ -74,14 +74,8 @@ public class ManagementMoneyListActivity extends AbsRefreshClipListActivity {
     @Override
     public void getListRequest(int pageindex, int limit, boolean isShowDialog) {
 
-        Map<String, Object> map = new HashMap<>();
-
-        List<String> list = new ArrayList<>();
-//        list.add("4");
-//        list.add("5");
-//        list.add("6");
-//        list.add("7");
-//        map.put("statusList", list);
+        Map<String, String> map = new HashMap<>();
+        map.put("status", "appDisplay");
         map.put("start", pageindex + "");
         map.put("limit", limit + "");
 

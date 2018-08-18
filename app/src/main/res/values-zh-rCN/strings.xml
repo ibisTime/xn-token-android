@@ -652,7 +652,7 @@
     <string name="buy_product_count">购买额度</string>
     <string name="buy_product_income_date">本息到期日期</string>
     <string name="product_forecast_income"><Data><![CDATA[预计收入<font color="#FF6400">%1$s</font>%2$s]]></Data></string>
-    <string name="delay_to_start">%s秒后自动跳转</string>
+    <string name="delay_to_start">%s秒钟自动跳转</string>
     <string name="look_buy_history">查看购买记录</string>
     <string name="no_product">暂无产品</string>
     <string name="product_buy_minamount"><Data><![CDATA[%1$s<font color="#999999">\u3000起购</font>]]></Data></string>
@@ -666,5 +666,21 @@
     <string name="old_password">旧密码</string>
     <string name="modify_wallet_pwd">修改交易密码</string>
     <string name="old_pwd_error">旧密码错误</string>
-
+    <string name="buy">购买</string>
+    <string name="my_managment_money">我的理财</string>
+    <string name="increment">递增</string>
+    <string name="management_money_state_4">即将开始</string>
+    <string name="management_money_state_6">停止交易</string>
+    <string name="management_money_state_7">产品封闭</string>
+    <string name="management_money_state_9">已结束</string>
+    <string name="money_product_check_1">起购额度为</string>
+    <string name="money_product_check_2">请按递增额度购买</string>
+    <string name="money_product_check_3">可用余额不足</string>
+    <string name="money_product_check_4">限购额度为</string>
+    <string name="money_product_check_5">购买金额超出可售额度</string>
+    <string name="product_buy_state_0">申购中</string>
+    <string name="product_buy_state_1">持有中</string>
+    <string name="product_buy_state_2">已到期</string>
+    <string name="product_buy_state_3">募集失败</string>
+    <string name="product_buy_end"><Data><![CDATA[<font color="#999999">剩余 </font>%1$s]]></Data></string>
 </resources>

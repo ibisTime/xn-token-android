@@ -67,7 +67,7 @@ public class BigDecimalUtils {
             return BigDecimal.ZERO;
         }
 
-        if (BigDecimalUtils.compareToZERO(b) || BigDecimalUtils.compareToZERO(b)) {
+        if (BigDecimalUtils.compareEqualsZERO(b) || BigDecimalUtils.compareEqualsZERO(b1)) {
             return BigDecimal.ZERO;
         }
 
@@ -100,13 +100,13 @@ public class BigDecimalUtils {
     }
 
     /**
-     * 判断b是否小于0
+     * 判断b是否等于0
      *
      * @return
      */
-    public static boolean compareToZERO(BigDecimal b) {
+    public static boolean compareEqualsZERO(BigDecimal b) {
         if (b == null) return false;
-        return b.compareTo(BigDecimal.ZERO) == 1;
+        return b.compareTo(BigDecimal.ZERO) == 0;
     }
 
 }

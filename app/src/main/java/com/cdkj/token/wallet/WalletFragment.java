@@ -689,7 +689,7 @@ public class WalletFragment extends BaseLazyFragment {
 
                 BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
 
-                //总资产=可用+冻结
+                //可用=总资产-冻结
                 walletBalanceModel.setAmount(AmountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), ALLSCALE));
             }
 

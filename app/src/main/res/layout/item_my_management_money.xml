@@ -98,6 +98,7 @@
                     android:layout_marginTop="15dp"
                     android:textColor="@color/text_black_cd"
                     android:textSize="14sp"
+                    android:textStyle="bold"
                     tools:text="@string/item_management_meony_2" />
 
                 <TextView
@@ -117,6 +118,7 @@
     </LinearLayout>
 
     <TextView
+        android:id="@+id/tv_state"
         android:layout_width="wrap_content"
         android:layout_height="26dp"
         android:layout_gravity="right"
@@ -125,9 +127,9 @@
         android:gravity="center"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
-        android:text="@string/buy_success"
         android:textColor="@color/white"
-        android:textSize="12sp" />
+        android:textSize="12sp"
+        tools:text="@string/buy_success" />
 
 
 </android.support.v7.widget.CardView>

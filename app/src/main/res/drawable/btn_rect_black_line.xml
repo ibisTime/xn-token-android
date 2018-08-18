@@ -3,7 +3,7 @@
 
     <!-- 设置描边 -->
     <stroke
-        android:width="1dp"
+        android:width="0.8dp"
         android:color="#3E3A39">
 
 
