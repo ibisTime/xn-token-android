@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.model.LocalCoinBill;
+import com.cdkj.token.model.LocalEthTokenCoinBill;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -26,23 +27,23 @@ import static com.cdkj.token.utils.LocalCoinDBUtils.isInState;
  * Created by lei on 2017/10/25.
  */
 
-public class CoinBillListAdapter extends BaseQuickAdapter<LocalCoinBill, BaseViewHolder> {
+public class EthTokenCoinBillListAdapter extends BaseQuickAdapter<LocalEthTokenCoinBill, BaseViewHolder> {
 
     private String coinSymbol;
 
     private BigDecimal coinUnit;
 
-    public CoinBillListAdapter(@Nullable List<LocalCoinBill> data, String coinSymbol) {
+    public EthTokenCoinBillListAdapter(@Nullable List<LocalEthTokenCoinBill> data, String coinSymbol) {
         super(R.layout.item_bill_2, data);
         this.coinSymbol = coinSymbol;
         coinUnit = LocalCoinDBUtils.getLocalCoinUnit(coinSymbol);
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, LocalCoinBill item) {
+    protected void convert(BaseViewHolder helper, LocalEthTokenCoinBill item) {
         if (item == null) return;
 
-        helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getTransDatetime(), DATE_MMddHHmm));
+        helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getCreateDatetime(), DATE_MMddHHmm));
         helper.setImageResource(R.id.iv_type, getPrivateCoinStataIconByState(item.getDirection()));
 
         helper.setText(R.id.tv_amount, getMoneyStateByState(item.getDirection()) + AmountUtil.amountFormatUnitForShow(item.getValue(), coinUnit, ETHSCALE) + " " + this.coinSymbol);

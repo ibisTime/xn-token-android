@@ -24,6 +24,7 @@ import com.cdkj.token.model.DealUserDataModel;
 import com.cdkj.token.model.ExchangeModel;
 import com.cdkj.token.model.InviteModel;
 import com.cdkj.token.model.LocalCoinBill;
+import com.cdkj.token.model.LocalEthTokenCoinBill;
 import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.model.MarketCoinModel;
 import com.cdkj.token.model.MarketModel;
@@ -192,6 +193,15 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<ResponseInListModel<LocalCoinBill>>> getLocalCoinBillList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取本地币种流水
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ResponseInListModel<LocalEthTokenCoinBill>>> getEthTokenCoinBillList(@Field("code") String code, @Field("json") String json);
 
     /**
      * 根据币种列表获取相应的币种信息列表

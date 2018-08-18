@@ -348,14 +348,14 @@
     <string name="service_money_tip">Transaction Fees will be deducted from the available balance, and the insufficient balance will be deducted from the transfer amount </string>
     <string name="transfer">Transfer </string>
     <string name="transfer_2">Send </string>
-    <string name="ordinary"> ordinary </string>
-    <string name="economics">economic </string>
-    <string name="private_key_copy_success"> private key has been copied </string>
+    <string name="ordinary">Ordinary </string>
+    <string name="economics">Economic </string>
+    <string name="private_key_copy_success">Private key has been copied </string>
     <string name="transfer_fail">Transfer failed </string>
     <string name="please_open_the_net">Please open the network first</string>
     <string name="please_set_account_money_password">Please set the funding password first </string>
     <string name="privacy_agreement"> privacy agreement </string>
-    <string name="transaction_details"> transaction details </string>
+    <string name="transaction_details">Transaction details </string>
 
 
     <string name="sure_delete_wallet">pass the wallet mnemonic verification, confirm whether to delete the wallet? </string>
@@ -727,6 +727,7 @@
     <string name="payment_type">期满自动转入个人账户</string>
     <string name="limit_amount"><Data><![CDATA[<font color="#666666">\u3000（每人限购%s)</font>]]></Data></string>
     <string name="product_buy_total">购买额度</string>
+    <string name="do_contract">执行合约</string>
 </resources>
 
 

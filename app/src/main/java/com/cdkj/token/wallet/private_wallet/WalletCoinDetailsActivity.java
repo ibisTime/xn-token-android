@@ -24,14 +24,17 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.BTCBillListAdapter;
 import com.cdkj.token.adapter.CoinBillListAdapter;
+import com.cdkj.token.adapter.EthTokenCoinBillListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWalletBillBinding;
 import com.cdkj.token.model.BTCBillModel;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.CoinTypeAndAddress;
 import com.cdkj.token.model.LocalCoinBill;
+import com.cdkj.token.model.LocalEthTokenCoinBill;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.utils.AmountUtil;
+import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.math.BigDecimal;
@@ -48,7 +51,7 @@ import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
  * 去中心化钱包币种详情
  * Created by cdkj on 2018/6/8.
  */
-
+//TODO 本地币种适配器请求抽象抽取
 public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
     private ActivityWalletBillBinding mBinding;
@@ -82,7 +85,6 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
         setStatusBarBlue();
         setTitleBgBlue();
-
 
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
@@ -173,14 +175,25 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
                 if (isBTC()) {
                     return getBTCBillListAdapter(listData);
                 }
+
+                if (accountListBean != null && LocalCoinDBUtils.isEthTokenCoinByName(accountListBean.getCoinName())) { //ETH token币
+                    return getEthTokenCoinDetailsListAdapter(listData);
+                }
+
                 return getCoinDetailsListAdapter(listData);
             }
 
             @Override
             public void getListDataRequest(int pageindex, int limit, boolean isShowDialog) {
-                if (isBTC()) {
+                if (isBTC()) {             //比特币
+
                     getBTCBillRequest(pageindex, limit, isShowDialog);
-                } else {
+
+                } else if (accountListBean != null && LocalCoinDBUtils.isEthTokenCoinByName(accountListBean.getCoinName())) { //ETH token币
+
+                    getEthTokenCoinBillList(pageindex, limit, isShowDialog);
+
+                } else {                                                                //其它币种
                     getBillRequest(pageindex, limit, isShowDialog);
                 }
             }
@@ -272,6 +285,30 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
     }
 
     /**
+     * 获取ETH token币种数据适配器
+     *
+     * @param listData
+     * @return
+     */
+    @NonNull
+    EthTokenCoinBillListAdapter getEthTokenCoinDetailsListAdapter(List listData) {
+        String coinSymbol = "";
+        if (accountListBean != null) {
+            coinSymbol = accountListBean.getCoinName();
+        }
+        EthTokenCoinBillListAdapter coinDetailsListAdapter = new EthTokenCoinBillListAdapter(listData, coinSymbol);
+        coinDetailsListAdapter.setOnItemClickListener((adapter, view, position) -> {
+            String coinType = "";
+            if (accountListBean != null) {
+                coinType = accountListBean.getCoinName();
+            }
+            EthTokenCoinTransactionDetailsActivity.open(WalletCoinDetailsActivity.this, coinDetailsListAdapter.getItem(position), coinType);
+
+        });
+        return coinDetailsListAdapter;
+    }
+
+    /**
      * 获取流水
      *
      * @param pageindex
@@ -297,6 +334,46 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
         call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<LocalCoinBill>>(this) {
             @Override
             protected void onSuccess(ResponseInListModel<LocalCoinBill> data, String SucMessage) {
+                mRefreshHelper.setData(data.getList(), getString(R.string.no_record), R.mipmap.order_none);
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+            }
+
+            @Override
+            protected void onFinish() {
+                getCoinBalance(accountListBean.getCoinName());
+            }
+        });
+    }
+
+    /**
+     * 获取流水
+     *
+     * @param pageindex
+     * @param limit
+     * @param isShowDialog
+     */
+    public void getEthTokenCoinBillList(int pageindex, int limit, boolean isShowDialog) {
+
+        if (accountListBean == null) return;
+
+        Map<String, String> map = new HashMap<>();
+        map.put("contractAddress", LocalCoinDBUtils.getLocalCoinContractAddress(accountListBean.getCoinName()));
+        map.put("address", accountListBean.getAddress());
+        map.put("start", pageindex + "");
+        map.put("limit", limit + "");
+
+        Call<BaseResponseModel<ResponseInListModel<LocalEthTokenCoinBill>>> call = RetrofitUtils.createApi(MyApi.class).getEthTokenCoinBillList("802308", StringUtils.getJsonToString(map));
+
+        addCall(call);
+
+        if (isShowDialog) showLoadingDialog();
+
+        call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<LocalEthTokenCoinBill>>(this) {
+            @Override
+            protected void onSuccess(ResponseInListModel<LocalEthTokenCoinBill> data, String SucMessage) {
                 mRefreshHelper.setData(data.getList(), getString(R.string.no_record), R.mipmap.order_none);
             }
 

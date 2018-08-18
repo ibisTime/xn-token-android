@@ -204,10 +204,10 @@ public class WithdrawActivity extends AbsLoadActivity {
             inputDialog = new NumberPwdInputDialog(this).builder().setTitle(getStrRes(R.string.trade_code_hint))
                     .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
 
-                        if (inputDialog.getContentView().getText().toString().trim().equals("")) {
+                        if (TextUtils.isEmpty(inputMsg)) {
                             UITipDialog.showInfoNoIcon(WithdrawActivity.this, getStrRes(R.string.trade_code_hint));
                         } else {
-                            withdrawal(inputDialog.getContentView().getText().toString().trim());
+                            withdrawal(inputMsg);
                             inputDialog.dismiss();
                         }
 

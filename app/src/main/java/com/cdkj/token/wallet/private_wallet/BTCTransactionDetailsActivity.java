@@ -126,7 +126,7 @@ public class BTCTransactionDetailsActivity extends AbsLoadActivity {
 
         mBinding.tvMoney.setText(getMoneyStateByState(btcBillModel.getDirection()) + AmountUtil.amountFormatUnitForShow(btcBillModel.getValue(), WalletHelper.COIN_BTC, ETHSCALE) + " " + WalletHelper.COIN_BTC);
 
-        mBinding.tvBlockHeight.setText(btcBillModel.getHeight()+"");
+        mBinding.tvBlockHeight.setText(btcBillModel.getHeight() + "");
         mBinding.tvDate.setText(DateUtil.formatStringData(btcBillModel.getTransDatetime(), DEFAULT_DATE_FMT));
         mBinding.tvGas.setText(AmountUtil.amountFormatUnitForShow(btcBillModel.getTxFee(), WalletHelper.COIN_BTC, ETHSCALE));
         mBinding.tvTransctionCode.setText(btcBillModel.getTxHash());

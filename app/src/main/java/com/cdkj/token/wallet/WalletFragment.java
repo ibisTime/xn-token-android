@@ -71,7 +71,7 @@ import static com.cdkj.token.views.CardChangeLayout.TOPVIEW;
  * 钱包资产
  * Created by cdkj on 2018/6/28.
  */
-
+//TODO 代码分离优化
 public class WalletFragment extends BaseLazyFragment {
 
     private FragmentWallet2Binding mBinding;
@@ -549,7 +549,7 @@ public class WalletFragment extends BaseLazyFragment {
                 toggleAssectsByEyeState(SPUtilHelper.isAssetsShow());
 
                 if (isSetRecyclerData) {
-                    List<WalletBalanceModel> walletBalanceModels = transformToAdapterData(data);
+                    List<WalletBalanceModel> walletBalanceModels = transformToPrivateAdapterData(data);
                     mRefreshHelper.setPageIndex(1);
                     mRefreshHelper.setData(walletBalanceModels, getString(R.string.no_assets), R.mipmap.order_none);
 
@@ -714,6 +714,7 @@ public class WalletFragment extends BaseLazyFragment {
 
             walletBalanceModel.setFrozenAmountString(accountListBean.getFrozenAmountString());
 
+            walletBalanceModel.setCoinType(accountListBean.getType());
 
             walletBalanceModels.add(walletBalanceModel);
         }
@@ -728,7 +729,7 @@ public class WalletFragment extends BaseLazyFragment {
      * @return
      */
     @NonNull
-    private List<WalletBalanceModel> transformToAdapterData(BalanceListModel data) {
+    private List<WalletBalanceModel> transformToPrivateAdapterData(BalanceListModel data) {
         List<WalletBalanceModel> walletBalanceModels = new ArrayList<>();
 
         for (BalanceListModel.AccountListBean accountListBean : data.getAccountList()) {

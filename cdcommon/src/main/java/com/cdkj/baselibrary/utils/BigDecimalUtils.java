@@ -2,7 +2,7 @@ package com.cdkj.baselibrary.utils;
 
 import java.math.BigDecimal;
 
-import static java.math.BigDecimal.ROUND_CEILING;
+import static java.math.BigDecimal.ROUND_HALF_UP;
 
 /**
  * Created by cdkj on 2017/7/19.
@@ -53,12 +53,26 @@ public class BigDecimalUtils {
         return BigDecimal.ZERO;
     }
 
+    /**
+     * 除法计算
+     *
+     * @param b
+     * @param b1
+     * @param sca
+     * @return
+     */
     public static BigDecimal div(BigDecimal b, BigDecimal b1, int sca) {
 
-        if (b != null && b1 != null) {
-            return b.divide(b1, sca, ROUND_CEILING);
+        if (b == null || b1 == null) {
+            return BigDecimal.ZERO;
         }
-        return BigDecimal.ZERO;
+
+        if (BigDecimalUtils.compareToZERO(b) || BigDecimalUtils.compareToZERO(b)) {
+            return BigDecimal.ZERO;
+        }
+
+        return b.divide(b1, sca, ROUND_HALF_UP);
+
     }
 
     /**
@@ -85,5 +99,14 @@ public class BigDecimalUtils {
         return b.compareTo(b1) == 1 || b.compareTo(b1) == 0;
     }
 
+    /**
+     * 判断b是否小于0
+     *
+     * @return
+     */
+    public static boolean compareToZERO(BigDecimal b) {
+        if (b == null) return false;
+        return b.compareTo(BigDecimal.ZERO) == 1;
+    }
 
 }

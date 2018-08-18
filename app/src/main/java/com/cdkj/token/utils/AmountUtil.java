@@ -3,6 +3,7 @@ package com.cdkj.token.utils;
 
 import android.text.TextUtils;
 
+import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 
@@ -59,10 +60,10 @@ public class AmountUtil {
         }
 
         if (TextUtils.isEmpty(coinSymbol)) {
-            return formatCoinAmount(amount.divide(BigDecimal.TEN.pow(18), scale, ROUND_HALF_EVEN));
+            return formatCoinAmount(BigDecimalUtils.div(amount, BigDecimal.TEN.pow(18), scale));
         }
 
-        return formatCoinAmount(amount.divide(getLocalCoinUnit(coinSymbol), scale, ROUND_HALF_EVEN));
+        return formatCoinAmount(BigDecimalUtils.div(amount, getLocalCoinUnit(coinSymbol), scale));
     }
 
 
@@ -78,7 +79,7 @@ public class AmountUtil {
             return "0";
         }
 
-        return formatCoinAmount(amount.divide(unit, scale, ROUND_HALF_EVEN));
+        return formatCoinAmount(BigDecimalUtils.div(amount, unit, scale));
     }
 
 

@@ -86,22 +86,18 @@ public class WalletToolActivity extends AbsLoadActivity {
      * @param type 调起dialog类型
      */
     private void showPasswordInputDialog(int type) {
-        if (inputDialog == null) {
-            inputDialog = new NumberPwdInputDialog(this).builder().setTitle(getString(R.string.please_input_transaction_pwd))
-                    .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
-                        String tradePwd = inputDialog.getContentView().getText().toString().trim();
-                        if (TextUtils.isEmpty(tradePwd)) {
-                            UITipDialog.showInfoNoIcon(WalletToolActivity.this, getString(R.string.please_input_transaction_pwd));
-                            return;
-                        }
+        inputDialog = new NumberPwdInputDialog(this).builder().setTitle(getString(R.string.please_input_transaction_pwd))
+                .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
+                    if (TextUtils.isEmpty(inputMsg)) {
+                        UITipDialog.showInfoNoIcon(WalletToolActivity.this, getString(R.string.please_input_transaction_pwd));
+                        return;
+                    }
 
-                        checkPassword(tradePwd, type);
+                    checkPassword(inputMsg, type);
 
-
-                    })
-                    .setNegativeBtn(getStrRes(R.string.cancel), null)
-                    .setContentMsg("");
-        }
+                })
+                .setNegativeBtn(getStrRes(R.string.cancel), null)
+                .setContentMsg("");
         inputDialog.getContentView().setText("");
         inputDialog.getContentView().setHint(getStrRes(R.string.please_input_transaction_pwd));
         inputDialog.getContentView().setText("");

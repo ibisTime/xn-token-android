@@ -661,5 +661,6 @@
     <string name="payment_type">期满自动转入个人账户</string>
     <string name="limit_amount"><Data><![CDATA[<font color="#666666">\u3000（每人限购%s)</font>]]></Data></string>
     <string name="product_buy_total">购买额度</string>
+    <string name="do_contract">执行合约</string>
 
 </resources>

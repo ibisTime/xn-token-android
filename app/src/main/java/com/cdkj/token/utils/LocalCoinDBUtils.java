@@ -54,6 +54,16 @@ public class LocalCoinDBUtils {
     }
 
     /**
+     * 判断是否ETH token币
+     *
+     * @param coinName
+     * @return
+     */
+    public static boolean isEthTokenCoinByName(String coinName) {
+        return isEthTokenCoin(getLocalCoinType(coinName));
+    }
+
+    /**
      * 判断是否Wan token币
      *
      * @param coinType 2 wantoken（WAN）

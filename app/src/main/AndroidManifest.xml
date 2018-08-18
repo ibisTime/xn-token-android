@@ -262,6 +262,7 @@
             android:name=".wallet.private_wallet.BTCTransactionDetailsActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".find.product_application.management_money.ManagementMoneyDetailsActivity" />
+        <activity android:name=".wallet.private_wallet.EthTokenCoinTransactionDetailsActivity" />
     </application>
 
 </manifest>
