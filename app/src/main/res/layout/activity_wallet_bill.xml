@@ -48,11 +48,13 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="15dp"
                     android:layout_toRightOf="@+id/iv_icon"
+                    android:ellipsize="end"
                     android:gravity="center"
+                    android:singleLine="true"
                     android:text="@string/wallet_withdraw_balance"
                     android:textColor="@color/text_black_cd"
                     android:textSize="22dp"
-                    tools:text="dfdf" />
+                    tools:text="dfdfdfdfdfdfdfdf" />
 
 
                 <TextView
@@ -62,7 +64,9 @@
                     android:layout_below="@+id/tv_amount"
                     android:layout_gravity="center_horizontal"
                     android:layout_toRightOf="@+id/iv_icon"
+                    android:ellipsize="end"
                     android:gravity="center"
+                    android:singleLine="true"
                     android:textColor="@color/gray_666666"
                     android:textSize="14sp"
                     tools:text="转出" />
@@ -132,7 +136,6 @@
             <com.cdkj.baselibrary.views.refresh.ClassicsFooter2
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" />
-
 
 
         </com.scwang.smartrefresh.layout.SmartRefreshLayout>

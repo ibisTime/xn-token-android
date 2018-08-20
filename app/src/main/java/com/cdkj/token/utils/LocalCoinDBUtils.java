@@ -152,21 +152,6 @@ public class LocalCoinDBUtils {
         }
     }
 
-    //lxjtest  findALl查找优化
-    public static String getCoinENameWithCurrency(String currency) {
-
-        for (LocalCoinDbModel model : DataSupport.findAll(LocalCoinDbModel.class)) {
-
-            if (model.getSymbol().equals(currency)) {
-                return model.getEname();
-            }
-        }
-
-        return "";
-
-    }
-
-
     /**
      * @param currency 币种
      * @param position 要哪张图片 0:icon官方图标,1:Pic1钱包水印图标,2:Pic2流水加钱图标,3:Pic3流水减钱图标
@@ -174,24 +159,19 @@ public class LocalCoinDBUtils {
      */
     public static String getCoinWatermarkWithCurrency(String currency, int position) {
 
-        for (LocalCoinDbModel model : DataSupport.findAll(LocalCoinDbModel.class)) {
+        String attributes;
 
-            if (model.getSymbol().equals(currency)) {
-                if (position == 0) {
-                    return model.getIcon();
-                } else if (position == 1) {
-                    return model.getPic1();
-                } else if (position == 2) {
-                    return model.getPic2();
-                } else {
-                    return model.getPic3();
-                }
-            }
-
+        switch (position) {
+            case 1:
+            case 2:
+            case 3:
+                attributes = "pic" + position;
+                break;
+            default:
+                attributes = "icon";
         }
 
-        return "";
-
+        return getCoinStringAttributesByCoinSymbol(attributes, currency);
     }
 
 
@@ -268,23 +248,7 @@ public class LocalCoinDBUtils {
      * @return
      */
     public static String getLocalCoinType(String coinSymbol) {
-
-        Cursor cursor = DataSupport.findBySQL(getLocalCoinAttributesSqlByCoinSymbol(WalletDBColumn.COIN_TYPE), coinSymbol);
-
-        String coinType = "";
-
-        if (cursor != null && cursor.moveToFirst()) {
-
-            try {
-                coinType = cursor.getString(cursor.getColumnIndex(WalletDBColumn.COIN_TYPE));
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                cursor.close();
-            }
-        }
-
-        return coinType;
+        return getCoinStringAttributesByCoinSymbol(WalletDBColumn.COIN_TYPE, coinSymbol);
     }
 
 
@@ -295,15 +259,41 @@ public class LocalCoinDBUtils {
      * @return
      */
     public static String getLocalCoinContractAddress(String coinSymbol) {
+        return getCoinStringAttributesByCoinSymbol(WalletDBColumn.COIN_CONTRACTADDRESS, coinSymbol);
+    }
 
-        Cursor cursor = DataSupport.findBySQL(getLocalCoinAttributesSqlByCoinSymbol(WalletDBColumn.COIN_CONTRACTADDRESS), coinSymbol);
 
-        String contractaddress = "";
+    /**
+     * 根据货币获取提现手续费
+     *
+     * @param coinSymbol
+     * @return
+     */
+    public static String getWithdrawFee(String coinSymbol) {
+        return getCoinStringAttributesByCoinSymbol("withdrawfeestring", coinSymbol);
+    }
+
+    /**
+     * 获取本地币种信息表具体String属性
+     *
+     * @param attributes 要查询的属性
+     * @param coinSymbol 要查询的币种
+     * @return
+     */
+    public static String getCoinStringAttributesByCoinSymbol(String attributes, String coinSymbol) {
+
+        if (TextUtils.isEmpty(attributes) || TextUtils.isEmpty(coinSymbol)) {
+            return "";
+        }
+
+        Cursor cursor = DataSupport.findBySQL(getLocalCoinAttributesSqlByCoinSymbol(attributes.toLowerCase()), coinSymbol);
+
+        String attributesInfo = "";
 
         if (cursor != null && cursor.moveToFirst()) {
 
             try {
-                contractaddress = cursor.getString(cursor.getColumnIndex(WalletDBColumn.COIN_CONTRACTADDRESS));
+                attributesInfo = cursor.getString(cursor.getColumnIndex(attributes));
             } catch (Exception e) {
                 e.printStackTrace();
             } finally {
@@ -311,8 +301,9 @@ public class LocalCoinDBUtils {
             }
         }
 
-        return contractaddress;
+        return attributesInfo;
     }
+
 
     //获取本地所有缓存币种
     public static List<LocalCoinDbModel> getLocalCoinList() {

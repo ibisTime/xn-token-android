@@ -44,14 +44,15 @@
                     tools:text="第一起" />
 
                 <TextView
+                    android:id="@+id/tv_state"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="10dp"
                     android:gravity="center"
-                    android:text="@string/buy_success"
                     android:textColor="@color/gray_999999"
-                    android:textSize="12sp" />
+                    android:textSize="12sp"
+                    tools:text="@string/buy_success" />
 
 
                 <com.cdkj.token.views.DashLineView

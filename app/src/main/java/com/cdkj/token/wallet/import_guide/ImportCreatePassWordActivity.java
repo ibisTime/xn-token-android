@@ -115,7 +115,7 @@ public class ImportCreatePassWordActivity extends AbsLoadActivity {
                         .subscribeOn(Schedulers.newThread())
                         .map(isSavePass -> {
                             WalletDBModel dbModel2 = WalletHelper.createAllCoinPrivateKeybyMnenonic(mWords); //TODO 导入缺少BTC
-                            dbModel2.setWalletPassWord(WalletHelper.encrypt(paword));
+                            dbModel2.setWalletPassWord(paword);
                             dbModel2.setUserId(SPUtilHelper.getUserId());
                             return dbModel2.save();
                         })

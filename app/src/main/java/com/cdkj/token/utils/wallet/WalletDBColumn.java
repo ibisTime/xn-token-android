@@ -12,6 +12,7 @@ public class WalletDBColumn {
     //查找用户选择币种
     public static final String FINDUSER_COIN_SQL = "select * from userconfigdbmodel where " + WalletDBColumn.USERID + "=?";
 
+
     /**
      * 根据币种名获取某种币种的属性
      *

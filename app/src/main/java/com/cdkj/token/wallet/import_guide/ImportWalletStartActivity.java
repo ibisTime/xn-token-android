@@ -206,7 +206,7 @@ public class ImportWalletStartActivity extends AbsLoadActivity {
                         .subscribeOn(Schedulers.newThread())
                         .map(isPass -> {
                             WalletDBModel dbModel2 = WalletHelper.createAllCoinPrivateKeybyMnenonic(mWordList); //TODO 导入缺少BTC
-                            dbModel2.setWalletPassWord(WalletHelper.encrypt(mPassword));
+                            dbModel2.setWalletPassWord(mPassword);
                             dbModel2.setUserId(SPUtilHelper.getUserId());
                             dbModel2.setWalletName(mBinding.editWalletName.getText());
                             return dbModel2.save();

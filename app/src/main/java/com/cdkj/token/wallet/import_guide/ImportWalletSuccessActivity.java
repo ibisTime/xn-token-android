@@ -50,7 +50,7 @@ public class ImportWalletSuccessActivity extends AbsLoadActivity {
 
     private void initClickListener() {
         mBinding.btnNowUse.setOnClickListener(view -> {
-            WalletHelper.saveWalletFirstCheck(true);
+
             EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
             MainActivity.open(this);
             finish();

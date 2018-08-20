@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
@@ -11,6 +12,7 @@ import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
+import com.cdkj.token.adapter.MyManagementMoneyAdapter;
 import com.cdkj.token.databinding.ActivityMyManageMoneyDetailsBinding;
 import com.cdkj.token.model.MyManagementMoney;
 import com.cdkj.token.model.MyManamentMoneyProduct;
@@ -80,11 +82,40 @@ public class MyManagementMoneyDetailsActivity extends AbsLoadActivity {
 
         mBinding.tvIncomeRate.setText(StringUtils.showformatPercentage(myManagementMoney.getExpectYield()));
 
-        mBinding.tvIncome.setText(AmountUtil.amountFormatUnitForShow(myManagementMoney.getExpectIncome(), myManagementMoney.getSymbol(), AmountUtil.ALLSCALE) + myManagementMoney.getSymbol());
-        mBinding.tvBuyAmount.setText(AmountUtil.amountFormatUnitForShow(myManagementMoney.getInvestAmount(), myManagementMoney.getSymbol(), AmountUtil.ALLSCALE) + myManagementMoney.getSymbol());
+        mBinding.tvIncome.setText(AmountUtil.amountFormatUnitForShow(moneyProduct.getExpectIncome(), myManagementMoney.getSymbol(), AmountUtil.ALLSCALE) + myManagementMoney.getSymbol());
+
+        mBinding.tvBuyAmount.setText(AmountUtil.amountFormatUnitForShow(moneyProduct.getInvestAmount(), myManagementMoney.getSymbol(), AmountUtil.ALLSCALE) + myManagementMoney.getSymbol());
 
         mBinding.tvStartTime.setText(DateUtil.formatStringData(myManagementMoney.getIncomeDatetime(), DateUtil.DEFAULT_DATE_FMT));
         mBinding.tvEndTime.setText(DateUtil.formatStringData(myManagementMoney.getArriveDatetime(), DateUtil.DEFAULT_DATE_FMT));
+
+        mBinding.tvState.setText(getStateString(moneyProduct.getStatus()));
+    }
+
+    /**
+     * 获取状态描述
+     *
+     * @param state
+     * @return
+     */
+    public String getStateString(String state) {
+
+        if (TextUtils.isEmpty(state)) {
+            return "";
+        }
+
+        switch (state) {
+            case "0":
+                return getString(R.string.product_buy_state_0);
+            case "1":
+                return getString(R.string.product_buy_state_1);
+            case "2":
+                return getString(R.string.product_buy_state_2);
+            case "3":
+                return getString(R.string.product_buy_state_3);
+        }
+
+        return "";
 
     }
 

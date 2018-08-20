@@ -642,7 +642,11 @@ public class WalletFragment extends BaseLazyFragment {
 
             }
             coinTypeAndAddress.setSymbol(localCoinDbModel.getSymbol());
-            chooseCoinList.add(coinTypeAndAddress);
+
+            if (!TextUtils.isEmpty(coinTypeAndAddress.getAddress())) {
+                chooseCoinList.add(coinTypeAndAddress);
+            }
+
         }
 
         return chooseCoinList;

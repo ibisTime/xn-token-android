@@ -33,6 +33,7 @@ import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
+import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
@@ -130,7 +131,7 @@ public class WithdrawActivity extends AbsLoadActivity {
                     Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()));
 
         // 设置提现手续费
-        mBinding.edtCommission.setText(AmountUtil.getWithdrawFee(model.getCoinName()));
+        mBinding.edtCommission.setText(LocalCoinDBUtils.getWithdrawFee(model.getCoinName()));
 
     }
 

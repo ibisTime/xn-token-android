@@ -3,6 +3,7 @@ package com.cdkj.token.adapter;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.widget.ImageView;
 
 import com.cdkj.baselibrary.utils.DateUtil;
@@ -20,6 +21,7 @@ import static com.cdkj.baselibrary.utils.DateUtil.DATE_MMddHHmm;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
 
 /**
+ * 中心化钱包账单流水
  * Created by lei on 2017/8/22.
  */
 
@@ -48,20 +50,20 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
         int i = tas.compareTo(BigDecimal.ZERO);
         if (i == 1) {
             helper.setText(R.id.tv_amount, "+" + AmountUtil.amountFormatUnit(tas, item.getCurrency(), 8));
-            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext,R.color.in_money));
+            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.in_money));
         } else {
             helper.setText(R.id.tv_amount, AmountUtil.amountFormatUnit(tas, item.getCurrency(), 8));
-            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext,R.color.out_money));
+            helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.out_money));
         }
 
         ImageView ivType = helper.getView(R.id.iv_type);
-        if (item.getKind().equals("0")) { // 非冻结流水
+
+        if (TextUtils.equals(item.getKind(), "0")) { // 非冻结流水
 
             switch (item.getBizType()) {
                 case "charge": // 充值
                 case "o2o_in": // o2o店铺消费收入
                 case "invite": // 推荐好友分成
-//                    ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getCurrency(), 2), ivType);
                     ivType.setImageResource(R.drawable.coin_in);
                     break;
 
@@ -79,6 +81,13 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
                     ivType.setImageResource(R.drawable.coin_out);
                     break;
                 case "sendredpacket_in": // 抢红包
+                    ivType.setImageResource(R.drawable.coin_in);
+                    break;
+
+                case "lhlc_invest": // 量化理财投资
+                    ivType.setImageResource(R.drawable.coin_out);
+                    break;
+                case "lhlc_repay": // 量化理财还款
                     ivType.setImageResource(R.drawable.coin_in);
                     break;
             }

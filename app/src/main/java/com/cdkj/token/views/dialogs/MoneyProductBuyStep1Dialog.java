@@ -28,6 +28,7 @@ import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.wallet.account_wallet.RechargeAddressQRActivity;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
 
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_YMD;
 
@@ -103,9 +104,9 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
                 }
 
                 float buyamount = Float.valueOf(charSequence.toString());
-
-                setIncomeForecast(AmountUtil.formatCoinAmount(buyamount * inCome));
-
+                DecimalFormat df = new DecimalFormat("#######0.##");
+                String showMoney = df.format(buyamount * inCome);
+                setIncomeForecast(showMoney);
             }
 
             @Override

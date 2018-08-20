@@ -18,18 +18,16 @@ import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.SystemUtils;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
-import com.cdkj.token.find.product_application.management_money.ManagementMoneyListActivity;
 import com.cdkj.token.model.CountryCodeMode;
 import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.utils.wallet.WalletDBAegisUtils;
-import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -45,6 +43,7 @@ import retrofit2.Response;
 
 import static com.cdkj.token.utils.UpdateUtil.isForceUpload;
 import static com.cdkj.token.utils.UpdateUtil.startWeb;
+import static com.cdkj.token.utils.wallet.WalletHelper.HELPWORD_SPACE_SYMBOL;
 
 
 @Route(path = CdRouteHelper.APPSTART)
@@ -71,24 +70,25 @@ public class StartActivity extends BaseActivity {
         }
         setContentView(R.layout.activity_start);
         getVersion();
+
     }
 
 
     /**
      * 获取IP地址并匹配国家
      */
-    private void getIpAndCheckCountry() {
-        mSubscription.add(Observable.just("")
-                .subscribeOn(Schedulers.newThread())
-                .map(s -> {
-                    return SystemUtils.getPublicIp(false);//lxjtest ip地址请求失败检查  数据库兼容检查
-                })
-                .subscribe(s -> {
-                    getCountryInfo(s);
-                }, throwable -> {
-                    checkCountryAfterNext();
-                }));
-    }
+//    private void getIpAndCheckCountry() {
+//        mSubscription.add(Observable.just("")
+//                .subscribeOn(Schedulers.newThread())
+//                .map(s -> {
+//                    return SystemUtils.getPublicIp(false);
+//                })
+//                .subscribe(s -> {
+//                    getCountryInfo(s);
+//                }, throwable -> {
+//                    checkCountryAfterNext();
+//                }));
+//    }
 
     /**
      * 获取国家信息
@@ -129,7 +129,9 @@ public class StartActivity extends BaseActivity {
             MainActivity.open(this);
             finish();
         } else {
-            getIpAndCheckCountry();
+            SignInActivity.open(this, true);
+            finish();
+//            getIpAndCheckCountry();
         }
     }
 
@@ -146,6 +148,8 @@ public class StartActivity extends BaseActivity {
      * 获取七牛服务器链接
      */
     public void getQiniuAndNextTo() {
+
+        LogUtil.E("线程 跳转");
         Map<String, String> map = new HashMap<>();
         map.put("ckey", "qiniu_domain");
         map.put("systemCode", MyConfig.SYSTEMCODE);
@@ -159,6 +163,7 @@ public class StartActivity extends BaseActivity {
 
             @Override
             protected void onSuccess(SystemParameterModel data, String SucMessage) {
+
                 SPUtilHelper.saveQiniuUrl(data.getCvalue());
                 qiniuAfternext();
             }
@@ -303,17 +308,14 @@ public class StartActivity extends BaseActivity {
      * 数据库兼容检测
      */
     private void checkDbAegis() {
+
         mSubscription.add(Observable.just("")
-                .subscribeOn(Schedulers.newThread())
-                .doOnComplete(() -> {
-                    getQiniuAndNextTo();  //获取七牛地址
-                })
+                .observeOn(Schedulers.newThread())
+                .flatMap(s -> Observable.fromIterable(WalletDBAegisUtils.findBtcInfoEmptyData()))
                 .subscribe(s -> {
-                    //当前已经登录用户已经创建或导入过钱包并且没有btc信息
-                    if (WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId()) && !WalletDBAegisUtils.checkBTCInfoNotNull(SPUtilHelper.getUserId())) { //DB兼容  1.7.0以下版本更新，如果没有btc币种信息则更新btc信息
-                        WalletDBAegisUtils.createBTCInfoAndUpdate(SPUtilHelper.getUserId());
-                    }
-                }));
+                    WalletDBAegisUtils.createBTCInfoAndUpdate(s.getUserId(), StringUtils.splitAsList(s.getHelpWordsEn(), HELPWORD_SPACE_SYMBOL));
+                }, throwable -> getQiniuAndNextTo(), () -> getQiniuAndNextTo()));
+
     }
 
 

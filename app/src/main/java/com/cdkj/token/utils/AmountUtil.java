@@ -143,25 +143,6 @@ public class AmountUtil {
     }
 
 
-    /**
-     * 根据货币获取提现手续费
-     *
-     * @param coin
-     * @return
-     */
-    public static String getWithdrawFee(String coin) {
-
-        for (LocalCoinDbModel model : DataSupport.findAll(LocalCoinDbModel.class)) {
-
-            if (TextUtils.equals(model.getSymbol(), coin)) {
-                return amountFormatUnit(new BigDecimal(model.getWithdrawFeeString()), coin, 8);
-            }
-        }
-
-        return "";
-    }
-
-
     public static String formatCoinAmount(BigDecimal money) {
         DecimalFormat df = new DecimalFormat("#######0.########");
         String showMoney = df.format(money);
@@ -259,8 +240,8 @@ public class AmountUtil {
      * @return 两个参数的和
      */
     public static String add(double value1, double value2) {
-        BigDecimal b1 = new BigDecimal(Double.valueOf(value1));
-        BigDecimal b2 = new BigDecimal(Double.valueOf(value2));
+        BigDecimal b1 = new BigDecimal(value1);
+        BigDecimal b2 = new BigDecimal(value2);
         return b1.add(b2).toPlainString();
     }
 
@@ -272,23 +253,10 @@ public class AmountUtil {
      * @return 两个参数的差
      */
     public static String sub(double value1, double value2, String coin) {
-        BigDecimal b1 = new BigDecimal(Double.valueOf(value1));
-        BigDecimal b2 = new BigDecimal(Double.valueOf(value2));
+        BigDecimal b1 = new BigDecimal(value1);
+        BigDecimal b2 = new BigDecimal(value2);
         return amountFormatUnit(b1.subtract(b2), coin, 8);
     }
 
 
-    /**
-     * 去掉末尾的零
-     *
-     * @param str
-     * @return
-     */
-    public static String trim(String str) {
-        if (str.indexOf(".") != -1 && str.charAt(str.length() - 1) == '0') {
-            return trim(str.substring(0, str.length() - 1));
-        } else {
-            return str.charAt(str.length() - 1) == '.' ? str.substring(0, str.length() - 1) : str;
-        }
-    }
 }

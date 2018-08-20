@@ -105,7 +105,7 @@ public class FindFragment extends BaseLazyFragment {
                 case "red_packet"://跳到红包
                     SendRedPackageActivity.open(mActivity);
                     break;
-                case "money_manage"://跳到量化理财
+                case "money_manager"://跳到量化理财
                     ManagementMoneyListActivity.open(mActivity);
                     break;
                 case "none":
@@ -239,7 +239,7 @@ public class FindFragment extends BaseLazyFragment {
         map.put("language", SPUtilHelper.getLanguage());
         map.put("location", "0");
         map.put("status", "1");
-//        map.put("orderColumn", "order_number");
+//        map.put("orderColumn", "order_no");
 //        map.put("orderDir", "desc");
 
         showLoadingDialog();

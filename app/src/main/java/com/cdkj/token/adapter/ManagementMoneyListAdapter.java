@@ -84,7 +84,7 @@ public class ManagementMoneyListAdapter extends BaseQuickAdapter<ManagementMoney
             case "4":
                 return mContext.getString(R.string.management_money_state_4);
             case "5":
-                return Html.fromHtml(mContext.getString(R.string.product_buy_end, AmountUtil.amountFormatUnitForShow(data.getAmount(), unit, AmountUtil.ALLSCALE) + data.getSymbol()));
+                return Html.fromHtml(mContext.getString(R.string.product_buy_end, AmountUtil.amountFormatUnitForShow(data.getAvilAmount(), unit, AmountUtil.ALLSCALE) + data.getSymbol()));
             case "6":
                 return mContext.getString(R.string.management_money_state_6);
             case "7":

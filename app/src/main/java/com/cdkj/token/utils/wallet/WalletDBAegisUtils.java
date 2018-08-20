@@ -4,11 +4,14 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.token.model.DbCoinInfo;
-import com.cdkj.token.model.db.UserConfigDBModel;
 import com.cdkj.token.model.db.WalletDBModel;
 
 import org.litepal.crud.DataSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.cdkj.token.utils.wallet.WalletDBColumn.BTC_ADDRESS;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.BTC_PRIVATEKEY;
@@ -77,10 +80,71 @@ public class WalletDBAegisUtils {
      * @param userId
      */
     public static void createBTCInfoAndUpdate(String userId) {
+        if (!WalletHelper.isUserAddedWallet(userId)) {       //用户是否有钱包
+            return;
+        }
         DbCoinInfo dbCoinInfo = createBTCInfoByMnemonic(getHelpWordsListByUserId(userId));
         if (dbCoinInfo != null) {
             updateBTCInfo(userId, dbCoinInfo);
         }
+    }
+
+    /**
+     * 根据助记词生成BTC信息并更新
+     *
+     * @param userId
+     */
+    public static void createBTCInfoAndUpdate(String userId, List<String> words) {
+        if (!WalletHelper.isUserAddedWallet(userId)) {       //用户是否有钱包
+            return;
+        }
+        DbCoinInfo dbCoinInfo = createBTCInfoByMnemonic(words);
+        if (dbCoinInfo != null) {
+            updateBTCInfo(userId, dbCoinInfo);
+        }
+    }
+
+    /**
+     * 查找数据库中所有btc信息为空的数据
+     */
+    public static List<WalletDBModel> findBtcInfoEmptyData() {
+
+        List<WalletDBModel> walletDBModels = DataSupport.findAll(WalletDBModel.class);
+        List<WalletDBModel> walletBtcEmptys = new ArrayList<>();
+
+        if (walletBtcEmptys == null) {
+            return walletBtcEmptys;
+        }
+
+        for (WalletDBModel wallet : walletDBModels) {
+
+            if (wallet == null) {
+                continue;
+            }
+
+            if (TextUtils.isEmpty(wallet.getBtcAddress()) || TextUtils.isEmpty(wallet.getBtcPrivateKey())) {
+                walletBtcEmptys.add(wallet);
+            }
+
+        }
+
+        WalletDBModel walletDBModel=new WalletDBModel();
+
+        walletBtcEmptys.add(walletDBModel);
+        walletBtcEmptys.add(walletDBModel);
+        walletBtcEmptys.add(walletDBModel);
+        walletBtcEmptys.add(walletDBModel);
+        walletBtcEmptys.add(walletDBModel);
+        walletBtcEmptys.add(walletDBModel);
+        walletBtcEmptys.add(walletDBModel);
+        walletBtcEmptys.add(walletDBModel);
+        walletBtcEmptys.add(walletDBModel);
+        walletBtcEmptys.add(walletDBModel);
+        walletBtcEmptys.add(null);
+
+
+        return walletBtcEmptys;
+
     }
 
 

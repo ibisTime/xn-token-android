@@ -186,7 +186,7 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
 
                             WalletDBModel walletDBModel2 = WalletHelper.createAllPrivateKey();
 
-                            walletDBModel2.setWalletPassWord(WalletHelper.encrypt(pass));  //TODO 缺少BTC
+                            walletDBModel2.setWalletPassWord(pass);  //TODO 缺少BTC
 
                             walletDBModel2.setUserId(SPUtilHelper.getUserId());
 

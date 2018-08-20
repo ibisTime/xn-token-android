@@ -231,11 +231,11 @@ public class WalletTransferActivity extends AbsLoadActivity {
         WalletDBModel w = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
 
         if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_WAN)) {   //TODO 转账地址优化
-            return WalletHelper.transferForWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getGasLimit(), transferGasPrice);
+            return WalletHelper.transferForWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getDeflutGasLimit(), transferGasPrice);
         }
 
         if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_ETH)) {
-            return WalletHelper.transferForEth(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getGasLimit(), transferGasPrice);
+            return WalletHelper.transferForEth(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getDeflutGasLimit(), transferGasPrice);
         }
 
         //币种类型
@@ -322,7 +322,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
     private void setShowGasPrice(BigInteger gasPrice) {
         if (accountListBean == null || gasPrice == null) return;
         mBinding.tvGas.setText(
-                AmountUtil.amountFormatUnitForShow(new BigDecimal(WalletHelper.getGasLimit())                   //limite * gasPrice
+                AmountUtil.amountFormatUnitForShow(new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
                         .multiply(new BigDecimal(gasPrice)), accountListBean.getCoinName(), ETHSCALE) + " " + getCoinUnitName(accountListBean.getCoinName()));
     }
 

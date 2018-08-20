@@ -1,32 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
 
-    <LinearLayout
-        android:id="@+id/linLayout_webView"
-        android:orientation="vertical"
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-        <ProgressBar
-            android:id="@+id/pb"
-            style="?android:attr/progressBarStyleHorizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="2dp"
-            android:indeterminateOnly="false"
-            android:max="100"
-            android:progressDrawable="@drawable/shape_progress"/>
+        <LinearLayout
+            android:id="@+id/linLayout_webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <ProgressBar
+                android:id="@+id/pb"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="4dp"
+                android:indeterminateOnly="false"
+                android:max="100"
+                android:progressDrawable="@drawable/shape_progress" />
 
 
-    </LinearLayout>
+        </LinearLayout>
 
-    <View
-        android:id="@+id/v_click"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        <View
+            android:id="@+id/v_click"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
 
-</FrameLayout>
+    </FrameLayout>
 </layout>

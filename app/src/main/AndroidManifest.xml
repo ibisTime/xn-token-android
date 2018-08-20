@@ -185,9 +185,6 @@
             android:name=".wallet.private_wallet.WalletTransferActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.AddChoiceActivity2"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".wallet.private_wallet.TransactionDetailsActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
