@@ -32,7 +32,7 @@
                 android:layout_marginLeft="15dp"
                 android:background="@null"
                 android:hint="@string/activity_find_password_hint"
-                android:inputType="number"
+                android:inputType="numberPassword"
                 android:maxLength="6"
                 android:textColorHint="@color/text_hint_color"
                 android:textSize="14sp" />

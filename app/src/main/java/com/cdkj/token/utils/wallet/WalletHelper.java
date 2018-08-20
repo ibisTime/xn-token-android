@@ -953,7 +953,9 @@ public class WalletHelper {
         }
         //输入未消费列表项
         for (BtcSignUTXO utxo : utxos) {
+
             TransactionOutPoint outPoint = new TransactionOutPoint(getBtcMainNetParams(), utxo.getIndex(), utxo.getHash());
+
             transaction.addSignedInput(outPoint, utxo.getScript(), ecKey, Transaction.SigHash.ALL, true);
         }
 
