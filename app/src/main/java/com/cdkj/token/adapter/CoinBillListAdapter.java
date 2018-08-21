@@ -45,19 +45,26 @@ public class CoinBillListAdapter extends BaseQuickAdapter<LocalCoinBill, BaseVie
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getTransDatetime(), DATE_MMddHHmm));
         helper.setImageResource(R.id.iv_type, getPrivateCoinStataIconByState(item.getDirection()));
 
-        helper.setText(R.id.tv_amount, getMoneyStateByState(item.getDirection()) + AmountUtil.amountFormatUnitForShow(item.getValue(), coinUnit, ETHSCALE) + " " + this.coinSymbol);
+        String amountString = AmountUtil.amountFormatUnitForShow(item.getValue(), coinUnit, ETHSCALE) + " " + this.coinSymbol;
+
+        helper.setText(R.id.tv_amount, getMoneyStateByState(item.getDirection()) + amountString);
 
         if (isInState(item.getDirection())) {
             helper.setText(R.id.tv_remark, mContext.getString(R.string.get_money));
             helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.in_money));
             helper.setText(R.id.tv_address, item.getFrom());
 
+            if (item.getHeight() < 0) {
+                helper.setText(R.id.tv_amount, amountString + mContext.getString(R.string.transaction_in));
+            }
+
+
         } else if (AmountUtil.bigDecimalFormat(item.getValue(), coinUnit).compareTo(BigDecimal.ZERO) == 0) {                  //执行合约
 
             helper.setText(R.id.tv_remark, R.string.do_contract);
 
             helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.out_money));
-            helper.setText(R.id.tv_amount,  AmountUtil.amountFormatUnitForShow(item.getValue(), coinUnit, ETHSCALE) + " " + this.coinSymbol);
+            helper.setText(R.id.tv_amount, AmountUtil.amountFormatUnitForShow(item.getValue(), coinUnit, ETHSCALE) + " " + this.coinSymbol);
 
 
         } else {

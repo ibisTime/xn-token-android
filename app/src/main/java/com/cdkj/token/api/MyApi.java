@@ -22,6 +22,7 @@ import com.cdkj.token.model.DealModel;
 import com.cdkj.token.model.DealResultModel;
 import com.cdkj.token.model.DealUserDataModel;
 import com.cdkj.token.model.ExchangeModel;
+import com.cdkj.token.model.GasPrice;
 import com.cdkj.token.model.InviteModel;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.LocalEthTokenCoinBill;
@@ -52,6 +53,8 @@ import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.model.WithdrawOrderModel;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 
+import java.math.BigInteger;
+
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -75,6 +78,15 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<UTXOListModel>> getUtxoList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * ETH网络gas均价格获取 WAN网络gas均价格获取
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<GasPrice>> getGasPrice(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取理财产品列表

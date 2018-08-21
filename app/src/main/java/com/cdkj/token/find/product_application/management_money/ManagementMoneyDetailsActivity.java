@@ -132,6 +132,8 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
 
         Call<BaseResponseModel<ManagementMoney>> call = RetrofitUtils.createApi(MyApi.class).getMoneyManageProductDetails("625511", StringUtils.getJsonToString(map));
 
+        addCall(call);
+
         call.enqueue(new BaseResponseModelCallBack<ManagementMoney>(this) {
             @Override
             protected void onSuccess(ManagementMoney data, String SucMessage) {
@@ -358,6 +360,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
 
         Call<BaseResponseModel<IsSuccessModes>> call = RetrofitUtils.getBaseAPiService().successRequest("625520", StringUtils.getJsonToString(map));
 
+        addCall(call);
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(this) {
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {

@@ -25,7 +25,7 @@ public class LocalEthTokenCoinBill implements Parcelable {
      */
 
     private String blockHash;
-    private String blockNumber;
+    private long blockNumber;
     private String direction;
     private String from;
     private String to;
@@ -41,11 +41,11 @@ public class LocalEthTokenCoinBill implements Parcelable {
         this.blockHash = blockHash;
     }
 
-    public String getBlockNumber() {
+    public long getBlockNumber() {
         return blockNumber;
     }
 
-    public void setBlockNumber(String blockNumber) {
+    public void setBlockNumber(long blockNumber) {
         this.blockNumber = blockNumber;
     }
 
@@ -97,6 +97,9 @@ public class LocalEthTokenCoinBill implements Parcelable {
         this.createDatetime = createDatetime;
     }
 
+    public LocalEthTokenCoinBill() {
+    }
+
     @Override
     public int describeContents() {
         return 0;
@@ -105,7 +108,7 @@ public class LocalEthTokenCoinBill implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.blockHash);
-        dest.writeString(this.blockNumber);
+        dest.writeLong(this.blockNumber);
         dest.writeString(this.direction);
         dest.writeString(this.from);
         dest.writeString(this.to);
@@ -114,12 +117,9 @@ public class LocalEthTokenCoinBill implements Parcelable {
         dest.writeString(this.createDatetime);
     }
 
-    public LocalEthTokenCoinBill() {
-    }
-
     protected LocalEthTokenCoinBill(Parcel in) {
         this.blockHash = in.readString();
-        this.blockNumber = in.readString();
+        this.blockNumber = in.readLong();
         this.direction = in.readString();
         this.from = in.readString();
         this.to = in.readString();

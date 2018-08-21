@@ -73,6 +73,8 @@ public class MyManagementMoneyListActivity extends AbsRefreshClipListActivity {
 
         Call<BaseResponseModel<ResponseInListModel<MyManamentMoneyProduct>>> call = RetrofitUtils.createApi(MyApi.class).getMyMoneyManageProductList("625526", StringUtils.getJsonToString(map));
 
+        addCall(call);
+
         call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<MyManamentMoneyProduct>>(this) {
             @Override
             protected void onSuccess(ResponseInListModel<MyManamentMoneyProduct> data, String SucMessage) {

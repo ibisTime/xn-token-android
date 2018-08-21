@@ -97,7 +97,7 @@ public class EthTokenCoinTransactionDetailsActivity extends AbsLoadActivity {
 
         mBinding.tvToAddress.setText(localCoinBill.getTo());
         mBinding.tvFromAddress.setText(localCoinBill.getFrom());
-        mBinding.tvBlockHeight.setText(localCoinBill.getBlockNumber());
+        mBinding.tvBlockHeight.setText(localCoinBill.getBlockNumber() + "");
         mBinding.tvDate.setText(DateUtil.formatStringData(localCoinBill.getCreateDatetime(), DEFAULT_DATE_FMT));
         mBinding.tvGas.setText(AmountUtil.amountFormatUnitForShow(localCoinBill.getTxFee(), this.coinType, ETHSCALE));
         mBinding.tvTransctionCode.setText(localCoinBill.getBlockHash());

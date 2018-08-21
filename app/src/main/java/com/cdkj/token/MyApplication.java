@@ -11,6 +11,7 @@ import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.token.common.AppFrontBackHelper;
 import com.cdkj.token.model.PatternLockCheckFinish;
 import com.cdkj.token.user.pattern_lock.PatternLockCheckActivity;
+import com.umeng.commonsdk.UMConfigure;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import org.greenrobot.eventbus.EventBus;
@@ -64,9 +65,9 @@ public class MyApplication extends Application {
         EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
 
         //友盟
-//        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, BuildConfig.umeng);
-//        UMConfigure.setLogEnabled(LogUtil.isLog);
-//        UMConfigure.setEncryptEnabled(true);
+        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, BuildConfig.umeng);
+        UMConfigure.setLogEnabled(LogUtil.isLog);
+        UMConfigure.setEncryptEnabled(true);
     }
 
     private void initLitePal() {

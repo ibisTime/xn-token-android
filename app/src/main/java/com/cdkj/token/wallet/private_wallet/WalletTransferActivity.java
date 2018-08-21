@@ -11,15 +11,20 @@ import android.view.View;
 import android.widget.SeekBar;
 import android.widget.Toast;
 
+import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
+import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.token.R;
+import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityTransferBinding;
+import com.cdkj.token.model.GasPrice;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.AmountUtil;
@@ -37,6 +42,7 @@ import java.math.BigInteger;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import retrofit2.Call;
 
 import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinUnitName;
@@ -263,24 +269,49 @@ public class WalletTransferActivity extends AbsLoadActivity {
         }
         showLoadingDialog();
 
-        mSubscription.add(
-                Observable.just("")
-                        .subscribeOn(Schedulers.newThread())
-                        .map(s -> WalletHelper.getGasValue(getCoinUnitName(accountListBean.getCoinName())))
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doFinally(() -> disMissLoading())
-                        .subscribe(gasPrice -> {
-                            this.mGasPrice = gasPrice;
-                            this.transferGasPrice = gasPrice;
+        Call<BaseResponseModel<GasPrice>> call = null;
 
-                            LogUtil.E("交易1" + this.transferGasPrice);
+        if (canGetETHGasPrice()) {
+            call = RetrofitUtils.createApi(MyApi.class).getGasPrice("802117", "{}");  //ETH gas
+        } else {
+            call = RetrofitUtils.createApi(MyApi.class).getGasPrice("802358", "{}");
+        }
 
-                            setShowGasPrice(mGasPrice);
 
-                        }, throwable -> {
+        addCall(call);
 
-                        })
-        );
+        call.enqueue(new BaseResponseModelCallBack<GasPrice>(this) {
+            @Override
+            protected void onSuccess(GasPrice gasPrice, String SucMessage) {
+                mGasPrice = gasPrice.getGasPrice();
+                transferGasPrice = gasPrice.getGasPrice();
+                setShowGasPrice(mGasPrice);
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoading();
+            }
+        });
+    }
+
+
+    /**
+     * 能否获取ETH网络Gas
+     *
+     * @return
+     */
+    private boolean canGetETHGasPrice() {
+
+        if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_ETH)) {
+            return true;
+        }
+
+        if (LocalCoinDBUtils.isEthTokenCoinByName(accountListBean.getCoinName())) {
+            return true;
+        }
+
+        return false;
     }
 
 
