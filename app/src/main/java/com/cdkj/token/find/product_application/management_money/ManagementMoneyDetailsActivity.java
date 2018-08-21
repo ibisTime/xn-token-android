@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.text.TextUtils;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
@@ -26,6 +27,7 @@ import com.cdkj.token.interfaces.ProductBuyListener;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;
 import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.model.ManageMoneyBuySuccessEvent;
 import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.model.ProductBuyStep2Model;
 import com.cdkj.token.utils.AmountUtil;
@@ -34,6 +36,8 @@ import com.cdkj.token.views.dialogs.MoneyProductBuyStep1Dialog;
 import com.cdkj.token.views.dialogs.MoneyProductBuyStep2Dialog;
 import com.cdkj.token.views.dialogs.MoneyProductBuySuccessDialog;
 import com.cdkj.token.views.dialogs.UserPayPasswordInputDialog;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -265,6 +269,9 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         if (moneyProductBuyStep2Dialog != null) {
             moneyProductBuyStep2Dialog.dismiss();
         }
+
+        EventBus.getDefault().post(new ManageMoneyBuySuccessEvent());
+
         new MoneyProductBuySuccessDialog(this).show();
     }
 
@@ -393,6 +400,20 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
             mGetUserInfoPresenter.clear();
             mGetUserInfoPresenter = null;
         }
+
+        try {
+            mBinding.webviewProductIntroduction.clearHistory();
+            ((ViewGroup) mBinding.webviewProductIntroduction.getParent()).removeView(mBinding.webviewProductIntroduction);
+            mBinding.webviewProductIntroduction.loadUrl("about:blank");
+            mBinding.webviewProductIntroduction.stopLoading();
+            mBinding.webviewProductIntroduction.setWebChromeClient(null);
+            mBinding.webviewProductIntroduction.setWebViewClient(null);
+            mBinding.webviewProductIntroduction.destroy();
+
+        } catch (Exception e) {
+
+        }
+
         super.onDestroy();
     }
 

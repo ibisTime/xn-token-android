@@ -750,6 +750,8 @@
     <string name="product_buy_state_3">募集失败</string>
     <string name="product_buy_end"><Data><![CDATA[<font color="#999999">剩余 </font>%1$s]]></Data></string>
     <string name="transaction_confirm_state">交易确认中</string>
+    <string name="management_money_state_8">已到期</string>
+    <string name="management_money_state_10">募集结束</string>
 </resources>
 
 

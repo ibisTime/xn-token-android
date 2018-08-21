@@ -141,7 +141,7 @@ public class WebViewActivity extends AbsActivity {
             }
         });
 
-        mBinding.linLayoutWebView.addView(webView,1);
+        mBinding.linLayoutWebView.addView(webView, 1);
 
     }
 
@@ -225,7 +225,7 @@ public class WebViewActivity extends AbsActivity {
     }
 
     private void goBack() {
-        if (webView!=null && webView.canGoBack()) {
+        if (webView != null && webView.canGoBack()) {
             webView.goBack();
         } else {
             finish();

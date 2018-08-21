@@ -21,6 +21,16 @@ android {
 
     }
 
+
+    /*多渠道设置*/ // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
+//    productFlavors {
+//        facebook {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "facebook"]
+//        }
+//
+//    }
+
+
     lintOptions {
         checkReleaseBuilds false
         // Or, if you prefer, you can continue to check for errors in release builds,

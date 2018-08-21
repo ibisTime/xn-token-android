@@ -127,10 +127,11 @@ public class NetHelper {
      */
     public static void onLoginFailure(Context context, String errorMessage) {
 
+
         SPUtilHelper.logOutClear();
 
         if (context != null) {
-            ToastUtil.show(context, errorMessage);
+            ToastUtil.show(context, context.getString(R.string.login_fail));
         }
 
         EventBus.getDefault().post(new AllFinishEvent());//登录失效

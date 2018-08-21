@@ -80,6 +80,15 @@ public interface MyApi {
     Call<BaseResponseModel<UTXOListModel>> getUtxoList(@Field("code") String code, @Field("json") String json);
 
     /**
+     * 获取国家列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<LocalCoinDbModel>> getCoinFees(@Field("code") String code, @Field("json") String json);
+
+    /**
      * ETH网络gas均价格获取 WAN网络gas均价格获取
      *
      * @return

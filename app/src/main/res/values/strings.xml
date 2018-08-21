@@ -678,9 +678,10 @@
     <string name="my_managment_money">我的理财</string>
     <string name="increment">递增</string>
     <string name="management_money_state_4">即将开始</string>
-    <string name="management_money_state_6">停止交易</string>
-    <string name="management_money_state_7">产品封闭</string>
+    <string name="management_money_state_6">已售罄</string>
+    <string name="management_money_state_7">已售罄</string>
     <string name="management_money_state_9">已结束</string>
+    <string name="management_money_state_10">募集结束</string>
     <string name="money_product_check_1">起购额度为</string>
     <string name="money_product_check_2">请按递增额度购买</string>
     <string name="money_product_check_3">可用余额不足</string>
@@ -691,4 +692,5 @@
     <string name="product_buy_state_2">已到期</string>
     <string name="product_buy_state_3">募集失败</string>
     <string name="transaction_confirm_state">交易确认中</string>
+    <string name="management_money_state_8">已到期</string>
 </resources>

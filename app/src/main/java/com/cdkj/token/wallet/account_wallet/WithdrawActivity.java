@@ -29,6 +29,7 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWithdrawBinding;
 import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.WalletBalanceModel;
+import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.utils.LocalCoinDBUtils;
@@ -103,7 +104,8 @@ public class WithdrawActivity extends AbsLoadActivity {
 
         getUserInfoRequest();
 
-//        getWithdrawFee();
+
+        getWithdrawFee(model.getCoinName());
     }
 
     private void init() {
@@ -125,9 +127,6 @@ public class WithdrawActivity extends AbsLoadActivity {
         if (model.getCoinBalance() != null)
             mBinding.edtAmount.setHint(getString(R.string.wallet_withdraw_amount_hint2) + AmountUtil.sub(Double.parseDouble(model.getCoinBalance()),
                     Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()));
-
-        // 设置提现手续费
-        mBinding.edtCommission.setText(LocalCoinDBUtils.getWithdrawFee(model.getCoinName()));
 
     }
 
@@ -244,27 +243,37 @@ public class WithdrawActivity extends AbsLoadActivity {
         }
     }
 
-    private void getWithdrawFee() {
+    /**
+     * 获取手续费
+     *
+     * @param coin
+     */
+    private void getWithdrawFee(String coin) {
+
+        if (TextUtils.isEmpty(coin)) {
+            return;
+        }
+
         Map<String, String> map = new HashMap<>();
 
-        map.put("ckey", "withdraw_fee_" + model.getCoinName().toLowerCase());
+        map.put("symbol", coin);
         map.put("systemCode", MyConfig.SYSTEMCODE);
         map.put("companyCode", MyConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getSystemParameter("660917", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getCoinFees("802266", StringUtils.getJsonToString(map));
 
         addCall(call);
 
         showLoadingDialog();
 
-        call.enqueue(new BaseResponseModelCallBack<SystemParameterModel>(this) {
+        call.enqueue(new BaseResponseModelCallBack<LocalCoinDbModel>(this) {
 
             @Override
-            protected void onSuccess(SystemParameterModel data, String SucMessage) {
+            protected void onSuccess(LocalCoinDbModel data, String SucMessage) {
                 if (data == null)
                     return;
 
-                mBinding.edtCommission.setText(data.getCvalue());
+                mBinding.edtCommission.setText(AmountUtil.amountFormatUnitForShow(data.getWithdrawFee(), coin, AmountUtil.ALLSCALE));
             }
 
             @Override

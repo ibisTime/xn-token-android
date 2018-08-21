@@ -135,4 +135,5 @@
     <string name="load_success">Load success</string>
     <string name="load_fail">Load failure</string>
     <string name="no_more_data">No more data</string>
+    <string name="login_fail">登录信息已失效，请重新登录！</string>
 </resources>

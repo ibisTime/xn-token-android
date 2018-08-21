@@ -14,8 +14,11 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.ManagementMoneyListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.common.AbsRefreshClipListActivity;
+import com.cdkj.token.model.ManageMoneyBuySuccessEvent;
 import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.utils.StringUtil;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,5 +110,15 @@ public class ManagementMoneyListActivity extends AbsRefreshClipListActivity {
 
 
     }
+
+
+    //购买成功刷新数据
+    @Subscribe
+    public void EventRefreshList(ManageMoneyBuySuccessEvent manageMoneyBuySuccessEvent) {
+        if (mRefreshHelper != null) {
+            mRefreshHelper.onDefaluteMRefresh(false);
+        }
+    }
+
 
 }
