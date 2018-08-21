@@ -26,6 +26,7 @@ import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityTransferBinding;
 import com.cdkj.token.model.BtcFeesModel;
+import com.cdkj.token.model.TransferSuccessEvent;
 import com.cdkj.token.model.TxHashModel;
 import com.cdkj.token.model.UTXOListModel;
 import com.cdkj.token.model.UTXOModel;
@@ -37,6 +38,8 @@ import com.cdkj.token.utils.wallet.WalletHelper;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.HashMap;
@@ -46,6 +49,8 @@ import java.util.Map;
 import retrofit2.Call;
 
 import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
+import static com.cdkj.token.utils.wallet.WalletHelper.getBtcFee;
+import static java.math.BigDecimal.ROUND_HALF_UP;
 
 /**
  * 钱包转账（BTC）
@@ -77,7 +82,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
-    private BigDecimal amountBigDecimal;
+    private BigDecimal transactionAmount;
 
     public static void open(Context context, WalletBalanceModel accountListBean) {
         if (context == null) {
@@ -180,6 +185,8 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             @Override
             protected void onSuccess(TxHashModel data, String SucMessage) {
 
+                EventBus.getDefault().post(new TransferSuccessEvent()); //通知上级界面进行数据刷新
+
                 UITipDialog.showSuccess(WalletBTCTransferActivity.this, getString(R.string.transaction_success), new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
@@ -252,21 +259,22 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             }
 
             //转账数量
-            amountBigDecimal = AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), WalletHelper.COIN_BTC);
+            transactionAmount = AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), WalletHelper.COIN_BTC);
 
-            if (amountBigDecimal.compareTo(BigDecimal.ZERO) == 0 || amountBigDecimal.compareTo(BigDecimal.ZERO) == -1) {
+            if (transactionAmount.compareTo(BigDecimal.ZERO) == 0 || transactionAmount.compareTo(BigDecimal.ZERO) == -1) {
                 UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
                 return true;
             }
             if (mfees == null) return true;
-            if (getFee(unSpentBTCList, amountBigDecimal.longValue(), mfees.intValue()) == -1) {
+
+            if (getBtcFee(unSpentBTCList, transactionAmount.longValue(), mfees.intValue()) == -1) {
                 UITipDialog.showInfo(this, getString(R.string.no_balance));
                 return true;
             }
 
 //            if (mfees == null) return true;
 //
-//            BigDecimal allBigInteger = mfees.add(amountBigDecimal);//手续费+转账数量
+//            BigDecimal allBigInteger = mfees.add(transactionAmount);//手续费+转账数量
 //
 //            int checkInt = allBigInteger.compareTo(new BigDecimal(accountListBean.getCoinBalance())); //比较
 //
@@ -282,33 +290,6 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         return false;
     }
 
-    /***
-     *获取矿工费
-     * @param unSpentBTCList
-     * @param value
-     * @param rate sta/byte
-     * @return -1发送的value超出了你的余额
-     */
-    public static long getFee(@NonNull List<UTXOModel> unSpentBTCList, long value, int rate) {
-        long fee = 0L;
-        int inputNum = 0;
-        long totalMoney = 0;
-        for (UTXOModel us : unSpentBTCList) {
-            inputNum++;
-            totalMoney += us.getCount();
-            if (totalMoney > value) {
-                fee = (148 * inputNum + 34 * 1 + 10) * rate;
-                if (totalMoney == (value + fee))
-                    return fee;
-                else if (totalMoney > (value + fee)) {
-                    fee = (148 * inputNum + 34 * 2 + 10) * rate;
-                    if (totalMoney >= (value + fee))
-                        return fee;
-                }
-            }
-        }
-        return -1;
-    }
 
     /**
      * 相机权限请求
@@ -360,8 +341,15 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
                         try {
 
-                            String sign = WalletHelper.signBTCTransactionData(unSpentBTCList, WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId()).getBtcAddress(), mBinding.editToAddress.getText().toString().trim(),
-                                    WalletHelper.getPrivateKeyByCoinType(SPUtilHelper.getUserId(), WalletHelper.COIN_BTC), AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), WalletHelper.COIN_BTC).longValue(), getFee(unSpentBTCList, amountBigDecimal.longValue(), mfees.intValue()));
+                            WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+
+                            //获取btc交易签名
+                            String sign = WalletHelper.signBTCTransactionData(unSpentBTCList,  //utxo列表
+                                    walletDBModel.getBtcAddress(),  //btc地址
+                                    mBinding.editToAddress.getText().toString().trim(),//btc转出地址
+                                    walletDBModel.getBtcPrivateKey(),//btc 私钥
+                                    transactionAmount.longValue()   //需要交易的金额
+                                    , getBtcFee(unSpentBTCList, transactionAmount.longValue(), mfees.intValue())); //矿工费
 
                             btcTransactionBroadcast(sign);
 
@@ -371,14 +359,12 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
                             UITipDialog.showFail(WalletBTCTransferActivity.this, getString(R.string.transfer_fail));
                         }
 
-
                     })
                     .setNegativeBtn(getStrRes(R.string.cancel), null)
                     .setContentMsg("");
         }
         passWordInputDialog.getContentView().setText("");
         passWordInputDialog.getContentView().setHint(getStrRes(R.string.please_input_transaction_pwd));
-        passWordInputDialog.getContentView().setText("");
         passWordInputDialog.show();
     }
 
@@ -431,8 +417,10 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         BigDecimal progressBigDecimal = new BigDecimal(progress);
         if (i < 50) {
             mfees = maxFees.multiply(progressBigDecimal).add(minfees);
-        } else if (i > 49) {
+        } else if (i > 50) {
             mfees = maxFees.multiply(progressBigDecimal);
+        } else if (i == 50) {
+            mfees = maxFees.subtract(minfees).divide(new BigDecimal(2), ROUND_HALF_UP).add(minfees);//（最大-最小）/2+最小
         }
         setShowFeesPrice(mfees);
     }

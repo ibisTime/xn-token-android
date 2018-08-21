@@ -15,6 +15,7 @@ import java.text.DecimalFormat;
 
 import static com.cdkj.token.utils.LocalCoinDBUtils.getLocalCoinUnit;
 import static java.math.BigDecimal.ROUND_HALF_EVEN;
+import static java.math.BigDecimal.ROUND_HALF_UP;
 
 /**
  * Created by lei on 2017/10/20.
@@ -40,10 +41,10 @@ public class AmountUtil {
         }
 
         if (TextUtils.isEmpty(coin)) {
-            return scale(amount.divide(BigDecimal.TEN.pow(18)).toPlainString(), scale);
+            return scale(amount.divide(BigDecimal.TEN.pow(18), ROUND_HALF_UP).toPlainString(), scale);
         }
 
-        return scale(amount.divide(getLocalCoinUnit(coin)).toPlainString(), scale);
+        return scale(amount.divide(getLocalCoinUnit(coin), ROUND_HALF_UP).toPlainString(), scale);
     }
 
 

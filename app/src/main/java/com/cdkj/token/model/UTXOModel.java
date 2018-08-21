@@ -1,5 +1,7 @@
 package com.cdkj.token.model;
 
+import java.math.BigInteger;
+
 /**
  * Created by cdkj on 2018/8/11.
  */
@@ -7,8 +9,8 @@ package com.cdkj.token.model;
 public class UTXOModel {
 
     private String txid;
-    private long vout;
-    private long count;
+    private BigInteger vout;
+    private BigInteger count;
     private String scriptPubKey;
     private String address;
 
@@ -21,19 +23,19 @@ public class UTXOModel {
         this.txid = txid;
     }
 
-    public long getVout() {
+    public BigInteger getVout() {
         return vout;
     }
 
-    public void setVout(long vout) {
+    public void setVout(BigInteger vout) {
         this.vout = vout;
     }
 
-    public long getCount() {
+    public BigInteger getCount() {
         return count;
     }
 
-    public void setCount(long count) {
+    public void setCount(BigInteger count) {
         this.count = count;
     }
 

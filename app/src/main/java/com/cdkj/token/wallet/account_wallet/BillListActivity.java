@@ -13,7 +13,6 @@ import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
-import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
@@ -33,8 +32,6 @@ import com.cdkj.token.views.pop.PickerPop;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import org.greenrobot.eventbus.EventBus;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,7 +40,6 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-import static com.cdkj.baselibrary.appmanager.EventTags.BASE_COIN_LIST;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
 
 /**
@@ -221,13 +217,7 @@ public class BillListActivity extends AbsLoadActivity {
 
             @Override
             public void onRefresh(int pageindex, int limit) {
-                EventBusModel model = new EventBusModel();
-                model.setTag(BASE_COIN_LIST);
-                // 是否需要通知所有需要的地方刷新CoinList配置
-                model.setEvBoolean(false);
-                // 不是的话需要告知其需要更新的位置
-                model.setEvInfo("wallet");
-                EventBus.getDefault().post(model);
+
             }
 
             @Override

@@ -32,10 +32,13 @@ import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.CoinTypeAndAddress;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.LocalEthTokenCoinBill;
+import com.cdkj.token.model.TransferSuccessEvent;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -98,6 +101,10 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
         initClickListener();
 
+        if (mBinding != null && mRefreshHelper != null) {
+            mRefreshHelper.onDefaluteMRefresh(true);
+        }
+
     }
 
     /**
@@ -124,13 +131,6 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
         }
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (mBinding != null && mRefreshHelper != null) {
-            mRefreshHelper.onDefaluteMRefresh(true);
-        }
-    }
 
     private void initClickListener() {
 
@@ -441,6 +441,19 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
                 disMissLoading();
             }
         });
+    }
+
+
+    /**
+     * 广播成功 刷新数据
+     *
+     * @param transferSuccessEvent
+     */
+    @Subscribe
+    public void EventRefreshBIllList(TransferSuccessEvent transferSuccessEvent) {
+        if (mBinding != null && mRefreshHelper != null) {
+            mRefreshHelper.onDefaluteMRefresh(false);
+        }
     }
 
 

@@ -916,12 +916,12 @@ public class WalletHelper {
     /**
      * 对btc交易进行签名
      *
-     * @param unSpentBTCList
+     * @param unSpentBTCList utxolist
      * @param from
      * @param to
      * @param privateKey
-     * @param value
-     * @param fee
+     * @param value          交易金额
+     * @param fee            手续费
      * @return
      * @throws Exception
      */
@@ -938,13 +938,22 @@ public class WalletHelper {
         List<BtcSignUTXO> utxos = new ArrayList<>();
         //遍历未花费列表，组装合适的item
         for (UTXOModel us : unSpentBTCList) {
-            if (totalMoney >= (value + fee))
+
+            if (us == null || us.getCount() == null) {
+                continue;
+            }
+
+            if (totalMoney >= (value + fee)) {
                 break;
-            BtcSignUTXO utxo = new BtcSignUTXO(Sha256Hash.wrap(us.getTxid()), us.getVout(),
+            }
+
+            BtcSignUTXO utxo = new BtcSignUTXO(Sha256Hash.wrap(us.getTxid()), us.getVout().longValue(),
+
                     new Script(Hex.decode(us.getScriptPubKey())));
+
             utxos.add(utxo);
 
-            totalMoney += us.getCount();
+            totalMoney += us.getCount().longValue();
         }
 
         transaction.addOutput(Coin.valueOf(value), Address.fromBase58(getBtcMainNetParams(), to));
@@ -1168,6 +1177,52 @@ public class WalletHelper {
         } catch (AddressFormatException e) {
             return false;
         }
+
+    }
+
+
+    /***
+     *获取矿工费
+     * @param unSpentBTCList 未交易的utxo
+     * @param value      要交易的金额
+     * @param rate sta/byte
+     * @return -1发送的value超出了你的余额
+     *
+     * 148 x inputNum + 34 x outputNum + 10
+     */
+    public static long getBtcFee(List<UTXOModel> unSpentBTCList, long value, int rate) {
+
+        long fee = 0L;
+
+        int inputNum = 0;  //合适的utxo数量
+
+        long totalMoney = 0; //utxo数量总值
+
+        for (UTXOModel us : unSpentBTCList) {
+
+            inputNum++;
+
+            totalMoney += us.getCount().longValue();
+
+            if (totalMoney > value) {
+
+                fee = (148 * inputNum + 34 * 1 + 10) * rate;//不用设置找零时只有一个输出
+
+                if (totalMoney == (value + fee))
+
+                    return fee;
+
+                else if (totalMoney > (value + fee)) {
+
+                    fee = (148 * inputNum + 34 * 2 + 10) * rate;     //2=设置找零输出 +转账地址输出
+
+                    if (totalMoney >= (value + fee))
+
+                        return fee;
+                }
+            }
+        }
+        return -1;
     }
 
 }

@@ -13,13 +13,11 @@ import android.widget.Toast;
 
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.EventTags;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.model.EventBusModel;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -36,8 +34,6 @@ import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
-
-import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -378,21 +374,4 @@ public class WithdrawActivity extends AbsLoadActivity {
         });
     }
 
-
-    @Subscribe
-    public void setAddress(EventBusModel model) {
-
-        if (model == null)
-            return;
-
-        if (model.getTag().equals(EventTags.ADDRESS_SELECT)) {
-            if (model.getEvInt() == 0) { // 地址未认证，需要交易密码
-                isCerti = true;
-            } else { // 地址已认证，不需要交易密码
-                isCerti = false;
-            }
-            mBinding.editToAddress.setText(model.getEvInfo());
-        }
-
-    }
 }
