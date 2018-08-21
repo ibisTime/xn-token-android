@@ -16,7 +16,7 @@ import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
-import com.cdkj.baselibrary.dialog.NumberPwdInputDialog;
+import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -62,7 +62,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
     private PermissionHelper mPermissionHelper;
 
-    private NumberPwdInputDialog passWordInputDialog;
+    private TextPwdInputDialog passWordInputDialog;
 
     private BigDecimal maxFees;//最大矿工费
     private BigDecimal mfees;//选择的矿工费
@@ -283,7 +283,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
     }
 
     /***
-     *
+     *获取矿工费
      * @param unSpentBTCList
      * @param value
      * @param rate sta/byte
@@ -342,7 +342,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
      */
     private void showPasswordInputDialog() {
         if (passWordInputDialog == null) {
-            passWordInputDialog = new NumberPwdInputDialog(this).builder().setTitle(getStrRes(R.string.please_input_transaction_pwd))
+            passWordInputDialog = new TextPwdInputDialog(this).builder().setTitle(getStrRes(R.string.please_input_transaction_pwd))
                     .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
 
                         String tradePwd = passWordInputDialog.getContentView().getText().toString().trim();

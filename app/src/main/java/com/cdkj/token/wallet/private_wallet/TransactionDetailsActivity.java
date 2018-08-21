@@ -96,7 +96,14 @@ public class TransactionDetailsActivity extends AbsLoadActivity {
 
         mBinding.tvToAddress.setText(localCoinBill.getTo());
         mBinding.tvFromAddress.setText(localCoinBill.getFrom());
-        mBinding.tvBlockHeight.setText(localCoinBill.getHeight());
+
+        if (localCoinBill.getHeight() < 0) {
+            mBinding.tvBlockHeight.setText(R.string.transaction_confirm_state);
+        } else {
+            mBinding.tvBlockHeight.setText(localCoinBill.getHeight() + "");
+        }
+
+
         mBinding.tvDate.setText(DateUtil.formatStringData(localCoinBill.getTransDatetime(), DEFAULT_DATE_FMT));
         mBinding.tvGas.setText(AmountUtil.amountFormatUnitForShow(localCoinBill.getTxFee(), this.coinType, ETHSCALE));
         mBinding.tvTransctionCode.setText(localCoinBill.getTxHash());

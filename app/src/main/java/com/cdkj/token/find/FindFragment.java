@@ -72,8 +72,17 @@ public class FindFragment extends BaseLazyFragment {
 
         initBanner();
 
+        initRefresh();
+
         return mBinding.getRoot();
 
+    }
+
+    void initRefresh() {
+        mBinding.refreshLayout.setEnableLoadmore(false);
+        mBinding.refreshLayout.setOnRefreshListener(refreshlayout -> {
+            getBanner(false);
+        });
     }
 
     /**
@@ -160,7 +169,7 @@ public class FindFragment extends BaseLazyFragment {
     /**
      * 获取banner
      */
-    private void getBanner() {
+    private void getBanner(boolean isShowDialog) {
         Map<String, String> map = new HashMap<>();
         map.put("location", "app_home"); // 交易位置轮播
         map.put("systemCode", MyConfig.SYSTEMCODE);
@@ -170,7 +179,9 @@ public class FindFragment extends BaseLazyFragment {
 
         addCall(call);
 
-        showLoadingDialog();
+        if (isShowDialog) {
+            showLoadingDialog();
+        }
 
         call.enqueue(new BaseResponseListCallBack<BannerModel>(mActivity) {
 
@@ -190,7 +201,7 @@ public class FindFragment extends BaseLazyFragment {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                getAppList();
             }
         });
     }
@@ -242,8 +253,6 @@ public class FindFragment extends BaseLazyFragment {
 //        map.put("orderColumn", "order_no");
 //        map.put("orderDir", "desc");
 
-        showLoadingDialog();
-
         Call<BaseResponseListModel<RecommendAppModel>> call = RetrofitUtils.createApi(MyApi.class).getAppList("625412", StringUtils.getJsonToString(map));
 
         call.enqueue(new BaseResponseListCallBack<RecommendAppModel>(mActivity) {
@@ -254,6 +263,9 @@ public class FindFragment extends BaseLazyFragment {
 
             @Override
             protected void onFinish() {
+                if (mBinding.refreshLayout.isRefreshing()) {
+                    mBinding.refreshLayout.finishRefresh();
+                }
                 disMissLoading();
             }
         });
@@ -265,14 +277,15 @@ public class FindFragment extends BaseLazyFragment {
         if (mBinding == null) {
             return;
         }
-        getAppList();
+
         // 刷新轮播图
         if (bannerData != null && !bannerData.isEmpty()) {
             mBinding.banner.startAutoPlay();
-        } else {
-            getBanner();
+            getBanner(false);
+            return;
         }
 
+        getBanner(true);
     }
 
     @Override

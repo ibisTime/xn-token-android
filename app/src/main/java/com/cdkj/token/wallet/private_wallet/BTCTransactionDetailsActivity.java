@@ -11,6 +11,7 @@ import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.utils.DateUtil;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.BTCFromAddressListAdapter;
 import com.cdkj.token.adapter.BTCToAddressListAdapter;
@@ -72,6 +73,7 @@ public class BTCTransactionDetailsActivity extends AbsLoadActivity {
         mBinding.tvViewMore.setOnClickListener(view -> {
 
             if (btcBill != null) {
+                LogUtil.E("交易hah" + btcBill.getTxHash());
                 WebViewActivity.openURL(this, getString(R.string.transaction_details), WalletHelper.getBrowserUrlByCoinType(WalletHelper.COIN_BTC) + btcBill.getTxHash());
             }
         });
@@ -126,7 +128,13 @@ public class BTCTransactionDetailsActivity extends AbsLoadActivity {
 
         mBinding.tvMoney.setText(getMoneyStateByState(btcBillModel.getDirection()) + AmountUtil.amountFormatUnitForShow(btcBillModel.getValue(), WalletHelper.COIN_BTC, ETHSCALE) + " " + WalletHelper.COIN_BTC);
 
-        mBinding.tvBlockHeight.setText(btcBillModel.getHeight() + "");
+        if (btcBillModel.getHeight() < 0) {
+            mBinding.tvBlockHeight.setText(R.string.transaction_confirm_state);
+        } else {
+            mBinding.tvBlockHeight.setText(btcBillModel.getHeight() + "");
+        }
+
+
         mBinding.tvDate.setText(DateUtil.formatStringData(btcBillModel.getTransDatetime(), DEFAULT_DATE_FMT));
         mBinding.tvGas.setText(AmountUtil.amountFormatUnitForShow(btcBillModel.getTxFee(), WalletHelper.COIN_BTC, ETHSCALE));
         mBinding.tvTransctionCode.setText(btcBillModel.getTxHash());

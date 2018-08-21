@@ -25,7 +25,7 @@ public class LocalCoinBill implements Parcelable {
      */
 
     private String txHash;
-    private String height;
+    private long height;
     private String direction;
     private String from;
     private String to;
@@ -41,11 +41,12 @@ public class LocalCoinBill implements Parcelable {
         this.txHash = txHash;
     }
 
-    public String getHeight() {
+
+    public long getHeight() {
         return height;
     }
 
-    public void setHeight(String height) {
+    public void setHeight(long height) {
         this.height = height;
     }
 
@@ -108,7 +109,7 @@ public class LocalCoinBill implements Parcelable {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.txHash);
-        dest.writeString(this.height);
+        dest.writeLong(this.height);
         dest.writeString(this.direction);
         dest.writeString(this.from);
         dest.writeString(this.to);
@@ -119,7 +120,7 @@ public class LocalCoinBill implements Parcelable {
 
     protected LocalCoinBill(Parcel in) {
         this.txHash = in.readString();
-        this.height = in.readString();
+        this.height = in.readLong();
         this.direction = in.readString();
         this.from = in.readString();
         this.to = in.readString();

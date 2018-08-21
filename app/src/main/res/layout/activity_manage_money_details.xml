@@ -54,33 +54,16 @@
                                 android:orientation="horizontal"
                                 android:paddingTop="20dp">
 
-
-                                <LinearLayout
+                                <TextView
+                                    android:id="@+id/tv_buy_totla_ratio"
                                     android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:layout_weight="1"
                                     android:gravity="center"
-                                    android:orientation="vertical">
+                                    android:text="10.4%"
+                                    android:textColor="#FF6400"
+                                    android:textSize="20sp" />
 
-                                    <TextView
-                                        android:id="@+id/tv_buy_totla_ratio"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:text="10.4%"
-                                        android:textColor="#FF6400"
-                                        android:textSize="18sp" />
-
-                                    <TextView
-                                        android:id="@+id/tv_time_1"
-                                        android:layout_width="wrap_content"
-                                        android:layout_height="wrap_content"
-                                        android:layout_marginTop="6dp"
-                                        android:textColor="@color/gray_666666"
-                                        android:textSize="12sp"
-                                        tools:text="10.4R" />
-
-
-                                </LinearLayout>
 
                                 <com.cdkj.token.views.DashVLineView
                                     android:layout_width="2dp"

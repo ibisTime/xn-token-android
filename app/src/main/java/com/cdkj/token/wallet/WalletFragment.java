@@ -552,14 +552,15 @@ public class WalletFragment extends BaseLazyFragment {
                     List<WalletBalanceModel> walletBalanceModels = transformToPrivateAdapterData(data);
                     mRefreshHelper.setPageIndex(1);
                     mRefreshHelper.setData(walletBalanceModels, getString(R.string.no_assets), R.mipmap.order_none);
-
                 }
             }
 
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
                 super.onReqFailure(errorCode, errorMessage);
-                mRefreshHelper.loadError(errorMessage, 0);
+                if(isSetRecyclerData){
+                    mRefreshHelper.loadError(errorMessage, 0);
+                }
             }
 
             @Override

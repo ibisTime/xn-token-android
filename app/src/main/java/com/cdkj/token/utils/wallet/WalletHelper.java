@@ -102,7 +102,7 @@ public class WalletHelper {
 
     public final static String HDPATHBTC = "M/44H/0H/0H/0/0";//BTC生成助记词和解析时使用
 
-    //TODO 币种使用枚举类
+
     public final static String COIN_ETH = "ETH";// 币种类型 ETH
     public final static String COIN_WAN = "WAN";// 币种类型 WAN
     public final static String COIN_BTC = "BTC";// 币种类型 BTC
@@ -199,6 +199,11 @@ public class WalletHelper {
             case COIN_WAN:
                 devUrl = "http://47.104.61.26/block/trans/";
                 url = "https://www.wanscan.org/tx/";
+                break;
+
+            case COIN_BTC:
+                devUrl = "https://testnet.blockexplorer.com/tx/";
+                url = "https://www.blockchain.com/zh-cn/search?search=";
                 break;
         }
 
@@ -964,6 +969,8 @@ public class WalletHelper {
 
 
     /**
+     * eth token币转账
+     *
      * @param walletDBModel
      * @param toAddress
      * @param contractAddress
@@ -1026,6 +1033,8 @@ public class WalletHelper {
     }
 
     /**
+     * wan token币转账
+     *
      * @param walletDBModel
      * @param toAddress
      * @param contractAddress

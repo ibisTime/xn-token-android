@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
-import com.cdkj.baselibrary.dialog.NumberPwdInputDialog;
+import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.MainActivity;
@@ -30,7 +30,7 @@ import org.greenrobot.eventbus.EventBus;
 public class WalletToolActivity extends AbsLoadActivity {
 
     private ActivityUserWalletBinding mBinding;
-    private NumberPwdInputDialog inputDialog;
+    private TextPwdInputDialog inputDialog;
 
     private final int DIALOG_DELETE = 0;//dialog 类型 删除
     private final int DIALOG_BACKUP = 1; //dialog类型备份
@@ -87,7 +87,7 @@ public class WalletToolActivity extends AbsLoadActivity {
      * @param type 调起dialog类型
      */
     private void showPasswordInputDialog(int type) {
-        inputDialog = new NumberPwdInputDialog(this).builder().setTitle(getString(R.string.please_input_transaction_pwd))
+        inputDialog = new TextPwdInputDialog(this).builder().setTitle(getString(R.string.please_input_transaction_pwd))
                 .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
                     if (TextUtils.isEmpty(inputMsg)) {
                         UITipDialog.showInfoNoIcon(WalletToolActivity.this, getString(R.string.please_input_transaction_pwd));

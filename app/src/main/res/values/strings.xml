@@ -690,4 +690,5 @@
     <string name="product_buy_state_1">持有中</string>
     <string name="product_buy_state_2">已到期</string>
     <string name="product_buy_state_3">募集失败</string>
+    <string name="transaction_confirm_state">交易确认中</string>
 </resources>

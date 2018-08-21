@@ -28,6 +28,8 @@ import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.utils.wallet.WalletDBAegisUtils;
+import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
+import com.cdkj.token.wallet.import_guide.ImportWalletStartActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -69,6 +71,7 @@ public class StartActivity extends BaseActivity {
             e.printStackTrace();
         }
         setContentView(R.layout.activity_start);
+
         getVersion();
 
     }
