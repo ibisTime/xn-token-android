@@ -512,7 +512,7 @@
     <string name="version_num">Version：V %s</string>
     <string name="my_account_wallet">My Wallet</string>
 
-    <string name="my_wallet_introduction">A personal account refers to a central wallet, which is saved by THA for your private key. In a central wallet, there is no loss of wallet that cannot be recovered, and can be verified to retrieve your wallet and allow you to experience more services. </string>
+    <string name="my_wallet_introduction">A personal account refers to a central wallet, which is saved by Theia for your private key. In a central wallet, there is no loss of wallet that cannot be recovered, and can be verified to retrieve your wallet and allow you to experience more services. </string>
     <string name="my_private_wallet_title">Decentralized Wallet</string>
     <string name="my_private_wallet_introduction">The private key wallet is to go to the central wallet, in the central wallet, all user authentication content, such as trading passwords, private keys, mnemonics, etc. are stored in the user\'s mobile phone local, not stored in the centralized server. If the user mistakenly deletes the wallet, forgets to back up the private key or mnemonics, will not be able to retrieve the wallet. </string>
     <string name="advantage">Advantages</string>
@@ -537,7 +537,7 @@
     <string name="sure_transfer">Transfer confirmed </string>
     <string name="fast">Fast</string>
     <string name="slow">Slow</string>
-    <string name="create_wallet_intro_1">Attention! Tha does not store user passwords, can not provide recovery or reset functions, passwords must be backed up well by users. Passwords are used to encrypt the private key, and strength is also important.</string>
+    <string name="create_wallet_intro_1">Attention! Tha does not store user passwords, can not provide recovery or reset unctions, passwords must be backed up well by users. Passwords are used to encrypt the private key, and strength is also important.</string>
     <string name="backup_introtation_dialog_title">Disclaimer</string>
     <string name="backup_introtation_dialog_content">Please ensure that the wallet has been backed up safely THA does not bear any loss of loss of wallet, stolen, forgotten password and other assets lost!</string>
     <string name="my_coin_address_2">My collection address</string>
@@ -545,7 +545,7 @@
     <string name="qr_share_tip_2">Screenshot the QR-code for sharing </string>
     <string name="red_packet_rule">Rules of Red Envelope </string>
     <string name="red_packet_type_1">This is ordinary red envelopes</string>
-    <string name="red_packet_type_2">This is Red Envelope for spell luck </string>
+    <string name="red_packet_type_2">This is Red Envelope for spell luck </string>f
     <string name="sure_pay">Payment Confirmed</string>
     <string name="account_balance">Account balance</string>
     <string name="now_pay">Prompt payment</string>
@@ -670,88 +670,176 @@
     <string name="bug_level_2_1">Normal</string>
 
     <string name="bug_level_3_1">Optimization</string>
-    <string name="setting">设置</string>
-    <string name="version_update">版本更新</string>
-    <string name="version_update_info">有可更新版本</string>
-    <string name="invite_gift">邀请有礼</string>
-    <string name="invite_btn_1">海报邀请</string>
-    <string name="invite_btn_2">发红包邀请好友</string>
-    <string name="invite_text_1">点击生成邀请海报并截图给好友</string>
-    <string name="friend_qrimg_1">扫描二维码领取奖励</string>
-    <string name="invite_text_2">邀请好友</string>
-    <string name="invite_text_3">注册THA钱包</string>
-    <string name="my_management_money">我的理财</string>
-    <string name="item_management_meony_1">购买金额</string>
-    <string name="item_management_meony_2">总收益</string>
-    <string name="item_management_meony_3">到期时间</string>
-    <string name="invite_my_name">我是%s,邀请您使用THA钱包</string>
-    <string name="buy_success">购买成功</string>
-    <string name="management_money_detail_1">合约编号</string>
-    <string name="management_money_detail_2">交易时间</string>
-    <string name="management_money_detail_3">产品期限</string>
-    <string name="management_money_detail_4">年收益率</string>
-    <string name="management_money_detail_5">购买金额</string>
-    <string name="management_money_detail_6">总收益</string>
-    <string name="management_money_detail_7">起息时间</string>
-    <string name="management_money_detail_8">到期时间</string>
-    <string name="backup_start_dialog_1">请勿截图</string>
-    <string name="backup_start_dialog_2">请确保四周无人及无任何摄像头！</string>
-    <string name="backup_start_dialog_3">勿用截图或者拍照方式备份助记词。</string>
-    <string name="transaction_in">即将到账...</string>
-    <string name="transaction_out">同步打包中...</string>
-    <string name="transaction_success">广播成功，正在同步中</string>
-    <string name="product_deadline">产品期限</string>
-    <string name="product_total">产品总额</string>
-    <string name="product_buy">已认购%s</string>
-    <string name="buy_end">剩余</string>
-    <string name="buy_start">起购</string>
-    <string name="product_details">产品详情</string>
-    <string name="product_introduction">产品介绍</string>
-    <string name="product_name">产品名称</string>
-    <string name="product_coin">认购币种</string>
-    <string name="back_money_type">回款方式</string>
-    <string name="product_buy_hint">请输入购买额度</string>
-    <string name="product_forecast_income"><Data><![CDATA[预计收入<font color="#FF6400">%1$s</font>%2$s]]></Data></string>
-    <string name="coin_name">代币名称</string>
-    <string name="user_account_balance">可用余额</string>
-    <string name="buy_product_name">购买产品</string>
-    <string name="buy_product_count">购买额度</string>
-    <string name="buy_product_income_date">本息到期日期</string>
-    <string name="buy_product_get_income">预计收入</string>
-    <string name="delay_to_start">%s秒钟自动跳转</string>
-    <string name="look_buy_history">查看购买记录</string>
-    <string name="no_product">暂无产品</string>
-    <string name="product_buy_minamount"><Data><![CDATA[%1$s<font color="#999999"> 起购</font>]]></Data></string>
-    <string name="money_product_details">理财产品详情</string>
-    <string name="product_days">%s天</string>
-    <string name="payment_type">期满自动转入个人账户</string>
-    <string name="limit_amount"><Data><![CDATA[<font color="#666666">\u3000（每人限购%s)</font>]]></Data></string>
-    <string name="product_buy_total">购买额度</string>
-    <string name="do_contract">执行合约</string>
-    <string name="buy_fail">购买失败</string>
-    <string name="old_password">旧密码</string>
-    <string name="modify_wallet_pwd">修改交易密码</string>
-    <string name="old_pwd_error">旧密码错误</string>
-    <string name="buy">购买</string>
-    <string name="my_managment_money">我的理财</string>
-    <string name="increment">递增</string>
-    <string name="management_money_state_4">即将开始</string>
-    <string name="management_money_state_6">停止交易</string>
-    <string name="management_money_state_7">产品封闭</string>
-    <string name="management_money_state_9">已结束</string>
-    <string name="money_product_check_1">起购额度为</string>
-    <string name="money_product_check_2">请按递增额度购买</string>
-    <string name="money_product_check_3">可用余额不足</string>
-    <string name="money_product_check_4">限购额度为</string>
-    <string name="money_product_check_5">购买金额超出可售额度</string>
-    <string name="product_buy_state_0">申购中</string>
-    <string name="product_buy_state_1">持有中</string>
-    <string name="product_buy_state_2">已到期</string>
-    <string name="product_buy_state_3">募集失败</string>
-    <string name="product_buy_end"><Data><![CDATA[<font color="#999999">剩余 </font>%1$s]]></Data></string>
-    <string name="transaction_confirm_state">交易确认中</string>
-    <string name="management_money_state_8">已到期</string>
-    <string name="management_money_state_10">募集结束</string>
+
+
+    <!---->
+
+
+    <string name="setting">Settings</string>
+
+    <string name="version_update">Upgrade</string>
+
+    <string name="version_update_info">Upgrade info</string>
+
+    <string name="invite_gift">Invitation gift</string>
+
+    <string name="invite_btn_1">Invitation</string>
+
+    <string name="invite_btn_2">Send out gifts to invite friends</string>
+
+    <string name="invite_text_1">Click to generate invitation, take a screenshot and sent it to your friends</string>
+
+    <string name="friend_qrimg_1">Scan QR code to get rewards</string>
+
+    <string name="invite_text_2">Invite friend</string>
+
+    <string name="invite_text_3">Register for Theia Wallet</string>
+
+    <string name="my_management_money">My finance</string>
+
+    <string name="item_management_meony_1">Purchase amount</string>
+
+    <string name="item_management_meony_2">Total earnings</string>
+
+    <string name="item_management_meony_3">Due date</string>
+
+    <string name="invite_my_name">I\'m%s, inviting you to try out Theia Wallet</string>
+
+    <string name="buy_success">Purchase successful</string>
+
+    <string name="management_money_detail_1">Contract number</string>
+
+    <string name="management_money_detail_2">Trasaction time</string>
+
+    <string name="management_money_detail_3">Subscription period</string>
+
+    <string name="management_money_detail_4">Annual rate of return</string>
+
+    <string name="management_money_detail_5">Purchase amount</string>
+
+    <string name="management_money_detail_6">Total earnings</string>
+
+    <string name="management_money_detail_7">Value date</string>
+
+    <string name="management_money_detail_8">Due date</string>
+
+    <string name="backup_start_dialog_1">Do not take a screenshot</string>
+
+    <string name="backup_start_dialog_2">Please make sure there is no one and no camera around!</string>
+
+    <string name="backup_start_dialog_3">Please do not take a screenshot or a picture to back up the mnemonic words.</string>
+
+    <string name="transaction_in">Trasfering…</string>
+
+    <string name="transaction_out">Processing block…</string>
+
+    <string name="transaction_success">Broadcasting successful, processing block</string>
+
+    <string name="product_deadline">Subscription period</string>
+
+    <string name="product_total">Product amount</string>
+
+    <string name="product_buy">Bought %s</string>
+
+    <string name="buy_end">Remaining</string>
+
+    <string name="buy_start">Purchase minimum amount</string>
+
+    <string name="product_details">Product details</string>
+
+    <string name="product_introduction">Product introduction</string>
+
+    <string name="product_name">Product name</string>
+
+    <string name="product_coin">Subscription currency</string>
+
+    <string name="back_money_type">Pay back method</string>
+
+    <string name="product_buy_hint">Please put in purchase amount</string>
+
+    <string name="product_forecast_income"><Data><![CDATA[Estimated income<font color="#FF6400">%1$s</font>%2$s]]></Data></string>
+
+    <string name="coin_name">Ticker</string>
+
+    <string name="user_account_balance">Available balance</string>
+
+    <string name="buy_product_name">Purchase product</string>
+
+    <string name="buy_product_count">Purchase amount</string>
+
+    <string name="buy_product_income_date">Principal and interest due date</string>
+
+    <string name="buy_product_get_income">Estimated income</string>
+
+    <string name="delay_to_start">%sseconds automatic redirecting</string>
+
+    <string name="look_buy_history">View purchase history</string>
+
+    <string name="no_product">No product</string>
+
+    <string name="product_buy_minamount"><Data><![CDATA[%1$s<font color="#999999"> Purchase minimum amount</font>]]></Data></string>
+
+
+    <string name="money_product_details">Financial product details</string>
+
+    <string name="product_days">%sdays</string>
+
+    <string name="payment_type">On due date automatically transfered into platform account</string>
+
+    <string name="limit_amount"><Data><![CDATA[<font color="#666666">\u3000（Maximum limit for per person\'s subscription %s)</font>]]></Data></string>
+
+    <string name="product_buy_total">Quota limit</string>
+
+    <string name="do_contract">Carry out contract</string>
+
+    <string name="buy_fail">Failed to purchase</string>
+
+    <string name="old_password">Old password</string>
+
+    <string name="modify_wallet_pwd">Modify transaction password</string>
+
+    <string name="old_pwd_error">Wrong old password</string>
+
+    <string name="buy">Purchase</string>
+
+    <string name="my_managment_money">My finance</string>
+
+    <string name="increment">Increment</string>
+
+    <string name="management_money_state_4">Starting soon</string>
+
+    <string name="management_money_state_6">Stop transaction</string>
+
+    <string name="management_money_state_7">Sold out</string>
+
+    <string name="management_money_state_10">Fundraising end</string>
+
+    <string name="management_money_state_9">End</string>
+
+    <string name="money_product_check_1">Purchase minimum amount is</string>
+
+    <string name="money_product_check_2">Please purchase according to increment quota</string>
+
+    <string name="money_product_check_3">Available balance not enough</string>
+
+    <string name="money_product_check_4">Maximum limit for per person\'s subscription is</string>
+
+    <string name="money_product_check_5">Purchase amount exceeds maximum limit</string>
+
+    <string name="product_buy_state_0">Subscribing</string>
+
+    <string name="product_buy_state_1">Holding</string>
+
+    <string name="product_buy_state_2">Due</string>
+
+    <string name="product_buy_state_3">Filed to fundraise</string>
+
+    <string name="transaction_confirm_state">Transaction confirming</string>
+
+    <string name="management_money_state_8">Due</string>
+
+    <string name="product_buy_end"><Data><![CDATA[<font color="#999999">Remaining </font>%1$s]]></Data></string>
+
 </resources>
 
 

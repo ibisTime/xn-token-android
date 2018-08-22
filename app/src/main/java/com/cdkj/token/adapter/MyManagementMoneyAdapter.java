@@ -35,7 +35,7 @@ public class MyManagementMoneyAdapter extends BaseQuickAdapter<MyManamentMoneyPr
         helper.setText(R.id.tv_name, item.getProductInfo().getName());
         helper.setText(R.id.tv_state, getStateString(item.getStatus()));
         helper.setText(R.id.tv_date, DateUtil.formatStringData(item.getCreateDatetime(), DEFAULT_DATE_FMT));
-        helper.setText(R.id.tv_end_date, DateUtil.formatStringData(item.getLastInvestDatetime(), DEFAULT_DATE_FMT));
+        helper.setText(R.id.tv_end_date, DateUtil.formatStringData(item.getProductInfo().getArriveDatetime(), DEFAULT_DATE_FMT));
         helper.setText(R.id.tv_buy_amount, AmountUtil.amountFormatUnitForShow(item.getInvestAmount(), item.getProductInfo().getSymbol(), AmountUtil.ALLSCALE) + item.getProductInfo().getSymbol());
         helper.setText(R.id.tv_income, AmountUtil.amountFormatUnitForShow(item.getExpectIncome(), item.getProductInfo().getSymbol(), AmountUtil.ALLSCALE) + item.getProductInfo().getSymbol());
 

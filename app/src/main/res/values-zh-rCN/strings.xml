@@ -492,7 +492,7 @@
     <string name="user_language_korea">한국어</string>
     <string name="version_num">版本号：V %s</string>
     <string name="my_account_wallet">个人账户</string>
-    <string name="my_wallet_introduction">个人账户就是指中心化钱包,是由TAH替您保存私钥。在中心化钱包中,不存在钱包丢失了无法找回的情况,可以通过验证找回您的钱包，并且可以让你体验到更多的服务。</string>
+    <string name="my_wallet_introduction">个人账户就是指中心化钱包,是由Theia替您保存私钥。在中心化钱包中,不存在钱包丢失了无法找回的情况,可以通过验证找回您的钱包，并且可以让你体验到更多的服务。</string>
     <string name="my_private_wallet_title">私钥钱包</string>
     <string name="my_private_wallet_introduction">私钥钱包就是去中心化钱包，在去中心化钱包中，所有的用户身份验证内容，如交易密码、私钥、助记词等都保存在用户手机本地，并不是保存在中心化服务器中。如果用户误删钱包，忘记备份私钥或者助记词，将无法找回钱包。</string>
     <string name="advantage">优点</string>

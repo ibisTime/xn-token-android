@@ -11,12 +11,15 @@ import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.token.common.AppFrontBackHelper;
 import com.cdkj.token.model.PatternLockCheckFinish;
 import com.cdkj.token.user.pattern_lock.PatternLockCheckActivity;
+import com.cdkj.token.utils.BGAGlideImageLoader2;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 
 import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
+
+import cn.bingoogolapple.photopicker.imageloader.BGAImage;
 
 /**
  * Created by lei on 2017/10/20.
@@ -71,6 +74,8 @@ public class MyApplication extends Application {
         UMConfigure.setEncryptEnabled(true);
         //友盟统计场景设置
         MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);//EScenarioType. E_UM_NORMAL　　普通统计场景类型
+
+        BGAImage.setImageLoader(new BGAGlideImageLoader2());
     }
 
     private void initLitePal() {

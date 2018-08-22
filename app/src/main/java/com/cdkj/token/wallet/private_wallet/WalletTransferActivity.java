@@ -135,6 +135,11 @@ public class WalletTransferActivity extends AbsLoadActivity {
             return true;
         }
 
+        if (isSameAddressByCoin()) {
+            UITipDialog.showInfo(this, getStrRes(R.string.transfer_fail));
+            return true;
+        }
+
         if (TextUtils.isEmpty(mBinding.edtAmount.getText().toString().trim())) {
             UITipDialog.showInfo(this, getString(R.string.please_input_transaction_number));
             return true;
@@ -169,6 +174,38 @@ public class WalletTransferActivity extends AbsLoadActivity {
             UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
             return true;
         }
+        return false;
+    }
+
+    /**
+     * 根据币种判断用户to 地址 和from地址是否相同 相同不允许转账
+     *
+     * @return
+     */
+    private boolean isSameAddressByCoin() {
+
+        if (accountListBean == null) return false;
+
+        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+
+        String toAddress = mBinding.editToAddress.getText().toString();
+
+        //币种类型
+        String coinType = LocalCoinDBUtils.getLocalCoinType(accountListBean.getCoinName());
+
+        //Wan及Wantoken币
+        if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_WAN)
+                || LocalCoinDBUtils.isWanTokenCoin(coinType)) {
+
+            return TextUtils.equals(walletDBModel.getWanAddress(), toAddress);
+        }
+
+        //ETH及ETHtoken币
+        if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_ETH)
+                || LocalCoinDBUtils.isEthTokenCoin(coinType)) {
+            return TextUtils.equals(walletDBModel.getEthAddress(), toAddress);
+        }
+
         return false;
     }
 

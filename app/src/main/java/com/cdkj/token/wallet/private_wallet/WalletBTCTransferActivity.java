@@ -34,6 +34,7 @@ import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
+import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
@@ -247,6 +248,12 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             return true;
         }
 
+        if (isSameAddress()) {
+            UITipDialog.showInfo(this, getStrRes(R.string.transfer_fail));
+            return true;
+        }
+
+
         if (TextUtils.isEmpty(mBinding.edtAmount.getText().toString().trim())) {
             UITipDialog.showInfo(this, getString(R.string.please_input_transaction_number));
             return true;
@@ -289,6 +296,22 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             return true;
         }
         return false;
+    }
+
+    /**
+     * to 地址 和from地址是否相同 相同不允许转账
+     *
+     * @return
+     */
+    private boolean isSameAddress() {
+        if (accountListBean == null) return false;
+
+        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+
+        String toAddress = mBinding.editToAddress.getText().toString();
+
+        //币种类型
+        return TextUtils.equals(toAddress, walletDBModel.getBtcAddress());
     }
 
 

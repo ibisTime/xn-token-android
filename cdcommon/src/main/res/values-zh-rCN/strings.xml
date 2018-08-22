@@ -127,4 +127,5 @@
     <string name="load_fail">加载失败</string>
     <string name="no_more_data">全部加载完成</string>
     <string name="login_fail">登录信息已失效，请重新登录！</string>
+    <string name="buy_product_get_income">预计收入</string>
 </resources>

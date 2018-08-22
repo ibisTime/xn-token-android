@@ -452,7 +452,7 @@
     <string name="my_account_wallet">개인계정</string>
 
 
-    <string name="my_wallet_introduction">개인계정은 탈중심화 지갑이고 THA에서 대신 프라이빗키를 보관하고 있습니다. 중심화된 지갑에서는 지갑분실시 되찾을수 있어서 인증만 통과하면 되찾을수 있고 그외 더욱많은 서비스를 이용할수 있습니다.</string>
+    <string name="my_wallet_introduction">개인계정은 탈중심화 지갑이고 Theia에서 대신 프라이빗키를 보관하고 있습니다. 중심화된 지갑에서는 지갑분실시 되찾을수 있어서 인증만 통과하면 되찾을수 있고 그외 더욱많은 서비스를 이용할수 있습니다.</string>
     <string name="my_private_wallet_title">프라이빗 키 월렛</string>
     <string name="my_private_wallet_introduction">프라이빗 지갑은 탈중심화 지갑이고 탈중심화 지갑관련 모든 신상정보,거래비밀번호,프라이빗키,복구키등 모든 내용은 사용자의 핸드폰에 저장되고 중심화된 서버에 저장되지 않습니다.만약 사용자 실수로 지급을 삭제시 또한 백업해논 프라이빗키 혹은 복구키도 분실되면 지갑은 되찾을수 없습니다.</string>
     <string name="advantage">장점</string>
@@ -611,87 +611,89 @@
     <string name="bug_level_2_1">일반</string>
 
     <string name="bug_level_3_1">최적</string>
-    <string name="setting">设置</string>
-    <string name="version_update">版本更新</string>
-    <string name="version_update_info">有可更新版本</string>
-    <string name="invite_gift">邀请有礼</string>
+
+    <string name="setting">설정</string>
+
+    <string name="version_update">버전업데이트</string>
+    <string name="version_update_info">버전업데이트가능</string>
+    <string name="invite_gift">선물요청</string>
     <string name="invite_btn_1">海报邀请</string>
-    <string name="invite_btn_2">发红包邀请好友</string>
+    <string name="invite_btn_2">홍바오요청</string>
     <string name="invite_text_1">点击生成邀请海报并截图给好友</string>
-    <string name="friend_qrimg_1">扫描二维码领取奖励</string>
-    <string name="invite_text_2">邀请好友</string>
-    <string name="invite_text_3">注册THA钱包</string>
-    <string name="my_management_money">我的理财</string>
-    <string name="item_management_meony_1">购买金额</string>
-    <string name="item_management_meony_2">总收益</string>
-    <string name="item_management_meony_3">到期时间</string>
-    <string name="invite_my_name">我是%s,邀请您使用THA钱包</string>
-    <string name="buy_success">购买成功</string>
-    <string name="management_money_detail_1">合约编号</string>
-    <string name="management_money_detail_2">交易时间</string>
-    <string name="management_money_detail_3">产品期限</string>
-    <string name="management_money_detail_4">年收益率</string>
-    <string name="management_money_detail_5">购买金额</string>
-    <string name="management_money_detail_6">总收益</string>
-    <string name="management_money_detail_7">起息时间</string>
-    <string name="management_money_detail_8">到期时间</string>
-    <string name="backup_start_dialog_1">请勿截图</string>
-    <string name="backup_start_dialog_2">请确保四周无人及无任何摄像头！</string>
-    <string name="backup_start_dialog_3">勿用截图或者拍照方式备份助记词。</string>
-    <string name="transaction_in">即将到账...</string>
+    <string name="friend_qrimg_1">QR코드스캔</string>
+    <string name="invite_text_2">친구요청</string>
+    <string name="invite_text_3">THA지갑</string>
+    <string name="my_management_money">나의자산</string>
+    <string name="item_management_meony_1">구매금액</string>
+    <string name="item_management_meony_2">총수익</string>
+    <string name="item_management_meony_3">만료시간</string>
+    <string name="invite_my_name">저는%s입니다.THA지갑을 사용하세요.</string>
+    <string name="buy_success">구입성공</string>
+    <string name="management_money_detail_1">계약번호</string>
+    <string name="management_money_detail_2">거래시간</string>
+    <string name="management_money_detail_3">상품기한</string>
+    <string name="management_money_detail_4">연수익률</string>
+    <string name="management_money_detail_5">구매금액</string>
+    <string name="management_money_detail_6">총수익</string>
+    <string name="management_money_detail_7">기산시간</string>
+    <string name="management_money_detail_8">만기시간</string>
+    <string name="backup_start_dialog_1">캡쳐하지마시오.</string>
+    <string name="backup_start_dialog_2">주위를 확인해주세요！</string>
+    <string name="backup_start_dialog_3">캡쳐나 포토백업본을 사용하지마시오.</string>
+    <string name="transaction_in">입금중..</string>
     <string name="transaction_out">同步打包中...</string>
     <string name="transaction_success">广播成功，正在同步中</string>
-    <string name="product_deadline">产品期限</string>
-    <string name="product_total">产品总额</string>
-    <string name="product_buy">已认购%s</string>
-    <string name="buy_end">剩余</string>
-    <string name="buy_start">起购</string>
-    <string name="product_details">产品详情</string>
-    <string name="product_introduction">产品介绍</string>
-    <string name="product_name">产品名称</string>
-    <string name="product_coin">认购币种</string>
-    <string name="back_money_type">回款方式</string>
-    <string name="product_buy_hint">请输入购买额度</string>
-    <string name="product_forecast_income"><Data><![CDATA[预计收入<font color="#FF6400">%1$s</font>%2$s]]></Data></string>
-    <string name="coin_name">代币名称</string>
-    <string name="user_account_balance">可用余额</string>
-    <string name="buy_product_name">购买产品</string>
-    <string name="buy_product_count">购买额度</string>
-    <string name="buy_product_income_date">本息到期日期</string>
-    <string name="buy_product_get_income">预计收入</string>
-    <string name="delay_to_start">%s秒钟自动跳转</string>
-    <string name="look_buy_history">查看购买记录</string>
-    <string name="no_product">暂无产品</string>
-    <string name="product_buy_minamount"><Data><![CDATA[%1$s<font color="#999999"> 起购</font>]]></Data></string>
-    <string name="money_product_details">理财产品详情</string>
-    <string name="product_days">%s天</string>
-    <string name="payment_type">期满自动转入个人账户</string>
-    <string name="limit_amount"><Data><![CDATA[<font color="#666666">\u3000（每人限购%s)</font>]]></Data></string>
-    <string name="product_buy_total">购买额度</string>
-    <string name="do_contract">执行合约</string>
-    <string name="buy_fail">购买失败</string>
-    <string name="old_password">旧密码</string>
-    <string name="modify_wallet_pwd">修改交易密码</string>
-    <string name="old_pwd_error">旧密码错误</string>
-    <string name="buy">购买</string>
-    <string name="my_managment_money">我的理财</string>
-    <string name="increment">递增</string>
-    <string name="management_money_state_4">即将开始</string>
-    <string name="management_money_state_6">停止交易</string>
-    <string name="management_money_state_7">已售罄</string>
-    <string name="management_money_state_9">已结束</string>
-    <string name="money_product_check_1">起购额度为</string>
-    <string name="money_product_check_2">请按递增额度购买</string>
-    <string name="money_product_check_3">可用余额不足</string>
-    <string name="money_product_check_4">限购额度为</string>
-    <string name="money_product_check_5">购买金额超出可售额度</string>
-    <string name="product_buy_state_0">申购中</string>
-    <string name="product_buy_state_1">持有中</string>
-    <string name="product_buy_state_2">已到期</string>
-    <string name="product_buy_state_3">募集失败</string>
-    <string name="product_buy_end"><Data><![CDATA[<font color="#999999">剩余 </font>%1$s]]></Data></string>
-    <string name="transaction_confirm_state">交易确认中</string>
-    <string name="management_money_state_8">已到期</string>
-    <string name="management_money_state_10">募集结束</string>
+    <string name="product_deadline">상품기한</string>
+    <string name="product_total">상품총액</string>
+    <string name="product_buy">%s구매승인중</string>
+    <string name="buy_end">잔액</string>
+    <string name="buy_start">구입시작</string>
+    <string name="product_details">상품정보</string>
+    <string name="product_introduction">상품소개</string>
+    <string name="product_name">상품명칭</string>
+    <string name="product_coin">구입화폐</string>
+    <string name="back_money_type">환불방식</string>
+    <string name="product_buy_hint">구매한도를입력시오</string>
+    <string name="product_forecast_income"><Data><![CDATA[예상수입<font color="#FF6400">%1$s</font>%2$s]]></Data></string>
+    <string name="coin_name">코인</string>
+    <string name="user_account_balance">사용가능잔액</string>
+    <string name="buy_product_name">상품구매</string>
+    <string name="buy_product_count">구매한도</string>
+    <string name="buy_product_income_date">원리만기일</string>
+    <string name="buy_product_get_income">예상수입</string>
+    <string name="delay_to_start">%s초후자동연기</string>
+    <string name="look_buy_history">구매기록관리</string>
+    <string name="no_product">상품없음</string>
+    <string name="product_buy_minamount"><Data><![CDATA[%1$s<font color="#999999"> 구매시작</font>]]></Data></string>
+    <string name="money_product_details">보유상품정보</string>
+    <string name="product_days">%s일</string>
+    <string name="payment_type">만기후에 자동으로 이체됩니다</string>
+    <string name="limit_amount"><Data><![CDATA[<font color="#666666">\u3000（개인한도%s)</font>]]></Data></string>
+    <string name="product_buy_total">구매한도</string>
+    <string name="do_contract">계약이행</string>
+    <string name="buy_fail">구매실패</string>
+    <string name="old_password">이전패스워드</string>
+    <string name="modify_wallet_pwd">거래패스워드수정</string>
+    <string name="old_pwd_error">이전패스워드실패</string>
+    <string name="buy">구매</string>
+    <string name="my_managment_money">나의자산</string>
+    <string name="increment">증가</string>
+    <string name="management_money_state_4">출시예정</string>
+    <string name="management_money_state_6">거래중지</string>
+    <string name="management_money_state_7">매진</string>
+    <string name="management_money_state_9">종류</string>
+    <string name="money_product_check_1">구입한도액초과</string>
+    <string name="money_product_check_2">누진구매액에따라 구매하시오</string>
+    <string name="money_product_check_3">사용가능잔액부족</string>
+    <string name="money_product_check_4">구매액을 제한하다</string>
+    <string name="money_product_check_5">구매금액이 한도금액을 초과하였습니다</string>
+    <string name="product_buy_state_0">구입중</string>
+    <string name="product_buy_state_1">보유중</string>
+    <string name="product_buy_state_2">만기됨</string>
+    <string name="product_buy_state_3">모집실패</string>
+    <string name="product_buy_end"><Data><![CDATA[<font color="#999999">잔액 </font>%1$s]]></Data></string>
+    <string name="transaction_confirm_state">거래확인중</string>
+    <string name="management_money_state_8">만기됨</string>
+    <string name="management_money_state_10">모집마감</string>
 
 </resources>

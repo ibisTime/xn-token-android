@@ -500,7 +500,10 @@ public class WalletFragment extends BaseLazyFragment {
     }
 
     private void setWalletAssetsText(CoinModel data) {
-        if (data == null) return;
+        if (data == null) {
+            mBinding.cardChangeLayout.tvWalletAmount.setText("0.00");
+            return;
+        }
         if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
             mBinding.cardChangeLayout.tvWalletAmount.setText(data.getTotalAmountCNY());
         } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
@@ -572,6 +575,7 @@ public class WalletFragment extends BaseLazyFragment {
 
     private void shePrivateWalletAssectText(BalanceListModel data) {
         if (data == null) {
+            mBinding.cardChangeLayout.tvPriWalletAmount.setText("0.00");
             return;
         }
         if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
@@ -657,19 +661,29 @@ public class WalletFragment extends BaseLazyFragment {
      * 计算所有钱包资产(个人 + 私有)
      */
     private void countAllWalletAmount() {
-        if (mWalletData == null || mPrivateWalletData == null) {
-            return;
+
+        BigDecimal wallAmount = BigDecimal.ZERO;
+
+        BigDecimal priWallAmount = BigDecimal.ZERO;
+
+        if (mWalletData != null) {
+            if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
+                wallAmount = new BigDecimal(mWalletData.getTotalAmountCNY());
+            } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
+                wallAmount = new BigDecimal(mWalletData.getTotalAmountUSD());
+            }
+        }
+        if (mPrivateWalletData != null) {
+            if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
+                priWallAmount = new BigDecimal(mPrivateWalletData.getTotalAmountCNY());
+            } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
+
+                priWallAmount = new BigDecimal(mPrivateWalletData.getTotalAmountUSD());
+
+            }
         }
 
-        if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-            BigDecimal wallAmount = new BigDecimal(mWalletData.getTotalAmountCNY());
-            BigDecimal priWallAmount = new BigDecimal(mPrivateWalletData.getTotalAmountCNY());
-            mBinding.tvAllWalletAmount.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()) + BigDecimalUtils.add(wallAmount, priWallAmount).toPlainString());
-        } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
-            BigDecimal wallAmount = new BigDecimal(mWalletData.getTotalAmountUSD());
-            BigDecimal priWallAmount = new BigDecimal(mPrivateWalletData.getTotalAmountUSD());
-            mBinding.tvAllWalletAmount.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()) + BigDecimalUtils.add(wallAmount, priWallAmount).toPlainString());
-        }
+        mBinding.tvAllWalletAmount.setText(WalletHelper.getMoneySymbol(SPUtilHelper.getLocalCoinType()) + BigDecimalUtils.add(wallAmount, priWallAmount).toPlainString());
 
     }
 
