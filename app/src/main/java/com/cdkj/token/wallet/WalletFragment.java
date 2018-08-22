@@ -164,7 +164,7 @@ public class WalletFragment extends BaseLazyFragment {
 
         //资产显示隐藏
 
-        mBinding.tvAssetsShow.setOnClickListener(view -> {
+        mBinding.fralayoutAssetsShow.setOnClickListener(view -> {
 
             boolean isShow = !SPUtilHelper.isAssetsShow();
             toggleAssectsByEyeState(isShow);

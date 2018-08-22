@@ -82,12 +82,20 @@
                     android:textSize="10sp"
                     tools:text="@string/wallet_assets" />
 
-                <ImageView
-                    android:padding="3dp"
-                    android:id="@+id/tv_assets_show"
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:src="@drawable/eye_open" />
+                <FrameLayout
+                    android:id="@+id/fralayout_assets_show"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp">
+
+                    <ImageView
+                        android:id="@+id/tv_assets_show"
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_gravity="center"
+                        android:src="@drawable/eye_open" />
+
+
+                </FrameLayout>
 
 
             </LinearLayout>

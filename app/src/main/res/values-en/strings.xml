@@ -345,7 +345,7 @@
     <string name="coin_eth_cname">Ethereum </string>
     <string name="coin_wan_came">WAN</string>
     <string name="get_money">Receive</string>
-    <string name="service_money_tip">Transaction Fees will be deducted from the available balance, and the insufficient balance will be deducted from the transfer amount </string>
+    <string name="service_money_tip">Transaction Fees will be deducted from the available balance </string>
     <string name="transfer">Transfer </string>
     <string name="transfer_2">Send </string>
     <string name="ordinary">Ordinary </string>
