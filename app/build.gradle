@@ -2,12 +2,28 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
+
+    /*多渠道设置*/ // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
+    productFlavors {
+//        facebook {
+//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "facebook"]
+//        }
+
+        facebook {}
+
+        productFlavors.all { flavor ->
+            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        }
+
+    }
+
     defaultConfig {
         applicationId "com.cdkj.tha"
         minSdkVersion 14
         targetSdkVersion 26
         versionCode 7
         versionName "1.7.0"
+        flavorDimensions "7"
 
         multiDexEnabled true
 
@@ -19,16 +35,10 @@ android {
             }
         }
 
+
     }
 
 
-    /*多渠道设置*/ // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
-//    productFlavors {
-//        facebook {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "facebook"]
-//        }
-//
-//    }
 
 
     lintOptions {
@@ -47,7 +57,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
             android.applicationVariants.all { variant ->
                 variant.outputs.all {
-                    outputFileName = "THA_${variant.versionName}_${releaseTime()}.apk"
+                    outputFileName = "THA_${variant.productFlavors[0].name}_${variant.versionName}_${releaseTime()}.apk"
                 }
             }
 //            ndk {
