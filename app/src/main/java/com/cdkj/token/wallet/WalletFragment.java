@@ -558,7 +558,7 @@ public class WalletFragment extends BaseLazyFragment {
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
                 super.onReqFailure(errorCode, errorMessage);
-                if(isSetRecyclerData){
+                if (isSetRecyclerData) {
                     mRefreshHelper.loadError(errorMessage, 0);
                 }
             }
@@ -688,14 +688,14 @@ public class WalletFragment extends BaseLazyFragment {
 
             walletBalanceModel.setCoinName(accountListBean.getCurrency());
 
-            if (!TextUtils.isEmpty(accountListBean.getAmountString()) && !TextUtils.isEmpty(accountListBean.getFrozenAmountString())) {
+            if (accountListBean.getAmount() != null && accountListBean.getFrozenAmount() != null) {
 
-                BigDecimal amount = new BigDecimal(accountListBean.getAmountString());
+                BigDecimal amount = accountListBean.getAmount();
 
-                BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
+                BigDecimal frozenAmount = accountListBean.getFrozenAmount();
 
                 //可用=总资产-冻结
-                walletBalanceModel.setAmount(AmountUtil.amountFormatUnit(amount.subtract(frozenAmount), accountListBean.getCurrency(), ALLSCALE));
+                walletBalanceModel.setAmount(AmountUtil.amountFormatUnitForShow(amount.subtract(frozenAmount), accountListBean.getCurrency(), ALLSCALE));
             }
 
             walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getCurrency(), 0));

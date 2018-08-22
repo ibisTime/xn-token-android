@@ -18,7 +18,7 @@ import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import static com.cdkj.baselibrary.utils.DateUtil.DEFAULT_DATE_FMT;
-import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
+import static com.cdkj.token.utils.AmountUtil.ALLSCALE;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getMoneyStateByState;
 
 /**
@@ -92,7 +92,7 @@ public class TransactionDetailsActivity extends AbsLoadActivity {
             mBinding.tvStateString.setText(R.string.transfer);
         }
 
-        mBinding.tvMoney.setText(getMoneyStateByState(localCoinBill.getDirection()) + AmountUtil.amountFormatUnitForShow(localCoinBill.getValue(), coinType, ETHSCALE) + " " + coinType);
+        mBinding.tvMoney.setText(getMoneyStateByState(localCoinBill.getDirection()) + AmountUtil.amountFormatUnitForShow(localCoinBill.getValue(), coinType, ALLSCALE) + " " + coinType);
 
         mBinding.tvToAddress.setText(localCoinBill.getTo());
         mBinding.tvFromAddress.setText(localCoinBill.getFrom());
@@ -105,7 +105,7 @@ public class TransactionDetailsActivity extends AbsLoadActivity {
 
 
         mBinding.tvDate.setText(DateUtil.formatStringData(localCoinBill.getTransDatetime(), DEFAULT_DATE_FMT));
-        mBinding.tvGas.setText(AmountUtil.amountFormatUnitForShow(localCoinBill.getTxFee(), this.coinType, ETHSCALE));
+        mBinding.tvGas.setText(AmountUtil.amountFormatUnitForShow(localCoinBill.getTxFee(), this.coinType, ALLSCALE));
         mBinding.tvTransctionCode.setText(localCoinBill.getTxHash());
 
 

@@ -5,16 +5,12 @@ import android.text.TextUtils;
 
 import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.model.db.LocalCoinDbModel;
-
-import org.litepal.crud.DataSupport;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 
 import static com.cdkj.token.utils.LocalCoinDBUtils.getLocalCoinUnit;
-import static java.math.BigDecimal.ROUND_HALF_EVEN;
 import static java.math.BigDecimal.ROUND_HALF_UP;
 
 /**
@@ -27,25 +23,6 @@ public class AmountUtil {
     public static final int ETHSCALE = 8;
     public static final int ALLSCALE = 8;
 
-    /**
-     * 货币单位转换
-     *
-     * @param amount
-     * @param coin
-     * @return
-     */
-    public static String amountFormatUnit(BigDecimal amount, String coin, int scale) {
-
-        if (amount == null || amount.compareTo(BigDecimal.ZERO) == 0) {
-            return "0.00";
-        }
-
-        if (TextUtils.isEmpty(coin)) {
-            return scale(amount.divide(BigDecimal.TEN.pow(18), ROUND_HALF_UP).toPlainString(), scale);
-        }
-
-        return scale(amount.divide(getLocalCoinUnit(coin), ROUND_HALF_UP).toPlainString(), scale);
-    }
 
 
     /**
@@ -79,7 +56,6 @@ public class AmountUtil {
         if (amount == null) {
             return "0";
         }
-
         return formatCoinAmount(BigDecimalUtils.div(amount, unit, scale));
     }
 
@@ -139,7 +115,7 @@ public class AmountUtil {
                 return amount[0] + "." + amount[1];
             }
         } else {
-            return amount[0];
+            return s;
         }
     }
 
@@ -256,7 +232,7 @@ public class AmountUtil {
     public static String sub(double value1, double value2, String coin) {
         BigDecimal b1 = new BigDecimal(value1);
         BigDecimal b2 = new BigDecimal(value2);
-        return amountFormatUnit(b1.subtract(b2), coin, 8);
+        return amountFormatUnitForShow(b1.subtract(b2), coin, 8);
     }
 
 

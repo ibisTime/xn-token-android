@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_MMddHHmm;
-import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
+import static com.cdkj.token.utils.AmountUtil.ALLSCALE;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getMoneyStateByState;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getPrivateCoinStataIconByState;
 import static com.cdkj.token.utils.LocalCoinDBUtils.isInState;
@@ -45,7 +45,7 @@ public class CoinBillListAdapter extends BaseQuickAdapter<LocalCoinBill, BaseVie
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getTransDatetime(), DATE_MMddHHmm));
         helper.setImageResource(R.id.iv_type, getPrivateCoinStataIconByState(item.getDirection()));
 
-        String amountString = AmountUtil.amountFormatUnitForShow(item.getValue(), coinUnit, ETHSCALE) + " " + this.coinSymbol;
+        String amountString = AmountUtil.amountFormatUnitForShow(item.getValue(), coinUnit, ALLSCALE) + " " + this.coinSymbol;
 
         helper.setText(R.id.tv_amount, getMoneyStateByState(item.getDirection()) + amountString);
 
@@ -64,7 +64,7 @@ public class CoinBillListAdapter extends BaseQuickAdapter<LocalCoinBill, BaseVie
             helper.setText(R.id.tv_remark, R.string.do_contract);
 
             helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.out_money));
-            helper.setText(R.id.tv_amount, AmountUtil.amountFormatUnitForShow(item.getValue(), coinUnit, ETHSCALE) + " " + this.coinSymbol);
+            helper.setText(R.id.tv_amount, AmountUtil.amountFormatUnitForShow(item.getValue(), coinUnit, ALLSCALE) + " " + this.coinSymbol);
 
 
         } else {

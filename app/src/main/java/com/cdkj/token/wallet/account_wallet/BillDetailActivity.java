@@ -13,12 +13,14 @@ import com.cdkj.token.R;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.databinding.ActivityBillDetailBinding;
 import com.cdkj.token.model.BillModel;
+import com.cdkj.token.utils.LocalCoinDBUtils;
 
 import java.math.BigDecimal;
 
 import static com.cdkj.baselibrary.utils.DateUtil.DEFAULT_DATE_FMT;
 
-/**账单详情
+/**
+ * 账单详情
  * Created by lei on 2017/10/26.
  */
 
@@ -63,15 +65,17 @@ public class BillDetailActivity extends AbsLoadActivity {
         mBinding.tvInfo.setText(bean.getBizNote());
         BigDecimal tas = new BigDecimal(bean.getTransAmountString());
 
+        BigDecimal coinUnit = LocalCoinDBUtils.getLocalCoinUnit(bean.getCurrency());
+
         int i = tas.compareTo(BigDecimal.ZERO);
         if (i == 1) {
-            mBinding.tvAmount.setText("+" + AmountUtil.amountFormatUnit(tas, bean.getCurrency(), 8) + " " + bean.getCurrency());
+            mBinding.tvAmount.setText("+" + AmountUtil.amountFormatUnitForShow(tas, coinUnit, 8) + " " + bean.getCurrency());
         } else {
-            mBinding.tvAmount.setText(AmountUtil.amountFormatUnit(tas, bean.getCurrency(), 8) + " " + bean.getCurrency());
+            mBinding.tvAmount.setText(AmountUtil.amountFormatUnitForShow(tas, coinUnit, 8) + " " + bean.getCurrency());
         }
 
-        mBinding.tvBefore.setText(AmountUtil.amountFormatUnit(new BigDecimal(bean.getPreAmountString()), bean.getCurrency(), 8));
-        mBinding.tvAfter.setText(AmountUtil.amountFormatUnit(new BigDecimal(bean.getPostAmountString()), bean.getCurrency(), 8));
+        mBinding.tvBefore.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(bean.getPreAmountString()),coinUnit, 8));
+        mBinding.tvAfter.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(bean.getPostAmountString()),coinUnit, 8));
         mBinding.tvDate.setText(DateUtil.formatStringData(bean.getCreateDatetime(), DEFAULT_DATE_FMT));
         mBinding.tvType.setText(AmountUtil.formatBizType(bean.getBizType()));
         mBinding.tvStatus.setText(AmountUtil.formatBillStatus(bean.getStatus()));

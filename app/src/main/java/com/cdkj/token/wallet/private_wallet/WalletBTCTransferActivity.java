@@ -48,6 +48,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 
+import static com.cdkj.token.utils.AmountUtil.ALLSCALE;
 import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
 import static com.cdkj.token.utils.wallet.WalletHelper.getBtcFee;
 import static java.math.BigDecimal.ROUND_HALF_UP;
@@ -110,7 +111,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvCurrency.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ETHSCALE) + " " + accountListBean.getCoinName());
+            mBinding.tvCurrency.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ALLSCALE) + " " + accountListBean.getCoinName());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
         }
 

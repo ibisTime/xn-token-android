@@ -44,7 +44,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
-import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
+import static com.cdkj.token.utils.AmountUtil.ALLSCALE;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinUnitName;
 
 /**
@@ -101,7 +101,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvCurrency.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ETHSCALE) + " " + accountListBean.getCoinName());
+            mBinding.tvCurrency.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ALLSCALE) + " " + accountListBean.getCoinName());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
         }
 
@@ -354,7 +354,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
         if (accountListBean == null || gasPrice == null) return;
         mBinding.tvGas.setText(
                 AmountUtil.amountFormatUnitForShow(new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
-                        .multiply(new BigDecimal(gasPrice)), accountListBean.getCoinName(), ETHSCALE) + " " + getCoinUnitName(accountListBean.getCoinName()));
+                        .multiply(new BigDecimal(gasPrice)), accountListBean.getCoinName(), ALLSCALE) + " " + getCoinUnitName(accountListBean.getCoinName()));
     }
 
 

@@ -48,6 +48,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 
+import static com.cdkj.token.utils.AmountUtil.ALLSCALE;
 import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
 
 /**
@@ -112,7 +113,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
      */
     void setAmountInfo() {
         if (!TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvAmount.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ETHSCALE) + accountListBean.getCoinName());
+            mBinding.tvAmount.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ALLSCALE) + accountListBean.getCoinName());
 
         }
 

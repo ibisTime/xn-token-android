@@ -31,6 +31,7 @@ import java.math.BigDecimal;
 import java.text.DecimalFormat;
 
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_YMD;
+import static java.math.BigDecimal.ROUND_DOWN;
 
 /**
  * 理财产品购买1dialog
@@ -49,7 +50,7 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
 
     private BigDecimal coinuUnit;//货币最小单位
 
-    private float inCome;//收益
+    private float inComeRate;//收益
 
     private ManagementMoney managementMoney;
 
@@ -88,7 +89,7 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
         initClickListener();
 
         //输入框位数限制
-        mBinding.editBuyCount.addTextChangedListener(new EditTextJudgeNumberWatcher(mBinding.editBuyCount, 15, 8));
+        mBinding.editBuyCount.addTextChangedListener(new EditTextJudgeNumberWatcher(mBinding.editBuyCount, 15, 4));
 
         mBinding.editBuyCount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -103,9 +104,24 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
                     return;
                 }
 
+                //预期收益计算=投资金额*年化收益率/360*投资期限（天）     计算结果先保留4位小数点 最后显示保留2位
                 float buyamount = Float.valueOf(charSequence.toString());
+
+                if (buyamount <= 0) {
+                    setIncomeForecast("0");
+                    return;
+                }
+
+                BigDecimal bigDecimal = new BigDecimal(buyamount * inComeRate / 360);
+
+                buyamount = bigDecimal.setScale(4, ROUND_DOWN).floatValue();
+
+                buyamount = buyamount * managementMoney.getLimitDays();
+
                 DecimalFormat df = new DecimalFormat("#######0.##");
-                String showMoney = df.format(buyamount * inCome);
+
+                String showMoney = df.format(buyamount);
+
                 setIncomeForecast(showMoney);
             }
 
@@ -225,7 +241,7 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
 
         this.coinName = managementMoney.getSymbol();
 
-        inCome = managementMoney.getActualYield();
+        inComeRate = managementMoney.getActualYield();
 
         mBinding.tvCoinName.setText(coinName);
         mBinding.tvCoinName2.setText(coinName);

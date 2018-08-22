@@ -235,9 +235,17 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
      */
     private void showBuyStp1Dialog(CoinModel data) {
 
+        if (data.getAccountList() == null || data.getAccountList().size() == 0) {
+            return;
+        }
+        CoinModel.AccountListBean accountListBean = data.getAccountList().get(0);
+        if (accountListBean.getAmount() == null || accountListBean.getFrozenAmount() == null) {
+            return;
+        }
+
         //可用余额=总-冻结
-        BigDecimal balanceAmount = BigDecimalUtils.subtract(new BigDecimal(data.getAccountList().get(0).getAmountString())
-                , new BigDecimal(data.getAccountList().get(0).getFrozenAmountString()));//可用余额
+        BigDecimal balanceAmount = BigDecimalUtils.subtract(accountListBean.getAmount()
+                , accountListBean.getFrozenAmount());//可用余额
 
         MoneyProductBuyStep1Dialog moneyProductBuyStep1Dialog = new MoneyProductBuyStep1Dialog(ManagementMoneyDetailsActivity.this);
         moneyProductBuyStep1Dialog.
@@ -301,10 +309,6 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         call.enqueue(new BaseResponseModelCallBack<CoinModel>(this) {
             @Override
             protected void onSuccess(CoinModel data, String SucMessage) {
-                if (data.getAccountList() == null || data.getAccountList().size() == 0) {
-                    return;
-                }
-
                 showBuyStp1Dialog(data);
             }
 

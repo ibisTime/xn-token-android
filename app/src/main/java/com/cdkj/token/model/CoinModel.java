@@ -3,6 +3,7 @@ package com.cdkj.token.model;
 import com.contrarywind.interfaces.IPickerViewData;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -83,7 +84,9 @@ public class CoinModel implements Serializable {
         private String status;
         private String currency;
         private String amountString;  //总余额
+        private BigDecimal amount;  //总余额
         private String frozenAmountString;//冻结余额
+        private BigDecimal frozenAmount;//冻结余额
         private String md5;
         private String addAmountString;
         private String inAmountString;
@@ -104,6 +107,21 @@ public class CoinModel implements Serializable {
         private String localCoinType;//本地类型
         private boolean isChoose;//本地是否配置选中
 
+        public BigDecimal getAmount() {
+            return amount;
+        }
+
+        public void setAmount(BigDecimal amount) {
+            this.amount = amount;
+        }
+
+        public BigDecimal getFrozenAmount() {
+            return frozenAmount;
+        }
+
+        public void setFrozenAmount(BigDecimal frozenAmount) {
+            this.frozenAmount = frozenAmount;
+        }
 
         public boolean isChoose() {
             return isChoose;

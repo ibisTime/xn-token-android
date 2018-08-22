@@ -125,7 +125,7 @@ public class BillListActivity extends AbsLoadActivity {
         if (!TextUtils.isEmpty(mAccountBean.getAmountString()) || !TextUtils.isEmpty(mAccountBean.getFrozenAmountString())) {
             BigDecimal amount = new BigDecimal(mAccountBean.getAmountString());
             BigDecimal frozenAmount = new BigDecimal(mAccountBean.getFrozenAmountString());
-            mBinding.tvAmount.setText(AmountUtil.amountFormatUnit(amount.subtract(frozenAmount), mAccountBean.getCoinName(), 8) + " " + mAccountBean.getCoinName());
+            mBinding.tvAmount.setText(AmountUtil.amountFormatUnitForShow(amount.subtract(frozenAmount), mAccountBean.getCoinName(), 8) + " " + mAccountBean.getCoinName());
         }
 
 
