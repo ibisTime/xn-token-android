@@ -6,6 +6,7 @@ import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.cdkj.baselibrary.CdApplication;
+import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.token.common.AppFrontBackHelper;
@@ -68,14 +69,10 @@ public class MyApplication extends Application {
         initZXing();
         EventBus.builder().throwSubscriberException(LogUtil.isLog).installDefaultEventBus();
 
-        //友盟
-        UMConfigure.init(this, UMConfigure.DEVICE_TYPE_PHONE, BuildConfig.umeng);
-        UMConfigure.setLogEnabled(LogUtil.isLog);
-        UMConfigure.setEncryptEnabled(true);
-        //友盟统计场景设置
-        MobclickAgent.setScenarioType(this, MobclickAgent.EScenarioType.E_UM_NORMAL);//EScenarioType. E_UM_NORMAL　　普通统计场景类型
-
         BGAImage.setImageLoader(new BGAGlideImageLoader2());
+
+        OtherLibManager.initUmen(this, BuildConfig.umeng);
+
     }
 
     private void initLitePal() {

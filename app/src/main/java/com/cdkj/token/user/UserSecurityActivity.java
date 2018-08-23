@@ -9,6 +9,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.activitys.UpdatePhoneActivity;
+import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -141,6 +142,7 @@ public class UserSecurityActivity extends AbsStatusBarTranslucentActivity {
         mBinding.btnConfirm.setOnClickListener(view -> {
             showDoubleWarnListen(getStrRes(R.string.user_setting_sign_out) + "?", view1 -> {
                 SPUtilHelper.logOutClear();
+                OtherLibManager.uemProfileSignOff();
                 EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
                 SignInActivity.open(UserSecurityActivity.this, true);
                 finish();

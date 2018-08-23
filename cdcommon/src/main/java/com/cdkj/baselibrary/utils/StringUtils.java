@@ -373,9 +373,12 @@ public class StringUtils {
      */
     public static String showformatPercentage(float money) {
 //获取格式化对象
-        NumberFormat nt = NumberFormat.getPercentInstance();
-        //设置百分数精确度2即保留两位小数
-        nt.setMinimumFractionDigits(2);
-        return nt.format(money);
+//        NumberFormat nt = NumberFormat.getPercentInstance();
+//        //设置百分数精确度2即保留两位小数
+//        nt.setMinimumFractionDigits(0);
+        DecimalFormat nt = new DecimalFormat("0.##%");
+        BigDecimal bigDecimal = new BigDecimal(money);
+        bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP); //四舍五入
+        return nt.format(bigDecimal);
     }
 }

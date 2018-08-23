@@ -4,62 +4,82 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical"
-        android:background="@color/gray_f7f7f7">
+        android:background="@color/gray_f7f7f7"
+        android:orientation="vertical">
 
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
             android:layout_centerInParent="true"
-            android:orientation="vertical"
-            android:background="@drawable/mydialog_bg"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_width="match_parent"
-            android:layout_height="250dp">
+            android:background="@drawable/mydialog_bg"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/ll_build_debug"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="0dp">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/iv_debug"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
 
                 <TextView
-                    android:text="点我切换到研发环境"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="点我切换到研发环境"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 
             <View
-                android:background="#dedede"
                 android:layout_width="match_parent"
-                android:layout_height="1px" />
+                android:layout_height="1px"
+                android:background="#dedede" />
 
             <LinearLayout
                 android:id="@+id/ll_build_test"
-                android:gravity="center"
-                android:orientation="vertical"
-                android:layout_weight="1"
                 android:layout_width="match_parent"
-                android:layout_height="0dp">
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
 
                 <ImageView
                     android:id="@+id/iv_test"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp" />
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
 
                 <TextView
-                    android:text="点我切换到测试环境"
-                    android:textColor="@color/black"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:text="点我切换到测试环境"
+                    android:textColor="@color/black" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linlayout_other"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="40dp"
+                    android:layout_height="40dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="点我查看其它信息"
+                    android:textColor="@color/black" />
 
             </LinearLayout>
 

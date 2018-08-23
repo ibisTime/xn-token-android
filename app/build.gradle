@@ -5,15 +5,24 @@ android {
 
     /*多渠道设置*/ // AndroidManifest.xml 里面UMENG_CHANNEL的value为 ${UMENG_CHANNEL_VALUE}
     productFlavors {
-//        facebook {
-//            manifestPlaceholders = [UMENG_CHANNEL_VALUE: "facebook"]
-//        }
 
-        facebook {}
-
-        productFlavors.all { flavor ->
-            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+        dev {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL_VALUE: "dev",
+                    UMENG_CHANNEL_APPKEY:"5b73d987a40fa33a1e00017e"
+            ]
         }
+
+        facebook {
+            manifestPlaceholders = [
+                    UMENG_CHANNEL_VALUE: "facebook",
+                    UMENG_CHANNEL_APPKEY:"5b73b265b27b0a300c00035c"
+            ]
+        }
+
+//        productFlavors.all { flavor ->
+//            flavor.manifestPlaceholders = [UMENG_CHANNEL_VALUE: name]
+//        }
 
     }
 

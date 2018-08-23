@@ -6,6 +6,7 @@ import android.content.Context;
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
+import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -120,6 +121,7 @@ public class NetHelper {
     }
 
     /**
+     * TODO 登录失效接口抽取
      * 重新登录
      *
      * @param context
@@ -127,9 +129,8 @@ public class NetHelper {
      */
     public static void onLoginFailure(Context context, String errorMessage) {
 
-
         SPUtilHelper.logOutClear();
-
+        OtherLibManager.uemProfileSignOff();
         if (context != null) {
             ToastUtil.show(context, context.getString(R.string.login_fail));
         }

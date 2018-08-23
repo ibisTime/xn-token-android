@@ -128,23 +128,7 @@ public class WalletDBAegisUtils {
 
         }
 
-        WalletDBModel walletDBModel=new WalletDBModel();
-
-        walletBtcEmptys.add(walletDBModel);
-        walletBtcEmptys.add(walletDBModel);
-        walletBtcEmptys.add(walletDBModel);
-        walletBtcEmptys.add(walletDBModel);
-        walletBtcEmptys.add(walletDBModel);
-        walletBtcEmptys.add(walletDBModel);
-        walletBtcEmptys.add(walletDBModel);
-        walletBtcEmptys.add(walletDBModel);
-        walletBtcEmptys.add(walletDBModel);
-        walletBtcEmptys.add(walletDBModel);
-        walletBtcEmptys.add(null);
-
-
         return walletBtcEmptys;
-
     }
 
 

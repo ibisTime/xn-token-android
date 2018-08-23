@@ -14,6 +14,7 @@ import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.activitys.AppBuildTypeActivity;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -243,6 +244,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         SPUtilHelper.saveUserId(user.getUserId());
         SPUtilHelper.saveUserToken(user.getToken());
         SPUtilHelper.saveUserPhoneNum(mBinding.edtUsername.getText().toString().trim());
+        OtherLibManager.uemProfileSignIn(user.getUserId());
 
         if (canOpenMain) {
             MainActivity.open(this);

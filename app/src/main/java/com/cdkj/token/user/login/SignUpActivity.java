@@ -11,6 +11,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.activitys.AppBuildTypeActivity;
 import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -86,7 +87,6 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
     }
 
 
-
     private void initListener() {
         //国家区号选择
         mBinding.edtMobile.getLeftRootView().setOnClickListener(view -> {
@@ -111,26 +111,26 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
     private boolean check(String type) {
 
         if (TextUtils.isEmpty(mBinding.edtMobile.getText().toString().trim())) {
-            UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_mobile_hint));
+            UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_mobile_hint));
             return false;
         }
 
         if (type.equals("all")) {
             if (TextUtils.isEmpty(mBinding.edtCode.getText().toString().trim())) {
-                UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_code_hint));
+                UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_code_hint));
                 return false;
             }
 
             if (TextUtils.isEmpty(mBinding.edtPassword.getText().toString().trim())) {
-                UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_password_hint));
+                UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_password_hint));
                 return false;
             }
             if (TextUtils.isEmpty(mBinding.edtRePassword.getText().toString().trim())) {
-                UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_repassword_hint));
+                UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_repassword_hint));
                 return false;
             }
             if (!mBinding.edtRePassword.getText().toString().trim().equals(mBinding.edtPassword.getText().toString().trim())) {
-                UITipDialog.showInfoNoIcon(this,getStrRes(R.string.user_repassword_two_hint));
+                UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_repassword_two_hint));
                 return false;
             }
 
@@ -169,13 +169,13 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
                     SPUtilHelper.saveUserId(data.getUserId());
                     SPUtilHelper.saveUserToken(data.getToken());
                     SPUtilHelper.saveUserPhoneNum(mBinding.edtMobile.getText().toString().trim());
-
+                    OtherLibManager.uemProfileSignIn(data.getUserId());
                     EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
 
                     MainActivity.open(SignUpActivity.this);
                     finish();
                 } else {
-                    UITipDialog.showInfoNoIcon(SignUpActivity.this,getStrRes(R.string.user_sign_up_failure));
+                    UITipDialog.showInfoNoIcon(SignUpActivity.this, getStrRes(R.string.user_sign_up_failure));
                 }
 
             }
@@ -199,7 +199,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
     @Override
     public void CodeFailed(String code, String msg) {
-        UITipDialog.showInfoNoIcon(this,msg);
+        UITipDialog.showInfoNoIcon(this, msg);
     }
 
     @Override

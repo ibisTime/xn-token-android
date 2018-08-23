@@ -202,7 +202,7 @@ public class WalletHelper {
                 break;
 
             case COIN_BTC:
-                devUrl = "https://testnet.blockexplorer.com/tx/";
+                devUrl = "https://testnet.blockchain.info/search?search=";
                 url = "https://www.blockchain.com/zh-cn/search?search=";
                 break;
         }

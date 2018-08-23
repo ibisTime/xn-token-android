@@ -151,8 +151,6 @@ public class StartActivity extends BaseActivity {
      * 获取七牛服务器链接
      */
     public void getQiniuAndNextTo() {
-
-        LogUtil.E("线程 跳转");
         Map<String, String> map = new HashMap<>();
         map.put("ckey", "qiniu_domain");
         map.put("systemCode", MyConfig.SYSTEMCODE);

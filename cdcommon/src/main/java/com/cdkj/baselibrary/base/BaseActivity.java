@@ -12,6 +12,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.cdkj.baselibrary.R;
+import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.dialog.LoadingDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -77,6 +78,18 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        OtherLibManager.uemonResume(this);
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        OtherLibManager.uemonPause(this);
+    }
 
     @Override
     protected void onDestroy() {

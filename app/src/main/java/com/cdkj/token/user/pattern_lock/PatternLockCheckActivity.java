@@ -9,6 +9,7 @@ import android.view.animation.Animation;
 import android.view.animation.LinearInterpolator;
 import android.view.animation.TranslateAnimation;
 
+import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -121,6 +122,7 @@ public class PatternLockCheckActivity extends AbsLoadActivity {
      */
     void toSignInPage() {
         SPUtilHelper.logOutClear();
+        OtherLibManager.uemProfileSignOff();
         EventBus.getDefault().post(new AllFinishEvent());
         SignInActivity.open(PatternLockCheckActivity.this, true);
     }
