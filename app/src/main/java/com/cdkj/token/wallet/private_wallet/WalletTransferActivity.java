@@ -136,7 +136,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
         }
 
         if (isSameAddressByCoin()) {
-            UITipDialog.showInfo(this, getStrRes(R.string.transfer_fail));
+
             return true;
         }
 
@@ -431,15 +431,14 @@ public class WalletTransferActivity extends AbsLoadActivity {
         if (mGasPrice == null) return;
         BigDecimal minPrice = new BigDecimal(mGasPrice).multiply(new BigDecimal(0.85));//最小矿工费  最大最小是GasPrice上下浮动15%
         BigDecimal maxPrice = new BigDecimal(mGasPrice).multiply(new BigDecimal(1.15)); //最大矿工费
+
         float Progress = i / 100f;
+
         BigDecimal ProgressBigDecimal = new BigDecimal(Progress);
-        if (i < 50) {
-            transferGasPrice = ((maxPrice.multiply(ProgressBigDecimal)).add(minPrice)).toBigInteger();
-        } else if (i > 50) {
-            transferGasPrice = maxPrice.multiply(ProgressBigDecimal).toBigInteger();
-        } else {                                             //默认矿工费
-            transferGasPrice = mGasPrice;
-        }
+
+        BigDecimal lilmit = maxPrice.subtract(minPrice).multiply(ProgressBigDecimal);
+
+        transferGasPrice = ((lilmit.add(minPrice)).toBigInteger());
 
         setShowGasPrice(transferGasPrice);
     }

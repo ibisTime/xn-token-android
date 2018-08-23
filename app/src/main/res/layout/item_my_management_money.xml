@@ -53,13 +53,12 @@
                 android:textSize="14sp" />
 
             <TextView
-                android:id="@+id/tv_income"
+                android:id="@+id/tv_buy_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_black_cd"
                 android:textSize="14sp"
-                android:textStyle="bold"
-                tools:text="@string/item_management_meony_2" />
+                tools:text="@string/item_management_meony_1" />
 
 
         </LinearLayout>
@@ -77,13 +76,15 @@
                 android:textColor="@color/gray_666666"
                 android:textSize="14sp" />
 
+
             <TextView
-                android:id="@+id/tv_buy_amount"
+                android:id="@+id/tv_income"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/text_black_cd"
                 android:textSize="14sp"
-                tools:text="@string/item_management_meony_1" />
+                android:textStyle="bold"
+                tools:text="@string/item_management_meony_2" />
 
 
         </LinearLayout>

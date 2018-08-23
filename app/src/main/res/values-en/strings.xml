@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">THA</string>
+    <string name="app_name">Theia</string>
     <string name="main_tag_consult">Discover</string>
     <string name="main_tab_wallet">Wallet </string>
     <string name="main_tab_my">Me</string>
@@ -156,7 +156,7 @@
 
     <string name="google_code_format_hint">Google Please code correct enter the verification</string>
 
-    <string name="user_about_copyright">2018tha All rights reserved </string>
+    <string name="user_about_copyright">2018Theia All rights reserved </string>
     <string name="coin_eth"> Ethernet currency </string>
 
     <string name="coin_btc">Bit currency </string>
@@ -193,7 +193,7 @@
     <string name="wallet_bill_detail_status">Detail status </string>
     <string name="wallet_bill_detail_type">Detail summary </string>
     <string name="wallet_title_bill_list">Billing </string>
-    <string name="wallet_title_charge">Top up </string>
+    <string name="wallet_title_charge">Recharge</string>
     <string name="wallet_charge_record">Record </string>
 
     <string name="wallet_charge_address_copy_success">Address has been copied</string>
@@ -322,7 +322,7 @@
     <string name="dont_screenshot">Leaking the mnemonic will result in the loss of assets, please y copy carefully, do not screen </string>
     <string name="wallet_import_fail">wallet import failed</string>
     <string name="please_remember_and_save">Please remember your wallet mnemonic </string>
-    <string name="words_tip_1">The wallet mnemonic is used to restore the wallet assets. With the mnemonic, you can completely control the wallet assets. Please keep it safe. If you lose your mnemonic, you will lose your wallet assets. THA does not store user mnemonics and cannot provide a retrieval function. </string>
+    <string name="words_tip_1">The wallet mnemonic is used to restore the wallet assets. With the mnemonic, you can completely control the wallet assets. Please keep it safe. If you lose your mnemonic, you will lose your wallet assets. Theia does not store user mnemonics and cannot provide a retrieval function. </string>
     <string name="words_tip_2">Please input the backup wallet mnemonic (12 English words), separated by space </string>
     <string name="check_your_words">Verify your wallet mnemonic </string>
     <string name="words_tip_3">According to the mnemonics you wrote down, click in the order to verify that the backup mnemonics you made are correct. </string>
@@ -367,7 +367,7 @@
     <string name="transaction_record">Transaction record </string>
     <string name="business_app">Business Application</string>
     <string name="coin_to_coin">coin coin </string>
-    <string name="tha_planet">THA Planet </string>
+    <string name="tha_planet">Theia Planet </string>
     <string name="ybb">Yubi Bao</string>
     <string name="facebook">Facebook</string>
     <string name="twitter">Twitter</string>
@@ -490,15 +490,15 @@
     <string name="email_address">邮箱地址</string>
     <string name="sina_">新浪微博</string>
     <string name="telegram_address">https://t.me/THAWallet_en</string>
-    <string name="waite_content_1">THA Users can receive apprentice through the invitation system, and instruct apprentice according to the task, thus obtain the calculation force. In addition, the apprentice uses THA Wallet to purchase quantitative financial products or Yubibao, masters can obtain a certain percentage of the Apprentice reward.</string>
+    <string name="waite_content_1">Theia Users can receive apprentice through the invitation system, and instruct apprentice according to the task, thus obtain the calculation force. In addition, the apprentice uses Theia Wallet to purchase quantitative financial products or Yubibao, masters can obtain a certain percentage of the Apprentice reward.</string>
     <string name="waite_title_1">Global Master and Apprentice Initiative: </string>
-    <string name="waite_content_2">Yubibao is the digital currency value-added service and demand digital money management service product of THA wallet. It is easy to operate, has low threshold, without handling fees,  and are available with access, so that you can manage your digital assets with more flexibility. </string>
+    <string name="waite_content_2">Yubibao is the digital currency value-added service and demand digital money management service product of Theia wallet. It is easy to operate, has low threshold, without handling fees,  and are available with access, so that you can manage your digital assets with more flexibility. </string>
     <string name="wait_title_2">Yubibao:</string>
-    <string name="waite_content_3">THA Wallet provides users with a variety of quality management products, users can use Bitcoin, Ethernet and other digital currencies to buy money products and gain income.</string>
+    <string name="waite_content_3">Theia Wallet provides users with a variety of quality management products, users can use Bitcoin, Ethernet and other digital currencies to buy money products and gain income.</string>
     <string name="waite_title_3">Quantitative Finance: </string>
     <string name="consult_1">Global Master and Apprentice Initiative</string>
     <string name="yibibao">Yubibao</string>
-    <string name="lianghualicai">Quantitative Finance:</string>
+    <string name="lianghualicai">Quantitative Finance</string>
     <string name="recommend_application">Recommend Applications</string>
     <string name="copy_success">replicated</string>
     <string name="account_login">Account login</string>
@@ -537,11 +537,11 @@
     <string name="sure_transfer">Transfer confirmed </string>
     <string name="fast">Fast</string>
     <string name="slow">Slow</string>
-    <string name="create_wallet_intro_1">Attention! Tha does not store user passwords, can not provide recovery or reset unctions, passwords must be backed up well by users. Passwords are used to encrypt the private key, and strength is also important.</string>
+    <string name="create_wallet_intro_1">Attention! Theia does not store user passwords, can not provide recovery or reset unctions, passwords must be backed up well by users. Passwords are used to encrypt the private key, and strength is also important.</string>
     <string name="backup_introtation_dialog_title">Disclaimer</string>
-    <string name="backup_introtation_dialog_content">Please ensure that the wallet has been backed up safely THA does not bear any loss of loss of wallet, stolen, forgotten password and other assets lost!</string>
+    <string name="backup_introtation_dialog_content">Please ensure that the wallet has been backed up safely Theia does not bear any loss of loss of wallet, stolen, forgotten password and other assets lost!</string>
     <string name="my_coin_address_2">My collection address</string>
-    <string name="qr_share_tip_1">Scan the QR-code for tha red envelopes</string>
+    <string name="qr_share_tip_1">Scan the QR-code for Theia red envelopes</string>
     <string name="qr_share_tip_2">Screenshot the QR-code for sharing </string>
     <string name="red_packet_rule">Rules of Red Envelope </string>
     <string name="red_packet_type_1">This is ordinary red envelopes</string>
@@ -839,6 +839,11 @@
     <string name="management_money_state_8">Due</string>
 
     <string name="product_buy_end"><Data><![CDATA[<font color="#999999">Remaining </font>%1$s]]></Data></string>
+
+    <string name="lhlc_invest">Quantitative Finance investment</string>
+
+    <string name="lhlc_repay">Quantitative Finance repayment </string>
+    <string name="confirm_buy">Confirm purchase</string>
 
 </resources>
 

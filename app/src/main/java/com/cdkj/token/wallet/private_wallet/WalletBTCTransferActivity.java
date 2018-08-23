@@ -249,7 +249,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         }
 
         if (isSameAddress()) {
-            UITipDialog.showInfo(this, getStrRes(R.string.transfer_fail));
+        
             return true;
         }
 
@@ -408,7 +408,6 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             permissionRequest();
         });
 
-
         //矿工费滑动设置显示
         mBinding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
@@ -437,15 +436,15 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
      */
     public void setFeesBySeekBarChange(int i) {
         if (minfees == null || maxFees == null) return;
+
         float progress = i / 100f;
+
         BigDecimal progressBigDecimal = new BigDecimal(progress);
-        if (i < 50) {
-            mfees = maxFees.multiply(progressBigDecimal).add(minfees);
-        } else if (i > 50) {
-            mfees = maxFees.multiply(progressBigDecimal);
-        } else if (i == 50) {
-            mfees = maxFees.subtract(minfees).divide(new BigDecimal(2), ROUND_HALF_UP).add(minfees);//（最大-最小）/2+最小
-        }
+
+        BigDecimal lilmit = maxFees.subtract(minfees).multiply(progressBigDecimal);
+
+        mfees = lilmit.add(minfees);
+
         setShowFeesPrice(mfees);
     }
 

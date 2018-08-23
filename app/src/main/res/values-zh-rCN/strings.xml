@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">THA</string>
+    <string name="app_name">Theia</string>
 
     <string name="main_tag_consult">发现</string>
     <string name="main_tab_wallet">钱包</string>
@@ -261,7 +261,7 @@
     <string name="google_code_hint">请输入谷歌验证码</string>
     <string name="google_code_format_hint">请输入正确的谷歌验证码</string>
 
-    <string name="user_about_copyright">2018THA版权所有</string>
+    <string name="user_about_copyright">2018Theia版权所有</string>
 
     // Util
     <string name="coin_eth">以太币</string>
@@ -318,7 +318,7 @@
     <string name="dont_screenshot">泄露助记词将导致资产丢失，请认真抄写，切勿截屏</string>
     <string name="wallet_import_fail">钱包导入失败</string>
     <string name="please_remember_and_save">请记下您的钱包助记词并保存到安全的地方</string>
-    <string name="words_tip_1">钱包助记词用于恢复钱包资产，拥有助记词即可完全控制钱包资产，请务必妥善保管，丢失助记词即丢失钱包资产。THA不存储用户助记词，无法提供找回功能。</string>
+    <string name="words_tip_1">钱包助记词用于恢复钱包资产，拥有助记词即可完全控制钱包资产，请务必妥善保管，丢失助记词即丢失钱包资产。Theia不存储用户助记词，无法提供找回功能。</string>
     <string name="words_tip_2">请输入备份的钱包助记词（12个英文单词），按空格分离</string>
     <string name="check_your_words">验证你的钱包助记词</string>
     <string name="words_tip_3">根据你记下的助记词，顺序点击，验证你备份的记助词正确无误。</string>
@@ -359,7 +359,7 @@
     <string name="transaction_record">交易记录</string>
     <string name="business_app">商业应用</string>
     <string name="coin_to_coin">币生币</string>
-    <string name="tha_planet">THA星球</string>
+    <string name="Theia_planet">Theia星球</string>
     <string name="ybb">余币宝</string>
     <string name="facebook">Facebook</string>
     <string name="twitter">Twitter</string>
@@ -472,11 +472,11 @@
     <string name="email_address">邮箱地址</string>
     <string name="sina_">新浪微博</string>
     <string name="telegram_address">https://t.me/THAWallet_cn</string>
-    <string name="waite_content_1">THA用户可以通过邀请制收取徒弟，并根据任务引导来教育徒弟，从而获得算力。另外，徒弟使用THA钱包购买量化理财或余币宝，师父可获得徒弟一定比例的收益奖励。</string>
+    <string name="waite_content_1">Theia用户可以通过邀请制收取徒弟，并根据任务引导来教育徒弟，从而获得算力。另外，徒弟使用Theia钱包购买量化理财或余币宝，师父可获得徒弟一定比例的收益奖励。</string>
     <string name="waite_title_1">全球师徒首创玩法:</string>
-    <string name="waite_content_2">余币宝是THA Wallet旗下的数字货币增值服务和活期数字货币管理服务产品。特点是操作简便、低门槛、零手续费、可随取随用，让您更灵活的管理数字资产。</string>
+    <string name="waite_content_2">余币宝是Theia Wallet旗下的数字货币增值服务和活期数字货币管理服务产品。特点是操作简便、低门槛、零手续费、可随取随用，让您更灵活的管理数字资产。</string>
     <string name="wait_title_2">余币宝：</string>
-    <string name="waite_content_3">THA Wallet为用户提供多种类型的优质理财产品，用户可以使用比特币、以太坊等数字货币购买理财产品而获得收益。</string>
+    <string name="waite_content_3">Theia Wallet为用户提供多种类型的优质理财产品，用户可以使用比特币、以太坊等数字货币购买理财产品而获得收益。</string>
     <string name="waite_title_3">量化理财：</string>
     <string name="consult_1">首创玩法</string>
     <string name="yibibao">余币宝</string>
@@ -517,11 +517,11 @@
     <string name="sure_transfer">确认转账</string>
     <string name="fast">快</string>
     <string name="slow">慢</string>
-    <string name="create_wallet_intro_1">注意！THA不存储用户密码，无法提供找回或重置功能，密码必须要自己备份好。密码用于加密保护私钥，强度也非常重要。</string>
+    <string name="create_wallet_intro_1">注意！Theia不存储用户密码，无法提供找回或重置功能，密码必须要自己备份好。密码用于加密保护私钥，强度也非常重要。</string>
     <string name="backup_introtation_dialog_title">免责声明</string>
-    <string name="backup_introtation_dialog_content">请确保已备份钱包至安全的地方，THA不承担任何钱包丢失、被盗、忘记密码等产生的资产损失！</string>
+    <string name="backup_introtation_dialog_content">请确保已备份钱包至安全的地方，Theia不承担任何钱包丢失、被盗、忘记密码等产生的资产损失！</string>
     <string name="my_coin_address_2">我的收款地址</string>
-    <string name="qr_share_tip_1">扫描二维码领取THA红包</string>
+    <string name="qr_share_tip_1">扫描二维码领取Theia红包</string>
     <string name="qr_share_tip_2">截图分享二维码</string>
     <string name="red_packet_rule">红包规则</string>
     <string name="red_packet_type_1">当前为普通红包</string>
@@ -615,12 +615,12 @@
     <string name="invite_text_1">点击生成邀请海报并截图给好友</string>
     <string name="friend_qrimg_1">扫描二维码领取奖励</string>
     <string name="invite_text_2">邀请好友</string>
-    <string name="invite_text_3">注册THA钱包</string>
+    <string name="invite_text_3">注册Theia钱包</string>
     <string name="my_management_money">我的理财</string>
     <string name="item_management_meony_1">购买金额</string>
     <string name="item_management_meony_2">总收益</string>
     <string name="item_management_meony_3">到期时间</string>
-    <string name="invite_my_name">我是%s,邀请您使用THA钱包</string>
+    <string name="invite_my_name">我是%s,邀请您使用Theia钱包</string>
     <string name="buy_success">购买成功</string>
     <string name="management_money_detail_1">合约编号</string>
     <string name="management_money_detail_2">交易时间</string>
@@ -670,7 +670,7 @@
     <string name="my_managment_money">我的理财</string>
     <string name="increment">递增</string>
     <string name="management_money_state_4">即将开始</string>
-    <string name="management_money_state_6">停止交易</string>
+    <string name="management_money_state_6">已售罄</string>
     <string name="management_money_state_7">已售罄</string>
     <string name="management_money_state_9">已结束</string>
     <string name="money_product_check_1">起购额度为</string>
@@ -686,4 +686,8 @@
     <string name="transaction_confirm_state">交易确认中</string>
     <string name="management_money_state_8">已到期</string>
     <string name="management_money_state_10">募集结束</string>
+    <string name="lhlc_invest">量化理财投资</string>
+    <string name="lhlc_repay">量化理财还款</string>
+    <string name="confirm_buy">确认购买</string>
+    <string name="buy_product_get_income">预计收入</string>
 </resources>

@@ -376,7 +376,7 @@ public class StringUtils {
 //        NumberFormat nt = NumberFormat.getPercentInstance();
 //        //设置百分数精确度2即保留两位小数
 //        nt.setMinimumFractionDigits(0);
-        DecimalFormat nt = new DecimalFormat("0.##%");
+        DecimalFormat nt = new DecimalFormat("0.00%");
         BigDecimal bigDecimal = new BigDecimal(money);
         bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP); //四舍五入
         return nt.format(bigDecimal);

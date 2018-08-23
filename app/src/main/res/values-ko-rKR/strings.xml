@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">THA</string>
+    <string name="app_name">Theia</string>
 
     <string name="wallet_withdraw_balance">잔액</string>
 
@@ -420,7 +420,7 @@
     <string name="google_code_title">구글 인증번호</string>
     <string name="google_code_hint">구글 인증번호 입력</string>
     <string name="google_code_format_hint">정확한 구글 인증번호 입력</string>
-    <string name="user_about_copyright">2018THA 저작권 소유</string>
+    <string name="user_about_copyright">2018Theia 저작권 소유</string>
     <string name="coin_eth">이더리움</string>
     <string name="coin_btc">비트코인</string>
     <string name="biz_type_tradefee">거래 수수료</string>
@@ -439,10 +439,10 @@
     <string name="us_web">홈 페이지</string>
     <string name="email_address">이메일</string>
     <string name="sina_">sina 블로그</string>
-    <string name="waite_content_1">얻을수 있다.그리고 제자가 THA월렛으로 재텍제품 및 위보비를 구매시 스승도 일정한 혜택을 받을소 있다.</string>
+    <string name="waite_content_1">얻을수 있다.그리고 제자가 Theia월렛으로 재텍제품 및 위보비를 구매시 스승도 일정한 혜택을 받을소 있다.</string>
     <string name="waite_title_1">최초 놀이법</string>
-    <string name="waite_content_2">위어보는 THA Wallet산하 암호화폐관련 추가 서비스 및 암호화폐 일반 예금서비스 입니다.장점은 조작이 편리하고 조건이 쉬우며 또한 수수로가 없어 바로 사용할수 있음으로 고객님의 디지털 자산을 보다 편리하게 </string>
-    <string name="waite_content_3">THA Wallet는 고객들에게 많은 종류의 재텍제픔을 제공하고 고객들은 비트코인,이더리움등 암포화폐로 구매사여 수익을 얻을수 있습니다.</string>
+    <string name="waite_content_2">위어보는 Theia Wallet산하 암호화폐관련 추가 서비스 및 암호화폐 일반 예금서비스 입니다.장점은 조작이 편리하고 조건이 쉬우며 또한 수수로가 없어 바로 사용할수 있음으로 고객님의 디지털 자산을 보다 편리하게 </string>
+    <string name="waite_content_3">Theia Wallet는 고객들에게 많은 종류의 재텍제픔을 제공하고 고객들은 비트코인,이더리움등 암포화폐로 구매사여 수익을 얻을수 있습니다.</string>
     <string name="consult_1">최초 놀이법</string>
     <string name="code_login">로기인 비밀번호 확인</string>
     <string name="set_login_pwd">로그인 비밀번호 설치</string>
@@ -477,11 +477,11 @@
     <string name="sure_transfer">이체 확인</string>
     <string name="fast">빨리</string>
     <string name="slow">느리게</string>
-    <string name="create_wallet_intro_1">주의!THA는 사용자의 비밀번호를 저장하지 않습니다.하여 비밀번호 되찾기와 재설치 기능이 없습니다.비밀번호는 반드시 본인이 백업해 두어야 합니다.비밀번호는 프라이빗 관리에 사용함으로 아주 중요합니다.</string>
+    <string name="create_wallet_intro_1">주의!Theia는 사용자의 비밀번호를 저장하지 않습니다.하여 비밀번호 되찾기와 재설치 기능이 없습니다.비밀번호는 반드시 본인이 백업해 두어야 합니다.비밀번호는 프라이빗 관리에 사용함으로 아주 중요합니다.</string>
     <string name="backup_introtation_dialog_title">면책성명</string>
-    <string name="backup_introtation_dialog_content">백업된 자료는 안전한 곳에 보관하고 THA는 월렛 분실,도난,비빌번호 분실등으로 발생한 손실에대해서는 책임지지 않습니다!</string>
+    <string name="backup_introtation_dialog_content">백업된 자료는 안전한 곳에 보관하고 Theia는 월렛 분실,도난,비빌번호 분실등으로 발생한 손실에대해서는 책임지지 않습니다!</string>
     <string name="my_coin_address_2">나의 계좌번호</string>
-    <string name="qr_share_tip_1">QR코드 스캔 및 THA 훙빠우수령</string>
+    <string name="qr_share_tip_1">QR코드 스캔 및 Theia 훙빠우수령</string>
     <string name="qr_share_tip_2">QR코드공유</string>
     <string name="red_packet_rule">훙빠우 규칙</string>
     <string name="red_packet_type_1">일바 훙빠우 </string>
@@ -617,17 +617,17 @@
     <string name="version_update">버전업데이트</string>
     <string name="version_update_info">버전업데이트가능</string>
     <string name="invite_gift">선물요청</string>
-    <string name="invite_btn_1">海报邀请</string>
+    <string name="invite_btn_1">초대요청</string>
     <string name="invite_btn_2">홍바오요청</string>
-    <string name="invite_text_1">点击生成邀请海报并截图给好友</string>
+    <string name="invite_text_1">초대요청을 클릭하고 캡쳐본을 친구에게 보내시오</string>
     <string name="friend_qrimg_1">QR코드스캔</string>
     <string name="invite_text_2">친구요청</string>
-    <string name="invite_text_3">THA지갑</string>
+    <string name="invite_text_3">Theia지갑</string>
     <string name="my_management_money">나의자산</string>
     <string name="item_management_meony_1">구매금액</string>
     <string name="item_management_meony_2">총수익</string>
     <string name="item_management_meony_3">만료시간</string>
-    <string name="invite_my_name">저는%s입니다.THA지갑을 사용하세요.</string>
+    <string name="invite_my_name">저는%s입니다.Theia지갑을 사용하세요.</string>
     <string name="buy_success">구입성공</string>
     <string name="management_money_detail_1">계약번호</string>
     <string name="management_money_detail_2">거래시간</string>
@@ -635,14 +635,14 @@
     <string name="management_money_detail_4">연수익률</string>
     <string name="management_money_detail_5">구매금액</string>
     <string name="management_money_detail_6">총수익</string>
-    <string name="management_money_detail_7">기산시간</string>
+    <string name="management_money_detail_7">기산시점</string>
     <string name="management_money_detail_8">만기시간</string>
     <string name="backup_start_dialog_1">캡쳐하지마시오.</string>
     <string name="backup_start_dialog_2">주위를 확인해주세요！</string>
     <string name="backup_start_dialog_3">캡쳐나 포토백업본을 사용하지마시오.</string>
     <string name="transaction_in">입금중..</string>
-    <string name="transaction_out">同步打包中...</string>
-    <string name="transaction_success">广播成功，正在同步中</string>
+    <string name="transaction_out">동시에 파일을 포장중...</string>
+    <string name="transaction_success">전달성공,포장중입니다</string>
     <string name="product_deadline">상품기한</string>
     <string name="product_total">상품총액</string>
     <string name="product_buy">%s구매승인중</string>
@@ -695,5 +695,8 @@
     <string name="transaction_confirm_state">거래확인중</string>
     <string name="management_money_state_8">만기됨</string>
     <string name="management_money_state_10">모집마감</string>
+    <string name="lhlc_invest">재테크 투자 를 양적 으로 정하다</string>
+    <string name="lhlc_repay">재테크 대금을 측정하다</string>
+    <string name="confirm_buy">구매 확인</string>
 
 </resources>

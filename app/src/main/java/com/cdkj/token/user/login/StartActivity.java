@@ -33,6 +33,7 @@ import com.cdkj.token.wallet.import_guide.ImportWalletStartActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;

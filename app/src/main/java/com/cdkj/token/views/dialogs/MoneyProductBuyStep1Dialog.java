@@ -179,8 +179,14 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
             return;
         }
 
+        if (managementMoney.getIncreAmount() == null || BigDecimalUtils.compareEqualsZERO(managementMoney.getIncreAmount())) {
+            return;
+        }
+
         BigDecimal seccondAmount = buyAmount.subtract(managementMoney.getMinAmount())
                 .divideAndRemainder(managementMoney.getIncreAmount())[1];
+
+
         //5递增金额判断
         if (!BigDecimalUtils.compareEqualsZERO(seccondAmount)) {
             UITipDialog.showInfoNoIcon(mActivity, mActivity.getString(R.string.money_product_check_2));

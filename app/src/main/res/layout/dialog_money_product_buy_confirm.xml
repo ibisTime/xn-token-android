@@ -55,8 +55,9 @@
             android:paddingRight="15dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="1"
                 android:text="@string/user_account_balance"
                 android:textColor="@color/gray_666666"
                 android:textSize="14sp" />
@@ -82,7 +83,7 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:paddingTop="5dp"
-                android:text="转入资金"
+                android:text="@string/transfer_user_funds"
                 android:textColor="@color/text_black_cd"
                 android:textSize="13sp" />
 
@@ -158,7 +159,7 @@
             android:layout_marginRight="15dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/selector_btn_blue_change"
-            android:text="确认购买"
+            android:text="@string/confirm_buy"
             android:textColor="@color/white"
             android:textSize="16sp" />
 

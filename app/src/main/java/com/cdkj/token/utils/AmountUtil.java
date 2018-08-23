@@ -24,7 +24,6 @@ public class AmountUtil {
     public static final int ALLSCALE = 8;
 
 
-
     /**
      * 货币单位转换 带单位
      *
@@ -149,19 +148,6 @@ public class AmountUtil {
         return showMoney.substring(0, showMoney.length() - 1);
     }
 
-    public static String getCurrency(String currency) {
-        switch (currency) {
-            case "ETH":
-                return StringUtil.getString(R.string.coin_eth);
-
-            case "BTC":
-                return StringUtil.getString(R.string.coin_btc);
-
-            default:
-                return "";
-
-        }
-    }
 
     public static String formatBizType(String bizType) {
         switch (bizType) {
@@ -176,7 +162,10 @@ public class AmountUtil {
 
             case "withdrawfee":
                 return StringUtil.getString(R.string.biz_type_withdrawfee);
-
+            case "lhlc_invest": // 量化理财投资
+                return StringUtil.getString(R.string.lhlc_invest);
+            case "lhlc_repay": // 量化理财还款
+                return StringUtil.getString(R.string.lhlc_repay);
             default:
                 return "";
 

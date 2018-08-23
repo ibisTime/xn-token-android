@@ -23,9 +23,13 @@
                 android:textSize="30sp" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
                 android:text="@string/invite_text_3"
                 android:textColor="@color/white"
                 android:textSize="30sp" />
@@ -66,6 +70,7 @@
                 android:layout_weight="1"
                 android:background="@drawable/selector_btn_invite_friend_change"
                 android:gravity="center"
+                android:singleLine="true"
                 android:text="@string/invite_btn_2"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
