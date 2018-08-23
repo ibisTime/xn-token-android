@@ -32,7 +32,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         application = this;
-        LogUtil.isLog = true;
+        LogUtil.isLog = BuildConfig.IS_DEBUG;
 
         init();
 

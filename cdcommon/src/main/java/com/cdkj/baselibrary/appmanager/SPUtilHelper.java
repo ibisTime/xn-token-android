@@ -133,7 +133,7 @@ public class SPUtilHelper {
      * 获取国家编号
      */
     public static String getCountryInterCode() {
-        return SPUtils.getString(CdApplication.getContext(), "country_code", "GJ201808130191");
+        return SPUtils.getString(CdApplication.getContext(), "country_code", "0086");
     }
 
     /**
@@ -150,7 +150,7 @@ public class SPUtilHelper {
      * 获取国家编号
      */
     public static String getCountryCode() {
-        return SPUtils.getString(CdApplication.getContext(), "country_code_2", "0086");
+        return SPUtils.getString(CdApplication.getContext(), "country_code_2", "GJ201808130191");
     }
 
     /**

@@ -55,15 +55,17 @@ android {
             buildConfigField "String", "umeng", "\"5b73b265b27b0a300c00035c\"" //友盟统计key
             minifyEnabled false //开启混淆
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            android.applicationVariants.all { variant ->
-                variant.outputs.all {
-                    outputFileName = "THA_${variant.productFlavors[0].name}_${variant.versionName}_${releaseTime()}.apk"
-                }
-            }
+
 //            ndk {
 //                // 需要将 x86 架构过滤掉
 //                abiFilters "armeabi", "armeabi-v7a", "arm64-v8a"
 //            }
+        }
+
+        devtest {
+            buildConfigField "boolean", "IS_DEBUG", "true"
+            buildConfigField "String", "umeng", "\"5b73d987a40fa33a1e00017e\""
+            minifyEnabled false //开启混淆
         }
 
         debug {
@@ -72,7 +74,12 @@ android {
             minifyEnabled false //开启混淆
         }
 
+    }
 
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = "THA_${variant.buildType.name}_${variant.productFlavors[0].name}_${variant.versionName}_${releaseTime()}.apk"
+        }
     }
 
     compileOptions {
