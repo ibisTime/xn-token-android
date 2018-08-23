@@ -4,7 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
@@ -13,6 +15,8 @@ import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityWalletPwdModifyBinding;
 import com.cdkj.token.utils.wallet.WalletHelper;
+
+import static com.cdkj.baselibrary.utils.StringUtils.stringFilter;
 
 /**
  * 修改钱包密码
@@ -43,6 +47,72 @@ public class WalletPasswordModifyActivity2 extends AbsLoadActivity {
     public void afterCreate(Bundle savedInstanceState) {
 
         mBaseBinding.titleView.setMidTitle(R.string.modify_wallet_pwd);
+
+
+        mBinding.editOldPwd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String editable = mBinding.editOldPwd.getText().toString();
+                String str = stringFilter(editable.toString());
+                if (!editable.equals(str)) {
+                    mBinding.editOldPwd.setText(str);
+                    //设置新的光标所在位置
+                    mBinding.editOldPwd.setSelection(str.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        mBinding.editNewPwd.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String editable = mBinding.editNewPwd.getText().toString();
+                String str = stringFilter(editable.toString());
+                if (!editable.equals(str)) {
+                    mBinding.editNewPwd.setText(str);
+                    //设置新的光标所在位置
+                    mBinding.editNewPwd.setSelection(str.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        mBinding.editNewPwdRe.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String editable = mBinding.editNewPwdRe.getText().toString();
+                String str = stringFilter(editable.toString());
+                if (!editable.equals(str)) {
+                    mBinding.editNewPwdRe.setText(str);
+                    //设置新的光标所在位置
+                    mBinding.editNewPwdRe.setSelection(str.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
         mBinding.tvConfirm.setOnClickListener(view -> {
 

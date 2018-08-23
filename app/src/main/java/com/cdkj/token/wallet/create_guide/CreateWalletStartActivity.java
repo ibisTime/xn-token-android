@@ -99,6 +99,49 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
 
             }
         });
+
+        mBinding.editPassword.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String editable = mBinding.editPassword.getText().toString();
+                String str = stringFilter(editable.toString());
+                if (!editable.equals(str)) {
+                    mBinding.editPassword.getEditText().setText(str);
+                    //设置新的光标所在位置
+                    mBinding.editPassword.getEditText().setSelection(str.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+        mBinding.editRepassword.getEditText().addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                String editable = mBinding.editRepassword.getText().toString();
+                String str = stringFilter(editable.toString());
+                if (!editable.equals(str)) {
+                    mBinding.editRepassword.getEditText().setText(str);
+                    //设置新的光标所在位置
+                    mBinding.editRepassword.getEditText().setSelection(str.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
     }
 
     private void initClickListener() {

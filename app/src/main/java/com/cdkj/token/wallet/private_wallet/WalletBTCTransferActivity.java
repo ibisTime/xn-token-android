@@ -249,7 +249,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         }
 
         if (isSameAddress()) {
-        
+
             return true;
         }
 
@@ -346,47 +346,45 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
      * 显示密码输入框
      */
     private void showPasswordInputDialog() {
-        if (passWordInputDialog == null) {
-            passWordInputDialog = new TextPwdInputDialog(this).builder().setTitle(getStrRes(R.string.please_input_transaction_pwd))
-                    .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
 
-                        String tradePwd = passWordInputDialog.getContentView().getText().toString().trim();
+        passWordInputDialog = new TextPwdInputDialog(this).builder().setTitle(getStrRes(R.string.please_input_transaction_pwd))
+                .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
 
-                        if (TextUtils.isEmpty(tradePwd)) {
-                            UITipDialog.showInfoNoIcon(WalletBTCTransferActivity.this, getString(R.string.please_input_transaction_pwd));
-                            return;
-                        }
+                    String tradePwd = passWordInputDialog.getContentView().getText().toString().trim();
 
-                        if (!WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {
-                            UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
-                            return;
-                        }
+                    if (TextUtils.isEmpty(tradePwd)) {
+                        UITipDialog.showInfoNoIcon(WalletBTCTransferActivity.this, getString(R.string.please_input_transaction_pwd));
+                        return;
+                    }
 
+                    if (!WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {
+                        UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
+                        return;
+                    }
 
-                        try {
+                    try {
 
-                            WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+                        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
 
-                            //获取btc交易签名
-                            String sign = WalletHelper.signBTCTransactionData(unSpentBTCList,  //utxo列表
-                                    walletDBModel.getBtcAddress(),  //btc地址
-                                    mBinding.editToAddress.getText().toString().trim(),//btc转出地址
-                                    walletDBModel.getBtcPrivateKey(),//btc 私钥
-                                    transactionAmount.longValue()   //需要交易的金额
-                                    , getBtcFee(unSpentBTCList, transactionAmount.longValue(), mfees.intValue())); //矿工费
+                        //获取btc交易签名
+                        String sign = WalletHelper.signBTCTransactionData(unSpentBTCList,  //utxo列表
+                                walletDBModel.getBtcAddress(),  //btc地址
+                                mBinding.editToAddress.getText().toString().trim(),//btc转出地址
+                                walletDBModel.getBtcPrivateKey(),//btc 私钥
+                                transactionAmount.longValue()   //需要交易的金额
+                                , getBtcFee(unSpentBTCList, transactionAmount.longValue(), mfees.intValue())); //矿工费
 
-                            btcTransactionBroadcast(sign);
+                        btcTransactionBroadcast(sign);
 
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                            disMissLoading();
-                            UITipDialog.showFail(WalletBTCTransferActivity.this, getString(R.string.transfer_fail));
-                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                        disMissLoading();
+                        UITipDialog.showFail(WalletBTCTransferActivity.this, getString(R.string.transfer_fail));
+                    }
 
-                    })
-                    .setNegativeBtn(getStrRes(R.string.cancel), null)
-                    .setContentMsg("");
-        }
+                })
+                .setNegativeBtn(getStrRes(R.string.cancel), null)
+                .setContentMsg("");
         passWordInputDialog.getContentView().setText("");
         passWordInputDialog.getContentView().setHint(getStrRes(R.string.please_input_transaction_pwd));
         passWordInputDialog.show();

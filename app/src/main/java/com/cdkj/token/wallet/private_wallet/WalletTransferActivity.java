@@ -356,27 +356,27 @@ public class WalletTransferActivity extends AbsLoadActivity {
      * 显示密码输入框
      */
     private void showPasswordInputDialog() {
-        if (passWordInputDialog == null) {
-            passWordInputDialog = new TextPwdInputDialog(this).builder().setTitle(getStrRes(R.string.please_input_transaction_pwd))
-                    .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
 
-                        String tradePwd = passWordInputDialog.getContentView().getText().toString().trim();
+        passWordInputDialog = new TextPwdInputDialog(this).builder().setTitle(getStrRes(R.string.please_input_transaction_pwd))
+                .setPositiveBtn(getStrRes(R.string.confirm), (view, inputMsg) -> {
 
-                        if (TextUtils.isEmpty(tradePwd)) {
-                            UITipDialog.showInfoNoIcon(WalletTransferActivity.this, getString(R.string.please_input_transaction_pwd));
-                            return;
-                        }
+                    String tradePwd = passWordInputDialog.getContentView().getText().toString().trim();
 
-                        if (!WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {
-                            UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
-                            return;
-                        }
+                    if (TextUtils.isEmpty(tradePwd)) {
+                        UITipDialog.showInfoNoIcon(WalletTransferActivity.this, getString(R.string.please_input_transaction_pwd));
+                        return;
+                    }
 
-                        transfer();
-                    })
-                    .setNegativeBtn(getStrRes(R.string.cancel), null)
-                    .setContentMsg("");
-        }
+                    if (!WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {
+                        UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
+                        return;
+                    }
+
+                    transfer();
+                })
+                .setNegativeBtn(getStrRes(R.string.cancel), null)
+                .setContentMsg("");
+        
         passWordInputDialog.getContentView().setText("");
         passWordInputDialog.getContentView().setHint(getStrRes(R.string.please_input_transaction_pwd));
         passWordInputDialog.getContentView().setText("");
