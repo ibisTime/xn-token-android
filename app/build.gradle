@@ -40,7 +40,7 @@ android {
 
     defaultConfig {
         applicationId "com.cdkj.tha"
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 26
         versionCode 7
         versionName "1.7.0"

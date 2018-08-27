@@ -21,6 +21,10 @@ import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
 
 import cn.bingoogolapple.photopicker.imageloader.BGAImage;
+import zendesk.core.AnonymousIdentity;
+import zendesk.core.Identity;
+import zendesk.core.Zendesk;
+import zendesk.support.Support;
 
 /**
  * Created by lei on 2017/10/20.
@@ -72,6 +76,15 @@ public class MyApplication extends Application {
         BGAImage.setImageLoader(new BGAGlideImageLoader2());
 
         OtherLibManager.initUmen(this, BuildConfig.umeng);
+
+
+        Zendesk.INSTANCE.init(this, "https://hzcl.zendesk.com",
+                "1abb5d09d1ae5884d0f88f76a4368847ee01bffed4f92181",
+                "mobile_sdk_client_6e8e6247d8e39ba2b3d6");
+
+        Identity identity = new AnonymousIdentity();
+        Zendesk.INSTANCE.setIdentity(identity);
+        Support.INSTANCE.init(Zendesk.INSTANCE);
 
     }
 

@@ -26,9 +26,9 @@ allprojects {
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         maven { url "https://jitpack.io" }
 
-//        maven {
-//            url 'https://zendesk.artifactoryonline.com/zendesk/repo'
-//        }
+        maven {
+            url 'https://zendesk.artifactoryonline.com/zendesk/repo'
+        }
 
         maven {
             url 'https://maven.google.com/'
