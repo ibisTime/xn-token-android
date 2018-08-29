@@ -16,6 +16,7 @@ import com.cdkj.token.utils.BGAGlideImageLoader2;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
+import com.zendesk.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
@@ -77,14 +78,9 @@ public class MyApplication extends Application {
 
         OtherLibManager.initUmen(this, BuildConfig.umeng);
 
+        Logger.setLoggable(true);
 
-        Zendesk.INSTANCE.init(this, "https://hzcl.zendesk.com",
-                "1abb5d09d1ae5884d0f88f76a4368847ee01bffed4f92181",
-                "mobile_sdk_client_6e8e6247d8e39ba2b3d6");
 
-        Identity identity = new AnonymousIdentity();
-        Zendesk.INSTANCE.setIdentity(identity);
-        Support.INSTANCE.init(Zendesk.INSTANCE);
 
     }
 

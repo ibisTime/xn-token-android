@@ -27,6 +27,7 @@ import com.cdkj.token.model.CountryCodeMode;
 import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.VersionModel;
+import com.cdkj.token.user.setting.UserLanguageActivity;
 import com.cdkj.token.utils.wallet.WalletDBAegisUtils;
 import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
 import com.cdkj.token.wallet.import_guide.ImportWalletStartActivity;
@@ -43,6 +44,8 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import zendesk.support.guide.HelpCenterActivity;
+import zendesk.support.request.RequestActivity;
 
 import static com.cdkj.token.utils.UpdateUtil.isForceUpload;
 import static com.cdkj.token.utils.UpdateUtil.startWeb;
@@ -72,8 +75,15 @@ public class StartActivity extends BaseActivity {
             e.printStackTrace();
         }
         setContentView(R.layout.activity_start);
+////
+////        HelpCenterActivity.builder()
+////                .show(this);
+//
+        UserLanguageActivity.open(this);
+//
+//        finish();
 
-        getVersion();
+//        getVersion();
 
     }
 

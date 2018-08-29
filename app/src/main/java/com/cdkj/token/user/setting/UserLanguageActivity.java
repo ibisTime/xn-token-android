@@ -19,6 +19,15 @@ import com.cdkj.token.databinding.ActivityUserLanguageBinding;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.List;
+
+import zendesk.core.AnonymousIdentity;
+import zendesk.core.Identity;
+import zendesk.core.Zendesk;
+import zendesk.support.Support;
+import zendesk.support.UiConfig;
+import zendesk.support.guide.HelpCenterActivity;
+
 import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
 import static com.cdkj.baselibrary.appmanager.MyConfig.KOREA;
 import static com.cdkj.baselibrary.appmanager.MyConfig.SIMPLIFIED;
@@ -32,6 +41,7 @@ import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
 public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
 
     private ActivityUserLanguageBinding mBinding;
+    private String url;
 
     public static void open(Context context) {
         if (context == null) {
@@ -53,6 +63,7 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
         setPageBgImage(R.drawable.my_bg);
         setView(SPUtilHelper.getLanguage());
         initListener();
+        url = "https://hzcl.zendesk.com";
     }
 
     private void initListener() {
@@ -61,15 +72,18 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
             if (TextUtils.equals(SPUtilHelper.getLanguage(), MyConfig.SIMPLIFIED)) {
                 return;
             }
+            url = "https://hzcl.zendesk.com";
             initView();
             mBinding.ivSimple.setVisibility(View.VISIBLE);
             sendEventBusAndFinishAll(SIMPLIFIED);
+
         });
 
         mBinding.llEnglish.setOnClickListener(view -> {
             if (TextUtils.equals(SPUtilHelper.getLanguage(), MyConfig.ENGLISH)) {
                 return;
             }
+            url = "https://hzcl.zendesk.com/hc/en-us/";
             initView();
             mBinding.ivEnglish.setVisibility(View.VISIBLE);
             sendEventBusAndFinishAll(ENGLISH);
@@ -79,19 +93,35 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
             if (TextUtils.equals(SPUtilHelper.getLanguage(), MyConfig.KOREA)) {
                 return;
             }
+            url = "https://hzcl.zendesk.com/hc/ko/";
             initView();
             mBinding.ivKorea.setVisibility(View.VISIBLE);
             sendEventBusAndFinishAll(KOREA);
+        });
+
+        mBinding.linLayoutHelpCenter.setOnClickListener(view -> {
+
+
+            Zendesk.INSTANCE.init(this, url,
+                    "1abb5d09d1ae5884d0f88f76a4368847ee01bffed4f92181",
+                    "mobile_sdk_client_6e8e6247d8e39ba2b3d6");
+
+            Identity identity = new AnonymousIdentity();
+            Zendesk.INSTANCE.setIdentity(identity);
+            Support.INSTANCE.init(Zendesk.INSTANCE);
+
+            HelpCenterActivity.builder()
+                    .show(this);
         });
 
     }
 
     private void sendEventBusAndFinishAll(String language) {
         SPUtilHelper.saveLanguage(language);
-        EventBus.getDefault().post(new AllFinishEvent());
         AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置语言
-        MainActivity.open(this);
-        finish();
+//        EventBus.getDefault().post(new AllFinishEvent());
+//        MainActivity.open(this);
+//        finish();
     }
 
     private void initView() {
