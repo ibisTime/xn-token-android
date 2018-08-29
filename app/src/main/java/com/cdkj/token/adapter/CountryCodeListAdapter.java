@@ -30,6 +30,8 @@ public class CountryCodeListAdapter extends BaseQuickAdapter<CountryCodeMode, Ba
     @Override
     protected void convert(BaseViewHolder helper, CountryCodeMode item) {
 
+        if (item == null) return;
+
         helper.setText(R.id.tv_country, getSelectCountryName(helper.getLayoutPosition()) + "     " + StringUtils.transformShowCountryCode(item.getInterCode()));
 
         ImgUtils.loadImage(mContext, item.getPic(), helper.getView(R.id.img_country));
@@ -42,19 +44,27 @@ public class CountryCodeListAdapter extends BaseQuickAdapter<CountryCodeMode, Ba
     }
 
     public String getSelectCountryName(int postion) {
-        return mData.get(postion).getInterName();
+        CountryCodeMode countryCodeMode = getItem(postion);
+        if (countryCodeMode == null) return "";
+        return countryCodeMode.getInterName();
     }
 
     public String getSelectPic(int postion) {
-        return mData.get(postion).getPic();
+        CountryCodeMode countryCodeMode = getItem(postion);
+        if (countryCodeMode == null) return "";
+        return countryCodeMode.getPic();
     }
 
     public String getSelectInterCode(int postion) {
-        return mData.get(postion).getInterCode();
+        CountryCodeMode countryCodeMode = getItem(postion);
+        if (countryCodeMode == null) return "";
+        return countryCodeMode.getInterCode();
     }
 
     public String getSelectCountryCode(int postion) {
-        return mData.get(postion).getCode();
+        CountryCodeMode countryCodeMode = getItem(postion);
+        if (countryCodeMode == null) return "";
+        return countryCodeMode.getCode();
     }
 
 

@@ -23,6 +23,8 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
+import com.cdkj.token.interfaces.StartPagePresenter;
+import com.cdkj.token.interfaces.StartPageView;
 import com.cdkj.token.model.CountryCodeMode;
 import com.cdkj.token.model.IpCountryInfo;
 import com.cdkj.token.model.SystemParameterModel;
@@ -48,16 +50,14 @@ import static com.cdkj.token.utils.UpdateUtil.isForceUpload;
 import static com.cdkj.token.utils.UpdateUtil.startWeb;
 import static com.cdkj.token.utils.wallet.WalletHelper.HELPWORD_SPACE_SYMBOL;
 
-
+/**
+ * 启动页
+ */
 @Route(path = CdRouteHelper.APPSTART)
-public class StartActivity extends BaseActivity {
+public class StartActivity extends BaseActivity implements StartPageView {
 
-    public static void open(Context context) {
-        if (context == null) {
-            return;
-        }
-        context.startActivity(new Intent(context, StartActivity.class));
-    }
+
+    public StartPagePresenter pagePresenter;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,224 +73,19 @@ public class StartActivity extends BaseActivity {
         }
         setContentView(R.layout.activity_start);
 
-        getVersion();
+        pagePresenter = new StartPagePresenter(this);
+        pagePresenter.start();
 
     }
 
-
-    /**
-     * 获取IP地址并匹配国家
-     */
-//    private void getIpAndCheckCountry() {
-//        mSubscription.add(Observable.just("")
-//                .subscribeOn(Schedulers.newThread())
-//                .map(s -> {
-//                    return SystemUtils.getPublicIp(false);
-//                })
-//                .subscribe(s -> {
-//                    getCountryInfo(s);
-//                }, throwable -> {
-//                    checkCountryAfterNext();
-//                }));
-//    }
-
-    /**
-     * 获取国家信息
-     */
-    private void getCountryInfo(String ip) {
-
-        Call<String> call = RetrofitUtils.createApi(MyApi.class).getCountryInfoByIp("http://ip.taobao.com/service/getIpInfo.php?ip=" + ip);
-
+    @Override
+    public void addNetCall(Call call) {
         addCall(call);
-
-        call.enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                try {
-                    IpCountryInfo ipCountryInfo = JSON.parseObject(response.body(), IpCountryInfo.class);
-                    if (ipCountryInfo != null && ipCountryInfo.getData() != null) {
-                        getCountryListRequestAndCheck(ipCountryInfo.getData().getCountry_id());
-                    }
-
-                } catch (Exception e) {
-                    checkCountryAfterNext();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                checkCountryAfterNext();
-            }
-        });
-
     }
 
-    /**
-     * 获取七牛之后 判断用户是否登录 没登陆进行国家匹配
-     */
-    private void qiniuAfternext() {
-        if (SPUtilHelper.isLoginNoStart()) {
-            MainActivity.open(this);
-            finish();
-        } else {
-            SignInActivity.open(this, true);
-            finish();
-//            getIpAndCheckCountry();
-        }
-    }
-
-    /**
-     * 进行国家匹配 之后
-     */
-    private void checkCountryAfterNext() {
-        SignInActivity.open(this, true);
-        finish();
-    }
-
-
-    /**
-     * 获取七牛服务器链接
-     */
-    public void getQiniuAndNextTo() {
-        Map<String, String> map = new HashMap<>();
-        map.put("ckey", "qiniu_domain");
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getSystemParameter("660917", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-        call.enqueue(new BaseResponseModelCallBack<SystemParameterModel>(this) {
-
-            @Override
-            protected void onSuccess(SystemParameterModel data, String SucMessage) {
-
-                SPUtilHelper.saveQiniuUrl(data.getCvalue());
-                qiniuAfternext();
-            }
-
-            @Override
-            protected void onNoNet(String msg) {
-
-            }
-
-            @Override
-            protected void onReqFailure(String errorCode, String errorMessage) {
-                qiniuAfternext();
-            }
-
-            @Override
-            protected void onFinish() {
-            }
-        });
-    }
-
-
-    /**
-     * 获取国家列表
-     */
-    public void getCountryListRequestAndCheck(String countryId) {
-
-        Map<String, String> map = new HashMap<>();
-
-        map.put("status", "1");//status
-
-        Call<BaseResponseListModel<CountryCodeMode>> call = RetrofitUtils.createApi(MyApi.class).getCountryList("801120", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-        call.enqueue(new BaseResponseListCallBack<CountryCodeMode>(this) {
-            @Override
-            protected void onSuccess(List<CountryCodeMode> data, String SucMessage) {
-                checkCountryAndSave(data, countryId);
-                checkCountryAfterNext();
-            }
-
-            @Override
-            protected void onReqFailure(String errorCode, String errorMessage) {
-                checkCountryAfterNext();
-            }
-
-            @Override
-            protected void onFinish() {
-                disMissLoading();
-            }
-        });
-    }
-
-    /**
-     * 通过传入的Id比对国家并保存国家信息
-     *
-     * @param data
-     * @param countryId
-     */
-    private void checkCountryAndSave(List<CountryCodeMode> data, String countryId) {
-        for (CountryCodeMode datum : data) {
-            if (datum == null) continue;
-            if (TextUtils.equals(countryId, datum.getInterSimpleCode())) {
-                SPUtilHelper.saveCountryInterCode(datum.getInterCode());
-                SPUtilHelper.saveCountryCode(datum.getCode());
-                SPUtilHelper.saveCountryFlag(datum.getPic());
-                MyConfig.changeLanguageForCountry(this, datum.getCode());
-                break;
-            }
-        }
-    }
-
-    /**
-     * 获取最新版本
-     *
-     * @return
-     */
-    private void getVersion() {
-        Map<String, String> map = new HashMap<>();
-        map.put("type", "android-c");
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.getJsonToString(map));
-
-        addCall(call);
-
-        call.enqueue(new BaseResponseModelCallBack<VersionModel>(this) {
-
-            @Override
-            protected void onSuccess(VersionModel data, String SucMessage) {
-                if (data == null) {
-                    checkDbAegis();
-                    return;
-                }
-
-                if (data.getVersion() > AppUtils.getAppVersionCode(StartActivity.this)) {  //版本号不一致说明有更新
-                    showUploadDialog(data);
-                } else {
-                    checkDbAegis();
-                }
-            }
-
-            @Override
-            protected void onReqFailure(String errorCode, String errorMessage) {
-                checkDbAegis();
-            }
-
-            @Override
-            protected void onFinish() {
-                disMissLoading();
-            }
-        });
-    }
-
-
-    /**
-     * 显示更新dialog
-     *
-     * @param versionModel
-     */
-    private void showUploadDialog(VersionModel versionModel) {
-
+    @Override
+    public void versionUpdateDialog(VersionModel versionModel) {
         if (isForceUpload(versionModel.getForceUpdate())) { // 强制更新
-
             showSureDialog(getStrRes(R.string.tip_update), versionModel.getNote(), view -> {
                 startWeb(StartActivity.this, versionModel.getDownloadUrl());
                 EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
@@ -301,26 +96,35 @@ public class StartActivity extends BaseActivity {
             showDoubleWarnListen(getStrRes(R.string.tip_update), versionModel.getNote(), view -> {
                 startWeb(StartActivity.this, versionModel.getDownloadUrl());
             }, view -> {
-                checkDbAegis();
+                if (pagePresenter != null) {
+                    pagePresenter.noUpdate();
+                }
             });
         }
     }
 
-    /**
-     * 数据库兼容检测
-     */
-    private void checkDbAegis() {
-
-        mSubscription.add(Observable.just("")
-                .observeOn(Schedulers.newThread())
-                .flatMap(s -> Observable.fromIterable(WalletDBAegisUtils.findBtcInfoEmptyData()))
-                .subscribe(s -> {
-                    WalletDBAegisUtils.createBTCInfoAndUpdate(s.getUserId(), StringUtils.splitAsList(s.getHelpWordsEn(), HELPWORD_SPACE_SYMBOL));
-                }, throwable -> getQiniuAndNextTo(), () -> getQiniuAndNextTo()));
-
+    @Override
+    public void onStartPageEnd() {
+        finish();
     }
 
 
+    @Override
+    protected void onDestroy() {
+        if (pagePresenter != null) {
+            pagePresenter.clear();
+        }
+        super.onDestroy();
+    }
+
+    /**
+     * 显示确认取消弹框
+     *
+     * @param title
+     * @param content
+     * @param onPositiveListener
+     * @param onNegativeListener
+     */
     protected void showDoubleWarnListen(String title, String content, CommonDialog.OnPositiveListener onPositiveListener, CommonDialog.OnNegativeListener onNegativeListener) {
 
         if (isFinishing()) {
@@ -355,6 +159,5 @@ public class StartActivity extends BaseActivity {
 
         commonDialog.show();
     }
-
 
 }

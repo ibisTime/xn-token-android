@@ -98,7 +98,7 @@ public class SPUtilHelper {
      * 获取语言 默认英语
      */
     public static String getLanguage() {
-        return SPUtils.getString(CdApplication.getContext(), "language", MyConfig.ENGLISH);
+        return SPUtils.getString(CdApplication.getContext(), "language", MyConfig.SIMPLIFIED);
     }
 
 
