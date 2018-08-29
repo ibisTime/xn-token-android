@@ -7,7 +7,9 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 
+import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.find.FindFragment;
@@ -20,6 +22,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.List;
 
+@Route(path = CdRouteHelper.APPMAIN)
 public class MainActivity extends BaseActivity {
 
     private ActivityMainBinding mBinding;

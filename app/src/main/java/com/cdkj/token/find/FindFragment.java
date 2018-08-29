@@ -281,7 +281,6 @@ public class FindFragment extends BaseLazyFragment {
         // 刷新轮播图
         if (bannerData != null && !bannerData.isEmpty()) {
             mBinding.banner.startAutoPlay();
-            getBanner(false);
             return;
         }
 

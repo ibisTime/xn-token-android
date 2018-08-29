@@ -1,54 +1,25 @@
 package com.cdkj.token.user.login;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.fastjson.JSON;
-import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.MyConfig;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
-import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
-import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
-import com.cdkj.baselibrary.nets.RetrofitUtils;
-import com.cdkj.baselibrary.utils.AppUtils;
-import com.cdkj.baselibrary.utils.LogUtil;
-import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
-import com.cdkj.token.api.MyApi;
 import com.cdkj.token.interfaces.StartPagePresenter;
 import com.cdkj.token.interfaces.StartPageView;
-import com.cdkj.token.model.CountryCodeMode;
-import com.cdkj.token.model.IpCountryInfo;
-import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.VersionModel;
-import com.cdkj.token.utils.wallet.WalletDBAegisUtils;
-import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
-import com.cdkj.token.wallet.import_guide.ImportWalletStartActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import io.reactivex.Observable;
-import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 import static com.cdkj.token.utils.UpdateUtil.isForceUpload;
 import static com.cdkj.token.utils.UpdateUtil.startWeb;
-import static com.cdkj.token.utils.wallet.WalletHelper.HELPWORD_SPACE_SYMBOL;
 
 /**
  * 启动页
@@ -97,14 +68,21 @@ public class StartActivity extends BaseActivity implements StartPageView {
                 startWeb(StartActivity.this, versionModel.getDownloadUrl());
             }, view -> {
                 if (pagePresenter != null) {
-                    pagePresenter.noUpdate();
+                    pagePresenter.refuseUpdate();
                 }
             });
         }
     }
 
     @Override
-    public void onStartPageEnd() {
+    public void startMain() {
+        MainActivity.open(this);
+        finish();
+    }
+
+    @Override
+    public void startLogin() {
+        SignInActivity.open(this, true);
         finish();
     }
 
@@ -113,6 +91,7 @@ public class StartActivity extends BaseActivity implements StartPageView {
     protected void onDestroy() {
         if (pagePresenter != null) {
             pagePresenter.clear();
+            pagePresenter = null;
         }
         super.onDestroy();
     }

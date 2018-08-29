@@ -295,14 +295,21 @@ public class WalletFragment extends BaseLazyFragment {
                     return;
                 }
                 showWalletStateView();
-                getPriWalletAssetsData(true, true);
+
+
+                List<WalletBalanceModel> walletBalanceModels = transformToPrivateAdapterData(mPrivateWalletData);
+                mRefreshHelper.setPageIndex(1);
+                mRefreshHelper.setData(walletBalanceModels, getString(R.string.no_assets), R.mipmap.order_none);
+
+//                getPriWalletAssetsData(true, true);
 
                 break;
 
             case TOPVIEW:                                         //个人钱包
                 isPrivateWallet = false;
                 hindImportGuideView();
-                getWalletAssetsData(false, true);
+                mRefreshHelper.setData(transformToAdapterData(mWalletData), getString(R.string.no_assets), R.mipmap.order_none);
+//                getWalletAssetsData(false, true);
                 break;
         }
 

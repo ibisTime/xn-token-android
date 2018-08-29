@@ -62,7 +62,7 @@ public class StartPagePresenter {
     /**
      * 当有更新提示的时候，用户选择了不进行更新，则继续进行
      */
-    public void noUpdate() {
+    public void refuseUpdate() {
         checkDBAegis();
     }
 
@@ -223,9 +223,8 @@ public class StartPagePresenter {
      * 启动主页
      */
     private void startMain() {
-        CdRouteHelper.openLogin(true);
         if (startPageView != null) {
-            startPageView.onStartPageEnd();
+            startPageView.startMain();
         }
     }
 
@@ -233,9 +232,8 @@ public class StartPagePresenter {
      * 启动登录页
      */
     private void startLogin() {
-        CdRouteHelper.openLogin(true);
         if (startPageView != null) {
-            startPageView.onStartPageEnd();
+            startPageView.startLogin();
         }
     }
 

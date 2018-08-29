@@ -10,6 +10,7 @@ import com.alibaba.android.arouter.launcher.ARouter;
 public class CdRouteHelper {
     //跳转到登录页面
     public static final String APPLOGIN = "/app/login";
+    public static final String APPMAIN = "/app/main";
 
     public static final String APP_COUNTRY_SELECT = "/app/country_select";
     //启动页
@@ -17,10 +18,7 @@ public class CdRouteHelper {
     //找回登录密码
     public static final String FINDPWD = "/commen/findpwd";
     //修改电话号码
-    public static final String PAYPWDMODIFY = "/commen/PayPwdModify";
-    public static final String UPDATEBANKCARD = "/commen/UPDATEBANKCARD";
     public static final String UPDATEPHONE = "/commen/UPDATEPHONE";
-    public static final String WEBVIEWACTIVITY = "/commen/webView";
 
     //获取数据标志
     public static final String DATASIGN = "dataSign";
@@ -35,6 +33,15 @@ public class CdRouteHelper {
     public static void openLogin(boolean canopenmain) {
         ARouter.getInstance().build(APPLOGIN)
                 .withBoolean(DATASIGN, canopenmain)
+                .greenChannel()                                       //不使用任何拦截器
+                .navigation();
+    }
+
+    /**
+     * 打开主页
+     */
+    public static void openMain() {
+        ARouter.getInstance().build(APPMAIN)
                 .greenChannel()                                       //不使用任何拦截器
                 .navigation();
     }

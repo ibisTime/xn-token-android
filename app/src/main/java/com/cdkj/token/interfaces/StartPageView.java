@@ -14,6 +14,8 @@ public interface StartPageView {
 
     void versionUpdateDialog(VersionModel versionModel);//显示更新dialog
 
-    void onStartPageEnd();
+    void startMain();
+
+    void startLogin();
 
 }
