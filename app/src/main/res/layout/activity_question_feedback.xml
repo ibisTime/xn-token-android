@@ -136,7 +136,7 @@
                 android:layout_marginTop="10dp"
                 android:background="@null"
                 android:gravity="top"
-                android:hint="请留下您的联系方式（推荐邮箱）"
+                android:hint="@string/question_remark_hint"
                 android:paddingTop="5dp"
                 android:textColor="@color/text_black_cd"
                 android:textColorHint="@color/gray_999999"

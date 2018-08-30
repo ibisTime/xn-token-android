@@ -691,4 +691,5 @@
     <string name="confirm_buy">确认购买</string>
     <string name="buy_product_get_income">预计收入</string>
     <string name="krw">KRW</string>
+    <string name="question_remark_hint">请留下您的联系方式（推荐邮箱）</string>
 </resources>

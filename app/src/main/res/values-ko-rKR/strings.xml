@@ -699,5 +699,6 @@
     <string name="lhlc_repay">재테크 대금을 측정하다</string>
     <string name="confirm_buy">구매 확인</string>
     <string name="krw">KRW</string>
+    <string name="question_remark_hint">请留下您的联系方式（推荐邮箱）</string>
 
 </resources>

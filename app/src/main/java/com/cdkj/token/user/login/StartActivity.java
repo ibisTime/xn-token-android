@@ -45,6 +45,7 @@ public class StartActivity extends BaseActivity implements StartPageView {
         }
         setContentView(R.layout.activity_start);
 
+
         pagePresenter = new StartPagePresenter(this);
         pagePresenter.start();
 

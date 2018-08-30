@@ -845,6 +845,7 @@
     <string name="lhlc_repay">Quantitative Finance repayment </string>
     <string name="confirm_buy">Confirm purchase</string>
     <string name="krw">KRW</string>
+    <string name="question_remark_hint">请留下您的联系方式（推荐邮箱）</string>
 
 </resources>
 

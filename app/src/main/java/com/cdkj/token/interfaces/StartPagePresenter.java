@@ -34,7 +34,7 @@ import static com.cdkj.token.utils.wallet.WalletHelper.HELPWORD_SPACE_SYMBOL;
 
 /**
  * 启动页
- * 检测更新---检测数据库兼容---获取七牛url
+ * 检测数据库兼容---检测更新---获取七牛url
  * ---是否登录
  * ——————是  进入主页
  * ——————否   取国家列表  取列表第一位国家信息并保存(空数据默认为中国)  进入登录页
@@ -56,19 +56,19 @@ public class StartPagePresenter {
      * 开始
      */
     public void start() {
-        checkVersion();
+        checkDBAegis();
     }
 
     /**
      * 当有更新提示的时候，用户选择了不进行更新，则继续进行
      */
     public void refuseUpdate() {
-        checkDBAegis();
+        getQiNiuUrl();
     }
 
 
     /**
-     * 获取更新，下一步是检测数据库更新兼容
+     * 获取更新，下一步是获取七牛
      */
     private void checkVersion() {
         Map<String, String> map = new HashMap<>();
@@ -85,7 +85,7 @@ public class StartPagePresenter {
             @Override
             protected void onSuccess(VersionModel data, String SucMessage) {
                 if (data == null) {
-                    checkDBAegis();
+                    refuseUpdate();
                     return;
                 }
 
@@ -96,13 +96,13 @@ public class StartPagePresenter {
                     }
 
                 } else {
-                    checkDBAegis();
+                    refuseUpdate();
                 }
             }
 
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
-                checkDBAegis();
+                refuseUpdate();
             }
 
             @Override
@@ -113,7 +113,7 @@ public class StartPagePresenter {
     }
 
     /**
-     * 检测数据库升级兼容，下一步获取七牛url
+     * 检测数据库升级兼容，下一步检查版本更新
      */
     private void checkDBAegis() {
         mSubscription.add(Observable.just("")
@@ -121,7 +121,7 @@ public class StartPagePresenter {
                 .flatMap(s -> Observable.fromIterable(WalletDBAegisUtils.findBtcInfoEmptyData()))
                 .subscribe(s -> {
                     WalletDBAegisUtils.createBTCInfoAndUpdate(s.getUserId(), StringUtils.splitAsList(s.getHelpWordsEn(), HELPWORD_SPACE_SYMBOL));
-                }, throwable -> getQiNiuUrl(), () -> getQiNiuUrl()));
+                }, throwable -> checkVersion(), () -> checkVersion()));
 
     }
 
