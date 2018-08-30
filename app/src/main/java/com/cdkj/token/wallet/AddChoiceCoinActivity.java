@@ -63,7 +63,7 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
             }
         });
 
-        mlLocalCoinCachePresenter.getCoinList(this, true);
+        mlLocalCoinCachePresenter.getCoinList(this);
     }
 
     @Override
@@ -131,7 +131,7 @@ public class AddChoiceCoinActivity extends AbsRefreshListActivity {
 
     @Override
     public void getListRequest(int pageindex, int limit, boolean isShowDialog) {
-        mlLocalCoinCachePresenter.getCoinList(this, true);
+        mlLocalCoinCachePresenter.getCoinList(this);
     }
 
 

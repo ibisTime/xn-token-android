@@ -128,22 +128,7 @@ public class BillListActivity extends AbsLoadActivity {
             mBinding.tvAmount.setText(AmountUtil.amountFormatUnitForShow(amount.subtract(frozenAmount), mAccountBean.getCoinName(), 8) + " " + mAccountBean.getCoinName());
         }
 
-
-        if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-            if (mAccountBean.getAmountCny() == null) {
-                mBinding.tvAmountCny.setText("≈ 0" + WalletHelper.getShowLocalCoinType());
-            } else {
-                mBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountCny() + WalletHelper.getShowLocalCoinType());
-            }
-
-        } else {
-            if (mAccountBean.getAmountUSD() == null) {
-                mBinding.tvAmountCny.setText("≈ 0" + WalletHelper.getShowLocalCoinType());
-            } else {
-                mBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountUSD() + WalletHelper.getShowLocalCoinType());
-            }
-        }
-
+        mBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountStringByLocalSymbol() + WalletHelper.getShowLocalCoinType());
 
     }
 

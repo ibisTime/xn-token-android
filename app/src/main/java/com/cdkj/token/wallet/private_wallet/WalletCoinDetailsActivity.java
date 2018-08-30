@@ -117,19 +117,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
         }
 
-        if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-            if (TextUtils.isEmpty(accountListBean.getAmountCny())) {
-                mBinding.tvAmountCny.setText("≈0" + "" + WalletHelper.getShowLocalCoinType());
-            } else {
-                mBinding.tvAmountCny.setText("≈" + accountListBean.getAmountCny() + " " + WalletHelper.getShowLocalCoinType());
-            }
-        } else if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
-            if (TextUtils.isEmpty(accountListBean.getAmountUSD())) {
-                mBinding.tvAmountCny.setText("≈0" + " " + WalletHelper.getShowLocalCoinType());
-            } else {
-                mBinding.tvAmountCny.setText("≈" + accountListBean.getAmountUSD() + " " + WalletHelper.getShowLocalCoinType());
-            }
-        }
+        mBinding.tvAmountCny.setText("≈" + accountListBean.getAmountStringByLocalSymbol() + " " + WalletHelper.getShowLocalCoinType());
     }
 
 

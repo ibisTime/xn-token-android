@@ -698,5 +698,6 @@
     <string name="lhlc_invest">재테크 투자 를 양적 으로 정하다</string>
     <string name="lhlc_repay">재테크 대금을 측정하다</string>
     <string name="confirm_buy">구매 확인</string>
+    <string name="krw">KRW</string>
 
 </resources>

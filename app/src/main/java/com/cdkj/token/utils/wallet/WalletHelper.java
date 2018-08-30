@@ -5,9 +5,9 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.LogUtil;
-import com.cdkj.baselibrary.utils.MoneyUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.model.BtcSignUTXO;
 import com.cdkj.token.model.DbCoinInfo;
@@ -107,12 +107,6 @@ public class WalletHelper {
     public final static String COIN_WAN = "WAN";// 币种类型 WAN
     public final static String COIN_BTC = "BTC";// 币种类型 BTC
 
-    public final static String LOCAL_COIN_CNY = "CNY";// 币种显示类型 人民币
-    public final static String LOCAL_COIN_USD = "USD";// 币种显示类型 美元
-
-    public final static String LOCAL_COIN_USD_SYMBOL = "$";// 币种显示类型 美元
-    public final static String LOCAL_COIN_CNY_SYMBOL = MoneyUtils.MONEYSING;// 币种显示类型 美元
-
 
     //ETH 节点地址
     public final static String ETH_NODE_URL = "https://mainnet.infura.io/qfyZa8diWhk28tT9Cwft";
@@ -122,21 +116,7 @@ public class WalletHelper {
     public final static String WAN_NODE_URL = "http://47.75.165.70:8546";
     public final static String WAN_NODE_URL_DEV = "http://120.26.6.213:8546";
 
-    /**
-     * 根据本地货币获取显示货币符号
-     *
-     * @param localCoin
-     * @return
-     */
 
-    public static String getMoneySymbol(String localCoin) {
-        if (TextUtils.equals(localCoin, WalletHelper.LOCAL_COIN_CNY)) {
-            return LOCAL_COIN_CNY_SYMBOL;
-        } else if (TextUtils.equals(localCoin, WalletHelper.LOCAL_COIN_USD)) {
-            return LOCAL_COIN_USD_SYMBOL;
-        }
-        return LOCAL_COIN_CNY_SYMBOL;
-    }
 
     /**
      * 根据币种和环境类型获取节点url

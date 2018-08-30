@@ -5,6 +5,7 @@ import com.cdkj.baselibrary.api.BaseApiServer;
 import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.LogUtil;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import retrofit2.Retrofit;
 
@@ -33,6 +34,7 @@ public class RetrofitUtils {
                     .baseUrl(getBaseURL())
                     .client(OkHttpUtils.getInstance())
                     .addConverterFactory(FastJsonConVerter.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
         }
         return retrofitInstance;

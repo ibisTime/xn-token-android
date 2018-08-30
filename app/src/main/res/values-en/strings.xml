@@ -844,6 +844,7 @@
 
     <string name="lhlc_repay">Quantitative Finance repayment </string>
     <string name="confirm_buy">Confirm purchase</string>
+    <string name="krw">KRW</string>
 
 </resources>
 

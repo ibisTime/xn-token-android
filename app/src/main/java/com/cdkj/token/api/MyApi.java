@@ -55,6 +55,7 @@ import com.cdkj.token.model.db.LocalCoinDbModel;
 
 import java.math.BigInteger;
 
+import io.reactivex.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -232,6 +233,14 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<BalanceListModel>> getBalanceList(@Field("code") String code, @Field("json") String json);
+    /**
+     * 根据币种列表获取相应的币种信息列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Observable<BaseResponseModel<BalanceListModel>> getBalanceListObservable(@Field("code") String code, @Field("json") String json);
 
     /**
      * 根据币种列表获取相应的币种信息列表
@@ -663,6 +672,17 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseListModel<LocalCoinDbModel>> getCoinList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取支持的币种
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Observable<BaseResponseListModel<LocalCoinDbModel>> getCoinListObservable(@Field("code") String code, @Field("json") String json);
 
 
     /**

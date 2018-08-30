@@ -690,4 +690,5 @@
     <string name="lhlc_repay">量化理财还款</string>
     <string name="confirm_buy">确认购买</string>
     <string name="buy_product_get_income">预计收入</string>
+    <string name="krw">KRW</string>
 </resources>

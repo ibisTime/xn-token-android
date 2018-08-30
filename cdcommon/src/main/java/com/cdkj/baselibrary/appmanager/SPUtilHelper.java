@@ -115,7 +115,7 @@ public class SPUtilHelper {
      * 设置本地货币类型（CNY USD）
      */
     public static String getLocalCoinType() {
-        return SPUtils.getString(CdApplication.getContext(), "local_coin_type", "CNY");
+        return SPUtils.getString(CdApplication.getContext(), "local_coin_type", MyConfig.LOCAL_COIN_CNY);
     }
 
 

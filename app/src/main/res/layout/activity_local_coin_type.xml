@@ -91,6 +91,41 @@
 
 
                 </LinearLayout>
+
+                <View style="@style/style_split_line" />
+
+                <LinearLayout
+                    android:id="@+id/linLayout_krw"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_item_height"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="@string/krw"
+                        android:textColor="@color/gray_666666"
+                        android:textSize="12sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/img_krw"
+                        android:layout_width="15dp"
+                        android:layout_height="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginRight="15dp"
+                        android:src="@drawable/choose"
+                        android:visibility="gone" />
+
+
+                </LinearLayout>
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </LinearLayout>

@@ -39,51 +39,12 @@ public class WalletBalanceAdapter extends BaseQuickAdapter<WalletBalanceModel, B
     }
 
     public String getMarketPriceString(WalletBalanceModel item) {
-
-        String priceString = "";
-
-        if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-
-            if (item.getMarketPriceCNY() == null) {
-                priceString = "≈ 0";
-            } else {
-                priceString = "≈ " + item.getMarketPriceCNY();
-            }
-
-        } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
-
-            if (item.getMarketPriceUSD() == null) {
-                priceString = "≈ 0";
-            } else {
-                priceString = "≈ " + item.getMarketPriceUSD();
-            }
-        }
-
+        String priceString = item.getMarketStringByLocalSymbol();
         return priceString + WalletHelper.getShowLocalCoinType();
-
     }
 
     public String getAmountString(WalletBalanceModel item) {
-
-        String priceString = "";
-
-        if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
-
-            if (item.getAmountCny() == null) {
-                priceString = "≈ 0";
-            } else {
-                priceString = "≈ " + item.getAmountCny();
-            }
-
-        } else if (TextUtils.equals(SPUtilHelper.getLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
-
-            if (item.getAmountUSD() == null) {
-                priceString = "≈ 0";
-            } else {
-                priceString = "≈ " + item.getAmountUSD();
-            }
-        }
-
+        String priceString = item.getAmountStringByLocalSymbol();
         return priceString + WalletHelper.getShowLocalCoinType();
     }
 

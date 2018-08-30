@@ -37,6 +37,10 @@ android {
     dataBinding {
         enabled true
     }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 
     sourceSets.main {
         jniLibs.srcDirs = ['libs']
@@ -63,7 +67,7 @@ dependencies {
     api 'com.squareup.retrofit2:retrofit:2.3.0'
     api 'com.scwang.smartrefresh:SmartRefreshLayout:1.0.3'
     api 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.34'
-
+    api 'com.jakewharton.retrofit:retrofit2-rxjava2-adapter:1.0.0'
     //    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.24'
 
     //rxjava

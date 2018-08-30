@@ -40,9 +40,8 @@ public class LocalCoinCachePresenter {
      * 处理缓存逻辑
      *
      * @param context
-     * @param isCallBack 是否执行回调
      */
-    public void getCoinList(Context context, boolean isCallBack) {
+    public void getCoinList(Context context) {
 
         Map<String, String> map = new HashMap<>();
         map.put("type", "");
@@ -57,12 +56,12 @@ public class LocalCoinCachePresenter {
         call.enqueue(new BaseResponseListCallBack<LocalCoinDbModel>(context) {
             @Override
             protected void onSuccess(List<LocalCoinDbModel> data, String SucMessage) {
-                saveCoinAsync(data,isCallBack);
+                saveCoinAsync(data);
             }
 
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
-                if (mListener != null && isCallBack) {
+                if (mListener != null) {
                     mListener.cacheEnd(null);
                 }
             }
@@ -84,7 +83,7 @@ public class LocalCoinCachePresenter {
      *
      * @param data
      */
-    private void saveCoinAsync(List<LocalCoinDbModel> data, boolean isCallBack) {
+    private void saveCoinAsync(List<LocalCoinDbModel> data) {
         mSubscription.add(Observable.just(data)
                 .subscribeOn(Schedulers.newThread())
                 .map(localCoinDbModels -> {
@@ -93,11 +92,11 @@ public class LocalCoinCachePresenter {
                 })
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(s -> {
-                    if (mListener != null && isCallBack) {
+                    if (mListener != null) {
                         mListener.cacheEnd(s);
                     }
                 }, throwable -> {
-                    if (mListener != null && isCallBack) {
+                    if (mListener != null) {
                         mListener.cacheEnd(null);
                     }
                 }));

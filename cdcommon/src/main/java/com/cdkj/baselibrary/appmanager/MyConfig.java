@@ -7,9 +7,12 @@ import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 
+import com.cdkj.baselibrary.interfaces.AmountShowType;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
+import com.cdkj.baselibrary.utils.MoneyUtils;
 
+import java.math.BigDecimal;
 import java.util.Locale;
 
 
@@ -38,6 +41,16 @@ public class MyConfig {
     public final static int NODE_REALSE = 1;//真实环境
 
 
+    public final static String LOCAL_COIN_CNY = "CNY";// 币种显示类型 人民币
+    public final static String LOCAL_COIN_USD = "USD";// 币种显示类型 美元
+    public final static String LOCAL_COIN_KRW = "KRW";// 币种显示类型 韩元
+
+
+    public final static String LOCAL_COIN_USD_SYMBOL = "$";// 币种显示类型 美元
+    public final static String LOCAL_COIN_CNY_SYMBOL = MoneyUtils.MONEYSING;// 币种显示类型 美元
+    public final static String LOCAL_COIN_KRW_SYMBOL = "₩";// 币种显示类型 韩币
+
+
     //默认七牛url
     public static String IMGURL = "http://pajvine9a.bkt.clouddn.com/";
 
@@ -46,9 +59,9 @@ public class MyConfig {
 
 
     // 环境访问地址
-    public static final String BASE_URL_DEV = "http://120.26.6.213:2101/forward-service/"; // 研发
-        public static final String BASE_URL_TEST = "http://m.thatest.hichengdai.com/"; // 测试
-//    public static final String BASE_URL_TEST = "https://test.thachain.org/"; // 测试
+    public static final String BASE_URL_DEV = "http://m.dev.thachain.org/"; // 研发
+    public static final String BASE_URL_TEST = "http://m.thatest.hichengdai.com/"; // 测试
+    //    public static final String BASE_URL_TEST = "https://test.thachain.org/"; // 测试
     public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
 
 
@@ -123,5 +136,25 @@ public class MyConfig {
             AppUtils.setAppLanguage(context, getUserLanguageLocal());   //设置用户使用语言
         }
     }
+
+
+    /**
+     * 根据本地货币获取显示货币符号
+     *
+     * @param localCoin
+     * @return
+     */
+
+    public static String getMoneySymbol(String localCoin) {
+        if (TextUtils.equals(localCoin, MyConfig.LOCAL_COIN_CNY)) {
+            return MyConfig.LOCAL_COIN_CNY_SYMBOL;
+        } else if (TextUtils.equals(localCoin, MyConfig.LOCAL_COIN_USD)) {
+            return MyConfig.LOCAL_COIN_USD_SYMBOL;
+        } else if (TextUtils.equals(localCoin, MyConfig.LOCAL_COIN_KRW)) {
+            return MyConfig.LOCAL_COIN_KRW_SYMBOL;
+        }
+        return "";
+    }
+
 
 }
