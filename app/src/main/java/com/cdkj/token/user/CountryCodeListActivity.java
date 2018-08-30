@@ -74,6 +74,7 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
             }
 
             MyConfig.changeLanguageForCountry(this, countryCodeListAdapter.getSelectInterCode(position));
+            MyConfig.changeLocalCoinTypeForCountry(countryCodeListAdapter.getSelectInterCode(position));
             EventBus.getDefault().post(new AllFinishEvent());
             SignInActivity.open(this, true);
             finish();

@@ -206,6 +206,7 @@ public class StartPagePresenter {
         SPUtilHelper.saveCountryCode(countryCodeMode.getCode());
         SPUtilHelper.saveCountryFlag(countryCodeMode.getPic());
         MyConfig.changeLanguageForCountry(MyApplication.getInstance(), countryCodeMode.getInterCode());
+        MyConfig.changeLocalCoinTypeForCountry(countryCodeMode.getInterCode());
     }
 
     /**

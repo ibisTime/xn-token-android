@@ -137,6 +137,29 @@ public class MyConfig {
         }
     }
 
+    /**
+     * 选择国家的时候改变语言
+     *
+     * @param countryCode
+     */
+    public static void changeLocalCoinTypeForCountry(String countryCode) {
+        if (!TextUtils.isEmpty(countryCode)) {
+            switch (countryCode) {
+                case "0086":  //中国
+                case "00886":  //中国台湾
+                case "00852":  //中国香港
+                case "00853":   //中国澳门
+                    SPUtilHelper.saveLocalCoinType(MyConfig.LOCAL_COIN_CNY);  //人民币
+                    break;
+                case "0082":
+                    SPUtilHelper.saveLocalCoinType(MyConfig.LOCAL_COIN_KRW);  //韩币
+                    break;
+                default:
+                    SPUtilHelper.saveLocalCoinType(MyConfig.LOCAL_COIN_USD);  //美元
+            }
+        }
+    }
+
 
     /**
      * 根据本地货币获取显示货币符号
