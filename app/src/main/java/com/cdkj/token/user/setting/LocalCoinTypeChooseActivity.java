@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -47,29 +48,41 @@ public class LocalCoinTypeChooseActivity extends AbsStatusBarTranslucentActivity
         setMidTitle(R.string.local_coin);
         setPageBgImage(R.drawable.my_bg);
 
-        if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
+        if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), MyConfig.LOCAL_COIN_CNY)) {
             showCny();
-        } else {
+        } else if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), MyConfig.LOCAL_COIN_USD)) {
             showUsd();
+        } else {
+            showKRW();
         }
 
         //选择人民币
         mBinding.linLayoutCny.setOnClickListener(view -> {
-            if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_CNY)) {
+            if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), MyConfig.LOCAL_COIN_CNY)) {
                 return;
             }
             showCny();
-            SPUtilHelper.saveLocalCoinType(WalletHelper.LOCAL_COIN_CNY);
+            SPUtilHelper.saveLocalCoinType(MyConfig.LOCAL_COIN_CNY);
             finishActivity();
         });
 
         //选择美元
         mBinding.linLayoutUsd.setOnClickListener(view -> {
-            if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), WalletHelper.LOCAL_COIN_USD)) {
+            if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), MyConfig.LOCAL_COIN_USD)) {
                 return;
             }
             showUsd();
-            SPUtilHelper.saveLocalCoinType(WalletHelper.LOCAL_COIN_USD);
+            SPUtilHelper.saveLocalCoinType(MyConfig.LOCAL_COIN_USD);
+            finishActivity();
+        });
+
+        //选择韩元
+        mBinding.linLayoutUsd.setOnClickListener(view -> {
+            if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), MyConfig.LOCAL_COIN_USD)) {
+                return;
+            }
+            showKRW();
+            SPUtilHelper.saveLocalCoinType(MyConfig.LOCAL_COIN_KRW);
             finishActivity();
         });
     }
@@ -77,11 +90,19 @@ public class LocalCoinTypeChooseActivity extends AbsStatusBarTranslucentActivity
     void showUsd() {
         mBinding.imgUsd.setVisibility(View.VISIBLE);
         mBinding.imgCny.setVisibility(View.GONE);
+        mBinding.imgKrw.setVisibility(View.GONE);
     }
 
     void showCny() {
         mBinding.imgCny.setVisibility(View.VISIBLE);
         mBinding.imgUsd.setVisibility(View.GONE);
+        mBinding.imgKrw.setVisibility(View.GONE);
+    }
+
+    void showKRW() {
+        mBinding.imgCny.setVisibility(View.GONE);
+        mBinding.imgUsd.setVisibility(View.GONE);
+        mBinding.imgKrw.setVisibility(View.VISIBLE);
     }
 
     public void finishActivity() {

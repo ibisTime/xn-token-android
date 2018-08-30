@@ -108,7 +108,7 @@ public class UserSecurityActivity extends AbsStatusBarTranslucentActivity {
 
         //绑定邮箱
         mBinding.llMail.setOnClickListener(view -> {
-            UserEmailActivity.open(this, SPUtilHelper.getUserEmail());
+//            UserEmailActivity.open(this, SPUtilHelper.getUserEmail());
         });
 
         //修改手机号

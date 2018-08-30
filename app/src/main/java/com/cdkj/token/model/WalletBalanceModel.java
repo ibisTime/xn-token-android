@@ -2,14 +2,20 @@ package com.cdkj.token.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.text.TextUtils;
 
+import com.cdkj.baselibrary.interfaces.AmountShowType;
+import com.cdkj.baselibrary.interfaces.MarketShowType;
+
+import java.math.BigDecimal;
 import java.math.BigInteger;
 
 /**
+ * 钱包列表资产
  * Created by cdkj on 2018/7/1.
  */
 
-public class WalletBalanceModel implements Parcelable {
+public class WalletBalanceModel implements Parcelable, AmountShowType, MarketShowType {
 
     private String coinImgUrl;
     private String coinName;
@@ -24,9 +30,9 @@ public class WalletBalanceModel implements Parcelable {
 
     private String address;
 
-    private String coinBalance="0";
-    private String frozenAmountString="0";
-    private String amountString="0";
+    private String coinBalance = "0";
+    private String frozenAmountString = "0";
+    private String amountString = "0";
 
     public String getCoinType() {
         return coinType;
@@ -185,4 +191,35 @@ public class WalletBalanceModel implements Parcelable {
             return new WalletBalanceModel[size];
         }
     };
+
+
+    @Override
+    public String _getAmountStringUSD() {
+        return getAmountUSD();
+    }
+
+    @Override
+    public String _getAmountStringCNY() {
+        return getAmountCny();
+    }
+
+    @Override
+    public String _getAmountStringKRW() {
+        return "暂无";
+    }
+
+    @Override
+    public String _getMarketStringUSD() {
+        return getMarketPriceUSD();
+    }
+
+    @Override
+    public String _getMarketStringCNY() {
+        return getMarketPriceCNY();
+    }
+
+    @Override
+    public String _getMarketStringKRW() {
+        return "暂无";
+    }
 }
