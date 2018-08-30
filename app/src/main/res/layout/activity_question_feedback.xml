@@ -67,8 +67,8 @@
                 android:background="@null"
                 android:gravity="top"
                 android:hint="@string/question_hint_2"
-                android:textColorHint="@color/gray_999999"
                 android:textColor="@color/text_black_cd"
+                android:textColorHint="@color/gray_999999"
                 android:textSize="13sp" />
 
             <View
@@ -90,8 +90,8 @@
                 android:background="@null"
                 android:gravity="top"
                 android:hint="@string/question_hint_4"
-                android:textColorHint="@color/gray_999999"
                 android:textColor="@color/text_black_cd"
+                android:textColorHint="@color/gray_999999"
                 android:textSize="13sp" />
 
             <View
@@ -136,8 +136,10 @@
                 android:layout_marginTop="10dp"
                 android:background="@null"
                 android:gravity="top"
-                android:textColorHint="@color/gray_999999"
+                android:hint="请留下您的联系方式（推荐邮箱）"
+                android:paddingTop="5dp"
                 android:textColor="@color/text_black_cd"
+                android:textColorHint="@color/gray_999999"
                 android:textSize="13sp" />
 
             <View
