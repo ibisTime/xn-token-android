@@ -4,11 +4,20 @@ package com.cdkj.baselibrary.api;
  * Created by cdkj on 2017/6/8.
  */
 
-public class BaseResponseModel<T>{
+public class BaseResponseModel<T> {
 
     private String errorCode;//状态码
     private String errorInfo;//状态描述
+    private String errorBizCode;//业务错误
     private T data;          //数据
+
+    public String getErrorBizCode() {
+        return errorBizCode;
+    }
+
+    public void setErrorBizCode(String errorBizCode) {
+        this.errorBizCode = errorBizCode;
+    }
 
     public String getErrorCode() {
         return errorCode;

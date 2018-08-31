@@ -1,12 +1,18 @@
 package com.cdkj.baselibrary.utils;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.media.ExifInterface;
+import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.widget.ScrollView;
 
+import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.appmanager.AppConfig;
 
 import java.io.ByteArrayOutputStream;
@@ -258,6 +264,13 @@ public class BitmapUtils {
         } catch (Exception e) {
         }
 
+        // 最后通知图库更新
+        try {
+            CdApplication.getContext().sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+                    Uri.fromFile(file)));
+        } catch (Exception e) {
+        }
+
         return file.getPath();
     }
 
@@ -307,6 +320,32 @@ public class BitmapUtils {
 
         System.out.print("size = _" + imageWidth + "_" + imageHeight);
         return size;
+    }
+
+
+    /**
+     * 截取scrollview的生产bitmap
+     *
+     * @param scrollView
+     * @return
+     */
+    public static Bitmap getBitmapByView(ScrollView scrollView) {
+        LogUtil.E("aaa图片");
+        int h = 0;
+        Bitmap bitmap = null;
+        // 获取scrollview实际高度
+        for (int i = 0; i < scrollView.getChildCount(); i++) {
+            h += scrollView.getChildAt(i).getHeight();
+            scrollView.getChildAt(i).setBackgroundColor(
+                    Color.parseColor("#ffffff"));
+        }
+        // 创建对应大小的bitmap
+        bitmap = Bitmap.createBitmap(scrollView.getWidth(), h,
+                Bitmap.Config.ARGB_8888);
+        final Canvas canvas = new Canvas(bitmap);
+        scrollView.draw(canvas);
+
+        return bitmap;
     }
 
 

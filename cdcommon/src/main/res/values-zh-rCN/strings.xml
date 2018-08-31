@@ -128,4 +128,13 @@
     <string name="no_more_data">全部加载完成</string>
     <string name="login_fail">登录信息已失效，请重新登录！</string>
     <string name="buy_product_get_income">预计收入</string>
+    <string name="request_error_1">超过红包最大个数限制</string>
+    <string name="request_error_2">超过红包最大金额限制</string>
+    <string name="request_error_3">单个红包不能小于0.001</string>
+    <string name="request_error_4">不存在的红包类型</string>
+    <string name="request_error_5">红包错误，请联系管理员</string>
+    <string name="request_error_6">红包已过期，下次记得早点来</string>
+    <string name="request_error_7">红包已抢完</string>
+    <string name="request_error_8">已经抢过该红包了</string>
+    <string name="request_error_9">红包不存在</string>
 </resources>

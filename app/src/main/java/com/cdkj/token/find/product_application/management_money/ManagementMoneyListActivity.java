@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.api.ResponseInListModel;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -81,7 +82,7 @@ public class ManagementMoneyListActivity extends AbsRefreshClipListActivity {
         map.put("status", "appDisplay");
         map.put("start", pageindex + "");
         map.put("limit", limit + "");
-
+        map.put("language", SPUtilHelper.getLanguage());
         if (isShowDialog) {
             showLoadingDialog();
         }

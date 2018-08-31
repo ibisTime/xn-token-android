@@ -846,6 +846,10 @@
     <string name="confirm_buy">Confirm purchase</string>
     <string name="krw">KRW</string>
     <string name="question_remark_hint">请留下您的联系方式（推荐邮箱）</string>
+    <string name="save_qrimg">保存二维码</string>
+    <string name="no_file_permission">没有获取到文件读写权限，无法保存图片</string>
+    <string name="save_success">保存成功</string>
+    <string name="save_fail">保存失败</string>
 
 </resources>
 

@@ -134,7 +134,7 @@ public class WalletFragment extends BaseLazyFragment {
                 if (isPrivateWallet) {
                     getPriWalletAssetsData(true, false);
                 } else {
-                    getWalletAssetsData(true, true);
+                    getWalletAssetsData(true, false);
                 }
             }
 

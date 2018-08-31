@@ -133,6 +133,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         Map<String, String> map = new HashMap<>();
 
         map.put("code", mProductCode);
+        map.put("language", SPUtilHelper.getLanguage());
 
         Call<BaseResponseModel<ManagementMoney>> call = RetrofitUtils.createApi(MyApi.class).getMoneyManageProductDetails("625511", StringUtils.getJsonToString(map));
 

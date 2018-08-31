@@ -38,7 +38,7 @@ import static com.cdkj.token.utils.wallet.WalletHelper.HELPWORD_SPACE_SYMBOL;
  * ——————是  进入主页
  * ——————否   取国家列表  取列表第一位国家信息并保存(空数据默认为中国)  进入登录页
  */
-
+//TODO 启动请求嵌套优化
 public class StartPagePresenter {
 
     public StartPageView startPageView;

@@ -14,12 +14,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.cdkj.baselibrary.nets.NetHelper.DATA_NULL;
-import static com.cdkj.baselibrary.nets.NetHelper.NETERRORCODE4;
-import static com.cdkj.baselibrary.nets.NetHelper.REQUESTFECODE4;
-import static com.cdkj.baselibrary.nets.NetHelper.REQUESTOK;
-import static com.cdkj.baselibrary.nets.NetHelper.getThrowableStateCode;
-import static com.cdkj.baselibrary.nets.NetHelper.getThrowableStateString;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.DATA_NULL;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.NETERRORCODE4;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.REQUESTFECODE3;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.REQUESTFECODE4;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.REQUESTOK;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.getThrowableStateCode;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.getThrowableStateString;
 
 /**
  * 网络请求回调
@@ -85,11 +86,9 @@ public abstract class BaseResponseModelCallBack<T> implements Callback<BaseRespo
      */
     protected void checkState(BaseResponseModel baseModelNew) {
 
-        String state = baseModelNew.getErrorCode();
+        String errorCode = baseModelNew.getErrorCode();
 
-        LogUtil.E("登录" + TextUtils.equals(state, REQUESTFECODE4));
-
-        if (TextUtils.equals(state, REQUESTOK)) { //请求成功
+        if (TextUtils.equals(errorCode, REQUESTOK)) { //请求成功
 
             T t = (T) baseModelNew.getData();
 
@@ -100,12 +99,13 @@ public abstract class BaseResponseModelCallBack<T> implements Callback<BaseRespo
 
             onSuccess(t, baseModelNew.getErrorInfo());
 
-        } else if (TextUtils.equals(state, REQUESTFECODE4)) {
+        } else if (TextUtils.equals(errorCode, REQUESTFECODE4)) {
             onLoginFailure(context, baseModelNew.getErrorInfo());
+        } else if (TextUtils.equals(errorCode, REQUESTFECODE3)) {
+            onReqFailure(baseModelNew.getErrorBizCode(), baseModelNew.getErrorInfo());
         } else {
-            onReqFailure(state, baseModelNew.getErrorInfo());
+            onReqFailure(baseModelNew.getErrorCode(), baseModelNew.getErrorInfo());
         }
-
     }
 
 
@@ -123,7 +123,7 @@ public abstract class BaseResponseModelCallBack<T> implements Callback<BaseRespo
      * @param errorMessage
      */
     protected void onReqFailure(String errorCode, String errorMessage) {
-        NetHelper.onReqFailure(context, errorCode, errorMessage);
+        NetErrorHelper.onReqFailure(context, errorCode, errorMessage);
     }
 
     /**
@@ -132,7 +132,7 @@ public abstract class BaseResponseModelCallBack<T> implements Callback<BaseRespo
      * @param
      */
     protected void onLoginFailure(Context context, String errorMessage) {
-        NetHelper.onLoginFailure(context, errorMessage);
+        NetErrorHelper.onLoginFailure(context, errorMessage);
     }
 
 
@@ -145,7 +145,7 @@ public abstract class BaseResponseModelCallBack<T> implements Callback<BaseRespo
      * 无网络
      */
     protected void onNoNet(String msg) {
-        NetHelper.onNoNet(context, msg);
+        NetErrorHelper.onNoNet(context, msg);
     }
 
 }

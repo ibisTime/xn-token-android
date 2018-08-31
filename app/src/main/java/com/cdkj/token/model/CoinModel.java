@@ -24,7 +24,16 @@ public class CoinModel implements Serializable, AmountShowTypeInterface {
     private String totalAmountCNY;
     private String totalAmountUSD;
     private String totalAmountHKD;
+    private String totalAmountKRW;
     private List<AccountListBean> accountList;
+
+    public String getTotalAmountKRW() {
+        return totalAmountKRW;
+    }
+
+    public void setTotalAmountKRW(String totalAmountKRW) {
+        this.totalAmountKRW = totalAmountKRW;
+    }
 
     public String getTotalAmountCNY() {
         return totalAmountCNY;
@@ -70,7 +79,7 @@ public class CoinModel implements Serializable, AmountShowTypeInterface {
 
     @Override
     public String _getAmountStringKRW() {
-        return "0";
+        return totalAmountKRW;
     }
 
     public static class AccountListBean implements Serializable, IPickerViewData {

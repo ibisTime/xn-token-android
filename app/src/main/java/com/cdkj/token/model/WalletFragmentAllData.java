@@ -11,7 +11,7 @@ public class WalletFragmentAllData {
 
     private BalanceListModel privateWalletData;//去中心化钱包
 
-    private MsgListModel msgListModel;//公告数据
+    private String bulletinString="";//公告数据
 
     public CoinModel getWalletData() {
         return walletData;
@@ -29,11 +29,11 @@ public class WalletFragmentAllData {
         this.privateWalletData = privateWalletData;
     }
 
-    public MsgListModel getMsgListModel() {
-        return msgListModel;
+    public String getBulletinString() {
+        return bulletinString;
     }
 
-    public void setMsgListModel(MsgListModel msgListModel) {
-        this.msgListModel = msgListModel;
+    public void setBulletinString(String bulletinString) {
+        this.bulletinString = bulletinString;
     }
 }

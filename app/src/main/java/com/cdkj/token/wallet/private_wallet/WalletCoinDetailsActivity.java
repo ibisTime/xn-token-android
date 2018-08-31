@@ -30,6 +30,7 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWalletBillBinding;
 import com.cdkj.token.model.BTCBillModel;
 import com.cdkj.token.model.BalanceListModel;
+import com.cdkj.token.model.CoinAddressShowModel;
 import com.cdkj.token.model.CoinTypeAndAddress;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.LocalEthTokenCoinBill;
@@ -126,7 +127,10 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
         //收款
         mBinding.linLayoutInCoin.setOnClickListener(view -> {
             if (accountListBean != null) {
-                WalletAddressShowActivity.open(this, accountListBean.getAddress());
+                CoinAddressShowModel coinAddressShowModel = new CoinAddressShowModel();
+                coinAddressShowModel.setAddress(accountListBean.getAddress());
+                coinAddressShowModel.setCoinSymbol(accountListBean.getCoinName());
+                WalletAddressShowActivity.open(this, coinAddressShowModel);
             }
         });
 

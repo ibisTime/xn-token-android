@@ -1,11 +1,12 @@
 package com.cdkj.baselibrary.nets.rx;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.api.BaseResponseListModel;
-import com.cdkj.baselibrary.nets.NetHelper;
+import com.cdkj.baselibrary.nets.NetErrorHelper;
 import com.cdkj.baselibrary.nets.NetUtils;
 
 import java.util.List;
@@ -16,12 +17,13 @@ import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.cdkj.baselibrary.nets.NetHelper.DATA_NULL;
-import static com.cdkj.baselibrary.nets.NetHelper.NETERRORCODE4;
-import static com.cdkj.baselibrary.nets.NetHelper.REQUESTFECODE4;
-import static com.cdkj.baselibrary.nets.NetHelper.REQUESTOK;
-import static com.cdkj.baselibrary.nets.NetHelper.getThrowableStateCode;
-import static com.cdkj.baselibrary.nets.NetHelper.getThrowableStateString;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.DATA_NULL;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.NETERRORCODE3;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.NETERRORCODE4;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.REQUESTFECODE4;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.REQUESTOK;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.getThrowableStateCode;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.getThrowableStateString;
 
 
 /**
@@ -41,8 +43,10 @@ public class RxTransformerListHelper {
 
             boolean isSuccess = REQUESTOK.equals(responseCode);
 
-            if (!isSuccess) {
-                NetHelper.onReqFailure(context, responseCode, baseResponse.getErrorInfo());
+            if (TextUtils.equals(responseCode, NETERRORCODE3)) {
+                NetErrorHelper.onReqFailure(context, baseResponse.getErrorBizCode(), baseResponse.getErrorInfo());
+            } else if (!isSuccess) {
+                NetErrorHelper.onReqFailure(context, responseCode, baseResponse.getErrorInfo());
             }
 
             return isSuccess;
@@ -60,7 +64,7 @@ public class RxTransformerListHelper {
             BaseResponseListModel baseResponse = (BaseResponseListModel) response;
             List<T> t = (List<T>) baseResponse.getData();
             if (t == null) {
-                NetHelper.onReqFailure(context, DATA_NULL, CdApplication.getContext().getString(R.string.net_data_is_null));
+                NetErrorHelper.onReqFailure(context, DATA_NULL, CdApplication.getContext().getString(R.string.net_data_is_null));
                 return false;
             }
 
@@ -77,7 +81,7 @@ public class RxTransformerListHelper {
             boolean isSuccess = response instanceof BaseResponseListModel;
 
             if (!isSuccess) {
-                NetHelper.onReqFailure(context, NETERRORCODE4, CdApplication.getContext().getString(R.string.net_req_fail));
+                NetErrorHelper.onReqFailure(context, NETERRORCODE4, CdApplication.getContext().getString(R.string.net_req_fail));
             }
 
             return isSuccess;
@@ -96,9 +100,9 @@ public class RxTransformerListHelper {
         return throwable -> {
             throwable.printStackTrace();
             if (!NetUtils.isNetworkConnected(context)) {
-                NetHelper.onNoNet(context, CdApplication.getContext().getString(R.string.no_net));
+                NetErrorHelper.onNoNet(context, CdApplication.getContext().getString(R.string.no_net));
             } else {
-                NetHelper.onReqFailure(context, getThrowableStateCode(throwable), getThrowableStateString(throwable));
+                NetErrorHelper.onReqFailure(context, getThrowableStateCode(throwable), getThrowableStateString(throwable));
             }
             return null;
         };
@@ -112,7 +116,7 @@ public class RxTransformerListHelper {
             BaseResponseListModel baseResponse = (BaseResponseListModel) response;
             String state = baseResponse.getErrorCode();
             if (REQUESTFECODE4.equals(state)) {
-                NetHelper.onLoginFailure(context, baseResponse.getErrorInfo());
+                NetErrorHelper.onLoginFailure(context, baseResponse.getErrorInfo());
                 return false;
             }
 

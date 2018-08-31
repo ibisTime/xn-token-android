@@ -2,6 +2,7 @@ package com.cdkj.baselibrary.nets;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.R;
@@ -24,10 +25,11 @@ import retrofit2.HttpException;
 
 
 /**
+ * 网络错误
  * Created by cdkj on 2017/10/15.
  */
 
-public class NetHelper {
+public class NetErrorHelper {
 
 
     /*0=成功*/
@@ -36,6 +38,8 @@ public class NetHelper {
 
 
     public static final String REQUESTFECODE4 = "4";//重新登录
+
+    public static final String REQUESTFECODE3 = "3";//业务错误
 
 
     public static final String NET_ERROR = "-1";
@@ -107,18 +111,69 @@ public class NetHelper {
      * @param msg
      */
     public static void onReqFailure(Context context, String errorCode, String msg) {
+
         if (context == null) return;
+
+        String errorMsg = getErrorStringByCode(errorCode, msg);
+
         if (context instanceof Activity) {
+
             Activity activity = (Activity) context;
+
             if (!activity.isFinishing()) {
-                UITipDialog.showFail(activity, msg);
+
+                UITipDialog.showFail(activity, errorMsg);
             }
+
         } else {
-            ToastUtil.show(context, msg);
+
+            ToastUtil.show(context, errorMsg);
+
         }
-        LogUtil.E("网络请求错误————————：" + msg);
+
+        LogUtil.E("网络请求错误————————：" + errorMsg);
+    }
+
+
+    //TODO 错误编号优化
+
+    /**
+     * @param errorCode       错误编号
+     * @param defaultErrorMsg 找不到对应编号返回默认错误提示
+     * @return
+     */
+    public static String getErrorStringByCode(String errorCode, String defaultErrorMsg) {
+        if (TextUtils.isEmpty(errorCode)) {
+            return defaultErrorMsg;
+        }
+
+        switch (errorCode) {
+            case "AC000000":
+                return "账户可用余额不足";
+            case "HB000001":
+                return CdApplication.getContext().getString(R.string.request_error_1);
+            case "HB000002":
+                return CdApplication.getContext().getString(R.string.request_error_2);
+            case "HB000003":
+                return CdApplication.getContext().getString(R.string.request_error_3);
+            case "HB000004":
+                return CdApplication.getContext().getString(R.string.request_error_4);
+            case "HB000005":
+                return CdApplication.getContext().getString(R.string.request_error_5);
+            case "HB000006":
+                return CdApplication.getContext().getString(R.string.request_error_6);
+            case "HB000007":
+                return CdApplication.getContext().getString(R.string.request_error_7);
+            case "HB000008":
+                return CdApplication.getContext().getString(R.string.request_error_8);
+            case "HB000009":
+                return CdApplication.getContext().getString(R.string.request_error_9);
+            default:
+                return defaultErrorMsg;
+        }
 
     }
+
 
     /**
      * TODO 登录失效接口抽取

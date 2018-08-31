@@ -1,6 +1,7 @@
 package com.cdkj.baselibrary.nets;
 
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.R;
@@ -14,12 +15,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.cdkj.baselibrary.nets.NetHelper.DATA_NULL;
-import static com.cdkj.baselibrary.nets.NetHelper.NETERRORCODE4;
-import static com.cdkj.baselibrary.nets.NetHelper.REQUESTFECODE4;
-import static com.cdkj.baselibrary.nets.NetHelper.REQUESTOK;
-import static com.cdkj.baselibrary.nets.NetHelper.getThrowableStateCode;
-import static com.cdkj.baselibrary.nets.NetHelper.getThrowableStateString;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.DATA_NULL;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.NETERRORCODE4;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.REQUESTFECODE3;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.REQUESTFECODE4;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.REQUESTOK;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.getThrowableStateCode;
+import static com.cdkj.baselibrary.nets.NetErrorHelper.getThrowableStateString;
 
 
 /**
@@ -86,9 +88,9 @@ public abstract class BaseResponseListCallBack<T> implements Callback<BaseRespon
      */
     protected void checkState(BaseResponseListModel baseModelNew) {
 
-        String state = baseModelNew.getErrorCode();
+        String errorCode = baseModelNew.getErrorCode();
 
-        if (REQUESTOK.equals(state)) { //请求成功
+        if (REQUESTOK.equals(errorCode)) { //请求成功
 
             List<T> t = (List<T>) baseModelNew.getData();
 
@@ -99,10 +101,12 @@ public abstract class BaseResponseListCallBack<T> implements Callback<BaseRespon
 
             onSuccess(t, baseModelNew.getErrorInfo());
 
-        } else if (REQUESTFECODE4.equals(state)) {
+        } else if (REQUESTFECODE4.equals(errorCode)) {
             onLoginFailure(context, baseModelNew.getErrorInfo());
+        } else if (REQUESTFECODE3.equals(errorCode)) {
+            onReqFailure(baseModelNew.getErrorBizCode(), baseModelNew.getErrorInfo());
         } else {
-            onReqFailure(state, baseModelNew.getErrorInfo());
+            onReqFailure(baseModelNew.getErrorCode(), baseModelNew.getErrorInfo());
         }
     }
 
@@ -121,7 +125,7 @@ public abstract class BaseResponseListCallBack<T> implements Callback<BaseRespon
      * @param errorMessage
      */
     protected void onReqFailure(String errorCode, String errorMessage) {
-        NetHelper.onReqFailure(context, errorCode, errorMessage);
+        NetErrorHelper.onReqFailure(context, errorCode, errorMessage);
     }
 
     /**
@@ -130,7 +134,7 @@ public abstract class BaseResponseListCallBack<T> implements Callback<BaseRespon
      * @param
      */
     protected void onLoginFailure(Context context, String errorMessage) {
-        NetHelper.onLoginFailure(context, errorMessage);
+        NetErrorHelper.onLoginFailure(context, errorMessage);
     }
 
     /**
@@ -142,7 +146,7 @@ public abstract class BaseResponseListCallBack<T> implements Callback<BaseRespon
      * 无网络
      */
     protected void onNoNet(String msg) {
-        NetHelper.onNoNet(context, msg);
+        NetErrorHelper.onNoNet(context, msg);
     }
 
 }

@@ -18,8 +18,10 @@ public class WalletBalanceModel implements Parcelable, AmountShowTypeInterface, 
     private String amount;
     private String marketPriceCNY;
     private String marketPriceUSD;
+    private String marketPriceKRW;
     private String amountCny;
     private String amountUSD;
+    private String amountKRW;
     private String coinType;
 
     private String accountNumber;
@@ -29,6 +31,22 @@ public class WalletBalanceModel implements Parcelable, AmountShowTypeInterface, 
     private String coinBalance = "0";
     private String frozenAmountString = "0";
     private String amountString = "0";
+
+    public String getMarketPriceKRW() {
+        return marketPriceKRW;
+    }
+
+    public void setMarketPriceKRW(String marketPriceKRW) {
+        this.marketPriceKRW = marketPriceKRW;
+    }
+
+    public String getAmountKRW() {
+        return amountKRW;
+    }
+
+    public void setAmountKRW(String amountKRW) {
+        this.amountKRW = amountKRW;
+    }
 
     public String getCoinType() {
         return coinType;
@@ -201,7 +219,7 @@ public class WalletBalanceModel implements Parcelable, AmountShowTypeInterface, 
 
     @Override
     public String _getAmountStringKRW() {
-        return "0";
+        return amountKRW;
     }
 
     @Override
@@ -216,6 +234,6 @@ public class WalletBalanceModel implements Parcelable, AmountShowTypeInterface, 
 
     @Override
     public String _getMarketStringKRW() {
-        return "0";
+        return marketPriceKRW;
     }
 }

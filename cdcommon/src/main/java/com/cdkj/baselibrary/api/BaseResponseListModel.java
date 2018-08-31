@@ -10,7 +10,16 @@ public class BaseResponseListModel<T>{
 
     private String errorCode;//状态码
     private String errorInfo;//状态描述
+    private String errorBizCode;//业务错误
     private List<T> data;          //数据
+
+    public String getErrorBizCode() {
+        return errorBizCode;
+    }
+
+    public void setErrorBizCode(String errorBizCode) {
+        this.errorBizCode = errorBizCode;
+    }
 
     public String getErrorCode() {
         return errorCode;

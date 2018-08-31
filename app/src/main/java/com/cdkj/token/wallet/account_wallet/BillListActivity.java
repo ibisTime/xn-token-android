@@ -8,8 +8,8 @@ import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.AppConfig;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
@@ -24,11 +24,12 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWalletBillBinding;
 import com.cdkj.token.model.BillFilterModel;
 import com.cdkj.token.model.BillModel;
+import com.cdkj.token.model.CoinAddressShowModel;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.utils.AmountUtil;
-import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.ScrollPicker;
 import com.cdkj.token.views.pop.PickerPop;
+import com.cdkj.token.wallet.private_wallet.WalletAddressShowActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
@@ -166,7 +167,10 @@ public class BillListActivity extends AbsLoadActivity {
         mBinding.linLayoutInCoin.setOnClickListener(view -> {
             if (mAccountBean == null)
                 return;
-            RechargeActivity.open(this, mAccountBean);
+            CoinAddressShowModel coinAddressShowModel = new CoinAddressShowModel();
+            coinAddressShowModel.setAddress(mAccountBean.getAddress());
+            coinAddressShowModel.setCoinSymbol(mAccountBean.getCoinName());
+            WalletAddressShowActivity.open(this, coinAddressShowModel);
         });
 
         //提币

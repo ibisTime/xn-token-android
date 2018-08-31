@@ -356,8 +356,8 @@
                             <ImageView
                                 android:layout_width="@dimen/user_fragment_item_img_width"
                                 android:layout_height="@dimen/user_fragment_item_img_height"
-                                android:layout_marginLeft="18dp"
-                                android:src="@drawable/user_item_6" />
+                                android:layout_marginLeft="16dp"
+                                android:src="@drawable/help_center" />
 
                             <TextView
                                 android:layout_width="0dp"

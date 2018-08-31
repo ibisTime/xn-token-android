@@ -260,6 +260,14 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<MsgListModel>> getMsgList(@Field("code") String code, @Field("json") String json);
+    /**
+     * 获取消息列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Observable<BaseResponseModel<MsgListModel>> getMsgListObservable(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取空投流水
@@ -330,6 +338,16 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<CoinModel>> getAccount(@Field("code") String code, @Field("json") String json);
+    /**
+     * 获取用户账户
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Observable<BaseResponseModel<CoinModel>> getAccountObservable(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取用户账户
