@@ -2,7 +2,6 @@ package com.cdkj.token.user.setting;
 
 import android.text.TextUtils;
 
-import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 
 /**
@@ -26,7 +25,7 @@ public class LocalMarketTypePresenter {
         if (canChangeMarketType(chooseMarketType)) {
             return;
         }
-        SPUtilHelper.saveLocalMarketSymbol(AppConfig.LOCAL_MARKET_CNY);
+        SPUtilHelper.saveLocalMarketSymbol(chooseMarketType);
         if (localMarketTypeChangeCallBack != null) {
             localMarketTypeChangeCallBack.onChangeSuccess();
         }

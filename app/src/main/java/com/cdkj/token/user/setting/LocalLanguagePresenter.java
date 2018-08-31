@@ -2,7 +2,6 @@ package com.cdkj.token.user.setting;
 
 import android.text.TextUtils;
 
-import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 
 /**
@@ -26,8 +25,8 @@ public class LocalLanguagePresenter {
         if (canChangeMarketType(chooseLanguage)) {
             return;
         }
-        SPUtilHelper.saveLanguage(AppConfig.LOCAL_MARKET_CNY);
-        if(localLanguageChangeCallBack!=null){
+        SPUtilHelper.saveLanguage(chooseLanguage);
+        if (localLanguageChangeCallBack != null) {
             localLanguageChangeCallBack.onChangeSuccess();
         }
     }
