@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.cdkj.baselibrary.appmanager.MyConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -77,9 +76,9 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-import static com.cdkj.baselibrary.appmanager.MyConfig.NODE_DEV;
-import static com.cdkj.baselibrary.appmanager.MyConfig.NODE_REALSE;
-import static com.cdkj.baselibrary.appmanager.MyConfig.getThisNodeType;
+import static com.cdkj.baselibrary.appmanager.AppConfig.NODE_DEV;
+import static com.cdkj.baselibrary.appmanager.AppConfig.NODE_REALSE;
+import static com.cdkj.baselibrary.appmanager.AppConfig.getThisNodeType;
 import static com.cdkj.token.utils.AmountUtil.ETH_UNIT_UNIT;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_COIN_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_SQL;
@@ -1128,15 +1127,6 @@ public class WalletHelper {
     }
 
 
-    /**
-     * 获取本地币种类型
-     *
-     * @param
-     * @return
-     */
-    public static String getShowLocalCoinType() {
-        return SPUtilHelper.getLocalCoinType();
-    }
 
     //获取本地币种监听
     public interface LocalCoinListGetListener {

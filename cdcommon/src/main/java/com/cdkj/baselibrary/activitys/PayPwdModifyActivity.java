@@ -9,7 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.R;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityModifyPayPasswordBinding;
@@ -128,7 +128,7 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
 
                 }
 
-                mSendCoodePresenter.sendCodeRequest(mBinding.edtPhone.getText().toString(), bizType, MyConfig.USERTYPE, selectCountryCode, PayPwdModifyActivity.this);
+                mSendCoodePresenter.sendCodeRequest(mBinding.edtPhone.getText().toString(), bizType, AppConfig.USERTYPE, selectCountryCode, PayPwdModifyActivity.this);
             }
         });
 //确认

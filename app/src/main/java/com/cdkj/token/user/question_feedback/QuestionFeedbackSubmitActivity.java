@@ -15,14 +15,13 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.cdkj.baselibrary.api.BaseResponseModel;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.CodeModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
-import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.baselibrary.utils.QiNiuHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -31,7 +30,6 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.AddPhotoAdapter;
 import com.cdkj.token.databinding.ActivityQuestionFeedbackBinding;
 import com.cdkj.token.model.ClientPickerModel;
-import com.cdkj.token.utils.StringUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -326,7 +324,7 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
         // 拍照后照片的存放目录，改成你自己拍照后要存放照片的目录。如果不传递该参数的话就没有拍照功能
         File takePhotoDir = null;
         if (TextUtils.equals(Environment.getExternalStorageState(), Environment.MEDIA_MOUNTED)) { //判断sd卡是否存在
-            takePhotoDir = new File(Environment.getExternalStorageDirectory(), MyConfig.CACHDIR);
+            takePhotoDir = new File(Environment.getExternalStorageDirectory(), AppConfig.CACHDIR);
         }
         Intent photoPickerIntent = new BGAPhotoPickerActivity.IntentBuilder(this)
                 .cameraFileDir(takePhotoDir)

@@ -9,7 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
@@ -128,7 +128,7 @@ public class BillListActivity extends AbsLoadActivity {
             mBinding.tvAmount.setText(AmountUtil.amountFormatUnitForShow(amount.subtract(frozenAmount), mAccountBean.getCoinName(), 8) + " " + mAccountBean.getCoinName());
         }
 
-        mBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountStringByLocalSymbol() + WalletHelper.getShowLocalCoinType());
+        mBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountStringByLocalMarket() + SPUtilHelper.getLocalMarketSymbol());
 
     }
 
@@ -228,7 +228,7 @@ public class BillListActivity extends AbsLoadActivity {
         map.put("kind", kind);
         map.put("accountNumber", mAccountBean.getAccountNumber());
         map.put("token", SPUtilHelper.getUserToken());
-        map.put("systemCode", MyConfig.SYSTEMCODE);
+        map.put("systemCode", AppConfig.SYSTEMCODE);
 
         Call call = RetrofitUtils.createApi(MyApi.class).getBillListData("802524", StringUtils.getJsonToString(map));
 

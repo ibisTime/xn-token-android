@@ -7,8 +7,7 @@ import android.text.TextUtils;
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.utils.SPUtils;
 
-import static com.cdkj.baselibrary.appmanager.MyConfig.BASE_URL_TEST;
-import static com.cdkj.baselibrary.appmanager.MyConfig.BUILD_TYPE_TEST;
+import static com.cdkj.baselibrary.appmanager.AppConfig.BUILD_TYPE_TEST;
 
 /**
  * SPUtils 工具辅助类
@@ -98,7 +97,7 @@ public class SPUtilHelper {
      * 获取语言 默认英语
      */
     public static String getLanguage() {
-        return SPUtils.getString(CdApplication.getContext(), "language", MyConfig.SIMPLIFIED);
+        return SPUtils.getString(CdApplication.getContext(), "language", AppConfig.SIMPLIFIED);
     }
 
 
@@ -107,15 +106,15 @@ public class SPUtilHelper {
      *
      * @param s
      */
-    public static void saveLocalCoinType(String s) {
+    public static void saveLocalMarketSymbol(String s) {
         SPUtils.put(CdApplication.getContext(), "local_coin_type", s);
     }
 
     /**
-     * 设置本地货币类型（CNY USD）
+     * 获取本地货币类型（CNY USD）
      */
-    public static String getLocalCoinType() {
-        return SPUtils.getString(CdApplication.getContext(), "local_coin_type", MyConfig.LOCAL_COIN_CNY);
+    public static String getLocalMarketSymbol() {
+        return SPUtils.getString(CdApplication.getContext(), "local_coin_type", AppConfig.LOCAL_MARKET_CNY);
     }
 
 
@@ -252,7 +251,7 @@ public class SPUtilHelper {
      */
     public static void saveQiniuUrl(String s) {
         if (TextUtils.isEmpty(s)) {
-            s = MyConfig.IMGURL;
+            s = AppConfig.IMGURL;
         } else {
             s = "http://" + s + "/";
         }
@@ -264,10 +263,10 @@ public class SPUtilHelper {
      */
     public static String getQiniuUrl() {
 
-        String url = SPUtils.getString(CdApplication.getContext(), "qiniu_url", MyConfig.IMGURL);
+        String url = SPUtils.getString(CdApplication.getContext(), "qiniu_url", AppConfig.IMGURL);
 
         if (TextUtils.isEmpty(url)) {
-            return MyConfig.IMGURL;
+            return AppConfig.IMGURL;
         }
 
         return url;

@@ -9,7 +9,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -107,7 +107,7 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSendCOdePresenter.sendCodeRequest(mBinding.edtMobile.getText().toString(), "805063", MyConfig.USERTYPE, SPUtilHelper.getCountryInterCode(), FindLoginPwdActivity.this);
+                mSendCOdePresenter.sendCodeRequest(mBinding.edtMobile.getText().toString(), "805063", AppConfig.USERTYPE, SPUtilHelper.getCountryInterCode(), FindLoginPwdActivity.this);
             }
         });
 
@@ -168,11 +168,11 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
         hashMap.put("mobile", mBinding.edtMobile.getText().toString());
         hashMap.put("newLoginPwd", mBinding.edtPassword.getText().toString());
         hashMap.put("smsCaptcha", mBinding.edtCode.getText().toString());
-        hashMap.put("kind", MyConfig.USERTYPE);
+        hashMap.put("kind", AppConfig.USERTYPE);
 //        hashMap.put("googleCaptcha", mBinding.edtGoogle.getText().toString());
-        hashMap.put("systemCode", MyConfig.SYSTEMCODE);
-        hashMap.put("companyCode", MyConfig.COMPANYCODE);
-        hashMap.put("companyCode", MyConfig.COMPANYCODE);
+        hashMap.put("systemCode", AppConfig.SYSTEMCODE);
+        hashMap.put("companyCode", AppConfig.COMPANYCODE);
+        hashMap.put("companyCode", AppConfig.COMPANYCODE);
         hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
         hashMap.put("countryCode", SPUtilHelper.getCountryCode());
 

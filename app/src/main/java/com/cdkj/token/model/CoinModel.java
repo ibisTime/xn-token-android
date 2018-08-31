@@ -1,5 +1,6 @@
 package com.cdkj.token.model;
 
+import com.cdkj.baselibrary.interfaces.AmountShowTypeInterface;
 import com.contrarywind.interfaces.IPickerViewData;
 
 import java.io.Serializable;
@@ -10,7 +11,7 @@ import java.util.List;
  * Created by lei on 2017/10/25.
  */
 
-public class CoinModel implements Serializable {
+public class CoinModel implements Serializable, AmountShowTypeInterface {
 
 
     /**
@@ -55,6 +56,21 @@ public class CoinModel implements Serializable {
 
     public void setAccountList(List<AccountListBean> accountList) {
         this.accountList = accountList;
+    }
+
+    @Override
+    public String _getAmountStringUSD() {
+        return totalAmountUSD;
+    }
+
+    @Override
+    public String _getAmountStringCNY() {
+        return totalAmountCNY;
+    }
+
+    @Override
+    public String _getAmountStringKRW() {
+        return "0";
     }
 
     public static class AccountListBean implements Serializable, IPickerViewData {

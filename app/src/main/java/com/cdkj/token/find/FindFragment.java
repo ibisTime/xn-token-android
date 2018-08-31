@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.api.BaseResponseListModel;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
@@ -25,7 +25,6 @@ import com.cdkj.token.databinding.FragmentFindBinding;
 import com.cdkj.token.common.loader.BannerImageLoader;
 import com.cdkj.token.find.product_application.management_money.ManagementMoneyListActivity;
 import com.cdkj.token.model.BannerModel;
-import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.model.RecommendAppModel;
 import com.cdkj.token.user.WebViewImgBgActivity;
 import com.cdkj.token.find.product_application.red_package.SendRedPackageActivity;
@@ -172,8 +171,8 @@ public class FindFragment extends BaseLazyFragment {
     private void getBanner(boolean isShowDialog) {
         Map<String, String> map = new HashMap<>();
         map.put("location", "app_home"); // 交易位置轮播
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
+        map.put("systemCode", AppConfig.SYSTEMCODE);
+        map.put("companyCode", AppConfig.COMPANYCODE);
 
         Call call = RetrofitUtils.createApi(MyApi.class).getBanner("805806", StringUtils.getJsonToString(map));
 

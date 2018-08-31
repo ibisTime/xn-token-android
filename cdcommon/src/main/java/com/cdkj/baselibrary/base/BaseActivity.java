@@ -29,7 +29,7 @@ import java.util.List;
 import io.reactivex.disposables.CompositeDisposable;
 import retrofit2.Call;
 
-import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
+import static com.cdkj.baselibrary.appmanager.AppConfig.getUserLanguageLocal;
 
 
 /**

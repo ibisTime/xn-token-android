@@ -8,7 +8,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.model.IsSuccessModes;
@@ -122,8 +122,8 @@ public class UpdateLoginPasswordActivity extends AbsActivity {
         hashMap.put("googleCaptcha", mBinding.edtGoogle.getText().toString());
         hashMap.put("userId", SPUtilHelper.getUserId());
         hashMap.put("token", SPUtilHelper.getUserToken());
-        hashMap.put("systemCode", MyConfig.SYSTEMCODE);
-        hashMap.put("companyCode", MyConfig.COMPANYCODE);
+        hashMap.put("systemCode", AppConfig.SYSTEMCODE);
+        hashMap.put("companyCode", AppConfig.COMPANYCODE);
 
         Call call= RetrofitUtils.getBaseAPiService().successRequest("805064", StringUtils.getJsonToString(hashMap));
 

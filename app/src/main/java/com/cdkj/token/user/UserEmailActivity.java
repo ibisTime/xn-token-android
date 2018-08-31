@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -112,8 +112,8 @@ public class UserEmailActivity extends AbsActivity {
         Map<String, String> map = new HashMap<>();
         map.put("bizType", "805081");
         map.put("email", mBinding.edtEmail.getText().toString());
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
+        map.put("systemCode", AppConfig.SYSTEMCODE);
+        map.put("companyCode", AppConfig.COMPANYCODE);
 
         Call call = RetrofitUtils.getBaseAPiService().successRequest("805954", StringUtils.getJsonToString(map));
 

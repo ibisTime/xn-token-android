@@ -2,8 +2,6 @@ package com.cdkj.baselibrary.utils;
 
 import android.util.Log;
 
-import com.cdkj.baselibrary.appmanager.MyConfig;
-
 
 /**
  * log工具类

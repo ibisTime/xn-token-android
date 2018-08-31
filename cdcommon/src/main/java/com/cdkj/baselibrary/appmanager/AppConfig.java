@@ -2,21 +2,16 @@ package com.cdkj.baselibrary.appmanager;
 
 
 import android.content.Context;
-import android.content.res.Configuration;
-import android.content.res.Resources;
 import android.text.TextUtils;
-import android.util.DisplayMetrics;
 
-import com.cdkj.baselibrary.interfaces.AmountShowType;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.MoneyUtils;
 
-import java.math.BigDecimal;
 import java.util.Locale;
 
 
-public class MyConfig {
+public class AppConfig {
 
     //系统参数
     public final static String COMPANYCODE = "CD-TOKEN00018";
@@ -41,9 +36,9 @@ public class MyConfig {
     public final static int NODE_REALSE = 1;//真实环境
 
 
-    public final static String LOCAL_COIN_CNY = "CNY";// 币种显示类型 人民币
-    public final static String LOCAL_COIN_USD = "USD";// 币种显示类型 美元
-    public final static String LOCAL_COIN_KRW = "KRW";// 币种显示类型 韩元
+    public final static String LOCAL_MARKET_CNY = "CNY";// 币种显示类型 人民币
+    public final static String LOCAL_MARKET_USD = "USD";// 币种显示类型 美元
+    public final static String LOCAL_MARKET_KRW = "KRW";// 币种显示类型 韩元
 
 
     public final static String LOCAL_COIN_USD_SYMBOL = "$";// 币种显示类型 美元
@@ -86,13 +81,13 @@ public class MyConfig {
         if (LogUtil.isLog) {
             switch (SPUtilHelper.getAPPBuildType()) {
                 case BUILD_TYPE_TEST: // 测试
-                    return MyConfig.BASE_URL_TEST;
+                    return AppConfig.BASE_URL_TEST;
                 default: // 研发
-                    return MyConfig.BASE_URL_DEV;
+                    return AppConfig.BASE_URL_DEV;
             }
         } else {
             // 线上
-            return MyConfig.BASE_URL_ONLINE;
+            return AppConfig.BASE_URL_ONLINE;
         }
     }
 
@@ -125,13 +120,13 @@ public class MyConfig {
                 case "00886":  //中国台湾
                 case "00852":  //中国香港
                 case "00853":   //中国澳门
-                    SPUtilHelper.saveLanguage(MyConfig.SIMPLIFIED);  //简体中文
+                    SPUtilHelper.saveLanguage(AppConfig.SIMPLIFIED);  //简体中文
                     break;
                 case "0082":
-                    SPUtilHelper.saveLanguage(MyConfig.KOREA);  //韩语
+                    SPUtilHelper.saveLanguage(AppConfig.KOREA);  //韩语
                     break;
                 default:
-                    SPUtilHelper.saveLanguage(MyConfig.ENGLISH);  //英语
+                    SPUtilHelper.saveLanguage(AppConfig.ENGLISH);  //英语
             }
             AppUtils.setAppLanguage(context, getUserLanguageLocal());   //设置用户使用语言
         }
@@ -149,13 +144,13 @@ public class MyConfig {
                 case "00886":  //中国台湾
                 case "00852":  //中国香港
                 case "00853":   //中国澳门
-                    SPUtilHelper.saveLocalCoinType(MyConfig.LOCAL_COIN_CNY);  //人民币
+                    SPUtilHelper.saveLocalMarketSymbol(AppConfig.LOCAL_MARKET_CNY);  //人民币
                     break;
                 case "0082":
-                    SPUtilHelper.saveLocalCoinType(MyConfig.LOCAL_COIN_KRW);  //韩币
+                    SPUtilHelper.saveLocalMarketSymbol(AppConfig.LOCAL_MARKET_KRW);  //韩币
                     break;
                 default:
-                    SPUtilHelper.saveLocalCoinType(MyConfig.LOCAL_COIN_USD);  //美元
+                    SPUtilHelper.saveLocalMarketSymbol(AppConfig.LOCAL_MARKET_USD);  //美元
             }
         }
     }
@@ -164,19 +159,49 @@ public class MyConfig {
     /**
      * 根据本地货币获取显示货币符号
      *
-     * @param localCoin
+     * @param coinType
      * @return
      */
 
-    public static String getMoneySymbol(String localCoin) {
-        if (TextUtils.equals(localCoin, MyConfig.LOCAL_COIN_CNY)) {
-            return MyConfig.LOCAL_COIN_CNY_SYMBOL;
-        } else if (TextUtils.equals(localCoin, MyConfig.LOCAL_COIN_USD)) {
-            return MyConfig.LOCAL_COIN_USD_SYMBOL;
-        } else if (TextUtils.equals(localCoin, MyConfig.LOCAL_COIN_KRW)) {
-            return MyConfig.LOCAL_COIN_KRW_SYMBOL;
+    public static String getSymbolByType(String coinType) {
+        if (isLocalMarketCNY(coinType)) {
+            return AppConfig.LOCAL_COIN_CNY_SYMBOL;
+        } else if (isLocalMarketUSD(coinType)) {
+            return AppConfig.LOCAL_COIN_USD_SYMBOL;
+        } else if (isLocalMarketKRW(coinType)) {
+            return AppConfig.LOCAL_COIN_KRW_SYMBOL;
         }
         return "";
+    }
+
+    /**
+     * 是否cny价格
+     *
+     * @param coinType
+     * @return
+     */
+    public static boolean isLocalMarketCNY(String coinType) {
+        return TextUtils.equals(coinType, AppConfig.LOCAL_MARKET_CNY);
+    }
+
+    /**
+     * 是否usd价格
+     *
+     * @param coinType
+     * @return
+     */
+    public static boolean isLocalMarketUSD(String coinType) {
+        return TextUtils.equals(coinType, AppConfig.LOCAL_MARKET_USD);
+    }
+
+    /**
+     * 是否KRW价格
+     *
+     * @param coinType
+     * @return
+     */
+    public static boolean isLocalMarketKRW(String coinType) {
+        return TextUtils.equals(coinType, AppConfig.LOCAL_MARKET_KRW);
     }
 
 

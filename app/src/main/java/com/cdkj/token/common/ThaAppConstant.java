@@ -1,10 +1,6 @@
 package com.cdkj.token.common;
 
-import android.text.TextUtils;
-
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-
-import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
 
 /**
  * 常量类

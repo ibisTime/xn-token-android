@@ -12,7 +12,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityModifyNickBinding;
@@ -119,7 +119,7 @@ public class NickModifyActivity extends AbsActivity {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("nickname", mBinding.edtNickname.getText().toString());
         map.put("token", SPUtilHelper.getUserToken());
-        map.put("companyCode", MyConfig.COMPANYCODE);
+        map.put("companyCode", AppConfig.COMPANYCODE);
         map.put("token", SPUtilHelper.getUserToken());
 
 

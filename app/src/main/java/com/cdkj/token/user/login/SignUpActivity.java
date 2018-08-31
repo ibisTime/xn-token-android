@@ -9,8 +9,7 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.cdkj.baselibrary.activitys.AppBuildTypeActivity;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
@@ -23,7 +22,6 @@ import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
-import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
@@ -149,8 +147,8 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
         map.put("mobile", mBinding.edtMobile.getText().toString().trim());
         map.put("loginPwd", mBinding.edtPassword.getText().toString().trim());
         map.put("smsCaptcha", mBinding.edtCode.getText().toString().trim());
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
+        map.put("systemCode", AppConfig.SYSTEMCODE);
+        map.put("companyCode", AppConfig.COMPANYCODE);
         map.put("countryCode", SPUtilHelper.getCountryCode());
         map.put("interCode", SPUtilHelper.getCountryInterCode());
         Call call = RetrofitUtils.createApi(MyApi.class).signUp("805041", StringUtils.getJsonToString(map));

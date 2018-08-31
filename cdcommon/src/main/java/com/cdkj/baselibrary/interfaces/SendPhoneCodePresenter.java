@@ -4,8 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 
 import com.cdkj.baselibrary.R;
-import com.cdkj.baselibrary.appmanager.MyConfig;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -53,8 +52,8 @@ public class SendPhoneCodePresenter {
 
         HashMap<String, String> hashMap = new HashMap<>();
 
-        hashMap.put("systemCode", MyConfig.SYSTEMCODE);
-        hashMap.put("companyCode", MyConfig.COMPANYCODE);
+        hashMap.put("systemCode", AppConfig.SYSTEMCODE);
+        hashMap.put("companyCode", AppConfig.COMPANYCODE);
         hashMap.put("mobile", phone);
         hashMap.put("bizType", bizType);
         hashMap.put("kind", kind);

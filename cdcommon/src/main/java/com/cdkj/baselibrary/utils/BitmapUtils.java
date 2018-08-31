@@ -7,7 +7,7 @@ import android.media.ExifInterface;
 import android.os.Environment;
 import android.text.TextUtils;
 
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -266,7 +266,7 @@ public class BitmapUtils {
      * 获得缓存目录
      **/
     public static String getDirectory() {
-        String dir = getSDPath() + File.separator + MyConfig.CACHDIR;
+        String dir = getSDPath() + File.separator + AppConfig.CACHDIR;
         LogUtil.E("拍照图片路径" + dir);
         return dir;
     }

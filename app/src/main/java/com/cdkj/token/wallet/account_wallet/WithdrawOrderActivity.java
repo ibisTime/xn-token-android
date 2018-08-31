@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseRefreshActivity;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -55,8 +55,8 @@ public class WithdrawOrderActivity extends BaseRefreshActivity<WithdrawOrderMode
     @Override
     protected void getListData(int pageIndex, int limit, boolean canShowDialog) {
         Map<String, String> map = new HashMap<>();
-        map.put("companyCode", MyConfig.COMPANYCODE);
-        map.put("systemCode", MyConfig.SYSTEMCODE);
+        map.put("companyCode", AppConfig.COMPANYCODE);
+        map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("currency", currency);
         map.put("applyUser", SPUtilHelper.getUserId());
         map.put("limit", limit+"");

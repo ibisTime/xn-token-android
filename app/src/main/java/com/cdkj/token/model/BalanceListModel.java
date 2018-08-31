@@ -3,6 +3,8 @@ package com.cdkj.token.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.cdkj.baselibrary.interfaces.AmountShowTypeInterface;
+
 import java.math.BigInteger;
 import java.util.List;
 
@@ -10,7 +12,7 @@ import java.util.List;
  * Created by cdkj on 2018/6/10.
  */
 
-public class BalanceListModel {
+public class BalanceListModel implements AmountShowTypeInterface {
 
 
     /**
@@ -55,6 +57,21 @@ public class BalanceListModel {
 
     public void setAccountList(List<AccountListBean> accountList) {
         this.accountList = accountList;
+    }
+
+    @Override
+    public String _getAmountStringUSD() {
+        return totalAmountUSD;
+    }
+
+    @Override
+    public String _getAmountStringCNY() {
+        return totalAmountCNY;
+    }
+
+    @Override
+    public String _getAmountStringKRW() {
+        return "0";
     }
 
     public static class AccountListBean implements Parcelable {

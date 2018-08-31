@@ -1,8 +1,7 @@
 package com.cdkj.token.interfaces;
 
 import com.cdkj.baselibrary.api.BaseResponseListModel;
-import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -73,8 +72,8 @@ public class StartPagePresenter {
     private void checkVersion() {
         Map<String, String> map = new HashMap<>();
         map.put("type", "android-c");
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
+        map.put("systemCode", AppConfig.SYSTEMCODE);
+        map.put("companyCode", AppConfig.COMPANYCODE);
 
         Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.getJsonToString(map));
 
@@ -131,8 +130,8 @@ public class StartPagePresenter {
     private void getQiNiuUrl() {
         Map<String, String> map = new HashMap<>();
         map.put("ckey", "qiniu_domain");
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
+        map.put("systemCode", AppConfig.SYSTEMCODE);
+        map.put("companyCode", AppConfig.COMPANYCODE);
 
         Call call = RetrofitUtils.createApi(MyApi.class).getSystemParameter("660917", StringUtils.getJsonToString(map));
         addCall(call);
@@ -205,8 +204,8 @@ public class StartPagePresenter {
         SPUtilHelper.saveCountryInterCode(countryCodeMode.getInterCode());
         SPUtilHelper.saveCountryCode(countryCodeMode.getCode());
         SPUtilHelper.saveCountryFlag(countryCodeMode.getPic());
-        MyConfig.changeLanguageForCountry(MyApplication.getInstance(), countryCodeMode.getInterCode());
-        MyConfig.changeLocalCoinTypeForCountry(countryCodeMode.getInterCode());
+        AppConfig.changeLanguageForCountry(MyApplication.getInstance(), countryCodeMode.getInterCode());
+        AppConfig.changeLocalCoinTypeForCountry(countryCodeMode.getInterCode());
     }
 
     /**

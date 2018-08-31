@@ -28,8 +28,8 @@ import com.umeng.analytics.AnalyticsConfig;
 
 import org.greenrobot.eventbus.EventBus;
 
-import static com.cdkj.baselibrary.appmanager.MyConfig.BUILD_TYPE_DEBUG;
-import static com.cdkj.baselibrary.appmanager.MyConfig.BUILD_TYPE_TEST;
+import static com.cdkj.baselibrary.appmanager.AppConfig.BUILD_TYPE_DEBUG;
+import static com.cdkj.baselibrary.appmanager.AppConfig.BUILD_TYPE_TEST;
 
 /**
  * Created by lei on 2017/12/1.

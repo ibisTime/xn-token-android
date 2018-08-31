@@ -1,13 +1,11 @@
 package com.cdkj.token.adapter;
 
 import android.support.annotation.Nullable;
-import android.text.TextUtils;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.WalletBalanceModel;
-import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -40,12 +38,12 @@ public class WalletBalanceAdapter extends BaseQuickAdapter<WalletBalanceModel, B
 
     public String getMarketPriceString(WalletBalanceModel item) {
         String priceString = item.getMarketStringByLocalSymbol();
-        return priceString + WalletHelper.getShowLocalCoinType();
+        return priceString + SPUtilHelper.getLocalMarketSymbol();
     }
 
     public String getAmountString(WalletBalanceModel item) {
-        String priceString = item.getAmountStringByLocalSymbol();
-        return priceString + WalletHelper.getShowLocalCoinType();
+        String priceString = item.getAmountStringByLocalMarket();
+        return priceString + SPUtilHelper.getLocalMarketSymbol();
     }
 
 }

@@ -4,26 +4,27 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityLocalCoinTypeBinding;
-import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
 /**
- * 本地币种选择
+ * 本地行情币种选择
+ * USD
+ * CNY
+ * KRW
  * Created by cdkj on 2018/7/2.
  */
 
-public class LocalCoinTypeChooseActivity extends AbsStatusBarTranslucentActivity {
+public class LocalMarketTypeChooseActivity extends AbsStatusBarTranslucentActivity {
 
     public ActivityLocalCoinTypeBinding mBinding;
 
@@ -31,7 +32,7 @@ public class LocalCoinTypeChooseActivity extends AbsStatusBarTranslucentActivity
         if (context == null) {
             return;
         }
-        Intent intent = new Intent(context, LocalCoinTypeChooseActivity.class);
+        Intent intent = new Intent(context, LocalMarketTypeChooseActivity.class);
         context.startActivity(intent);
     }
 
@@ -48,9 +49,11 @@ public class LocalCoinTypeChooseActivity extends AbsStatusBarTranslucentActivity
         setMidTitle(R.string.local_coin);
         setPageBgImage(R.drawable.my_bg);
 
-        if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), MyConfig.LOCAL_COIN_CNY)) {
+        LocalMarketTypePresenter localMarketTypePresenter = new LocalMarketTypePresenter();
+
+        if (AppConfig.isLocalMarketCNY(SPUtilHelper.getLocalMarketSymbol())) {
             showCny();
-        } else if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), MyConfig.LOCAL_COIN_USD)) {
+        } else if (AppConfig.isLocalMarketUSD(SPUtilHelper.getLocalMarketSymbol())) {
             showUsd();
         } else {
             showKRW();
@@ -58,32 +61,26 @@ public class LocalCoinTypeChooseActivity extends AbsStatusBarTranslucentActivity
 
         //选择人民币
         mBinding.linLayoutCny.setOnClickListener(view -> {
-            if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), MyConfig.LOCAL_COIN_CNY)) {
-                return;
-            }
-            showCny();
-            SPUtilHelper.saveLocalCoinType(MyConfig.LOCAL_COIN_CNY);
-            finishActivity();
+            localMarketTypePresenter.changeMarketType(AppConfig.LOCAL_MARKET_CNY, () -> {
+                showCny();
+                finishActivity();
+            });
         });
 
         //选择美元
         mBinding.linLayoutUsd.setOnClickListener(view -> {
-            if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), MyConfig.LOCAL_COIN_USD)) {
-                return;
-            }
-            showUsd();
-            SPUtilHelper.saveLocalCoinType(MyConfig.LOCAL_COIN_USD);
-            finishActivity();
+            localMarketTypePresenter.changeMarketType(AppConfig.LOCAL_MARKET_USD, () -> {
+                showUsd();
+                finishActivity();
+            });
         });
 
         //选择韩元
         mBinding.linLayoutUsd.setOnClickListener(view -> {
-            if (TextUtils.equals(WalletHelper.getShowLocalCoinType(), MyConfig.LOCAL_COIN_USD)) {
-                return;
-            }
-            showKRW();
-            SPUtilHelper.saveLocalCoinType(MyConfig.LOCAL_COIN_KRW);
-            finishActivity();
+            localMarketTypePresenter.changeMarketType(AppConfig.LOCAL_MARKET_KRW, () -> {
+                showKRW();
+                finishActivity();
+            });
         });
     }
 

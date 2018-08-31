@@ -5,7 +5,7 @@ import android.text.TextUtils;
 
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.R;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -50,8 +50,8 @@ public class LoginPresenter {
         hashMap.put("loginPwd", password);
         hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
         hashMap.put("countryCode", SPUtilHelper.getCountryCode());
-        hashMap.put("kind", MyConfig.USERTYPE);
-        hashMap.put("systemCode", MyConfig.SYSTEMCODE);
+        hashMap.put("kind", AppConfig.USERTYPE);
+        hashMap.put("systemCode", AppConfig.SYSTEMCODE);
 
         call = RetrofitUtils.getBaseAPiService().userLogin("805050", StringUtils.getJsonToString(hashMap));
 

@@ -218,7 +218,7 @@
             android:name=".user.GoogleCodeSetActivity"
             android:theme="@style/ActivityDialogStyleBottom" />
         <activity
-            android:name=".user.setting.LocalCoinTypeChooseActivity"
+            android:name=".user.setting.LocalMarketTypeChooseActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".user.login.SetLoginPwdActivity"

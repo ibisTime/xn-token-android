@@ -12,6 +12,7 @@ import android.view.View;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.api.ResponseInListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
@@ -49,7 +50,6 @@ import java.util.Map;
 import retrofit2.Call;
 
 import static com.cdkj.token.utils.AmountUtil.ALLSCALE;
-import static com.cdkj.token.utils.AmountUtil.ETHSCALE;
 
 /**
  * 去中心化钱包币种详情
@@ -117,7 +117,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
         }
 
-        mBinding.tvAmountCny.setText("≈" + accountListBean.getAmountStringByLocalSymbol() + " " + WalletHelper.getShowLocalCoinType());
+        mBinding.tvAmountCny.setText("≈" + accountListBean.getAmountStringByLocalMarket() + " " + SPUtilHelper.getLocalMarketSymbol());
     }
 
 

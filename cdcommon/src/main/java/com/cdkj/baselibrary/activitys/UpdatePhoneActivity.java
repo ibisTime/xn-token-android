@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
@@ -73,7 +73,7 @@ public class UpdatePhoneActivity extends AbsActivity implements SendCodeInterfac
         mBinding.btnSendNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSendCodePresenter.sendCodeRequest(mBinding.edtPhoneNew.getText().toString(), "805061", MyConfig.USERTYPE, SPUtilHelper.getCountryInterCode(),UpdatePhoneActivity.this);
+                mSendCodePresenter.sendCodeRequest(mBinding.edtPhoneNew.getText().toString(), "805061", AppConfig.USERTYPE, SPUtilHelper.getCountryInterCode(),UpdatePhoneActivity.this);
             }
         });
 

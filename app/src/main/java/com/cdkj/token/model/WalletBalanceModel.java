@@ -2,20 +2,16 @@ package com.cdkj.token.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.text.TextUtils;
 
-import com.cdkj.baselibrary.interfaces.AmountShowType;
-import com.cdkj.baselibrary.interfaces.MarketShowType;
-
-import java.math.BigDecimal;
-import java.math.BigInteger;
+import com.cdkj.baselibrary.interfaces.AmountShowTypeInterface;
+import com.cdkj.baselibrary.interfaces.MarketShowTypeInterface;
 
 /**
  * 钱包列表资产
  * Created by cdkj on 2018/7/1.
  */
 
-public class WalletBalanceModel implements Parcelable, AmountShowType, MarketShowType {
+public class WalletBalanceModel implements Parcelable, AmountShowTypeInterface, MarketShowTypeInterface {
 
     private String coinImgUrl;
     private String coinName;
@@ -205,7 +201,7 @@ public class WalletBalanceModel implements Parcelable, AmountShowType, MarketSho
 
     @Override
     public String _getAmountStringKRW() {
-        return "暂无";
+        return "0";
     }
 
     @Override
@@ -220,6 +216,6 @@ public class WalletBalanceModel implements Parcelable, AmountShowType, MarketSho
 
     @Override
     public String _getMarketStringKRW() {
-        return "暂无";
+        return "0";
     }
 }

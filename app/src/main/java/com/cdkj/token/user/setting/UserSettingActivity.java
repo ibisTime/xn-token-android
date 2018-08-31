@@ -6,7 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -66,7 +66,7 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
     void initClickListener() {
         //本地货币
         mBinding.linLayoutLocalCoin.setOnClickListener(view -> {
-            LocalCoinTypeChooseActivity.open(this);
+            LocalMarketTypeChooseActivity.open(this);
         });
         //语言
         mBinding.linLayoutLanguage.setOnClickListener(view -> UserLanguageActivity.open(this));
@@ -89,8 +89,8 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
     private void getVersion() {
         Map<String, String> map = new HashMap<>();
         map.put("type", "android-c");
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
+        map.put("systemCode", AppConfig.SYSTEMCODE);
+        map.put("companyCode", AppConfig.COMPANYCODE);
 
         Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.getJsonToString(map));
 

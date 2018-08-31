@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -19,10 +18,10 @@ import com.cdkj.token.databinding.ActivityUserLanguageBinding;
 
 import org.greenrobot.eventbus.EventBus;
 
-import static com.cdkj.baselibrary.appmanager.MyConfig.ENGLISH;
-import static com.cdkj.baselibrary.appmanager.MyConfig.KOREA;
-import static com.cdkj.baselibrary.appmanager.MyConfig.SIMPLIFIED;
-import static com.cdkj.baselibrary.appmanager.MyConfig.getUserLanguageLocal;
+import static com.cdkj.baselibrary.appmanager.AppConfig.ENGLISH;
+import static com.cdkj.baselibrary.appmanager.AppConfig.KOREA;
+import static com.cdkj.baselibrary.appmanager.AppConfig.SIMPLIFIED;
+import static com.cdkj.baselibrary.appmanager.AppConfig.getUserLanguageLocal;
 
 /**
  * 语言设置
@@ -52,42 +51,45 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
         setMidTitle(getStrRes(R.string.user_title_language));
         setPageBgImage(R.drawable.my_bg);
         setView(SPUtilHelper.getLanguage());
-        initListener();
+        initChangeListener();
     }
 
-    private void initListener() {
+    private void initChangeListener() {
+
+        LocalLanguagePresenter localLanguagePresenter = new LocalLanguagePresenter();
+
         //简体中文
         mBinding.llSimple.setOnClickListener(view -> {
-            if (TextUtils.equals(SPUtilHelper.getLanguage(), MyConfig.SIMPLIFIED)) {
-                return;
-            }
-            initView();
-            mBinding.ivSimple.setVisibility(View.VISIBLE);
-            sendEventBusAndFinishAll(SIMPLIFIED);
+            localLanguagePresenter.changeLanguage(AppConfig.SIMPLIFIED, () -> {
+                initView();
+                mBinding.ivSimple.setVisibility(View.VISIBLE);
+                sendEventBusAndFinishAll();
+            });
         });
 
         mBinding.llEnglish.setOnClickListener(view -> {
-            if (TextUtils.equals(SPUtilHelper.getLanguage(), MyConfig.ENGLISH)) {
-                return;
-            }
-            initView();
-            mBinding.ivEnglish.setVisibility(View.VISIBLE);
-            sendEventBusAndFinishAll(ENGLISH);
+
+            localLanguagePresenter.changeLanguage(AppConfig.ENGLISH, () -> {
+                initView();
+                mBinding.ivEnglish.setVisibility(View.VISIBLE);
+                sendEventBusAndFinishAll();
+            });
+
         });
 
         mBinding.llKorea.setOnClickListener(v -> {
-            if (TextUtils.equals(SPUtilHelper.getLanguage(), MyConfig.KOREA)) {
-                return;
-            }
-            initView();
-            mBinding.ivKorea.setVisibility(View.VISIBLE);
-            sendEventBusAndFinishAll(KOREA);
+
+            localLanguagePresenter.changeLanguage(AppConfig.KOREA, () -> {
+                initView();
+                mBinding.ivKorea.setVisibility(View.VISIBLE);
+                sendEventBusAndFinishAll();
+            });
+
         });
 
     }
 
-    private void sendEventBusAndFinishAll(String language) {
-        SPUtilHelper.saveLanguage(language);
+    private void sendEventBusAndFinishAll() {
         EventBus.getDefault().post(new AllFinishEvent());
         AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置语言
         MainActivity.open(this);

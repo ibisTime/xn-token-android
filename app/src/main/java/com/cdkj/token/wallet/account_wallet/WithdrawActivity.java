@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
@@ -27,12 +27,10 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWithdrawBinding;
-import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
-import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
@@ -257,8 +255,8 @@ public class WithdrawActivity extends AbsLoadActivity {
         Map<String, String> map = new HashMap<>();
 
         map.put("symbol", coin);
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
+        map.put("systemCode", AppConfig.SYSTEMCODE);
+        map.put("companyCode", AppConfig.COMPANYCODE);
 
         Call call = RetrofitUtils.createApi(MyApi.class).getCoinFees("802266", StringUtils.getJsonToString(map));
 
@@ -296,7 +294,7 @@ public class WithdrawActivity extends AbsLoadActivity {
         map.put("googleCaptcha", mBinding.editGoogleCode.getText().toString());
         map.put("token", SPUtilHelper.getUserToken());
         map.put("applyUser", SPUtilHelper.getUserId());
-        map.put("systemCode", MyConfig.SYSTEMCODE);
+        map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("accountNumber", model.getAccountNumber());
         map.put("amount", bigDecimal.multiply(getLocalCoinUnit(model.getCoinName())).toString().split("\\.")[0]);
         map.put("payCardNo", mBinding.editToAddress.getText().toString().trim());

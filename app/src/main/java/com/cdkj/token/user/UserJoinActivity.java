@@ -12,18 +12,13 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.api.BaseResponseListModel;
-import com.cdkj.baselibrary.api.BaseResponseModel;
-import com.cdkj.baselibrary.api.ResponseInListModel;
-import com.cdkj.baselibrary.appmanager.MyConfig;
-import com.cdkj.baselibrary.base.AbsRefreshListActivity;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.IntroductionInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
-import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.CommunityListAdapter;
 import com.cdkj.token.databinding.ActivityJoinUsBinding;
@@ -82,8 +77,8 @@ public class UserJoinActivity extends AbsStatusBarTranslucentActivity {
     private void getCommnityList() {
         Map<String, String> map = new HashMap<>();
         map.put("type", "followUs");
-        map.put("systemCode", MyConfig.SYSTEMCODE);
-        map.put("companyCode", MyConfig.COMPANYCODE);
+        map.put("systemCode", AppConfig.SYSTEMCODE);
+        map.put("companyCode", AppConfig.COMPANYCODE);
 
         Call<BaseResponseListModel<IntroductionInfoModel>> call = RetrofitUtils.getBaseAPiService().getKeySystemInfoList("660919", StringUtils.getJsonToString(map));
 

@@ -13,7 +13,7 @@ import android.view.View;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.activitys.AppBuildTypeActivity;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
@@ -208,8 +208,8 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         hashMap.put("countryCode", SPUtilHelper.getCountryCode());
         hashMap.put("mobile", mBinding.edtUsername.getEditText().getText().toString());
         hashMap.put("smsCaptcha", mBinding.edtCode.getEditText().getText().toString());
-        hashMap.put("systemCode", MyConfig.SYSTEMCODE);
-        hashMap.put("companyCode", MyConfig.COMPANYCODE);
+        hashMap.put("systemCode", AppConfig.SYSTEMCODE);
+        hashMap.put("companyCode", AppConfig.COMPANYCODE);
         hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
         Call call = RetrofitUtils.getBaseAPiService().userLogin(CODE_LOGIN_CODE, StringUtils.getJsonToString(hashMap));
 

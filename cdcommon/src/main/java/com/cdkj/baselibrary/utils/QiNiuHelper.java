@@ -8,7 +8,7 @@ import android.util.Log;
 import com.cdkj.baselibrary.CdApplication;
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.api.BaseResponseModel;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.model.QiniuGetTokenModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -155,8 +155,8 @@ public class QiNiuHelper {
      */
     public Call<BaseResponseModel<QiniuGetTokenModel>> getQiniuToeknRequest() {
         Map<String, String> object = new HashMap<>();
-        object.put("companyCode", MyConfig.COMPANYCODE);
-        object.put("systemCode", MyConfig.SYSTEMCODE);
+        object.put("companyCode", AppConfig.COMPANYCODE);
+        object.put("systemCode", AppConfig.SYSTEMCODE);
         return RetrofitUtils.getBaseAPiService().getQiniuTOken("805951", StringUtils.getJsonToString(object));
     }
 

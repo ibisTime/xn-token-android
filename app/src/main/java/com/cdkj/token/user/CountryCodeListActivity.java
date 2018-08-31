@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.MyConfig;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsRefreshListActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -73,8 +73,8 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
                 EventBus.getDefault().post(countrySelectEvent);     //发送国家选择通知
             }
 
-            MyConfig.changeLanguageForCountry(this, countryCodeListAdapter.getSelectInterCode(position));
-            MyConfig.changeLocalCoinTypeForCountry(countryCodeListAdapter.getSelectInterCode(position));
+            AppConfig.changeLanguageForCountry(this, countryCodeListAdapter.getSelectInterCode(position));
+            AppConfig.changeLocalCoinTypeForCountry(countryCodeListAdapter.getSelectInterCode(position));
             EventBus.getDefault().post(new AllFinishEvent());
             SignInActivity.open(this, true);
             finish();
