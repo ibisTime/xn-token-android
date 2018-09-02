@@ -13,7 +13,6 @@ import com.cdkj.token.R;
 import com.cdkj.token.interfaces.StartPagePresenter;
 import com.cdkj.token.interfaces.StartPageView;
 import com.cdkj.token.model.VersionModel;
-import com.cdkj.token.wallet.WalletFragmentPresenter;
 
 import org.greenrobot.eventbus.EventBus;
 

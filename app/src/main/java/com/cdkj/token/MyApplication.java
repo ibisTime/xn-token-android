@@ -13,9 +13,8 @@ import com.cdkj.token.common.AppFrontBackHelper;
 import com.cdkj.token.model.PatternLockCheckFinish;
 import com.cdkj.token.user.pattern_lock.PatternLockCheckActivity;
 import com.cdkj.token.utils.BGAGlideImageLoader2;
-import com.umeng.analytics.MobclickAgent;
-import com.umeng.commonsdk.UMConfigure;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
+import com.zendesk.logger.Logger;
 
 import org.greenrobot.eventbus.EventBus;
 import org.litepal.LitePal;
@@ -73,6 +72,8 @@ public class MyApplication extends Application {
 
         OtherLibManager.initUmen(this, BuildConfig.umeng);
 
+        Logger.setLoggable(true);
+        OtherLibManager.initZengDesk(this);
     }
 
     private void initLitePal() {

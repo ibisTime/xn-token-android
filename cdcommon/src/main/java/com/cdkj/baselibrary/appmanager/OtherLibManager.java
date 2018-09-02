@@ -8,12 +8,44 @@ import com.cdkj.baselibrary.utils.LogUtil;
 import com.umeng.analytics.MobclickAgent;
 import com.umeng.commonsdk.UMConfigure;
 
+import zendesk.core.AnonymousIdentity;
+import zendesk.core.Identity;
+import zendesk.core.Zendesk;
+import zendesk.support.Support;
+import zendesk.support.guide.HelpCenterActivity;
+
 /**
  * 集成第三方管理
  * Created by cdlk on 2018/8/23.
  */
 
 public class OtherLibManager {
+
+
+    /**
+     * 初始化zendesk
+     * @param context
+     */
+    public static void initZengDesk(Context context) {
+        Zendesk.INSTANCE.init(context, AppConfig.getZenDeskUrl(),
+                "1abb5d09d1ae5884d0f88f76a4368847ee01bffed4f92181",
+                "mobile_sdk_client_6e8e6247d8e39ba2b3d6");
+
+        Identity identity = new AnonymousIdentity();
+        Zendesk.INSTANCE.setIdentity(identity);
+        Support.INSTANCE.init(Zendesk.INSTANCE);
+
+    }
+
+    /**
+     * 打开帮助中心
+     */
+    public static void openZengDeskHelpCenter(Activity activity) {
+        HelpCenterActivity.builder()
+                .show(activity);
+    }
+
+
 
     /**
      * 友盟状态参数设置

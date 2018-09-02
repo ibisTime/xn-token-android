@@ -60,6 +60,33 @@ public class AppConfig {
     public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
 
 
+    public static String getZenDeskUrl() {
+        if (LogUtil.isLog) {
+            return "https://hzcl.zendesk.com" + AppConfig.getZenDeskUrlLanguage();
+        }
+
+        return "https://theiasupport.zendesk.com" + AppConfig.getZenDeskUrlLanguage();
+    }
+
+    /**
+     * 获取Zendesk语言类型
+     *
+     * @return
+     */
+    public static String getZenDeskUrlLanguage() {
+        switch (SPUtilHelper.getLanguage()) {
+            case ENGLISH:
+                return "/hc/en-us/";
+            case KOREA:
+                return "hc/ko/";
+            case SIMPLIFIED:
+                return "hc/zh-cn/";
+            default:
+                return "";
+        }
+    }
+
+
     /**
      * 获取转账节点类型
      *

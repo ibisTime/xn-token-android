@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.activitys.ImageSelectActivity;
 import com.cdkj.baselibrary.activitys.NickModifyActivity;
+import com.cdkj.baselibrary.appmanager.AppConfig;
+import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.dialog.CommonDialog;
@@ -41,6 +43,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
+import zendesk.core.AnonymousIdentity;
+import zendesk.core.Identity;
+import zendesk.core.Zendesk;
+import zendesk.support.Support;
+import zendesk.support.guide.HelpCenterActivity;
 
 /**
  * 我的
@@ -131,7 +138,8 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
 
         //帮助中心
         mBinding.helper.setOnClickListener(view -> {
-            WebViewImgBgActivity.openkey(mActivity, getStrRes(R.string.user_issue), ThaAppConstant.getH5UrlLangage(ThaAppConstant.QUESTIONS));
+            OtherLibManager.openZengDeskHelpCenter(mActivity);
+//            WebViewImgBgActivity.openkey(mActivity, getStrRes(R.string.user_issue), ThaAppConstant.getH5UrlLangage(ThaAppConstant.QUESTIONS));
         });
 
         //设置
@@ -267,6 +275,7 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
         commonDialog.show();
     }
 
+
     /**
      * 更新昵称
      *
@@ -291,4 +300,6 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
     public void onFinishedGetUserInfo(UserInfoModel userInfo, String errorMsg) {
         setShowData(userInfo);
     }
+
+
 }

@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.AppConfig;
+import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -22,6 +23,7 @@ import static com.cdkj.baselibrary.appmanager.AppConfig.ENGLISH;
 import static com.cdkj.baselibrary.appmanager.AppConfig.KOREA;
 import static com.cdkj.baselibrary.appmanager.AppConfig.SIMPLIFIED;
 import static com.cdkj.baselibrary.appmanager.AppConfig.getUserLanguageLocal;
+
 
 /**
  * 语言设置
@@ -52,6 +54,8 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
         setPageBgImage(R.drawable.my_bg);
         setView(SPUtilHelper.getLanguage());
         initChangeListener();
+
+
     }
 
     private void initChangeListener() {
@@ -60,6 +64,7 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
 
         //简体中文
         mBinding.llSimple.setOnClickListener(view -> {
+
             localLanguagePresenter.changeLanguage(AppConfig.SIMPLIFIED, () -> {
                 initView();
                 mBinding.ivSimple.setVisibility(View.VISIBLE);
@@ -85,6 +90,7 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
                 setLanguageAndRestartMain();
             });
 
+
         });
 
     }
@@ -94,8 +100,9 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
      * 重新启动主页
      */
     private void setLanguageAndRestartMain() {
-        EventBus.getDefault().post(new AllFinishEvent());
+        OtherLibManager.initZengDesk(this);
         AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置语言
+        EventBus.getDefault().post(new AllFinishEvent());
         MainActivity.open(this);
         finish();
     }
