@@ -71,8 +71,11 @@ import static com.cdkj.token.views.CardChangeLayout.TOPVIEW;
  * 钱包资产
  * Created by cdkj on 2018/6/28.
  */
-//TODO 代码分离优化  数据源优化  操作优化
+//TODO 代码分离优化  请求嵌套优化
 public class WalletFragment extends BaseLazyFragment {
+
+
+    private final String HIND_SIGN = "****";//隐藏金额
 
     private FragmentWallet2Binding mBinding;
 
@@ -88,7 +91,6 @@ public class WalletFragment extends BaseLazyFragment {
     private CoinModel mWalletData;
     private BalanceListModel mPrivateWalletData;
 
-    private final String HIND_SIGN = "****";//隐藏金额
 
 
     public static WalletFragment getInstance() {
@@ -485,7 +487,7 @@ public class WalletFragment extends BaseLazyFragment {
                 mRefreshHelper.setPageIndex(1);
                 mRefreshHelper.setData(transformToAdapterData(data), getString(R.string.no_assets), R.mipmap.order_none);
                 if (isRequstPrivateWallet && WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId())) {  //没有添加钱包不用请求私钥钱包数据
-                    getPriWalletAssetsData(false, true);
+                    getPriWalletAssetsData(false, false);
                 }
             }
 

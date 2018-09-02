@@ -63,7 +63,7 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
             localLanguagePresenter.changeLanguage(AppConfig.SIMPLIFIED, () -> {
                 initView();
                 mBinding.ivSimple.setVisibility(View.VISIBLE);
-                sendEventBusAndFinishAll();
+                setLanguageAndRestartMain();
             });
         });
 
@@ -72,7 +72,7 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
             localLanguagePresenter.changeLanguage(AppConfig.ENGLISH, () -> {
                 initView();
                 mBinding.ivEnglish.setVisibility(View.VISIBLE);
-                sendEventBusAndFinishAll();
+                setLanguageAndRestartMain();
             });
 
         });
@@ -82,14 +82,18 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
             localLanguagePresenter.changeLanguage(AppConfig.KOREA, () -> {
                 initView();
                 mBinding.ivKorea.setVisibility(View.VISIBLE);
-                sendEventBusAndFinishAll();
+                setLanguageAndRestartMain();
             });
 
         });
 
     }
 
-    private void sendEventBusAndFinishAll() {
+
+    /**
+     * 重新启动主页
+     */
+    private void setLanguageAndRestartMain() {
         EventBus.getDefault().post(new AllFinishEvent());
         AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置语言
         MainActivity.open(this);

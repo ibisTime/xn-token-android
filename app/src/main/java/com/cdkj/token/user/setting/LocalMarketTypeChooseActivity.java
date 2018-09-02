@@ -63,7 +63,7 @@ public class LocalMarketTypeChooseActivity extends AbsStatusBarTranslucentActivi
         mBinding.linLayoutCny.setOnClickListener(view -> {
             localMarketTypePresenter.changeMarketType(AppConfig.LOCAL_MARKET_CNY, () -> {
                 showCny();
-                finishActivity();
+                reStartMainActivity();
             });
         });
 
@@ -71,15 +71,15 @@ public class LocalMarketTypeChooseActivity extends AbsStatusBarTranslucentActivi
         mBinding.linLayoutUsd.setOnClickListener(view -> {
             localMarketTypePresenter.changeMarketType(AppConfig.LOCAL_MARKET_USD, () -> {
                 showUsd();
-                finishActivity();
+                reStartMainActivity();
             });
         });
 
         //选择韩元
-        mBinding.linLayoutUsd.setOnClickListener(view -> {
+        mBinding.linLayoutKrw.setOnClickListener(view -> {
             localMarketTypePresenter.changeMarketType(AppConfig.LOCAL_MARKET_KRW, () -> {
                 showKRW();
-                finishActivity();
+                reStartMainActivity();
             });
         });
     }
@@ -102,7 +102,10 @@ public class LocalMarketTypeChooseActivity extends AbsStatusBarTranslucentActivi
         mBinding.imgKrw.setVisibility(View.VISIBLE);
     }
 
-    public void finishActivity() {
+    /**
+     * 重新启动主页
+     */
+    public void reStartMainActivity() {
         EventBus.getDefault().post(new AllFinishEvent());
         //刷新界面
         MainActivity.open(this);

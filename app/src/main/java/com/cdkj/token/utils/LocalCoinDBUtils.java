@@ -152,6 +152,8 @@ public class LocalCoinDBUtils {
         }
     }
 
+    //TODO 添加枚举参数
+
     /**
      * @param currency 币种
      * @param position 要哪张图片 0:icon官方图标,1:Pic1钱包水印图标,2:Pic2流水加钱图标,3:Pic3流水减钱图标

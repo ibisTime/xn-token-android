@@ -91,7 +91,7 @@ import static com.cdkj.token.utils.wallet.WalletDBColumn.WALLET_NAME;
  * Created by cdkj on 2018/6/6.
  */
 //TODO 加密方法抽取
-//TODO 工具类方法优化
+//TODO 工具类方法优化 转账交易方法入参优化
 public class WalletHelper {
 
     //助记词分隔符
