@@ -1,6 +1,10 @@
 package com.cdkj.token.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.cdkj.baselibrary.interfaces.AmountShowTypeInterface;
+import com.cdkj.baselibrary.interfaces.MarketShowTypeInterface;
 import com.contrarywind.interfaces.IPickerViewData;
 
 import java.io.Serializable;
@@ -82,7 +86,7 @@ public class CoinModel implements Serializable, AmountShowTypeInterface {
         return totalAmountKRW;
     }
 
-    public static class AccountListBean implements Serializable, IPickerViewData {
+    public static class AccountListBean implements Serializable, IPickerViewData, AmountShowTypeInterface, MarketShowTypeInterface, Parcelable {
         /**
          * accountNumber : A201711212030187096126
          * userId : U201711212030187015235
@@ -125,12 +129,32 @@ public class CoinModel implements Serializable, AmountShowTypeInterface {
         private String amountCNY;
         private String amountUSD;
         private String amountHKD;
+        private String amountKRW;
         private String priceCNY;
         private String priceUSD;
         private String priceHKD;
+        private String priceKRW;
+
 
         private String localCoinType;//本地类型
         private boolean isChoose;//本地是否配置选中
+
+        public String getPriceKRW() {
+            return priceKRW;
+        }
+
+        public void setPriceKRW(String priceKRW) {
+            this.priceKRW = priceKRW;
+        }
+
+        public String getAmountKRW() {
+
+            return amountKRW;
+        }
+
+        public void setAmountKRW(String amountKRW) {
+            this.amountKRW = amountKRW;
+        }
 
         public BigDecimal getAmount() {
             return amount;
@@ -352,5 +376,120 @@ public class CoinModel implements Serializable, AmountShowTypeInterface {
         public String getPickerViewText() {
             return currency;
         }
+
+        @Override
+        public String _getAmountStringUSD() {
+            return getAmountUSD();
+        }
+
+        @Override
+        public String _getAmountStringCNY() {
+            return getAmountCNY();
+        }
+
+        @Override
+        public String _getAmountStringKRW() {
+            return getAmountCNY();
+        }
+
+        @Override
+        public String _getMarketStringUSD() {
+            return getPriceUSD();
+        }
+
+        @Override
+        public String _getMarketStringCNY() {
+            return getPriceCNY();
+        }
+
+        @Override
+        public String _getMarketStringKRW() {
+            return getPriceKRW();
+        }
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel dest, int flags) {
+            dest.writeString(this.accountNumber);
+            dest.writeString(this.userId);
+            dest.writeString(this.realName);
+            dest.writeString(this.type);
+            dest.writeString(this.status);
+            dest.writeString(this.currency);
+            dest.writeString(this.amountString);
+            dest.writeSerializable(this.amount);
+            dest.writeString(this.frozenAmountString);
+            dest.writeSerializable(this.frozenAmount);
+            dest.writeString(this.md5);
+            dest.writeString(this.addAmountString);
+            dest.writeString(this.inAmountString);
+            dest.writeString(this.outAmountString);
+            dest.writeString(this.createDatetime);
+            dest.writeString(this.systemCode);
+            dest.writeString(this.companyCode);
+            dest.writeString(this.coinAddress);
+            dest.writeString(this.coinBalance);
+            dest.writeString(this.amountCNY);
+            dest.writeString(this.amountUSD);
+            dest.writeString(this.amountHKD);
+            dest.writeString(this.amountKRW);
+            dest.writeString(this.priceCNY);
+            dest.writeString(this.priceUSD);
+            dest.writeString(this.priceHKD);
+            dest.writeString(this.priceKRW);
+            dest.writeString(this.localCoinType);
+            dest.writeByte(this.isChoose ? (byte) 1 : (byte) 0);
+        }
+
+        public AccountListBean() {
+        }
+
+        protected AccountListBean(Parcel in) {
+            this.accountNumber = in.readString();
+            this.userId = in.readString();
+            this.realName = in.readString();
+            this.type = in.readString();
+            this.status = in.readString();
+            this.currency = in.readString();
+            this.amountString = in.readString();
+            this.amount = (BigDecimal) in.readSerializable();
+            this.frozenAmountString = in.readString();
+            this.frozenAmount = (BigDecimal) in.readSerializable();
+            this.md5 = in.readString();
+            this.addAmountString = in.readString();
+            this.inAmountString = in.readString();
+            this.outAmountString = in.readString();
+            this.createDatetime = in.readString();
+            this.systemCode = in.readString();
+            this.companyCode = in.readString();
+            this.coinAddress = in.readString();
+            this.coinBalance = in.readString();
+            this.amountCNY = in.readString();
+            this.amountUSD = in.readString();
+            this.amountHKD = in.readString();
+            this.amountKRW = in.readString();
+            this.priceCNY = in.readString();
+            this.priceUSD = in.readString();
+            this.priceHKD = in.readString();
+            this.priceKRW = in.readString();
+            this.localCoinType = in.readString();
+            this.isChoose = in.readByte() != 0;
+        }
+
+        public static final Parcelable.Creator<AccountListBean> CREATOR = new Parcelable.Creator<AccountListBean>() {
+            @Override
+            public AccountListBean createFromParcel(Parcel source) {
+                return new AccountListBean(source);
+            }
+
+            @Override
+            public AccountListBean[] newArray(int size) {
+                return new AccountListBean[size];
+            }
+        };
     }
 }

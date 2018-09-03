@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
+import com.cdkj.baselibrary.utils.StringUtils;
 
 /**
  * 根据用户选择的币种类型（美元，人民币 韩币）显示不同行情金额
@@ -18,6 +19,7 @@ public interface MarketShowTypeInterface {
 
     String _getMarketStringKRW();//韩元
 
+
     default String getMarketStringByLocalSymbol() {
         String localCoin = SPUtilHelper.getLocalMarketSymbol();
 
@@ -27,27 +29,14 @@ public interface MarketShowTypeInterface {
 
         switch (localCoin) {
             case AppConfig.LOCAL_MARKET_CNY:
-                if (TextUtils.isEmpty(_getMarketStringCNY())) {
-                    return "0";
-                }
-
-                return _getMarketStringCNY();
-
+                return StringUtils.checkEmptyReturnZeor(_getMarketStringCNY());
             case AppConfig.LOCAL_MARKET_USD:
-                if (TextUtils.isEmpty(_getMarketStringUSD())) {
-                    return "0";
-                }
-                return _getMarketStringUSD();
+                return StringUtils.checkEmptyReturnZeor(_getMarketStringUSD());
             case AppConfig.LOCAL_MARKET_KRW:
-                if (TextUtils.isEmpty(_getMarketStringKRW())) {
-                    return "0";
-                }
-                return _getMarketStringKRW();
-
+                return StringUtils.checkEmptyReturnZeor(_getMarketStringKRW());
             default:
                 return "";
         }
-
     }
 
 }

@@ -82,7 +82,7 @@ public class WithdrawActivity extends AbsLoadActivity {
     @Override
     public void topTitleViewRightClick() {
         if (model == null) return;
-        WithdrawOrderActivity.open(this, model.getCoinName());
+        WithdrawOrderActivity.open(this, model.getCoinSymbol());
     }
 
     @Override
@@ -103,7 +103,7 @@ public class WithdrawActivity extends AbsLoadActivity {
         getUserInfoRequest();
 
 
-        getWithdrawFee(model.getCoinName());
+        getWithdrawFee(model.getCoinSymbol());
     }
 
     private void init() {
@@ -118,13 +118,12 @@ public class WithdrawActivity extends AbsLoadActivity {
         if (model == null) {
             return;
         }
-        mBinding.tvBalance.setText(AmountUtil.sub(Double.parseDouble(model.getAmountString()),
-                Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()) + " " + model.getCoinName());
-        mBinding.tvFee.setText(model.getCoinName());
 
-        if (model.getCoinBalance() != null)
-            mBinding.edtAmount.setHint(getString(R.string.wallet_withdraw_amount_hint2) + AmountUtil.sub(Double.parseDouble(model.getCoinBalance()),
-                    Double.parseDouble(model.getFrozenAmountString()), model.getCoinName()));
+        String availablemountString = AmountUtil.amountFormatUnitForShow(model.getAvailableAmount(), model.getCoinSymbol(), 8) + " " + model.getCoinSymbol();
+
+        mBinding.tvBalance.setText(availablemountString);
+
+        mBinding.tvFee.setText(model.getCoinSymbol());
 
     }
 
@@ -296,10 +295,10 @@ public class WithdrawActivity extends AbsLoadActivity {
         map.put("applyUser", SPUtilHelper.getUserId());
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("accountNumber", model.getAccountNumber());
-        map.put("amount", bigDecimal.multiply(getLocalCoinUnit(model.getCoinName())).toString().split("\\.")[0]);
+        map.put("amount", bigDecimal.multiply(getLocalCoinUnit(model.getCoinSymbol())).toString().split("\\.")[0]);
         map.put("payCardNo", mBinding.editToAddress.getText().toString().trim());
-        map.put("payCardInfo", model.getCoinName());
-        map.put("applyNote", model.getCoinName() + getString(R.string.bill_type_withdraw));
+        map.put("payCardInfo", model.getCoinSymbol());
+        map.put("applyNote", model.getCoinSymbol() + getString(R.string.bill_type_withdraw));
         map.put("tradePwd", tradePwd);
 
         Call call = RetrofitUtils.getBaseAPiService().successRequest("802750", StringUtils.getJsonToString(map));

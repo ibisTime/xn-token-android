@@ -12,6 +12,7 @@ import zendesk.core.AnonymousIdentity;
 import zendesk.core.Identity;
 import zendesk.core.Zendesk;
 import zendesk.support.Support;
+import zendesk.support.UiConfig;
 import zendesk.support.guide.HelpCenterActivity;
 
 /**
@@ -24,6 +25,7 @@ public class OtherLibManager {
 
     /**
      * 初始化zendesk
+     *
      * @param context
      */
     public static void initZengDesk(Context context) {
@@ -41,10 +43,12 @@ public class OtherLibManager {
      * 打开帮助中心
      */
     public static void openZengDeskHelpCenter(Activity activity) {
-        HelpCenterActivity.builder()
-                .show(activity);
-    }
 
+        UiConfig helpCenterConfig = HelpCenterActivity.builder().withContactUsButtonVisible(false).config();
+
+        HelpCenterActivity.builder()
+                .show(activity,helpCenterConfig);
+    }
 
 
     /**

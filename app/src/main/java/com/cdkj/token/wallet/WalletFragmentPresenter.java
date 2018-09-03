@@ -1,20 +1,16 @@
 package com.cdkj.token.wallet;
 
 import android.app.Activity;
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.nets.rx.RxTransformerHelper;
 import com.cdkj.baselibrary.nets.rx.RxTransformerListHelper;
-import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.CoinModel;
@@ -24,7 +20,6 @@ import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.WalletFragmentAllData;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.WalletDBModel;
-import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.private_wallet.WalletFragmentView;
@@ -37,14 +32,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import io.reactivex.Flowable;
 import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
-import retrofit2.Call;
 
-import static com.cdkj.token.utils.AmountUtil.ALLSCALE;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
 import static com.cdkj.token.utils.LocalCoinDBUtils.updateLocalCoinList;
 
@@ -229,7 +219,13 @@ public class WalletFragmentPresenter {
 
             WalletBalanceModel walletBalanceModel = new WalletBalanceModel();
 
-            walletBalanceModel.setCoinName(accountListBean.getCurrency());
+            walletBalanceModel.setCoinSymbol(accountListBean.getCurrency());
+
+
+            walletBalanceModel.setAmount(accountListBean.getAmount());
+
+            walletBalanceModel.setFrozenAmount(accountListBean.getFrozenAmount());
+
 
             if (accountListBean.getAmount() != null && accountListBean.getFrozenAmount() != null) {
 
@@ -238,29 +234,20 @@ public class WalletFragmentPresenter {
                 BigDecimal frozenAmount = accountListBean.getFrozenAmount();
 
                 //可用=总资产-冻结
-                walletBalanceModel.setAmount(AmountUtil.amountFormatUnitForShow(amount.subtract(frozenAmount), accountListBean.getCurrency(), ALLSCALE));
+                walletBalanceModel.setAvailableAmount(amount.subtract(frozenAmount));
             }
 
             walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getCurrency(), 0));
 
-            walletBalanceModel.setMarketPriceCNY(accountListBean.getPriceCNY());
+            walletBalanceModel.setLocalMarketPrice(accountListBean.getMarketStringByLocalSymbol());
 
-            walletBalanceModel.setMarketPriceUSD(accountListBean.getPriceUSD());
-
-            walletBalanceModel.setAmountUSD(accountListBean.getAmountUSD());
-
-            walletBalanceModel.setAmountCny(accountListBean.getAmountCNY());
-
+            walletBalanceModel.setLocalAmount(accountListBean.getAmountStringByLocalMarket());
 
             walletBalanceModel.setAddress(accountListBean.getCoinAddress());
 
             walletBalanceModel.setAccountNumber(accountListBean.getAccountNumber());
 
-            walletBalanceModel.setAmountString(accountListBean.getAmountString());
-
             walletBalanceModel.setCoinBalance(accountListBean.getCoinBalance());
-
-            walletBalanceModel.setFrozenAmountString(accountListBean.getFrozenAmountString());
 
             walletBalanceModel.setCoinType(accountListBean.getType());
 
@@ -284,19 +271,14 @@ public class WalletFragmentPresenter {
 
             WalletBalanceModel walletBalanceModel = new WalletBalanceModel();
 
-            walletBalanceModel.setCoinName(accountListBean.getSymbol());
+            walletBalanceModel.setCoinSymbol(accountListBean.getSymbol());
 
-            walletBalanceModel.setAmount(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), accountListBean.getSymbol(), 8));
+            walletBalanceModel.setAmount(new BigDecimal(accountListBean.getBalance()));
+            walletBalanceModel.setAvailableAmount(new BigDecimal(accountListBean.getBalance()));
 
             walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getSymbol(), 0));
 
-            walletBalanceModel.setMarketPriceCNY(accountListBean.getPriceCNY());
-
-            walletBalanceModel.setMarketPriceUSD(accountListBean.getPriceUSD());
-
-            walletBalanceModel.setAmountUSD(accountListBean.getAmountUSD());
-
-            walletBalanceModel.setAmountCny(accountListBean.getAmountCNY());
+            walletBalanceModel.setLocalMarketPrice(accountListBean.getMarketStringByLocalSymbol());
 
             walletBalanceModel.setAddress(accountListBean.getAddress());
 
@@ -399,8 +381,6 @@ public class WalletFragmentPresenter {
 //        });
 //        mSubscription.add(disposable); //用于结束异步
 //    }
-
-
 
 
     /**

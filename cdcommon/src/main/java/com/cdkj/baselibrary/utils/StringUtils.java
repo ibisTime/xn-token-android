@@ -381,4 +381,18 @@ public class StringUtils {
         bigDecimal.setScale(2, BigDecimal.ROUND_HALF_UP); //四舍五入
         return nt.format(bigDecimal);
     }
+
+    /**
+     * 字符串为空返回0不为空返回原字符
+     *
+     * @param string
+     * @return
+     */
+    public static String checkEmptyReturnZeor(String string) {
+        if (TextUtils.isEmpty(string)) {
+            return "0";
+        }
+        return string;
+    }
+
 }

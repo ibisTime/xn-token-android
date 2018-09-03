@@ -6,6 +6,7 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.WalletBalanceModel;
+import com.cdkj.token.utils.AmountUtil;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -24,9 +25,11 @@ public class WalletBalanceAdapter extends BaseQuickAdapter<WalletBalanceModel, B
     @Override
     protected void convert(BaseViewHolder helper, WalletBalanceModel item) {
 
-        helper.setText(R.id.tv_coin_name, item.getCoinName());
+        helper.setText(R.id.tv_coin_name, item.getCoinSymbol());
 
-        helper.setText(R.id.tv_amount, item.getAmount());
+        String availablemountString = AmountUtil.amountFormatUnitForShow(item.getAvailableAmount(), item.getCoinSymbol(), 8) + " " + item.getCoinSymbol();
+
+        helper.setText(R.id.tv_amount, availablemountString);
 
         ImgUtils.loadImage(mContext, item.getCoinImgUrl(), helper.getView(R.id.img_coin_logo));
 
@@ -37,12 +40,12 @@ public class WalletBalanceAdapter extends BaseQuickAdapter<WalletBalanceModel, B
     }
 
     public String getMarketPriceString(WalletBalanceModel item) {
-        String priceString = item.getMarketStringByLocalSymbol();
+        String priceString = item.getLocalMarketPrice();
         return priceString + SPUtilHelper.getLocalMarketSymbol();
     }
 
     public String getAmountString(WalletBalanceModel item) {
-        String priceString = item.getAmountStringByLocalMarket();
+        String priceString = item.getLocalAmount();
         return priceString + SPUtilHelper.getLocalMarketSymbol();
     }
 

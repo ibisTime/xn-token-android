@@ -3,49 +3,69 @@ package com.cdkj.token.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.cdkj.baselibrary.interfaces.AmountShowTypeInterface;
-import com.cdkj.baselibrary.interfaces.MarketShowTypeInterface;
+import java.math.BigDecimal;
 
 /**
  * 钱包列表资产
  * Created by cdkj on 2018/7/1.
  */
 
-public class WalletBalanceModel implements Parcelable, AmountShowTypeInterface, MarketShowTypeInterface {
+public class WalletBalanceModel implements Parcelable {
 
     private String coinImgUrl;
-    private String coinName;
-    private String amount;
-    private String marketPriceCNY;
-    private String marketPriceUSD;
-    private String marketPriceKRW;
-    private String amountCny;
-    private String amountUSD;
-    private String amountKRW;
+    private String coinSymbol;
+
+    private String localMarketPrice;   //行情
+    private String localAmount;//本地选择amount  （cny usd krw）
     private String coinType;
-
     private String accountNumber;
-
     private String address;
+    private String coinBalance = "0";        //拥有币数量
 
-    private String coinBalance = "0";
-    private String frozenAmountString = "0";
-    private String amountString = "0";
 
-    public String getMarketPriceKRW() {
-        return marketPriceKRW;
+    private BigDecimal frozenAmount;//冻结金额
+    private BigDecimal amount;     //总金额
+
+    private BigDecimal availableAmount;         //可用总额 =总金额-冻结金额
+
+    public String getCoinImgUrl() {
+        return coinImgUrl;
     }
 
-    public void setMarketPriceKRW(String marketPriceKRW) {
-        this.marketPriceKRW = marketPriceKRW;
+    public void setCoinImgUrl(String coinImgUrl) {
+        this.coinImgUrl = coinImgUrl;
     }
 
-    public String getAmountKRW() {
-        return amountKRW;
+    public String getCoinSymbol() {
+        return coinSymbol;
     }
 
-    public void setAmountKRW(String amountKRW) {
-        this.amountKRW = amountKRW;
+    public void setCoinSymbol(String coinSymbol) {
+        this.coinSymbol = coinSymbol;
+    }
+
+    public BigDecimal getAvailableAmount() {
+        return availableAmount;
+    }
+
+    public void setAvailableAmount(BigDecimal availableAmount) {
+        this.availableAmount = availableAmount;
+    }
+
+    public String getLocalMarketPrice() {
+        return localMarketPrice;
+    }
+
+    public void setLocalMarketPrice(String localMarketPrice) {
+        this.localMarketPrice = localMarketPrice;
+    }
+
+    public String getLocalAmount() {
+        return localAmount;
+    }
+
+    public void setLocalAmount(String localAmount) {
+        this.localAmount = localAmount;
     }
 
     public String getCoinType() {
@@ -56,28 +76,12 @@ public class WalletBalanceModel implements Parcelable, AmountShowTypeInterface, 
         this.coinType = coinType;
     }
 
-    public String getCoinBalance() {
-        return coinBalance;
+    public String getAccountNumber() {
+        return accountNumber;
     }
 
-    public void setCoinBalance(String coinBalance) {
-        this.coinBalance = coinBalance;
-    }
-
-    public String getFrozenAmountString() {
-        return frozenAmountString;
-    }
-
-    public void setFrozenAmountString(String frozenAmountString) {
-        this.frozenAmountString = frozenAmountString;
-    }
-
-    public String getAmountString() {
-        return amountString;
-    }
-
-    public void setAmountString(String amountString) {
-        this.amountString = amountString;
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
     }
 
     public String getAddress() {
@@ -88,69 +92,28 @@ public class WalletBalanceModel implements Parcelable, AmountShowTypeInterface, 
         this.address = address;
     }
 
-
-    public String getAccountNumber() {
-        return accountNumber;
+    public String getCoinBalance() {
+        return coinBalance;
     }
 
-    public void setAccountNumber(String accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setCoinBalance(String coinBalance) {
+        this.coinBalance = coinBalance;
     }
 
-    public String getAmountUSD() {
-        return amountUSD;
+    public BigDecimal getFrozenAmount() {
+        return frozenAmount;
     }
 
-    public void setAmountUSD(String amountUSD) {
-        this.amountUSD = amountUSD;
+    public void setFrozenAmount(BigDecimal frozenAmount) {
+        this.frozenAmount = frozenAmount;
     }
 
-    public String getCoinImgUrl() {
-        return coinImgUrl;
-    }
-
-    public void setCoinImgUrl(String coinImgUrl) {
-        this.coinImgUrl = coinImgUrl;
-    }
-
-    public String getCoinName() {
-        return coinName;
-    }
-
-    public void setCoinName(String coinName) {
-        this.coinName = coinName;
-    }
-
-    public String getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
 
-    public void setAmount(String amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
-    }
-
-    public String getMarketPriceCNY() {
-        return marketPriceCNY;
-    }
-
-    public void setMarketPriceCNY(String marketPriceCNY) {
-        this.marketPriceCNY = marketPriceCNY;
-    }
-
-    public String getMarketPriceUSD() {
-        return marketPriceUSD;
-    }
-
-    public void setMarketPriceUSD(String marketPriceUSD) {
-        this.marketPriceUSD = marketPriceUSD;
-    }
-
-    public String getAmountCny() {
-        return amountCny;
-    }
-
-    public void setAmountCny(String amountCny) {
-        this.amountCny = amountCny;
     }
 
     public WalletBalanceModel() {
@@ -164,34 +127,30 @@ public class WalletBalanceModel implements Parcelable, AmountShowTypeInterface, 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(this.coinImgUrl);
-        dest.writeString(this.coinName);
-        dest.writeString(this.amount);
-        dest.writeString(this.marketPriceCNY);
-        dest.writeString(this.marketPriceUSD);
-        dest.writeString(this.amountCny);
-        dest.writeString(this.amountUSD);
+        dest.writeString(this.coinSymbol);
+        dest.writeString(this.localMarketPrice);
+        dest.writeString(this.localAmount);
         dest.writeString(this.coinType);
         dest.writeString(this.accountNumber);
         dest.writeString(this.address);
         dest.writeString(this.coinBalance);
-        dest.writeString(this.frozenAmountString);
-        dest.writeString(this.amountString);
+        dest.writeSerializable(this.frozenAmount);
+        dest.writeSerializable(this.amount);
+        dest.writeSerializable(this.availableAmount);
     }
 
     protected WalletBalanceModel(Parcel in) {
         this.coinImgUrl = in.readString();
-        this.coinName = in.readString();
-        this.amount = in.readString();
-        this.marketPriceCNY = in.readString();
-        this.marketPriceUSD = in.readString();
-        this.amountCny = in.readString();
-        this.amountUSD = in.readString();
+        this.coinSymbol = in.readString();
+        this.localMarketPrice = in.readString();
+        this.localAmount = in.readString();
         this.coinType = in.readString();
         this.accountNumber = in.readString();
         this.address = in.readString();
         this.coinBalance = in.readString();
-        this.frozenAmountString = in.readString();
-        this.amountString = in.readString();
+        this.frozenAmount = (BigDecimal) in.readSerializable();
+        this.amount = (BigDecimal) in.readSerializable();
+        this.availableAmount = (BigDecimal) in.readSerializable();
     }
 
     public static final Creator<WalletBalanceModel> CREATOR = new Creator<WalletBalanceModel>() {
@@ -205,35 +164,4 @@ public class WalletBalanceModel implements Parcelable, AmountShowTypeInterface, 
             return new WalletBalanceModel[size];
         }
     };
-
-
-    @Override
-    public String _getAmountStringUSD() {
-        return getAmountUSD();
-    }
-
-    @Override
-    public String _getAmountStringCNY() {
-        return getAmountCny();
-    }
-
-    @Override
-    public String _getAmountStringKRW() {
-        return amountKRW;
-    }
-
-    @Override
-    public String _getMarketStringUSD() {
-        return getMarketPriceUSD();
-    }
-
-    @Override
-    public String _getMarketStringCNY() {
-        return getMarketPriceCNY();
-    }
-
-    @Override
-    public String _getMarketStringKRW() {
-        return marketPriceKRW;
-    }
 }

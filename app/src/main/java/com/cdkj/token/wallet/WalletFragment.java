@@ -40,7 +40,6 @@ import com.cdkj.token.model.MsgListModel;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.WalletDBModel;
-import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.CardChangeLayout;
@@ -62,7 +61,6 @@ import java.util.Map;
 import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 
-import static com.cdkj.token.utils.AmountUtil.ALLSCALE;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
 import static com.cdkj.token.views.CardChangeLayout.BOTTOMVIEW;
 import static com.cdkj.token.views.CardChangeLayout.TOPVIEW;
@@ -90,7 +88,6 @@ public class WalletFragment extends BaseLazyFragment {
     private View mImportGuideView;  //导入钱包引导
     private CoinModel mWalletData;
     private BalanceListModel mPrivateWalletData;
-
 
 
     public static WalletFragment getInstance() {
@@ -412,6 +409,10 @@ public class WalletFragment extends BaseLazyFragment {
 
                 walletBalanceAdapter.setOnItemClickListener((adapter, view, position) -> {
 
+                    if (mBinding.cardChangeLayout.cardChangeLayout.isChanging()) { //动画中禁止点击
+                        return;
+                    }
+
                     if (isPrivateWallet) {
                         WalletCoinDetailsActivity.open(mActivity, walletBalanceAdapter.getItem(position));
                     } else {
@@ -437,6 +438,7 @@ public class WalletFragment extends BaseLazyFragment {
         mBinding.rvWallet.setLayoutManager(getRecyclerViewLayoutManager());
 
         mBinding.rvWallet.setNestedScrollingEnabled(false);
+
 
         mRefreshHelper.init(10);
     }
@@ -688,42 +690,41 @@ public class WalletFragment extends BaseLazyFragment {
     private List<WalletBalanceModel> transformToAdapterData(CoinModel data) {
         List<WalletBalanceModel> walletBalanceModels = new ArrayList<>();
 
+        if (data == null) {
+            return walletBalanceModels;
+        }
+
         for (CoinModel.AccountListBean accountListBean : data.getAccountList()) {
 
             WalletBalanceModel walletBalanceModel = new WalletBalanceModel();
 
-            walletBalanceModel.setCoinName(accountListBean.getCurrency());
+            walletBalanceModel.setCoinSymbol(accountListBean.getCurrency());
+
+            walletBalanceModel.setAmount(accountListBean.getAmount());
+
+            walletBalanceModel.setFrozenAmount(accountListBean.getFrozenAmount());
 
             if (accountListBean.getAmount() != null && accountListBean.getFrozenAmount() != null) {
 
                 BigDecimal amount = accountListBean.getAmount();
 
                 BigDecimal frozenAmount = accountListBean.getFrozenAmount();
-
                 //可用=总资产-冻结
-                walletBalanceModel.setAmount(AmountUtil.amountFormatUnitForShow(amount.subtract(frozenAmount), accountListBean.getCurrency(), ALLSCALE));
+                walletBalanceModel.setAvailableAmount(amount.subtract(frozenAmount));
             }
 
             walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getCurrency(), 0));
 
-            walletBalanceModel.setMarketPriceCNY(accountListBean.getPriceCNY());
+            walletBalanceModel.setLocalMarketPrice(accountListBean.getMarketStringByLocalSymbol());
 
-            walletBalanceModel.setMarketPriceUSD(accountListBean.getPriceUSD());
-
-            walletBalanceModel.setAmountUSD(accountListBean.getAmountUSD());
-
-            walletBalanceModel.setAmountCny(accountListBean.getAmountCNY());
-
+            walletBalanceModel.setLocalAmount(accountListBean.getAmountStringByLocalMarket());
 
             walletBalanceModel.setAddress(accountListBean.getCoinAddress());
 
             walletBalanceModel.setAccountNumber(accountListBean.getAccountNumber());
 
-            walletBalanceModel.setAmountString(accountListBean.getAmountString());
-
             walletBalanceModel.setCoinBalance(accountListBean.getCoinBalance());
 
-            walletBalanceModel.setFrozenAmountString(accountListBean.getFrozenAmountString());
 
             walletBalanceModel.setCoinType(accountListBean.getType());
 
@@ -742,24 +743,23 @@ public class WalletFragment extends BaseLazyFragment {
     @NonNull
     private List<WalletBalanceModel> transformToPrivateAdapterData(BalanceListModel data) {
         List<WalletBalanceModel> walletBalanceModels = new ArrayList<>();
+        if (data == null) {
+            return walletBalanceModels;
+        }
 
         for (BalanceListModel.AccountListBean accountListBean : data.getAccountList()) {
 
             WalletBalanceModel walletBalanceModel = new WalletBalanceModel();
 
-            walletBalanceModel.setCoinName(accountListBean.getSymbol());
+            walletBalanceModel.setCoinSymbol(accountListBean.getSymbol());
 
-            walletBalanceModel.setAmount(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getBalance()), accountListBean.getSymbol(), 8));
+            walletBalanceModel.setAvailableAmount(new BigDecimal(accountListBean.getBalance()));
 
             walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getSymbol(), 0));
 
-            walletBalanceModel.setMarketPriceCNY(accountListBean.getPriceCNY());
+            walletBalanceModel.setLocalMarketPrice(accountListBean.getMarketStringByLocalSymbol());
 
-            walletBalanceModel.setMarketPriceUSD(accountListBean.getPriceUSD());
-
-            walletBalanceModel.setAmountUSD(accountListBean.getAmountUSD());
-
-            walletBalanceModel.setAmountCny(accountListBean.getAmountCNY());
+            walletBalanceModel.setLocalAmount(accountListBean.getAmountStringByLocalMarket());
 
             walletBalanceModel.setAddress(accountListBean.getAddress());
 

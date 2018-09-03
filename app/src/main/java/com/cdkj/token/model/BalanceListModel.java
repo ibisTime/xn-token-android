@@ -4,6 +4,7 @@ import android.os.Parcel;
 import android.os.Parcelable;
 
 import com.cdkj.baselibrary.interfaces.AmountShowTypeInterface;
+import com.cdkj.baselibrary.interfaces.MarketShowTypeInterface;
 
 import java.math.BigInteger;
 import java.util.List;
@@ -83,7 +84,7 @@ public class BalanceListModel implements AmountShowTypeInterface {
         return totalAmountKRW;
     }
 
-    public static class AccountListBean implements Parcelable {
+    public static class AccountListBean implements Parcelable, AmountShowTypeInterface, MarketShowTypeInterface {
 
         /**
          * symbol : ETH
@@ -103,9 +104,27 @@ public class BalanceListModel implements AmountShowTypeInterface {
         private String amountCNY;
         private String amountUSD;
         private String amountHKD;
+        private String amountKRW;
         private String priceCNY;
         private String priceUSD;
         private String priceHKD;
+        private String priceKRW;
+
+        public String getAmountKRW() {
+            return amountKRW;
+        }
+
+        public void setAmountKRW(String amountKRW) {
+            this.amountKRW = amountKRW;
+        }
+
+        public String getPriceKRW() {
+            return priceKRW;
+        }
+
+        public void setPriceKRW(String priceKRW) {
+            this.priceKRW = priceKRW;
+        }
 
         public String getSymbol() {
             return symbol;
@@ -124,6 +143,9 @@ public class BalanceListModel implements AmountShowTypeInterface {
         }
 
         public BigInteger getBalance() {
+            if (balance == null) {
+                return BigInteger.ZERO;
+            }
             return balance;
         }
 
@@ -195,9 +217,11 @@ public class BalanceListModel implements AmountShowTypeInterface {
             dest.writeString(this.amountCNY);
             dest.writeString(this.amountUSD);
             dest.writeString(this.amountHKD);
+            dest.writeString(this.amountKRW);
             dest.writeString(this.priceCNY);
             dest.writeString(this.priceUSD);
             dest.writeString(this.priceHKD);
+            dest.writeString(this.priceKRW);
         }
 
         protected AccountListBean(Parcel in) {
@@ -207,9 +231,11 @@ public class BalanceListModel implements AmountShowTypeInterface {
             this.amountCNY = in.readString();
             this.amountUSD = in.readString();
             this.amountHKD = in.readString();
+            this.amountKRW = in.readString();
             this.priceCNY = in.readString();
             this.priceUSD = in.readString();
             this.priceHKD = in.readString();
+            this.priceKRW = in.readString();
         }
 
         public static final Creator<AccountListBean> CREATOR = new Creator<AccountListBean>() {
@@ -223,5 +249,35 @@ public class BalanceListModel implements AmountShowTypeInterface {
                 return new AccountListBean[size];
             }
         };
+
+        @Override
+        public String _getAmountStringUSD() {
+            return getAmountUSD();
+        }
+
+        @Override
+        public String _getAmountStringCNY() {
+            return getAmountCNY();
+        }
+
+        @Override
+        public String _getAmountStringKRW() {
+            return getAmountKRW();
+        }
+
+        @Override
+        public String _getMarketStringUSD() {
+            return getPriceUSD();
+        }
+
+        @Override
+        public String _getMarketStringCNY() {
+            return getPriceCNY();
+        }
+
+        @Override
+        public String _getMarketStringKRW() {
+            return getPriceKRW();
+        }
     }
 }

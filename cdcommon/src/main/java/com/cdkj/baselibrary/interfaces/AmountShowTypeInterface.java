@@ -4,6 +4,7 @@ import android.text.TextUtils;
 
 import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
+import com.cdkj.baselibrary.utils.StringUtils;
 
 /**
  * 根据用户选择的币种类型（美元，人民币 韩币）显示不同金额
@@ -28,26 +29,16 @@ public interface AmountShowTypeInterface {
 
         switch (localCoin) {
             case AppConfig.LOCAL_MARKET_CNY:
-                if (TextUtils.isEmpty(_getAmountStringCNY())) {
-                    return "0";
-                }
-
-                return _getAmountStringCNY();
-
+                return StringUtils.checkEmptyReturnZeor(_getAmountStringCNY());
             case AppConfig.LOCAL_MARKET_USD:
-                if (TextUtils.isEmpty(_getAmountStringUSD())) {
-                    return "0";
-                }
-                return _getAmountStringUSD();
+                return StringUtils.checkEmptyReturnZeor(_getAmountStringUSD());
             case AppConfig.LOCAL_MARKET_KRW:
-                if (TextUtils.isEmpty(_getAmountStringKRW())) {
-                    return "0";
-                }
-                return _getAmountStringKRW();
+                return StringUtils.checkEmptyReturnZeor(_getAmountStringKRW());
 
             default:
                 return "";
         }
     }
+
 
 }

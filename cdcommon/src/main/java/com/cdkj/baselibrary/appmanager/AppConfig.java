@@ -78,9 +78,9 @@ public class AppConfig {
             case ENGLISH:
                 return "/hc/en-us/";
             case KOREA:
-                return "hc/ko/";
+                return "/hc/ko/";
             case SIMPLIFIED:
-                return "hc/zh-cn/";
+                return "/hc/zh-cn/";
             default:
                 return "";
         }

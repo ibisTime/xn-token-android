@@ -143,14 +143,21 @@
     <string name="load_fail">다운로드실패</string>
     <string name="no_more_data">전부다운로드완료</string>
     <string name="login_fail">로그인실패</string>
-    <string name="request_error_1">超过红包最大个数限制</string>
-    <string name="request_error_2">超过红包最大金额限制</string>
-    <string name="request_error_3">单个红包不能小于0.001</string>
-    <string name="request_error_4">不存在的红包类型</string>
-    <string name="request_error_5">红包错误，请联系管理员</string>
-    <string name="request_error_6">红包已过期，下次记得早点来</string>
-    <string name="request_error_7">红包已抢完</string>
-    <string name="request_error_8">已经抢过该红包了</string>
-    <string name="request_error_9">红包不存在</string>
+    <string name="request_error_1">홍빠오 최대한도를 초과했습니다</string>
 
+    <string name="request_error_2">홍빠오 최대금액을 초과했습니다</string>
+
+    <string name="request_error_3">홍빠오 하나는 반드시 0.001을 넘어야 합니다</string>
+
+    <string name="request_error_4">존재하지 않는 홍빠오 유형입니다</string>
+
+    <string name="request_error_5">홍빠오 오류입니다. 담당자에게 연락하십시오</string>
+
+    <string name="request_error_6">홍빠오 유효기간이 경과하였습니다. 다음에는 일찍 열어보십시오</string>
+
+    <string name="request_error_7">남은 홍빠오가 없습니다</string>
+
+    <string name="request_error_8">이미 홍빠오를 획득하셨습니다</string>
+
+    <string name="request_error_9">홍빠오가 존재하지 않습니다</string>
 </resources>

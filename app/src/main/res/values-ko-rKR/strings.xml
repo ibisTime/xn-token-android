@@ -699,10 +699,15 @@
     <string name="lhlc_repay">재테크 대금을 측정하다</string>
     <string name="confirm_buy">구매 확인</string>
     <string name="krw">KRW</string>
-    <string name="question_remark_hint">请留下您的联系方式（推荐邮箱）</string>
-    <string name="save_qrimg">保存二维码</string>
-    <string name="no_file_permission">没有获取到文件读写权限，无法保存图片</string>
-    <string name="save_success">保存成功</string>
-    <string name="save_fail">保存失败</string>
+
+    <string name="question_remark_hint">연락처를 남겨주십시오 (이메일 주소가 가장 좋습니다)</string>
+
+    <string name="save_qrimg">QR코드를 저장하십시오</string>
+
+    <string name="no_file_permission">파일 열람 및 기록 허가를 받지 않으셨으면 이미지를 저장할 수 없습니다</string>
+
+    <string name="save_success">저장되었습니다</string>
+
+    <string name="save_fail">저장되지 않았습니다</string>
 
 </resources>

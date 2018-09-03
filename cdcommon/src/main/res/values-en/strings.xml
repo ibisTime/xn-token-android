@@ -147,15 +147,24 @@
     <string name="load_fail">Load failed</string>
 
     <string name="no_more_data">No more data to be loaded</string>
-    
+
     <string name="login_fail">Login details expired, please login again!</string>
-    <string name="request_error_1">超过红包最大个数限制</string>
-    <string name="request_error_2">超过红包最大金额限制</string>
-    <string name="request_error_3">单个红包不能小于0.001</string>
-    <string name="request_error_4">不存在的红包类型</string>
-    <string name="request_error_5">红包错误，请联系管理员</string>
-    <string name="request_error_6">红包已过期，下次记得早点来</string>
-    <string name="request_error_7">红包已抢完</string>
-    <string name="request_error_8">已经抢过该红包了</string>
-    <string name="request_error_9">红包不存在</string>
+
+    <string name="request_error_1">Exceed maximum number limit for sending out gifts</string>
+
+    <string name="request_error_2">Exceed maximum amount limit for sending out gifts</string>
+
+    <string name="request_error_3">Every gift\'s amount should be no less than 0.001</string>
+
+    <string name="request_error_4">Nonexistent gift type</string>
+
+    <string name="request_error_5">Gift error, please contact admin</string>
+
+    <string name="request_error_6">Gift has expired, remember to open it sooner next time</string>
+
+    <string name="request_error_7">There is no more gift left</string>
+
+    <string name="request_error_8">You\'ve got the gift already</string>
+
+    <string name="request_error_9">Gift not exist</string>
 </resources>

@@ -198,31 +198,7 @@ public class AmountUtil {
 
     }
 
-    /**
-     * 提供精确加法计算的add方法
-     *
-     * @param value1 被加数
-     * @param value2 加数
-     * @return 两个参数的和
-     */
-    public static String add(double value1, double value2) {
-        BigDecimal b1 = new BigDecimal(value1);
-        BigDecimal b2 = new BigDecimal(value2);
-        return b1.add(b2).toPlainString();
-    }
 
-    /**
-     * 提供精确减法运算的sub方法
-     *
-     * @param value1 被减数
-     * @param value2 减数
-     * @return 两个参数的差
-     */
-    public static String sub(double value1, double value2, String coin) {
-        BigDecimal b1 = new BigDecimal(value1);
-        BigDecimal b2 = new BigDecimal(value2);
-        return amountFormatUnitForShow(b1.subtract(b2), coin, 8);
-    }
 
 
 }

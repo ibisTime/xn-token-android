@@ -162,6 +162,15 @@ public class CardChangeLayout extends FrameLayout {
         }
     }
 
+    /**
+     * 是否正在交换动画中
+     *
+     * @return
+     */
+    public boolean isChanging() {
+        return mDragHelper.continueSettling(true) || isAnimatorRunning();
+    }
+
 
     /**
      * 组合动画

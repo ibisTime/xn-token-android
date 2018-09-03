@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.AppConfig;
@@ -33,7 +32,6 @@ import com.cdkj.token.wallet.private_wallet.WalletAddressShowActivity;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -117,25 +115,21 @@ public class BillListActivity extends AbsLoadActivity {
     }
 
     private void initView() {
-        ImgUtils.loadCircleImg(this, getCoinWatermarkWithCurrency(mAccountBean.getCoinName(), 0), mBinding.ivIcon);
+        ImgUtils.loadCircleImg(this, getCoinWatermarkWithCurrency(mAccountBean.getCoinSymbol(), 0), mBinding.ivIcon);
         mBinding.tvFilter.setVisibility(View.VISIBLE);
 
         mBinding.tvInMoney.setText(R.string.wallet_bill_list_charge);
         mBinding.tvOutMoney.setText(R.string.wallet_bill_list_withdraw);
 
-        if (!TextUtils.isEmpty(mAccountBean.getAmountString()) || !TextUtils.isEmpty(mAccountBean.getFrozenAmountString())) {
-            BigDecimal amount = new BigDecimal(mAccountBean.getAmountString());
-            BigDecimal frozenAmount = new BigDecimal(mAccountBean.getFrozenAmountString());
-            mBinding.tvAmount.setText(AmountUtil.amountFormatUnitForShow(amount.subtract(frozenAmount), mAccountBean.getCoinName(), 8) + " " + mAccountBean.getCoinName());
-        }
+        mBinding.tvAmount.setText(AmountUtil.amountFormatUnitForShow(mAccountBean.getAvailableAmount(), mAccountBean.getCoinSymbol(), 8) + " " + mAccountBean.getCoinSymbol());
 
-        mBinding.tvAmountCny.setText("≈ " + mAccountBean.getAmountStringByLocalMarket() + SPUtilHelper.getLocalMarketSymbol());
+        mBinding.tvAmountCny.setText("≈ " + mAccountBean.getLocalAmount() + SPUtilHelper.getLocalMarketSymbol());
 
     }
 
     private void initData() {
         if (mAccountBean != null) {
-            mBaseBinding.titleView.setMidTitle(mAccountBean.getCoinName());
+            mBaseBinding.titleView.setMidTitle(mAccountBean.getCoinSymbol());
         }
         refreshHelper = new RefreshHelper(this, refreshCallBackback);
         refreshHelper.init(10);
@@ -169,7 +163,7 @@ public class BillListActivity extends AbsLoadActivity {
                 return;
             CoinAddressShowModel coinAddressShowModel = new CoinAddressShowModel();
             coinAddressShowModel.setAddress(mAccountBean.getAddress());
-            coinAddressShowModel.setCoinSymbol(mAccountBean.getCoinName());
+            coinAddressShowModel.setCoinSymbol(mAccountBean.getCoinSymbol());
             WalletAddressShowActivity.open(this, coinAddressShowModel);
         });
 

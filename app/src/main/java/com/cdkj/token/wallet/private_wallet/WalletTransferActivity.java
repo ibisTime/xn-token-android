@@ -101,8 +101,8 @@ public class WalletTransferActivity extends AbsLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvCurrency.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinName(), ALLSCALE) + " " + accountListBean.getCoinName());
-            mBaseBinding.titleView.setMidTitle(accountListBean.getCoinName());
+            mBinding.tvCurrency.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinSymbol(), ALLSCALE) + " " + accountListBean.getCoinSymbol());
+            mBaseBinding.titleView.setMidTitle(accountListBean.getCoinSymbol());
         }
 
         getGasPriceValue();
@@ -152,7 +152,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                 return true;
             }
 
-            BigInteger amountBigInteger = AmountUtil.bigIntegerFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), accountListBean.getCoinName()); //转账数量
+            BigInteger amountBigInteger = AmountUtil.bigIntegerFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), accountListBean.getCoinSymbol()); //转账数量
 
             if (amountBigInteger.compareTo(BigInteger.ZERO) == 0 || amountBigInteger.compareTo(BigInteger.ZERO) == -1) {
                 UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
@@ -191,17 +191,17 @@ public class WalletTransferActivity extends AbsLoadActivity {
         String toAddress = mBinding.editToAddress.getText().toString();
 
         //币种类型
-        String coinType = LocalCoinDBUtils.getLocalCoinType(accountListBean.getCoinName());
+        String coinType = LocalCoinDBUtils.getLocalCoinType(accountListBean.getCoinSymbol());
 
         //Wan及Wantoken币
-        if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_WAN)
+        if (TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_WAN)
                 || LocalCoinDBUtils.isWanTokenCoin(coinType)) {
 
             return TextUtils.equals(walletDBModel.getWanAddress(), toAddress);
         }
 
         //ETH及ETHtoken币
-        if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_ETH)
+        if (TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_ETH)
                 || LocalCoinDBUtils.isEthTokenCoin(coinType)) {
             return TextUtils.equals(walletDBModel.getEthAddress(), toAddress);
         }
@@ -273,25 +273,25 @@ public class WalletTransferActivity extends AbsLoadActivity {
 
         WalletDBModel w = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
 
-        if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_WAN)) {   //TODO 转账地址优化
+        if (TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_WAN)) {   //TODO 转账地址优化
             return WalletHelper.transferForWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getDeflutGasLimit(), transferGasPrice);
         }
 
-        if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_ETH)) {
+        if (TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_ETH)) {
             return WalletHelper.transferForEth(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getDeflutGasLimit(), transferGasPrice);
         }
 
         //币种类型
-        String coinType = LocalCoinDBUtils.getLocalCoinType(accountListBean.getCoinName());
+        String coinType = LocalCoinDBUtils.getLocalCoinType(accountListBean.getCoinSymbol());
         //合约地址
-        String contractAddress = LocalCoinDBUtils.getLocalCoinContractAddress(accountListBean.getCoinName());
+        String contractAddress = LocalCoinDBUtils.getLocalCoinContractAddress(accountListBean.getCoinSymbol());
 
         if (LocalCoinDBUtils.isEthTokenCoin(coinType)) {
-            return WalletHelper.transferForEthTokenCoin(w, mBinding.editToAddress.getText().toString(), WalletHelper.getUnitAmountValue(mBinding.edtAmount.getText().toString(), accountListBean.getCoinName()), contractAddress, transferGasPrice);
+            return WalletHelper.transferForEthTokenCoin(w, mBinding.editToAddress.getText().toString(), WalletHelper.getUnitAmountValue(mBinding.edtAmount.getText().toString(), accountListBean.getCoinSymbol()), contractAddress, transferGasPrice);
         }
 
         if (LocalCoinDBUtils.isWanTokenCoin(coinType)) {
-            return WalletHelper.transferForWanTokenCoin(w, mBinding.editToAddress.getText().toString(), WalletHelper.getUnitAmountValue(mBinding.edtAmount.getText().toString(), accountListBean.getCoinName()), contractAddress, transferGasPrice);
+            return WalletHelper.transferForWanTokenCoin(w, mBinding.editToAddress.getText().toString(), WalletHelper.getUnitAmountValue(mBinding.edtAmount.getText().toString(), accountListBean.getCoinSymbol()), contractAddress, transferGasPrice);
         }
 
         return "";
@@ -340,11 +340,11 @@ public class WalletTransferActivity extends AbsLoadActivity {
      */
     private boolean canGetETHGasPrice() {
 
-        if (TextUtils.equals(accountListBean.getCoinName(), WalletHelper.COIN_ETH)) {
+        if (TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_ETH)) {
             return true;
         }
 
-        if (LocalCoinDBUtils.isEthTokenCoinByName(accountListBean.getCoinName())) {
+        if (LocalCoinDBUtils.isEthTokenCoinByName(accountListBean.getCoinSymbol())) {
             return true;
         }
 
@@ -391,7 +391,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
         if (accountListBean == null || gasPrice == null) return;
         mBinding.tvGas.setText(
                 AmountUtil.amountFormatUnitForShow(new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
-                        .multiply(new BigDecimal(gasPrice)), accountListBean.getCoinName(), ALLSCALE) + " " + getCoinUnitName(accountListBean.getCoinName()));
+                        .multiply(new BigDecimal(gasPrice)), accountListBean.getCoinSymbol(), ALLSCALE) + " " + getCoinUnitName(accountListBean.getCoinSymbol()));
     }
 
 
