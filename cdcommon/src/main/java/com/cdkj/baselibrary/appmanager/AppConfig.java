@@ -61,11 +61,7 @@ public class AppConfig {
 
 
     public static String getZenDeskUrl() {
-        if (LogUtil.isLog) {
-            return "https://hzcl.zendesk.com" + AppConfig.getZenDeskUrlLanguage();
-        }
-
-        return "https://theiasupport.zendesk.com" + AppConfig.getZenDeskUrlLanguage();
+        return "https://thachainhelp.zendesk.com" + AppConfig.getZenDeskUrlLanguage();
     }
 
     /**

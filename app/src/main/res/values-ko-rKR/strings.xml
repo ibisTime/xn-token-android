@@ -709,5 +709,6 @@
     <string name="save_success">저장되었습니다</string>
 
     <string name="save_fail">저장되지 않았습니다</string>
+    <string name="Theia_planet">Theia_planet</string>
 
 </resources>

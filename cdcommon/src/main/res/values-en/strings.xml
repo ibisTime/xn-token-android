@@ -145,7 +145,7 @@
     <string name="load_success">Load completed</string>
 
     <string name="load_fail">Load failed</string>
-
+    <string name="buy_product_get_income">Estimated income</string>
     <string name="no_more_data">No more data to be loaded</string>
 
     <string name="login_fail">Login details expired, please login again!</string>

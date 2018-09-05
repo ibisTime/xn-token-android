@@ -30,7 +30,7 @@ public class RetrofitUtils {
                     .baseUrl(getBaseURL())
                     .client(OkHttpUtils.getInstance())
                     .addConverterFactory(FastJsonConVerter.create())
-                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+//                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
         }
         return retrofitInstance;

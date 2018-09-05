@@ -128,6 +128,7 @@
     <string name="activity_image_system_content">카메라 인식실패 혹은 메모리 사용공강 부족으로 이기능을 사용할수 없습니다.설치 화면에서 재 설치 바랍니다.</string>
     <string name="activity_find_password">새로운 비밀번호</string>
     <string name="activity_find_repassword">비밀번호 확인</string>
+    <string name="buy_product_get_income">예상수입</string>
     <string name="activity_find_google_paste">붙이기</string>
     <string name="activity_find_google">구글인정번호</string>
     <string name="pull_down_to_refresh">내려서 회복하시오</string>
