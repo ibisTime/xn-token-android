@@ -50,9 +50,7 @@
         <activity
             android:name=".wallet.account_wallet.BillDetailActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".wallet.account_wallet.RechargeActivity"
-            android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".wallet.account_wallet.WithdrawActivity"
             android:windowSoftInputMode="adjustPan" />
