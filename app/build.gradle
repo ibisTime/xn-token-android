@@ -42,9 +42,9 @@ android {
         applicationId "com.cdkj.tha"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 8
-        versionName "1.8.0"
-        flavorDimensions "8"
+        versionCode 9
+        versionName "1.9.0"
+        flavorDimensions "9"
 
         multiDexEnabled true
 
