@@ -114,7 +114,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
      */
     void setAmountInfo() {
         if (!TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvAmount.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinSymbol(), ALLSCALE) + accountListBean.getCoinSymbol());
+            mBinding.tvAmount.setText(AmountUtil.transformFormatToString(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinSymbol(), ALLSCALE) + accountListBean.getCoinSymbol());
 
         }
 
@@ -431,7 +431,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }

@@ -856,6 +856,7 @@
 
     <string name="save_fail">Save failed</string>
     <string name="Theia_planet">Theia_planet</string>
+    <string name="smart_transfer_fee"><Data><![CDATA[本次划转矿工费为<font color="#999999">%1$s </font>%2$s]]></Data></string>
 
 </resources>
 

@@ -211,7 +211,7 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/edt_commission"
+                    android:id="@+id/tv_fee"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="25dp"
@@ -223,7 +223,7 @@
                     android:textSize="14sp" />
 
                 <TextView
-                    android:id="@+id/tv_fee"
+                    android:id="@+id/tv_fee_coin"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="15dp"

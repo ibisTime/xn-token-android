@@ -123,7 +123,7 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }

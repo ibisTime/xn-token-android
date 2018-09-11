@@ -221,14 +221,14 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
                 if (!TextUtils.isEmpty(data.getToken()) && !TextUtils.isEmpty(data.getUserId())) {
                     loginSuccessNext(data);
                 } else {
-                    disMissLoading();
+                    disMissLoadingDialog();
                     UITipDialog.showInfoNoIcon(SignInActivity.this, SucMessage);
                 }
             }
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -260,7 +260,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
 
     @Override
     public void LoginFailed(String code, String msg) {
-        disMissLoading();
+        disMissLoadingDialog();
         showToast(msg);
     }
 
@@ -281,7 +281,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
 
     @Override
     public void EndLogin() {
-        disMissLoading();
+        disMissLoadingDialog();
     }
 
 
@@ -321,7 +321,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
 
     @Override
     public void EndSend() {
-        disMissLoading();
+        disMissLoadingDialog();
     }
 
 

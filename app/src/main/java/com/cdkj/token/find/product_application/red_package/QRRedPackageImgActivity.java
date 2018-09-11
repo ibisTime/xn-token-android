@@ -105,7 +105,7 @@ public class QRRedPackageImgActivity extends BaseActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

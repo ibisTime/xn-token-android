@@ -17,11 +17,9 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.common.AbsRefreshClipListActivity;
 import com.cdkj.token.model.ManageMoneyBuySuccessEvent;
 import com.cdkj.token.model.ManagementMoney;
-import com.cdkj.token.utils.StringUtil;
 
 import org.greenrobot.eventbus.Subscribe;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -105,7 +103,7 @@ public class ManagementMoneyListActivity extends AbsRefreshClipListActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

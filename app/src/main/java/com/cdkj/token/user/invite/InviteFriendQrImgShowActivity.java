@@ -89,7 +89,7 @@ public class InviteFriendQrImgShowActivity extends BaseActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

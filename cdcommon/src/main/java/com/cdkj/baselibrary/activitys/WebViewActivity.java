@@ -194,7 +194,7 @@ public class WebViewActivity extends AbsActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

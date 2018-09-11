@@ -195,7 +195,7 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -224,7 +224,7 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
 
     @Override
     public void EndSend() {
-        disMissLoading();
+        disMissLoadingDialog();
     }
 
     @Override

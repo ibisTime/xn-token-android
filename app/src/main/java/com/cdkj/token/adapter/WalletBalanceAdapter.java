@@ -27,7 +27,7 @@ public class WalletBalanceAdapter extends BaseQuickAdapter<WalletBalanceModel, B
 
         helper.setText(R.id.tv_coin_name, item.getCoinSymbol());
 
-        String availablemountString = AmountUtil.amountFormatUnitForShow(item.getAvailableAmount(), item.getCoinSymbol(), 8) + " " + item.getCoinSymbol();
+        String availablemountString = AmountUtil.transformFormatToString(item.getAvailableAmount(), item.getCoinSymbol(), 8) + " " + item.getCoinSymbol();
 
         helper.setText(R.id.tv_amount, availablemountString);
 

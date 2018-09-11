@@ -207,7 +207,7 @@ public class SetLoginPwdActivity extends AbsActivity implements SendCodeInterfac
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -236,7 +236,7 @@ public class SetLoginPwdActivity extends AbsActivity implements SendCodeInterfac
 
     @Override
     public void EndSend() {
-        disMissLoading();
+        disMissLoadingDialog();
     }
 
     @Override

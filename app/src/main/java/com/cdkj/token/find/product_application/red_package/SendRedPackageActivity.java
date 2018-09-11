@@ -312,7 +312,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -408,7 +408,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
@@ -461,7 +461,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
         if (!TextUtils.isEmpty(accountListBean.getAmountString()) && !TextUtils.isEmpty(accountListBean.getFrozenAmountString())) {
             BigDecimal amount = new BigDecimal(accountListBean.getAmountString());
             BigDecimal frozenAmount = new BigDecimal(accountListBean.getFrozenAmountString());
-            String yue = AmountUtil.amountFormatUnitForShow(amount.subtract(frozenAmount), accountListBean.getCurrency(), 8);
+            String yue = AmountUtil.transformFormatToString(amount.subtract(frozenAmount), accountListBean.getCurrency(), 8);
             balanString = yue;
             mBinding.tvBalance.setText(getString(R.string.red_package_have) + ":" + yue);
         }

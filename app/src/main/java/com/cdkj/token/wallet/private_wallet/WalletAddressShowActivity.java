@@ -19,7 +19,6 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.BitmapUtils;
 import com.cdkj.baselibrary.utils.GlideApp;
 import com.cdkj.baselibrary.utils.LogUtil;
@@ -27,7 +26,6 @@ import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityAddressQrimgShowBinding;
 import com.cdkj.token.model.CoinAddressShowModel;
-import com.cdkj.token.user.CallPhoneActivity;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
@@ -83,7 +81,7 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
     private void initQRCodeAndAddress() {
         if (coinAddressShowModel == null) return;
 
-        String coinLogo = SPUtilHelper.getQiniuUrl() + LocalCoinDBUtils.getCoinWatermarkWithCurrency(coinAddressShowModel.getCoinSymbol(), 0);
+        String coinLogo = SPUtilHelper.getQiniuUrl() + LocalCoinDBUtils.getCoinIconByCoinSymbol(coinAddressShowModel.getCoinSymbol());
 
         GlideApp.with(this).asBitmap().load(coinLogo)
                 .into(new SimpleTarget<Bitmap>() {
@@ -152,8 +150,8 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
                 }, throwable -> {
                     LogUtil.E("a" + throwable);
                     UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
-                    disMissLoading();
-                }, () -> disMissLoading()));
+                    disMissLoadingDialog();
+                }, () -> disMissLoadingDialog()));
     }
 
 

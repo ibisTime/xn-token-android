@@ -109,7 +109,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvCurrency.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinSymbol(), ALLSCALE) + " " + accountListBean.getCoinSymbol());
+            mBinding.tvCurrency.setText(AmountUtil.transformFormatToString(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinSymbol(), ALLSCALE) + " " + accountListBean.getCoinSymbol());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinSymbol());
         }
 
@@ -156,7 +156,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
-                disMissLoading();
+                disMissLoadingDialog();
             }
 
             @Override
@@ -196,7 +196,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -221,7 +221,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -375,7 +375,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        disMissLoading();
+                        disMissLoadingDialog();
                         UITipDialog.showFail(WalletBTCTransferActivity.this, getString(R.string.transfer_fail));
                     }
 

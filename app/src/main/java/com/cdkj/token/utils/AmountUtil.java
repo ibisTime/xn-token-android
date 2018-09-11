@@ -25,13 +25,13 @@ public class AmountUtil {
 
 
     /**
-     * 货币单位转换 带单位
+     * 货币单位转换
      *
      * @param amount
      * @param
      * @return
      */
-    public static String amountFormatUnitForShow(BigDecimal amount, String coinSymbol, int scale) {
+    public static String transformFormatToString(BigDecimal amount, String coinSymbol, int scale) {
         if (amount == null) {
             return "0";
         }
@@ -43,15 +43,48 @@ public class AmountUtil {
         return formatCoinAmount(BigDecimalUtils.div(amount, getLocalCoinUnit(coinSymbol), scale));
     }
 
+    /**
+     * 货币单位转换
+     *
+     * @param amountString
+     * @param
+     * @return
+     */
+    public static String transformForRequest(String amountString, String coinSymbol) {
+        if (TextUtils.isEmpty(amountString)) {
+            return "0";
+        }
+        return transformForRequest(new BigDecimal(amountString), coinSymbol);
+    }
 
     /**
-     * 货币单位转换 带单位
+     * 货币单位转换
      *
      * @param amount
      * @param
      * @return
      */
-    public static String amountFormatUnitForShow(BigDecimal amount, BigDecimal unit, int scale) {
+    public static String transformForRequest(BigDecimal amount, String coinSymbol) {
+        if (amount == null) {
+            return "0";
+        }
+
+        if (TextUtils.isEmpty(coinSymbol)) {
+            return "0";
+        }
+
+        return formatCoinAmount(BigDecimalUtils.multiply(amount, getLocalCoinUnit(coinSymbol)));
+    }
+
+
+    /**
+     * 货币单位转换
+     *
+     * @param amount
+     * @param
+     * @return
+     */
+    public static String transformFormatToString(BigDecimal amount, BigDecimal unit, int scale) {
         if (amount == null) {
             return "0";
         }
@@ -197,8 +230,6 @@ public class AmountUtil {
         }
 
     }
-
-
 
 
 }

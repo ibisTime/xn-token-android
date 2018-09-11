@@ -120,7 +120,7 @@ public class ImportCreatePassWordActivity extends AbsLoadActivity {
                             return dbModel2.save();
                         })
                         .observeOn(AndroidSchedulers.mainThread())
-                        .doOnComplete(() -> disMissLoading())
+                        .doOnComplete(() -> disMissLoadingDialog())
                         .subscribe(isSave -> {
                             if (isSave) {
                                 ImportWalletSuccessActivity.open(ImportCreatePassWordActivity.this);

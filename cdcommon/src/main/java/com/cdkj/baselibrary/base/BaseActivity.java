@@ -114,7 +114,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * 隐藏Dialog
      */
-    public void disMissLoading() {
+    public void disMissLoadingDialog() {
 
         if (this == null || isFinishing()) {
             return;

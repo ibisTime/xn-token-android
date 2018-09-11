@@ -271,6 +271,9 @@
         <activity android:name=".find.product_application.management_money.ManagementMoneyDetailsActivity" />
         <activity android:name=".wallet.private_wallet.EthTokenCoinTransactionDetailsActivity" />
         <activity android:name=".wallet.WalletPasswordModifyActivity2" />
+        <activity
+            android:name=".wallet.smart_transfer.SmartTransferActivity"
+            android:windowSoftInputMode="adjustPan" />
 
 
     </application>

@@ -69,7 +69,7 @@ public class QuestionFeedbackHistoryListActivity extends AbsRefreshClipListActiv
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

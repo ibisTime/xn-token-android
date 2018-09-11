@@ -180,7 +180,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
@@ -207,7 +207,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
     @Override
     public void EndSend() {
-        disMissLoading();
+        disMissLoadingDialog();
     }
 
     @Override

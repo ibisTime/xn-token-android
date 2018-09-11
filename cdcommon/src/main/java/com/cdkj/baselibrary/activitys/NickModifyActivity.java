@@ -146,7 +146,7 @@ public class NickModifyActivity extends AbsActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

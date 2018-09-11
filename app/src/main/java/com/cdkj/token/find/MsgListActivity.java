@@ -77,7 +77,7 @@ public class MsgListActivity extends BaseRefreshActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }

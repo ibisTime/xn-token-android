@@ -96,7 +96,7 @@ public class UserJoinActivity extends AbsStatusBarTranslucentActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

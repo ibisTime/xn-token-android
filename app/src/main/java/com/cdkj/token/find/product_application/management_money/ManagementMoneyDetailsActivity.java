@@ -148,7 +148,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -214,7 +214,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
      * @return
      */
     private String getCoinAmountText(ManagementMoney data, BigDecimal coinUnit, BigDecimal amount) {
-        return AmountUtil.amountFormatUnitForShow(amount, coinUnit, AmountUtil.ALLSCALE) + data.getSymbol();
+        return AmountUtil.transformFormatToString(amount, coinUnit, AmountUtil.ALLSCALE) + data.getSymbol();
     }
 
     //获取用户信息
@@ -321,7 +321,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
@@ -385,7 +385,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

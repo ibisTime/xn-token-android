@@ -121,7 +121,7 @@ public class AuthenticateActivity extends AbsActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -156,7 +156,7 @@ public class AuthenticateActivity extends AbsActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
 
         });

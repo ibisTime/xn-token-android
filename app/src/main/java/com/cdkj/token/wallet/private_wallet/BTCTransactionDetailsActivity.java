@@ -126,7 +126,7 @@ public class BTCTransactionDetailsActivity extends AbsLoadActivity {
             mBinding.tvStateString.setText(R.string.transfer);
         }
 
-        mBinding.tvMoney.setText(getMoneyStateByState(btcBillModel.getDirection()) + AmountUtil.amountFormatUnitForShow(btcBillModel.getValue(), WalletHelper.COIN_BTC, ALLSCALE) + " " + WalletHelper.COIN_BTC);
+        mBinding.tvMoney.setText(getMoneyStateByState(btcBillModel.getDirection()) + AmountUtil.transformFormatToString(btcBillModel.getValue(), WalletHelper.COIN_BTC, ALLSCALE) + " " + WalletHelper.COIN_BTC);
 
         if (btcBillModel.getHeight() < 0) {
             mBinding.tvBlockHeight.setText(R.string.transaction_confirm_state);
@@ -136,7 +136,7 @@ public class BTCTransactionDetailsActivity extends AbsLoadActivity {
 
 
         mBinding.tvDate.setText(DateUtil.formatStringData(btcBillModel.getTransDatetime(), DEFAULT_DATE_FMT));
-        mBinding.tvGas.setText(AmountUtil.amountFormatUnitForShow(btcBillModel.getTxFee(), WalletHelper.COIN_BTC, ALLSCALE));
+        mBinding.tvGas.setText(AmountUtil.transformFormatToString(btcBillModel.getTxFee(), WalletHelper.COIN_BTC, ALLSCALE));
         mBinding.tvTransctionCode.setText(btcBillModel.getTxHash());
 
 

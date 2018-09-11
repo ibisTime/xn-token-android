@@ -18,6 +18,7 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.model.CodeModel;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -57,9 +58,6 @@ public class WithdrawActivity extends AbsLoadActivity {
     private TextPwdInputDialog inputDialog;
     private ActivityWithdrawBinding mBinding;
 
-
-    // 是否需要交易密码和谷歌验证 认证账户不需要交易密码和谷歌验证
-    private boolean isCerti = true;
 
     public static void open(Context context, WalletBalanceModel model) {
         if (context == null) {
@@ -119,11 +117,11 @@ public class WithdrawActivity extends AbsLoadActivity {
             return;
         }
 
-        String availablemountString = AmountUtil.amountFormatUnitForShow(model.getAvailableAmount(), model.getCoinSymbol(), 8) + " " + model.getCoinSymbol();
+        String availablemountString = AmountUtil.transformFormatToString(model.getAvailableAmount(), model.getCoinSymbol(), 8) + " " + model.getCoinSymbol();
 
         mBinding.tvBalance.setText(availablemountString);
 
-        mBinding.tvFee.setText(model.getCoinSymbol());
+        mBinding.tvFeeCoin.setText(model.getCoinSymbol());
 
     }
 
@@ -140,10 +138,6 @@ public class WithdrawActivity extends AbsLoadActivity {
                 return;
             }
 
-//            if (isCerti) {
-//                withdrawal("");
-//                return;
-//            }
 
             if (SPUtilHelper.getTradePwdFlag()) {
                 showInputDialog();
@@ -180,13 +174,11 @@ public class WithdrawActivity extends AbsLoadActivity {
             return false;
         }
 
-        if (isCerti) {
-            if (SPUtilHelper.getGoogleAuthFlag() && TextUtils.isEmpty(mBinding.editGoogleCode.getText().toString())) {
-                UITipDialog.showInfoNoIcon(this, getStrRes(R.string.google_code_hint));
-                mBinding.linLayoutGoogle.setVisibility(View.VISIBLE);
-                mBinding.viewGoogle.setVisibility(View.VISIBLE);
-                return false;
-            }
+        if (SPUtilHelper.getGoogleAuthFlag() && TextUtils.isEmpty(mBinding.editGoogleCode.getText().toString())) {
+            UITipDialog.showInfoNoIcon(this, getStrRes(R.string.google_code_hint));
+            mBinding.linLayoutGoogle.setVisibility(View.VISIBLE);
+            mBinding.viewGoogle.setVisibility(View.VISIBLE);
+            return false;
         }
 
         return true;
@@ -270,12 +262,12 @@ public class WithdrawActivity extends AbsLoadActivity {
                 if (data == null)
                     return;
 
-                mBinding.edtCommission.setText(AmountUtil.amountFormatUnitForShow(data.getWithdrawFee(), coin, AmountUtil.ALLSCALE));
+                mBinding.tvFee.setText(AmountUtil.transformFormatToString(data.getWithdrawFee(), coin, AmountUtil.ALLSCALE));
             }
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
@@ -301,22 +293,22 @@ public class WithdrawActivity extends AbsLoadActivity {
         map.put("applyNote", model.getCoinSymbol() + getString(R.string.bill_type_withdraw));
         map.put("tradePwd", tradePwd);
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("802750", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().codeRequest("802750", StringUtils.getJsonToString(map));
 
         addCall(call);
 
         showLoadingDialog();
 
-        call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(this) {
+        call.enqueue(new BaseResponseModelCallBack<CodeModel>(this) {
 
             @Override
-            protected void onSuccess(IsSuccessModes data, String SucMessage) {
+            protected void onSuccess(CodeModel data, String SucMessage) {
                 UITipDialog.showSuccess(WithdrawActivity.this, getStrRes(R.string.wallet_withdraw_success), dialogInterface -> finish());
             }
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
@@ -375,7 +367,7 @@ public class WithdrawActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }

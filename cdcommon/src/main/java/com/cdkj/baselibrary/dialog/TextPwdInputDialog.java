@@ -131,10 +131,11 @@ public class TextPwdInputDialog {
         mPositiveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mDialog.dismiss();
                 if (onPositiveListener != null) {
                     onPositiveListener.onPositive(v, mContentInput.getText().toString());
                 }
-                mDialog.dismiss();
+
             }
         });
         return this;
@@ -340,10 +341,11 @@ public class TextPwdInputDialog {
         mNegativeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mDialog.dismiss();
                 if (onNegativeListener != null) {
                     onNegativeListener.onNegative(v, mContentInput.getText().toString());
                 }
-                mDialog.dismiss();
+
             }
         });
         return this;
@@ -386,10 +388,10 @@ public class TextPwdInputDialog {
         mPositiveBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mDialog.dismiss();
                 if (onPositiveListener != null) {
                     onPositiveListener.onPositive(v, mContentInput.getText().toString());
                 }
-                mDialog.dismiss();
             }
         });
         return this;

@@ -87,7 +87,7 @@ public class RechargeAddressQRActivity extends AbsLoadActivity {
     private void initQRCodeAndAddress(CoinModel.AccountListBean model) {
         if (model == null) return;
 
-        String coinLogoUrl = SPUtilHelper.getQiniuUrl() + LocalCoinDBUtils.getCoinWatermarkWithCurrency(model.getCurrency(), 0);
+        String coinLogoUrl = SPUtilHelper.getQiniuUrl() + LocalCoinDBUtils.getCoinIconByCoinSymbol(model.getCurrency());
 
         GlideApp.with(this).asBitmap().load(coinLogoUrl)
                 .into(new SimpleTarget<Bitmap>() {
@@ -152,8 +152,8 @@ public class RechargeAddressQRActivity extends AbsLoadActivity {
                 }, throwable -> {
                     LogUtil.E("a" + throwable);
                     UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
-                    disMissLoading();
-                }, () -> disMissLoading()));
+                    disMissLoadingDialog();
+                }, () -> disMissLoadingDialog()));
     }
 
 
@@ -189,7 +189,7 @@ public class RechargeAddressQRActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }

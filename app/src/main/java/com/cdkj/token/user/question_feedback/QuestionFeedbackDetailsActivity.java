@@ -99,7 +99,7 @@ public class QuestionFeedbackDetailsActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -118,7 +118,7 @@ public class QuestionFeedbackDetailsActivity extends AbsLoadActivity {
         mBinding.tvRemark.setText(data.getCommitNote());
         mBinding.tvBugState.setText(getStateString(data.getStatus()));
         mBinding.tvFinalLevel.setText(data.getLevel());
-        mBinding.tvMoney.setText(AmountUtil.amountFormatUnitForShow(data.getPayAmount(), WalletHelper.COIN_WAN, AmountUtil.ALLSCALE) + "wan");
+        mBinding.tvMoney.setText(AmountUtil.transformFormatToString(data.getPayAmount(), WalletHelper.COIN_WAN, AmountUtil.ALLSCALE) + "wan");
         mBinding.tvCommitTime.setText(DateUtil.formatStringData(data.getCommitDatetime(), DATE_YMD));
 
         mBinding.recycler.setLayoutManager(new GridLayoutManager(this, 3) {

@@ -39,7 +39,7 @@ import java.util.Map;
 
 import retrofit2.Call;
 
-import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
+import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinIconByCoinSymbol;
 
 /**
  * 中心化钱包流水
@@ -115,13 +115,13 @@ public class BillListActivity extends AbsLoadActivity {
     }
 
     private void initView() {
-        ImgUtils.loadCircleImg(this, getCoinWatermarkWithCurrency(mAccountBean.getCoinSymbol(), 0), mBinding.ivIcon);
+        ImgUtils.loadCircleImg(this, getCoinIconByCoinSymbol(mAccountBean.getCoinSymbol()), mBinding.ivIcon);
         mBinding.tvFilter.setVisibility(View.VISIBLE);
 
         mBinding.tvInMoney.setText(R.string.wallet_bill_list_charge);
         mBinding.tvOutMoney.setText(R.string.wallet_bill_list_withdraw);
 
-        mBinding.tvAmount.setText(AmountUtil.amountFormatUnitForShow(mAccountBean.getAvailableAmount(), mAccountBean.getCoinSymbol(), 8) + " " + mAccountBean.getCoinSymbol());
+        mBinding.tvAmount.setText(AmountUtil.transformFormatToString(mAccountBean.getAvailableAmount(), mAccountBean.getCoinSymbol(), 8) + " " + mAccountBean.getCoinSymbol());
 
         mBinding.tvAmountCny.setText("≈ " + mAccountBean.getLocalAmount() + SPUtilHelper.getLocalMarketSymbol());
 
@@ -248,7 +248,7 @@ public class BillListActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

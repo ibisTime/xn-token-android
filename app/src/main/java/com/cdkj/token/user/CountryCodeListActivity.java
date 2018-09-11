@@ -109,7 +109,7 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

@@ -192,7 +192,7 @@ public class WebViewImgBgActivity extends AbsStatusBarTranslucentActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

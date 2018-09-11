@@ -80,7 +80,7 @@ public class WithdrawOrderActivity extends BaseRefreshActivity<WithdrawOrderMode
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }

@@ -7,11 +7,9 @@ import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.model.MyManamentMoneyProduct;
 import com.cdkj.token.utils.AmountUtil;
-import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
-import java.util.Date;
 import java.util.List;
 
 import static com.cdkj.baselibrary.utils.DateUtil.DEFAULT_DATE_FMT;
@@ -36,8 +34,8 @@ public class MyManagementMoneyAdapter extends BaseQuickAdapter<MyManamentMoneyPr
         helper.setText(R.id.tv_state, getStateString(item.getStatus()));
         helper.setText(R.id.tv_date, DateUtil.formatStringData(item.getCreateDatetime(), DEFAULT_DATE_FMT));
         helper.setText(R.id.tv_end_date, DateUtil.formatStringData(item.getProductInfo().getArriveDatetime(), DEFAULT_DATE_FMT));
-        helper.setText(R.id.tv_buy_amount, AmountUtil.amountFormatUnitForShow(item.getInvestAmount(), item.getProductInfo().getSymbol(), AmountUtil.ALLSCALE) + item.getProductInfo().getSymbol());
-        helper.setText(R.id.tv_income, AmountUtil.amountFormatUnitForShow(item.getExpectIncome(), item.getProductInfo().getSymbol(), AmountUtil.ALLSCALE) + item.getProductInfo().getSymbol());
+        helper.setText(R.id.tv_buy_amount, AmountUtil.transformFormatToString(item.getInvestAmount(), item.getProductInfo().getSymbol(), AmountUtil.ALLSCALE) + item.getProductInfo().getSymbol());
+        helper.setText(R.id.tv_income, AmountUtil.transformFormatToString(item.getExpectIncome(), item.getProductInfo().getSymbol(), AmountUtil.ALLSCALE) + item.getProductInfo().getSymbol());
 
     }
 

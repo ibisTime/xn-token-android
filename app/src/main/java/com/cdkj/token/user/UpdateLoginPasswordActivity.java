@@ -142,7 +142,7 @@ public class UpdateLoginPasswordActivity extends AbsActivity {
 
             @Override
             protected void onFinish() {
-             disMissLoading();
+             disMissLoadingDialog();
             }
         });
 

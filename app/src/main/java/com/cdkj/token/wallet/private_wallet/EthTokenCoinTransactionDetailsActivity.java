@@ -12,7 +12,6 @@ import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityTransctionDetailsBinding;
-import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.LocalEthTokenCoinBill;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
@@ -93,13 +92,13 @@ public class EthTokenCoinTransactionDetailsActivity extends AbsLoadActivity {
             mBinding.tvStateString.setText(R.string.transfer);
         }
 
-        mBinding.tvMoney.setText(getMoneyStateByState(localCoinBill.getDirection()) + AmountUtil.amountFormatUnitForShow(localCoinBill.getValue(), coinType, ETHSCALE) + " " + coinType);
+        mBinding.tvMoney.setText(getMoneyStateByState(localCoinBill.getDirection()) + AmountUtil.transformFormatToString(localCoinBill.getValue(), coinType, ETHSCALE) + " " + coinType);
 
         mBinding.tvToAddress.setText(localCoinBill.getTo());
         mBinding.tvFromAddress.setText(localCoinBill.getFrom());
         mBinding.tvBlockHeight.setText(localCoinBill.getBlockNumber() + "");
         mBinding.tvDate.setText(DateUtil.formatStringData(localCoinBill.getCreateDatetime(), DEFAULT_DATE_FMT));
-        mBinding.tvGas.setText(AmountUtil.amountFormatUnitForShow(localCoinBill.getTxFee(), this.coinType, ETHSCALE));
+        mBinding.tvGas.setText(AmountUtil.transformFormatToString(localCoinBill.getTxFee(), this.coinType, ETHSCALE));
         mBinding.tvTransctionCode.setText(localCoinBill.getBlockHash());
 
 

@@ -91,7 +91,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
 
     @Override
     public void EndSend() {
-        disMissLoading();
+        disMissLoadingDialog();
     }
 
     @Override
@@ -182,7 +182,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
@@ -250,7 +250,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
@@ -286,7 +286,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }

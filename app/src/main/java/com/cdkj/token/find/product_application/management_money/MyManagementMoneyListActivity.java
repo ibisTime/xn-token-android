@@ -84,7 +84,7 @@ public class MyManagementMoneyListActivity extends AbsRefreshClipListActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

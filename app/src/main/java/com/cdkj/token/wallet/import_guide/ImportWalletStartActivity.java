@@ -255,7 +255,7 @@ public class ImportWalletStartActivity extends AbsLoadActivity {
 
                         .observeOn(AndroidSchedulers.mainThread())
 
-                        .doFinally(() -> disMissLoading())
+                        .doFinally(() -> disMissLoadingDialog())
 
                         .subscribe(isSave -> {
 

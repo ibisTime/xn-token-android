@@ -150,13 +150,13 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
 
             @Override
             public void onFal(String info) {
-                disMissLoading();
+                disMissLoadingDialog();
                 ToastUtil.show(QuestionFeedbackSubmitActivity.this, info);
             }
 
             @Override
             public void onError(String info) {
-                disMissLoading();
+                disMissLoadingDialog();
                 ToastUtil.show(QuestionFeedbackSubmitActivity.this, info);
             }
         });
@@ -193,7 +193,7 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
