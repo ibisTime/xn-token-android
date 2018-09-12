@@ -1,20 +1,18 @@
-package com.cdkj.token.wallet.smart_transfer;
+package com.cdkj.baselibrary.base.mvp;
 
 import java.lang.ref.Reference;
 import java.lang.ref.WeakReference;
-
-import rx.Subscription;
 
 /**
  * Created by cdkj on 2018/9/10.
  */
 
-abstract class Presenter<T extends MvpView> implements BasePresenter<T> {
+public abstract class BasePresenter<T extends MVPView> implements MVPPresenter<T> {
 
-    public BaseModel baseModel;
+    public BaseMVPModel baseModel;
     protected Reference<T> mViewRef;  //View接口类型的弱引用
 
-    abstract BaseModel createBaseModel();
+    protected abstract BaseMVPModel createBaseModel();
 
     @Override
     public void attachView(T mvpView) {
@@ -35,7 +33,7 @@ abstract class Presenter<T extends MvpView> implements BasePresenter<T> {
     }
 
     public boolean isViewDetached() {
-        return mViewRef == null || mViewRef.get() == null || baseModel == null  ;
+        return mViewRef == null || mViewRef.get() == null;
     }
 
     public T getMvpView() {

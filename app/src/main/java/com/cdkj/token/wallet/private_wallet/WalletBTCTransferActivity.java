@@ -165,7 +165,6 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             }
         });
 
-
     }
 
     /**

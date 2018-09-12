@@ -395,4 +395,21 @@ public class StringUtils {
         return string;
     }
 
+    /**
+     * 检测position是否在list中越界
+     *
+     * @param list
+     * @param position
+     * @return
+     */
+    public static boolean checkPostionCrossingInList(List list, int position) {
+
+        if (list == null || list.size() == 0 || position < 0 || position > list.size()) {
+            return true;
+        }
+
+        return false;
+
+    }
+
 }

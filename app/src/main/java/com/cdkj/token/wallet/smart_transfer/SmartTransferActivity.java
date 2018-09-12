@@ -16,15 +16,20 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.SmartTrasfterCoinAdapter;
 import com.cdkj.token.databinding.ActivitySmartTransferBinding;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.utils.AmountUtil;
+import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
+import com.cdkj.token.views.RecyclerViewSpacesItemDecoration;
 
 import java.math.BigDecimal;
+import java.text.DecimalFormat;
+import java.util.HashMap;
 
 /**
  * 一键划转
@@ -39,6 +44,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
     private SmartTrasfterCoinAdapter smartTrasfterCoinAdapter;
     private TextPwdInputDialog pwdInputDialog;
     private String selectCoinSymbol = "";
+    private String balanceString = "";
 
 
     /**
@@ -63,6 +69,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
     @Override
     public void afterCreate(Bundle savedInstanceState) {
         mBaseBinding.titleView.setMidTitle(R.string.fast_transfer);
+        mBaseBinding.contentView.setVisibility(View.GONE);
         initViews();
         initClickListener();
         smartTransferPresenter = new SmartTransferPresenter(this);
@@ -76,10 +83,18 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
     private void initClickListener() {
 
+        //切换
         mBinding.imgToggle.setOnClickListener(view -> {
             smartTransferPresenter.togglePrivateStatus();
         });
 
+        //全部
+        mBinding.tvAllCoin.setOnClickListener(view -> {
+            mBinding.editAmount.setText(balanceString);
+            mBinding.editAmount.setSelection(balanceString.length());
+        });
+
+        //确认划转
         mBinding.btnNext.setOnClickListener(view -> {
 
             if (TextUtils.isEmpty(selectCoinSymbol)) {
@@ -91,12 +106,24 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
                 return;
             }
 
-            smartTransferPresenter.checkSetPassword();
+            smartTransferPresenter.showPayPasswordDialog();
         });
 
     }
 
     private void initViews() {
+
+
+        HashMap<String, Integer> stringIntegerHashMap = new HashMap<>();
+
+        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.BOTTOM_DECORATION, DisplayHelper.dp2px(this, 15));//底部间距
+
+        stringIntegerHashMap.put(RecyclerViewSpacesItemDecoration.RIGHT_DECORATION, DisplayHelper.dp2px(this, 15));//右间距
+
+        mBinding.recyclerViewCoin.addItemDecoration(new RecyclerViewSpacesItemDecoration(stringIntegerHashMap));
+
+        mBinding.editAmount.addTextChangedListener(new EditTextJudgeNumberWatcher(mBinding.editAmount, 15, 8));
+
         mBinding.recyclerViewCoin.setLayoutManager(new GridLayoutManager(this, 3) {
             @Override
             public boolean canScrollVertically() {
@@ -126,23 +153,37 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
 
     @Override
-    public void showGoogleEdit() {
-
+    public void showGoogleEdit(boolean isVisible) {
+        if (isVisible) {
+            mBinding.tvGoogle.setVisibility(View.VISIBLE);
+            mBinding.eidtGoogle.setVisibility(View.VISIBLE);
+        } else {
+            mBinding.tvGoogle.setVisibility(View.GONE);
+            mBinding.eidtGoogle.setVisibility(View.GONE);
+        }
     }
 
     @Override
     public void setCenterPage() {
         mBinding.seekBar.setVisibility(View.GONE);
+        mBinding.tvAccount.setText(R.string.my_account_wallet);
+        mBinding.tvAccountPrivate.setText(R.string.private_key_account);
+        mBinding.viewPoint.setBackgroundResource(R.drawable.smart_transfer_blue_point);
+        mBinding.viewPointPrivate.setBackgroundResource(R.drawable.smart_transfer_red_point);
+
     }
 
     @Override
     public void setPrivatePage() {
-
         mBinding.seekBar.setVisibility(View.VISIBLE);
+        mBinding.tvAccountPrivate.setText(R.string.my_account_wallet);
+        mBinding.tvAccount.setText(R.string.private_key_account);
+        mBinding.viewPoint.setBackgroundResource(R.drawable.smart_transfer_red_point);
+        mBinding.viewPointPrivate.setBackgroundResource(R.drawable.smart_transfer_blue_point);
     }
 
     @Override
-    public void resetBarProgress() {
+    public void resetFeeBarProgress() {
         mBinding.seekBar.setProgress(50);
     }
 
@@ -152,6 +193,13 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
         if (smartTrasfterCoinAdapter == null) {
             smartTrasfterCoinAdapter = new SmartTrasfterCoinAdapter(coinModel.getAccountList());
             smartTrasfterCoinAdapter.setOnItemClickListener((adapter, view, position) -> {
+
+                if (smartTrasfterCoinAdapter.getSelectPosition() == position) {
+                    return;
+                }
+
+                smartTrasfterCoinAdapter.setSelectPosition(position);
+
                 smartTransferPresenter.selectCoin(position);
             });
             mBinding.recyclerViewCoin.setAdapter(smartTrasfterCoinAdapter);
@@ -160,6 +208,10 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
         } else {
             smartTrasfterCoinAdapter.replaceData(coinModel.getAccountList());
+        }
+
+        if (mBaseBinding.contentView.getVisibility() == View.GONE) {
+            mBaseBinding.contentView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -174,24 +226,27 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
      */
     void selectDefaluteCoin() {
         smartTransferPresenter.selectCoin(0);
+        smartTrasfterCoinAdapter.setSelectPosition(0);
+
     }
 
     @Override
     public void setBalance(BigDecimal balance) {
-        if (mBinding.tvBalance == null) {
-            mBinding.tvFee.setText("0");
-            return;
-        }
 
-        mBinding.tvBalance.setText("可用余额" + AmountUtil.transformFormatToString(balance, selectCoinSymbol, AmountUtil.ALLSCALE));
+        balanceString = AmountUtil.transformFormatToString(balance, selectCoinSymbol, AmountUtil.ALLSCALE);
+
+        mBinding.tvBalance.setText(Html.fromHtml(getString(R.string.smart_transfer_balance, balanceString, selectCoinSymbol)));
     }
 
     @Override
     public void setFee(BigDecimal fee) {
-        if (fee == null) {
-            mBinding.tvFee.setText("0");
+
+        if (smartTransferPresenter.isPrivateWallet() && LocalCoinDBUtils.isBTC(selectCoinSymbol)) {
+            DecimalFormat df = new DecimalFormat("#######0.#");
+            mBinding.tvFee.setText(df.format(fee) + " " + "sat/b");
             return;
         }
+
         Spanned fromSpanned = Html.fromHtml(getString(R.string.smart_transfer_fee, AmountUtil.transformFormatToString(fee, selectCoinSymbol, AmountUtil.ALLSCALE), LocalCoinDBUtils.getCoinUnitName(selectCoinSymbol)));
         mBinding.tvFee.setText(fromSpanned);
     }
@@ -212,7 +267,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
     @Override
     public void transferFail(boolean isPrivate) {
-//        UITipDialog.showSuccess(this, "划转失败");
+        showToast("划转失败");
     }
 
     @Override

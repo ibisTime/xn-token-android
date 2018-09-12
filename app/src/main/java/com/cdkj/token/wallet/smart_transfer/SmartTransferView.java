@@ -1,5 +1,6 @@
 package com.cdkj.token.wallet.smart_transfer;
 
+import com.cdkj.baselibrary.base.mvp.MVPView;
 import com.cdkj.token.model.CoinModel;
 
 import java.math.BigDecimal;
@@ -8,15 +9,15 @@ import java.math.BigDecimal;
  * Created by cdkj on 2018/9/10.
  */
 
-public interface SmartTransferView extends MvpView {
+public interface SmartTransferView extends MVPView {
 
-    void showGoogleEdit();//google身份验证输入框
+    void showGoogleEdit(boolean isVisible);//google身份验证输入框
 
     void setCenterPage(); //显示中心化界面
 
     void setPrivatePage();//显示私有界面
 
-    void resetBarProgress();//切换币种时重新设置进度条
+    void resetFeeBarProgress();//切换币种时重新设置进度条
 
     void setCoins(CoinModel coinModel);//币种数据
 

@@ -23,7 +23,10 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView_coin"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:background="#f1f2f5"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="15dp">
 
                 </android.support.v7.widget.RecyclerView>
 
@@ -36,80 +39,95 @@
                     android:paddingTop="15dp">
 
                     <LinearLayout
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="20dp"
-                        android:gravity="center"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/gray_point" />
-
-                        <com.cdkj.token.views.DashVLineView
-                            android:layout_width="1dp"
-                            android:layout_height="20dp" />
-
-                        <ImageView
-                            android:layout_width="10dp"
-                            android:layout_height="10dp"
-                            android:src="@drawable/gray_point" />
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
-                        android:orientation="vertical">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="从"
-                            android:textSize="12sp" />
-
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="到"
-                            android:textSize="12sp" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="私钥账户"
-                            android:textColor="@color/text_black_cd"
-                            android:textSize="12sp" />
+                            android:layout_marginLeft="30dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
 
-                        <TextView
+                            <View
+                                android:id="@+id/view_point"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_gravity="bottom"
+                                android:layout_marginBottom="2dp"
+                                android:background="@drawable/smart_transfer_blue_point" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="bottom"
+                                android:layout_marginLeft="10dp"
+                                android:text="@string/from"
+                                android:textColor="@color/gray_999999"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_account"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="@string/my_account_wallet"
+                                android:textColor="@color/text_black_cd"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
+                        <com.cdkj.token.views.DashVLineView
+                            android:layout_width="1dp"
+                            android:layout_height="20dp"
+                            android:layout_marginLeft="34dp" />
+
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:text="个人账户"
-                            android:textColor="@color/text_black_cd"
-                            android:textSize="12sp" />
+                            android:layout_marginLeft="30dp"
+                            android:gravity="center"
+                            android:orientation="horizontal">
+
+                            <View
+                                android:id="@+id/view_point_private"
+                                android:layout_width="10dp"
+                                android:layout_height="10dp"
+                                android:layout_gravity="top"
+                                android:layout_marginTop="2dp"
+                                android:background="@drawable/smart_transfer_red_point" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="top"
+                                android:layout_marginLeft="10dp"
+                                android:text="@string/to"
+                                android:textColor="@color/gray_999999"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/tv_account_private"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="10dp"
+                                android:text="@string/private_key_account"
+                                android:textColor="@color/text_black_cd"
+                                android:textSize="14sp" />
+
+                        </LinearLayout>
+
                     </LinearLayout>
 
                     <ImageView
                         android:id="@+id/img_toggle"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
                         android:layout_gravity="center_vertical|right"
                         android:layout_marginRight="40dp"
-                        android:src="@color/popup_bg" />
+                        android:src="@drawable/up_down" />
 
 
                 </LinearLayout>
@@ -135,7 +153,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="划入数量" />
+                            android:text="划入数量"
+                            android:textColor="#333333"
+                            android:textSize="14sp" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -149,11 +169,13 @@
                                 android:layout_height="50dp"
                                 android:layout_weight="1"
                                 android:background="@null"
-                                android:hint="输入数量"
+                                android:hint="@string/transfer_number"
                                 android:inputType="numberDecimal"
                                 android:paddingLeft="5dp"
                                 android:paddingRight="5dp"
                                 android:singleLine="true"
+                                android:textColor="@color/text_black_cd"
+                                android:textColorHint="#AAAAAA"
                                 android:textSize="13sp" />
 
                             <TextView
@@ -165,6 +187,7 @@
                                 tools:text="ETH" />
 
                             <TextView
+                                android:id="@+id/tv_all_coin"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginRight="20dp"
@@ -179,11 +202,36 @@
                         </LinearLayout>
 
                         <TextView
+                            android:id="@+id/tv_google"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/user_password_google"
+                            android:visibility="gone" />
+
+                        <EditText
+                            android:id="@+id/eidt_google"
+                            android:layout_width="0dp"
+                            android:layout_height="50dp"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:hint="输入数量"
+                            android:inputType="numberDecimal"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:singleLine="true"
+                            android:textColor="@color/text_black_cd"
+                            android:textColorHint="#AAAAAA"
+                            android:textSize="13sp"
+                            android:visibility="gone" />
+
+                        <TextView
                             android:id="@+id/tv_balance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="10dp"
-                            android:text="可用余额 1000BTC" />
+                            android:textColor="#666666"
+                            tools:text="可用余额 1000BTC" />
 
                         <View
                             style="@style/style_split_line"
@@ -216,7 +264,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="5dp"
-            android:textSize="12sp"
+            android:textColor="#666666"
+            android:textSize="13sp"
             tools:text="@string/smart_transfer_fee" />
 
 
@@ -231,7 +280,7 @@
             android:layout_marginTop="10dp"
             android:background="@drawable/selector_btn_blue_change"
             android:gravity="center"
-            android:text="划转"
+            android:text="@string/transfer_3"
             android:textColor="@color/white"
             android:textSize="16sp" />
 

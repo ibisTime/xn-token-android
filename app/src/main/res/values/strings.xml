@@ -703,5 +703,10 @@
     <string name="save_success">保存成功</string>
     <string name="save_fail">保存失败</string>
     <string name="Theia_planet">Theia星球</string>
-    <string name="smart_transfer_fee"><Data><![CDATA[本次划转矿工费为<font color="#999999">%1$s </font>%2$s]]></Data></string>
+    <string name="smart_transfer_fee"><Data><![CDATA[本次划转矿工费为<font color="#333333">%1$s </font>%2$s]]></Data></string>
+    <string name="smart_transfer_balance"><Data><![CDATA[可用余额<font color="#333333">     %1$s </font> %2$s]]></Data></string>
+    <string name="private_key_account">私钥账户</string>
+    <string name="from">从</string>
+    <string name="to">到</string>
+    <string name="transfer_3">划转</string>
 </resources>

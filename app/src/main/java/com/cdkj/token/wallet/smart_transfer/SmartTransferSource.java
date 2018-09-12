@@ -6,27 +6,27 @@ import android.text.TextUtils;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.base.mvp.BaseMVPModel;
 import com.cdkj.baselibrary.model.CodeModel;
-import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.BtcFeesModel;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.CoinTypeAndAddress;
 import com.cdkj.token.model.GasPrice;
+import com.cdkj.token.model.TxHashModel;
+import com.cdkj.token.model.UTXOListModel;
+import com.cdkj.token.model.UTXOModel;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
-import com.cdkj.token.wallet.account_wallet.WithdrawActivity;
-import com.cdkj.token.wallet.private_wallet.WalletTransferActivity;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -40,14 +40,11 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
-import static com.cdkj.token.utils.LocalCoinDBUtils.getLocalCoinUnit;
-import static com.cdkj.token.utils.wallet.WalletHelper.getBtcFee;
-
 /**
  * Created by cdkj on 2018/9/10.
  */
 
-public class SmartTransferSource extends BaseModel {
+public class SmartTransferSource extends BaseMVPModel {
 
 
     interface SmartTransferModelCallBack {
@@ -62,7 +59,9 @@ public class SmartTransferSource extends BaseModel {
 
         void feesData(BigDecimal fee);
 
-        void gasPrice(BigInteger fee);
+        void btcfeesData(BtcFeesModel btcFee);
+
+        void btcUTXOData(List<UTXOModel> utxo);
 
         void transferSuccess();
 
@@ -146,7 +145,7 @@ public class SmartTransferSource extends BaseModel {
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
                 super.onReqFailure(errorCode, errorMessage);
-                smartTransferModelCallBack.feesData(null);
+                smartTransferModelCallBack.feesData(BigDecimal.ZERO);
             }
 
             @Override
@@ -159,7 +158,7 @@ public class SmartTransferSource extends BaseModel {
     /**
      * 获取币种余额
      */
-    public void getCoinBalanceBySymbol(String coinSymbol, String coinAddress) {
+    public void getPrivateCoinBalanceBySymbol(String coinSymbol, String coinAddress) {
 
         List<CoinTypeAndAddress> coinList = new ArrayList<>();
 
@@ -176,6 +175,8 @@ public class SmartTransferSource extends BaseModel {
 
         addCall(call);
 
+        smartTransferModelCallBack.showDialog();
+
         call.enqueue(new BaseResponseModelCallBack<BalanceListModel>(null) {
             @Override
             protected void onSuccess(BalanceListModel data, String SucMessage) {
@@ -190,7 +191,7 @@ public class SmartTransferSource extends BaseModel {
 
             @Override
             protected void onFinish() {
-
+                smartTransferModelCallBack.dismissDialog();
             }
         });
     }
@@ -361,7 +362,13 @@ public class SmartTransferSource extends BaseModel {
         call.enqueue(new BaseResponseModelCallBack<GasPrice>(null) {
             @Override
             protected void onSuccess(GasPrice gasPrice, String SucMessage) {
-                smartTransferModelCallBack.gasPrice(gasPrice.getGasPrice());
+                smartTransferModelCallBack.feesData(BigDecimalUtils.tr(gasPrice.getGasPrice()));
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+                super.onReqFailure(errorCode, errorMessage);
+                smartTransferModelCallBack.feesData(BigDecimal.ZERO);
             }
 
             @Override
@@ -381,7 +388,13 @@ public class SmartTransferSource extends BaseModel {
         call.enqueue(new BaseResponseModelCallBack<GasPrice>(null) {
             @Override
             protected void onSuccess(GasPrice gasPrice, String SucMessage) {
-                smartTransferModelCallBack.gasPrice(gasPrice.getGasPrice());
+                smartTransferModelCallBack.feesData(BigDecimalUtils.tr(gasPrice.getGasPrice()));
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+                super.onReqFailure(errorCode, errorMessage);
+                smartTransferModelCallBack.feesData(BigDecimal.ZERO);
             }
 
             @Override
@@ -401,13 +414,78 @@ public class SmartTransferSource extends BaseModel {
         call.enqueue(new BaseResponseModelCallBack<BtcFeesModel>(null) {
             @Override
             protected void onSuccess(BtcFeesModel data, String SucMessage) {
+                smartTransferModelCallBack.btcfeesData(data);
+            }
 
-
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+                super.onReqFailure(errorCode, errorMessage);
+                smartTransferModelCallBack.btcfeesData(new BtcFeesModel());
             }
 
             @Override
             protected void onFinish() {
 
+            }
+        });
+
+    }
+
+    /**
+     * 获取utxo列表然后进行签名
+     */
+    public void getBTCUTXO(String btcAddress) {
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("address", btcAddress);
+
+        Call<BaseResponseModel<UTXOListModel>> call = RetrofitUtils.createApi(MyApi.class).getUtxoList("802220", StringUtils.getJsonToString(map));
+
+        smartTransferModelCallBack.showDialog();
+
+        call.enqueue(new BaseResponseModelCallBack<UTXOListModel>(null) {
+            @Override
+            protected void onSuccess(UTXOListModel data, String SucMessage) {
+                smartTransferModelCallBack.btcUTXOData(data.getUtxoList());
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+
+            }
+
+            @Override
+            protected void onFinish() {
+                smartTransferModelCallBack.dismissDialog();
+            }
+        });
+
+    }
+
+    /**
+     * btc交易签名广播
+     *
+     * @param txSign
+     */
+    public void btcTransactionBroadcast(String txSign) {
+
+        Map<String, String> map = new HashMap<>();
+        map.put("signTx", txSign);
+
+        smartTransferModelCallBack.showDialog();
+
+        Call<BaseResponseModel<TxHashModel>> call = RetrofitUtils.createApi(MyApi.class).btcTransactionBroadcast("802222", StringUtils.getJsonToString(map));
+
+        call.enqueue(new BaseResponseModelCallBack<TxHashModel>(null) {
+            @Override
+            protected void onSuccess(TxHashModel data, String SucMessage) {
+                smartTransferModelCallBack.transferSuccess();
+            }
+
+            @Override
+            protected void onFinish() {
+                smartTransferModelCallBack.dismissDialog();
             }
         });
 

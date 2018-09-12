@@ -1,9 +1,9 @@
-package com.cdkj.token.wallet.smart_transfer;
+package com.cdkj.baselibrary.base.mvp;
 
 /**
  * Created by 李先俊 on 2018/9/10.
  */
-public interface MvpView {
+public interface MVPView {
 
     void onShowLoadingDialog();
 

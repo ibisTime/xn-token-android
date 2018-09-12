@@ -1,4 +1,4 @@
-package com.cdkj.token.wallet.smart_transfer;
+package com.cdkj.baselibrary.base.mvp;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +10,7 @@ import retrofit2.Call;
  * Created by cdkj on 2018/9/10.
  */
 
-public class BaseModel {
+public class BaseMVPModel {
 
     private List<Call> mCallList = new ArrayList<>();
 

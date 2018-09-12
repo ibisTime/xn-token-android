@@ -1,6 +1,7 @@
 package com.cdkj.baselibrary.utils;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import static java.math.BigDecimal.ROUND_HALF_UP;
 
@@ -51,6 +52,13 @@ public class BigDecimalUtils {
         }
 
         return BigDecimal.ZERO;
+    }
+
+    public static BigDecimal tr(BigInteger bigInteger) {
+        if (bigInteger == null) {
+            return BigDecimal.ZERO;
+        }
+        return new BigDecimal(bigInteger);
     }
 
     /**

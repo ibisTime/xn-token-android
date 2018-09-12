@@ -4,7 +4,7 @@
     <!-- 设置描边 -->
     <stroke
         android:width="0.8dp"
-        android:color="#3E3A39">
+        android:color="#dee0e5">
 
 
     </stroke>
