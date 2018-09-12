@@ -274,6 +274,9 @@
         <activity
             android:name=".wallet.smart_transfer.SmartTransferActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".user.invite.InviteActivity" />
+        <activity android:name=".user.invite.InviteRuleActivity" />
+        <activity android:name=".user.invite.InviteQrActivity" />
 
 
     </application>

@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:id="@+id/ll_root"
+        android:background="@mipmap/invite_bg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp">
+
+            <ImageView
+                android:id="@+id/tv_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:src="@drawable/back_white" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/invite_gift"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title_mid_size" />
+
+            <ImageView
+                android:id="@+id/tv_more"
+                android:layout_gravity="right"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingBottom="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:src="@mipmap/more_invite" />
+
+        </FrameLayout>
+
+        <ImageView
+            android:src="@mipmap/invite_logo"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="30dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <RelativeLayout
+            android:layout_marginTop="17dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="310dp"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_invite_test"
+                android:layout_alignParentRight="true"
+                android:src="@mipmap/invite_text_bg"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:layout_marginTop="2dp"
+                android:layout_centerInParent="true"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="9dp"
+                android:text="全球首款跨链生态钱包" />
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:background="@drawable/corner_invite_qr_bg"
+            android:layout_marginTop="45dp"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="180dp"
+            android:layout_height="180dp">
+
+            <ImageView
+                android:id="@+id/iv_qr"
+                android:background="@color/black"
+                android:layout_width="150dp"
+                android:layout_height="150dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_do"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginTop="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="复制您的专属邀请链接"
+                    android:textColor="@color/invite_color_gray"
+                    android:textSize="13sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <Button
+                    android:text="复制"
+                    android:textSize="13sp"
+                    android:textColor="@color/invite_color_gray"
+                    android:background="@drawable/border_invite_copy_btn"
+                    android:layout_marginLeft="12dp"
+                    android:layout_width="60dp"
+                    android:layout_height="26dp" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"/>
+
+            <View
+                android:background="@color/invite_color_blue"
+                android:layout_width="match_parent"
+                android:layout_height="1px"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_save"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:src="@mipmap/invite_save"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp" />
+
+                    <TextView
+                        android:textColor="@color/invite_color_blue"
+                        android:layout_marginTop="8dp"
+                        android:text="保存本地"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_wx"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:src="@mipmap/invite_wx"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp" />
+
+                    <TextView
+                        android:textColor="@color/invite_color_blue"
+                        android:layout_marginTop="8dp"
+                        android:text="微信"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_pyq"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:src="@mipmap/invite_pyq"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp" />
+
+                    <TextView
+                        android:textColor="@color/invite_color_blue"
+                        android:layout_marginTop="8dp"
+                        android:text="朋友圈"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_wb"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:src="@mipmap/invite_wb"
+                        android:layout_width="42dp"
+                        android:layout_height="42dp" />
+
+                    <TextView
+                        android:textColor="@color/invite_color_blue"
+                        android:layout_marginTop="8dp"
+                        android:text="微博"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/ll_rule"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_marginTop="30dp"
+                android:text="- 登陆享好礼 -"
+                android:textSize="16sp"
+                android:textColor="@color/invite_color_blue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_invite_rule"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="80dp"
+                android:layout_marginRight="80dp"
+                android:text="1. 新用户注册并登陆可获得10原矿奖励 \n\n2. 新用户可获得购买币加宝收益首次翻倍的奖励"
+                android:textSize="14sp"
+                android:textColor="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>
