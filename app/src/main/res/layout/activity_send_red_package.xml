@@ -108,7 +108,7 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/red_bg_rodun"
+                    android:background="@drawable/red_backet_bg_rodun"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -175,7 +175,7 @@
                     android:layout_height="45dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
-                    android:background="@drawable/red_bg_rodun"
+                    android:background="@drawable/red_backet_bg_rodun"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -258,7 +258,7 @@
                     android:layout_marginRight="25dp"
                     android:layout_marginTop="10dp"
 
-                    android:background="@drawable/red_bg_rodun"
+                    android:background="@drawable/red_backet_bg_rodun"
                     android:gravity="center_vertical">
 
                     <TextView
@@ -301,7 +301,7 @@
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     android:layout_marginTop="20dp"
-                    android:background="@drawable/red_bg_rodun"
+                    android:background="@drawable/red_backet_bg_rodun"
                     android:hint="@string/sen_red_packet_note"
                     android:paddingLeft="10dp"
                     android:paddingRight="10dp"

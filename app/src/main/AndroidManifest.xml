@@ -274,6 +274,8 @@
         <activity
             android:name=".wallet.smart_transfer.SmartTransferActivity"
             android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".find.product_application.red_package.SendRedPacketActivity" />
+        <activity android:name=".find.product_application.red_package.CoinSelectListActivity" />
 
 
     </application>

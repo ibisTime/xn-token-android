@@ -441,7 +441,7 @@
     <string name="red_package_please_set_type">请先设置支付密码</string>
     <string name="red_package_min_number">红包个数最少为1个</string>
     <string name="red_package_pleas_number">请输入要发红包数量</string>
-    <string name="red_package_min_numer">总额最小为0.001枚</string>
+    <string name="red_package_min_numer">总额最小为%s枚</string>
     <string name="red_package_piease_send_number">请输入要发的数量</string>
     <string name="red_package_please_type">请选择代币</string>
     <string name="red_package_set_hand">改为拼手气红包</string>
@@ -709,4 +709,14 @@
     <string name="from">从</string>
     <string name="to">到</string>
     <string name="transfer_3">划转</string>
+    <string name="theia_red_packet">Theia红包</string>
+    <string name="lucky_red_packet">拼手气红包</string>
+    <string name="ordinary_red_packet">普通红包</string>
+    <string name="total">总额</string>
+    <string name="single_amount">单个金额</string>
+    <string name="red_packet_intro_lucky">每人获得金额随机</string>
+    <string name="red_packet_intro_ordinary">每人获得金额固定</string>
+    <string name="change_type_1">拼</string>
+    <string name="change_type_2">普</string>
+    <string name="coin_type_select">请选择代币种类</string>
 </resources>

@@ -266,7 +266,7 @@
     <string name="red_package_please_set_type">결재 비밀번호 설치</string>
     <string name="red_package_min_number">훙빠우 개수 최소1개</string>
     <string name="red_package_pleas_number">훙빠우 개수 입력</string>
-    <string name="red_package_min_numer">최소 단위는0.001개</string>
+    <string name="red_package_min_numer">최소 단위는%s개</string>
     <string name="red_package_piease_send_number">보내실 개수입력</string>
     <string name="red_package_please_type">코인선택</string>
     <string name="red_package_set_hand">럭케 훙빠우로 변경</string>
@@ -716,5 +716,15 @@
     <string name="from">从</string>
     <string name="to">到</string>
     <string name="transfer_3">划转</string>
+    <string name="theia_red_packet">Theia红包</string>
+    <string name="lucky_red_packet">拼手气红包</string>
+    <string name="ordinary_red_packet">普通红包</string>
+    <string name="total">总额</string>
+    <string name="single_amount">单个金额</string>
+    <string name="red_packet_intro_lucky">每人获得金额随机</string>
+    <string name="red_packet_intro_ordinary">每人获得金额固定</string>
+    <string name="change_type_1">拼</string>
+    <string name="change_type_2">普</string>
+    <string name="coin_type_select">请选择代币种类</string>
 
 </resources>

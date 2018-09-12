@@ -296,7 +296,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
         if (isViewDetached()) {
             return;
         }
-        getMvpView().onShowLoadingDialog();
+        getMvpView().showLoadDialog();
     }
 
     @Override
@@ -304,7 +304,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
         if (isViewDetached()) {
             return;
         }
-        getMvpView().onDisMissLoadingDialog();
+        getMvpView().disMissLoadDialog();
     }
 
     @Override
@@ -403,7 +403,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
         if (isViewDetached()) {
             return;
         }
-        getMvpView().onShowLoadingDialog();
+        getMvpView().showLoadDialog();
     }
 
     @Override
@@ -411,12 +411,12 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
         if (isViewDetached()) {
             return;
         }
-        getMvpView().onDisMissLoadingDialog();
+        getMvpView().disMissLoadDialog();
         getMvpView().showGoogleEdit(SPUtilHelper.getGoogleAuthFlag());
     }
 
     @Override
-   public BaseMVPModel createBaseModel() {
+    public BaseMVPModel createBaseMVPModel() {
         smartTransferModel = new SmartTransferSource(this);
         return smartTransferModel;
     }

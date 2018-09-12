@@ -12,12 +12,12 @@ public abstract class BasePresenter<T extends MVPView> implements MVPPresenter<T
     public BaseMVPModel baseModel;
     protected Reference<T> mViewRef;  //View接口类型的弱引用
 
-    protected abstract BaseMVPModel createBaseModel();
+    protected abstract BaseMVPModel createBaseMVPModel();
 
     @Override
     public void attachView(T mvpView) {
         mViewRef = new WeakReference<T>(mvpView);
-        baseModel = createBaseModel();
+        baseModel = createBaseMVPModel();
     }
 
     @Override

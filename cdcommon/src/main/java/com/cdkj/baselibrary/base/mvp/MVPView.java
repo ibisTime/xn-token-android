@@ -5,9 +5,5 @@ package com.cdkj.baselibrary.base.mvp;
  */
 public interface MVPView {
 
-    void onShowLoadingDialog();
-
-    void onDisMissLoadingDialog();
-
     void onError(String msg, String code);
 }

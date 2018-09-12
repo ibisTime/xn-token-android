@@ -33,4 +33,9 @@ public interface SmartTransferView extends MVPView {
 
     void transferFail(boolean isPrivate);
 
+    void showLoadDialog();
+
+    void disMissLoadDialog();
+
+
 }

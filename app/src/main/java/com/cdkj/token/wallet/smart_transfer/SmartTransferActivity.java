@@ -271,15 +271,14 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
     }
 
     @Override
-    public void onShowLoadingDialog() {
+    public void showLoadDialog() {
         showLoadingDialog();
     }
 
     @Override
-    public void onDisMissLoadingDialog() {
+    public void disMissLoadDialog() {
         disMissLoadingDialog();
     }
-
 
     @Override
     public void onError(String msg, String code) {
