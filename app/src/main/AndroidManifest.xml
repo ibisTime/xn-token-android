@@ -274,11 +274,15 @@
         <activity
             android:name=".wallet.smart_transfer.SmartTransferActivity"
             android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".find.product_application.red_package.SendRedPacketActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".find.product_application.red_package.CoinSelectListActivity" />
 
+        <activity android:name=".user.invite.InviteActivity" />
+        <activity android:name=".user.invite.InviteRuleActivity" />
+        <activity android:name=".user.invite.InviteQrActivity" />
 
     </application>
 

@@ -703,6 +703,7 @@
     <string name="save_success">保存成功</string>
     <string name="save_fail">保存失败</string>
     <string name="Theia_planet">Theia星球</string>
+
     <string name="smart_transfer_fee"><Data><![CDATA[本次划转矿工费为<font color="#333333">%1$s </font>%2$s]]></Data></string>
     <string name="smart_transfer_balance"><Data><![CDATA[可用余额<font color="#333333">     %1$s </font> %2$s]]></Data></string>
     <string name="private_key_account">私钥账户</string>
@@ -719,4 +720,11 @@
     <string name="change_type_1">拼</string>
     <string name="change_type_2">普</string>
     <string name="coin_type_select">请选择代币种类</string>
+
+
+    <string name="info_share_succ">分享成功</string>
+    <string name="info_share_fail">分享失败</string>
+    <string name="info_share_cancel">取消分享</string>
+    <string name="info_cant_share">没有文件权限，无法分享快讯。</string>
+
 </resources>
