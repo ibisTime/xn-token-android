@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Paint;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -156,6 +157,12 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
         mBinding.tvTypeReadPacket.setText(R.string.ordinary_red_packet);
         mBinding.tvAmountType.setText(R.string.total);
         mBinding.tvRedPacketInfo.setText(R.string.red_packet_intro_ordinary);
+
+        mBinding.tvChangeLucky.setBackgroundResource(R.drawable.redpacket_btn_lucky_un_select);
+        mBinding.tvChangeLucky.setTextColor(ContextCompat.getColor(this, R.color.red));
+
+        mBinding.tvChangeOrdinary.setBackgroundResource(R.drawable.redpacket_btn_ordinary_select);
+        mBinding.tvChangeOrdinary.setTextColor(ContextCompat.getColor(this, R.color.white));
     }
 
     @Override
@@ -164,6 +171,15 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
         mBinding.tvTypeReadPacket.setText(R.string.lucky_red_packet);
         mBinding.tvAmountType.setText(R.string.single_amount);
         mBinding.tvRedPacketInfo.setText(R.string.red_packet_intro_lucky);
+
+        mBinding.tvChangeLucky.setBackgroundResource(R.drawable.redpacket_btn_lucky_select);
+        mBinding.tvChangeLucky.setTextColor(ContextCompat.getColor(this, R.color.white));
+
+
+        mBinding.tvChangeOrdinary.setBackgroundResource(R.drawable.redpacket_btn_ordinary_un_select);
+        mBinding.tvChangeOrdinary.setTextColor(ContextCompat.getColor(this, R.color.red));
+
+
     }
 
     @Override

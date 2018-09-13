@@ -128,7 +128,7 @@
                     android:id="@+id/tv_change_lucky"
                     android:layout_width="wrap_content"
                     android:layout_height="26dp"
-                    android:background="@color/red"
+                    android:background="@drawable/redpacket_btn_lucky_select"
                     android:gravity="center"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
@@ -139,12 +139,12 @@
                     android:id="@+id/tv_change_ordinary"
                     android:layout_width="wrap_content"
                     android:layout_height="26dp"
-                    android:background="@color/red"
+                    android:background="@drawable/redpacket_btn_ordinary_un_select"
                     android:gravity="center"
                     android:paddingLeft="15dp"
                     android:paddingRight="15dp"
                     android:text="@string/change_type_2"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/red" />
 
 
             </LinearLayout>
@@ -219,7 +219,6 @@
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="15dp"
                 android:background="@drawable/red_backet_bg_rodun"
-                android:enabled="false"
                 android:hint="@string/sen_red_packet_note"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
