@@ -55,6 +55,13 @@ public class RefreshHelper<T> {
         return mAdapter;
     }
 
+    public void reSetAdapter(BaseQuickAdapter mAdapter) {
+        this.mAdapter = mAdapter;
+        if (getmRecyclerView() != null) {
+            getmRecyclerView().setAdapter(mAdapter);
+        }
+    }
+
     public SmartRefreshLayout getmRefreshLayout() {
         return mRefreshLayout;
     }
@@ -255,6 +262,38 @@ public class RefreshHelper<T> {
             }
             if (mAdapter != null) mAdapter.setEmptyView(mEmptyView);
         }
+    }
+
+    /**
+     * 设置加载数据 实现分页逻辑
+     *
+     * @param datas
+     */
+    public void setData2(List<T> datas, String emp, int img) {
+
+        refreshLayoutStop();
+
+        if (mPageIndex == 1) {         //如果当前加载的是第一页数据
+            if (datas != null && datas.size() > 0) {
+                mDataList.clear();
+                mDataList.addAll(datas);
+            } else {
+                mDataList.clear();
+            }
+            if (mAdapter != null) {
+                mAdapter.notifyDataSetChanged();
+            }
+        } else if (mPageIndex > 1) {
+            if (datas == null || datas.size() <= 0) {
+                mPageIndex--;
+            } else {
+                mDataList.addAll(datas);
+                if (mAdapter != null) {
+                    mAdapter.notifyDataSetChanged();
+                }
+            }
+        }
+
     }
 
     /**

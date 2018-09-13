@@ -1,5 +1,6 @@
 package com.cdkj.token.find.product_application.red_package;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
@@ -11,12 +12,16 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
+import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
+import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
+import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivitySendRedPacketBinding;
 import com.cdkj.token.interfaces.UserInfoPresenter;
 import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.model.PickerViewModel;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.views.dialogs.UserPayPasswordInputDialog;
@@ -25,6 +30,8 @@ import com.cdkj.token.wallet.account_wallet.RechargeAddressQRActivity;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 发送红包
@@ -37,7 +44,8 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
     private UserPayPasswordInputDialog passInputDialog;
     private SendRedPacketPresenter sendRedPacketPresenter;
     private UserInfoPresenter userInfoPresenter;
-
+    private OptionsPickerView menuPickerView;
+    private List<PickerViewModel> pickerViewModels;
 
     public static void open(Context context) {
         if (context == null) {
@@ -54,9 +62,18 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
         return mBinding.getRoot();
     }
 
+
+    @Override
+    public void topTitleViewRightClick() {
+        showMenuPickView();
+    }
+
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+
         mBaseBinding.titleView.setMidTitle(R.string.theia_red_packet);
+        mBaseBinding.titleView.setRightImg(R.drawable.topbar_more);
+
         sendRedPacketPresenter = new SendRedPacketPresenter();
         sendRedPacketPresenter.attachView(this);
         sendRedPacketPresenter.setLayoutByType(SendRedPacketPresenter.TYPE_LUCKY);
@@ -71,6 +88,46 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
         initEditWatcher();
 
     }
+
+    /**
+     * 显示选择pickView
+     */
+    private void showMenuPickView() {
+
+        if (menuPickerView == null) {
+            //条件选择器
+            menuPickerView = new OptionsPickerBuilder(SendRedPacketActivity.this, new OnOptionsSelectListener() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onOptionsSelect(int options1, int options2, int options3, View v) {
+
+                    menuPickerView.dismiss();
+
+                    switch (options1) {
+                        case 0:
+                            RedPacketSendHistoryActivity.open(SendRedPacketActivity.this);
+                            break;
+                        case 1:
+
+                            break;
+                    }
+
+                }
+            })
+                    .setSubmitColor(ContextCompat.getColor(this, R.color.text_black_cd))
+                    .setCancelColor(ContextCompat.getColor(this, R.color.gray_999999))
+                    .setCancelText(getString(R.string.cancel))//取消按钮文字
+                    .setSubmitText(getString(R.string.confirm))//确认按钮文字
+                    .build();
+            pickerViewModels = new ArrayList<>();
+            pickerViewModels.add(new PickerViewModel(getString(R.string.my_redpacket_history)));
+            pickerViewModels.add(new PickerViewModel(getString(R.string.redpacket_question)));
+            menuPickerView.setPicker(pickerViewModels);
+        }
+
+        menuPickerView.show();
+    }
+
 
     /**
      * 普通红包总额计算
@@ -208,8 +265,8 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
 
 
     @Override
-    public void setSendSuccessStatus() {
-
+    public void setSendSuccessStatus(String redPacketCode) {
+        RedPacketShareQRActivity.open(this, redPacketCode);
     }
 
     @Override
@@ -281,6 +338,9 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
     protected void onDestroy() {
         if (sendRedPacketPresenter != null) {
             sendRedPacketPresenter.detachView();
+        }
+        if (menuPickerView != null) {
+            menuPickerView.dismiss();
         }
         super.onDestroy();
     }

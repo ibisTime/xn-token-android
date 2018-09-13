@@ -129,7 +129,7 @@ public class SendRedPacketPresenter extends BasePresenter<SendRedPacketView> {
         baseResponseModelCall.enqueue(new BaseResponseModelCallBack<RedPackageHistoryBean>(null) {
             @Override
             protected void onSuccess(RedPackageHistoryBean data, String SucMessage) {
-                getMvpView().setSendSuccessStatus();
+                getMvpView().setSendSuccessStatus(data.getCode());
             }
 
             @Override

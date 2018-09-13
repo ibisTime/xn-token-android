@@ -219,6 +219,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
     public void setSelectCoin(CoinModel.AccountListBean accountListBean) {
         selectCoinSymbol = accountListBean.getCurrency();
         mBinding.tvCoinSymbol.setText(selectCoinSymbol);
+        mBinding.editAmount.setText("");
     }
 
     /**

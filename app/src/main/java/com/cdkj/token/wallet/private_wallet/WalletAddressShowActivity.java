@@ -81,19 +81,24 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
     private void initQRCodeAndAddress() {
         if (coinAddressShowModel == null) return;
 
-        String coinLogo = SPUtilHelper.getQiniuUrl() + LocalCoinDBUtils.getCoinIconByCoinSymbol(coinAddressShowModel.getCoinSymbol());
+        try {
+            String coinLogo = SPUtilHelper.getQiniuUrl() + LocalCoinDBUtils.getCoinIconByCoinSymbol(coinAddressShowModel.getCoinSymbol());
 
-        GlideApp.with(this).asBitmap().load(coinLogo)
-                .into(new SimpleTarget<Bitmap>() {
+            GlideApp.with(this).asBitmap().load(coinLogo)
+                    .into(new SimpleTarget<Bitmap>() {
 
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        Bitmap mBitmap = CodeUtils.createImage(coinAddressShowModel.getAddress(), 400, 400, resource);
-                        mBinding.imgQRCode.setImageBitmap(mBitmap);
-                        mBinding.txtAddress.setText(coinAddressShowModel.getAddress());
-                    }
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            Bitmap mBitmap = CodeUtils.createImage(coinAddressShowModel.getAddress(), 400, 400, resource);
+                            mBinding.imgQRCode.setImageBitmap(mBitmap);
+                            mBinding.txtAddress.setText(coinAddressShowModel.getAddress());
+                        }
 
-                });
+                    });
+        } catch (Exception e) {
+
+        }
+
     }
 
     private void initListener() {

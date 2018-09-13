@@ -356,8 +356,8 @@ public class BitmapUtils {
      * @return
      */
     public static Bitmap getBitmapByView(View view) {
-
-        // 创建对应大小的bitmap
+        view.setBackgroundColor(
+                Color.parseColor("#ffffff"));
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
                 Bitmap.Config.ARGB_8888);
         final Canvas canvas = new Canvas(bitmap);

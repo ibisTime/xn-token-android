@@ -111,11 +111,10 @@ public class NetErrorHelper {
      * @param msg
      */
     public static void onReqFailure(Context context, String errorCode, String msg) {
+        String errorMsg = getErrorStringByCode(errorCode, msg);
+        LogUtil.E("网络请求错误————————：" + errorMsg);
 
         if (context == null) return;
-
-        String errorMsg = getErrorStringByCode(errorCode, msg);
-
         if (context instanceof Activity) {
 
             Activity activity = (Activity) context;
@@ -131,7 +130,6 @@ public class NetErrorHelper {
 
         }
 
-        LogUtil.E("网络请求错误————————：" + errorMsg);
     }
 
 

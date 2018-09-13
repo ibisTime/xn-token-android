@@ -18,8 +18,7 @@ public interface SendRedPacketView extends MVPView {
 
     void setDefaluteCoin(CoinModel.AccountListBean defaluteCoin);//设置默认币种
 
-
-    void setSendSuccessStatus();//红包发送成功
+    void setSendSuccessStatus(String redPacketCode);//红包发送成功
 
     void setSendFailStatus();//红包发送失败
 

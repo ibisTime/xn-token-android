@@ -283,6 +283,11 @@
         <activity android:name=".user.invite.InviteActivity" />
         <activity android:name=".user.invite.InviteRuleActivity" />
         <activity android:name=".user.invite.InviteQrActivity" />
+        <activity android:name=".find.product_application.red_package.RedPacketShareQRActivity"
+            android:theme="@style/ActivityDialogStyleBottom"
+            />
+        <activity android:name=".find.product_application.red_package.RedPacketSendHistoryActivity" />
+        <activity android:name=".find.product_application.red_package.RedPacketDetailsActivity" />
 
     </application>
 

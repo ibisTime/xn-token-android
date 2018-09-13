@@ -87,19 +87,24 @@ public class RechargeAddressQRActivity extends AbsLoadActivity {
     private void initQRCodeAndAddress(CoinModel.AccountListBean model) {
         if (model == null) return;
 
-        String coinLogoUrl = SPUtilHelper.getQiniuUrl() + LocalCoinDBUtils.getCoinIconByCoinSymbol(model.getCurrency());
+        try {
+            String coinLogoUrl = SPUtilHelper.getQiniuUrl() + LocalCoinDBUtils.getCoinIconByCoinSymbol(model.getCurrency());
 
-        GlideApp.with(this).asBitmap().load(coinLogoUrl)
-                .into(new SimpleTarget<Bitmap>() {
+            GlideApp.with(this).asBitmap().load(coinLogoUrl)
+                    .into(new SimpleTarget<Bitmap>() {
 
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        Bitmap mBitmap = CodeUtils.createImage(model.getCoinAddress(), 400, 400, resource);
-                        mBinding.imgQRCode.setImageBitmap(mBitmap);
-                        mBinding.txtAddress.setText(model.getCoinAddress());
-                    }
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            Bitmap mBitmap = CodeUtils.createImage(model.getCoinAddress(), 400, 400, resource);
+                            mBinding.imgQRCode.setImageBitmap(mBitmap);
+                            mBinding.txtAddress.setText(model.getCoinAddress());
+                        }
 
-                });
+                    });
+
+        }catch (Exception e){
+
+        }
 
 
     }

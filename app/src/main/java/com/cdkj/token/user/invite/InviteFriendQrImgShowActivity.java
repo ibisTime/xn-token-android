@@ -19,6 +19,7 @@ import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityInviteFriendQrcodeBinding;
 import com.cdkj.token.common.ThaAppConstant;
+import com.umeng.commonsdk.debug.E;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -79,12 +80,18 @@ public class InviteFriendQrImgShowActivity extends BaseActivity {
                     return;
                 }
 
-                Bitmap bitmap = CodeUtils.createImage(data.getCvalue() + ThaAppConstant.getInviteFriendUrl(SPUtilHelper.getSecretUserId()), 500, 500, null);
-                ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                byte[] datas = baos.toByteArray();
+                try {
+                    Bitmap bitmap = CodeUtils.createImage(data.getCvalue() + ThaAppConstant.getInviteFriendUrl(SPUtilHelper.getSecretUserId()), 500, 500, null);
+                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+                    byte[] datas = baos.toByteArray();
+                    ImgUtils.loadByte(InviteFriendQrImgShowActivity.this, datas, mBinding.ivQrImg);
 
-                ImgUtils.loadByte(InviteFriendQrImgShowActivity.this, datas, mBinding.ivQrImg);
+                } catch (Exception e) {
+
+
+                }
+
             }
 
             @Override
