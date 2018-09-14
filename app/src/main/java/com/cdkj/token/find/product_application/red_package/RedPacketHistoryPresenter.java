@@ -108,10 +108,10 @@ public class RedPacketHistoryPresenter extends BasePresenter<RedPacketHistoryVie
     public void getHistoryData(String start, String limit, String year, boolean isShlowDialog) {
 
         switch (redPacketType) {
-            case TYPE_GET:
+            case TYPE_SEND:
                 getSendHistoryData(start, limit, year, isShlowDialog);
                 break;
-            case TYPE_SEND:
+            case TYPE_GET:
                 getGetHistoryData(start, limit, year, isShlowDialog);
                 break;
         }

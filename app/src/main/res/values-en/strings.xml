@@ -891,7 +891,23 @@
     <string name="theia_redpacket_intro">Theia红包说明</string>
     <string name="share_weibo">微博</string>
     <string name="lottery">积分抽奖</string>
-
+    <string name="invite_integral_1"><Data><![CDATA[您拥有积分<font color="#00F7FE">%s</font>点]]></Data></string>
+    <string name="invite_20">全球首款跨链生态钱包</string>
+    <string name="invite_21">您已成功邀请</string>
+    <string name="invite_22">名用户</string>
+    <string name="invite_23">感谢您的付出!</string>
+    <string name="invite_btn_3">红包邀请</string>
+    <string name="save_to_local">保存本地</string>
+    <string name="copy_your_invite_url">复制您的专属邀请链接</string>
+    <string name="invite_25">- 登录享豪礼 -</string>
+    <string name="invite_26">1. 新用户注册并登录可获得%1s积分奖励</string>
+    <string name="invite_27">2. 新用户可获得购买币加宝收益首次翻倍的奖励</string>
+    <string name="invite_28">邀请有礼说明</string>
+    <string name="invite_29">2.每邀请1位好友注册并登录后获得好友币加宝收益7%额外奖励。（有效期3个月）</string>
+    <string name="invite_30">- 邀请好友界面 -</string>
+    <string name="invite_31">- 被邀请人界面 -</string>
+    <string name="invite_32">1.每一位用户注册成功并登录可获得奖励%s积分</string>
+    <string name="invite_33">2.每一位用户成功注册并登录后可获得购买加宝收益每次翻倍奖励。</string>
 </resources>
 
 

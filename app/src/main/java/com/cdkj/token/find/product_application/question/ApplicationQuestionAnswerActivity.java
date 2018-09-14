@@ -59,9 +59,10 @@ public class ApplicationQuestionAnswerActivity extends AbsLoadActivity {
 
         AppQuestionModel.HelpListBean helpListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
+        if (helpListBean == null) return;
         mBinding.tvQuestion.setText(helpListBean.getQuestion());
 
-        mBinding.tvAnswer.setText(helpListBean.getAnswer());
+        mBinding.webviewAnswer.loadData(helpListBean.getAnswer(), "text/html;charset=UTF-8", "UTF-8");
 
 
     }

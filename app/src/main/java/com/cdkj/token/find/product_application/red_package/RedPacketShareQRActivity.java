@@ -72,12 +72,12 @@ public class RedPacketShareQRActivity extends BaseActivity {
     private void initListener() {
 
         mBinding.imgClose.setOnClickListener(view -> {
+            RedPacketSendHistoryActivity.open(this);
             finish();
         });
 
         mBinding.imgSave.setOnClickListener(view -> {
             permissionRequestAndSaveBitmap();
-            saveBitmapToAlbum();
         });
 
     }
@@ -95,13 +95,15 @@ public class RedPacketShareQRActivity extends BaseActivity {
         showLoadingDialog();
         mSubscription.add(Observable.just("")
                 .subscribeOn(AndroidSchedulers.mainThread())
-                .observeOn(Schedulers.newThread())  //创建
+                .observeOn(AndroidSchedulers.mainThread())  //创建
                 .map(o -> BitmapUtils.getBitmapByView(mBinding.fralayoutRedpacket))
+                .observeOn(Schedulers.newThread())  //创建
                 .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, "Theai_red_packet"))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(path -> {
                     disMissLoadingDialog();
                     UITipDialog.showInfoNoIcon(this, getString(R.string.save_success));
+
                 }, throwable -> {
                     disMissLoadingDialog();
                     UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));

@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <LinearLayout
-        android:background="@mipmap/invite_bg"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <FrameLayout
@@ -31,109 +30,130 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/title_mid_size" />
 
-            <ImageView
-                android:id="@+id/tv_more"
-                android:layout_gravity="right"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:src="@mipmap/more_invite" />
-
         </FrameLayout>
 
-        <ImageView
-            android:src="@mipmap/invite_logo"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-
-        <RelativeLayout
-            android:layout_marginTop="17dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="310dp"
-            android:layout_height="wrap_content">
-
-            <ImageView
-                android:id="@+id/iv_invite_test"
-                android:layout_alignParentRight="true"
-                android:src="@mipmap/invite_text_bg"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:textColor="@color/white"
-                android:textSize="18sp"
-                android:layout_marginTop="2dp"
-                android:layout_centerInParent="true"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="9dp"
-                android:text="全球首款跨链生态钱包" />
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_rule"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="0dp"
+            android:layout_weight="1">
 
-            <TextView
-                android:id="@+id/tv_title1"
-                android:layout_marginTop="30dp"
-                android:text="- 登陆享好礼 -"
-                android:textSize="16sp"
-                android:textColor="@color/invite_color_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-
-            <TextView
-                android:id="@+id/tv_rule1"
-                android:layout_marginTop="16dp"
-                android:layout_marginLeft="80dp"
-                android:layout_marginRight="80dp"
-                android:text="1. 新用户注册并登陆可获得10原矿奖励 \n\n2. 每邀请1位好友注册并登陆后获得好友币加宝收益7%额外奖励。（有效期3个月）"
-                android:textSize="14sp"
-                android:textColor="@color/white"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                tools:background="@mipmap/invite_bg">
 
-        </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/ll_rule2"
-            android:orientation="vertical"
-            android:gravity="center_horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="30dp"
+                    android:src="@mipmap/invite_logo" />
 
-            <TextView
-                android:id="@+id/tv_title2"
-                android:layout_marginTop="30dp"
-                android:text="- 登陆享好礼 -"
-                android:textSize="16sp"
-                android:textColor="@color/invite_color_blue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                <RelativeLayout
+                    android:layout_width="310dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="17dp">
 
-            <TextView
-                android:id="@+id/tv_rule2"
-                android:layout_marginTop="16dp"
-                android:layout_marginLeft="80dp"
-                android:layout_marginRight="80dp"
-                android:text="1. 新用户注册并登陆可获得10原矿奖励 \n\n2. 每一位用户成功注册并登陆后可获得购买加宝收益每次翻倍奖励。"
-                android:textSize="14sp"
-                android:textColor="@color/white"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
+                    <ImageView
+                        android:id="@+id/iv_invite_test"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:src="@mipmap/invite_text_bg" />
 
-        </LinearLayout>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerInParent="true"
+                        android:layout_marginTop="2dp"
+                        android:paddingBottom="9dp"
+                        android:text="@string/invite_20"
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
 
+
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="35dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:background="@mipmap/invite_area_border"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="@string/invite_30"
+                        android:textColor="@color/invite_color_blue"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_invite_rule"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        tools:text="@string/invite_26" />
+
+                    <TextView
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/invite_29"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="30dp"
+                        android:text="@string/invite_31"
+                        android:textColor="@color/invite_color_blue"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/tv_invite_rule2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginTop="15dp"
+                        android:textColor="@color/white"
+                        android:textSize="14sp"
+                        tools:text="@string/invite_32" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="25dp"
+                        android:layout_marginRight="25dp"
+                        android:layout_marginTop="16dp"
+                        android:text="@string/invite_33"
+                        android:textColor="@color/white"
+                        android:textSize="14sp" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </ScrollView>
 
     </LinearLayout>
 </layout>

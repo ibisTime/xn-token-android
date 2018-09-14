@@ -2,228 +2,224 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="45dp">
-
-            <ImageView
-                android:id="@+id/tv_finish"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:src="@drawable/back_white" />
-
-            <TextView
-                android:id="@+id/tv_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="@string/invite_gift"
-                android:textColor="@color/white"
-                android:textSize="@dimen/title_mid_size" />
-
-            <ImageView
-                android:id="@+id/tv_more"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_gravity="right"
-                android:paddingBottom="10dp"
-                android:paddingLeft="20dp"
-                android:paddingRight="20dp"
-                android:paddingTop="10dp"
-                android:src="@mipmap/more_invite" />
-
-        </FrameLayout>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="30dp"
-            android:src="@mipmap/invite_logo" />
-
-        <RelativeLayout
-            android:layout_width="310dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="17dp">
-
-            <ImageView
-                android:id="@+id/iv_invite_test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:src="@mipmap/invite_text_bg" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerInParent="true"
-                android:layout_marginTop="2dp"
-                android:paddingBottom="9dp"
-                android:text="全球首款跨链生态钱包"
-                android:textColor="@color/white"
-                android:textSize="18sp" />
-
-        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <LinearLayout
+            <FrameLayout
                 android:layout_width="match_parent"
-                android:layout_height="202dp"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:layout_marginTop="26dp"
-                android:background="@mipmap/invite_area_border"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
+                android:layout_height="45dp">
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/img_finish"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="18dp"
+                    android:paddingRight="18dp"
+                    android:paddingTop="10dp"
+                    android:src="@drawable/back_white" />
+
+                <TextView
+                    android:id="@+id/tv_title"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="44dp"
-                    android:gravity="center_vertical">
+                    android:layout_gravity="center"
+                    android:text="@string/invite_gift"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/title_mid_size" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="您已成功邀请"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
+                <ImageView
+                    android:id="@+id/img_more"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:paddingBottom="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    android:paddingTop="10dp"
+                    android:src="@mipmap/more_invite" />
 
-                    <TextView
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
-                        android:layout_marginLeft="4dp"
-                        android:layout_marginRight="4dp"
-                        android:background="@drawable/border_invite_num"
-                        android:gravity="center"
-                        android:text="10"
-                        android:textColor="@color/white"
-                        android:textSize="20sp" />
+            </FrameLayout>
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="名用户"
-                        android:textColor="@color/white"
-                        android:textSize="16sp" />
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:src="@mipmap/invite_logo" />
 
-                </LinearLayout>
+            <RelativeLayout
+                android:layout_width="310dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="17dp">
+
+                <ImageView
+                    android:id="@+id/iv_invite_test"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:src="@mipmap/invite_text_bg" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="40dp"
-                    android:text="感谢您的付出!"
+                    android:layout_centerInParent="true"
+                    android:layout_marginTop="2dp"
+                    android:paddingBottom="9dp"
+                    android:text="@string/invite_20"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="17sp" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="11dp"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="您拥有积分"
-                        android:textColor="@color/invite_color_gray"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="5"
-                        android:textColor="@color/invite_color_blue"
-                        android:textSize="13sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="点"
-                        android:textColor="@color/invite_color_gray"
-                        android:textSize="16sp" />
+                    android:layout_width="match_parent"
+                    android:layout_height="202dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginRight="40dp"
+                    android:layout_marginTop="26dp"
+                    android:background="@mipmap/invite_area_border"
+                    android:gravity="center_horizontal"
+                    android:orientation="vertical">
 
                     <LinearLayout
-                        android:id="@+id/ll_go_lottery"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:layout_marginTop="44dp"
+                        android:gravity="center_vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="24dp"
-                            android:text="马上提币"
-                            android:textColor="@color/invite_color_blue"
+                            android:text="@string/invite_21"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/tv_invite_number"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:background="@drawable/border_invite_num"
+                            android:gravity="center"
+                            tools:text="10"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/invite_22"
+                            android:textColor="@color/white"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="40dp"
+                        android:text="@string/invite_23"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="11dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+
+                        <TextView
+                            android:id="@+id/tv_invite_amount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/invite_integral_1"
+                            android:textColor="@color/invite_color_gray"
                             android:textSize="13sp" />
 
-                        <ImageView
-                            android:layout_width="7dp"
-                            android:layout_height="10dp"
-                            android:layout_marginLeft="4dp"
-                            android:src="@mipmap/more_invite_text" />
+                        <LinearLayout
+                            android:id="@+id/ll_go_lottery"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center_vertical"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="24dp"
+                                android:text="马上提币"
+                                android:textColor="@color/invite_color_blue"
+                                android:textSize="13sp" />
+
+                            <ImageView
+                                android:layout_width="7dp"
+                                android:layout_height="10dp"
+                                android:layout_marginLeft="4dp"
+                                android:src="@mipmap/more_invite_text" />
+
+                        </LinearLayout>
 
                     </LinearLayout>
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="45dp">
-
-                <Button
-                    android:id="@+id/btn_invite_poster"
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:background="@mipmap/invite_btn_bg"
-                    android:gravity="center"
-                    android:text="海报邀请"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
-
                 <View
-                    android:layout_width="0dp"
-                    android:layout_height="40dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1" />
 
-                <Button
-                    android:id="@+id/btn_invite_red"
-                    android:layout_width="120dp"
-                    android:layout_height="40dp"
-                    android:background="@mipmap/invite_btn_bg"
-                    android:gravity="center"
-                    android:text="红包邀请"
-                    android:textColor="@color/white"
-                    android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="45dp">
+
+                    <Button
+                        android:id="@+id/btn_invite_poster"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:background="@mipmap/invite_btn_bg"
+                        android:gravity="center"
+                        android:text="@string/invite_btn_1"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="40dp"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/btn_invite_red"
+                        android:layout_width="120dp"
+                        android:layout_height="40dp"
+                        android:background="@mipmap/invite_btn_bg"
+                        android:gravity="center"
+                        android:text="@string/invite_btn_3"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </LinearLayout>
+    </ScrollView>
 </layout>

@@ -336,6 +336,9 @@ public class BitmapUtils {
         Bitmap bitmap = null;
         // 获取scrollview实际高度
         for (int i = 0; i < scrollView.getChildCount(); i++) {
+            if (scrollView.getChildAt(i).getVisibility() != View.VISIBLE) {
+                continue;
+            }
             h += scrollView.getChildAt(i).getHeight();
             scrollView.getChildAt(i).setBackgroundColor(
                     Color.parseColor("#ffffff"));

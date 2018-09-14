@@ -29,6 +29,7 @@ import com.cdkj.token.R;
 import com.cdkj.token.databinding.FragmentUser2Binding;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;
+import com.cdkj.token.user.invite.InviteActivity;
 import com.cdkj.token.user.invite.InviteFriendActivity;
 import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
 import com.cdkj.token.user.setting.UserSettingActivity;
@@ -104,7 +105,7 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
 
         //邀请有礼
         mBinding.linLayoutInvite.setOnClickListener(view -> {
-            InviteFriendActivity.open(mActivity);
+            InviteActivity.open(mActivity);
         });
 
         //更换头像
