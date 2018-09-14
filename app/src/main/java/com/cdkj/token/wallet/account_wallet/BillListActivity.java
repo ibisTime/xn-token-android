@@ -101,10 +101,10 @@ public class BillListActivity extends AbsLoadActivity {
 
         filterTypeList = new ArrayList<>();
 
-        String[] bizType = new String[]{"", "charge", "withdraw", "withdrawfee", "redpacket_back", "sendredpacket_in", "sendredpacket_out"};
+        String[] bizType = new String[]{"", "charge", "withdraw", "withdrawfee", "redpacket_back", "sendredpacket_in", "sendredpacket_out", "jf_lottery_in"};
 
         String[] types = new String[]{getStrRes(R.string.bill_type_all), getStrRes(R.string.bill_type_charge), getStrRes(R.string.bill_type_withdraw),
-                getStrRes(R.string.bill_type_withdrawfee), getString(R.string.redpacket_back), getString(R.string.redpacket_get), getString(R.string.send_red_package)};
+                getStrRes(R.string.bill_type_withdrawfee), getString(R.string.redpacket_back), getString(R.string.redpacket_get), getString(R.string.send_red_package),getString(R.string.lottery)};
 
         for (int i = 0; i < types.length; i++) {
             BillFilterModel billFilterModel = new BillFilterModel();

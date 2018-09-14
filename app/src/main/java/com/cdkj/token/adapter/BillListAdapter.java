@@ -90,6 +90,9 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
                 case "lhlc_repay": // 量化理财还款
                     ivType.setImageResource(R.drawable.coin_in);
                     break;
+                case "jf_lottery_in": // 积分抽奖
+                    ivType.setImageResource(R.drawable.coin_in);
+                    break;
             }
 
         } else { // 冻结流水
