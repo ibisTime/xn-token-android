@@ -1,13 +1,11 @@
 package com.cdkj.token.find.product_application.red_package;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.mvp.BaseMVPModel;
 import com.cdkj.baselibrary.base.mvp.BasePresenter;
-import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -72,7 +70,7 @@ public class SendRedPacketPresenter extends BasePresenter<SendRedPacketView> {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.objectToJsonString(map));
 
         getMvpView().showLoadDialog();
 
@@ -125,7 +123,7 @@ public class SendRedPacketPresenter extends BasePresenter<SendRedPacketView> {
         map.put("sendNum", sendNumber);
         map.put("greeting", greeting);
         map.put("tradePwd", tradePwd);//支付密码
-        Call<BaseResponseModel<RedPackageHistoryBean>> baseResponseModelCall = RetrofitUtils.createApi(MyApi.class).sendRedPackage("623000", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<RedPackageHistoryBean>> baseResponseModelCall = RetrofitUtils.createApi(MyApi.class).sendRedPackage("623000", StringUtils.objectToJsonString(map));
         baseResponseModelCall.enqueue(new BaseResponseModelCallBack<RedPackageHistoryBean>(null) {
             @Override
             protected void onSuccess(RedPackageHistoryBean data, String SucMessage) {

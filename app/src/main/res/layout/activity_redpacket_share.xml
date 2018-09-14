@@ -111,7 +111,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="微信"
+                        android:text="@string/user_invite_share_wx"
                         android:textSize="12sp" />
 
 
@@ -133,7 +133,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="微信"
+                        android:text="@string/user_invite_share_pyq"
                         android:textSize="12sp" />
 
 
@@ -155,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:text="微信"
+                        android:text="@string/share_weibo"
                         android:textSize="12sp" />
 
 

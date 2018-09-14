@@ -101,7 +101,7 @@ public class AuthenticateActivity extends AbsActivity {
         object.put("localCheck", "0");
         object.put("idNo", mBinding.edtIdentity.getText().toString().trim());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805195", StringUtils.getJsonToString(object));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805195", StringUtils.objectToJsonString(object));
         addCall(call);
         showLoadingDialog();
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(this) {
@@ -136,7 +136,7 @@ public class AuthenticateActivity extends AbsActivity {
         object.put("bizNo", bizNo);
 
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805196", StringUtils.getJsonToString(object));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805196", StringUtils.objectToJsonString(object));
         addCall(call);
         showLoadingDialog();
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(this) {

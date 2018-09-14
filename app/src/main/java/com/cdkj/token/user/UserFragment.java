@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.activitys.ImageSelectActivity;
 import com.cdkj.baselibrary.activitys.NickModifyActivity;
-import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
@@ -33,7 +32,6 @@ import com.cdkj.token.interfaces.UserInfoPresenter;
 import com.cdkj.token.user.invite.InviteFriendActivity;
 import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
 import com.cdkj.token.user.setting.UserSettingActivity;
-import com.cdkj.token.common.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
 
@@ -43,11 +41,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
-import zendesk.core.AnonymousIdentity;
-import zendesk.core.Identity;
-import zendesk.core.Zendesk;
-import zendesk.support.Support;
-import zendesk.support.guide.HelpCenterActivity;
 
 /**
  * 我的
@@ -234,7 +227,7 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805080", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805080", StringUtils.objectToJsonString(map));
         addCall(call);
 
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(mActivity) {

@@ -19,7 +19,6 @@ import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityInviteFriendQrcodeBinding;
 import com.cdkj.token.common.ThaAppConstant;
-import com.umeng.commonsdk.debug.E;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -67,7 +66,7 @@ public class InviteFriendQrImgShowActivity extends BaseActivity {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.getBaseAPiService().getKeySystemInfo("660917", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().getKeySystemInfo("660917", StringUtils.objectToJsonString(map));
 
         addCall(call);
 

@@ -63,7 +63,6 @@ import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 
 import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinIconByCoinSymbol;
-import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
 import static com.cdkj.token.views.CardChangeLayout.BOTTOMVIEW;
 import static com.cdkj.token.views.CardChangeLayout.TOPVIEW;
 
@@ -75,7 +74,7 @@ import static com.cdkj.token.views.CardChangeLayout.TOPVIEW;
 public class WalletFragment extends BaseLazyFragment {
 
 
-    private final String HIND_SIGN = "****";//隐藏金额
+    public static final String HIND_SIGN = "****";//隐藏金额
 
     private FragmentWallet2Binding mBinding;
 
@@ -481,7 +480,7 @@ public class WalletFragment extends BaseLazyFragment {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.objectToJsonString(map));
 
         addCall(call);
 
@@ -549,7 +548,7 @@ public class WalletFragment extends BaseLazyFragment {
         Map<String, Object> map = new HashMap<>();
         map.put("accountList", mChooseCoinList);
 
-        Call<BaseResponseModel<BalanceListModel>> call = RetrofitUtils.createApi(MyApi.class).getBalanceList("802270", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<BalanceListModel>> call = RetrofitUtils.createApi(MyApi.class).getBalanceList("802270", StringUtils.objectToJsonString(map));
 
         addCall(call);
 
@@ -795,7 +794,7 @@ public class WalletFragment extends BaseLazyFragment {
         map.put("fromSystemCode", AppConfig.SYSTEMCODE);
         map.put("toSystemCode", AppConfig.SYSTEMCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.objectToJsonString(map));
 
         addCall(call);
 

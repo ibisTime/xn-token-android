@@ -228,7 +228,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
         map.put("smsCaptcha", mBinding.edtCode.getText().toString());
         map.put("userId", SPUtilHelper.getUserId());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805071", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805071", StringUtils.objectToJsonString(map));
 
         addCall(call);
 
@@ -263,7 +263,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805072", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805072", StringUtils.objectToJsonString(map));
 
         addCall(call);
 

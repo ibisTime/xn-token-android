@@ -90,7 +90,7 @@ public class SmartTransferSource extends BaseMVPModel {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.objectToJsonString(map));
 
         addCall(call);
 
@@ -131,7 +131,7 @@ public class SmartTransferSource extends BaseMVPModel {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getCoinFees("802266", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getCoinFees("802266", StringUtils.objectToJsonString(map));
 
         addCall(call);
 
@@ -171,7 +171,7 @@ public class SmartTransferSource extends BaseMVPModel {
         Map<String, Object> map = new HashMap<>();
         map.put("accountList", coinList);
 
-        Call<BaseResponseModel<BalanceListModel>> call = RetrofitUtils.createApi(MyApi.class).getBalanceList("802270", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<BalanceListModel>> call = RetrofitUtils.createApi(MyApi.class).getBalanceList("802270", StringUtils.objectToJsonString(map));
 
         addCall(call);
 
@@ -259,7 +259,7 @@ public class SmartTransferSource extends BaseMVPModel {
 
         smartTransferModelCallBack.showDialog();
 
-        Call call = RetrofitUtils.getBaseAPiService().codeRequest("802750", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().codeRequest("802750", StringUtils.objectToJsonString(map));
 
         addCall(call);
 
@@ -409,7 +409,7 @@ public class SmartTransferSource extends BaseMVPModel {
      */
     public void getFeeForBtc() {
 
-        Call<BaseResponseModel<BtcFeesModel>> call = RetrofitUtils.createApi(MyApi.class).getBtcFees("802223", StringUtils.getJsonToString(new HashMap<>()));
+        Call<BaseResponseModel<BtcFeesModel>> call = RetrofitUtils.createApi(MyApi.class).getBtcFees("802223", StringUtils.objectToJsonString(new HashMap<>()));
 
         call.enqueue(new BaseResponseModelCallBack<BtcFeesModel>(null) {
             @Override
@@ -440,7 +440,7 @@ public class SmartTransferSource extends BaseMVPModel {
 
         map.put("address", btcAddress);
 
-        Call<BaseResponseModel<UTXOListModel>> call = RetrofitUtils.createApi(MyApi.class).getUtxoList("802220", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<UTXOListModel>> call = RetrofitUtils.createApi(MyApi.class).getUtxoList("802220", StringUtils.objectToJsonString(map));
 
         smartTransferModelCallBack.showDialog();
 
@@ -475,7 +475,7 @@ public class SmartTransferSource extends BaseMVPModel {
 
         smartTransferModelCallBack.showDialog();
 
-        Call<BaseResponseModel<TxHashModel>> call = RetrofitUtils.createApi(MyApi.class).btcTransactionBroadcast("802222", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<TxHashModel>> call = RetrofitUtils.createApi(MyApi.class).btcTransactionBroadcast("802222", StringUtils.objectToJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<TxHashModel>(null) {
             @Override

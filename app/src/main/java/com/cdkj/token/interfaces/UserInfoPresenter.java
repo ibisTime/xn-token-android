@@ -15,7 +15,6 @@ import com.cdkj.token.api.MyApi;
 import java.util.HashMap;
 import java.util.Map;
 
-import io.reactivex.disposables.CompositeDisposable;
 import retrofit2.Call;
 
 /**
@@ -56,7 +55,7 @@ public class UserInfoPresenter {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.getJsonToString(map));
+        call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.objectToJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<UserInfoModel>(activity) {
             @Override
@@ -123,7 +122,7 @@ public class UserInfoPresenter {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.getJsonToString(map));
+        call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.objectToJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<UserInfoModel>(activity) {
             @Override

@@ -91,7 +91,7 @@ public class MyGetRedPackageFragment extends AbsRefreshListFragment<MyGetRedPack
         map.put("userId", SPUtilHelper.getUserId());
         map.put("start", pageindex + "");
         map.put("limit", limit + "");
-        Call<BaseResponseModel<ResponseInListModel<MyGetRedPackageBean>>> call = RetrofitUtils.createApi(MyApi.class).getGetRedPackage("623007", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<ResponseInListModel<MyGetRedPackageBean>>> call = RetrofitUtils.createApi(MyApi.class).getGetRedPackage("623007", StringUtils.objectToJsonString(map));
 
         addCall(call);
 

@@ -21,6 +21,8 @@ import java.util.Map;
 
 import retrofit2.Call;
 
+import static com.cdkj.token.wallet.WalletFragment.HIND_SIGN;
+
 
 /**
  * 红包历史
@@ -41,6 +43,11 @@ public class RedPacketHistoryPresenter extends BasePresenter<RedPacketHistoryVie
     public int getRedPacketType() {
         return redPacketType;
     }
+
+    public boolean isSendStatus() {
+        return redPacketType == TYPE_SEND;
+    }
+
 
     public void setRedPacketType(int redPacketType) {
         this.redPacketType = redPacketType;
@@ -147,7 +154,7 @@ public class RedPacketHistoryPresenter extends BasePresenter<RedPacketHistoryVie
             getMvpView().shlowLoadDialog();
         }
 
-        Call<BaseResponseModel<ResponseInListModel<MySendRedPackageBean.ListBean>>> call = RetrofitUtils.createApi(MyApi.class).getSendRedPackage("623005", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<ResponseInListModel<MySendRedPackageBean.ListBean>>> call = RetrofitUtils.createApi(MyApi.class).getSendRedPackage("623005", StringUtils.objectToJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<MySendRedPackageBean.ListBean>>(null) {
             @Override
@@ -187,7 +194,7 @@ public class RedPacketHistoryPresenter extends BasePresenter<RedPacketHistoryVie
         map.put("start", start);
         map.put("limit", limit);
         map.put("year", year);
-        Call<BaseResponseModel<ResponseInListModel<MyGetRedPackageBean>>> call = RetrofitUtils.createApi(MyApi.class).getGetRedPackage("623007", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<ResponseInListModel<MyGetRedPackageBean>>> call = RetrofitUtils.createApi(MyApi.class).getGetRedPackage("623007", StringUtils.objectToJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<MyGetRedPackageBean>>(null) {
             @Override

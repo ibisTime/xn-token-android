@@ -151,7 +151,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
         map.put("companyCode", AppConfig.COMPANYCODE);
         map.put("countryCode", SPUtilHelper.getCountryCode());
         map.put("interCode", SPUtilHelper.getCountryInterCode());
-        Call call = RetrofitUtils.createApi(MyApi.class).signUp("805041", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).signUp("805041", StringUtils.objectToJsonString(map));
 
         addCall(call);
 

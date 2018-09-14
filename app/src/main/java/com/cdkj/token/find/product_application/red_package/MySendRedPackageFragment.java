@@ -99,7 +99,7 @@ public class MySendRedPackageFragment extends AbsRefreshListFragment<MySendRedPa
         map.put("start", pageindex + "");//红包类型
         map.put("limit", limit + "");
 
-        Call<BaseResponseModel<ResponseInListModel<MySendRedPackageBean.ListBean>>> call = RetrofitUtils.createApi(MyApi.class).getSendRedPackage("623005", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<ResponseInListModel<MySendRedPackageBean.ListBean>>> call = RetrofitUtils.createApi(MyApi.class).getSendRedPackage("623005", StringUtils.objectToJsonString(map));
         addCall(call);
         call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<MySendRedPackageBean.ListBean>>(mActivity) {
             @Override

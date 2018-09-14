@@ -109,7 +109,7 @@ public class UpdatePhoneActivity extends AbsActivity implements SendCodeInterfac
         map.put("smsCaptcha", mBinding.edtCodeNew.getText().toString());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805061", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805061", StringUtils.objectToJsonString(map));
 
         addCall(call);
 

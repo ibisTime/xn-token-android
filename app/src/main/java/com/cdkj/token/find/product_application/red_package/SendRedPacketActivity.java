@@ -15,10 +15,12 @@ import android.view.View;
 import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivitySendRedPacketBinding;
+import com.cdkj.token.find.product_application.question.ApplicationQuestionListActivity;
 import com.cdkj.token.interfaces.UserInfoPresenter;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.PickerViewModel;
@@ -46,12 +48,14 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
     private UserInfoPresenter userInfoPresenter;
     private OptionsPickerView menuPickerView;
     private List<PickerViewModel> pickerViewModels;
+    private String appCode;
 
-    public static void open(Context context) {
+    public static void open(Context context, String appCode) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, SendRedPacketActivity.class);
+        intent.putExtra(CdRouteHelper.DATASIGN, appCode);
         context.startActivity(intent);
     }
 
@@ -70,6 +74,8 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
+
+        appCode = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
 
         mBaseBinding.titleView.setMidTitle(R.string.theia_red_packet);
         mBaseBinding.titleView.setRightImg(R.drawable.topbar_more);
@@ -108,7 +114,7 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
                             RedPacketSendHistoryActivity.open(SendRedPacketActivity.this);
                             break;
                         case 1:
-
+                            ApplicationQuestionListActivity.open(SendRedPacketActivity.this, appCode,getString(R.string.theia_redpacket_intro));
                             break;
                     }
 

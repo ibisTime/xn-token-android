@@ -135,7 +135,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         map.put("code", mProductCode);
         map.put("language", SPUtilHelper.getLanguage());
 
-        Call<BaseResponseModel<ManagementMoney>> call = RetrofitUtils.createApi(MyApi.class).getMoneyManageProductDetails("625511", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<ManagementMoney>> call = RetrofitUtils.createApi(MyApi.class).getMoneyManageProductDetails("625511", StringUtils.objectToJsonString(map));
 
         addCall(call);
 
@@ -302,7 +302,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.objectToJsonString(map));
         addCall(call);
 
         showLoadingDialog();
@@ -370,7 +370,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
         map.put("tradePwd", pwd);
         map.put("userId", SPUtilHelper.getUserId());
 
-        Call<BaseResponseModel<IsSuccessModes>> call = RetrofitUtils.getBaseAPiService().successRequest("625520", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<IsSuccessModes>> call = RetrofitUtils.getBaseAPiService().successRequest("625520", StringUtils.objectToJsonString(map));
 
         addCall(call);
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(this) {

@@ -885,6 +885,11 @@
     <string name="total_amount">总额</string>
     <string name="redpacket_get_list">领取列表</string>
     <string name="redpacket_details">红包详情</string>
+    <string name="app_question">常见问题帮助</string>
+    <string name="question">问</string>
+    <string name="answer">答</string>
+    <string name="theia_redpacket_intro">Theia红包说明</string>
+    <string name="share_weibo">微博</string>
 
 </resources>
 

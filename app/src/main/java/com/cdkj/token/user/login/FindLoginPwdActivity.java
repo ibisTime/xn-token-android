@@ -176,7 +176,7 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
         hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
         hashMap.put("countryCode", SPUtilHelper.getCountryCode());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805063", StringUtils.getJsonToString(hashMap));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805063", StringUtils.objectToJsonString(hashMap));
 
         addCall(call);
 

@@ -51,10 +51,10 @@
                     android:background="@drawable/redpacket__lucky_bg"
                     android:ellipsize="end"
                     android:maxLength="6"
-                    android:paddingLeft="10dp"
-                    android:paddingRight="10dp"
+                    android:paddingLeft="5dp"
+                    android:paddingRight="5dp"
                     android:textColor="@color/white"
-                    android:textSize="14sp"
+                    android:textSize="12sp"
                     tools:text="拼" />
 
 
@@ -72,6 +72,7 @@
         </LinearLayout>
 
         <ImageView
+            android:id="@+id/img_icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"

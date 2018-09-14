@@ -234,7 +234,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
         map.put("start", pageindex + "");
         map.put("limit", limit + "");
 
-        Call<BaseResponseModel<ResponseInListModel<BTCBillModel>>> btcBillCall = RetrofitUtils.createApi(MyApi.class).getBTCBillList("802221", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<ResponseInListModel<BTCBillModel>>> btcBillCall = RetrofitUtils.createApi(MyApi.class).getBTCBillList("802221", StringUtils.objectToJsonString(map));
 
         addCall(btcBillCall);
 
@@ -318,7 +318,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
         map.put("start", pageindex + "");
         map.put("limit", limit + "");
 
-        Call<BaseResponseModel<ResponseInListModel<LocalCoinBill>>> call = RetrofitUtils.createApi(MyApi.class).getLocalCoinBillList("802271", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<ResponseInListModel<LocalCoinBill>>> call = RetrofitUtils.createApi(MyApi.class).getLocalCoinBillList("802271", StringUtils.objectToJsonString(map));
 
         addCall(call);
 
@@ -358,7 +358,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
         map.put("start", pageindex + "");
         map.put("limit", limit + "");
 
-        Call<BaseResponseModel<ResponseInListModel<LocalEthTokenCoinBill>>> call = RetrofitUtils.createApi(MyApi.class).getEthTokenCoinBillList("802308", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<ResponseInListModel<LocalEthTokenCoinBill>>> call = RetrofitUtils.createApi(MyApi.class).getEthTokenCoinBillList("802308", StringUtils.objectToJsonString(map));
 
         addCall(call);
 
@@ -412,7 +412,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("accountList", coinList);
 
-        Call<BaseResponseModel<BalanceListModel>> call = RetrofitUtils.createApi(MyApi.class).getBalanceList("802270", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<BalanceListModel>> call = RetrofitUtils.createApi(MyApi.class).getBalanceList("802270", StringUtils.objectToJsonString(map));
 
         addCall(call);
 

@@ -14,6 +14,7 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.cdkj.baselibrary.api.ResponseInListModel;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
@@ -25,11 +26,13 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.RedPacketGetAdapter;
 import com.cdkj.token.adapter.RedPacketSendAdapter;
 import com.cdkj.token.databinding.ActivityRedpacketHistoryBinding;
+import com.cdkj.token.find.product_application.question.ApplicationQuestionListActivity;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;
 import com.cdkj.token.model.MyGetRedPackageBean;
 import com.cdkj.token.model.MySendRedPackageBean;
 import com.cdkj.token.model.PickerViewModel;
+import com.cdkj.token.wallet.WalletFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,6 +60,10 @@ public class RedPacketSendHistoryActivity extends AbsLoadActivity implements Red
 
     private List<PickerViewModel> filterYears;
     private String selectYear;
+    private String showTotla;
+
+    private OptionsPickerView menuPickerView;
+    private List<PickerViewModel> pickerViewModels;
 
     public static void open(Context context) {
         if (context == null) {
@@ -75,8 +82,7 @@ public class RedPacketSendHistoryActivity extends AbsLoadActivity implements Red
 
     @Override
     public void topTitleViewRightClick() {
-        redPacketHistoryPresenter.toggleRedPacketType();
-        redPacketHistoryPresenter.getHistoryData(selectYear, true);
+        showMenuPickView();
     }
 
     @Override
@@ -120,6 +126,12 @@ public class RedPacketSendHistoryActivity extends AbsLoadActivity implements Red
 
         initClickListener();
 
+        if (SPUtilHelper.isAssetsShow()) {
+            binding.imgEye.setImageResource(R.drawable.eye_open);
+        } else {
+            binding.imgEye.setImageResource(R.drawable.eye_close);
+        }
+        pickerViewModels = new ArrayList<>();
     }
 
     private void initClickListener() {
@@ -127,15 +139,99 @@ public class RedPacketSendHistoryActivity extends AbsLoadActivity implements Red
         binding.linLayoutYear.setOnClickListener(view -> {
             showYearPickView();
         });
+
+        binding.fraEye.setOnClickListener(view -> {
+
+            boolean isAssetsShow = !SPUtilHelper.isAssetsShow();
+
+            String sendTotal = showTotla;
+
+            if (!isAssetsShow) {
+                sendTotal = WalletFragment.HIND_SIGN;
+            }
+
+            binding.tvTotal.setText(Html.fromHtml(getString(R.string.redpacket_send_total, sendTotal)));
+
+
+            if (redPacketSendAdapter != null) {
+                redPacketSendAdapter.notifyDataSetChanged();
+            }
+            if (redPacketGetAdapter != null) {
+                redPacketGetAdapter.notifyDataSetChanged();
+            }
+
+            SPUtilHelper.saveIsAssetsShow(isAssetsShow);
+
+            if (isAssetsShow) {
+                binding.imgEye.setImageResource(R.drawable.eye_open);
+            } else {
+                binding.imgEye.setImageResource(R.drawable.eye_close);
+            }
+
+        });
+    }
+
+
+    /**
+     * 显示选择pickView
+     */
+    private void showMenuPickView() {
+
+        if (menuPickerView == null) {
+            //条件选择器
+            menuPickerView = new OptionsPickerBuilder(RedPacketSendHistoryActivity.this, new OnOptionsSelectListener() {
+                @SuppressLint("SetTextI18n")
+                @Override
+                public void onOptionsSelect(int options1, int options2, int options3, View v) {
+
+                    menuPickerView.dismiss();
+
+                    switch (options1) {
+                        case 0:
+                            redPacketHistoryPresenter.toggleRedPacketType();
+                            redPacketHistoryPresenter.getHistoryData(selectYear, true);
+                            break;
+                        case 1:
+
+                            break;
+                    }
+
+                }
+            })
+                    .setSubmitColor(ContextCompat.getColor(this, R.color.text_black_cd))
+                    .setCancelColor(ContextCompat.getColor(this, R.color.gray_999999))
+                    .setCancelText(getString(R.string.cancel))//取消按钮文字
+                    .setSubmitText(getString(R.string.confirm))//确认按钮文字
+                    .build();
+
+        }
+
+        pickerViewModels.clear();
+        if (redPacketHistoryPresenter.isSendStatus()) {
+            pickerViewModels.add(new PickerViewModel("我收到的"));
+        } else {
+            pickerViewModels.add(new PickerViewModel("我发出的"));
+        }
+        pickerViewModels.add(new PickerViewModel(getString(R.string.share)));
+        menuPickerView.setPicker(pickerViewModels);
+        menuPickerView.show();
     }
 
     @Override
     public void setSendTotal(String sendTotal) {
+        showTotla = sendTotal;
+        if (!SPUtilHelper.isAssetsShow()) {
+            sendTotal = WalletFragment.HIND_SIGN;
+        }
         binding.tvTotal.setText(Html.fromHtml(getString(R.string.redpacket_send_total, sendTotal)));
     }
 
     @Override
     public void setGetTotal(String getTotal) {
+        showTotla = getTotal;
+        if (!SPUtilHelper.isAssetsShow()) {
+            getTotal = WalletFragment.HIND_SIGN;
+        }
         binding.tvTotal.setText(Html.fromHtml(getString(R.string.redpacket_get_total, getTotal)));
     }
 

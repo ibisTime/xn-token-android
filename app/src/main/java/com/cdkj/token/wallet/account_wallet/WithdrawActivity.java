@@ -19,7 +19,6 @@ import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.CodeModel;
-import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -249,7 +248,7 @@ public class WithdrawActivity extends AbsLoadActivity {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getCoinFees("802266", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getCoinFees("802266", StringUtils.objectToJsonString(map));
 
         addCall(call);
 
@@ -293,7 +292,7 @@ public class WithdrawActivity extends AbsLoadActivity {
         map.put("applyNote", model.getCoinSymbol() + getString(R.string.bill_type_withdraw));
         map.put("tradePwd", tradePwd);
 
-        Call call = RetrofitUtils.getBaseAPiService().codeRequest("802750", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().codeRequest("802750", StringUtils.objectToJsonString(map));
 
         addCall(call);
 
@@ -350,7 +349,7 @@ public class WithdrawActivity extends AbsLoadActivity {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.objectToJsonString(map));
 
         addCall(call);
 

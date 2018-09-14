@@ -288,6 +288,8 @@
             />
         <activity android:name=".find.product_application.red_package.RedPacketSendHistoryActivity" />
         <activity android:name=".find.product_application.red_package.RedPacketDetailsActivity" />
+        <activity android:name=".find.product_application.question.ApplicationQuestionListActivity" />
+        <activity android:name=".find.product_application.question.ApplicationQuestionAnswerActivity" />
 
     </application>
 

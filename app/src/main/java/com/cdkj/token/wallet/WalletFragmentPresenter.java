@@ -167,7 +167,7 @@ public class WalletFragmentPresenter {
         map.put("contractAddress", "");
 
         return RetrofitUtils.createApi(MyApi.class)
-                .getCoinListObservable("802267", StringUtils.getJsonToString(map))
+                .getCoinListObservable("802267", StringUtils.objectToJsonString(map))
                 .compose(RxTransformerListHelper.applySchedulersResult(activity));
     }
 
@@ -182,7 +182,7 @@ public class WalletFragmentPresenter {
         map.put("currency", "");
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
-        return RetrofitUtils.createApi(MyApi.class).getAccountObservable("802503", StringUtils.getJsonToString(map))
+        return RetrofitUtils.createApi(MyApi.class).getAccountObservable("802503", StringUtils.objectToJsonString(map))
                 .compose(RxTransformerHelper.applySchedulersResult(activity));
     }
 
@@ -200,7 +200,7 @@ public class WalletFragmentPresenter {
         map.put("toSystemCode", AppConfig.SYSTEMCODE);
 
         return RetrofitUtils.createApi(MyApi.class)
-                .getMsgListObservable("804040", StringUtils.getJsonToString(map))
+                .getMsgListObservable("804040", StringUtils.objectToJsonString(map))
                 .compose(RxTransformerHelper.applySchedulersResult(activity));
 
     }

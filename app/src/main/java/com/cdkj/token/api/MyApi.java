@@ -6,6 +6,7 @@ import com.cdkj.baselibrary.api.ResponseInListModel;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.token.model.AddressModel;
+import com.cdkj.token.model.AppQuestionModel;
 import com.cdkj.token.model.BTCBillModel;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.BannerModel;
@@ -89,6 +90,14 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<RedPacketDetails>> getRedPacketHistoryDetail(@Field("code") String code, @Field("json") String json);
+    /**
+     * 获取红包详情
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<AppQuestionModel>> getAPPQuestionList(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取国家列表

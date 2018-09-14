@@ -59,7 +59,7 @@ public class SendPhoneCodePresenter {
         hashMap.put("kind", kind);
         hashMap.put("interCode", countryCode); //国际区号
 
-        call = RetrofitUtils.getBaseAPiService().successRequest("805953", StringUtils.getJsonToString(hashMap));
+        call = RetrofitUtils.getBaseAPiService().successRequest("805953", StringUtils.objectToJsonString(hashMap));
 
         mListener.StartSend();
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(mContext) {

@@ -9,6 +9,7 @@ import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.MySendRedPackageBean;
 import com.cdkj.token.utils.LocalCoinDBUtils;
+import com.cdkj.token.wallet.WalletFragment;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -41,7 +42,13 @@ public class RedPacketSendAdapter extends BaseQuickAdapter<MySendRedPackageBean.
 
         helper.setText(R.id.tv_user_name, SPUtilHelper.getUserName());
 
-        helper.setText(R.id.tv_total, item.getTotalCount() + mContext.getString(R.string.red_package_unit));
+        if (!SPUtilHelper.isAssetsShow()) {
+            helper.setText(R.id.tv_total, WalletFragment.HIND_SIGN + mContext.getString(R.string.red_package_unit));
+        } else {
+            helper.setText(R.id.tv_total, item.getTotalCount() + mContext.getString(R.string.red_package_unit));
+        }
+
+
         helper.setText(R.id.tv_send_, item.getReceivedNum() + " / " + item.getSendNum() + mContext.getString(R.string.red_package_number_unit));
 
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getCreateDateTime(), "MM-dd HH:mm"));

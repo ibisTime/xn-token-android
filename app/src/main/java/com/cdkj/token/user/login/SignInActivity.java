@@ -211,7 +211,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         hashMap.put("systemCode", AppConfig.SYSTEMCODE);
         hashMap.put("companyCode", AppConfig.COMPANYCODE);
         hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
-        Call call = RetrofitUtils.getBaseAPiService().userLogin(CODE_LOGIN_CODE, StringUtils.getJsonToString(hashMap));
+        Call call = RetrofitUtils.getBaseAPiService().userLogin(CODE_LOGIN_CODE, StringUtils.objectToJsonString(hashMap));
 
         showLoadingDialog();
 

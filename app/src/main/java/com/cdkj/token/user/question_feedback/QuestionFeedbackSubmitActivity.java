@@ -176,7 +176,7 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
         map.put("commitUser", SPUtilHelper.getUserId());
         map.put("commitNote", mbinding.editRemark.getText().toString());
 
-        Call<BaseResponseModel<CodeModel>> call = RetrofitUtils.getBaseAPiService().codeRequest("805100", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<CodeModel>> call = RetrofitUtils.getBaseAPiService().codeRequest("805100", StringUtils.objectToJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<CodeModel>(this) {
             @Override

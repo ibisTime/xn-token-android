@@ -208,7 +208,7 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
             code = "805066";
         }
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest(code, StringUtils.getJsonToString(object));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest(code, StringUtils.objectToJsonString(object));
         addCall(call);
         showLoadingDialog();
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(this) {

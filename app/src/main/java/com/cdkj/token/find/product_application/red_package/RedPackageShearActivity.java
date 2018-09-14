@@ -76,7 +76,7 @@ public class RedPackageShearActivity extends AbsLoadActivity {
         Map<String, String> map = new HashMap<String, String>();
         map.put("userId", SPUtilHelper.getUserId());
         map.put("code", currentCode);
-        Call<BaseResponseModel<RedPackageDetialsBean>> redPackageDetails = RetrofitUtils.createApi(MyApi.class).getRedPackageDetails("623006", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<RedPackageDetialsBean>> redPackageDetails = RetrofitUtils.createApi(MyApi.class).getRedPackageDetails("623006", StringUtils.objectToJsonString(map));
         redPackageDetails.enqueue(new BaseResponseModelCallBack<RedPackageDetialsBean>(this) {
             @Override
             protected void onSuccess(RedPackageDetialsBean data, String SucMessage) {

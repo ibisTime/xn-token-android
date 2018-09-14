@@ -179,7 +179,7 @@ public class SetLoginPwdActivity extends AbsActivity implements SendCodeInterfac
         hashMap.put("companyCode", AppConfig.COMPANYCODE);
         hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
         hashMap.put("countryCode", SPUtilHelper.getCountryCode());
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805063", StringUtils.getJsonToString(hashMap));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805063", StringUtils.objectToJsonString(hashMap));
 
         addCall(call);
 

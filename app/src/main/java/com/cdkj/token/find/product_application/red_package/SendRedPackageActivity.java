@@ -296,7 +296,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
         map.put("sendNum", sendNumber + "");
         map.put("greeting", getGreeting());
         map.put("tradePwd", tradePwd);//支付密码
-        Call<BaseResponseModel<RedPackageHistoryBean>> baseResponseModelCall = RetrofitUtils.createApi(MyApi.class).sendRedPackage("623000", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<RedPackageHistoryBean>> baseResponseModelCall = RetrofitUtils.createApi(MyApi.class).sendRedPackage("623000", StringUtils.objectToJsonString(map));
         baseResponseModelCall.enqueue(new BaseResponseModelCallBack<RedPackageHistoryBean>(this) {
             @Override
             protected void onSuccess(RedPackageHistoryBean data, String SucMessage) {
@@ -384,7 +384,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.objectToJsonString(map));
         addCall(call);
 
         showLoadingDialog();
@@ -484,7 +484,7 @@ public class SendRedPackageActivity extends AbsLoadActivity {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.objectToJsonString(map));
 
         addCall(call);
 

@@ -80,7 +80,7 @@ public class UserJoinActivity extends AbsStatusBarTranslucentActivity {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call<BaseResponseListModel<IntroductionInfoModel>> call = RetrofitUtils.getBaseAPiService().getKeySystemInfoList("660919", StringUtils.getJsonToString(map));
+        Call<BaseResponseListModel<IntroductionInfoModel>> call = RetrofitUtils.getBaseAPiService().getKeySystemInfoList("660919", StringUtils.objectToJsonString(map));
 
         showLoadingDialog();
 

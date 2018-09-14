@@ -12,7 +12,6 @@ import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
-import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
@@ -23,7 +22,6 @@ import com.cdkj.token.adapter.RedPacketDetailListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityRedpacketDetailsBinding;
 import com.cdkj.token.model.RedPacketDetails;
-import com.cdkj.token.utils.StringUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -68,6 +66,9 @@ public class RedPacketDetailsActivity extends AbsLoadActivity {
         redPacketCode = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
 
         getRedPacketDetails();
+
+        mBinding.imgFinish.setOnClickListener(view -> finish());
+
     }
 
 
@@ -82,7 +83,7 @@ public class RedPacketDetailsActivity extends AbsLoadActivity {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("code", redPacketCode);
 
-        Call<BaseResponseModel<RedPacketDetails>> call = RetrofitUtils.createApi(MyApi.class).getRedPacketHistoryDetail("623006", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<RedPacketDetails>> call = RetrofitUtils.createApi(MyApi.class).getRedPacketHistoryDetail("623006", StringUtils.objectToJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<RedPacketDetails>(this) {
             @Override
@@ -106,7 +107,7 @@ public class RedPacketDetailsActivity extends AbsLoadActivity {
 
         mBinding.tvUserName.setText(data.getSendUserNickname());
 
-        ImgUtils.loadActImg(this, data.getSendUserPhoto(), mBinding.imgLogo);
+        ImgUtils.loadLogo(this, data.getSendUserPhoto(), mBinding.imgLogo);
 
         mBinding.tvSendNum.setText(data.getReceivedNum() + "/" + data.getSendNum());
 

@@ -12,6 +12,7 @@ import com.cdkj.token.R;
 import com.cdkj.token.model.MyGetRedPackageBean;
 import com.cdkj.token.model.MySendRedPackageBean;
 import com.cdkj.token.utils.LocalCoinDBUtils;
+import com.cdkj.token.wallet.WalletFragment;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -47,11 +48,16 @@ public class RedPacketGetAdapter extends BaseQuickAdapter<MyGetRedPackageBean, B
 
         helper.setText(R.id.tv_user_name, item.getRedPacketInfo().getSendUserNickname());
 
-        helper.setText(R.id.tv_get_total, item.getCount());
+
+        if (!SPUtilHelper.isAssetsShow()) {
+            helper.setText(R.id.tv_get_total, WalletFragment.HIND_SIGN + mContext.getString(R.string.red_package_unit));
+        } else {
+            helper.setText(R.id.tv_get_total, item.getCount() + mContext.getString(R.string.red_package_unit));
+        }
 
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getRedPacketInfo().getCreateDateTime(), "MM-dd HH:mm"));
 
-        ImgUtils.loadImage(mContext, item.getRedPacketInfo().getSendUserPhoto(), helper.getView(R.id.img_user_logo));
+        ImgUtils.loadLogo(mContext, item.getRedPacketInfo().getSendUserPhoto(), helper.getView(R.id.img_user_logo));
 
         ImgUtils.loadImage(mContext, LocalCoinDBUtils.getCoinIconByCoinSymbol(item.getRedPacketInfo().getSymbol()), helper.getView(R.id.img_icon));
 

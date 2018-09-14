@@ -89,7 +89,7 @@ public class StringUtils {
         return str;
     }
 
-    public static String getJsonToString(Object object) {
+    public static String objectToJsonString(Object object) {
 
         if (object == null) {
             return "";
