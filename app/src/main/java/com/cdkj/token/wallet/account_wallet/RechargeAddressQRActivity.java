@@ -95,14 +95,31 @@ public class RechargeAddressQRActivity extends AbsLoadActivity {
 
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            Bitmap mBitmap = CodeUtils.createImage(model.getCoinAddress(), 400, 400, resource);
-                            mBinding.imgQRCode.setImageBitmap(mBitmap);
-                            mBinding.txtAddress.setText(model.getCoinAddress());
+
+                            try {
+
+                                Bitmap mBitmap = CodeUtils.createImage(model.getCoinAddress(), 400, 400, resource);
+                                mBinding.imgQRCode.setImageBitmap(mBitmap);
+                                mBinding.txtAddress.setText(model.getCoinAddress());
+                            } catch (Exception e) {
+
+                                try {
+
+                                    Bitmap mBitmap = CodeUtils.createImage(model.getCoinAddress(), 400, 400, resource);
+                                    mBinding.imgQRCode.setImageBitmap(mBitmap);
+                                    mBinding.txtAddress.setText(model.getCoinAddress());
+
+                                } catch (Exception e2) {
+
+                                }
+
+                            }
+
                         }
 
                     });
 
-        }catch (Exception e){
+        } catch (Exception e) {
 
         }
 
@@ -144,21 +161,22 @@ public class RechargeAddressQRActivity extends AbsLoadActivity {
      * 保存图片到相册
      */
     public void saveBitmapToAlbum() {
-
-        showLoadingDialog();
-        mSubscription.add(Observable.just("")
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(s -> BitmapUtils.getBitmapByView(mBinding.scrollView))
-                .observeOn(Schedulers.newThread())
-                .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, ""))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> {
-                    UITipDialog.showInfoNoIcon(this, getString(R.string.save_success));
-                }, throwable -> {
-                    LogUtil.E("a" + throwable);
-                    UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
-                    disMissLoadingDialog();
-                }, () -> disMissLoadingDialog()));
+        mBinding.scrollView.post(() -> {
+            showLoadingDialog();
+            mSubscription.add(Observable.just("")
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map(s -> BitmapUtils.getBitmapByView(mBinding.scrollView))
+                    .observeOn(Schedulers.newThread())
+                    .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, ""))
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(s -> {
+                        UITipDialog.showInfoNoIcon(this, getString(R.string.save_success));
+                    }, throwable -> {
+                        LogUtil.E("a" + throwable);
+                        UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
+                        disMissLoadingDialog();
+                    }, () -> disMissLoadingDialog()));
+        });
     }
 
 

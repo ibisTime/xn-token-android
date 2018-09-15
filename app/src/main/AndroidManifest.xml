@@ -37,6 +37,15 @@
             android:name="UMENG_APPKEY"
             android:value="${UMENG_CHANNEL_APPKEY}" />
 
+        <!-- 微信分享回调 -->
+        <activity
+            android:name="com.cdkj.tha.wxapi.WXEntryActivity"
+            android:exported="true"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:theme="@style/ActivityDialogStyleBottom" />
+
+
         <activity android:name=".user.login.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -89,11 +98,7 @@
             android:name="com.cdkj.baselibrary.activitys.PayPwdModifyActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        //H5
-        <activity
-            android:name="com.cdkj.baselibrary.activitys.WebViewActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+
         // 图片
         <activity
             android:name="com.cdkj.baselibrary.activitys.ImageSelectActivity"
@@ -282,10 +287,12 @@
 
         <activity android:name=".user.invite.InviteActivity" />
         <activity android:name=".user.invite.InviteRuleActivity" />
-        <activity android:name=".user.invite.InviteQrActivity" />
         <activity
-            android:name=".find.product_application.red_package.RedPacketShareQRActivity"
-            android:theme="@style/ActivityDialogStyleBottom" />
+            android:name=".user.invite.InviteQrActivity"
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".find.product_application.red_package.RedPacketShareQRActivity"
+            android:theme="@style/ActivityDialogStyleBottom"
+            />
         <activity android:name=".find.product_application.red_package.RedPacketSendHistoryActivity" />
         <activity android:name=".find.product_application.red_package.RedPacketDetailsActivity" />
         <activity android:name=".find.product_application.question.ApplicationQuestionListActivity" />
@@ -293,6 +300,10 @@
         <activity
             android:name=".user.invite.InvieMenuSelectActivity"
             android:theme="@style/ActivityDialogStyleBottom" />
+        <activity
+            android:name="com.cdkj.tha.wxapi.WeiboShareActivity"
+            android:theme="@style/ActivityDialogStyleBottom" />
+
 
     </application>
 

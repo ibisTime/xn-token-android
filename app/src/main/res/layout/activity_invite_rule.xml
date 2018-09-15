@@ -41,7 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                tools:background="@mipmap/invite_bg">
+                tools:background="@drawable/invite_bg">
 
 
                 <ImageView
@@ -49,7 +49,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30dp"
-                    android:src="@mipmap/invite_logo" />
+                    android:src="@drawable/invite_logo" />
 
                 <RelativeLayout
                     android:layout_width="310dp"
@@ -62,7 +62,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:src="@mipmap/invite_text_bg" />
+                        android:src="@drawable/invite_text_bg" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                     android:layout_marginBottom="35dp"
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
-                    android:background="@mipmap/invite_area_border"
+                    android:background="@drawable/invite_area_border"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 

@@ -42,7 +42,7 @@
                 android:id="@+id/ll_root"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@mipmap/invite_bg"
+                android:background="@drawable/invite_bg"
                 android:orientation="vertical">
 
                 <ImageView
@@ -50,7 +50,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="30dp"
-                    android:src="@mipmap/invite_logo" />
+                    android:src="@drawable/invite_logo" />
 
                 <RelativeLayout
                     android:layout_width="310dp"
@@ -63,7 +63,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
-                        android:src="@mipmap/invite_text_bg" />
+                        android:src="@drawable/invite_text_bg" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -83,12 +83,13 @@
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="40dp"
                     android:background="@drawable/corner_invite_qr_bg"
-                    android:gravity="center">
+                    >
 
                     <ImageView
+                        android:layout_margin="15dp"
                         android:id="@+id/iv_qr"
-                        android:layout_width="150dp"
-                        android:layout_height="150dp" />
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
 
                 </LinearLayout>
 

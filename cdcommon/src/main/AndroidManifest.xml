@@ -35,7 +35,11 @@
         <activity
             android:name=".activitys.UpdatePhoneActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activitys.WebViewActivity" />
+        //H5
+        <activity
+            android:name="com.cdkj.baselibrary.activitys.WebViewActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".activitys.NickModifyActivity"
             android:windowSoftInputMode="adjustPan" />

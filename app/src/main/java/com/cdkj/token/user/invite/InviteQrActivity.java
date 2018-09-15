@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -26,9 +27,22 @@ import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.tha.wxapi.WeiboShareActivity;
+import com.cdkj.tha.wxapi.WxUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.common.ThaAppConstant;
+import com.cdkj.token.databinding.ActivityAddressQrimgShowBinding;
 import com.cdkj.token.databinding.ActivityInviteQrBinding;
+import com.sina.weibo.sdk.WbSdk;
+import com.sina.weibo.sdk.api.ImageObject;
+import com.sina.weibo.sdk.api.WeiboMultiMessage;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WbAuthListener;
+import com.sina.weibo.sdk.auth.WbConnectErrorMessage;
+import com.sina.weibo.sdk.auth.sso.SsoHandler;
+import com.sina.weibo.sdk.share.WbShareCallback;
+import com.sina.weibo.sdk.share.WbShareHandler;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -38,7 +52,10 @@ import java.util.Map;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import razerdp.blur.FastBlur;
 import retrofit2.Call;
+
+import static com.cdkj.tha.wxapi.WeiboShareActivity.SCOPE;
 
 /**
  * 邀请有礼
@@ -51,7 +68,8 @@ public class InviteQrActivity extends AbsStatusBarTranslucentActivity {
 
     private PermissionHelper mPermissionHelper;
     private String shareUrl;
-
+    private SsoHandler mSsoHandler;
+    private WbShareHandler wbShareHandler;
 
     public static void open(Context context) {
         if (context == null) {
@@ -79,7 +97,9 @@ public class InviteQrActivity extends AbsStatusBarTranslucentActivity {
 
         mPermissionHelper = new PermissionHelper(this);
 
-        setPageBgImage(R.mipmap.invite_bg);
+        setPageBgImage(R.drawable.invite_bg);
+
+        setStatusBarWhite();
 
         setClickListener();
 
@@ -105,18 +125,73 @@ public class InviteQrActivity extends AbsStatusBarTranslucentActivity {
 
         // 微信
         mBinding.llWx.setOnClickListener(view -> {
+            shareToWx();
+        });
 
+        // 朋友圈
+        mBinding.llPyq.setOnClickListener(view -> {
+            shareToWxPYQ();
+        });
+
+        // 微博
+        mBinding.llWb.setOnClickListener(view -> {
+            shareToWB();
+        });
+
+    }
+
+    private void shareToWeiBo(Bitmap bitmap) {
+
+        WbSdk.install(this, new AuthInfo(this, WeiboShareActivity.APPKEY, WeiboShareActivity.APPURL, SCOPE));
+
+        mSsoHandler = new SsoHandler(InviteQrActivity.this);
+        mSsoHandler.authorize(new WbAuthListener() {
+            @Override
+            public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
+                if (oauth2AccessToken.isSessionValid()) {
+                    UITipDialog.showSuccess(InviteQrActivity.this, getString(R.string.share_succ));
+                }
+            }
+
+            @Override
+            public void cancel() {
+                UITipDialog.showInfo(InviteQrActivity.this, getString(R.string.share_cancel));
+            }
+
+            @Override
+            public void onFailure(WbConnectErrorMessage wbConnectErrorMessage) {
+                UITipDialog.showFail(InviteQrActivity.this, getString(R.string.share_fail));
+            }
+        });
+
+        wbShareHandler = new WbShareHandler(this);
+        wbShareHandler.registerApp();
+
+        WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
+        ImageObject imageObject = new ImageObject();
+        imageObject.setImageObject(bitmap);
+        weiboMessage.imageObject = imageObject;
+
+        wbShareHandler.shareMessage(weiboMessage, false);
+
+    }
+
+    /**
+     * 分享到微信
+     */
+    private void shareToWx() {
+        mBinding.llRoot.post(() -> {
             showLoadingDialog();
             mBinding.linLayoutCopy.setVisibility(View.GONE);
             mBinding.llRule.setVisibility(View.VISIBLE);
             mSubscription.add(Observable.just("")
-                    .subscribeOn(AndroidSchedulers.mainThread())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map(s -> BitmapUtils.getBitmapByView(mBinding.llRoot))
                     .observeOn(Schedulers.newThread())  //创建
-                    .map(s -> screenshot())
                     .map(o -> BitmapUtils.WeChatBitmapToByteArray(o))
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(path -> {
-//                        WxUtil.shareBitmapToWX(InviteQrActivity.this, path);
+                        WxUtil.shareBitmapToWX(InviteQrActivity.this, path);
                         disMissLoadingDialog();
 
                         // 还原UI
@@ -130,20 +205,25 @@ public class InviteQrActivity extends AbsStatusBarTranslucentActivity {
                         mBinding.linLayoutCopy.setVisibility(View.VISIBLE);
                         mBinding.llRule.setVisibility(View.GONE);
                     }));
-
         });
+    }
 
-        // 朋友圈
-        mBinding.llPyq.setOnClickListener(view -> {
-
+    /**
+     * 分享到微信
+     */
+    private void shareToWxPYQ() {
+        mBinding.llRoot.post(() -> {
             showLoadingDialog();
-            mSubscription.add(Observable.just(screenshot())
-                    .subscribeOn(AndroidSchedulers.mainThread())
+            mBinding.linLayoutCopy.setVisibility(View.GONE);
+            mBinding.llRule.setVisibility(View.VISIBLE);
+            mSubscription.add(Observable.just("")
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map(s -> BitmapUtils.getBitmapByView(mBinding.llRoot))
                     .observeOn(Schedulers.newThread())  //创建
                     .map(o -> BitmapUtils.WeChatBitmapToByteArray(o))
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(path -> {
-//                        WxUtil.shareBitmapToWXPYQ(InviteQrActivity.this, path);
+                        WxUtil.shareBitmapToWXPYQ(InviteQrActivity.this, path);
                         disMissLoadingDialog();
 
                         // 还原UI
@@ -152,25 +232,43 @@ public class InviteQrActivity extends AbsStatusBarTranslucentActivity {
                     }, throwable -> {
                         disMissLoadingDialog();
                         UITipDialog.showFail(this, getString(R.string.info_share_fail));
-                        LogUtil.E("微信朋友圈分享错误" + throwable.toString());
-
+                        LogUtil.E("微信分享错误" + throwable.toString());
                         // 还原UI
                         mBinding.linLayoutCopy.setVisibility(View.VISIBLE);
                         mBinding.llRule.setVisibility(View.GONE);
                     }));
-
         });
-
-        // 微博
-        mBinding.llWb.setOnClickListener(view -> {
-
-        });
-
     }
 
-    private Bitmap screenshot() {
-        return BitmapUtils.getBitmapByView(mBinding.scrollview);
+    /**
+     * 分享到微博
+     */
+    private void shareToWB() {
+        mBinding.llRoot.post(() -> {
+            showLoadingDialog();
+            mBinding.linLayoutCopy.setVisibility(View.GONE);
+            mBinding.llRule.setVisibility(View.VISIBLE);
+            mSubscription.add(Observable.just("")
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map(s -> BitmapUtils.getBitmapByView(mBinding.llRoot))
+                    .observeOn(Schedulers.newThread())  //创建
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(path -> {
+                        shareToWeiBo(path);
+                        disMissLoadingDialog();
+                        // 还原UI
+                        mBinding.linLayoutCopy.setVisibility(View.VISIBLE);
+                        mBinding.llRule.setVisibility(View.GONE);
+                    }, throwable -> {
+                        disMissLoadingDialog();
+                        UITipDialog.showFail(this, getString(R.string.info_share_fail));
+                        // 还原UI
+                        mBinding.linLayoutCopy.setVisibility(View.VISIBLE);
+                        mBinding.llRule.setVisibility(View.GONE);
+                    }));
+        });
     }
+
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -204,29 +302,32 @@ public class InviteQrActivity extends AbsStatusBarTranslucentActivity {
      * 保存图片到相册
      */
     private void saveBitmapToAlbum() {
-        showLoadingDialog();
-        mBinding.linLayoutCopy.setVisibility(View.GONE);
-        mBinding.llRule.setVisibility(View.VISIBLE);
-        mSubscription.add(Observable.just("")
-                .observeOn(AndroidSchedulers.mainThread())  //创建
-                .map(o -> getBitmapByView(mBinding.scrollview))
-                .observeOn(Schedulers.newThread())  //创建
-                .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, "Theai_invite"))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(path -> {
-                    mBinding.linLayoutCopy.setVisibility(View.VISIBLE);
-                    mBinding.llRule.setVisibility(View.GONE);
-                    disMissLoadingDialog();
-                    UITipDialog.showInfoNoIcon(this, getString(R.string.save_success));
+        getBitmapByView(mBinding.scrollview);
+        mBinding.scrollview.post(() -> {
+            showLoadingDialog();
+            mBinding.linLayoutCopy.setVisibility(View.GONE);
+            mBinding.llRule.setVisibility(View.VISIBLE);
+            mSubscription.add(Observable.just("")
+                    .observeOn(AndroidSchedulers.mainThread())  //创建
+                    .map(o -> getBitmapByView(mBinding.scrollview))
+                    .observeOn(Schedulers.newThread())  //创建
+                    .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, ""))
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(path -> {
+                        mBinding.linLayoutCopy.setVisibility(View.VISIBLE);
+                        mBinding.llRule.setVisibility(View.GONE);
+                        disMissLoadingDialog();
+                        UITipDialog.showInfoNoIcon(this, getString(R.string.save_success));
 
 
-                }, throwable -> {
-                    mBinding.linLayoutCopy.setVisibility(View.VISIBLE);
-                    mBinding.llRule.setVisibility(View.GONE);
-                    disMissLoadingDialog();
-                    UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
-                    LogUtil.E("图片保存失败" + throwable);
-                }));
+                    }, throwable -> {
+                        mBinding.linLayoutCopy.setVisibility(View.VISIBLE);
+                        mBinding.llRule.setVisibility(View.GONE);
+                        disMissLoadingDialog();
+                        UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
+                        LogUtil.E("图片保存失败" + throwable);
+                    }));
+        });
     }
 
 
@@ -281,10 +382,7 @@ public class InviteQrActivity extends AbsStatusBarTranslucentActivity {
 
                 try {
                     Bitmap bitmap = CodeUtils.createImage(shareUrl, 500, 500, null);
-                    ByteArrayOutputStream baos = new ByteArrayOutputStream();
-                    bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-                    byte[] datas = baos.toByteArray();
-                    ImgUtils.loadByte(InviteQrActivity.this, datas, mBinding.ivQr);
+                    mBinding.ivQr.setImageBitmap(bitmap);
 
                 } catch (Exception e) {
 
@@ -342,5 +440,37 @@ public class InviteQrActivity extends AbsStatusBarTranslucentActivity {
             UITipDialog.showInfoNoIcon(InviteQrActivity.this, getStrRes(R.string.copy_success));
         }
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mSsoHandler != null) {
+            mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (wbShareHandler == null) return;
+        wbShareHandler.doResultIntent(intent, new WbShareCallback() {
+            @Override
+            public void onWbShareSuccess() {
+                UITipDialog.showSuccess(InviteQrActivity.this, getString(R.string.share_succ));
+            }
+
+            @Override
+            public void onWbShareCancel() {
+                UITipDialog.showSuccess(InviteQrActivity.this, getString(R.string.share_cancel));
+            }
+
+            @Override
+            public void onWbShareFail() {
+                UITipDialog.showSuccess(InviteQrActivity.this, getString(R.string.save_fail));
+            }
+        });
+    }
+
 
 }

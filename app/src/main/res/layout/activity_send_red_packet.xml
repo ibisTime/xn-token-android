@@ -231,8 +231,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="20dp"
-                android:orientation="horizontal"
-                android:visibility="invisible">
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tv_coin_name_2"
@@ -249,9 +248,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginLeft="5dp"
+                    android:text="0"
                     android:textColor="#ff4b00"
-                    android:textSize="18sp"
-                    tools:text="0" />
+                    android:textSize="18sp" />
 
 
             </LinearLayout>
@@ -324,7 +323,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="25dp"
                 android:layout_marginTop="25dp"
-                android:text="如24小时未领取红包，则红包退回原地址"
+                android:text="@string/redpacket_back_info"
                 android:textColor="#AAAAAA"
                 android:textSize="12sp" />
 

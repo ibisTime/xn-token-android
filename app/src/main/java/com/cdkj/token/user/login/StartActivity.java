@@ -10,6 +10,7 @@ import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
+import com.cdkj.token.find.product_application.red_package.RedPacketShareQRActivity;
 import com.cdkj.token.interfaces.StartPagePresenter;
 import com.cdkj.token.interfaces.StartPageView;
 import com.cdkj.token.model.VersionModel;

@@ -108,6 +108,9 @@ public class RedPacketSendHistoryActivity extends AbsLoadActivity implements Red
 
             @Override
             public RecyclerView getRecyclerView() {
+
+                binding.recyclerFocus.setNestedScrollingEnabled(false);
+
                 return binding.recyclerFocus;
             }
 
@@ -208,11 +211,11 @@ public class RedPacketSendHistoryActivity extends AbsLoadActivity implements Red
 
         pickerViewModels.clear();
         if (redPacketHistoryPresenter.isSendStatus()) {
-            pickerViewModels.add(new PickerViewModel("我收到的"));
+            pickerViewModels.add(new PickerViewModel(getString(R.string.my_send)));
         } else {
-            pickerViewModels.add(new PickerViewModel("我发出的"));
+            pickerViewModels.add(new PickerViewModel(getString(R.string.my_get)));
         }
-        pickerViewModels.add(new PickerViewModel(getString(R.string.share)));
+//        pickerViewModels.add(new PickerViewModel(getString(R.string.share)));
         menuPickerView.setPicker(pickerViewModels);
         menuPickerView.show();
     }

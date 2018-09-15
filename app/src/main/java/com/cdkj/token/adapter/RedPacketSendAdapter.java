@@ -40,7 +40,7 @@ public class RedPacketSendAdapter extends BaseQuickAdapter<MySendRedPackageBean.
             helper.setImageResource(R.id.img_type, R.drawable.lucky_redpacket_icon);
         }
 
-        helper.setText(R.id.tv_user_name, SPUtilHelper.getUserName());
+        helper.setText(R.id.tv_user_name, R.string.me);
 
         if (!SPUtilHelper.isAssetsShow()) {
             helper.setText(R.id.tv_total, WalletFragment.HIND_SIGN + mContext.getString(R.string.red_package_unit));

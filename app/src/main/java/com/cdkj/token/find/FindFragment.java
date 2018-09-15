@@ -48,6 +48,7 @@ public class FindFragment extends BaseLazyFragment {
     private List<BannerModel> bannerData = new ArrayList<>();
 
     private AppListAdapter appListAdapter;
+    public static String RED_PACKET = "red_packet";
 
     /**
      * 获得fragment实例
@@ -110,9 +111,10 @@ public class FindFragment extends BaseLazyFragment {
             }
 
             switch (recommendAppModel.getAction()) {
+
                 case "red_packet"://跳到红包
 //                    SendRedPackageActivity.open(mActivity);
-                    SendRedPacketActivity.open(mActivity,recommendAppModel.getCode());
+                    SendRedPacketActivity.open(mActivity, recommendAppModel.getCode());
                     break;
                 case "money_manager"://跳到量化理财
                     ManagementMoneyListActivity.open(mActivity);

@@ -29,7 +29,7 @@ public class RedPacketDetailListAdapter extends BaseQuickAdapter<RedPacketDetail
 
         helper.setText(R.id.tv_user_name, item.getUserNickname());
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getCreateDatetime(), "MM-dd HH:mm"));
-        helper.setText(R.id.tv_get_total, item.getUserNickname());
+        helper.setText(R.id.tv_get_total, item.getCount()+"");
 
     }
 }

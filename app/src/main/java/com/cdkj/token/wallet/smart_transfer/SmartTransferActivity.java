@@ -28,6 +28,7 @@ import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.RecyclerViewSpacesItemDecoration;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 
@@ -45,6 +46,8 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
     private TextPwdInputDialog pwdInputDialog;
     private String selectCoinSymbol = "";
     private String balanceString = "";
+    private BigDecimal balanceBigDecimal = BigDecimal.ZERO;
+    private BigDecimal feeBigDecimal = BigDecimal.ZERO;
 
 
     /**
@@ -233,7 +236,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
     @Override
     public void setBalance(BigDecimal balance) {
-
+        balanceBigDecimal = balance;
         balanceString = AmountUtil.transformFormatToString(balance, selectCoinSymbol, AmountUtil.ALLSCALE);
 
         mBinding.tvBalance.setText(Html.fromHtml(getString(R.string.smart_transfer_balance, balanceString, selectCoinSymbol)));
@@ -241,15 +244,23 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
     @Override
     public void setFee(BigDecimal fee) {
-
+        feeBigDecimal = fee;
         if (smartTransferPresenter.isPrivateWallet() && LocalCoinDBUtils.isBTC(selectCoinSymbol)) {
             DecimalFormat df = new DecimalFormat("#######0.#");
             mBinding.tvFee.setText(df.format(fee) + " " + "sat/b");
             return;
         }
 
-        Spanned fromSpanned = Html.fromHtml(getString(R.string.smart_transfer_fee, AmountUtil.transformFormatToString(fee, selectCoinSymbol, AmountUtil.ALLSCALE), LocalCoinDBUtils.getCoinUnitName(selectCoinSymbol)));
+        if (smartTransferPresenter.isPrivateWallet()) {
+            Spanned fromSpanned = Html.fromHtml(getString(R.string.smart_transfer_fee, AmountUtil.transformFormatToString(fee, selectCoinSymbol, AmountUtil.ALLSCALE), LocalCoinDBUtils.getCoinUnitName(selectCoinSymbol)));
+            mBinding.tvFee.setText(fromSpanned);
+            return;
+        }
+
+        Spanned fromSpanned = Html.fromHtml(getString(R.string.smart_transfer_fee2, AmountUtil.transformFormatToString(fee, selectCoinSymbol, AmountUtil.ALLSCALE), LocalCoinDBUtils.getCoinUnitName(selectCoinSymbol)));
         mBinding.tvFee.setText(fromSpanned);
+        return;
+
     }
 
     @Override
@@ -263,12 +274,12 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
     @Override
     public void transferSuccess(boolean isPrivate) {
-        UITipDialog.showSuccess(this, "划转成功", dialogInterface -> finish());
+        UITipDialog.showSuccess(this, getString(R.string.smart_transfer_success), dialogInterface -> finish());
     }
 
     @Override
     public void transferFail(boolean isPrivate) {
-        showToast("划转失败");
+        showToast(getString(R.string.smart_transfer_ail));
     }
 
     @Override
@@ -339,6 +350,41 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
         pwdInputDialog.getContentView().setHint(getStrRes(R.string.please_input_transaction_pwd));
         pwdInputDialog.getContentView().setText("");
         pwdInputDialog.show();
+    }
+
+
+    /**
+     * //TODO 余额+手续费检测
+     *
+     * @return
+     */
+    boolean transferInputCheck() {
+
+
+        try {
+
+            BigInteger amountBigInteger = AmountUtil.bigIntegerFormat(new BigDecimal(mBinding.editAmount.getText().toString().trim()), selectCoinSymbol); //转账数量
+
+            if (amountBigInteger.compareTo(BigInteger.ZERO) == 0 || amountBigInteger.compareTo(BigInteger.ZERO) == -1) {
+                UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
+                return true;
+            }
+
+
+            BigDecimal allBigInteger = feeBigDecimal.add(new BigDecimal(amountBigInteger));//手续费+转账数量
+
+            int checkInt = allBigInteger.compareTo(balanceBigDecimal); //比较
+
+            if (checkInt == 1 || checkInt == 0) {
+                UITipDialog.showInfo(this, getString(R.string.no_balance));
+                return true;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
+            return true;
+        }
+        return false;
     }
 
 

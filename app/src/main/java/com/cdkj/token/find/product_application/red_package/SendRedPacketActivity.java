@@ -89,6 +89,7 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
         userInfoPresenter.getUserInfoRequest();//获取用户信息
 
         mBinding.tvInMoney.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
+        mBinding.tvTotalAmount.setText("0" + getStrRes(R.string.red_package_unit));
 
         initClickListener();
         initEditWatcher();
@@ -114,7 +115,7 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
                             RedPacketSendHistoryActivity.open(SendRedPacketActivity.this);
                             break;
                         case 1:
-                            ApplicationQuestionListActivity.open(SendRedPacketActivity.this, appCode,getString(R.string.theia_redpacket_intro));
+                            ApplicationQuestionListActivity.open(SendRedPacketActivity.this, appCode, getString(R.string.theia_redpacket_intro));
                             break;
                     }
 
@@ -216,9 +217,9 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
 
     @Override
     public void setOrdinaryStatus() {
-        mBinding.linLayoutInputCount.setVisibility(View.VISIBLE);
+
         mBinding.tvTypeReadPacket.setText(R.string.ordinary_red_packet);
-        mBinding.tvAmountType.setText(R.string.total);
+        mBinding.tvAmountType.setText(R.string.single_amount);
         mBinding.tvRedPacketInfo.setText(R.string.red_packet_intro_ordinary);
 
         mBinding.tvChangeLucky.setBackgroundResource(R.drawable.redpacket_btn_lucky_un_select);
@@ -230,9 +231,10 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
 
     @Override
     public void setluckyStatus() {
-        mBinding.linLayoutInputCount.setVisibility(View.INVISIBLE);
+
         mBinding.tvTypeReadPacket.setText(R.string.lucky_red_packet);
-        mBinding.tvAmountType.setText(R.string.single_amount);
+
+        mBinding.tvAmountType.setText(R.string.total);
         mBinding.tvRedPacketInfo.setText(R.string.red_packet_intro_lucky);
 
         mBinding.tvChangeLucky.setBackgroundResource(R.drawable.redpacket_btn_lucky_select);
@@ -272,7 +274,7 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
 
     @Override
     public void setSendSuccessStatus(String redPacketCode) {
-        RedPacketShareQRActivity.open(this, redPacketCode);
+        RedPacketShareQRActivity.open(this, redPacketCode, true);
     }
 
     @Override

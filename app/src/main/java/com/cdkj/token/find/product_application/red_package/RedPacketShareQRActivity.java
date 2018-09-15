@@ -19,11 +19,25 @@ import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.BitmapUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.tha.wxapi.WeiboShareActivity;
+import com.cdkj.tha.wxapi.WxUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.common.ThaAppConstant;
 import com.cdkj.token.databinding.ActivityRedpacketShareBinding;
+import com.cdkj.token.user.invite.InviteQrActivity;
+import com.sina.weibo.sdk.WbSdk;
+import com.sina.weibo.sdk.api.ImageObject;
+import com.sina.weibo.sdk.api.WeiboMultiMessage;
+import com.sina.weibo.sdk.auth.AuthInfo;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WbAuthListener;
+import com.sina.weibo.sdk.auth.WbConnectErrorMessage;
+import com.sina.weibo.sdk.auth.sso.SsoHandler;
+import com.sina.weibo.sdk.share.WbShareCallback;
+import com.sina.weibo.sdk.share.WbShareHandler;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
 import java.io.ByteArrayOutputStream;
@@ -34,6 +48,8 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
+
+import static com.cdkj.tha.wxapi.WeiboShareActivity.SCOPE;
 
 /**
  * 二维码展示
@@ -47,11 +63,17 @@ public class RedPacketShareQRActivity extends BaseActivity {
 
     private PermissionHelper mPermissionHelper;
 
-    public static void open(Context context, String redPackageCode) {
+    private SsoHandler mSsoHandler;
+    private WbShareHandler wbShareHandler;
+
+    private boolean isOpenHistory;
+
+    public static void open(Context context, String redPackageCode, boolean isOpenHistory) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, RedPacketShareQRActivity.class);
+        intent.putExtra(CdRouteHelper.DATASIGN2, isOpenHistory);
         intent.putExtra(CdRouteHelper.DATASIGN, redPackageCode);
         context.startActivity(intent);
     }
@@ -62,6 +84,7 @@ public class RedPacketShareQRActivity extends BaseActivity {
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_redpacket_share);
         if (getIntent() != null) {
             redPackageCode = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
+            isOpenHistory = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN2, true);
         }
         mPermissionHelper = new PermissionHelper(this);
         getRedPacketShareUrlRequest();
@@ -71,20 +94,125 @@ public class RedPacketShareQRActivity extends BaseActivity {
 
     private void initListener() {
 
+        //微信分享
+        mBinding.linLayoutWxShare.setOnClickListener(view -> shareToWx());
+        //微信朋友圈
+        mBinding.linLayoutPyqShare.setOnClickListener(view -> shareToWxPYQ());
+
+        mBinding.linLayoutPyqWeibo.setOnClickListener(view -> shareToWeiBo());
+
+        //关闭界面
         mBinding.imgClose.setOnClickListener(view -> {
-            RedPacketSendHistoryActivity.open(this);
+            if (isOpenHistory) {
+                RedPacketSendHistoryActivity.open(this);
+            }
             finish();
         });
 
+        //图片保存
         mBinding.imgSave.setOnClickListener(view -> {
             permissionRequestAndSaveBitmap();
         });
 
     }
 
+    private void shareToWeiBo() {
+        showLoadingDialog();
+        mSubscription.add(Observable.just("")
+                .observeOn(AndroidSchedulers.mainThread())  //创建
+                .map(s -> BitmapUtils.getBitmapByView(mBinding.scrollView))
+                .observeOn(Schedulers.newThread())  //创建
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bytes -> {
+                    shareToWeiBo(bytes);
+                    disMissLoadingDialog();
+                }, throwable -> {
+                    disMissLoadingDialog();
+                    UITipDialog.showFail(this, getString(R.string.info_share_fail));
+                    LogUtil.E("微信分享错误" + throwable.toString());
+                }));
+    }
+
+    private void shareToWeiBo(Bitmap bitmap) {
+
+        WbSdk.install(this, new AuthInfo(this, WeiboShareActivity.APPKEY, WeiboShareActivity.APPURL, SCOPE));
+
+        mSsoHandler = new SsoHandler(RedPacketShareQRActivity.this);
+        mSsoHandler.authorize(new WbAuthListener() {
+            @Override
+            public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
+                if (oauth2AccessToken.isSessionValid()) {
+                    UITipDialog.showSuccess(RedPacketShareQRActivity.this, getString(R.string.share_succ));
+                }
+            }
+
+            @Override
+            public void cancel() {
+                UITipDialog.showInfo(RedPacketShareQRActivity.this, getString(R.string.share_cancel));
+            }
+
+            @Override
+            public void onFailure(WbConnectErrorMessage wbConnectErrorMessage) {
+                UITipDialog.showFail(RedPacketShareQRActivity.this, getString(R.string.share_fail));
+            }
+        });
+
+        wbShareHandler = new WbShareHandler(this);
+        wbShareHandler.registerApp();
+
+        WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
+        ImageObject imageObject = new ImageObject();
+        imageObject.setImageObject(bitmap);
+        weiboMessage.imageObject = imageObject;
+
+        wbShareHandler.shareMessage(weiboMessage, false);
+
+    }
+
+    /**
+     * 分享到微信朋友圈
+     */
+    private void shareToWxPYQ() {
+        showLoadingDialog();
+        mSubscription.add(Observable.just("")
+                .observeOn(AndroidSchedulers.mainThread())  //创建
+                .map(s -> BitmapUtils.getBitmapByView(mBinding.scrollView))
+                .observeOn(Schedulers.newThread())  //创建
+                .map(o -> BitmapUtils.WeChatBitmapToByteArray(o))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bytes -> {
+                    WxUtil.shareBitmapToWXPYQ(this, bytes);
+                    disMissLoadingDialog();
+                }, throwable -> {
+                    disMissLoadingDialog();
+                    UITipDialog.showFail(this, getString(R.string.info_share_fail));
+                    LogUtil.E("微信分享错误" + throwable.toString());
+                }));
+    }
+
+    /**
+     * 分享到微信
+     */
+    private void shareToWx() {
+        showLoadingDialog();
+        mSubscription.add(Observable.just("")
+                .observeOn(AndroidSchedulers.mainThread())  //创建
+                .map(s -> BitmapUtils.getBitmapByView(mBinding.fralayoutRedpacket))
+                .observeOn(Schedulers.newThread())  //创建
+                .map(o -> BitmapUtils.WeChatBitmapToByteArray(o))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bytes -> {
+                    WxUtil.shareBitmapToWX(this, bytes);
+                    disMissLoadingDialog();
+                }, throwable -> {
+                    disMissLoadingDialog();
+                    UITipDialog.showFail(this, getString(R.string.info_share_fail));
+                    LogUtil.E("微信分享错误" + throwable.toString());
+                }));
+    }
+
     @Override
     public void onBackPressed() {
-
 
     }
 
@@ -94,11 +222,10 @@ public class RedPacketShareQRActivity extends BaseActivity {
     private void saveBitmapToAlbum() {
         showLoadingDialog();
         mSubscription.add(Observable.just("")
-                .subscribeOn(AndroidSchedulers.mainThread())
                 .observeOn(AndroidSchedulers.mainThread())  //创建
                 .map(o -> BitmapUtils.getBitmapByView(mBinding.fralayoutRedpacket))
                 .observeOn(Schedulers.newThread())  //创建
-                .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, "Theai_red_packet"))
+                .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, ""))
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(path -> {
                     disMissLoadingDialog();
@@ -107,6 +234,7 @@ public class RedPacketShareQRActivity extends BaseActivity {
                 }, throwable -> {
                     disMissLoadingDialog();
                     UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
+                    LogUtil.E("图片保存失败" + throwable);
                 }));
     }
 
@@ -176,12 +304,7 @@ public class RedPacketShareQRActivity extends BaseActivity {
      */
     private void showQRImage(IntroductionInfoModel data) {
         Bitmap bitmap = CodeUtils.createImage(data.getCvalue() + ThaAppConstant.getRedPacketShareUrl(redPackageCode, SPUtilHelper.getSecretUserId()), 500, 500, null);
-
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        byte[] datas = baos.toByteArray();
-
-        ImgUtils.loadByte(RedPacketShareQRActivity.this, datas, mBinding.imgQRCode);
+        mBinding.imgQRCode.setImageBitmap(bitmap);
     }
 
     @Override
@@ -190,6 +313,37 @@ public class RedPacketShareQRActivity extends BaseActivity {
         if (mPermissionHelper != null) {
             mPermissionHelper.handleRequestPermissionsResult(requestCode, permissions, grantResults);
         }
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mSsoHandler != null) {
+            mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        if (wbShareHandler == null) return;
+        wbShareHandler.doResultIntent(intent, new WbShareCallback() {
+            @Override
+            public void onWbShareSuccess() {
+                UITipDialog.showSuccess(RedPacketShareQRActivity.this, getString(R.string.share_succ));
+            }
+
+            @Override
+            public void onWbShareCancel() {
+                UITipDialog.showSuccess(RedPacketShareQRActivity.this, getString(R.string.share_cancel));
+            }
+
+            @Override
+            public void onWbShareFail() {
+                UITipDialog.showSuccess(RedPacketShareQRActivity.this, getString(R.string.save_fail));
+            }
+        });
     }
 
 

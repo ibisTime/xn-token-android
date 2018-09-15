@@ -36,6 +36,7 @@ allprojects {
         }
         mavenCentral()
         maven { url "https://dl.bintray.com/ethereum/maven/" }
+        maven { url "https://dl.bintray.com/thelasterstar/maven/" }//微博
         google()
     }
 }

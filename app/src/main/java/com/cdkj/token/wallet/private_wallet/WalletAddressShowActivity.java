@@ -23,6 +23,7 @@ import com.cdkj.baselibrary.utils.BitmapUtils;
 import com.cdkj.baselibrary.utils.GlideApp;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
+import com.cdkj.tha.wxapi.WxUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityAddressQrimgShowBinding;
 import com.cdkj.token.model.CoinAddressShowModel;
@@ -89,9 +90,22 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
 
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            Bitmap mBitmap = CodeUtils.createImage(coinAddressShowModel.getAddress(), 400, 400, resource);
-                            mBinding.imgQRCode.setImageBitmap(mBitmap);
-                            mBinding.txtAddress.setText(coinAddressShowModel.getAddress());
+                            try {
+                                Bitmap mBitmap = CodeUtils.createImage(coinAddressShowModel.getAddress(), 400, 400, resource);
+                                mBinding.imgQRCode.setImageBitmap(mBitmap);
+                                mBinding.txtAddress.setText(coinAddressShowModel.getAddress());
+                            } catch (Exception e) {
+
+                                try {
+                                    Bitmap mBitmap = CodeUtils.createImage(coinAddressShowModel.getAddress(), 400, 400, null);
+                                    mBinding.imgQRCode.setImageBitmap(mBitmap);
+                                    mBinding.txtAddress.setText(coinAddressShowModel.getAddress());
+                                } catch (Exception e2) {
+
+                                }
+
+                            }
+
                         }
 
                     });
@@ -142,21 +156,22 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
      * 保存图片到相册
      */
     public void saveBitmapToAlbum() {
-
-        showLoadingDialog();
-        mSubscription.add(Observable.just("")
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(s -> BitmapUtils.getBitmapByView(mBinding.scrollView))
-                .observeOn(Schedulers.newThread())
-                .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, coinAddressShowModel.getCoinSymbol()))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> {
-                    UITipDialog.showInfoNoIcon(this, getString(R.string.save_success));
-                }, throwable -> {
-                    LogUtil.E("a" + throwable);
-                    UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
-                    disMissLoadingDialog();
-                }, () -> disMissLoadingDialog()));
+        mBinding.scrollView.post(() -> {
+            showLoadingDialog();
+            mSubscription.add(Observable.just("")
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map(s -> BitmapUtils.getBitmapByView(mBinding.scrollView))
+                    .observeOn(Schedulers.newThread())
+                    .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, coinAddressShowModel.getCoinSymbol()))
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(s -> {
+                        UITipDialog.showInfoNoIcon(this, getString(R.string.save_success));
+                    }, throwable -> {
+                        LogUtil.E("a" + throwable);
+                        UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
+                        disMissLoadingDialog();
+                    }, () -> disMissLoadingDialog()));
+        });
     }
 
 

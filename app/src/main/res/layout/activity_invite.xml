@@ -44,7 +44,7 @@
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
                     android:paddingTop="10dp"
-                    android:src="@mipmap/more_invite" />
+                    android:src="@drawable/more_invite" />
 
             </FrameLayout>
 
@@ -53,7 +53,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="30dp"
-                android:src="@mipmap/invite_logo" />
+                android:src="@drawable/invite_logo" />
 
             <RelativeLayout
                 android:layout_width="310dp"
@@ -66,7 +66,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:src="@mipmap/invite_text_bg" />
+                    android:src="@drawable/invite_text_bg" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -91,7 +91,7 @@
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="26dp"
-                    android:background="@mipmap/invite_area_border"
+                    android:background="@drawable/invite_area_border"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -149,7 +149,7 @@
                             android:id="@+id/tv_invite_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="@string/invite_integral_1"
+                            tools:text="@string/invite_integral_1"
                             android:textColor="@color/invite_color_gray"
                             android:textSize="13sp" />
 
@@ -164,7 +164,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="24dp"
-                                android:text="马上提币"
+                                android:text="@string/now_get_coin"
                                 android:textColor="@color/invite_color_blue"
                                 android:textSize="13sp" />
 
@@ -194,7 +194,7 @@
                         android:id="@+id/btn_invite_poster"
                         android:layout_width="120dp"
                         android:layout_height="40dp"
-                        android:background="@mipmap/invite_btn_bg"
+                        android:background="@drawable/invite_btn_bg"
                         android:gravity="center"
                         android:text="@string/invite_btn_1"
                         android:textColor="@color/white"
@@ -209,7 +209,7 @@
                         android:id="@+id/btn_invite_red"
                         android:layout_width="120dp"
                         android:layout_height="40dp"
-                        android:background="@mipmap/invite_btn_bg"
+                        android:background="@drawable/invite_btn_bg"
                         android:gravity="center"
                         android:text="@string/invite_btn_3"
                         android:textColor="@color/white"

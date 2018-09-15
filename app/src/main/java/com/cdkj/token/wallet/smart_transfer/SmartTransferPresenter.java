@@ -2,6 +2,7 @@ package com.cdkj.token.wallet.smart_transfer;
 
 import android.app.Activity;
 import android.content.Context;
+import android.text.TextUtils;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.mvp.BaseMVPModel;
@@ -148,16 +149,16 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
         String coinSymbol = selectCoinData.getCurrency();
 
 
-        String toAddress = getAccountBtcAddress();
-
         try {
             //BTC
-            if (LocalCoinDBUtils.isBTC(selectCoinData.getCurrency())) {
+            if (LocalCoinDBUtils.isBTC(coinSymbol)) {
                 WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
                 if (userWalletIn == null) return;
                 smartTransferModel.getBTCUTXO(userWalletIn.getBtcAddress()); //先获取UTXO 获取到后进行签名
                 return;
             }
+            String toAddress = getAccountAddressBySymbol(coinSymbol);
+
             smartTransferModel.transferPrivate(coinSymbol, toAddress, amount, transferGasPrice);
         } catch (Exception e) {
             e.printStackTrace();
@@ -167,14 +168,14 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
     }
 
     /**
-     * 获取中心花钱包btc地址
+     * 获取中心化钱包地址
      *
      * @return
      */
-    String getAccountBtcAddress() {
+    String getAccountAddressBySymbol(String symbol) {
         String toAddress = "";
         for (CoinModel.AccountListBean accountListBean : coinModel.getAccountList()) {
-            if (LocalCoinDBUtils.isBTC(accountListBean.getCurrency())) {
+            if (TextUtils.equals(symbol, accountListBean.getCurrency())) {
                 toAddress = accountListBean.getCoinAddress();
                 break;
             }
@@ -360,7 +361,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
 
         String fromAddress = walletDBModel.getBtcAddress();
 
-        String toAddress = getAccountBtcAddress();
+        String toAddress = getAccountAddressBySymbol(WalletHelper.COIN_BTC);
 
         String privateKey = walletDBModel.getBtcPrivateKey();
 

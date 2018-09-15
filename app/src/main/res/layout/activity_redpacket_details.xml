@@ -49,15 +49,16 @@
                 android:textSize="@dimen/title_mid_size" />
 
             <ImageView
-                android:id="@+id/tv_more"
+                android:id="@+id/img_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:layout_marginTop="15dp"
                 android:paddingBottom="10dp"
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
-                android:src="@mipmap/more_invite" />
+                android:paddingTop="15dp"
+                android:src="@drawable/more_invite"
+                android:visibility="gone" />
 
         </FrameLayout>
 

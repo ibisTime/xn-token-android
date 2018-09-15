@@ -69,6 +69,8 @@ public class RedPacketDetailsActivity extends AbsLoadActivity {
 
         mBinding.imgFinish.setOnClickListener(view -> finish());
 
+        mBinding.imgMore.setOnClickListener(view -> RedPacketShareQRActivity.open(this, redPacketCode,false));
+
     }
 
 
@@ -105,6 +107,12 @@ public class RedPacketDetailsActivity extends AbsLoadActivity {
 
         if (data == null) return;
 
+        if (data.getReceivedNum() < data.getSendNum()) {
+            mBinding.imgMore.setVisibility(View.VISIBLE);
+        } else {
+            mBinding.imgMore.setVisibility(View.GONE);
+        }
+
         mBinding.tvUserName.setText(data.getSendUserNickname());
 
         ImgUtils.loadLogo(this, data.getSendUserPhoto(), mBinding.imgLogo);
@@ -123,6 +131,8 @@ public class RedPacketDetailsActivity extends AbsLoadActivity {
 
         mBinding.recycler.setAdapter(new RedPacketDetailListAdapter(data.getReceiverList()));
 
+
+        mBinding.recycler.setNestedScrollingEnabled(false);
     }
 
 

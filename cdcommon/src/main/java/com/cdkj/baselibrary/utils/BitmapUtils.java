@@ -348,7 +348,6 @@ public class BitmapUtils {
                 Bitmap.Config.ARGB_8888);
         final Canvas canvas = new Canvas(bitmap);
         scrollView.draw(canvas);
-
         return bitmap;
     }
 
@@ -359,12 +358,17 @@ public class BitmapUtils {
      * @return
      */
     public static Bitmap getBitmapByView(View view) {
-        view.setBackgroundColor(
-                Color.parseColor("#ffffff"));
         Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
                 Bitmap.Config.ARGB_8888);
+
         final Canvas canvas = new Canvas(bitmap);
+
         view.draw(canvas);
+
+
+//        view.setDrawingCacheEnabled(true);
+//        view.buildDrawingCache();
+//        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
 
         return bitmap;
     }

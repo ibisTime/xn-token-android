@@ -235,10 +235,22 @@ public class RedPacketDetails {
         private String id;
         private String userId;
         private String redPacketCode;
-        private double count;
+        private int count;
         private String createDatetime;
         private String userNickname;
-        private double countCNY;
+        private String countCNY;
+
+        public void setCount(int count) {
+            this.count = count;
+        }
+
+        public String getCountCNY() {
+            return countCNY;
+        }
+
+        public void setCountCNY(String countCNY) {
+            this.countCNY = countCNY;
+        }
 
         public String getId() {
             return id;
@@ -264,13 +276,10 @@ public class RedPacketDetails {
             this.redPacketCode = redPacketCode;
         }
 
-        public double getCount() {
+        public int getCount() {
             return count;
         }
 
-        public void setCount(double count) {
-            this.count = count;
-        }
 
         public String getCreateDatetime() {
             return createDatetime;
@@ -288,12 +297,5 @@ public class RedPacketDetails {
             this.userNickname = userNickname;
         }
 
-        public double getCountCNY() {
-            return countCNY;
-        }
-
-        public void setCountCNY(double countCNY) {
-            this.countCNY = countCNY;
-        }
     }
 }

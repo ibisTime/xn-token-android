@@ -362,7 +362,7 @@ public class SmartTransferSource extends BaseMVPModel {
         call.enqueue(new BaseResponseModelCallBack<GasPrice>(null) {
             @Override
             protected void onSuccess(GasPrice gasPrice, String SucMessage) {
-                smartTransferModelCallBack.feesData(BigDecimalUtils.tr(gasPrice.getGasPrice()));
+                smartTransferModelCallBack.feesData(new BigDecimal(WalletHelper.getDeflutGasLimit()).multiply(BigDecimalUtils.tr(gasPrice.getGasPrice())));
             }
 
             @Override
@@ -388,7 +388,7 @@ public class SmartTransferSource extends BaseMVPModel {
         call.enqueue(new BaseResponseModelCallBack<GasPrice>(null) {
             @Override
             protected void onSuccess(GasPrice gasPrice, String SucMessage) {
-                smartTransferModelCallBack.feesData(BigDecimalUtils.tr(gasPrice.getGasPrice()));
+                smartTransferModelCallBack.feesData(new BigDecimal(WalletHelper.getDeflutGasLimit()).multiply(BigDecimalUtils.tr(gasPrice.getGasPrice())));
             }
 
             @Override

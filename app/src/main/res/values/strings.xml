@@ -705,6 +705,7 @@
     <string name="Theia_planet">Theia星球</string>
 
     <string name="smart_transfer_fee"><Data><![CDATA[本次划转矿工费为<font color="#333333">%1$s </font>%2$s]]></Data></string>
+    <string name="smart_transfer_fee2"><Data><![CDATA[本次划转手续费为<font color="#333333">%1$s </font>%2$s]]></Data></string>
     <string name="smart_transfer_balance"><Data><![CDATA[可用余额<font color="#333333">     %1$s </font> %2$s]]></Data></string>
     <string name="private_key_account">私钥账户</string>
     <string name="from">从</string>
@@ -763,5 +764,18 @@
     <string name="invite_31">- 被邀请人界面 -</string>
     <string name="invite_32">1.每一位用户注册成功并登录可获得奖励%s积分</string>
     <string name="invite_33">2.每一位用户成功注册并登录后可获得购买加宝收益每次翻倍奖励。</string>
+
+    <string name="share_succ">分享成功</string>
+    <string name="share_fail">分享失败</string>
+    <string name="share_cancel">取消分享</string>
+    <string name="wx_install_">请先安装微信</string>
+    <string name="smart_transfer_ail">划转失败</string>
+    <string name="smart_transfer_success">划转成功</string>
+    <string name="redpacket_back_info">如24小时未领取红包，则红包退回原地址</string>
+    <string name="me">我自己</string>
+    <string name="now_get_coin">马上提币</string>
+    <string name="smart_transfer_amount">划入数量</string>
+    <string name="my_send">我收到的</string>
+    <string name="my_get">我发出的</string>
 
 </resources>
