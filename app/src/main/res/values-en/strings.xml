@@ -165,7 +165,7 @@
     <string name="biz_type_tradefee">Transaction fees </string>
 
     <string name="biz_type_withdrawfee">A fee </string>
-    <string name="biz_status_daiduizhang">To be reconciled </string>
+    <string name="biz_status_daiduizhang">Balance to be checked</string>
     <string name="biz_status_yiduiyiping">Account and been been flat. has has reconciled the
 </string>
     <string name="biz_status_zhangbuping">Account account adjusted approval be for is not the to</string>
@@ -176,28 +176,28 @@
 
 
     <string name="wallet_withdraw_balance">Available balance </string>
-    <string name="wallet_withdraw_address">Receive address </string>
+    <string name="wallet_withdraw_address">Receiver’s address</string>
     <string name="wallet_withdraw_address_input_hint">Please paste the address or scan code entry </string>
-    <string name="wallet_withdraw_amount">Withdraw amount </string>
-    <string name="wallet_withdraw_free">Withdraw fee\u3000</string>
-    <string name="wallet_withdraw_tip">The withdraw fee will be deducted from the cash amount </string>
-    <string name="wallet_withdraw_confirm"> Withdraw confirm </string>
-    <string name="wallet_withdraw_order_title">Withdraw order </string>
+    <string name="wallet_withdraw_amount">Amount </string>
+    <string name="wallet_withdraw_free">Mining  fee\u3000</string>
+    <string name="wallet_withdraw_tip">Mining fee will be deducted from the amount you sent out</string>
+    <string name="wallet_withdraw_confirm">Confirm </string>
+    <string name="wallet_withdraw_order_title">Transaction </string>
     <string name="wallet_withdraw_order_none">No withdraw records </string>
     <string name="wallet_title">My assets</string>
     <string name="bill_frozen_none">No frozen details</string>
-    <string name="wallet_title_bill_detail">Billing details </string>
-    <string name="wallet_bill_detail_before">Amount before the change</string>
-    <string name="wallet_bill_detail_after">Amount after Change</string>
-    <string name="wallet_bill_detail_date">Change date </string>
-    <string name="wallet_bill_detail_status">Detail status </string>
-    <string name="wallet_bill_detail_type">Detail summary </string>
+    <string name="wallet_title_bill_detail">Transaction Record </string>
+    <string name="wallet_bill_detail_before">Balance before transaction</string>
+    <string name="wallet_bill_detail_after">Balance after transaction</string>
+    <string name="wallet_bill_detail_date">Transaction time</string>
+    <string name="wallet_bill_detail_status">Transaction status</string>
+    <string name="wallet_bill_detail_type">Transaction summary</string>
     <string name="wallet_title_bill_list">Billing </string>
     <string name="wallet_title_charge">Recharge</string>
     <string name="wallet_charge_record">Record </string>
 
     <string name="wallet_charge_address_copy_success">Address has been copied</string>
-    <string name="wallet_title_withdraw">Withdraw </string>
+    <string name="wallet_title_withdraw">Send</string>
     <string name="wallet_withdraw_address_hint">Please input the sending address </string>
     <string name="wallet_withdraw_success"> withdraw the application successfully </string>
     <string name="wallet_transfer_success">Transfer application successfully </string>
@@ -364,7 +364,7 @@
     <string name="choose_fee_tip">Selecting an economic fee may result in an extended transaction confirmation time. For transactions that require time, please choose prioritized fee</string>
     <string name="priority">Priority </string>
     <string name="extract_amount">to raise the amount of money </string>
-    <string name="transaction_record">Transaction record </string>
+    <string name="transaction_record">Transactions</string>
     <string name="business_app">Business Application</string>
     <string name="coin_to_coin">coin coin </string>
     <string name="tha_planet">Theia Planet </string>
@@ -469,7 +469,7 @@
     <string name="assets">Assets</string>
     <string name="my_coin_address">My %s collection address </string>
     <string name="red_pg">Red packet </string>
-    <string name="wallet_charge_recode">Record</string>
+    <string name="wallet_charge_recode">Transactions</string>
     <string name="user_language_english">English</string>
     <string name="me_red_package">my red packet</string>
 
@@ -516,7 +516,7 @@
     <string name="my_private_wallet_title">Decentralized Wallet</string>
     <string name="my_private_wallet_introduction">The private key wallet is to go to the central wallet, in the central wallet, all user authentication content, such as trading passwords, private keys, mnemonics, etc. are stored in the user\'s mobile phone local, not stored in the centralized server. If the user mistakenly deletes the wallet, forgets to back up the private key or mnemonics, will not be able to retrieve the wallet. </string>
     <string name="advantage">Advantages</string>
-    <string name="only_user_save_key">Only the user saves the private key</string>
+    <string name="only_user_save_key">Your private keys are 100% managed by yourself</string>
     <string name="defect">Defect</string>
     <string name="defect_1">There\'s mining fee.</string>
     <string name="defete_2">The transaction rate is slow.</string>
@@ -532,7 +532,7 @@
     <string name="backup_intro_4">Confirm the notation words which helps you remember your wallet</string>
     <string name="backup_intro_5">Now write down these words.</string>
     <string name="backup_intro_6">Your have 12 recovery words, write them down on paper and keep it safely.</string>
-    <string name="copy_money_address">Copy a collection address</string>
+    <string name="copy_money_address">Copy address</string>
     <string name="transfer_fees">Transaction Fees</string>
     <string name="sure_transfer">Transfer confirmed </string>
     <string name="fast">Fast</string>
@@ -540,7 +540,7 @@
     <string name="create_wallet_intro_1">Attention! Theia does not store user passwords, can not provide recovery or reset unctions, passwords must be backed up well by users. Passwords are used to encrypt the private key, and strength is also important.</string>
     <string name="backup_introtation_dialog_title">Disclaimer</string>
     <string name="backup_introtation_dialog_content">Please ensure that the wallet has been backed up safely Theia does not bear any loss of loss of wallet, stolen, forgotten password and other assets lost!</string>
-    <string name="my_coin_address_2">My collection address</string>
+    <string name="my_coin_address_2">My address</string>
     <string name="qr_share_tip_1">Scan the QR-code for Theia red envelopes</string>
     <string name="qr_share_tip_2">Screenshot the QR-code for sharing </string>
     <string name="red_packet_rule">Rules of Red Envelope </string>
@@ -566,7 +566,7 @@
     <string name="please_read_and_aggree">Please read and agree to the terms of service and privacy</string>
     <string name="wallet_name_input_hint">Please enter the wallet name</string>
     <string name="red_packet_tab_title_info">Send a digital currency in red envelope,check the receive records and cash the balance</string>
-    <string name="coin_list">List of currencies</string>
+    <string name="coin_list">Currency</string>
     <string name="redpacket_back">Red Envelopes returned</string>
     <string name="redpacket_get">Grab a red envelope</string>
     <string name="pattern_pwd">Gesture Password</string>
@@ -931,6 +931,7 @@
     <string name="credit_score__1">- 让信用变为财富 -</string>
     <string name="credit_score_detail_2">我要增加信用分</string>
     <string name="credit_score_detail_3">个人账户中存入数字货币是增加信用积分最快的方式</string>
+    <string name="invite_copy">【Theia是全球首款跨链生态钱包，同时支持BTC、ETH、USDT等多币数字货币储存。注册即送10原矿，千万BTC/ETH/WAN矿山，等您来挖】</string>
 </resources>
 
 

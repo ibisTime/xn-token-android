@@ -415,12 +415,10 @@ public class InviteQrActivity extends AbsStatusBarTranslucentActivity implements
     }
 
     private void copyShareURl() {
-        if (!TextUtils.isEmpty(shareUrl)) {
-            ClipboardManager cmb = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-            ClipData clipData = ClipData.newPlainText(null, shareUrl);
-            cmb.setPrimaryClip(clipData);
-            UITipDialog.showInfoNoIcon(InviteQrActivity.this, getStrRes(R.string.copy_success));
-        }
+        CopyActivity.open(this, shareUrl);
+
+//    }
+
     }
 
 

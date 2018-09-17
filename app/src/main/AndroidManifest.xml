@@ -292,6 +292,9 @@
             android:name="com.cdkj.tha.wxapi.WeiboShareActivity"
             android:theme="@style/ActivityDialogStyleBottom" />
         <activity android:name=".user.credit.CreditActivity" />
+        <activity
+            android:name=".user.invite.CopyActivity"
+            android:theme="@style/ActivityDialogStyleBottom" />
 
 
     </application>

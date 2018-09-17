@@ -13,7 +13,6 @@
         android:src="@mipmap/app_icon" />
 
     <ImageView
-
         android:layout_width="75dp"
         android:layout_height="wrap_content"
         android:src="@drawable/theia" />

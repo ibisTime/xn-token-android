@@ -312,7 +312,7 @@ public class SmartTransferSource extends BaseMVPModel {
 
                 }, throwable -> {
                     smartTransferModelCallBack.transferFail();
-                    LogUtil.E("has————" + throwable);
+                    LogUtil.BIGLOG("has————" + throwable);
                 }));
     }
 

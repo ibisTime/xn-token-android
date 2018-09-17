@@ -25,7 +25,6 @@ import java.math.BigInteger;
 import java.util.List;
 
 /**
- * TODO 这里有个问题 P层 和 M层如何划分？
  * TODO BTC WAN ETH 的一些数据来源不同且一些操作也不同，但是基本流程一样是否可以封装不同的Presenter切换不同的币种就是切换不同Presenter
  * Created by cdkj on 2018/9/10.
  */

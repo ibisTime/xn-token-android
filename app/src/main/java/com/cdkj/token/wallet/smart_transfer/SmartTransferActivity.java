@@ -117,6 +117,13 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
                 return;
             }
 
+            BigDecimal trBigDecimal = new BigDecimal(mBinding.editAmount.getText().toString().trim());
+
+            if (trBigDecimal.compareTo(BigDecimal.ZERO) == 0 || trBigDecimal.compareTo(BigDecimal.ZERO) == -1) {
+                UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
+                return;
+            }
+
             smartTransferPresenter.showPayPasswordDialog();
         });
 
@@ -269,7 +276,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
     @Override
     public void setFee(BigDecimal fee) {
-
+        feeBigDecimal = fee;
         if (smartTransferPresenter.isPrivateWallet() && LocalCoinDBUtils.isBTC(selectCoinSymbol)) {
             DecimalFormat df = new DecimalFormat("#######0.#");
             mBinding.tvFee.setText(df.format(fee) + " " + "sat/b");
@@ -293,7 +300,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
     @Override
     public void seekBarChange() {
-        if (!LocalCoinDBUtils.isBTC(selectCoinSymbol)) {
+        if (LocalCoinDBUtils.isETH(selectCoinSymbol) || LocalCoinDBUtils.isWAN(selectCoinSymbol)) {
             mBinding.editAmount.setText("");
         }
     }
