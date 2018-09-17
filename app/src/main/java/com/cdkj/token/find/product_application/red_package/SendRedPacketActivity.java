@@ -89,7 +89,7 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
         userInfoPresenter.getUserInfoRequest();//获取用户信息
 
         mBinding.tvInMoney.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-
+        calculateInputTotal();
 
         initClickListener();
         initEditWatcher();
@@ -347,6 +347,9 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
     protected void onDestroy() {
         if (sendRedPacketPresenter != null) {
             sendRedPacketPresenter.detachView();
+        }
+        if (userInfoPresenter != null) {
+            userInfoPresenter.clear();
         }
         if (menuPickerView != null) {
             menuPickerView.dismiss();

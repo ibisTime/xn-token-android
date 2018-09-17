@@ -16,6 +16,7 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.SmartTrasfterCoinAdapter;
@@ -45,10 +46,18 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
     private SmartTrasfterCoinAdapter smartTrasfterCoinAdapter;
     private TextPwdInputDialog pwdInputDialog;
     private String selectCoinSymbol = "";
-    private String balanceString = "";
     private BigDecimal balanceBigDecimal = BigDecimal.ZERO;
     private BigDecimal feeBigDecimal = BigDecimal.ZERO;
 
+
+    @Override
+    protected void onDestroy() {
+        if (smartTransferPresenter != null) {
+            smartTransferPresenter.detachView();
+            smartTransferPresenter = null;
+        }
+        super.onDestroy();
+    }
 
     /**
      * @param context
@@ -93,8 +102,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
         //全部
         mBinding.tvAllCoin.setOnClickListener(view -> {
-            mBinding.editAmount.setText(balanceString);
-            mBinding.editAmount.setSelection(balanceString.length());
+            setAllAmountText();
         });
 
         //确认划转
@@ -112,6 +120,24 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
             smartTransferPresenter.showPayPasswordDialog();
         });
 
+    }
+
+    /**
+     * 显示所有余额 （除BTC外其他都需要减去手续费 ）
+     */
+    private void setAllAmountText() {
+
+        String balanceString = "";
+
+        if (LocalCoinDBUtils.isBTC(selectCoinSymbol)) {
+            balanceString = AmountUtil.transformFormatToString(balanceBigDecimal, selectCoinSymbol, AmountUtil.ALLSCALE);
+        } else {
+            balanceString = AmountUtil.transformFormatToString(BigDecimalUtils.subtract(balanceBigDecimal, feeBigDecimal), selectCoinSymbol, AmountUtil.ALLSCALE);
+
+        }
+
+        mBinding.editAmount.setText(balanceString);
+        mBinding.editAmount.setSelection(balanceString.length());
     }
 
     private void initViews() {
@@ -237,14 +263,13 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
     @Override
     public void setBalance(BigDecimal balance) {
         balanceBigDecimal = balance;
-        balanceString = AmountUtil.transformFormatToString(balance, selectCoinSymbol, AmountUtil.ALLSCALE);
-
+        String balanceString = AmountUtil.transformFormatToString(balance, selectCoinSymbol, AmountUtil.ALLSCALE);
         mBinding.tvBalance.setText(Html.fromHtml(getString(R.string.smart_transfer_balance, balanceString, selectCoinSymbol)));
     }
 
     @Override
     public void setFee(BigDecimal fee) {
-        feeBigDecimal = fee;
+
         if (smartTransferPresenter.isPrivateWallet() && LocalCoinDBUtils.isBTC(selectCoinSymbol)) {
             DecimalFormat df = new DecimalFormat("#######0.#");
             mBinding.tvFee.setText(df.format(fee) + " " + "sat/b");
@@ -264,6 +289,13 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
         mBinding.tvFee.setText(fromSpanned);
         return;
 
+    }
+
+    @Override
+    public void seekBarChange() {
+        if (!LocalCoinDBUtils.isBTC(selectCoinSymbol)) {
+            mBinding.editAmount.setText("");
+        }
     }
 
     @Override
@@ -390,14 +422,5 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
         return false;
     }
 
-
-    @Override
-    protected void onDestroy() {
-        if (smartTransferPresenter != null) {
-            smartTransferPresenter.detachView();
-            smartTransferPresenter = null;
-        }
-        super.onDestroy();
-    }
 
 }

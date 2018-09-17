@@ -27,6 +27,8 @@ public interface SmartTransferView extends MVPView {
 
     void setFee(BigDecimal fee);//手续费
 
+    void seekBarChange();//手续费滑动
+
     void showPayPwdDialog(boolean isPrivate);//密码弹框
 
     void transferSuccess(boolean isPrivate);

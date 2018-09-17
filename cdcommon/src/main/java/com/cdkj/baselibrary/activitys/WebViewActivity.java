@@ -120,7 +120,7 @@ public class WebViewActivity extends AbsActivity {
         mBinding.webview.getSettings().setSupportZoom(true);   //// 支持缩放
         mBinding.webview.getSettings().setBuiltInZoomControls(true);//// 支持缩放
         mBinding.webview.getSettings().setDomStorageEnabled(true);//开启DOM
-        mBinding.webview.getSettings().setLoadWithOverviewMode(false);//// 缩放至屏幕的大小
+        mBinding.webview.getSettings().setLoadWithOverviewMode(true);//// 缩放至屏幕的大小
         mBinding.webview.getSettings().setUseWideViewPort(true);//将图片调整到适合webview的大小
         mBinding.webview.getSettings().setLoadsImagesAutomatically(true);//支持自动加载图片
         mBinding.webview.setWebChromeClient(new MyWebViewClient1());

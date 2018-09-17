@@ -68,7 +68,6 @@ public class InviteActivity extends AbsStatusBarTranslucentActivity implements U
         mBinding.tvInviteAmount.setText(Html.fromHtml(getString(R.string.invite_integral_1, "0")));
 
         mGetUserInfoPresenter = new UserInfoPresenter(this, this);
-        mGetUserInfoPresenter.getUserInfoRequest();
         setWhiteTitle();
         setStatusBarWhite();
         setMidTitle(getString(R.string.invite_gift));
@@ -76,6 +75,14 @@ public class InviteActivity extends AbsStatusBarTranslucentActivity implements U
 
         setClickListener();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (mGetUserInfoPresenter != null) {
+            mGetUserInfoPresenter.getUserInfoRequest();
+        }
     }
 
     private void setClickListener() {

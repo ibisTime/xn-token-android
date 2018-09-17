@@ -721,7 +721,7 @@
     <string name="redpacket_history">红包记录</string>
 
     <string name="redpacket_send_total"><Data><![CDATA[共发出红包<font color="#FF6400">%1$s</font>个]]></Data></string>
-    <string name="redpacket_get_total"><Data><![CDATA[共获取红包<font color="#FF6400">%1$s</font>个]]></Data></string>
+    <string name="redpacket_get_total"><Data><![CDATA[收到红包<font color="#FF6400">%1$s</font>个]]></Data></string>
     <string name="amount">数量</string>
     <string name="total_amount">总额</string>
     <string name="redpacket_get_list">领取列表</string>

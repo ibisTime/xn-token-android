@@ -6,6 +6,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.api.BaseResponseModel;
@@ -23,6 +24,7 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityRedpacketDetailsBinding;
 import com.cdkj.token.model.RedPacketDetails;
 
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -107,7 +109,8 @@ public class RedPacketDetailsActivity extends AbsLoadActivity {
 
         if (data == null) return;
 
-        if (data.getReceivedNum() < data.getSendNum()) {
+        //未领完和是发出者才显示分享
+        if (data.getReceivedNum() < data.getSendNum() && TextUtils.equals(data.getUserId(), SPUtilHelper.getUserId())) {
             mBinding.imgMore.setVisibility(View.VISIBLE);
         } else {
             mBinding.imgMore.setVisibility(View.GONE);
@@ -119,7 +122,8 @@ public class RedPacketDetailsActivity extends AbsLoadActivity {
 
         mBinding.tvSendNum.setText(data.getReceivedNum() + "/" + data.getSendNum());
 
-        mBinding.tvTotlaCount.setText(data.getReceivedCount() + "/" + data.getTotalCount());
+
+        mBinding.tvTotlaCount.setText(formatAmount(data.getReceivedCount()) + "/" + formatAmount(data.getTotalCount()));
 
 
         mBinding.recycler.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false) {
@@ -135,5 +139,12 @@ public class RedPacketDetailsActivity extends AbsLoadActivity {
         mBinding.recycler.setNestedScrollingEnabled(false);
     }
 
+
+    public  String formatAmount(Double money) {
+        DecimalFormat df = new DecimalFormat("#######0.########");
+        String showMoney = df.format(money);
+
+        return showMoney;
+    }
 
 }

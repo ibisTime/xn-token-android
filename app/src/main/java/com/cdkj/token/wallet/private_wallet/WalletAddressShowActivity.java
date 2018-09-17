@@ -90,6 +90,7 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
 
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            //8.0以上加载logo会崩溃，先做捕获处理
                             try {
                                 Bitmap mBitmap = CodeUtils.createImage(coinAddressShowModel.getAddress(), 400, 400, resource);
                                 mBinding.imgQRCode.setImageBitmap(mBitmap);

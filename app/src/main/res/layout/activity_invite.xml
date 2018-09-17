@@ -87,13 +87,14 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="202dp"
+                    android:layout_height="210dp"
                     android:layout_marginLeft="40dp"
                     android:layout_marginRight="40dp"
                     android:layout_marginTop="26dp"
                     android:background="@drawable/invite_area_border"
                     android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:paddingBottom="10dp">
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -110,15 +111,14 @@
 
                         <TextView
                             android:id="@+id/tv_invite_number"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_marginLeft="4dp"
-                            android:layout_marginRight="4dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:background="@drawable/border_invite_num"
                             android:gravity="center"
-                            tools:text="10"
+                            android:padding="5dp"
                             android:textColor="@color/white"
-                            android:textSize="18sp" />
+                            android:textSize="18sp"
+                            tools:text="10" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -132,6 +132,8 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
                         android:layout_marginTop="40dp"
                         android:text="@string/invite_23"
                         android:textColor="@color/white"
@@ -142,16 +144,19 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="11dp"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
+                        android:orientation="horizontal"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp">
 
                         <TextView
                             android:id="@+id/tv_invite_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            tools:text="@string/invite_integral_1"
+                            android:layout_weight="1"
+                            android:maxLines="2"
                             android:textColor="@color/invite_color_gray"
-                            android:textSize="13sp" />
+                            android:textSize="13sp"
+                            tools:text="2111111111111111111111212112121212112121212121212121121212121121212121" />
 
                         <LinearLayout
                             android:id="@+id/ll_go_lottery"

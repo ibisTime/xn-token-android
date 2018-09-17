@@ -8,6 +8,7 @@ import com.cdkj.token.model.RedPacketDetails;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -29,7 +30,15 @@ public class RedPacketDetailListAdapter extends BaseQuickAdapter<RedPacketDetail
 
         helper.setText(R.id.tv_user_name, item.getUserNickname());
         helper.setText(R.id.tv_time, DateUtil.formatStringData(item.getCreateDatetime(), "MM-dd HH:mm"));
-        helper.setText(R.id.tv_get_total, item.getCount() + mContext.getString(R.string.red_package_unit));
+        helper.setText(R.id.tv_get_total, formatAmount(item.getCount()) + mContext.getString(R.string.red_package_unit));
 
     }
+
+    public String formatAmount(Double money) {
+        DecimalFormat df = new DecimalFormat("#######0.########");
+        String showMoney = df.format(money);
+
+        return showMoney;
+    }
+
 }

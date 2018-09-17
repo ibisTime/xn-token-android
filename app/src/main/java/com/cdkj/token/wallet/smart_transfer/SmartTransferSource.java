@@ -340,11 +340,11 @@ public class SmartTransferSource extends BaseMVPModel {
         String contractAddress = LocalCoinDBUtils.getLocalCoinContractAddress(coinSymbol);
 
         if (LocalCoinDBUtils.isEthTokenCoin(coinType)) {
-            return WalletHelper.transferForEthTokenCoin(w, amount, WalletHelper.getUnitAmountValue(amount, coinSymbol), contractAddress, transferGasPrice);
+            return WalletHelper.transferForEthTokenCoin(w, toAddress,WalletHelper.getUnitAmountValue(amount, coinSymbol), contractAddress, transferGasPrice);
         }
 
         if (LocalCoinDBUtils.isWanTokenCoin(coinType)) {
-            return WalletHelper.transferForWanTokenCoin(w, amount, WalletHelper.getUnitAmountValue(amount, coinSymbol), contractAddress, transferGasPrice);
+            return WalletHelper.transferForWanTokenCoin(w, toAddress, WalletHelper.getUnitAmountValue(amount, coinSymbol), contractAddress, transferGasPrice);
         }
 
         return "";

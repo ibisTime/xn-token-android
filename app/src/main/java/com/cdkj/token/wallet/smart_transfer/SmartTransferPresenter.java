@@ -8,6 +8,7 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.mvp.BaseMVPModel;
 import com.cdkj.baselibrary.base.mvp.BasePresenter;
 import com.cdkj.baselibrary.model.UserInfoModel;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;
@@ -15,6 +16,7 @@ import com.cdkj.token.model.BtcFeesModel;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.UTXOModel;
 import com.cdkj.token.model.db.WalletDBModel;
+import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
@@ -81,8 +83,9 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
      */
     public void setFeesBySeekBarChange(int i) {
 
-
         if (selectCoinData == null) return;
+
+        getMvpView().seekBarChange();
 
         if (LocalCoinDBUtils.isBTC(selectCoinData.getCurrency())) {
 
@@ -113,7 +116,6 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
         }
 
         getMvpView().setFee(new BigDecimal(transferGasPrice));
-
     }
 
 
@@ -368,15 +370,20 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
 
 //        获取btc交易签名
         try {
+
+            BigDecimal amountBigDecimal = AmountUtil.bigDecimalFormat(new BigDecimal(amountString), WalletHelper.COIN_BTC);
+
+
             String sign = WalletHelper.signBTCTransactionData(utxo,  //utxo列表
                     fromAddress,  //btc地址
                     toAddress,//btc转出地址
                     privateKey,//btc 私钥
-                    Long.valueOf(amountString), WalletHelper.getBtcFee(utxo, Long.valueOf(amountString), transferGasPrice.intValue())); //矿工费
+                    amountBigDecimal.longValue(), WalletHelper.getBtcFee(utxo, amountBigDecimal.longValue(), transferGasPrice.intValue())); //矿工费
 
             smartTransferModel.btcTransactionBroadcast(sign);
 
         } catch (Exception e) {
+            LogUtil.E("BTC转账失败" + e);
             e.printStackTrace();
             transferFail();
         }

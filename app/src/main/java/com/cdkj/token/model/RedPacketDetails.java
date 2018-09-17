@@ -117,7 +117,7 @@ public class RedPacketDetails {
         this.greeting = greeting;
     }
 
-    public double getSendNum() {
+    public int getSendNum() {
         return sendNum;
     }
 
