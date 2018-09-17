@@ -778,5 +778,9 @@
     <string name="my_get">我发出的</string>
     <string name="input_smart_transfer_number">请输入划转数量</string>
     <string name="plealse_select_coin_type">请选择币种</string>
+    <string name="credit_score">信用积分</string>
+    <string name="credit_score__1">- 让信用变为财富 -</string>
+    <string name="credit_score_detail_2">我要增加信用分</string>
+    <string name="credit_score_detail_3">个人账户中存入数字货币是增加信用积分最快的方式</string>
 
 </resources>

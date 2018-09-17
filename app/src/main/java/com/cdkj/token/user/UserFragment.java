@@ -29,6 +29,7 @@ import com.cdkj.token.R;
 import com.cdkj.token.databinding.FragmentUser2Binding;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;
+import com.cdkj.token.user.credit.CreditActivity;
 import com.cdkj.token.user.invite.InviteActivity;
 import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
 import com.cdkj.token.user.setting.UserSettingActivity;
@@ -98,7 +99,7 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
         });
 
         //修改昵称
-        mBinding.linLayoutNickName.setOnClickListener(view -> {
+        mBinding.tvNickName.setOnClickListener(view -> {
             NickModifyActivity.open(mActivity, SPUtilHelper.getUserName());
         });
 
@@ -138,7 +139,10 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
         //设置
         mBinding.setting.setOnClickListener(view -> UserSettingActivity.open(mActivity));
 
-
+        //信用积分
+        mBinding.tvCreditAmount.setOnClickListener(view -> {
+            CreditActivity.open(mActivity);
+        });
     }
 
     @Override

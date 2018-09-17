@@ -44,6 +44,8 @@ public class CoinSelectListActivity extends AbsRefreshListActivity {
     public void afterCreate(Bundle savedInstanceState) {
         mBaseBinding.titleView.setMidTitle(R.string.coin_type_select);
         initRefreshHelper(RefreshHelper.LIMITE);
+        mRefreshBinding.refreshLayout.setEnableRefresh(false);
+        mRefreshBinding.refreshLayout.setEnableLoadmore(false);
         mRefreshHelper.onDefaluteMRefresh(true);
     }
 
