@@ -69,7 +69,7 @@ public class RedPacketDetailsActivity extends AbsLoadActivity {
 
         mBinding.imgFinish.setOnClickListener(view -> finish());
 
-        mBinding.imgMore.setOnClickListener(view -> RedPacketShareQRActivity.open(this, redPacketCode,false));
+        mBinding.imgMore.setOnClickListener(view -> RedPacketShareQRActivity.open(this, redPacketCode, false));
 
     }
 

@@ -14,6 +14,7 @@ import com.bigkoo.pickerview.builder.OptionsPickerBuilder;
 import com.bigkoo.pickerview.listener.OnOptionsSelectListener;
 import com.bigkoo.pickerview.view.OptionsPickerView;
 import com.cdkj.baselibrary.api.ResponseInListModel;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -37,6 +38,7 @@ import com.cdkj.token.wallet.WalletFragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.cdkj.token.find.product_application.red_package.RedPacketHistoryPresenter.TYPE_GET;
 import static com.cdkj.token.find.product_application.red_package.RedPacketHistoryPresenter.TYPE_SEND;
 
 /**
@@ -65,11 +67,21 @@ public class RedPacketSendHistoryActivity extends AbsLoadActivity implements Red
     private OptionsPickerView menuPickerView;
     private List<PickerViewModel> pickerViewModels;
 
-    public static void open(Context context) {
+    public static void openMySend(Context context) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, RedPacketSendHistoryActivity.class);
+        intent.putExtra(CdRouteHelper.DATASIGN, TYPE_SEND);
+        context.startActivity(intent);
+    }
+
+    public static void openMyGet(Context context) {
+        if (context == null) {
+            return;
+        }
+        Intent intent = new Intent(context, RedPacketSendHistoryActivity.class);
+        intent.putExtra(CdRouteHelper.DATASIGN, TYPE_GET);
         context.startActivity(intent);
     }
 
@@ -97,7 +109,7 @@ public class RedPacketSendHistoryActivity extends AbsLoadActivity implements Red
 
         redPacketHistoryPresenter = new RedPacketHistoryPresenter();
         redPacketHistoryPresenter.attachView(this);
-        redPacketHistoryPresenter.setRedPacketType(TYPE_SEND);
+        redPacketHistoryPresenter.setRedPacketType(getIntent().getIntExtra(CdRouteHelper.DATASIGN, TYPE_SEND));
         redPacketHistoryPresenter.getFilterDates();
 
         mRefreshHelper = new RefreshHelper(this, new BaseRefreshCallBack(this) {

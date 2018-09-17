@@ -62,13 +62,13 @@ import static com.cdkj.tha.wxapi.WeiboShareActivity.SCOPE;
  * Created by cdkj on 2018/8/8.
  */
 
-public class InviteQrActivity extends AbsStatusBarTranslucentActivity {
+public class InviteQrActivity extends AbsStatusBarTranslucentActivity implements WbShareCallback {
 
     private ActivityInviteQrBinding mBinding;
 
     private PermissionHelper mPermissionHelper;
     private String shareUrl;
-    private SsoHandler mSsoHandler;
+
     private WbShareHandler wbShareHandler;
 
     public static void open(Context context) {
@@ -142,30 +142,12 @@ public class InviteQrActivity extends AbsStatusBarTranslucentActivity {
 
     private void shareToWeiBo(Bitmap bitmap) {
 
-        WbSdk.install(this, new AuthInfo(this, WeiboShareActivity.APPKEY, WeiboShareActivity.APPURL, SCOPE));
+        WbSdk.install(this, new AuthInfo(this, WeiboShareActivity.APPKEY, WeiboShareActivity.APPURL, null));
 
-        mSsoHandler = new SsoHandler(InviteQrActivity.this);
-        mSsoHandler.authorize(new WbAuthListener() {
-            @Override
-            public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
-                if (oauth2AccessToken.isSessionValid()) {
-                    UITipDialog.showSuccess(InviteQrActivity.this, getString(R.string.share_succ));
-                }
-            }
-
-            @Override
-            public void cancel() {
-                UITipDialog.showInfo(InviteQrActivity.this, getString(R.string.share_cancel));
-            }
-
-            @Override
-            public void onFailure(WbConnectErrorMessage wbConnectErrorMessage) {
-                UITipDialog.showFail(InviteQrActivity.this, getString(R.string.share_fail));
-            }
-        });
 
         wbShareHandler = new WbShareHandler(this);
         wbShareHandler.registerApp();
+        wbShareHandler.doResultIntent(getIntent(), this);
 
         WeiboMultiMessage weiboMessage = new WeiboMultiMessage();
         ImageObject imageObject = new ImageObject();
@@ -443,34 +425,27 @@ public class InviteQrActivity extends AbsStatusBarTranslucentActivity {
 
 
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (mSsoHandler != null) {
-            mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
-        }
-    }
-
-    @Override
     protected void onNewIntent(Intent intent) {
         super.onNewIntent(intent);
         if (wbShareHandler == null) return;
-        wbShareHandler.doResultIntent(intent, new WbShareCallback() {
-            @Override
-            public void onWbShareSuccess() {
-                UITipDialog.showSuccess(InviteQrActivity.this, getString(R.string.share_succ));
-            }
-
-            @Override
-            public void onWbShareCancel() {
-                UITipDialog.showSuccess(InviteQrActivity.this, getString(R.string.share_cancel));
-            }
-
-            @Override
-            public void onWbShareFail() {
-                UITipDialog.showSuccess(InviteQrActivity.this, getString(R.string.save_fail));
-            }
-        });
+        wbShareHandler.doResultIntent(intent, this);
     }
 
 
+    @Override
+    public void onWbShareSuccess() {
+        LogUtil.E("分享成功");
+        UITipDialog.showSuccess(InviteQrActivity.this, getString(R.string.share_succ));
+    }
+
+    @Override
+    public void onWbShareCancel() {
+        LogUtil.E("分享取消");
+        UITipDialog.showSuccess(InviteQrActivity.this, getString(R.string.share_cancel));
+    }
+
+    @Override
+    public void onWbShareFail() {
+        UITipDialog.showSuccess(InviteQrActivity.this, getString(R.string.save_fail));
+    }
 }

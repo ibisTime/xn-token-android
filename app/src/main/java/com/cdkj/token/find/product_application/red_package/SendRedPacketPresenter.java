@@ -206,6 +206,13 @@ public class SendRedPacketPresenter extends BasePresenter<SendRedPacketView> {
      */
     public String calculateInputTotal(String amount, String number) {
 
+        if (redPacketType == TYPE_LUCKY) { //如果是拼手气红包
+            if (TextUtils.isEmpty(amount)) {
+                return "0";
+            }
+            return amount;
+        }
+
         if (TextUtils.isEmpty(amount) || TextUtils.isEmpty(number)) {
             return "0";
         }

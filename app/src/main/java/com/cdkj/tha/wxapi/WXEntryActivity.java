@@ -55,31 +55,29 @@ public class WXEntryActivity extends BaseActivity implements IWXAPIEventHandler 
     @Override
     public void onResp(BaseResp resp) {
 
-        System.out.print("resp.getType()=" + resp.getType());
-
-        if (resp.getType() == ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX) {// 分享
-            String result = "";
-            System.out.println("resp.errCode=" + resp.errCode);
-            switch (resp.errCode) {
-                case BaseResp.ErrCode.ERR_OK:
-                    result = getString(R.string.share_succ);
-                    showDialog(0, result);
-                    break;
-                case BaseResp.ErrCode.ERR_USER_CANCEL:
-                    result = getString(R.string.share_cancel);
-                    showDialog(3, result);
-                    break;
-                case BaseResp.ErrCode.ERR_AUTH_DENIED:
-                    result = getString(R.string.share_fail);
-                    showDialog(1, result);
-                    break;
-                default:
-                    result = getString(R.string.share_fail);
-                    showDialog(1, result);
-                    break;
-            }
-            return;
-        }
+//        if (resp.getType() == ConstantsAPI.COMMAND_SENDMESSAGE_TO_WX) {// 分享
+//            String result = "";
+//            System.out.println("resp.errCode=" + resp.errCode);
+//            switch (resp.errCode) {
+//                case BaseResp.ErrCode.ERR_OK:
+//                    result = getString(R.string.share_succ);
+//                    showDialog(0, result);
+//                    break;
+//                case BaseResp.ErrCode.ERR_USER_CANCEL:
+//                    result = getString(R.string.share_cancel);
+//                    showDialog(3, result);
+//                    break;
+//                case BaseResp.ErrCode.ERR_AUTH_DENIED:
+//                    result = getString(R.string.share_fail);
+//                    showDialog(1, result);
+//                    break;
+//                default:
+//                    result = getString(R.string.share_fail);
+//                    showDialog(1, result);
+//                    break;
+//            }
+//            return;
+//        }
 
     }
 

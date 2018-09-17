@@ -202,22 +202,11 @@
         <activity
             android:name=".wallet.private_wallet.TransactionDetailsActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".find.product_application.red_package.SendRedPackageActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".find.product_application.red_package.RedPackageShearActivity"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".find.product_application.red_package.RedPackageHistoryActivity"
-            android:windowSoftInputMode="adjustPan" />
+
         <activity
             android:name=".user.CountryCodeListActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".find.product_application.red_package.QRRedPackageImgActivity"
-            android:theme="@style/ActivityDialogStyleBottom" />
+
         <activity
             android:name=".user.GoogleCodeSetActivity"
             android:theme="@style/ActivityDialogStyleBottom" />
@@ -262,8 +251,7 @@
             android:name=".user.question_feedback.QuestionFeedbackDetailsActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity android:name=".user.setting.UserSettingActivity" />
-        <activity android:name=".user.invite.InviteFriendActivity" />
-        <activity android:name=".user.invite.InviteFriendQrImgShowActivity" />
+
         <activity android:name=".find.product_application.management_money.ManagementMoneyListActivity" />
         <activity android:name=".find.product_application.management_money.MyManagementMoneyListActivity" />
         <activity android:name=".find.product_application.management_money.MyManagementMoneyDetailsActivity" />
@@ -290,9 +278,9 @@
         <activity
             android:name=".user.invite.InviteQrActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".find.product_application.red_package.RedPacketShareQRActivity"
-            android:theme="@style/ActivityDialogStyleBottom"
-            />
+        <activity
+            android:name=".find.product_application.red_package.RedPacketShareQRActivity"
+            android:theme="@style/ActivityDialogStyleBottom" />
         <activity android:name=".find.product_application.red_package.RedPacketSendHistoryActivity" />
         <activity android:name=".find.product_application.red_package.RedPacketDetailsActivity" />
         <activity android:name=".find.product_application.question.ApplicationQuestionListActivity" />

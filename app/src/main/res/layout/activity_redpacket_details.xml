@@ -57,7 +57,7 @@
                 android:paddingLeft="20dp"
                 android:paddingRight="20dp"
                 android:paddingTop="15dp"
-                android:src="@drawable/more_invite"
+                android:src="@drawable/share_redpacket"
                 android:visibility="gone" />
 
         </FrameLayout>
@@ -86,9 +86,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
+                android:text="0/0"
                 android:textColor="@color/text_black_cd"
-                android:textSize="15sp"
-                tools:text="10/10" />
+                android:textSize="15sp" />
 
             <View style="@style/VLine" />
 
@@ -98,7 +98,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="10/10"
+                android:text="0/0"
                 android:textColor="@color/text_black_cd"
                 android:textSize="15sp" />
 

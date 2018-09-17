@@ -22,7 +22,7 @@ import java.util.List;
 
 public class RedPacketSendAdapter extends BaseQuickAdapter<MySendRedPackageBean.ListBean, BaseViewHolder> {
     public RedPacketSendAdapter(@Nullable List<MySendRedPackageBean.ListBean> data) {
-        super(R.layout.item_red_packet_sent, data);
+        super(R.layout.item_red_packet_send, data);
     }
 
     @Override

@@ -101,11 +101,11 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
         mBinding.btnNext.setOnClickListener(view -> {
 
             if (TextUtils.isEmpty(selectCoinSymbol)) {
-                UITipDialog.showInfo(this, "请选择币种");
+                UITipDialog.showInfo(this, getString(R.string.plealse_select_coin_type));
                 return;
             }
             if (TextUtils.isEmpty(mBinding.editAmount.getText().toString())) {
-                UITipDialog.showInfo(this, "请输入划转数量");
+                UITipDialog.showInfo(this, getString(R.string.input_smart_transfer_number));
                 return;
             }
 
@@ -252,7 +252,10 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
         }
 
         if (smartTransferPresenter.isPrivateWallet()) {
-            Spanned fromSpanned = Html.fromHtml(getString(R.string.smart_transfer_fee, AmountUtil.transformFormatToString(fee, selectCoinSymbol, AmountUtil.ALLSCALE), LocalCoinDBUtils.getCoinUnitName(selectCoinSymbol)));
+            BigDecimal getLimiteFee = new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
+                    .multiply(fee);
+            Spanned fromSpanned = Html.fromHtml(getString(R.string.smart_transfer_fee, AmountUtil.transformFormatToString(getLimiteFee,
+                    selectCoinSymbol, AmountUtil.ALLSCALE), LocalCoinDBUtils.getCoinUnitName(selectCoinSymbol)));
             mBinding.tvFee.setText(fromSpanned);
             return;
         }
@@ -274,7 +277,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
     @Override
     public void transferSuccess(boolean isPrivate) {
-        UITipDialog.showSuccess(this, getString(R.string.smart_transfer_success), dialogInterface -> finish());
+        UITipDialog.showSuccess(this, getString(R.string.transaction_success), dialogInterface -> finish());
     }
 
     @Override

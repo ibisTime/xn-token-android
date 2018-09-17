@@ -109,7 +109,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
 
             BigDecimal lilmit = maxGasPrice.subtract(minGasPrice).multiply(ProgressBigDecimal);
 
-            transferGasPrice = ((lilmit.add(maxGasPrice)).toBigInteger());
+            transferGasPrice = ((lilmit.add(minGasPrice)).toBigInteger());
         }
 
         getMvpView().setFee(new BigDecimal(transferGasPrice));

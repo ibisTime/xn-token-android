@@ -18,7 +18,6 @@ import com.cdkj.baselibrary.model.IntroductionInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.BitmapUtils;
-import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -27,20 +26,14 @@ import com.cdkj.tha.wxapi.WxUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.common.ThaAppConstant;
 import com.cdkj.token.databinding.ActivityRedpacketShareBinding;
-import com.cdkj.token.user.invite.InviteQrActivity;
 import com.sina.weibo.sdk.WbSdk;
 import com.sina.weibo.sdk.api.ImageObject;
 import com.sina.weibo.sdk.api.WeiboMultiMessage;
 import com.sina.weibo.sdk.auth.AuthInfo;
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
-import com.sina.weibo.sdk.auth.WbAuthListener;
-import com.sina.weibo.sdk.auth.WbConnectErrorMessage;
-import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.share.WbShareCallback;
 import com.sina.weibo.sdk.share.WbShareHandler;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
-import java.io.ByteArrayOutputStream;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -63,7 +56,6 @@ public class RedPacketShareQRActivity extends BaseActivity {
 
     private PermissionHelper mPermissionHelper;
 
-    private SsoHandler mSsoHandler;
     private WbShareHandler wbShareHandler;
 
     private boolean isOpenHistory;
@@ -104,7 +96,7 @@ public class RedPacketShareQRActivity extends BaseActivity {
         //关闭界面
         mBinding.imgClose.setOnClickListener(view -> {
             if (isOpenHistory) {
-                RedPacketSendHistoryActivity.open(this);
+                RedPacketSendHistoryActivity.openMySend(this);
             }
             finish();
         });
@@ -136,26 +128,6 @@ public class RedPacketShareQRActivity extends BaseActivity {
     private void shareToWeiBo(Bitmap bitmap) {
 
         WbSdk.install(this, new AuthInfo(this, WeiboShareActivity.APPKEY, WeiboShareActivity.APPURL, SCOPE));
-
-        mSsoHandler = new SsoHandler(RedPacketShareQRActivity.this);
-        mSsoHandler.authorize(new WbAuthListener() {
-            @Override
-            public void onSuccess(Oauth2AccessToken oauth2AccessToken) {
-                if (oauth2AccessToken.isSessionValid()) {
-                    UITipDialog.showSuccess(RedPacketShareQRActivity.this, getString(R.string.share_succ));
-                }
-            }
-
-            @Override
-            public void cancel() {
-                UITipDialog.showInfo(RedPacketShareQRActivity.this, getString(R.string.share_cancel));
-            }
-
-            @Override
-            public void onFailure(WbConnectErrorMessage wbConnectErrorMessage) {
-                UITipDialog.showFail(RedPacketShareQRActivity.this, getString(R.string.share_fail));
-            }
-        });
 
         wbShareHandler = new WbShareHandler(this);
         wbShareHandler.registerApp();
@@ -315,14 +287,6 @@ public class RedPacketShareQRActivity extends BaseActivity {
         }
     }
 
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (mSsoHandler != null) {
-            mSsoHandler.authorizeCallBack(requestCode, resultCode, data);
-        }
-    }
 
     @Override
     protected void onNewIntent(Intent intent) {

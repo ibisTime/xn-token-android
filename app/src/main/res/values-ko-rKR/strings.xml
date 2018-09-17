@@ -776,4 +776,9 @@
     <string name="smart_transfer_amount">划入数量</string>
     <string name="my_send">我收到的</string>
     <string name="my_get">我发出的</string>
+    <string name="info_share_succ">分享成功</string>
+    <string name="info_share_fail">分享失败</string>
+    <string name="info_share_cancel">取消分享</string>
+    <string name="input_smart_transfer_number">请输入划转数量</string>
+    <string name="plealse_select_coin_type">请选择币种</string>
 </resources>

@@ -38,8 +38,8 @@ public class RedPacketDetails {
     private double totalCount;
     private double singleCount;
     private String greeting;
-    private double sendNum;
-    private double receivedNum;
+    private int sendNum;
+    private int receivedNum;
     private double receivedCount;
     private String lastReceivedDatetime;
     private String bestHandUser;
@@ -121,15 +121,15 @@ public class RedPacketDetails {
         return sendNum;
     }
 
-    public void setSendNum(double sendNum) {
+    public void setSendNum(int sendNum) {
         this.sendNum = sendNum;
     }
 
-    public double getReceivedNum() {
+    public int getReceivedNum() {
         return receivedNum;
     }
 
-    public void setReceivedNum(double receivedNum) {
+    public void setReceivedNum(int receivedNum) {
         this.receivedNum = receivedNum;
     }
 
@@ -235,7 +235,7 @@ public class RedPacketDetails {
         private String id;
         private String userId;
         private String redPacketCode;
-        private int count;
+        private double count;
         private String createDatetime;
         private String userNickname;
         private String countCNY;
@@ -276,10 +276,13 @@ public class RedPacketDetails {
             this.redPacketCode = redPacketCode;
         }
 
-        public int getCount() {
+        public double getCount() {
             return count;
         }
 
+        public void setCount(double count) {
+            this.count = count;
+        }
 
         public String getCreateDatetime() {
             return createDatetime;

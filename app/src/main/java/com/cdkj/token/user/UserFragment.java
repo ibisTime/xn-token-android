@@ -30,7 +30,6 @@ import com.cdkj.token.databinding.FragmentUser2Binding;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;
 import com.cdkj.token.user.invite.InviteActivity;
-import com.cdkj.token.user.invite.InviteFriendActivity;
 import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
 import com.cdkj.token.user.setting.UserSettingActivity;
 import com.cdkj.token.utils.wallet.WalletHelper;

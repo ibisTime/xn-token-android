@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
-                android:maxLength="6"
+                android:maxLength="15"
                 android:textColor="@color/black"
                 android:textSize="14sp"
                 tools:text="kaloa" />

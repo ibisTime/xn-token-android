@@ -105,7 +105,7 @@ public class RechargeAddressQRActivity extends AbsLoadActivity {
 
                                 try {
 
-                                    Bitmap mBitmap = CodeUtils.createImage(model.getCoinAddress(), 400, 400, resource);
+                                    Bitmap mBitmap = CodeUtils.createImage(model.getCoinAddress(), 400, 400, null);
                                     mBinding.imgQRCode.setImageBitmap(mBitmap);
                                     mBinding.txtAddress.setText(model.getCoinAddress());
 

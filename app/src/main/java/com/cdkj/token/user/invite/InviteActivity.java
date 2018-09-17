@@ -22,7 +22,6 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityInviteBinding;
-import com.cdkj.token.find.product_application.red_package.SendRedPackageActivity;
 import com.cdkj.token.find.product_application.red_package.SendRedPacketActivity;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;

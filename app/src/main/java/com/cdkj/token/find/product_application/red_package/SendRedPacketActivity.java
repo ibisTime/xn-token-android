@@ -89,7 +89,7 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
         userInfoPresenter.getUserInfoRequest();//获取用户信息
 
         mBinding.tvInMoney.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG);
-        mBinding.tvTotalAmount.setText("0" + getStrRes(R.string.red_package_unit));
+
 
         initClickListener();
         initEditWatcher();
@@ -110,9 +110,10 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
 
                     menuPickerView.dismiss();
 
+
                     switch (options1) {
                         case 0:
-                            RedPacketSendHistoryActivity.open(SendRedPacketActivity.this);
+                            RedPacketSendHistoryActivity.openMyGet(SendRedPacketActivity.this);
                             break;
                         case 1:
                             ApplicationQuestionListActivity.open(SendRedPacketActivity.this, appCode, getString(R.string.theia_redpacket_intro));
