@@ -10,6 +10,8 @@ import com.cdkj.baselibrary.base.mvp.BasePresenter;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.token.MyApplication;
+import com.cdkj.token.R;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;
 import com.cdkj.token.model.BtcFeesModel;
@@ -358,6 +360,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
     @Override
     public void btcUTXOData(List<UTXOModel> utxo) {
 
+
         WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
 
         String fromAddress = walletDBModel.getBtcAddress();
@@ -371,13 +374,23 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
         try {
 
             BigDecimal amountBigDecimal = AmountUtil.bigDecimalFormat(new BigDecimal(amountString), WalletHelper.COIN_BTC);
+            Long feeLong = WalletHelper.getBtcFee(utxo, amountBigDecimal.longValue(), transferGasPrice.intValue());//矿工费
 
+            if (feeLong == -1) {
+                getMvpView().showMessageDialog(MyApplication.getInstance().getString(R.string.no_balance));
+                return;
+            }
 
             String sign = WalletHelper.signBTCTransactionData(utxo,  //utxo列表
                     fromAddress,  //btc地址
                     toAddress,//btc转出地址
                     privateKey,//btc 私钥
-                    amountBigDecimal.longValue(), WalletHelper.getBtcFee(utxo, amountBigDecimal.longValue(), transferGasPrice.intValue())); //矿工费
+                    amountBigDecimal.longValue(), feeLong);
+
+            if (TextUtils.isEmpty(sign)) {
+                getMvpView().transferFail(isPrivateWallet);
+                return;
+            }
 
             smartTransferModel.btcTransactionBroadcast(sign);
 

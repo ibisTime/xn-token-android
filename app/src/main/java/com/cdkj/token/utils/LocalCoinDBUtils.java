@@ -39,9 +39,19 @@ public class LocalCoinDBUtils {
      * @param coinType 0 公链币（ETH BTC WAN）
      * @return
      */
-    public static boolean isCommonChainCoin(String coinType) {
+    public static boolean isCommonChainCoinByType(String coinType) {
         return TextUtils.equals("0", coinType);
     }
+
+    /**
+     * 判断是否token币
+     * @param coinSymbol
+     * @return
+     */
+    public static boolean isTokenCoinBySymbol(String coinSymbol) {
+        return !isBTC(coinSymbol) && !isETH(coinSymbol) && !isWAN(coinSymbol);
+    }
+
 
     public static boolean isBTC(String coinSymbol) {
         return TextUtils.equals(WalletHelper.COIN_BTC, coinSymbol);

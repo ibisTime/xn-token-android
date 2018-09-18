@@ -639,7 +639,7 @@ public class WalletFragment extends BaseLazyFragment {
 
             CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();    //0 公链币（ETH BTC WAN） 1 ethtoken（ETH） 2 wantoken（WAN）        通过币种和type 添加地址
 
-            if (LocalCoinDBUtils.isCommonChainCoin(localCoinDbModel.getType())) {
+            if (LocalCoinDBUtils.isCommonChainCoinByType(localCoinDbModel.getType())) {
 
                 if (TextUtils.equals(WalletHelper.COIN_BTC, localCoinDbModel.getSymbol())) {
                     coinTypeAndAddress.setAddress(walletDBModel.getBtcAddress());
