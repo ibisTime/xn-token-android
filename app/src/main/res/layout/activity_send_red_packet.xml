@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
-        android:background="#f5f5f8"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#f5f5f8">
 
 
         <LinearLayout
@@ -110,7 +110,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="5dp"
-                    android:text="当前红包类型："
+                    android:text="@string/redpacket_type"
                     android:textColor="#AAAAAA"
                     android:textSize="12sp" />
 
@@ -168,16 +168,14 @@
                     android:textColor="#666666"
                     android:textSize="14sp" />
 
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
 
                 <EditText
                     android:id="@+id/edit_number"
-                    android:layout_width="110dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
                     android:layout_marginRight="10dp"
+                    android:layout_weight="1"
                     android:background="@null"
                     android:gravity="right"
                     android:hint="@string/wallet_withdraw_amount_hint"
@@ -248,9 +246,9 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
                     android:layout_marginLeft="5dp"
-                    tools:text="0"
                     android:textColor="#ff4b00"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    tools:text="0" />
 
 
             </LinearLayout>
@@ -322,6 +320,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="25dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:layout_marginTop="25dp"
                 android:text="@string/redpacket_back_info"
                 android:textColor="#AAAAAA"

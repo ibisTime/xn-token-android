@@ -710,80 +710,152 @@
 
     <string name="save_fail">저장되지 않았습니다</string>
     <string name="Theia_planet">Theia_planet</string>
-    <string name="smart_transfer_fee"><Data><![CDATA[本次划转矿工费为<font color="#333333">%1$s </font>%2$s]]></Data></string>
-    <string name="smart_transfer_balance"><Data><![CDATA[可用余额<font color="#333333">     %1$s </font> %2$s]]></Data></string>
-    <string name="private_key_account">私钥账户</string>
-    <string name="from">从</string>
-    <string name="to">到</string>
-    <string name="transfer_3">划转</string>
-    <string name="theia_red_packet">Theia红包</string>
-    <string name="lucky_red_packet">拼手气红包</string>
-    <string name="ordinary_red_packet">普通红包</string>
-    <string name="total">总额</string>
-    <string name="single_amount">单个金额</string>
-    <string name="red_packet_intro_lucky">每人获得金额随机</string>
-    <string name="red_packet_intro_ordinary">每人获得金额固定</string>
-    <string name="change_type_1">拼</string>
-    <string name="change_type_2">普</string>
-    <string name="coin_type_select">请选择代币种类</string>
-    <string name="scan_get_redpacket">扫码领红包</string>
-    <string name="share_to">— 分享到 —</string>
-    <string name="my_redpacket_history">我的红包记录</string>
-    <string name="redpacket_question">红包说明及常见问题</string>
-    <string name="year">年</string>
-    <string name="redpacket_history">红包记录</string>
 
-    <string name="redpacket_send_total"><Data><![CDATA[共发出红包<font color="#FF6400">%1$s</font>个]]></Data></string>
-    <string name="redpacket_get_total"><Data><![CDATA[收到红包<font color="#FF6400">%1$s</font>个]]></Data></string>
-    <string name="amount">数量</string>
-    <string name="total_amount">总额</string>
-    <string name="redpacket_get_list">领取列表</string>
-    <string name="redpacket_details">红包详情</string>
-    <string name="app_question">常见问题帮助</string>
-    <string name="question">问</string>
-    <string name="answer">答</string>
-    <string name="theia_redpacket_intro">Theia红包说明</string>
-    <string name="share_weibo">微博</string>
-    <string name="lottery">积分抽奖</string>
-    <string name="invite_integral_1"><Data><![CDATA[您拥有积分<font color="#00F7FE">%s</font>点]]></Data></string>
-    <string name="invite_20">全球首款跨链生态钱包</string>
-    <string name="invite_21">您已成功邀请</string>
-    <string name="invite_22">名用户</string>
-    <string name="invite_23">感谢您的付出!</string>
-    <string name="invite_btn_3">红包邀请</string>
-    <string name="save_to_local">保存本地</string>
-    <string name="copy_your_invite_url">复制您的专属邀请链接</string>
-    <string name="invite_25">- 登录享豪礼 -</string>
-    <string name="invite_26">1. 新用户注册并登录可获得%1s积分奖励</string>
-    <string name="invite_27">2. 新用户可获得购买币加宝收益首次翻倍的奖励</string>
-    <string name="invite_28">邀请有礼说明</string>
-    <string name="invite_29">2.每邀请1位好友注册并登录后获得好友币加宝收益7%额外奖励。（有效期3个月）</string>
-    <string name="invite_30">- 邀请好友界面 -</string>
-    <string name="invite_31">- 被邀请人界面 -</string>
-    <string name="invite_32">1.每一位用户注册成功并登录可获得奖励%s积分</string>
-    <string name="invite_33">2.每一位用户成功注册并登录后可获得购买加宝收益每次翻倍奖励。</string>
+    <!--dfdfdf-->
+    <string name="credit_score">신용 점수</string>
+    <string name="credit_score__1">- 신용을 재산으로 바뀌게 하십시오 -</string>
+    <string name="credit_score_detail_2">나는 신용 점수를 높여야 합니다</string>
+    <string name="credit_score_detail_3">개인 계정에 디지털 통화를 입금하는 것이 신용 점수를 높이는 가장 빠른 방법입니다</string>
+    <string name="invite_copy">Theia is the world’s first cross-chain profit sharing wallet, which supports multi-crypto-asset management, including BTC, ETH and USDT. Register and get 10 points, and you’ll have chance to draw a prize from ¥10,000,000 RMB worth of prize pool (BTC, ETH and WAN).
+</string>
 
-    <string name="share_succ">分享成功</string>
-    <string name="share_fail">分享失败</string>
-    <string name="share_cancel">取消分享</string>
-    <string name="wx_install_">请先安装微信</string>
-    <string name="smart_transfer_fee2"><Data><![CDATA[本次划转手续费为<font color="#333333">%1$s </font>%2$s]]></Data></string>
-    <string name="smart_transfer_ail">划转失败</string>
-    <string name="smart_transfer_success">划转成功</string>
-    <string name="redpacket_back_info">如24小时未领取红包，则红包退回原地址</string>
-    <string name="me">我自己</string>
-    <string name="now_get_coin">马上提币</string>
-    <string name="smart_transfer_amount">划入数量</string>
-    <string name="my_send">我收到的</string>
-    <string name="my_get">我发出的</string>
-    <string name="info_share_succ">分享成功</string>
-    <string name="info_share_fail">分享失败</string>
-    <string name="info_share_cancel">取消分享</string>
-    <string name="input_smart_transfer_number">请输入划转数量</string>
-    <string name="plealse_select_coin_type">请选择币种</string>
-    <string name="credit_score">信用积分</string>
-    <string name="credit_score__1">- 让信用变为财富 -</string>
-    <string name="credit_score_detail_2">我要增加信用分</string>
-    <string name="credit_score_detail_3">个人账户中存入数字货币是增加信用积分最快的方式</string>
-    <string name="invite_copy">【Theia是全球首款跨链生态钱包，同时支持BTC、ETH、USDT等多币数字货币储存。注册即送10积分，千万BTC/ETH/WAN矿山，等您来挖】</string>
+    <string name="amount">수량</string>
+
+    <string name="answer">답변</string>
+
+    <string name="app_question">FAQ 도움말</string>
+
+    <string name="change_type_1">R</string>
+
+    <string name="change_type_2">N</string>
+
+    <string name="coin_type_select">토큰 유형을 선택하십시오.</string>
+
+    <string name="copy_your_invite_url">독점 초대 링크 복사</string>
+
+    <string name="from">부터</string>
+
+    <string name="info_share_cancel">공유 취소</string>
+
+    <string name="info_share_fail">공유 실패</string>
+
+    <string name="info_share_succ">나눔의 성공</string>
+
+    <string name="input_smart_transfer_number">전송 횟수를 입력하십시오.</string>
+
+    <string name="invite_20">세계 최초의 교차 사슬 생태 지갑</string>
+
+    <string name="invite_21">당신은 이미 초대에 성공했습니다.</string>
+
+    <string name="invite_22">사용자</string>
+
+    <string name="invite_23">지불해 주셔서 감사합니다</string>
+
+    <string name="invite_25">행사를 즐기기 위해 등록하십시오.</string>
+
+    <string name="invite_26">1. 신규 사용자는 등록 및 로그인하여 %1s 포인트를 획득 할 수 있습니다.</string>
+
+    <string name="invite_27">2. 신규 사용자는 처음으로 구매 가격의 2 배의 수입을 얻을 수 있습니다.</string>
+
+    <string name="invite_28">초대 의식 예식</string>
+
+    <string name="invite_29">2. 친구를 초대하고 로그인 할 때마다 친구의 동전에서 7 %의 추가 보너스를 받게됩니다. (3 개월 유효)</string>
+
+    <string name="invite_30">- 친구 인터페이스 초대 -</string>
+
+    <string name="invite_31">- 초대받은 사람 인터페이스 -</string>
+
+    <string name="invite_32">1. 각 사용자가 성공적으로 등록되고 로그인하여 ~~% s의보상 포인트를 얻을 수 있습니다.</string>
+
+    <string name="invite_33">2.사용자가 성공적으로 회원가입 하여 등록한뒤에 인센티브를 얻을수있습니다.</string>
+
+    <string name="invite_btn_3">빨간 봉투 초대장</string>
+    <string name="invite_integral_1"> <Data><![CDATA[당신은<font color="#00F7FE">%s</font>점을 보유하고 있습니다]]></Data></string>
+
+
+    <string name="lottery">추첨점수</string>
+
+    <string name="lucky_red_packet">행운의 빨간 봉투</string>
+
+    <string name="me">즉시 화폐를 지불하시오</string>
+
+    <string name="my_get">공유성공</string>
+
+    <string name="my_redpacket_history">내 빨간 봉투 기록 </string>
+
+    <string name="my_send">내가 보낸 것</string>
+
+    <string name="now_get_coin">즉시 동전을 올리십시오.</string>
+
+    <string name="ordinary_red_packet">일반 빨간 봉투 </string>
+
+    <string name="plealse_select_coin_type">통화를 선택하십시오.</string>
+
+    <string name="private_key_account">개인 키 계정 </string>
+
+    <string name="question">질문</string>
+
+    <string name="red_packet_intro_lucky">각 사람은 임의의 금액을받습니다. </string>
+
+    <string name="red_packet_intro_ordinary">각각의 사람은 고정 금액을 받습니다.</string>
+
+    <string name="redpacket_back_info">빨간 봉투를 24 시간 이내에받지 못하면 빨간색 봉투가 원래 주소로 반송됩니다.</string>
+
+    <string name="redpacket_details">빨간 봉투 세부 정보</string>
+
+    <string name="redpacket_get_list">빨간 봉투 목록</string>
+
+    <string name="redpacket_get_total"><Data><![CDATA[획득한 빨간 봉투는 퐁<font color="#FF6400">%1$s</font>개]]></Data></string>
+
+    <string name="redpacket_history">빨간 봉투 기록 </string>
+
+    <string name="redpacket_question"> 빨간 봉투 설명 및 질문과 대답</string>
+
+    <string name="redpacket_send_total"><Data><![CDATA[발송한 빨간봉투는 총<font color="#FF6400">%1$s</font>개]]></Data></string>
+
+    <string name="save_to_local">지역 저장</string>
+
+    <string name="scan_get_redpacket">빨간봉투를 스캔하여 연결하시오</string>
+
+    <string name="share_cancel">공유 취소</string>
+
+    <string name="share_fail">공유 실패</string>
+
+    <string name="share_succ">공유성공</string>
+
+    <string name="share_to">공유하다</string>
+
+    <string name="share_weibo">웨이보에 공유</string>
+
+    <string name="single_amount">단일 금액 </string>
+
+    <string name="smart_transfer_ail">전송하지 못했습니다.</string>
+
+    <string name="smart_transfer_amount">내가 수령한 것</string>
+
+    <string name="smart_transfer_balance"><Data><![CDATA[사용 가능한 잔액<font color="#333333">     %1$s </font> %2$s]]></Data></string>
+
+
+    <string name="smart_transfer_fee"><Data><![CDATA[이번 광부 조달비는<font color="#333333">%1$s </font>%2$s]]></Data> </string>
+
+    <string name="smart_transfer_fee2"><Data><![CDATA[송금 수수료는<font color="#333333">%1$s </font>입니다%2$s]]></Data></string>
+
+    <string name="smart_transfer_success">성공적인 전송</string>
+
+    <string name="theia_red_packet">Theia 빨간 봉투 </string>
+
+    <string name="theia_redpacket_intro">Theia 빨간 봉투 설명</string>
+
+    <string name="to">까지</string>
+
+    <string name="total">합계</string>
+
+    <string name="total_amount">합계</string>
+
+    <string name="transfer_3">전송 </string>
+
+    <string name="wx_install_">WeChat을 먼저 설치하십시오.</string>
+
+    <string name="year">년</string>
+    <string name="redpacket_type">유형：</string>
 </resources>

@@ -126,31 +126,36 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
                 return;
             }
 
-            BigInteger amountBigInteger = AmountUtil.bigIntegerFormat(new BigDecimal(mBinding.editAmount.getText().toString().trim()),
-                    selectCoinSymbol); //转账数量
 
-            if (!LocalCoinDBUtils.isTokenCoinBySymbol(selectCoinSymbol) && !LocalCoinDBUtils.isBTC(selectCoinSymbol)) { //如果不是token币
+            if (smartTransferPresenter.isPrivateWallet()) {
 
-                BigDecimal getLimiteFee = new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
-                        .multiply(feeBigDecimal);
+                BigDecimal amountBigInteger = AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.editAmount.getText().toString().trim()),
+                        selectCoinSymbol); //转账数量
 
-                BigInteger allBigInteger = new BigDecimal(amountBigInteger).add(getLimiteFee).toBigInteger();//手续费+转账数量
+                if (!LocalCoinDBUtils.isTokenCoinBySymbol(selectCoinSymbol) && !LocalCoinDBUtils.isBTC(selectCoinSymbol)) { //如果不是token币
 
-                int checkInt = allBigInteger.compareTo(balanceBigDecimal.toBigInteger()); //比较
+                    BigDecimal getLimiteFee = new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
+                            .multiply(feeBigDecimal);
 
-                if (checkInt == 1 || checkInt == 0) {
-                    UITipDialog.showInfo(this, getString(R.string.no_balance));
-                    return;
+                    BigDecimal allBigInteger = amountBigInteger.add(getLimiteFee);//手续费+转账数量
+
+                    int checkInt = allBigInteger.compareTo(balanceBigDecimal); //比较
+
+                    if (checkInt == 1) {
+                        UITipDialog.showInfo(this, getString(R.string.no_balance));
+                        return;
+                    }
+
+                } else if (LocalCoinDBUtils.isBTC(selectCoinSymbol)) {
+
+                    int checkInt = amountBigInteger.compareTo(balanceBigDecimal); //比较
+
+                    if (checkInt == 1) {
+                        UITipDialog.showInfo(this, getString(R.string.no_balance));
+                        return;
+                    }
                 }
 
-            } else if (LocalCoinDBUtils.isBTC(selectCoinSymbol)) {
-
-                int checkInt = amountBigInteger.compareTo(balanceBigDecimal.toBigInteger()); //比较
-
-                if (checkInt == 1 || checkInt == 0) {
-                    UITipDialog.showInfo(this, getString(R.string.no_balance));
-                    return;
-                }
             }
 
             smartTransferPresenter.showPayPasswordDialog();
@@ -162,10 +167,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
      */
     private void setAllAmountText() {
 
-
         String balanceString = "";
-
-        balanceString = AmountUtil.transformFormatToString(balanceBigDecimal, selectCoinSymbol, AmountUtil.ALLSCALE);
 
 //        //btc 或 token币
 //        if (!smartTransferPresenter.isPrivateWallet() || LocalCoinDBUtils.isBTC(selectCoinSymbol) || LocalCoinDBUtils.isTokenCoinBySymbol(selectCoinSymbol)) {
@@ -178,7 +180,12 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 //                balanceString = AmountUtil.transformFormatToString(BigDecimalUtils.subtract(balanceBigDecimal, limiteFee), selectCoinSymbol, AmountUtil.ALLSCALE);
 //            }
 //        }
+        balanceString = AmountUtil.transformFormatToString(balanceBigDecimal, selectCoinSymbol, AmountUtil.ALLSCALE);
 
+        setAmount(balanceString);
+    }
+
+    private void setAmount(String balanceString) {
         mBinding.editAmount.setText(balanceString);
         mBinding.editAmount.setSelection(balanceString.length());
     }

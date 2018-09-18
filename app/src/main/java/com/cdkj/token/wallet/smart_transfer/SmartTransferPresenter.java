@@ -151,27 +151,20 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
 
         String coinSymbol = selectCoinData.getCurrency();
 
-
-        try {
-            //BTC
-            if (LocalCoinDBUtils.isBTC(coinSymbol)) {
-                WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
-                if (userWalletIn == null) return;
-                smartTransferModel.getBTCUTXO(userWalletIn.getBtcAddress()); //先获取UTXO 获取到后进行签名
-                return;
-            }
-            String toAddress = getAccountAddressBySymbol(coinSymbol);
-
-            smartTransferModel.transferPrivate(coinSymbol, toAddress, amount, transferGasPrice);
-        } catch (Exception e) {
-            e.printStackTrace();
-            getMvpView().transferFail(isPrivateWallet);
+        //BTC 先获取UTXO 获取到后进行签名
+        if (LocalCoinDBUtils.isBTC(coinSymbol)) {
+            WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+            if (userWalletIn == null) return;
+            smartTransferModel.getBTCUTXO(userWalletIn.getBtcAddress());
+            return;
         }
+        String toAddress = getAccountAddressBySymbol(coinSymbol);
 
+        smartTransferModel.transferPrivate(coinSymbol, toAddress, amount, transferGasPrice);
     }
 
     /**
-     * 获取中心化钱包地址
+     * 从账户列表里获取中心化钱包地址
      *
      * @return
      */

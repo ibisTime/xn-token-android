@@ -160,14 +160,27 @@ public class WalletTransferActivity extends AbsLoadActivity {
 
             if (transferGasPrice == null) return true;
 
-            BigInteger allBigInteger = transferGasPrice.add(amountBigInteger);//手续费+转账数量
+            if (!LocalCoinDBUtils.isTokenCoinBySymbol(accountListBean.getCoinSymbol())) { //token币不进行手续费校验
 
-            int checkInt = allBigInteger.compareTo(new BigDecimal(accountListBean.getCoinBalance()).toBigInteger()); //比较
+                BigInteger allBigInteger = WalletHelper.getDeflutGasLimit().multiply(transferGasPrice).add(amountBigInteger);//手续费+转账数量
 
-            if (checkInt == 1 || checkInt == 0) {
-                UITipDialog.showInfo(this, getString(R.string.no_balance));
-                return true;
+                int checkInt = allBigInteger.compareTo(new BigDecimal(accountListBean.getCoinBalance()).toBigInteger()); //比较
+
+                if (checkInt == 1) {
+                    UITipDialog.showInfo(this, getString(R.string.no_balance));
+                    return true;
+                }
+
+            } else {
+
+                int checkInt = amountBigInteger.compareTo(new BigDecimal(accountListBean.getCoinBalance()).toBigInteger());
+
+                if (checkInt == 1) {
+                    UITipDialog.showInfo(this, getString(R.string.no_balance));
+                    return true;
+                }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
