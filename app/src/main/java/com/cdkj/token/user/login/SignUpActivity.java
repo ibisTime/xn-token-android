@@ -28,6 +28,7 @@ import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivitySignUpBinding;
 import com.cdkj.token.user.CountryCodeListActivity;
+import com.li.verification.VerificationAliActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -43,6 +44,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
     private SendPhoneCodePresenter mPresenter;
     private ActivitySignUpBinding mBinding;
 
+    public int AL_IVERIFICATION_REQUEST_CODE = 100;
     public static void open(Context context) {
         if (context == null) {
             return;
@@ -94,7 +96,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(view -> {
             if (check("code")) {
-                mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(), "805041", "C", SPUtilHelper.getCountryInterCode(), this);
+                VerificationAliActivity.open(this, AL_IVERIFICATION_REQUEST_CODE);
             }
         });
 
@@ -209,6 +211,16 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
     @Override
     public void EndSend() {
         disMissLoadingDialog();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (data == null) return;
+        if (requestCode == AL_IVERIFICATION_REQUEST_CODE && resultCode == VerificationAliActivity.RESULT_CODE) {
+            String sessionid = getIntent().getStringExtra(VerificationAliActivity.SESSIONID);
+            mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(), sessionid, "805041", "C", SPUtilHelper.getCountryInterCode(), this);
+        }
     }
 
     @Override

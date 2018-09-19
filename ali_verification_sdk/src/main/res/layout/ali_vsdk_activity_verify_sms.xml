@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ALiLoaddingView="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/title_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="48dp"
+        android:background="#ffffffff"
+        android:minHeight="48dp"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/left_top_layout"
+            android:layout_width="wrap_content"
+            android:layout_height="48dp"
+            android:layout_centerVertical="true">
+
+            <TextView
+                android:id="@+id/left_top_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="15dp"
+                android:background="@drawable/ali_vsdk_back" />
+
+            <TextView
+                android:id="@+id/left_top_text"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="3dp"
+                android:layout_toRightOf="@id/left_top_image"
+                android:gravity="center"
+                android:text="@string/ali_vsdk_titlebar_back"
+                android:textColor="#505156"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/title_text"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/ali_vsdk_titlebar_name"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="30dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="@string/ali_vsdk_verify_sms_title"
+                android:textColor="#000000"
+                android:textSize="24sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/subtitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                android:maxLines="2"
+                android:text="@string/ali_vsdk_verify_sms_subtitle"
+                android:textColor="#adadad"
+                android:textSize="14sp"
+                android:textStyle="normal" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:id="@+id/number_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp">
+
+                    <TextView
+                        android:id="@+id/number"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:text="@string/ali_vsdk_verify_number"
+                        android:textColor="#adadad"
+                        android:textSize="17dp" />
+
+                    <EditText
+                        android:id="@+id/number_et"
+                        android:layout_width="match_parent"
+                        android:layout_height="46dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@id/number"
+                        android:background="@null"
+                        android:enabled="false"
+                        android:focusable="false"
+                        android:focusableInTouchMode="true"
+                        android:inputType="phone"
+                        android:textColor="#adadad"
+                        android:textSize="17dp" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#dedede" />
+
+                <RelativeLayout
+                    android:id="@+id/code_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="46dp">
+
+                    <TextView
+                        android:id="@+id/code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="center"
+                        android:text="@string/ali_vsdk_verify_code"
+                        android:textColor="#000000"
+                        android:textSize="17dp" />
+
+                    <TextView
+                        android:id="@+id/verify_send_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:gravity="center"
+                        android:text="@string/ali_vsdk_verify_sms_send_code"
+                        android:textColor="#1475ea"
+                        android:textSize="17dp" />
+
+                    <EditText
+                        android:id="@+id/code_et"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="20dp"
+                        android:layout_toRightOf="@id/code"
+                        android:background="@null"
+                        android:imeActionId="@+id/submit"
+                        android:imeActionLabel="@string/ali_vsdk_verify_submit"
+                        android:imeOptions="actionDone"
+                        android:inputType="number"
+                        android:maxLength="10"
+                        android:textSize="17dp" />
+
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#dedede" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/btn_submit"
+                android:layout_width="match_parent"
+                android:layout_height="44dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/ali_vsdk_button">
+
+                <TextView
+                    android:id="@+id/submit_tx"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true"
+                    android:gravity="center"
+                    android:text="@string/ali_vsdk_verify_submit"
+                    android:textColor="#ffffff"
+                    android:textSize="19sp" />
+
+                <com.alibaba.verificationsdk.widgets.ALiLoadingView
+                    android:id="@+id/submit_loading"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="8dp"
+                    android:layout_toLeftOf="@id/submit_tx"
+                    android:background="@drawable/ali_vsdk_button_icon_dengdai"
+                    android:visibility="invisible"
+                    ALiLoaddingView:ali_vsdk_loading_type="1" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/btn_call"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="12dp"
+                android:gravity="center"
+                android:lineSpacingExtra="6dp"
+                android:maxLines="2"
+                android:text="@string/ali_vsdk_verify_sms_use_call"
+                android:textColor="#1475ea"
+                android:textSize="14sp"
+                android:visibility="invisible" />
+        </LinearLayout>
+    </ScrollView>
+    <ImageView android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:id="@+id/logo"
+        android:src="@drawable/ali_vsdk_logo" />
+</LinearLayout>

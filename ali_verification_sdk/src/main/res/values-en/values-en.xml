@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="ali_vsdk_network_error">Network is unreachable, please try again later.</string>
+    <string name="ali_vsdk_refresh">Refresh</string>
+    <string name="ali_vsdk_tips">Authentication Required</string>
+    <string name="ali_vsdk_tips_finish">Passed</string>
+    <string name="ali_vsdk_tips_sub">For the security of your account，an authentication is required for current access.Please drag the icon into the Target zone.</string>
+    <string name="ali_vsdk_titlebar_back">Back</string>
+    <string name="ali_vsdk_titlebar_name"/>
+    <string name="ali_vsdk_verify_call_calling">Please look at call</string>
+    <string name="ali_vsdk_verify_call_dialog_cancel">Cancel</string>
+    <string name="ali_vsdk_verify_call_dialog_ok">Wait for call</string>
+    <string name="ali_vsdk_verify_call_goto_tips">Begin to receive voice call now?</string>
+    <string name="ali_vsdk_verify_call_recall">If you can\'t receive code, click here to retry</string>
+    <string name="ali_vsdk_verify_call_title">Voice call Authentication</string>
+    <string name="ali_vsdk_verify_code">Veri. Code</string>
+    <string name="ali_vsdk_verify_error">Verification code wrong, input again</string>
+    <string name="ali_vsdk_verify_error_call">Verification code wrong, hang up phone and send code again</string>
+    <string name="ali_vsdk_verify_in_progress">Authenticating By Ali Juanquan</string>
+    <string name="ali_vsdk_verify_no_code">Need code</string>
+    <string name="ali_vsdk_verify_number">Phone No.</string>
+    <string name="ali_vsdk_verify_sms_send_code">Send Code</string>
+    <string name="ali_vsdk_verify_sms_subtitle">Protect you against SMS hijacking.</string>
+    <string name="ali_vsdk_verify_sms_timeout">%1$d sec</string>
+    <string name="ali_vsdk_verify_sms_title">SMS Authentication</string>
+    <string name="ali_vsdk_verify_sms_use_call">Can\'t pass, switch to voice call authentication </string>
+    <string name="ali_vsdk_verify_submit">Submit</string>
+</resources>

@@ -22,6 +22,9 @@ buildscript {
 
 allprojects {
     repositories {
+        flatDir {         //<------添加三行
+            dirs 'libs'   //<------
+        }
         jcenter()
         maven { url 'http://maven.aliyun.com/nexus/content/groups/public/'}
         maven { url "https://jitpack.io" }

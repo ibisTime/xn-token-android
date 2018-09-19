@@ -33,6 +33,19 @@ public class SendPhoneCodePresenter {
 
     //发送验证码
     public void
+    sendCodeRequest(String phone, String sessionID, String bizType, String kind, String countryCode, Context context) {
+        this.mContext = context;
+        this.countryCode = countryCode;
+        if (TextUtils.isEmpty(phone)) {
+            ToastUtil.show(context, mContext.getString(R.string.activity_mobile_mobile_hint));
+            return;
+        }
+        if (TextUtils.isEmpty(countryCode)) return;
+
+        request(phone, sessionID, bizType, kind);
+    }
+
+    public void
     sendCodeRequest(String phone, String bizType, String kind, String countryCode, Context context) {
         this.mContext = context;
         this.countryCode = countryCode;
@@ -42,13 +55,13 @@ public class SendPhoneCodePresenter {
         }
         if (TextUtils.isEmpty(countryCode)) return;
 
-        request(phone, bizType, kind);
+        request(phone, "", bizType, kind);
     }
 
     /**
      * 请求
      */
-    private void request(String phone, String bizType, String kind) {
+    private void request(String phone, String sessionID, String bizType, String kind) {
 
         HashMap<String, String> hashMap = new HashMap<>();
 
@@ -58,6 +71,7 @@ public class SendPhoneCodePresenter {
         hashMap.put("bizType", bizType);
         hashMap.put("kind", kind);
         hashMap.put("interCode", countryCode); //国际区号
+        hashMap.put("sessionId", sessionID); //阿里验证
 
         call = RetrofitUtils.getBaseAPiService().successRequest("805953", StringUtils.objectToJsonString(hashMap));
 

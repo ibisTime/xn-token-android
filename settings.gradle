@@ -1,1 +1,1 @@
-include ':app', ':cdcommon'
+include ':app', ':cdcommon', ':ali_verification_sdk'

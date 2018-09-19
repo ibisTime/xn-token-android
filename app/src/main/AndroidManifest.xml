@@ -46,6 +46,7 @@
             android:theme="@style/ActivityDialogStyleBottom" />
 
 
+
         <activity android:name=".user.login.StartActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -296,7 +297,9 @@
             android:name=".user.invite.CopyActivity"
             android:theme="@style/ActivityDialogStyleBottom" />
         <activity android:name="com.cdkj.codedddActivity" />
-
+        <activity
+            android:name="com.li.verification.VerificationAliActivity"
+            android:theme="@style/ActivityDialogStyleBottom" />
 
     </application>
 
