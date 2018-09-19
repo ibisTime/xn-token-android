@@ -716,7 +716,7 @@
     <string name="credit_score__1">- 신용을 재산으로 바뀌게 하십시오 -</string>
     <string name="credit_score_detail_2">나는 신용 점수를 높여야 합니다</string>
     <string name="credit_score_detail_3">개인 계정에 디지털 통화를 입금하는 것이 신용 점수를 높이는 가장 빠른 방법입니다</string>
-    <string name="invite_copy">Theia is the world’s first cross-chain profit sharing wallet, which supports multi-crypto-asset management, including BTC, ETH and USDT. Register and get 10 points, and you’ll have chance to draw a prize from ¥10,000,000 RMB worth of prize pool (BTC, ETH and WAN).
+    <string name="invite_copy">Theia is the world’s first cross-chain profit sharing wallet, which supports multi-crypto-asset management, including BTC, ETH and TUSD. Register and get 10 points, and you’ll have chance to draw a prize from ¥10,000,000 RMB worth of prize pool (BTC, ETH and WAN).
 </string>
 
     <string name="amount">수량</string>

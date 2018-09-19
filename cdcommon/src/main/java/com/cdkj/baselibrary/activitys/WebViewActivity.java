@@ -153,11 +153,6 @@ public class WebViewActivity extends AbsActivity {
 
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        mBinding.webview.loadUrl("about:blank");
-    }
 
     private void initData() {
         if (getIntent() == null) {

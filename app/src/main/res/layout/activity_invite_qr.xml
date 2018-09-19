@@ -82,14 +82,13 @@
                     android:layout_height="180dp"
                     android:layout_gravity="center_horizontal"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/corner_invite_qr_bg"
-                    >
+                    android:background="@drawable/corner_invite_qr_bg">
 
                     <ImageView
-                        android:layout_margin="15dp"
                         android:id="@+id/iv_qr"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:layout_margin="15dp" />
 
                 </LinearLayout>
 
@@ -203,9 +202,10 @@
                     android:src="@drawable/invite_save" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:gravity="center"
                     android:text="@string/save_to_local"
                     android:textColor="@color/invite_color_blue" />
 
@@ -225,9 +225,10 @@
                     android:src="@drawable/invite_wx" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
+                    android:gravity="center"
                     android:text="@string/user_invite_share_wx"
                     android:textColor="@color/invite_color_blue" />
 
@@ -247,9 +248,11 @@
                     android:src="@drawable/invite_pyq" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginTop="8dp"
+                    android:gravity="center"
                     android:text="@string/user_invite_share_pyq"
                     android:textColor="@color/invite_color_blue" />
 
@@ -269,9 +272,11 @@
                     android:src="@drawable/invite_wb" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center"
                     android:layout_marginTop="8dp"
+                    android:gravity="center"
                     android:text="@string/share_weibo"
                     android:textColor="@color/invite_color_blue" />
 
