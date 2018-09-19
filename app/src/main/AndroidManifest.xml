@@ -295,6 +295,7 @@
         <activity
             android:name=".user.invite.CopyActivity"
             android:theme="@style/ActivityDialogStyleBottom" />
+        <activity android:name="com.cdkj.codedddActivity" />
 
 
     </application>

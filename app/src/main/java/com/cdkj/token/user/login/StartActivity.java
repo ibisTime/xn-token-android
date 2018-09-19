@@ -8,6 +8,7 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
+import com.cdkj.codedddActivity;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.find.product_application.red_package.RedPacketShareQRActivity;
@@ -47,8 +48,9 @@ public class StartActivity extends BaseActivity implements StartPageView {
 
 
         pagePresenter = new StartPagePresenter(this);
-        pagePresenter.start();
+//        pagePresenter.start();
 
+        codedddActivity.open(this);
     }
 
     @Override
