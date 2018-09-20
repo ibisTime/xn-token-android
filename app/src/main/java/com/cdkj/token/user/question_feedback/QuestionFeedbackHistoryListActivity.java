@@ -59,7 +59,7 @@ public class QuestionFeedbackHistoryListActivity extends AbsRefreshClipListActiv
         map.put("start", pageindex + "");
         map.put("limit", limit + "");
 
-        Call<BaseResponseModel<ResponseInListModel<QuestionFeedbackModel>>> call = RetrofitUtils.createApi(MyApi.class).getQuestionFeedbackList("805107", StringUtils.objectToJsonString(map));
+        Call<BaseResponseModel<ResponseInListModel<QuestionFeedbackModel>>> call = RetrofitUtils.createApi(MyApi.class).getQuestionFeedbackList("805107", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<QuestionFeedbackModel>>(QuestionFeedbackHistoryListActivity.this) {
             @Override

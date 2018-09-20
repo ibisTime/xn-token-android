@@ -2,37 +2,24 @@ package com.cdkj.token.user.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
-import com.alibaba.verificationsdk.ui.IActivityCallback;
-import com.alibaba.verificationsdk.ui.VerifyActivity;
-import com.alibaba.verificationsdk.ui.VerifyType;
-import com.alibaba.wireless.security.jaq.JAQException;
-import com.alibaba.wireless.security.jaq.SecurityVerification;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
-import com.cdkj.codedddActivity;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
-import com.cdkj.token.find.product_application.red_package.RedPacketShareQRActivity;
 import com.cdkj.token.interfaces.StartPagePresenter;
 import com.cdkj.token.interfaces.StartPageView;
 import com.cdkj.token.model.VersionModel;
-import com.li.verification.VerificationUtils;
 
 import org.greenrobot.eventbus.EventBus;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import retrofit2.Call;
 
 import static com.cdkj.token.utils.UpdateUtil.isForceUpload;
 import static com.cdkj.token.utils.UpdateUtil.startWeb;
-import static com.umeng.commonsdk.statistics.AnalyticsConstants.LOG_TAG;
 
 /**
  * 启动页
@@ -61,10 +48,6 @@ public class StartActivity extends BaseActivity implements StartPageView {
 
         pagePresenter = new StartPagePresenter(this);
         pagePresenter.start();
-
-
-
-
 
 
     }

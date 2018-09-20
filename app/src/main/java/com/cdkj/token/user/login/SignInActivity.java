@@ -22,6 +22,7 @@ import com.cdkj.baselibrary.interfaces.LoginInterface;
 import com.cdkj.baselibrary.interfaces.LoginPresenter;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
+import com.cdkj.baselibrary.model.SendVerificationCode;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -33,7 +34,6 @@ import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivitySignInBinding;
 import com.cdkj.token.user.CountryCodeListActivity;
-import com.li.verification.VerificationAliActivity;
 
 import java.util.HashMap;
 
@@ -51,8 +51,6 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
     private final String CODE_LOGIN_CODE = "805044";//验证码登录接口编号
 
     private int changeDevCount = 0;//用于记录研发或测试环境切换条件
-
-    public int AL_IVERIFICATION_REQUEST_CODE = 100;
 
     /**
      * 打开当前页面
@@ -83,7 +81,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         setPageBgImage(R.drawable.sign_in_bg);
 
         mPresenter = new LoginPresenter(this);
-        mSendPhoneCodePresenter = new SendPhoneCodePresenter(this);
+        mSendPhoneCodePresenter = new SendPhoneCodePresenter(this, this);
         init();
         initEditInputType();
         initListener();
@@ -132,7 +130,12 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
                 UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_mobile_hint));
                 return;
             }
-            VerificationAliActivity.open(this, AL_IVERIFICATION_REQUEST_CODE);
+            String phone = mBinding.edtUsername.getText().toString().trim();
+            
+            SendVerificationCode sendVerificationCode = new SendVerificationCode(
+                    phone, CODE_LOGIN_CODE, "C", SPUtilHelper.getCountryInterCode());
+
+            mSendPhoneCodePresenter.openVerificationActivity(sendVerificationCode);
 
         });
 
@@ -213,8 +216,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         hashMap.put("systemCode", AppConfig.SYSTEMCODE);
         hashMap.put("companyCode", AppConfig.COMPANYCODE);
         hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
-        hashMap.put("client", "android");
-        Call call = RetrofitUtils.getBaseAPiService().userLogin(CODE_LOGIN_CODE, StringUtils.objectToJsonString(hashMap));
+        Call call = RetrofitUtils.getBaseAPiService().userLogin(CODE_LOGIN_CODE, StringUtils.getRequestJsonString(hashMap));
 
         showLoadingDialog();
 
@@ -295,6 +297,9 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
             mPresenter.clear();
             mPresenter = null;
         }
+        if (mSendPhoneCodePresenter != null) {
+            mSendPhoneCodePresenter.clear();
+        }
     }
 
 
@@ -327,14 +332,14 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         disMissLoadingDialog();
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) return;
-        if (requestCode == AL_IVERIFICATION_REQUEST_CODE && resultCode == VerificationAliActivity.RESULT_CODE) {
-            String sessionid = getIntent().getStringExtra(VerificationAliActivity.SESSIONID);
-            mSendPhoneCodePresenter.sendCodeRequest(mBinding.edtUsername.getText().toString().trim(), sessionid, CODE_LOGIN_CODE, "C", SPUtilHelper.getCountryInterCode(), this);
+        if (mSendPhoneCodePresenter != null) {
+            mSendPhoneCodePresenter.onActivityResult(requestCode, resultCode, data);
         }
+
     }
 
 

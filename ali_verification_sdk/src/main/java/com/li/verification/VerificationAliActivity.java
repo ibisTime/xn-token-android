@@ -8,6 +8,8 @@ import android.support.annotation.Nullable;
 import com.alibaba.verificationsdk.ui.IActivityCallback;
 import com.alibaba.verificationsdk.ui.VerifyActivity;
 import com.alibaba.verificationsdk.ui.VerifyType;
+import com.alibaba.wireless.security.jaq.JAQException;
+import com.alibaba.wireless.security.jaq.SecurityInit;
 
 import java.util.Map;
 
@@ -31,7 +33,12 @@ public class VerificationAliActivity extends Activity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        VerificationUtils.Initialize(this);
+        
+        try {
+            SecurityInit.Initialize(this);
+        } catch (JAQException e) {
+            e.printStackTrace();
+        }
 
         VerifyActivity.startSimpleVerifyUI(VerificationAliActivity.this,
                 VerifyType.NOCAPTCHA, "0335", null, new IActivityCallback() {
@@ -52,9 +59,9 @@ public class VerificationAliActivity extends Activity {
                             case VerifyActivity.VERIFY_FAILED:
                                 break;
                             default:
-                                finish();
                                 break;
                         }
+                        finish();
                     }
                 });
     }

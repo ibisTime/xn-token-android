@@ -85,7 +85,7 @@ public class ManagementMoneyListActivity extends AbsRefreshClipListActivity {
             showLoadingDialog();
         }
 
-        Call<BaseResponseModel<ResponseInListModel<ManagementMoney>>> call = RetrofitUtils.createApi(MyApi.class).getMoneyManageProductList("625510", StringUtils.objectToJsonString(map));
+        Call<BaseResponseModel<ResponseInListModel<ManagementMoney>>> call = RetrofitUtils.createApi(MyApi.class).getMoneyManageProductList("625510", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 

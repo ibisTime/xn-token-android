@@ -92,7 +92,7 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 

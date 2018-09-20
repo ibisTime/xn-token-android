@@ -1,15 +1,19 @@
 package com.cdkj.baselibrary.interfaces;
 
-import android.content.Context;
+import android.app.Activity;
+import android.content.Intent;
 import android.text.TextUtils;
 
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.AppConfig;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.model.IsSuccessModes;
+import com.cdkj.baselibrary.model.SendVerificationCode;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
+import com.li.verification.VerificationAliActivity;
 
 import java.util.HashMap;
 
@@ -22,68 +26,81 @@ import retrofit2.Call;
 public class SendPhoneCodePresenter {
 
     private SendCodeInterface mListener;
-    private Context mContext;
+    private Activity activity;
     private Call call;
 
-    private String countryCode;
+    public int AL_IVERIFICATION_REQUEST_CODE = 100;
 
-    public SendPhoneCodePresenter(SendCodeInterface view) {
+    private SendVerificationCode sendVerificationCode;
+
+    public SendPhoneCodePresenter(SendCodeInterface view, Activity activity) {
         this.mListener = view;
+        this.activity = activity;
     }
 
-    //发送验证码
-    public void
-    sendCodeRequest(String phone, String sessionID, String bizType, String kind, String countryCode, Context context) {
-        this.mContext = context;
-        this.countryCode = countryCode;
-        if (TextUtils.isEmpty(phone)) {
-            ToastUtil.show(context, mContext.getString(R.string.activity_mobile_mobile_hint));
+
+    /**
+     * 启动安全验证界面
+     *
+     * @param sendVerificationCode
+     */
+    public void openVerificationActivity(SendVerificationCode sendVerificationCode) {
+        this.sendVerificationCode = sendVerificationCode;
+        if (sendVerificationCode == null) {
             return;
         }
-        if (TextUtils.isEmpty(countryCode)) return;
-
-        request(phone, sessionID, bizType, kind);
-    }
-
-    public void
-    sendCodeRequest(String phone, String bizType, String kind, String countryCode, Context context) {
-        this.mContext = context;
-        this.countryCode = countryCode;
-        if (TextUtils.isEmpty(phone)) {
-            ToastUtil.show(context, mContext.getString(R.string.activity_mobile_mobile_hint));
+        if (TextUtils.isEmpty(sendVerificationCode.getPhone())) {
+            ToastUtil.show(activity, this.activity.getString(R.string.activity_mobile_mobile_hint));
             return;
         }
-        if (TextUtils.isEmpty(countryCode)) return;
-
-        request(phone, "", bizType, kind);
+        VerificationAliActivity.open(activity, AL_IVERIFICATION_REQUEST_CODE);
     }
+
+    /**
+     * 处理验证后回调 并发送验证码
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (data == null || sendVerificationCode == null) return;
+        if (requestCode == AL_IVERIFICATION_REQUEST_CODE && resultCode == VerificationAliActivity.RESULT_CODE) {
+            String sessionid = data.getStringExtra(VerificationAliActivity.SESSIONID);
+            sendVerificationCode.setSessionID(sessionid);
+            if (TextUtils.isEmpty(sendVerificationCode.getCountryCode()) || TextUtils.isEmpty(sessionid)) {
+                return;
+            }
+            request(sendVerificationCode);
+        }
+    }
+
 
     /**
      * 请求
      */
-    private void request(String phone, String sessionID, String bizType, String kind) {
+    private void request(SendVerificationCode sendVerificationCode) {
 
         HashMap<String, String> hashMap = new HashMap<>();
 
         hashMap.put("systemCode", AppConfig.SYSTEMCODE);
         hashMap.put("companyCode", AppConfig.COMPANYCODE);
-        hashMap.put("mobile", phone);
-        hashMap.put("bizType", bizType);
-        hashMap.put("kind", kind);
-        hashMap.put("interCode", countryCode); //国际区号
-        hashMap.put("sessionId", sessionID); //阿里验证
-
-        call = RetrofitUtils.getBaseAPiService().successRequest("805953", StringUtils.objectToJsonString(hashMap));
+        hashMap.put("mobile", sendVerificationCode.getPhone());
+        hashMap.put("bizType", sendVerificationCode.getBizType());
+        hashMap.put("kind", sendVerificationCode.getKind());
+        hashMap.put("interCode", sendVerificationCode.getCountryCode()); //国际区号
+        hashMap.put("sessionId", sendVerificationCode.getSessionID()); //阿里验证
+        call = RetrofitUtils.getBaseAPiService().successRequest("805953", StringUtils.getRequestJsonString(hashMap));
 
         mListener.StartSend();
-        call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(mContext) {
+        call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(activity) {
             @Override
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
                 if (data.isSuccess()) {
-                    ToastUtil.show(mContext, mContext.getString(R.string.smscode_send_success));
-                    mListener.CodeSuccess(mContext.getString(R.string.smscode_send_success));
+                    ToastUtil.show(activity, activity.getString(R.string.smscode_send_success));
+                    mListener.CodeSuccess(activity.getString(R.string.smscode_send_success));
                 } else {
-                    mListener.CodeFailed("", mContext.getString(R.string.smscode_send_success));
+                    mListener.CodeFailed("", activity.getString(R.string.smscode_send_success));
                 }
             }
 
@@ -102,7 +119,7 @@ public class SendPhoneCodePresenter {
             this.call = null;
         }
         this.mListener = null;
-        this.mContext = null;
+        this.activity = null;
     }
 
 

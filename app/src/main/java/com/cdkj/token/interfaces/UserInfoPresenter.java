@@ -55,7 +55,7 @@ public class UserInfoPresenter {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.objectToJsonString(map));
+        call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<UserInfoModel>(activity) {
             @Override
@@ -122,7 +122,7 @@ public class UserInfoPresenter {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.objectToJsonString(map));
+        call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<UserInfoModel>(activity) {
             @Override

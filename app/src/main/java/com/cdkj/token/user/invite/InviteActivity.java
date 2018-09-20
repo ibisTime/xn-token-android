@@ -138,7 +138,7 @@ public class InviteActivity extends AbsStatusBarTranslucentActivity implements U
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.getBaseAPiService().getKeySystemInfo("660917", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.getBaseAPiService().getKeySystemInfo("660917", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -176,7 +176,7 @@ public class InviteActivity extends AbsStatusBarTranslucentActivity implements U
 
         showLoadingDialog();
 
-        Call<BaseResponseListModel<RecommendAppModel>> call = RetrofitUtils.createApi(MyApi.class).getAppList("625412", StringUtils.objectToJsonString(map));
+        Call<BaseResponseListModel<RecommendAppModel>> call = RetrofitUtils.createApi(MyApi.class).getAppList("625412", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseListCallBack<RecommendAppModel>(this) {
             @Override

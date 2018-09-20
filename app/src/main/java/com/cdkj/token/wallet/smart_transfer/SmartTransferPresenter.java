@@ -203,7 +203,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
         if (isPrivate) {
             getMvpView().resetFeeBarProgress();
             getMvpView().setPrivatePage();
-
+            getMvpView().showGoogleEdit(false);
         } else {
             getMvpView().setCenterPage();
             getMvpView().showGoogleEdit(SPUtilHelper.getGoogleAuthFlag());

@@ -52,9 +52,8 @@ public class LoginPresenter {
         hashMap.put("countryCode", SPUtilHelper.getCountryCode());
         hashMap.put("kind", AppConfig.USERTYPE);
         hashMap.put("systemCode", AppConfig.SYSTEMCODE);
-        hashMap.put("client", "android");
 
-        call = RetrofitUtils.getBaseAPiService().userLogin("805050", StringUtils.objectToJsonString(hashMap));
+        call = RetrofitUtils.getBaseAPiService().userLogin("805050", StringUtils.getRequestJsonString(hashMap));
 
         mListener.StartLogin();
 

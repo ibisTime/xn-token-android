@@ -228,7 +228,7 @@ public class BillListActivity extends AbsLoadActivity {
         map.put("token", SPUtilHelper.getUserToken());
         map.put("systemCode", AppConfig.SYSTEMCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getBillListData("802524", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getBillListData("802524", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 

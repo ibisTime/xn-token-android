@@ -181,7 +181,7 @@ public class FindFragment extends BaseLazyFragment {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getBanner("805806", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getBanner("805806", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -259,7 +259,7 @@ public class FindFragment extends BaseLazyFragment {
 //        map.put("orderColumn", "order_no");
 //        map.put("orderDir", "desc");
 
-        Call<BaseResponseListModel<RecommendAppModel>> call = RetrofitUtils.createApi(MyApi.class).getAppList("625412", StringUtils.objectToJsonString(map));
+        Call<BaseResponseListModel<RecommendAppModel>> call = RetrofitUtils.createApi(MyApi.class).getAppList("625412", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseListCallBack<RecommendAppModel>(mActivity) {
             @Override

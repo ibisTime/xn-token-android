@@ -70,7 +70,7 @@ public class SendRedPacketPresenter extends BasePresenter<SendRedPacketView> {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getRequestJsonString(map));
 
         getMvpView().showLoadDialog();
 
@@ -123,7 +123,7 @@ public class SendRedPacketPresenter extends BasePresenter<SendRedPacketView> {
         map.put("sendNum", sendNumber);
         map.put("greeting", greeting);
         map.put("tradePwd", tradePwd);//支付密码
-        Call<BaseResponseModel<RedPackageHistoryBean>> baseResponseModelCall = RetrofitUtils.createApi(MyApi.class).sendRedPackage("623000", StringUtils.objectToJsonString(map));
+        Call<BaseResponseModel<RedPackageHistoryBean>> baseResponseModelCall = RetrofitUtils.createApi(MyApi.class).sendRedPackage("623000", StringUtils.getRequestJsonString(map));
         baseResponseModelCall.enqueue(new BaseResponseModelCallBack<RedPackageHistoryBean>(null) {
             @Override
             protected void onSuccess(RedPackageHistoryBean data, String SucMessage) {

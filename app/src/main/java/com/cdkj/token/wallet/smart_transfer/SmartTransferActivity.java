@@ -236,9 +236,11 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
         if (isVisible) {
             mBinding.tvGoogle.setVisibility(View.VISIBLE);
             mBinding.eidtGoogle.setVisibility(View.VISIBLE);
+            mBinding.linLayoutGoogle.setVisibility(View.VISIBLE);
         } else {
             mBinding.tvGoogle.setVisibility(View.GONE);
             mBinding.eidtGoogle.setVisibility(View.GONE);
+            mBinding.linLayoutGoogle.setVisibility(View.GONE);
         }
     }
 
@@ -400,7 +402,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
 
                     String amount = mBinding.editAmount.getText().toString().trim();
-                    String googleCode = mBinding.editAmount.getText().toString().trim();
+                    String googleCode = mBinding.eidtGoogle.getText().toString().trim();
 
                     smartTransferPresenter.transfer(SmartTransferActivity.this, inputMsg, amount, googleCode);
                 })

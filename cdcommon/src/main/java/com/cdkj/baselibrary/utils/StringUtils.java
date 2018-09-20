@@ -6,13 +6,15 @@ import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.alibaba.fastjson.JSON;
+import com.cdkj.baselibrary.appmanager.AppConfig;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -89,14 +91,21 @@ public class StringUtils {
         return str;
     }
 
-    public static String objectToJsonString(Object object) {
 
-        if (object == null) {
+    /**
+     * 请求参数json格式转换，公共参数添加
+     *
+     * @param requestMap
+     * @return
+     */
+    public static String getRequestJsonString(Map requestMap) {
+
+        if (requestMap == null) {
             return "";
         }
 
-        String jsonString = JSON.toJSONString(object);
-
+        requestMap.put("client", "android");
+        String jsonString = JSON.toJSONString(requestMap);
         LogUtil.BIGLOG("JSON 转换__:        " + jsonString);
 
         return jsonString;

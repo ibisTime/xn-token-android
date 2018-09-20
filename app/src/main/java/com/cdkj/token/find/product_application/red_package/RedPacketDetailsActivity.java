@@ -87,7 +87,7 @@ public class RedPacketDetailsActivity extends AbsLoadActivity {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("code", redPacketCode);
 
-        Call<BaseResponseModel<RedPacketDetails>> call = RetrofitUtils.createApi(MyApi.class).getRedPacketHistoryDetail("623006", StringUtils.objectToJsonString(map));
+        Call<BaseResponseModel<RedPacketDetails>> call = RetrofitUtils.createApi(MyApi.class).getRedPacketHistoryDetail("623006", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<RedPacketDetails>(this) {
             @Override

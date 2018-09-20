@@ -42,9 +42,9 @@ android {
         applicationId "com.cdkj.tha"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 9
-        versionName "1.9.0"
-        flavorDimensions "9"
+        versionCode 10
+        versionName "1.9.1"
+        flavorDimensions "10"
 
         multiDexEnabled true
 
@@ -136,7 +136,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':cdcommon')
-    implementation project(':ali_verification_sdk')
+
     // Banner
     implementation 'com.youth.banner:banner:1.4.10'
 //    // SwitchButton

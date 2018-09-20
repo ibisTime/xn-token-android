@@ -123,7 +123,7 @@ public class NickModifyActivity extends AbsActivity {
         map.put("token", SPUtilHelper.getUserToken());
 
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805075", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805075", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 

@@ -59,7 +59,7 @@ public class MsgListActivity extends BaseRefreshActivity {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 

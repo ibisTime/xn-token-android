@@ -95,7 +95,7 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
 
         map.put("status", "1");//status
 
-        Call<BaseResponseListModel<CountryCodeMode>> call = RetrofitUtils.createApi(MyApi.class).getCountryList("801120", StringUtils.objectToJsonString(map));
+        Call<BaseResponseListModel<CountryCodeMode>> call = RetrofitUtils.createApi(MyApi.class).getCountryList("801120", StringUtils.getRequestJsonString(map));
 
         addCall(call);
         if (isShowDialog) {

@@ -231,7 +231,7 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805080", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805080", StringUtils.getRequestJsonString(map));
         addCall(call);
 
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(mActivity) {

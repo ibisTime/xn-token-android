@@ -75,7 +75,7 @@ public class StartPagePresenter {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getVersion("660918", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -133,7 +133,7 @@ public class StartPagePresenter {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getSystemParameter("660917", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getSystemParameter("660917", StringUtils.getRequestJsonString(map));
         addCall(call);
 
         call.enqueue(new BaseResponseModelCallBack<SystemParameterModel>(null) {
@@ -168,7 +168,7 @@ public class StartPagePresenter {
 
         map.put("status", "1");//status
 
-        Call<BaseResponseListModel<CountryCodeMode>> call = RetrofitUtils.createApi(MyApi.class).getCountryList("801120", StringUtils.objectToJsonString(map));
+        Call<BaseResponseListModel<CountryCodeMode>> call = RetrofitUtils.createApi(MyApi.class).getCountryList("801120", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 

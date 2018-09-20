@@ -248,7 +248,7 @@ public class WithdrawActivity extends AbsLoadActivity {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getCoinFees("802266", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getCoinFees("802266", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -292,7 +292,7 @@ public class WithdrawActivity extends AbsLoadActivity {
         map.put("applyNote", model.getCoinSymbol() + getString(R.string.bill_type_withdraw));
         map.put("tradePwd", tradePwd);
 
-        Call call = RetrofitUtils.getBaseAPiService().codeRequest("802750", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.getBaseAPiService().codeRequest("802750", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -349,7 +349,7 @@ public class WithdrawActivity extends AbsLoadActivity {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getUserInfoDetails("805121", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 

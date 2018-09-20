@@ -407,7 +407,7 @@
     <string name="no_phone_permission"> do not have permission, can\'t make a call, please go to Settings--->Permission Management to grant users the right to call </string>
     <string name="system_message">System announcement </string>
     <string name="no_system_message">No system announcement </string>
-    <string name="my_wallet">My Wallet(%s) </string>
+    <string name="my_wallet">Platform Account(%s) </string>
     <string name="fast_transfer"> Smart Transfer </string>
     <string name="transfer_change">Instant Swap</string>
     <string name="accounts_and_security">Account and Security</string>
@@ -415,7 +415,7 @@
     <string name="language">Language </string>
     <string name="please_create_or_import_wallet">Please create or import a wallet first</string>
     <string name="no_assets">no assets </string>
-    <string name="my_private_wallet"> Decentralized Wallet(%s)</string>
+    <string name="my_private_wallet">Private Key Wallet(%s)</string>
     <string name="chain">China</string>
     <string name="now_register">Register now</string>
     <string name="no_account">No account yet? </string>
@@ -510,10 +510,10 @@
 
 
     <string name="version_num">Version：V %s</string>
-    <string name="my_account_wallet">My Wallet</string>
+    <string name="my_account_wallet">Platform Account</string>
 
     <string name="my_wallet_introduction">A personal account refers to a central wallet, which is saved by Theia for your private key. In a central wallet, there is no loss of wallet that cannot be recovered, and can be verified to retrieve your wallet and allow you to experience more services. </string>
-    <string name="my_private_wallet_title">Decentralized Wallet</string>
+    <string name="my_private_wallet_title">Private Key Wallet</string>
     <string name="my_private_wallet_introduction">The private key wallet is to go to the central wallet, in the central wallet, all user authentication content, such as trading passwords, private keys, mnemonics, etc. are stored in the user\'s mobile phone local, not stored in the centralized server. If the user mistakenly deletes the wallet, forgets to back up the private key or mnemonics, will not be able to retrieve the wallet. </string>
     <string name="advantage">Advantages</string>
     <string name="only_user_save_key">Your private keys are 100% managed by yourself</string>
@@ -938,7 +938,7 @@
 
     <string name="plealse_select_coin_type">Please select coin type</string>
 
-    <string name="private_key_account">Decentralized Wallet</string>
+    <string name="private_key_account">Private Key Wallet</string>
 
     <string name="question">Question</string>
 

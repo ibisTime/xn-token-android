@@ -17,6 +17,7 @@ import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
 import com.cdkj.baselibrary.model.AllFinishEvent;
+import com.cdkj.baselibrary.model.SendVerificationCode;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -28,7 +29,6 @@ import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivitySignUpBinding;
 import com.cdkj.token.user.CountryCodeListActivity;
-import com.li.verification.VerificationAliActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -41,10 +41,9 @@ import retrofit2.Call;
 public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
 
-    private SendPhoneCodePresenter mPresenter;
+    private SendPhoneCodePresenter mSendCodePresenter;
     private ActivitySignUpBinding mBinding;
 
-    public int AL_IVERIFICATION_REQUEST_CODE = 100;
     public static void open(Context context) {
         if (context == null) {
             return;
@@ -70,7 +69,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
         setTopTitle(getStrRes(R.string.user_title_sign_up));
         setSubLeftImgState(true);
 
-        mPresenter = new SendPhoneCodePresenter(this);
+        mSendCodePresenter = new SendPhoneCodePresenter(this, this);
 
         mBinding.edtPassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         mBinding.edtRePassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -96,7 +95,14 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(view -> {
             if (check("code")) {
-                VerificationAliActivity.open(this, AL_IVERIFICATION_REQUEST_CODE);
+
+                String phone = mBinding.edtMobile.getText().toString().trim();
+
+                SendVerificationCode sendVerificationCode = new SendVerificationCode(
+                        phone, "805041", "C", SPUtilHelper.getCountryInterCode());
+
+                mSendCodePresenter.openVerificationActivity(sendVerificationCode);
+
             }
         });
 
@@ -153,8 +159,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
         map.put("companyCode", AppConfig.COMPANYCODE);
         map.put("countryCode", SPUtilHelper.getCountryCode());
         map.put("interCode", SPUtilHelper.getCountryInterCode());
-        map.put("client", "android");
-        Call call = RetrofitUtils.createApi(MyApi.class).signUp("805041", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).signUp("805041", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -213,22 +218,21 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
         disMissLoadingDialog();
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (data == null) return;
-        if (requestCode == AL_IVERIFICATION_REQUEST_CODE && resultCode == VerificationAliActivity.RESULT_CODE) {
-            String sessionid = getIntent().getStringExtra(VerificationAliActivity.SESSIONID);
-            mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(), sessionid, "805041", "C", SPUtilHelper.getCountryInterCode(), this);
+        if (mSendCodePresenter != null) {
+            mSendCodePresenter.onActivityResult(requestCode, resultCode, data);
         }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.clear();
-            mPresenter = null;
+        if (mSendCodePresenter != null) {
+            mSendCodePresenter.clear();
+            mSendCodePresenter = null;
         }
     }
 

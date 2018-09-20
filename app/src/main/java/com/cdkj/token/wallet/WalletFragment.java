@@ -480,7 +480,7 @@ public class WalletFragment extends BaseLazyFragment {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -548,7 +548,7 @@ public class WalletFragment extends BaseLazyFragment {
         Map<String, Object> map = new HashMap<>();
         map.put("accountList", mChooseCoinList);
 
-        Call<BaseResponseModel<BalanceListModel>> call = RetrofitUtils.createApi(MyApi.class).getBalanceList("802270", StringUtils.objectToJsonString(map));
+        Call<BaseResponseModel<BalanceListModel>> call = RetrofitUtils.createApi(MyApi.class).getBalanceList("802270", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -794,7 +794,7 @@ public class WalletFragment extends BaseLazyFragment {
         map.put("fromSystemCode", AppConfig.SYSTEMCODE);
         map.put("toSystemCode", AppConfig.SYSTEMCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 

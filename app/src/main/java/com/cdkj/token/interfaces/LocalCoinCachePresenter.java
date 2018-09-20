@@ -51,7 +51,7 @@ public class LocalCoinCachePresenter {
         map.put("status", "0"); // 0已发布，1已撤下
         map.put("contractAddress", "");
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getCoinList("802267", StringUtils.objectToJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getCoinList("802267", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseListCallBack<LocalCoinDbModel>(context) {
             @Override

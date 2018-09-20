@@ -89,7 +89,7 @@ public class QuestionFeedbackDetailsActivity extends AbsLoadActivity {
 
         showLoadingDialog();
 
-        Call<BaseResponseModel<QuestionFeedbackModel>> call = RetrofitUtils.createApi(MyApi.class).getQuestionFeedbackDetails("805106", StringUtils.objectToJsonString(map));
+        Call<BaseResponseModel<QuestionFeedbackModel>> call = RetrofitUtils.createApi(MyApi.class).getQuestionFeedbackDetails("805106", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<QuestionFeedbackModel>(QuestionFeedbackDetailsActivity.this) {
             @Override

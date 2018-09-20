@@ -77,7 +77,7 @@ public class ApplicationQuestionListActivity extends AbsLoadActivity {
 
         map.put("code", appCode);
 
-        Call<BaseResponseModel<AppQuestionModel>> call = RetrofitUtils.createApi(MyApi.class).getAPPQuestionList("625413", StringUtils.objectToJsonString(map));
+        Call<BaseResponseModel<AppQuestionModel>> call = RetrofitUtils.createApi(MyApi.class).getAPPQuestionList("625413", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<AppQuestionModel>(this) {
             @Override

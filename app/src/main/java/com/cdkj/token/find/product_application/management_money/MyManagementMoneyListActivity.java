@@ -72,7 +72,7 @@ public class MyManagementMoneyListActivity extends AbsRefreshClipListActivity {
         map.put("limit", limit + "");
         map.put("language", SPUtilHelper.getLanguage());
 
-        Call<BaseResponseModel<ResponseInListModel<MyManamentMoneyProduct>>> call = RetrofitUtils.createApi(MyApi.class).getMyMoneyManageProductList("625526", StringUtils.objectToJsonString(map));
+        Call<BaseResponseModel<ResponseInListModel<MyManamentMoneyProduct>>> call = RetrofitUtils.createApi(MyApi.class).getMyMoneyManageProductList("625526", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
