@@ -235,5 +235,13 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
-#微博
+#微博分享
 -keep class com.sina.weibo.sdk.** { *; }
+#阿里验证
+-keep class com.taobao.securityjni.**{*;}
+    -keep class com.taobao.wireless.security.**{*;}
+    -keep class com.ut.secbody.**{*;}
+    -keep class com.taobao.dp.**{*;}
+    -keep class com.alibaba.wireless.security.**{*;}
+    -keep class com.alibaba.verificationsdk.**{*;}
+    -keep interface com.alibaba.verificationsdk.ui.IActivityCallback
