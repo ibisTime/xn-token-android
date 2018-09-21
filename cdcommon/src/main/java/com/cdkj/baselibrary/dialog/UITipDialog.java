@@ -85,6 +85,24 @@ public class UITipDialog extends Dialog {
         timerDismiss();
     }
 
+    public static void showFail(Activity activity, String info, OnDismissListener listener) {
+        if (tipDialog != null) {
+            tipDialog.dismiss();
+        }
+        if (activity == null || activity.isFinishing()) {
+            return;
+        }
+        tipDialog = new UITipDialog.Builder(activity)
+                .setIconType(Builder.ICON_TYPE_FAIL)
+                .setTipWord(info)
+                .create();
+        if (listener != null) {
+            tipDialog.setOnDismissListener(listener);
+        }
+        tipDialog.show();
+        timerDismiss();
+    }
+
     private static void timerDismiss() {
         if (tipDialog == null) return;
         Observable.timer(1350, TimeUnit.MILLISECONDS)

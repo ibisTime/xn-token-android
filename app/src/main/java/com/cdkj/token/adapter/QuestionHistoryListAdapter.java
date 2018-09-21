@@ -123,7 +123,7 @@ public class QuestionHistoryListAdapter extends BaseQuickAdapter<QuestionFeedbac
             case "2":
                 return mContext.getString(R.string.question_state_4) + "0";
             case "3":
-                String money = AmountUtil.amountFormatUnitForShow(questionFeedbackModel.getPayAmount(), WalletHelper.COIN_WAN, AmountUtil.ALLSCALE) + "wan";
+                String money = AmountUtil.transformFormatToString(questionFeedbackModel.getPayAmount(), WalletHelper.COIN_WAN, AmountUtil.ALLSCALE) + "wan";
                 return Html.fromHtml(mContext.getString(R.string.question_done,
                         money, getLevelString(questionFeedbackModel.getLevel()), questionFeedbackModel.getRepairVersionCode()));
         }

@@ -42,9 +42,9 @@ android {
         applicationId "com.cdkj.tha"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 8
-        versionName "1.8.0"
-        flavorDimensions "8"
+        versionCode 10
+        versionName "1.9.1"
+        flavorDimensions "10"
 
         multiDexEnabled true
 
@@ -59,7 +59,14 @@ android {
 
     }
 
-
+    signingConfigs {
+        config {
+            storeFile file("../tha.jks")
+            storePassword "tha123456"
+            keyAlias "tha"
+            keyPassword "thakey123456"
+        }
+    }
 
 
     lintOptions {
@@ -90,6 +97,7 @@ android {
         }
 
         debug {
+            signingConfig signingConfigs.config
             buildConfigField "boolean", "IS_DEBUG", "true"
             buildConfigField "String", "umeng", "\"5b73d987a40fa33a1e00017e\""
             minifyEnabled false //开启混淆
@@ -128,6 +136,7 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation project(':cdcommon')
+
     // Banner
     implementation 'com.youth.banner:banner:1.4.10'
 //    // SwitchButton
@@ -152,6 +161,10 @@ dependencies {
 
     //选择框
     implementation 'com.contrarywind:Android-PickerView:4.1.4'
+
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+
+    implementation 'com.sina.weibo.sdk:core:4.3.0:openDefaultRelease@aar'
 
 }
 ///格式化打完完成后APK名称中的时间

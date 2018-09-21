@@ -123,8 +123,13 @@ public class ImgUtils {
             return;
         }
 
-        GlideApp.with(context).load(imgid).diskCacheStrategy(DiskCacheStrategy.NONE)
-                .skipMemoryCache(true).into(img);
+        try {
+            GlideApp.with(context).load(imgid).diskCacheStrategy(DiskCacheStrategy.NONE)
+                    .skipMemoryCache(true).into(img);
+        } catch (Exception e) {
+
+        }
+
     }
 
 
@@ -171,7 +176,6 @@ public class ImgUtils {
                 .into(iv);
 
     }
-
 
 
 }

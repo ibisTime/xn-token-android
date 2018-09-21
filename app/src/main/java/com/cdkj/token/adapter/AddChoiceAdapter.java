@@ -10,6 +10,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 
 import java.util.List;
 
+import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinIconByCoinSymbol;
 import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
 
 /**
@@ -28,7 +29,7 @@ public class AddChoiceAdapter extends BaseQuickAdapter<LocalCoinDbModel, BaseVie
 
         helper.setText(R.id.tv_name, item.getSymbol());
 
-        ImgUtils.loadImage(mContext, getCoinWatermarkWithCurrency(item.getSymbol(), 0), helper.getView(R.id.iv_watermark));
+        ImgUtils.loadImage(mContext, getCoinIconByCoinSymbol(item.getSymbol()), helper.getView(R.id.iv_watermark));
 
         if (item.isChoose()) {
             helper.setImageResource(R.id.iv_choice, R.mipmap.choice_confirm);

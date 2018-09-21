@@ -150,13 +150,13 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
 
             @Override
             public void onFal(String info) {
-                disMissLoading();
+                disMissLoadingDialog();
                 ToastUtil.show(QuestionFeedbackSubmitActivity.this, info);
             }
 
             @Override
             public void onError(String info) {
-                disMissLoading();
+                disMissLoadingDialog();
                 ToastUtil.show(QuestionFeedbackSubmitActivity.this, info);
             }
         });
@@ -176,7 +176,7 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
         map.put("commitUser", SPUtilHelper.getUserId());
         map.put("commitNote", mbinding.editRemark.getText().toString());
 
-        Call<BaseResponseModel<CodeModel>> call = RetrofitUtils.getBaseAPiService().codeRequest("805100", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<CodeModel>> call = RetrofitUtils.getBaseAPiService().codeRequest("805100", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<CodeModel>(this) {
             @Override
@@ -193,7 +193,7 @@ public class QuestionFeedbackSubmitActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

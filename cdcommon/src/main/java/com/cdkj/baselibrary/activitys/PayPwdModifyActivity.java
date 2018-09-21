@@ -18,6 +18,7 @@ import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
 import com.cdkj.baselibrary.model.CountrySelectEvent;
 import com.cdkj.baselibrary.model.IsSuccessModes;
+import com.cdkj.baselibrary.model.SendVerificationCode;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
@@ -46,6 +47,8 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
     private SendPhoneCodePresenter mSendCoodePresenter;
 
     private String selectCountryCode;//用户选择的国家
+
+    private String bizType;
 
 
     /**
@@ -93,7 +96,7 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
         } else {
             setTopTitle(getString(R.string.activity_paypwd_title_set));
         }
-        mSendCoodePresenter = new SendPhoneCodePresenter(this);
+        mSendCoodePresenter = new SendPhoneCodePresenter(this, this);
         setListener();
     }
 
@@ -119,8 +122,10 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
         mBinding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                String bizType = "";
+                if (TextUtils.isEmpty(mBinding.edtPhone.getText().toString())) {
+                    UITipDialog.showInfoNoIcon(PayPwdModifyActivity.this, getString(R.string.activity_find_mobile_hint));
+                    return;
+                }
                 if (mIsSetPwd) {
                     bizType = "805067";//修改
                 } else {
@@ -128,7 +133,14 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
 
                 }
 
-                mSendCoodePresenter.sendCodeRequest(mBinding.edtPhone.getText().toString(), bizType, AppConfig.USERTYPE, selectCountryCode, PayPwdModifyActivity.this);
+                String phone = mBinding.edtPhone.getText().toString().trim();
+
+                SendVerificationCode sendVerificationCode = new SendVerificationCode(
+                        phone, bizType, AppConfig.USERTYPE, selectCountryCode);
+
+                mSendCoodePresenter.openVerificationActivity(sendVerificationCode);
+
+
             }
         });
 //确认
@@ -208,7 +220,7 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
             code = "805066";
         }
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest(code, StringUtils.getJsonToString(object));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest(code, StringUtils.getRequestJsonString(object));
         addCall(call);
         showLoadingDialog();
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(this) {
@@ -240,7 +252,7 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -265,7 +277,7 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
 
     @Override
     public void EndSend() {
-        disMissLoading();
+        disMissLoadingDialog();
     }
 
     @Override
@@ -284,4 +296,14 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
         selectCountryCode = countrySelectEvent.getCountryCode();
 
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mSendCoodePresenter != null) {
+            mSendCoodePresenter.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+
 }

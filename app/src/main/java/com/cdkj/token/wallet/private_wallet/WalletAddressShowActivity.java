@@ -19,15 +19,14 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.utils.AppUtils;
 import com.cdkj.baselibrary.utils.BitmapUtils;
 import com.cdkj.baselibrary.utils.GlideApp;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
+import com.cdkj.tha.wxapi.WxUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityAddressQrimgShowBinding;
 import com.cdkj.token.model.CoinAddressShowModel;
-import com.cdkj.token.user.CallPhoneActivity;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
@@ -83,19 +82,38 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
     private void initQRCodeAndAddress() {
         if (coinAddressShowModel == null) return;
 
-        String coinLogo = SPUtilHelper.getQiniuUrl() + LocalCoinDBUtils.getCoinWatermarkWithCurrency(coinAddressShowModel.getCoinSymbol(), 0);
+        try {
+            String coinLogo = SPUtilHelper.getQiniuUrl() + LocalCoinDBUtils.getCoinIconByCoinSymbol(coinAddressShowModel.getCoinSymbol());
 
-        GlideApp.with(this).asBitmap().load(coinLogo)
-                .into(new SimpleTarget<Bitmap>() {
+            GlideApp.with(this).asBitmap().load(coinLogo)
+                    .into(new SimpleTarget<Bitmap>() {
 
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        Bitmap mBitmap = CodeUtils.createImage(coinAddressShowModel.getAddress(), 400, 400, resource);
-                        mBinding.imgQRCode.setImageBitmap(mBitmap);
-                        mBinding.txtAddress.setText(coinAddressShowModel.getAddress());
-                    }
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            //8.0以上加载logo会崩溃，先做捕获处理
+                            try {
+                                Bitmap mBitmap = CodeUtils.createImage(coinAddressShowModel.getAddress(), 400, 400, resource);
+                                mBinding.imgQRCode.setImageBitmap(mBitmap);
+                                mBinding.txtAddress.setText(coinAddressShowModel.getAddress());
+                            } catch (Exception e) {
 
-                });
+                                try {
+                                    Bitmap mBitmap = CodeUtils.createImage(coinAddressShowModel.getAddress(), 400, 400, null);
+                                    mBinding.imgQRCode.setImageBitmap(mBitmap);
+                                    mBinding.txtAddress.setText(coinAddressShowModel.getAddress());
+                                } catch (Exception e2) {
+
+                                }
+
+                            }
+
+                        }
+
+                    });
+        } catch (Exception e) {
+
+        }
+
     }
 
     private void initListener() {
@@ -139,21 +157,22 @@ public class WalletAddressShowActivity extends AbsLoadActivity {
      * 保存图片到相册
      */
     public void saveBitmapToAlbum() {
-
-        showLoadingDialog();
-        mSubscription.add(Observable.just("")
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(s -> BitmapUtils.getBitmapByView(mBinding.scrollView))
-                .observeOn(Schedulers.newThread())
-                .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, coinAddressShowModel.getCoinSymbol()))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> {
-                    UITipDialog.showInfoNoIcon(this, getString(R.string.save_success));
-                }, throwable -> {
-                    LogUtil.E("a" + throwable);
-                    UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
-                    disMissLoading();
-                }, () -> disMissLoading()));
+        mBinding.scrollView.post(() -> {
+            showLoadingDialog();
+            mSubscription.add(Observable.just("")
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map(s -> BitmapUtils.getBitmapByView(mBinding.scrollView))
+                    .observeOn(Schedulers.newThread())
+                    .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, coinAddressShowModel.getCoinSymbol()))
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(s -> {
+                        UITipDialog.showInfoNoIcon(this, getString(R.string.save_success));
+                    }, throwable -> {
+                        LogUtil.E("a" + throwable);
+                        UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
+                        disMissLoadingDialog();
+                    }, () -> disMissLoadingDialog()));
+        });
     }
 
 

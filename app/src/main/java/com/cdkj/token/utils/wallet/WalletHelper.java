@@ -92,6 +92,7 @@ import static com.cdkj.token.utils.wallet.WalletDBColumn.WALLET_NAME;
  */
 //TODO 加密方法抽取
 //TODO 工具类方法优化 转账交易方法入参优化
+//TODO 转账方法流程逻辑封装 除了单币种转账 还有一键划转， 如果逻辑改变，需要修改好几处地方，不方便
 public class WalletHelper {
 
     //助记词分隔符
@@ -114,7 +115,6 @@ public class WalletHelper {
     //WAN 节点地址
     public final static String WAN_NODE_URL = "http://47.75.165.70:8546";
     public final static String WAN_NODE_URL_DEV = "http://120.26.6.213:8546";
-
 
 
     /**
@@ -839,7 +839,7 @@ public class WalletHelper {
     /**
      * 转账同步请求 需在子线程中操作
      *
-     * @param to
+     * @param toAddress
      * @param money
      * @return
      * @throws ExecutionException
@@ -847,20 +847,18 @@ public class WalletHelper {
      * @throws IOException
      */
 
-    public static String transferForWan(WalletDBModel walletDBModel, String to, String money, BigInteger gas_limit, BigInteger gas_price) throws ExecutionException, InterruptedException, IOException {
+    public static String transferForWan(WalletDBModel walletDBModel, String toAddress, String money, BigInteger gas_limit, BigInteger gas_price) throws ExecutionException, InterruptedException, IOException {
 
         Web3j web3j = Web3jFactory.build(new HttpService(getNodeUrlByCoinType(COIN_WAN)));
         //转账人账户地址
-        String ownAddress = walletDBModel.getWanAddress();
-        //被转人账户地址
-        String toAddress = to;
+        String fromAddress = walletDBModel.getWanAddress();
 
         //转账人私钥
         Credentials credentials = Credentials.create(walletDBModel.getWanPrivateKey());
 
         //getNonce（交易的笔数）
         EthGetTransactionCount ethGetTransactionCount = web3j.ethGetTransactionCount(
-                ownAddress, DefaultBlockParameterName.LATEST).sendAsync().get();
+                fromAddress, DefaultBlockParameterName.LATEST).sendAsync().get();
 
         BigInteger nonce = ethGetTransactionCount.getTransactionCount();
 
@@ -881,6 +879,7 @@ public class WalletHelper {
 
 
         if (ethSendTransaction == null || ethSendTransaction.getError() != null) {
+            LogUtil.E("交易失败" + ethSendTransaction.getError().getMessage());
             return "";
         }
 
@@ -1125,7 +1124,6 @@ public class WalletHelper {
     public static BigInteger getDefluteGasPrice() {
         return Contract.GAS_PRICE;
     }
-
 
 
     //获取本地币种监听

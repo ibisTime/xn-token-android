@@ -16,6 +16,7 @@ import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
 import com.cdkj.baselibrary.model.IsSuccessModes;
+import com.cdkj.baselibrary.model.SendVerificationCode;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
@@ -40,7 +41,6 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
     private String mPhoneNumber;
 
     private SendPhoneCodePresenter mSendCOdePresenter;
-
 
     /**
      * 打开当前页面
@@ -71,7 +71,7 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
     public void afterCreate(Bundle savedInstanceState) {
         setTopTitle(getString(R.string.activity_find_title));
         setSubLeftImgState(true);
-        mSendCOdePresenter = new SendPhoneCodePresenter(this);
+        mSendCOdePresenter = new SendPhoneCodePresenter(this, this);
         if (getIntent() != null) {
             mPhoneNumber = getIntent().getStringExtra("phonenumber");
         }
@@ -107,7 +107,19 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSendCOdePresenter.sendCodeRequest(mBinding.edtMobile.getText().toString(), "805063", AppConfig.USERTYPE, SPUtilHelper.getCountryInterCode(), FindLoginPwdActivity.this);
+
+                if (TextUtils.isEmpty(mBinding.edtMobile.getText().toString())) {
+                    UITipDialog.showInfoNoIcon(FindLoginPwdActivity.this, getString(R.string.activity_find_mobile_hint));
+                    return;
+                }
+
+                String phone = mBinding.edtMobile.getText().toString().trim();
+
+                SendVerificationCode sendVerificationCode = new SendVerificationCode(
+                        phone, "805063", AppConfig.USERTYPE, SPUtilHelper.getCountryInterCode());
+
+                mSendCOdePresenter.openVerificationActivity(sendVerificationCode);
+
             }
         });
 
@@ -176,7 +188,7 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
         hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
         hashMap.put("countryCode", SPUtilHelper.getCountryCode());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805063", StringUtils.getJsonToString(hashMap));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805063", StringUtils.getRequestJsonString(hashMap));
 
         addCall(call);
 
@@ -195,7 +207,7 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -224,7 +236,7 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
 
     @Override
     public void EndSend() {
-        disMissLoading();
+        disMissLoadingDialog();
     }
 
     @Override
@@ -237,5 +249,13 @@ public class FindLoginPwdActivity extends AbsActivity implements SendCodeInterfa
         }
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mSendCOdePresenter != null) {
+            mSendCOdePresenter.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 
 }

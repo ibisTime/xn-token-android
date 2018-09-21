@@ -125,7 +125,7 @@ public class UpdateLoginPasswordActivity extends AbsActivity {
         hashMap.put("systemCode", AppConfig.SYSTEMCODE);
         hashMap.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call= RetrofitUtils.getBaseAPiService().successRequest("805064", StringUtils.getJsonToString(hashMap));
+        Call call= RetrofitUtils.getBaseAPiService().successRequest("805064", StringUtils.getRequestJsonString(hashMap));
 
         addCall(call);
 
@@ -142,7 +142,7 @@ public class UpdateLoginPasswordActivity extends AbsActivity {
 
             @Override
             protected void onFinish() {
-             disMissLoading();
+             disMissLoadingDialog();
             }
         });
 

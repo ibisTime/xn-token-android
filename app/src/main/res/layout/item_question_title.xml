@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="55dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/tv_title"
+        tools:text="怎么发红包？"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="30dp"
+        android:textColor="@color/text_black_cd"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:layout_width="12dp"
+        android:layout_height="12dp"
+        android:layout_gravity="right|center_vertical"
+        android:layout_marginRight="15dp"
+        android:src="@drawable/more" />
+
+    <View
+        style="@style/style_split_line"
+        android:layout_gravity="bottom" />
+
+
+</FrameLayout>

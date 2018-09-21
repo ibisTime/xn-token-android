@@ -69,13 +69,13 @@ public class BillDetailActivity extends AbsLoadActivity {
 
         int i = tas.compareTo(BigDecimal.ZERO);
         if (i == 1) {
-            mBinding.tvAmount.setText("+" + AmountUtil.amountFormatUnitForShow(tas, coinUnit, 8) + " " + bean.getCurrency());
+            mBinding.tvAmount.setText("+" + AmountUtil.transformFormatToString(tas, coinUnit, 8) + " " + bean.getCurrency());
         } else {
-            mBinding.tvAmount.setText(AmountUtil.amountFormatUnitForShow(tas, coinUnit, 8) + " " + bean.getCurrency());
+            mBinding.tvAmount.setText(AmountUtil.transformFormatToString(tas, coinUnit, 8) + " " + bean.getCurrency());
         }
 
-        mBinding.tvBefore.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(bean.getPreAmountString()),coinUnit, 8));
-        mBinding.tvAfter.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(bean.getPostAmountString()),coinUnit, 8));
+        mBinding.tvBefore.setText(AmountUtil.transformFormatToString(new BigDecimal(bean.getPreAmountString()),coinUnit, 8));
+        mBinding.tvAfter.setText(AmountUtil.transformFormatToString(new BigDecimal(bean.getPostAmountString()),coinUnit, 8));
         mBinding.tvDate.setText(DateUtil.formatStringData(bean.getCreateDatetime(), DEFAULT_DATE_FMT));
         mBinding.tvType.setText(AmountUtil.formatBizType(bean.getBizType()));
         mBinding.tvStatus.setText(AmountUtil.formatBillStatus(bean.getStatus()));

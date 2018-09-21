@@ -24,10 +24,11 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.FragmentFindBinding;
 import com.cdkj.token.common.loader.BannerImageLoader;
 import com.cdkj.token.find.product_application.management_money.ManagementMoneyListActivity;
+import com.cdkj.token.find.product_application.red_package.SendRedPacketActivity;
 import com.cdkj.token.model.BannerModel;
 import com.cdkj.token.model.RecommendAppModel;
 import com.cdkj.token.user.WebViewImgBgActivity;
-import com.cdkj.token.find.product_application.red_package.SendRedPackageActivity;
+import com.cdkj.token.user.invite.InviteActivity;
 import com.youth.banner.BannerConfig;
 
 import java.util.ArrayList;
@@ -48,6 +49,7 @@ public class FindFragment extends BaseLazyFragment {
     private List<BannerModel> bannerData = new ArrayList<>();
 
     private AppListAdapter appListAdapter;
+    public static String RED_PACKET = "red_packet";
 
     /**
      * 获得fragment实例
@@ -110,11 +112,16 @@ public class FindFragment extends BaseLazyFragment {
             }
 
             switch (recommendAppModel.getAction()) {
+
                 case "red_packet"://跳到红包
-                    SendRedPackageActivity.open(mActivity);
+//                    SendRedPackageActivity.open(mActivity);
+                    SendRedPacketActivity.open(mActivity, recommendAppModel.getCode());
                     break;
                 case "money_manager"://跳到量化理财
                     ManagementMoneyListActivity.open(mActivity);
+                    break;
+                case "invitation"://跳到邀请有礼
+                    InviteActivity.open(mActivity);
                     break;
                 case "none":
                     WebViewImgBgActivity.openContent(mActivity, recommendAppModel.getName(), recommendAppModel.getDescription());
@@ -174,7 +181,7 @@ public class FindFragment extends BaseLazyFragment {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getBanner("805806", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getBanner("805806", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -252,7 +259,7 @@ public class FindFragment extends BaseLazyFragment {
 //        map.put("orderColumn", "order_no");
 //        map.put("orderDir", "desc");
 
-        Call<BaseResponseListModel<RecommendAppModel>> call = RetrofitUtils.createApi(MyApi.class).getAppList("625412", StringUtils.getJsonToString(map));
+        Call<BaseResponseListModel<RecommendAppModel>> call = RetrofitUtils.createApi(MyApi.class).getAppList("625412", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseListCallBack<RecommendAppModel>(mActivity) {
             @Override

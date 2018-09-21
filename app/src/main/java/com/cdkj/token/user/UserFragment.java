@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.activitys.ImageSelectActivity;
 import com.cdkj.baselibrary.activitys.NickModifyActivity;
-import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
@@ -30,10 +29,10 @@ import com.cdkj.token.R;
 import com.cdkj.token.databinding.FragmentUser2Binding;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;
-import com.cdkj.token.user.invite.InviteFriendActivity;
+import com.cdkj.token.user.credit.CreditActivity;
+import com.cdkj.token.user.invite.InviteActivity;
 import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
 import com.cdkj.token.user.setting.UserSettingActivity;
-import com.cdkj.token.common.ThaAppConstant;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
 
@@ -43,11 +42,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import retrofit2.Call;
-import zendesk.core.AnonymousIdentity;
-import zendesk.core.Identity;
-import zendesk.core.Zendesk;
-import zendesk.support.Support;
-import zendesk.support.guide.HelpCenterActivity;
 
 /**
  * 我的
@@ -105,13 +99,13 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
         });
 
         //修改昵称
-        mBinding.linLayoutNickName.setOnClickListener(view -> {
+        mBinding.tvNickName.setOnClickListener(view -> {
             NickModifyActivity.open(mActivity, SPUtilHelper.getUserName());
         });
 
         //邀请有礼
         mBinding.linLayoutInvite.setOnClickListener(view -> {
-            InviteFriendActivity.open(mActivity);
+            InviteActivity.open(mActivity);
         });
 
         //更换头像
@@ -145,7 +139,10 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
         //设置
         mBinding.setting.setOnClickListener(view -> UserSettingActivity.open(mActivity));
 
-
+        //信用积分
+        mBinding.tvCreditAmount.setOnClickListener(view -> {
+            CreditActivity.open(mActivity);
+        });
     }
 
     @Override
@@ -234,7 +231,7 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805080", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805080", StringUtils.getRequestJsonString(map));
         addCall(call);
 
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(mActivity) {

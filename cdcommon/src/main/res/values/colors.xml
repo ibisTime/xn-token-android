@@ -72,4 +72,9 @@
 
     <color name="title_mid_color">#333333</color>
 
+    <color name="invite_color_gray">#A2A5C4</color>
+    <color name="invite_color_blue">#00F9FE</color>
+
+
+
 </resources>

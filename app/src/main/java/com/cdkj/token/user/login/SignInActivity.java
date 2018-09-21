@@ -22,6 +22,7 @@ import com.cdkj.baselibrary.interfaces.LoginInterface;
 import com.cdkj.baselibrary.interfaces.LoginPresenter;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
+import com.cdkj.baselibrary.model.SendVerificationCode;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -50,7 +51,6 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
     private final String CODE_LOGIN_CODE = "805044";//验证码登录接口编号
 
     private int changeDevCount = 0;//用于记录研发或测试环境切换条件
-
 
     /**
      * 打开当前页面
@@ -81,7 +81,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         setPageBgImage(R.drawable.sign_in_bg);
 
         mPresenter = new LoginPresenter(this);
-        mSendPhoneCodePresenter = new SendPhoneCodePresenter(this);
+        mSendPhoneCodePresenter = new SendPhoneCodePresenter(this, this);
         init();
         initEditInputType();
         initListener();
@@ -130,8 +130,13 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
                 UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_mobile_hint));
                 return;
             }
+            String phone = mBinding.edtUsername.getText().toString().trim();
+            
+            SendVerificationCode sendVerificationCode = new SendVerificationCode(
+                    phone, CODE_LOGIN_CODE, "C", SPUtilHelper.getCountryInterCode());
 
-            mSendPhoneCodePresenter.sendCodeRequest(mBinding.edtUsername.getText().toString().trim(), CODE_LOGIN_CODE, "C", SPUtilHelper.getCountryInterCode(), this);
+            mSendPhoneCodePresenter.openVerificationActivity(sendVerificationCode);
+
         });
 
         //登录
@@ -211,7 +216,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         hashMap.put("systemCode", AppConfig.SYSTEMCODE);
         hashMap.put("companyCode", AppConfig.COMPANYCODE);
         hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
-        Call call = RetrofitUtils.getBaseAPiService().userLogin(CODE_LOGIN_CODE, StringUtils.getJsonToString(hashMap));
+        Call call = RetrofitUtils.getBaseAPiService().userLogin(CODE_LOGIN_CODE, StringUtils.getRequestJsonString(hashMap));
 
         showLoadingDialog();
 
@@ -221,14 +226,14 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
                 if (!TextUtils.isEmpty(data.getToken()) && !TextUtils.isEmpty(data.getUserId())) {
                     loginSuccessNext(data);
                 } else {
-                    disMissLoading();
+                    disMissLoadingDialog();
                     UITipDialog.showInfoNoIcon(SignInActivity.this, SucMessage);
                 }
             }
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -260,7 +265,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
 
     @Override
     public void LoginFailed(String code, String msg) {
-        disMissLoading();
+        disMissLoadingDialog();
         showToast(msg);
     }
 
@@ -281,7 +286,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
 
     @Override
     public void EndLogin() {
-        disMissLoading();
+        disMissLoadingDialog();
     }
 
 
@@ -291,6 +296,9 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         if (mPresenter != null) {
             mPresenter.clear();
             mPresenter = null;
+        }
+        if (mSendPhoneCodePresenter != null) {
+            mSendPhoneCodePresenter.clear();
         }
     }
 
@@ -321,7 +329,17 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
 
     @Override
     public void EndSend() {
-        disMissLoading();
+        disMissLoadingDialog();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mSendPhoneCodePresenter != null) {
+            mSendPhoneCodePresenter.onActivityResult(requestCode, resultCode, data);
+        }
+
     }
 
 

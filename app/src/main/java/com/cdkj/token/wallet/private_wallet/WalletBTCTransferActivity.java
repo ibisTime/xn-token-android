@@ -109,7 +109,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvCurrency.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinSymbol(), ALLSCALE) + " " + accountListBean.getCoinSymbol());
+            mBinding.tvCurrency.setText(AmountUtil.transformFormatToString(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinSymbol(), ALLSCALE) + " " + accountListBean.getCoinSymbol());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinSymbol());
         }
 
@@ -144,7 +144,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
         showLoadingDialog();
 
-        Call<BaseResponseModel<UTXOListModel>> call = RetrofitUtils.createApi(MyApi.class).getUtxoList("802220", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<UTXOListModel>> call = RetrofitUtils.createApi(MyApi.class).getUtxoList("802220", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<UTXOListModel>(this) {
             @Override
@@ -156,7 +156,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
             @Override
             protected void onReqFailure(String errorCode, String errorMessage) {
-                disMissLoading();
+                disMissLoadingDialog();
             }
 
             @Override
@@ -164,7 +164,6 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
                 getFeesRequest();
             }
         });
-
 
     }
 
@@ -178,7 +177,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         Map<String, String> map = new HashMap<>();
         map.put("signTx", txSign);
         showLoadingDialog();
-        Call<BaseResponseModel<TxHashModel>> call = RetrofitUtils.createApi(MyApi.class).btcTransactionBroadcast("802222", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<TxHashModel>> call = RetrofitUtils.createApi(MyApi.class).btcTransactionBroadcast("802222", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseModelCallBack<TxHashModel>(this) {
             @Override
@@ -196,7 +195,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -209,7 +208,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
         showLoadingDialog();
 
-        Call<BaseResponseModel<BtcFeesModel>> call = RetrofitUtils.createApi(MyApi.class).getBtcFees("802223", StringUtils.getJsonToString(new HashMap<>()));
+        Call<BaseResponseModel<BtcFeesModel>> call = RetrofitUtils.createApi(MyApi.class).getBtcFees("802223", StringUtils.getRequestJsonString(new HashMap<>()));
 
         call.enqueue(new BaseResponseModelCallBack<BtcFeesModel>(this) {
             @Override
@@ -221,7 +220,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -375,7 +374,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                        disMissLoading();
+                        disMissLoadingDialog();
                         UITipDialog.showFail(WalletBTCTransferActivity.this, getString(R.string.transfer_fail));
                     }
 

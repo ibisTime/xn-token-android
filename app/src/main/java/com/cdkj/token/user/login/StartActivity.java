@@ -42,11 +42,13 @@ public class StartActivity extends BaseActivity implements StartPageView {
         } catch (Exception e) {
             e.printStackTrace();
         }
+
         setContentView(R.layout.activity_start);
 
 
         pagePresenter = new StartPagePresenter(this);
         pagePresenter.start();
+
 
     }
 

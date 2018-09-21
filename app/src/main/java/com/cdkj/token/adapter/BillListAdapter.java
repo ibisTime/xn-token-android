@@ -49,10 +49,10 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
         BigDecimal tas = new BigDecimal(item.getTransAmountString());
         int i = tas.compareTo(BigDecimal.ZERO);
         if (i == 1) {
-            helper.setText(R.id.tv_amount, "+" + AmountUtil.amountFormatUnitForShow(tas, item.getCurrency(), 8));
+            helper.setText(R.id.tv_amount, "+" + AmountUtil.transformFormatToString(tas, item.getCurrency(), 8));
             helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.in_money));
         } else {
-            helper.setText(R.id.tv_amount, AmountUtil.amountFormatUnitForShow(tas, item.getCurrency(), 8));
+            helper.setText(R.id.tv_amount, AmountUtil.transformFormatToString(tas, item.getCurrency(), 8));
             helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.out_money));
         }
 
@@ -88,6 +88,9 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
                     ivType.setImageResource(R.drawable.coin_out);
                     break;
                 case "lhlc_repay": // 量化理财还款
+                    ivType.setImageResource(R.drawable.coin_in);
+                    break;
+                case "jf_lottery_in": // 积分抽奖
                     ivType.setImageResource(R.drawable.coin_in);
                     break;
             }

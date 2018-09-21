@@ -59,7 +59,7 @@ public class MsgListActivity extends BaseRefreshActivity {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -77,7 +77,7 @@ public class MsgListActivity extends BaseRefreshActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }

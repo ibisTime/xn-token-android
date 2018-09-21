@@ -175,7 +175,7 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
 
         //购买金额小于起购余额
         if (!BigDecimalUtils.compareTo2(buyAmount, managementMoney.getMinAmount())) {
-            UITipDialog.showInfoNoIcon(mActivity, mActivity.getString(R.string.money_product_check_1) + AmountUtil.amountFormatUnitForShow(managementMoney.getMinAmount(), coinuUnit, AmountUtil.ALLSCALE));
+            UITipDialog.showInfoNoIcon(mActivity, mActivity.getString(R.string.money_product_check_1) + AmountUtil.transformFormatToString(managementMoney.getMinAmount(), coinuUnit, AmountUtil.ALLSCALE));
             return;
         }
 
@@ -201,7 +201,7 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
 
         //3不能大于限购金额
         if (BigDecimalUtils.compareTo(buyAmount, managementMoney.getLimitAmount())) {
-            UITipDialog.showInfoNoIcon(mActivity, mActivity.getString(R.string.money_product_check_4) + AmountUtil.amountFormatUnitForShow(managementMoney.getLimitAmount(), coinuUnit, AmountUtil.ALLSCALE));
+            UITipDialog.showInfoNoIcon(mActivity, mActivity.getString(R.string.money_product_check_4) + AmountUtil.transformFormatToString(managementMoney.getLimitAmount(), coinuUnit, AmountUtil.ALLSCALE));
             return;
         }
 
@@ -254,7 +254,7 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
 
         coinuUnit = LocalCoinDBUtils.getLocalCoinUnit(coinName);
 
-        mBinding.tvBalance.setText(AmountUtil.amountFormatUnitForShow(balance, coinuUnit, AmountUtil.ALLSCALE) + " " + coinName);
+        mBinding.tvBalance.setText(AmountUtil.transformFormatToString(balance, coinuUnit, AmountUtil.ALLSCALE) + " " + coinName);
 
         setIncomeForecast("0");
 

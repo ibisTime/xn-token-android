@@ -13,6 +13,7 @@ import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
 import com.cdkj.baselibrary.model.IsSuccessModes;
+import com.cdkj.baselibrary.model.SendVerificationCode;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
@@ -38,14 +39,14 @@ import static com.cdkj.baselibrary.utils.SystemUtils.paste;
 
 public class UserGoogleActivity extends AbsActivity implements SendCodeInterface {
 
-    private SendPhoneCodePresenter mPresenter;
+    private SendPhoneCodePresenter mSendCodePresenter;
 
     private ActivityUserGoogleBinding mBinding;
 
     private String status;
     private String bizType;
 
-    public static void open(Context context,String status){
+    public static void open(Context context, String status) {
         if (context == null) {
             return;
         }
@@ -91,15 +92,15 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
 
     @Override
     public void EndSend() {
-        disMissLoading();
+        disMissLoadingDialog();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.clear();
-            mPresenter = null;
+        if (mSendCodePresenter != null) {
+            mSendCodePresenter.clear();
+            mSendCodePresenter = null;
         }
     }
 
@@ -108,25 +109,25 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
             return;
 
         status = getIntent().getStringExtra("status");
-        if (status.equals("close")){ // 关闭谷歌验证
+        if (status.equals("close")) { // 关闭谷歌验证
 
             mBinding.llKey.setVisibility(View.GONE);
             mBinding.lineKey.setVisibility(View.GONE);
 
             mBinding.btnConfirm.setText(getStrRes(R.string.user_google_btn_close));
 
-        }else if (status.equals("modify")){ // 修改谷歌验证
+        } else if (status.equals("modify")) { // 修改谷歌验证
             // 获取密钥
             getGoogleKey();
 
             mBinding.btnConfirm.setText(getStrRes(R.string.user_google_btn_modify));
-        }else { // 打开修改谷歌验证
+        } else { // 打开修改谷歌验证
             // 获取密钥
             getGoogleKey();
         }
 
 
-        mPresenter = new SendPhoneCodePresenter(this);
+        mSendCodePresenter = new SendPhoneCodePresenter(this, this);
     }
 
     private void initListener() {
@@ -140,19 +141,27 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
 
         mBinding.btnSend.setOnClickListener(view -> {
 
-            if (status.equals("close")){
+            if (status.equals("close")) {
                 bizType = "805072";
-            }else {
+            } else {
                 bizType = "805071";
             }
-            mPresenter.sendCodeRequest(SPUtilHelper.getUserPhoneNum(), bizType,"C",SPUtilHelper.getCountryInterCode(),this);
+
+
+            String phone = SPUtilHelper.getUserPhoneNum();
+
+            SendVerificationCode sendVerificationCode = new SendVerificationCode(
+                    phone, bizType, "C", SPUtilHelper.getCountryInterCode());
+
+            mSendCodePresenter.openVerificationActivity(sendVerificationCode);
+
         });
 
         mBinding.btnConfirm.setOnClickListener(view -> {
             if (check())
-                if (status.equals("close")){ // 关闭谷歌验证
+                if (status.equals("close")) { // 关闭谷歌验证
                     closeGoogleKey();
-                }else { // 打开或者修改谷歌验证
+                } else { // 打开或者修改谷歌验证
                     openGoogleKey();
                 }
 
@@ -161,9 +170,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
 
     private void getGoogleKey() {
 
-        JSONObject object = new JSONObject();
-
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805070", object.toString());
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805070", "{}");
 
         addCall(call);
 
@@ -182,13 +189,13 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
 
-    private boolean check(){
-        if (TextUtils.isEmpty(mBinding.edtGoogle.getText().toString())){
+    private boolean check() {
+        if (TextUtils.isEmpty(mBinding.edtGoogle.getText().toString())) {
             showToast(getStrRes(R.string.google_code_hint));
             return false;
         }
@@ -198,7 +205,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
             return false;
         }
 
-        if (TextUtils.isEmpty(mBinding.edtCode.getText().toString())){
+        if (TextUtils.isEmpty(mBinding.edtCode.getText().toString())) {
             showToast(getStrRes(R.string.sms_code_hint));
             return false;
         }
@@ -208,13 +215,14 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
 
     /**
      * 判断是否为纯数字
+     *
      * @param str
      * @return
      */
-    public boolean isNumeric(String str){
+    public boolean isNumeric(String str) {
         Pattern pattern = Pattern.compile("[0-9]*");
         Matcher isNum = pattern.matcher(str);
-        if( !isNum.matches() ){
+        if (!isNum.matches()) {
             return false;
         }
         return true;
@@ -228,7 +236,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
         map.put("smsCaptcha", mBinding.edtCode.getText().toString());
         map.put("userId", SPUtilHelper.getUserId());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805071", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805071", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -241,7 +249,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
                 if (data == null)
                     return;
 
-                if (data.isSuccess()){
+                if (data.isSuccess()) {
                     SPUtilHelper.saveGoogleAuthFlag(true);
                     finish();
                 }
@@ -250,7 +258,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
@@ -263,7 +271,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805072", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805072", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -276,7 +284,7 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
                 if (data == null)
                     return;
 
-                if (data.isSuccess()){
+                if (data.isSuccess()) {
                     SPUtilHelper.saveGoogleAuthFlag(false);
                     finish();
                 }
@@ -286,8 +294,16 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mSendCodePresenter != null) {
+            mSendCodePresenter.onActivityResult(requestCode, resultCode, data);
+        }
     }
 }

@@ -12,9 +12,11 @@ import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.databinding.ActivityModifyPhoneBinding;
+import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
 import com.cdkj.baselibrary.model.IsSuccessModes;
+import com.cdkj.baselibrary.model.SendVerificationCode;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.AppUtils;
@@ -35,6 +37,7 @@ public class UpdatePhoneActivity extends AbsActivity implements SendCodeInterfac
     private ActivityModifyPhoneBinding mBinding;
 
     private SendPhoneCodePresenter mSendCodePresenter;
+
 
     /**
      * 打开当前页面
@@ -63,7 +66,7 @@ public class UpdatePhoneActivity extends AbsActivity implements SendCodeInterfac
         setTopTitle(getString(R.string.activity_mobile_title));
         setSubLeftImgState(true);
 
-        mSendCodePresenter = new SendPhoneCodePresenter(this);
+        mSendCodePresenter = new SendPhoneCodePresenter(this, this);
 
         initListener();
     }
@@ -73,7 +76,17 @@ public class UpdatePhoneActivity extends AbsActivity implements SendCodeInterfac
         mBinding.btnSendNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mSendCodePresenter.sendCodeRequest(mBinding.edtPhoneNew.getText().toString(), "805061", AppConfig.USERTYPE, SPUtilHelper.getCountryInterCode(),UpdatePhoneActivity.this);
+                if (TextUtils.isEmpty(mBinding.edtPhoneNew.getText())) {
+                    UITipDialog.showInfoNoIcon(UpdatePhoneActivity.this, getString(com.cdkj.baselibrary.R.string.activity_paypwd_mobile_hint));
+                    return;
+                }
+
+                String phone = mBinding.edtPhoneNew.getText().toString().trim();
+
+                SendVerificationCode sendVerificationCode = new SendVerificationCode(
+                        phone, "805061", AppConfig.USERTYPE, SPUtilHelper.getCountryInterCode());
+
+                mSendCodePresenter.openVerificationActivity(sendVerificationCode);
             }
         });
 
@@ -109,7 +122,7 @@ public class UpdatePhoneActivity extends AbsActivity implements SendCodeInterfac
         map.put("smsCaptcha", mBinding.edtCodeNew.getText().toString());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805061", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805061", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -119,13 +132,13 @@ public class UpdatePhoneActivity extends AbsActivity implements SendCodeInterfac
             protected void onSuccess(IsSuccessModes data, String SucMessage) {
                 if (data.isSuccess()) {
                     showToast(getString(R.string.activity_mobile_modify_success));
-                   finish();
+                    finish();
                 }
             }
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
@@ -147,15 +160,26 @@ public class UpdatePhoneActivity extends AbsActivity implements SendCodeInterfac
 
     @Override
     public void EndSend() {
-        disMissLoading();
+        disMissLoadingDialog();
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(mSendCodePresenter!=null){
+        if (mSendCodePresenter != null) {
             mSendCodePresenter.clear();
-            mSendCodePresenter=null;
+            mSendCodePresenter = null;
         }
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mSendCodePresenter != null) {
+            mSendCodePresenter.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+
+
 }

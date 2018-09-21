@@ -10,6 +10,7 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Environment;
 import android.text.TextUtils;
+import android.view.View;
 import android.widget.ScrollView;
 
 import com.cdkj.baselibrary.CdApplication;
@@ -335,6 +336,9 @@ public class BitmapUtils {
         Bitmap bitmap = null;
         // 获取scrollview实际高度
         for (int i = 0; i < scrollView.getChildCount(); i++) {
+            if (scrollView.getChildAt(i).getVisibility() != View.VISIBLE) {
+                continue;
+            }
             h += scrollView.getChildAt(i).getHeight();
             scrollView.getChildAt(i).setBackgroundColor(
                     Color.parseColor("#ffffff"));
@@ -344,9 +348,78 @@ public class BitmapUtils {
                 Bitmap.Config.ARGB_8888);
         final Canvas canvas = new Canvas(bitmap);
         scrollView.draw(canvas);
+        return bitmap;
+    }
+
+    /**
+     * 截取view的生产bitmap
+     *
+     * @param view
+     * @return
+     */
+    public static Bitmap getBitmapByView(View view) {
+        Bitmap bitmap = Bitmap.createBitmap(view.getWidth(), view.getHeight(),
+                Bitmap.Config.ARGB_8888);
+
+        final Canvas canvas = new Canvas(bitmap);
+
+        view.draw(canvas);
+
+
+//        view.setDrawingCacheEnabled(true);
+//        view.buildDrawingCache();
+//        Bitmap bitmap = Bitmap.createBitmap(view.getDrawingCache());
 
         return bitmap;
     }
 
+    /**
+     * 微信分享图片压缩
+     *
+     * @param image
+     * @return
+     */
+    public static byte[] WeChatBitmapToByteArray(Bitmap image) {
+
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+
+        image.compress(Bitmap.CompressFormat.JPEG, 100, baos);//质量压缩方法，这里100表示不压缩，把压缩后的数据存放到baos中
+
+        if (baos.toByteArray().length <= 32 * 1024) {
+            return baos.toByteArray();
+        }
+
+//        final BitmapFactory.Options boptions = new BitmapFactory.Options();
+
+//        boptions.inJustDecodeBounds = true;//只解析图片边沿，获取宽高
+//        // 计算缩放比
+//        boptions.inSampleSize = calculateInSampleSize(boptions);
+//        // 完整解析图片返回bitmap
+//        boptions.inJustDecodeBounds = false;
+//        image = BitmapFactory.decodeByteArray(baos.toByteArray(), 0, baos.toByteArray().length, boptions);
+
+
+        int options = 90;
+        while ((baos.toByteArray().length) > 32 * 1024) {  //循环判断如果压缩后图片是否大于32kb,大于继续压缩
+            baos.reset();//重置baos即清空baos
+            image.compress(Bitmap.CompressFormat.JPEG, options, baos);//这里压缩options%，把压缩后的数据存放到baos中
+            options -= 10;//每次都减少10
+            if (options <= 10) {
+                break;
+            }
+        }
+
+        byte[] byteArray = baos.toByteArray();
+
+        try {
+            if (baos != null) {
+                baos.close();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return byteArray;
+    }
 
 }

@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
+import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -22,6 +23,7 @@ import com.cdkj.baselibrary.databinding.ActivityWebviewBinding;
 import com.cdkj.baselibrary.model.IntroductionInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 
 import java.util.HashMap;
@@ -37,7 +39,7 @@ public class WebViewActivity extends AbsActivity {
 
     private ActivityWebviewBinding mBinding;
 
-    private WebView webView;
+//    private WebView webView;
 
     /**
      * 加载activity
@@ -111,39 +113,45 @@ public class WebViewActivity extends AbsActivity {
         //输入法
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-        webView = new WebView(this);
-        webView.getSettings().setJavaScriptEnabled(true);//js
-        webView.getSettings().setDefaultTextEncodingName("UTF-8");
-//       webView.getSettings().setSupportZoom(true);   //// 支持缩放
-//       webView.getSettings().setBuiltInZoomControls(true);//// 支持缩放
-//       webView.getSettings().setDomStorageEnabled(true);//开启DOM
-//       webView.getSettings().setLoadWithOverviewMode(false);//// 缩放至屏幕的大小
-//       webView.getSettings().setUseWideViewPort(true);//将图片调整到适合webview的大小
-//       webView.getSettings().setLoadsImagesAutomatically(true);//支持自动加载图片
-        webView.setWebChromeClient(new MyWebViewClient1());
+//        webView = new WebView(this);
+        mBinding.webview.getSettings().setJavaScriptEnabled(true);//js
+        mBinding.webview.getSettings().setDefaultTextEncodingName("UTF-8");
+        mBinding.webview.getSettings().setSupportZoom(true);   //// 支持缩放
+        mBinding.webview.getSettings().setBuiltInZoomControls(true);//// 支持缩放
+        mBinding.webview.getSettings().setDomStorageEnabled(true);//开启DOM
+        mBinding.webview.getSettings().setLoadWithOverviewMode(true);//// 缩放至屏幕的大小
+        mBinding.webview.getSettings().setUseWideViewPort(true);//将图片调整到适合webview的大小
+        mBinding.webview.getSettings().setLoadsImagesAutomatically(true);//支持自动加载图片
+        mBinding.webview.setWebChromeClient(new MyWebViewClient1());
+        mBinding.webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
 
-        webView.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            mBinding.webview.getSettings().setMixedContentMode( mBinding.webview.getSettings().MIXED_CONTENT_ALWAYS_ALLOW);
+//        }
+//
 
-        webView.setWebViewClient(new WebViewClient() {
+        mBinding.webview.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
+
             }
 
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
                 handler.proceed();  // 接受所有网站的证书
             }
         });
-
-        mBinding.linLayoutWebView.addView(webView, 1);
+        mBinding.webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
+//        mBinding.linLayoutWebView.addView(webView, 1);
 
     }
+
 
     private void initData() {
         if (getIntent() == null) {
@@ -151,8 +159,8 @@ public class WebViewActivity extends AbsActivity {
         }
 
         setTopTitle(getIntent().getStringExtra("title"));
-
-        if (TextUtils.isEmpty(getIntent().getStringExtra("url"))) {
+        String url = getIntent().getStringExtra("url");
+        if (TextUtils.isEmpty(url)) {
 
             if (TextUtils.isEmpty(getIntent().getStringExtra("content"))) {
                 getKeyUrl(getIntent().getStringExtra("code"));
@@ -160,7 +168,9 @@ public class WebViewActivity extends AbsActivity {
                 showContent(getIntent().getStringExtra("content"));
             }
         } else {
-            webView.loadUrl(getIntent().getStringExtra("url"));
+
+            LogUtil.E("打开url" + url);
+            mBinding.webview.loadUrl(url);
         }
 
     }
@@ -177,7 +187,7 @@ public class WebViewActivity extends AbsActivity {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.getBaseAPiService().getKeySystemInfo("660917", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().getKeySystemInfo("660917", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -194,7 +204,7 @@ public class WebViewActivity extends AbsActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -202,7 +212,7 @@ public class WebViewActivity extends AbsActivity {
     }
 
     private void showContent(String content) {
-        webView.loadData(content, "text/html;charset=UTF-8", "UTF-8");
+        mBinding.webview.loadData(content, "text/html;charset=UTF-8", "UTF-8");
     }
 
 
@@ -225,8 +235,8 @@ public class WebViewActivity extends AbsActivity {
     }
 
     private void goBack() {
-        if (webView != null && webView.canGoBack()) {
-            webView.goBack();
+        if (mBinding.webview != null && mBinding.webview.canGoBack()) {
+            mBinding.webview.goBack();
         } else {
             finish();
         }
@@ -235,15 +245,14 @@ public class WebViewActivity extends AbsActivity {
 
     @Override
     protected void onDestroy() {
-        if (webView != null) {
-            webView.clearHistory();
-            ((ViewGroup) webView.getParent()).removeView(webView);
-            webView.loadUrl("about:blank");
-            webView.stopLoading();
-            webView.setWebChromeClient(null);
-            webView.setWebViewClient(null);
-            webView.destroy();
-            webView = null;
+        if (mBinding.webview != null) {
+            mBinding.webview.clearHistory();
+            ((ViewGroup) mBinding.webview.getParent()).removeView(mBinding.webview);
+            mBinding.webview.loadUrl("about:blank");
+            mBinding.webview.stopLoading();
+            mBinding.webview.setWebChromeClient(null);
+            mBinding.webview.setWebViewClient(null);
+            mBinding.webview.destroy();
         }
         super.onDestroy();
     }

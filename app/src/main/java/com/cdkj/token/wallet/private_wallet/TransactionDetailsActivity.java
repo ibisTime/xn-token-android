@@ -92,7 +92,7 @@ public class TransactionDetailsActivity extends AbsLoadActivity {
             mBinding.tvStateString.setText(R.string.transfer);
         }
 
-        mBinding.tvMoney.setText(getMoneyStateByState(localCoinBill.getDirection()) + AmountUtil.amountFormatUnitForShow(localCoinBill.getValue(), coinType, ALLSCALE) + " " + coinType);
+        mBinding.tvMoney.setText(getMoneyStateByState(localCoinBill.getDirection()) + AmountUtil.transformFormatToString(localCoinBill.getValue(), coinType, ALLSCALE) + " " + coinType);
 
         mBinding.tvToAddress.setText(localCoinBill.getTo());
         mBinding.tvFromAddress.setText(localCoinBill.getFrom());
@@ -105,7 +105,7 @@ public class TransactionDetailsActivity extends AbsLoadActivity {
 
 
         mBinding.tvDate.setText(DateUtil.formatStringData(localCoinBill.getTransDatetime(), DEFAULT_DATE_FMT));
-        mBinding.tvGas.setText(AmountUtil.amountFormatUnitForShow(localCoinBill.getTxFee(), this.coinType, ALLSCALE));
+        mBinding.tvGas.setText(AmountUtil.transformFormatToString(localCoinBill.getTxFee(), this.coinType, ALLSCALE));
         mBinding.tvTransctionCode.setText(localCoinBill.getTxHash());
 
 

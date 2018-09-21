@@ -87,6 +87,17 @@ public interface BaseApiServer {
     @POST("api")
     Call<BaseResponseModel<String>> stringRequest(@Field("code") String code, @Field("json") String json);
 
+    /**
+     * Test
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseListModel<String>> stringListRequest(@Field("code") String code, @Field("json") String json);
+
 
     /**
      * 支付(支付宝)

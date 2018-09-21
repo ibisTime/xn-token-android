@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.widget.ProgressBar;
 
 import com.cdkj.baselibrary.utils.BigDecimalUtils;
-import com.cdkj.baselibrary.utils.MoneyUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.ManagementMoney;
@@ -44,7 +43,7 @@ public class ManagementMoneyListAdapter extends BaseQuickAdapter<ManagementMoney
         helper.setText(R.id.tv_time, mContext.getString(R.string.product_days, item.getLimitDays() + ""));
 
         helper.setText(R.id.tv_min_money, Html.fromHtml(mContext.getString(R.string.product_buy_minamount,
-                AmountUtil.amountFormatUnitForShow(item.getMinAmount(), unit, AmountUtil.ALLSCALE) + item.getSymbol())));
+                AmountUtil.transformFormatToString(item.getMinAmount(), unit, AmountUtil.ALLSCALE) + item.getSymbol())));
 
         helper.setText(R.id.tv_state, getStateString(item, unit));
 
@@ -84,7 +83,7 @@ public class ManagementMoneyListAdapter extends BaseQuickAdapter<ManagementMoney
             case "4":
                 return mContext.getString(R.string.management_money_state_4);
             case "5":
-                return Html.fromHtml(mContext.getString(R.string.product_buy_end, AmountUtil.amountFormatUnitForShow(data.getAvilAmount(), unit, AmountUtil.ALLSCALE) + data.getSymbol()));
+                return Html.fromHtml(mContext.getString(R.string.product_buy_end, AmountUtil.transformFormatToString(data.getAvilAmount(), unit, AmountUtil.ALLSCALE) + data.getSymbol()));
             case "6":
 
                 if (BigDecimalUtils.compareEqualsZERO(data.getAvilAmount())) {

@@ -197,7 +197,7 @@
                             app:cardElevation="3dp">
 
                             <LinearLayout
-                                android:id="@+id/linLayout_fast_transfer"
+                                android:id="@+id/linLayout_smart_transfer"
                                 android:layout_width="match_parent"
                                 android:layout_height="50dp"
                                 android:gravity="center"

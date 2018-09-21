@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="ALiLoaddingView"><attr format="integer" name="ali_vsdk_loading_type"/></declare-styleable>
+    <string name="ali_vsdk_network_error">网络不给力，请稍后再试</string>
+    <string name="ali_vsdk_refresh">刷新</string>
+    <string name="ali_vsdk_tips">安全验证</string>
+    <string name="ali_vsdk_tips_finish">验证通过</string>
+    <string name="ali_vsdk_tips_sub">为了你的帐号安全，本次登录需要进行验证。请将下方的图标，移动到圆形区域内</string>
+    <string name="ali_vsdk_titlebar_back">返回</string>
+    <string name="ali_vsdk_titlebar_name"/>
+    <string name="ali_vsdk_verify_call_calling">电话拨打中...请留意一下来电</string>
+    <string name="ali_vsdk_verify_call_dialog_cancel">取消</string>
+    <string name="ali_vsdk_verify_call_dialog_ok">接听</string>
+    <string name="ali_vsdk_verify_call_goto_tips">现在接听语音安全验证?</string>
+    <string name="ali_vsdk_verify_call_recall">收不到验证码，请重新接听电话</string>
+    <string name="ali_vsdk_verify_call_title">语音安全验证</string>
+    <string name="ali_vsdk_verify_code">验证码</string>
+    <string name="ali_vsdk_verify_error">验证码错误，请重新输入</string>
+    <string name="ali_vsdk_verify_error_call">验证码错误，请挂断电话，重新发送验证码</string>
+    <string name="ali_vsdk_verify_in_progress">阿里聚安全验证中</string>
+    <string name="ali_vsdk_verify_no_code">请输入验证码</string>
+    <string name="ali_vsdk_verify_number">手机号</string>
+    <string name="ali_vsdk_verify_sms_send_code">发送验证码</string>
+    <string name="ali_vsdk_verify_sms_subtitle">已帮您抵御验证码劫持风险</string>
+    <string name="ali_vsdk_verify_sms_timeout">%1$d秒后重新接收</string>
+    <string name="ali_vsdk_verify_sms_title">短信安全验证</string>
+    <string name="ali_vsdk_verify_sms_use_call">无法通过？接听语音安全验证</string>
+    <string name="ali_vsdk_verify_submit">提交</string>
+</resources>

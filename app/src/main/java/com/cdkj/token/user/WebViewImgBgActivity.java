@@ -175,7 +175,7 @@ public class WebViewImgBgActivity extends AbsStatusBarTranslucentActivity {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.getBaseAPiService().getKeySystemInfo("660917", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().getKeySystemInfo("660917", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -192,7 +192,7 @@ public class WebViewImgBgActivity extends AbsStatusBarTranslucentActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

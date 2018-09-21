@@ -235,3 +235,5 @@
     public static **[] values();
     public static ** valueOf(java.lang.String);
 }
+#微博
+-keep class com.sina.weibo.sdk.** { *; }

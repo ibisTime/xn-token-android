@@ -12,7 +12,6 @@ import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
-import com.cdkj.token.adapter.MyManagementMoneyAdapter;
 import com.cdkj.token.databinding.ActivityMyManageMoneyDetailsBinding;
 import com.cdkj.token.model.MyManagementMoney;
 import com.cdkj.token.model.MyManamentMoneyProduct;
@@ -82,9 +81,9 @@ public class MyManagementMoneyDetailsActivity extends AbsLoadActivity {
 
         mBinding.tvIncomeRate.setText(StringUtils.showformatPercentage(myManagementMoney.getExpectYield()));
 
-        mBinding.tvIncome.setText(AmountUtil.amountFormatUnitForShow(moneyProduct.getExpectIncome(), myManagementMoney.getSymbol(), AmountUtil.ALLSCALE) + myManagementMoney.getSymbol());
+        mBinding.tvIncome.setText(AmountUtil.transformFormatToString(moneyProduct.getExpectIncome(), myManagementMoney.getSymbol(), AmountUtil.ALLSCALE) + myManagementMoney.getSymbol());
 
-        mBinding.tvBuyAmount.setText(AmountUtil.amountFormatUnitForShow(moneyProduct.getInvestAmount(), myManagementMoney.getSymbol(), AmountUtil.ALLSCALE) + myManagementMoney.getSymbol());
+        mBinding.tvBuyAmount.setText(AmountUtil.transformFormatToString(moneyProduct.getInvestAmount(), myManagementMoney.getSymbol(), AmountUtil.ALLSCALE) + myManagementMoney.getSymbol());
 
         mBinding.tvStartTime.setText(DateUtil.formatStringData(myManagementMoney.getIncomeDatetime(), DateUtil.DEFAULT_DATE_FMT));
         mBinding.tvEndTime.setText(DateUtil.formatStringData(myManagementMoney.getArriveDatetime(), DateUtil.DEFAULT_DATE_FMT));

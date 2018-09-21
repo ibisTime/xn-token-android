@@ -6,13 +6,15 @@ import android.text.TextUtils;
 import android.widget.EditText;
 
 import com.alibaba.fastjson.JSON;
+import com.cdkj.baselibrary.appmanager.AppConfig;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
@@ -89,14 +91,21 @@ public class StringUtils {
         return str;
     }
 
-    public static String getJsonToString(Object object) {
 
-        if (object == null) {
+    /**
+     * 请求参数json格式转换，公共参数添加
+     *
+     * @param requestMap
+     * @return
+     */
+    public static String getRequestJsonString(Map requestMap) {
+
+        if (requestMap == null) {
             return "";
         }
 
-        String jsonString = JSON.toJSONString(object);
-
+        requestMap.put("client", "android");
+        String jsonString = JSON.toJSONString(requestMap);
         LogUtil.BIGLOG("JSON 转换__:        " + jsonString);
 
         return jsonString;
@@ -393,6 +402,23 @@ public class StringUtils {
             return "0";
         }
         return string;
+    }
+
+    /**
+     * 检测position是否在list中越界
+     *
+     * @param list
+     * @param position
+     * @return
+     */
+    public static boolean checkPostionCrossingInList(List list, int position) {
+
+        if (list == null || list.size() == 0 || position < 0 || position > list.size()) {
+            return true;
+        }
+
+        return false;
+
     }
 
 }

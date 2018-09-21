@@ -240,7 +240,7 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
                         })
                         .observeOn(AndroidSchedulers.mainThread())
 
-                        .doOnComplete(() -> disMissLoading())
+                        .doOnComplete(() -> disMissLoadingDialog())
                         .subscribe(walletString -> {
                             if (!TextUtils.isEmpty(walletString)) {
                                 SPUtilHelper.createWalletCache(walletString); //转为String暂存 用户只有进行备份之后才会使用

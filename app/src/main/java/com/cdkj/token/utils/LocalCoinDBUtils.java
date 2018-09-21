@@ -7,6 +7,7 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.R;
+import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletDBColumn;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
@@ -38,8 +39,30 @@ public class LocalCoinDBUtils {
      * @param coinType 0 公链币（ETH BTC WAN）
      * @return
      */
-    public static boolean isCommonChainCoin(String coinType) {
+    public static boolean isCommonChainCoinByType(String coinType) {
         return TextUtils.equals("0", coinType);
+    }
+
+    /**
+     * 判断是否token币
+     * @param coinSymbol
+     * @return
+     */
+    public static boolean isTokenCoinBySymbol(String coinSymbol) {
+        return !isBTC(coinSymbol) && !isETH(coinSymbol) && !isWAN(coinSymbol);
+    }
+
+
+    public static boolean isBTC(String coinSymbol) {
+        return TextUtils.equals(WalletHelper.COIN_BTC, coinSymbol);
+    }
+
+    public static boolean isETH(String coinSymbol) {
+        return TextUtils.equals(WalletHelper.COIN_ETH, coinSymbol);
+    }
+
+    public static boolean isWAN(String coinSymbol) {
+        return TextUtils.equals(WalletHelper.COIN_WAN, coinSymbol);
     }
 
 
@@ -56,11 +79,11 @@ public class LocalCoinDBUtils {
     /**
      * 判断是否ETH token币
      *
-     * @param coinName
+     * @param coinSymbol
      * @return
      */
-    public static boolean isEthTokenCoinByName(String coinName) {
-        return isEthTokenCoin(getLocalCoinType(coinName));
+    public static boolean isEthTokenCoinByName(String coinSymbol) {
+        return isEthTokenCoin(getLocalCoinType(coinSymbol));
     }
 
     /**
@@ -73,6 +96,38 @@ public class LocalCoinDBUtils {
         return TextUtils.equals("2", coinType);
     }
 
+    /**
+     * 根据币种获取地址
+     *
+     * @param coinSymbol
+     * @return
+     */
+    public static String getAddressByCoin(String coinSymbol, String userId) {
+        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(userId);
+        if (isBTC(coinSymbol)) {
+            return walletDBModel.getBtcAddress();
+        }
+
+        if (isETH(coinSymbol)) {
+            return walletDBModel.getEthAddress();
+        }
+
+        if (isWAN(coinSymbol)) {
+            return walletDBModel.getWanAddress();
+        }
+
+        String type = getLocalCoinType(coinSymbol);
+
+        if (isEthTokenCoin(type)) {
+            return walletDBModel.getEthAddress();
+        }
+
+        if (isWanTokenCoin(type)) {
+            return walletDBModel.getWanAddress();
+        }
+
+        return "";
+    }
 
     /**
      * 更新本地缓存
@@ -174,6 +229,16 @@ public class LocalCoinDBUtils {
         }
 
         return getCoinStringAttributesByCoinSymbol(attributes, currency);
+    }
+
+    /**
+     * 获取币种icon
+     *
+     * @param coinSymbol
+     * @return
+     */
+    public static String getCoinIconByCoinSymbol(String coinSymbol) {
+        return getCoinWatermarkWithCurrency(coinSymbol, 0);
     }
 
 

@@ -54,57 +54,9 @@
                         android:orientation="horizontal">
 
                         <LinearLayout
-                            android:id="@+id/linLayout_nick_name"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:id="@+id/tv_nick_name"
-                                android:layout_width="wrap_content"
-                                android:layout_height="0dp"
-                                android:layout_weight="1"
-                                android:ellipsize="end"
-                                android:maxLines="1"
-                                android:textColor="@color/text_black_cd"
-                                android:textSize="16sp"
-                                tools:text="哈哈哈" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="25dp"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal">
-
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:src="@drawable/phone" />
-
-                                <TextView
-                                    android:id="@+id/tv_phone_number"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginLeft="10dp"
-                                    android:ellipsize="end"
-                                    android:maxLines="1"
-                                    android:textColor="@color/gray_666666"
-                                    android:textSize="12sp"
-                                    tools:text="1111111" />
-
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
                             android:layout_width="65dp"
                             android:layout_height="wrap_content"
-                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
                             android:orientation="vertical">
 
                             <ImageView
@@ -121,6 +73,75 @@
                                 android:layout_height="65dp"
                                 android:layout_gravity="bottom"
                                 android:src="@drawable/user_logo" />
+
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/linLayout_nick_name"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginLeft="5dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_marginTop="8dp"
+                                android:id="@+id/tv_nick_name"
+                                android:layout_width="wrap_content"
+                                android:layout_height="0dp"
+                                android:layout_weight="1"
+                                android:ellipsize="end"
+                                android:maxLines="1"
+                                android:textColor="@color/text_black_cd"
+                                android:textSize="16sp"
+                                tools:text="哈哈哈" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal">
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:src="@drawable/phone" />
+
+                                <TextView
+                                    android:id="@+id/tv_phone_number"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:text="&#12288;&#12288;&#12288;&#12288;&#12288;"
+                                    android:textColor="@color/gray_666666"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:id="@+id/tv_credit_amount"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:padding="10dp"
+                                    android:text="@string/credit_score"
+                                    android:textColor="@color/gray_666666"
+                                    android:textSize="12sp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:ellipsize="end"
+                                    android:maxLines="1"
+                                    android:text="0"
+                                    android:textColor="#007AFF"
+                                    android:textSize="12sp" />
+
+                            </LinearLayout>
 
 
                         </LinearLayout>

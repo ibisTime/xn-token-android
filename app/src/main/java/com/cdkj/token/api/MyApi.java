@@ -6,6 +6,7 @@ import com.cdkj.baselibrary.api.ResponseInListModel;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.token.model.AddressModel;
+import com.cdkj.token.model.AppQuestionModel;
 import com.cdkj.token.model.BTCBillModel;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.BannerModel;
@@ -40,6 +41,7 @@ import com.cdkj.token.model.RateModel;
 import com.cdkj.token.model.RecommendAppModel;
 import com.cdkj.token.model.RedPackageDetialsBean;
 import com.cdkj.token.model.RedPackageHistoryBean;
+import com.cdkj.token.model.RedPacketDetails;
 import com.cdkj.token.model.StatisticsListModel;
 import com.cdkj.token.model.SystemMessageModel;
 import com.cdkj.token.model.SystemParameterListModel;
@@ -79,6 +81,23 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<UTXOListModel>> getUtxoList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取红包详情
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<RedPacketDetails>> getRedPacketHistoryDetail(@Field("code") String code, @Field("json") String json);
+    /**
+     * 获取红包详情
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<AppQuestionModel>> getAPPQuestionList(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取国家列表
@@ -233,6 +252,7 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<BalanceListModel>> getBalanceList(@Field("code") String code, @Field("json") String json);
+
     /**
      * 根据币种列表获取相应的币种信息列表
      *
@@ -260,6 +280,7 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<MsgListModel>> getMsgList(@Field("code") String code, @Field("json") String json);
+
     /**
      * 获取消息列表
      *
@@ -338,6 +359,7 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<CoinModel>> getAccount(@Field("code") String code, @Field("json") String json);
+
     /**
      * 获取用户账户
      *

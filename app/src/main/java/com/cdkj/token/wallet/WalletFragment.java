@@ -12,8 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.api.BaseResponseModel;
-import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.AppConfig;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
@@ -48,6 +48,7 @@ import com.cdkj.token.wallet.account_wallet.BillListActivity;
 import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
 import com.cdkj.token.wallet.import_guide.ImportWalletStartActivity;
 import com.cdkj.token.wallet.private_wallet.WalletCoinDetailsActivity;
+import com.cdkj.token.wallet.smart_transfer.SmartTransferActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -61,7 +62,7 @@ import java.util.Map;
 import io.reactivex.disposables.Disposable;
 import retrofit2.Call;
 
-import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinWatermarkWithCurrency;
+import static com.cdkj.token.utils.LocalCoinDBUtils.getCoinIconByCoinSymbol;
 import static com.cdkj.token.views.CardChangeLayout.BOTTOMVIEW;
 import static com.cdkj.token.views.CardChangeLayout.TOPVIEW;
 
@@ -73,7 +74,7 @@ import static com.cdkj.token.views.CardChangeLayout.TOPVIEW;
 public class WalletFragment extends BaseLazyFragment {
 
 
-    private final String HIND_SIGN = "****";//隐藏金额
+    public static final String HIND_SIGN = "****";//隐藏金额
 
     private FragmentWallet2Binding mBinding;
 
@@ -173,10 +174,6 @@ public class WalletFragment extends BaseLazyFragment {
             MsgListActivity.open(mActivity);
         });
 
-        //一键划转
-        mBinding.linLayoutFastTransfer.setOnClickListener(view -> {
-            FutureImageShowActivity.open(mActivity, NoneActivity.ONE_CLICK);
-        });
 
         //闪兑
         mBinding.linLayoutTransferChange.setOnClickListener(view -> {
@@ -201,6 +198,17 @@ public class WalletFragment extends BaseLazyFragment {
         //私钥钱包说明
         mBinding.cardChangeLayout.imgMyPrivateWalletInfo.setOnClickListener(view -> {
             new InfoSureDialog(mActivity).setInfoTitle(getString(R.string.my_private_wallet_title)).setInfoContent(getString(R.string.my_private_wallet_introduction)).show();
+        });
+
+        //一键划转
+
+        mBinding.linLayoutSmartTransfer.setOnClickListener(view -> {
+            boolean isHasInfo = WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId());
+            if (!isHasInfo) {
+                CreateWalletStartActivity.open(mActivity);
+                return;
+            }
+            SmartTransferActivity.open(mActivity, isPrivateWallet);
         });
 
 
@@ -472,7 +480,7 @@ public class WalletFragment extends BaseLazyFragment {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -540,7 +548,7 @@ public class WalletFragment extends BaseLazyFragment {
         Map<String, Object> map = new HashMap<>();
         map.put("accountList", mChooseCoinList);
 
-        Call<BaseResponseModel<BalanceListModel>> call = RetrofitUtils.createApi(MyApi.class).getBalanceList("802270", StringUtils.getJsonToString(map));
+        Call<BaseResponseModel<BalanceListModel>> call = RetrofitUtils.createApi(MyApi.class).getBalanceList("802270", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -631,7 +639,7 @@ public class WalletFragment extends BaseLazyFragment {
 
             CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();    //0 公链币（ETH BTC WAN） 1 ethtoken（ETH） 2 wantoken（WAN）        通过币种和type 添加地址
 
-            if (LocalCoinDBUtils.isCommonChainCoin(localCoinDbModel.getType())) {
+            if (LocalCoinDBUtils.isCommonChainCoinByType(localCoinDbModel.getType())) {
 
                 if (TextUtils.equals(WalletHelper.COIN_BTC, localCoinDbModel.getSymbol())) {
                     coinTypeAndAddress.setAddress(walletDBModel.getBtcAddress());
@@ -713,7 +721,7 @@ public class WalletFragment extends BaseLazyFragment {
                 walletBalanceModel.setAvailableAmount(amount.subtract(frozenAmount));
             }
 
-            walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getCurrency(), 0));
+            walletBalanceModel.setCoinImgUrl(getCoinIconByCoinSymbol(accountListBean.getCurrency()));
 
             walletBalanceModel.setLocalMarketPrice(accountListBean.getMarketStringByLocalSymbol());
 
@@ -755,7 +763,7 @@ public class WalletFragment extends BaseLazyFragment {
 
             walletBalanceModel.setAvailableAmount(new BigDecimal(accountListBean.getBalance()));
 
-            walletBalanceModel.setCoinImgUrl(getCoinWatermarkWithCurrency(accountListBean.getSymbol(), 0));
+            walletBalanceModel.setCoinImgUrl(getCoinIconByCoinSymbol(accountListBean.getSymbol()));
 
             walletBalanceModel.setLocalMarketPrice(accountListBean.getMarketStringByLocalSymbol());
 
@@ -786,7 +794,7 @@ public class WalletFragment extends BaseLazyFragment {
         map.put("fromSystemCode", AppConfig.SYSTEMCODE);
         map.put("toSystemCode", AppConfig.SYSTEMCODE);
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getMsgList("804040", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 

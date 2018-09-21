@@ -49,6 +49,24 @@ public class ThaAppConstant {
         return stringBuffer.toString();
     }
 
+    /**
+     * 获取红包分享路径
+     *
+     * @param
+     * @return
+     */
+    public static String getCoinGameUrl() {
+
+        StringBuffer stringBuffer = new StringBuffer();
+        stringBuffer.append("/luckDraw/luckDraw.html?");
+
+        stringBuffer.append("userId=" + SPUtilHelper.getUserId());// 邀请码
+
+        stringBuffer.append("&lang=" + SPUtilHelper.getLanguage());//国际化
+
+        return stringBuffer.toString();
+    }
+
 
     /**
      * 获取邀请好友url :http://m.thadev.hichengdai.com/user/register.html?inviteCode=U201807030441369491006&lang=ZH_CN

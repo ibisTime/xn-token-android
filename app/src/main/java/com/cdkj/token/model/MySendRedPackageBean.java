@@ -102,9 +102,9 @@ public class MySendRedPackageBean {
         private double totalCount;
         private double singleCount;
         private String greeting;
-        private double sendNum;
-        private double receivedNum;
-        private double receivedCount;
+        private int sendNum;
+        private int receivedNum;
+        private int receivedCount;
         private double bestHandCount;
         private String createDateTime;
         private String status;
@@ -168,27 +168,27 @@ public class MySendRedPackageBean {
             this.greeting = greeting;
         }
 
-        public double getSendNum() {
+        public int getSendNum() {
             return sendNum;
         }
 
-        public void setSendNum(double sendNum) {
+        public void setSendNum(int sendNum) {
             this.sendNum = sendNum;
         }
 
-        public double getReceivedNum() {
+        public int getReceivedNum() {
             return receivedNum;
         }
 
-        public void setReceivedNum(double receivedNum) {
+        public void setReceivedNum(int receivedNum) {
             this.receivedNum = receivedNum;
         }
 
-        public double getReceivedCount() {
+        public int getReceivedCount() {
             return receivedCount;
         }
 
-        public void setReceivedCount(double receivedCount) {
+        public void setReceivedCount(int receivedCount) {
             this.receivedCount = receivedCount;
         }
 

@@ -167,7 +167,7 @@ public class WalletFragmentPresenter {
         map.put("contractAddress", "");
 
         return RetrofitUtils.createApi(MyApi.class)
-                .getCoinListObservable("802267", StringUtils.getJsonToString(map))
+                .getCoinListObservable("802267", StringUtils.getRequestJsonString(map))
                 .compose(RxTransformerListHelper.applySchedulersResult(activity));
     }
 
@@ -182,7 +182,7 @@ public class WalletFragmentPresenter {
         map.put("currency", "");
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
-        return RetrofitUtils.createApi(MyApi.class).getAccountObservable("802503", StringUtils.getJsonToString(map))
+        return RetrofitUtils.createApi(MyApi.class).getAccountObservable("802503", StringUtils.getRequestJsonString(map))
                 .compose(RxTransformerHelper.applySchedulersResult(activity));
     }
 
@@ -200,7 +200,7 @@ public class WalletFragmentPresenter {
         map.put("toSystemCode", AppConfig.SYSTEMCODE);
 
         return RetrofitUtils.createApi(MyApi.class)
-                .getMsgListObservable("804040", StringUtils.getJsonToString(map))
+                .getMsgListObservable("804040", StringUtils.getRequestJsonString(map))
                 .compose(RxTransformerHelper.applySchedulersResult(activity));
 
     }
@@ -409,7 +409,7 @@ public class WalletFragmentPresenter {
 
             CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();    //0 公链币（ETH BTC WAN） 1 ethtoken（ETH） 2 wantoken（WAN）        通过币种和type 添加地址
 
-            if (LocalCoinDBUtils.isCommonChainCoin(localCoinDbModel.getType())) {
+            if (LocalCoinDBUtils.isCommonChainCoinByType(localCoinDbModel.getType())) {
 
                 if (TextUtils.equals(WalletHelper.COIN_BTC, localCoinDbModel.getSymbol())) {
                     coinTypeAndAddress.setAddress(walletDBModel.getBtcAddress());

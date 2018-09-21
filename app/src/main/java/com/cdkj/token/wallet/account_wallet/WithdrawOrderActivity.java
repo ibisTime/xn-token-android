@@ -62,7 +62,7 @@ public class WithdrawOrderActivity extends BaseRefreshActivity<WithdrawOrderMode
         map.put("limit", limit+"");
         map.put("start", pageIndex+"");
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getWithdrawOrder("802755", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getWithdrawOrder("802755", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -80,7 +80,7 @@ public class WithdrawOrderActivity extends BaseRefreshActivity<WithdrawOrderMode
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }

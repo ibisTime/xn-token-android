@@ -17,6 +17,7 @@ import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.SendCodeInterface;
 import com.cdkj.baselibrary.interfaces.SendPhoneCodePresenter;
 import com.cdkj.baselibrary.model.AllFinishEvent;
+import com.cdkj.baselibrary.model.SendVerificationCode;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -40,7 +41,7 @@ import retrofit2.Call;
 public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
 
-    private SendPhoneCodePresenter mPresenter;
+    private SendPhoneCodePresenter mSendCodePresenter;
     private ActivitySignUpBinding mBinding;
 
     public static void open(Context context) {
@@ -68,7 +69,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
         setTopTitle(getStrRes(R.string.user_title_sign_up));
         setSubLeftImgState(true);
 
-        mPresenter = new SendPhoneCodePresenter(this);
+        mSendCodePresenter = new SendPhoneCodePresenter(this, this);
 
         mBinding.edtPassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         mBinding.edtRePassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -94,7 +95,14 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
         mBinding.edtCode.getSendCodeBtn().setOnClickListener(view -> {
             if (check("code")) {
-                mPresenter.sendCodeRequest(mBinding.edtMobile.getText().toString().trim(), "805041", "C", SPUtilHelper.getCountryInterCode(), this);
+
+                String phone = mBinding.edtMobile.getText().toString().trim();
+
+                SendVerificationCode sendVerificationCode = new SendVerificationCode(
+                        phone, "805041", "C", SPUtilHelper.getCountryInterCode());
+
+                mSendCodePresenter.openVerificationActivity(sendVerificationCode);
+
             }
         });
 
@@ -151,7 +159,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
         map.put("companyCode", AppConfig.COMPANYCODE);
         map.put("countryCode", SPUtilHelper.getCountryCode());
         map.put("interCode", SPUtilHelper.getCountryInterCode());
-        Call call = RetrofitUtils.createApi(MyApi.class).signUp("805041", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).signUp("805041", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -180,7 +188,7 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
@@ -207,15 +215,24 @@ public class SignUpActivity extends AbsActivity implements SendCodeInterface {
 
     @Override
     public void EndSend() {
-        disMissLoading();
+        disMissLoadingDialog();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (mSendCodePresenter != null) {
+            mSendCodePresenter.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mPresenter != null) {
-            mPresenter.clear();
-            mPresenter = null;
+        if (mSendCodePresenter != null) {
+            mSendCodePresenter.clear();
+            mSendCodePresenter = null;
         }
     }
 

@@ -41,7 +41,7 @@
     <string name="bill_type_withdrawfrozen">Frozen is</string>
 
     <string name="bill_type_withdrawunfrozen"> The to unfreeze</string>
-    <string name="bill_type_select">Filter to</string>
+    <string name="bill_type_select">Filter</string>
     <string name="bill_title_all"> Balance detail </string>
     <string name="bill_title_charge"> Recharge detail </string>
     <string name="bill_title_withdraw">Coin detail </string>
@@ -165,7 +165,7 @@
     <string name="biz_type_tradefee">Transaction fees </string>
 
     <string name="biz_type_withdrawfee">A fee </string>
-    <string name="biz_status_daiduizhang">To be reconciled </string>
+    <string name="biz_status_daiduizhang">Balance to be checked</string>
     <string name="biz_status_yiduiyiping">Account and been been flat. has has reconciled the
 </string>
     <string name="biz_status_zhangbuping">Account account adjusted approval be for is not the to</string>
@@ -176,28 +176,28 @@
 
 
     <string name="wallet_withdraw_balance">Available balance </string>
-    <string name="wallet_withdraw_address">Receive address </string>
+    <string name="wallet_withdraw_address">Receiver’s address</string>
     <string name="wallet_withdraw_address_input_hint">Please paste the address or scan code entry </string>
-    <string name="wallet_withdraw_amount">Withdraw amount </string>
-    <string name="wallet_withdraw_free">Withdraw fee\u3000</string>
-    <string name="wallet_withdraw_tip">The withdraw fee will be deducted from the cash amount </string>
-    <string name="wallet_withdraw_confirm"> Withdraw confirm </string>
-    <string name="wallet_withdraw_order_title">Withdraw order </string>
+    <string name="wallet_withdraw_amount">Amount </string>
+    <string name="wallet_withdraw_free">Mining  fee\u3000</string>
+    <string name="wallet_withdraw_tip">Mining fee will be deducted from the amount you sent out</string>
+    <string name="wallet_withdraw_confirm">Confirm </string>
+    <string name="wallet_withdraw_order_title">Transaction </string>
     <string name="wallet_withdraw_order_none">No withdraw records </string>
     <string name="wallet_title">My assets</string>
     <string name="bill_frozen_none">No frozen details</string>
-    <string name="wallet_title_bill_detail">Billing details </string>
-    <string name="wallet_bill_detail_before">Amount before the change</string>
-    <string name="wallet_bill_detail_after">Amount after Change</string>
-    <string name="wallet_bill_detail_date">Change date </string>
-    <string name="wallet_bill_detail_status">Detail status </string>
-    <string name="wallet_bill_detail_type">Detail summary </string>
+    <string name="wallet_title_bill_detail">Transaction Record </string>
+    <string name="wallet_bill_detail_before">Balance before transaction</string>
+    <string name="wallet_bill_detail_after">Balance after transaction</string>
+    <string name="wallet_bill_detail_date">Transaction time</string>
+    <string name="wallet_bill_detail_status">Transaction status</string>
+    <string name="wallet_bill_detail_type">Transaction summary</string>
     <string name="wallet_title_bill_list">Billing </string>
     <string name="wallet_title_charge">Recharge</string>
     <string name="wallet_charge_record">Record </string>
 
     <string name="wallet_charge_address_copy_success">Address has been copied</string>
-    <string name="wallet_title_withdraw">Withdraw </string>
+    <string name="wallet_title_withdraw">Send</string>
     <string name="wallet_withdraw_address_hint">Please input the sending address </string>
     <string name="wallet_withdraw_success"> withdraw the application successfully </string>
     <string name="wallet_transfer_success">Transfer application successfully </string>
@@ -364,7 +364,7 @@
     <string name="choose_fee_tip">Selecting an economic fee may result in an extended transaction confirmation time. For transactions that require time, please choose prioritized fee</string>
     <string name="priority">Priority </string>
     <string name="extract_amount">to raise the amount of money </string>
-    <string name="transaction_record">Transaction record </string>
+    <string name="transaction_record">Transactions</string>
     <string name="business_app">Business Application</string>
     <string name="coin_to_coin">coin coin </string>
     <string name="tha_planet">Theia Planet </string>
@@ -405,9 +405,9 @@
     <string name="no_record">no record </string>
     <string name="withdraw">receive </string>
     <string name="no_phone_permission"> do not have permission, can\'t make a call, please go to Settings--->Permission Management to grant users the right to call </string>
-    <string name="system_message"> system announcement </string>
+    <string name="system_message">System announcement </string>
     <string name="no_system_message">No system announcement </string>
-    <string name="my_wallet">My Wallet(%s) </string>
+    <string name="my_wallet">Platform Account(%s) </string>
     <string name="fast_transfer"> Smart Transfer </string>
     <string name="transfer_change">Instant Swap</string>
     <string name="accounts_and_security">Account and Security</string>
@@ -415,7 +415,7 @@
     <string name="language">Language </string>
     <string name="please_create_or_import_wallet">Please create or import a wallet first</string>
     <string name="no_assets">no assets </string>
-    <string name="my_private_wallet"> Decentralized Wallet(%s)</string>
+    <string name="my_private_wallet">Private Key Wallet(%s)</string>
     <string name="chain">China</string>
     <string name="now_register">Register now</string>
     <string name="no_account">No account yet? </string>
@@ -452,7 +452,7 @@
     <string name="red_package_please_set_type">Please set the payment password first</string>
     <string name="red_package_min_number">The minimum number of red packets is 1 </string>
     <string name="red_package_pleas_number">Please input the number of red packets to be sent</string>
-    <string name="red_package_min_numer">The minimum amount is 0.001 </string>
+    <string name="red_package_min_numer">The minimum amount is %s </string>
     <string name="red_package_piease_send_number">Please input the quantity to be sent</string>
     <string name="red_package_please_type">Please select tokens</string>
     <string name="red_package_set_hand"> changed to a lucky red packets </string>
@@ -469,7 +469,7 @@
     <string name="assets">Assets</string>
     <string name="my_coin_address">My %s collection address </string>
     <string name="red_pg">Red packet </string>
-    <string name="wallet_charge_recode">Record</string>
+    <string name="wallet_charge_recode">Transactions</string>
     <string name="user_language_english">English</string>
     <string name="me_red_package">my red packet</string>
 
@@ -510,13 +510,13 @@
 
 
     <string name="version_num">Version：V %s</string>
-    <string name="my_account_wallet">My Wallet</string>
+    <string name="my_account_wallet">Platform Account</string>
 
     <string name="my_wallet_introduction">A personal account refers to a central wallet, which is saved by Theia for your private key. In a central wallet, there is no loss of wallet that cannot be recovered, and can be verified to retrieve your wallet and allow you to experience more services. </string>
-    <string name="my_private_wallet_title">Decentralized Wallet</string>
+    <string name="my_private_wallet_title">Private Key Wallet</string>
     <string name="my_private_wallet_introduction">The private key wallet is to go to the central wallet, in the central wallet, all user authentication content, such as trading passwords, private keys, mnemonics, etc. are stored in the user\'s mobile phone local, not stored in the centralized server. If the user mistakenly deletes the wallet, forgets to back up the private key or mnemonics, will not be able to retrieve the wallet. </string>
     <string name="advantage">Advantages</string>
-    <string name="only_user_save_key">Only the user saves the private key</string>
+    <string name="only_user_save_key">Your private keys are 100% managed by yourself</string>
     <string name="defect">Defect</string>
     <string name="defect_1">There\'s mining fee.</string>
     <string name="defete_2">The transaction rate is slow.</string>
@@ -532,7 +532,7 @@
     <string name="backup_intro_4">Confirm the notation words which helps you remember your wallet</string>
     <string name="backup_intro_5">Now write down these words.</string>
     <string name="backup_intro_6">Your have 12 recovery words, write them down on paper and keep it safely.</string>
-    <string name="copy_money_address">Copy a collection address</string>
+    <string name="copy_money_address">Copy address</string>
     <string name="transfer_fees">Transaction Fees</string>
     <string name="sure_transfer">Transfer confirmed </string>
     <string name="fast">Fast</string>
@@ -540,7 +540,7 @@
     <string name="create_wallet_intro_1">Attention! Theia does not store user passwords, can not provide recovery or reset unctions, passwords must be backed up well by users. Passwords are used to encrypt the private key, and strength is also important.</string>
     <string name="backup_introtation_dialog_title">Disclaimer</string>
     <string name="backup_introtation_dialog_content">Please ensure that the wallet has been backed up safely Theia does not bear any loss of loss of wallet, stolen, forgotten password and other assets lost!</string>
-    <string name="my_coin_address_2">My collection address</string>
+    <string name="my_coin_address_2">My address</string>
     <string name="qr_share_tip_1">Scan the QR-code for Theia red envelopes</string>
     <string name="qr_share_tip_2">Screenshot the QR-code for sharing </string>
     <string name="red_packet_rule">Rules of Red Envelope </string>
@@ -551,12 +551,12 @@
     <string name="now_pay">Prompt payment</string>
     <string name="transfer_user_funds">Transfer-in funds</string>
     <string name="red_packet">red_packet</string>
-    <string name="welcome_back">Welcome back</string>
+    <string name="welcome_back">Pattern Password</string>
     <string name="set_pattern_pwd">Set Gesture Password</string>
     <string name="draw_your_pattern_pwd">Please draw your gesture password</string>
-    <string name="draw_pattern_pwd">Draw the gesture Password</string>
+    <string name="draw_pattern_pwd">Enter pattern password</string>
     <string name="forget_pattern_pwd">Forget gesture password</string>
-    <string name="change_login_type">Switch logins</string>
+    <string name="change_login_type">Forgot Pattern Password?</string>
     <string name="draw_pattern_pwd_2">Please draw the gesture password again</string>
     <string name="set_pattern_pwd_success">Gesture Password Set success!</string>
     <string name="pattern_unlock_success">Succeed unlock</string>
@@ -566,7 +566,7 @@
     <string name="please_read_and_aggree">Please read and agree to the terms of service and privacy</string>
     <string name="wallet_name_input_hint">Please enter the wallet name</string>
     <string name="red_packet_tab_title_info">Send a digital currency in red envelope,check the receive records and cash the balance</string>
-    <string name="coin_list">List of currencies</string>
+    <string name="coin_list">Currency</string>
     <string name="redpacket_back">Red Envelopes returned</string>
     <string name="redpacket_get">Grab a red envelope</string>
     <string name="pattern_pwd">Gesture Password</string>
@@ -856,6 +856,154 @@
 
     <string name="save_fail">Save failed</string>
     <string name="Theia_planet">Theia_planet</string>
+
+
+    <string name="credit_score">Credit</string>
+    <string name="credit_score__1">- Let your credit become fortune -</string>
+    <string name="credit_score_detail_2">I would like to increase credit</string>
+    <string name="credit_score_detail_3">The quickest way to increase credit is to put cryptocurrency in platform account</string>
+    <string name="invite_copy">Theia is the world’s first cross-chain profit sharing wallet, which supports multi-crypto-asset management, including BTC, ETH and TUSD. Register and get 10 points, and you’ll have chance to draw a prize from ¥10,000,000 RMB worth of prize pool (BTC, ETH and WAN).
+</string>
+
+
+    <string name="amount">number</string>
+
+    <string name="answer">Answer</string>
+
+    <string name="app_question">FAQ help</string>
+
+    <string name="change_type_1">R</string>
+
+    <string name="change_type_2">N</string>
+
+    <string name="coin_type_select">Please choose currency type</string>
+
+    <string name="copy_your_invite_url">Copy your exclusive invitation link</string>
+
+    <string name="from">form</string>
+
+    <string name="info_share_cancel">Cancel share</string>
+
+    <string name="info_share_fail">Share fail</string>
+
+    <string name="info_share_succ">Share successful</string>
+
+    <string name="input_smart_transfer_number">Please enter transfer amount</string>
+
+    <string name="invite_20">WROLD’S FIRST CROSS-CHAIN PROFIT SHARING WALLET</string>
+
+    <string name="invite_21">You have successfully invited</string>
+
+    <string name="invite_22">user</string>
+
+    <string name="invite_23">Thank you for your contribution!</string>
+
+    <string name="invite_25">Log in and gain luxury rewards</string>
+
+    <string name="invite_26">After registration and log in, new users will gain %1s points as a reward</string>
+
+    <string name="invite_27">New users will get the reward of double the earning for the first time purchase of Quantitative Finance service</string>
+
+    <string name="invite_28">Instruction for invite friends to gain rewards</string>
+
+    <string name="invite_29"> Earn 10 points for each time of inviting 1 friend to register and log in. </string>
+
+    <string name="invite_30">Invite friends</string>
+
+    <string name="invite_31">Getting Invited</string>
+
+    <string name="invite_32">After registration and log in successfully each user will receive a reward of %s points</string>
+
+    <string name="invite_33">After registration and log in successfully, each user will get the reward of double the earning for the first time purchase of Quantitative Finance service</string>
+
+    <string name="invite_btn_3">Gift invitation</string>
+
+    <string name="invite_integral_1">  <Data><![CDATA[You have<font color="#00F7FE">%s</font>points]]></Data></string>
+
+    <string name="lottery">Wheel of fortune using points</string>
+
+    <string name="lucky_red_packet">Random allocated gift</string>
+
+    <string name="me">Me</string>
+
+    <string name="my_get">Received</string>
+
+    <string name="my_redpacket_history">My gift record</string>
+
+    <string name="my_send">Received</string>
+
+    <string name="now_get_coin">Go to Wheel of Fortune</string>
+
+    <string name="ordinary_red_packet">Normal gift</string>
+
+    <string name="plealse_select_coin_type">Please select coin type</string>
+
+    <string name="private_key_account">Private Key Wallet</string>
+
+    <string name="question">Question</string>
+
+    <string name="red_packet_intro_lucky">Each user will get random allocated amount</string>
+
+    <string name="red_packet_intro_ordinary">Each user will get fixed amount</string>
+
+    <string name="redpacket_back_info">If the gift is not claimed within 24 hours, it will be sent back to the original address</string>
+
+    <string name="redpacket_details">Gift details</string>
+
+    <string name="redpacket_get_list">Received list</string>
+
+    <string name="redpacket_get_total"> <Data><![CDATA[Gifts received in total<font color="#FF6400">%1$s</font>]]></Data></string>
+
+    <string name="redpacket_history">Gift record</string>
+
+    <string name="redpacket_question">Gift rules  FAQ</string>
+
+    <string name="redpacket_send_total">  <Data><![CDATA[Gifts sent in total<font color="#FF6400">%1$s</font>]]></Data></string>
+
+    <string name="save_to_local">Save Image</string>
+
+    <string name="scan_get_redpacket">Scan QR code to take the gift </string>
+
+    <string name="share_cancel">Cancel share</string>
+
+    <string name="share_fail">Share fail</string>
+
+    <string name="share_succ">Share successful</string>
+
+    <string name="share_to">Share to</string>
+
+    <string name="share_weibo">Weibo</string>
+
+    <string name="single_amount">Single amount</string>
+
+    <string name="smart_transfer_ail">Transfer fail</string>
+
+    <string name="smart_transfer_amount">Transfer account</string>
+
+    <string name="smart_transfer_balance"><Data><![CDATA[Available balance<font color="#333333">     %1$s </font> %2$s]]></Data></string>
+
+    <string name="smart_transfer_fee"><Data><![CDATA[Transaction fee is<font color="#333333">%1$s </font>%2$s]]></Data></string>
+
+    <string name="smart_transfer_fee2"><Data><![CDATA[Transaction fee is<font color="#333333">%1$s </font>%2$s]]></Data></string>
+
+    <string name="smart_transfer_success">Transfer successful</string>
+
+    <string name="theia_red_packet">Theia gifts</string>
+
+    <string name="theia_redpacket_intro">Instruction for Theia gifts</string>
+
+    <string name="to">to</string>
+
+    <string name="total">total amount</string>
+
+    <string name="total_amount">total amount</string>
+
+    <string name="transfer_3">Transfer</string>
+
+    <string name="wx_install_">Please install Wechat first</string>
+
+    <string name="year"></string>
+    <string name="redpacket_type">Type：</string>
 
 </resources>
 

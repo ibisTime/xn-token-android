@@ -115,7 +115,7 @@ public class UserEmailActivity extends AbsActivity {
         map.put("systemCode", AppConfig.SYSTEMCODE);
         map.put("companyCode", AppConfig.COMPANYCODE);
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805954", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805954", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -139,7 +139,7 @@ public class UserEmailActivity extends AbsActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 
@@ -156,7 +156,7 @@ public class UserEmailActivity extends AbsActivity {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805081", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest("805081", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -184,7 +184,7 @@ public class UserEmailActivity extends AbsActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

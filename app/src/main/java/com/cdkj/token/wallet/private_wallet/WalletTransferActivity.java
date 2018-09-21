@@ -101,7 +101,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
-            mBinding.tvCurrency.setText(AmountUtil.amountFormatUnitForShow(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinSymbol(), ALLSCALE) + " " + accountListBean.getCoinSymbol());
+            mBinding.tvCurrency.setText(AmountUtil.transformFormatToString(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinSymbol(), ALLSCALE) + " " + accountListBean.getCoinSymbol());
             mBaseBinding.titleView.setMidTitle(accountListBean.getCoinSymbol());
         }
 
@@ -115,7 +115,6 @@ public class WalletTransferActivity extends AbsLoadActivity {
         mBinding.btnNext.setOnClickListener(view -> {
             if (transferInputCheck()) return;
             showPasswordInputDialog();
-
         });
     }
 
@@ -161,14 +160,27 @@ public class WalletTransferActivity extends AbsLoadActivity {
 
             if (transferGasPrice == null) return true;
 
-            BigInteger allBigInteger = transferGasPrice.add(amountBigInteger);//手续费+转账数量
+            if (!LocalCoinDBUtils.isTokenCoinBySymbol(accountListBean.getCoinSymbol())) { //token币不进行手续费校验
 
-            int checkInt = allBigInteger.compareTo(new BigDecimal(accountListBean.getCoinBalance()).toBigInteger()); //比较
+                BigInteger allBigInteger = WalletHelper.getDeflutGasLimit().multiply(transferGasPrice).add(amountBigInteger);//手续费+转账数量
 
-            if (checkInt == 1 || checkInt == 0) {
-                UITipDialog.showInfo(this, getString(R.string.no_balance));
-                return true;
+                int checkInt = allBigInteger.compareTo(new BigDecimal(accountListBean.getCoinBalance()).toBigInteger()); //比较
+
+                if (checkInt == 1) {
+                    UITipDialog.showInfo(this, getString(R.string.no_balance));
+                    return true;
+                }
+
+            } else {
+
+                int checkInt = amountBigInteger.compareTo(new BigDecimal(accountListBean.getCoinBalance()).toBigInteger());
+
+                if (checkInt == 1) {
+                    UITipDialog.showInfo(this, getString(R.string.no_balance));
+                    return true;
+                }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
@@ -245,7 +257,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                 .subscribeOn(Schedulers.newThread())
                 .map(s -> transferByCoin())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doFinally(() -> disMissLoading())
+                .doFinally(() -> disMissLoadingDialog())
                 .subscribe(s -> {
 
                     if (TextUtils.isEmpty(s)) {
@@ -327,7 +339,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
@@ -376,7 +388,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                 })
                 .setNegativeBtn(getStrRes(R.string.cancel), null)
                 .setContentMsg("");
-        
+
         passWordInputDialog.getContentView().setText("");
         passWordInputDialog.getContentView().setHint(getStrRes(R.string.please_input_transaction_pwd));
         passWordInputDialog.getContentView().setText("");
@@ -390,7 +402,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
     private void setShowGasPrice(BigInteger gasPrice) {
         if (accountListBean == null || gasPrice == null) return;
         mBinding.tvGas.setText(
-                AmountUtil.amountFormatUnitForShow(new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
+                AmountUtil.transformFormatToString(new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
                         .multiply(new BigDecimal(gasPrice)), accountListBean.getCoinSymbol(), ALLSCALE) + " " + getCoinUnitName(accountListBean.getCoinSymbol()));
     }
 

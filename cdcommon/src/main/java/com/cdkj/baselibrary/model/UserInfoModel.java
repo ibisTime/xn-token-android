@@ -9,6 +9,8 @@ import java.io.Serializable;
 public class UserInfoModel {
 
     private String userId;
+    private int jfInviteNumber;
+    private int jfAmount;
     private String secretUserId;
     private String loginName;
     private String mobile;
@@ -41,6 +43,22 @@ public class UserInfoModel {
     private long createNo;//用户编号
     private RefereeUserBean refereeUser;
     private UserStatisticsBean userStatistics;
+
+    public int getJfInviteNumber() {
+        return jfInviteNumber;
+    }
+
+    public void setJfInviteNumber(int jfInviteNumber) {
+        this.jfInviteNumber = jfInviteNumber;
+    }
+
+    public int getJfAmount() {
+        return jfAmount;
+    }
+
+    public void setJfAmount(int jfAmount) {
+        this.jfAmount = jfAmount;
+    }
 
     public long getCreateNo() {
         return createNo;

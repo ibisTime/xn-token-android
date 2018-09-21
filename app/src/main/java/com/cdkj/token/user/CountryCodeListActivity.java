@@ -95,7 +95,7 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
 
         map.put("status", "1");//status
 
-        Call<BaseResponseListModel<CountryCodeMode>> call = RetrofitUtils.createApi(MyApi.class).getCountryList("801120", StringUtils.getJsonToString(map));
+        Call<BaseResponseListModel<CountryCodeMode>> call = RetrofitUtils.createApi(MyApi.class).getCountryList("801120", StringUtils.getRequestJsonString(map));
 
         addCall(call);
         if (isShowDialog) {
@@ -109,7 +109,7 @@ public class CountryCodeListActivity extends AbsRefreshListActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
 

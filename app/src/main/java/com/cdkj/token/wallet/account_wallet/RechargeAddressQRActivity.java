@@ -87,19 +87,41 @@ public class RechargeAddressQRActivity extends AbsLoadActivity {
     private void initQRCodeAndAddress(CoinModel.AccountListBean model) {
         if (model == null) return;
 
-        String coinLogoUrl = SPUtilHelper.getQiniuUrl() + LocalCoinDBUtils.getCoinWatermarkWithCurrency(model.getCurrency(), 0);
+        try {
+            String coinLogoUrl = SPUtilHelper.getQiniuUrl() + LocalCoinDBUtils.getCoinIconByCoinSymbol(model.getCurrency());
 
-        GlideApp.with(this).asBitmap().load(coinLogoUrl)
-                .into(new SimpleTarget<Bitmap>() {
+            GlideApp.with(this).asBitmap().load(coinLogoUrl)
+                    .into(new SimpleTarget<Bitmap>() {
 
-                    @Override
-                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                        Bitmap mBitmap = CodeUtils.createImage(model.getCoinAddress(), 400, 400, resource);
-                        mBinding.imgQRCode.setImageBitmap(mBitmap);
-                        mBinding.txtAddress.setText(model.getCoinAddress());
-                    }
+                        @Override
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
 
-                });
+                            try {
+
+                                Bitmap mBitmap = CodeUtils.createImage(model.getCoinAddress(), 400, 400, resource);
+                                mBinding.imgQRCode.setImageBitmap(mBitmap);
+                                mBinding.txtAddress.setText(model.getCoinAddress());
+                            } catch (Exception e) {
+
+                                try {
+
+                                    Bitmap mBitmap = CodeUtils.createImage(model.getCoinAddress(), 400, 400, null);
+                                    mBinding.imgQRCode.setImageBitmap(mBitmap);
+                                    mBinding.txtAddress.setText(model.getCoinAddress());
+
+                                } catch (Exception e2) {
+
+                                }
+
+                            }
+
+                        }
+
+                    });
+
+        } catch (Exception e) {
+
+        }
 
 
     }
@@ -139,21 +161,22 @@ public class RechargeAddressQRActivity extends AbsLoadActivity {
      * 保存图片到相册
      */
     public void saveBitmapToAlbum() {
-
-        showLoadingDialog();
-        mSubscription.add(Observable.just("")
-                .observeOn(AndroidSchedulers.mainThread())
-                .map(s -> BitmapUtils.getBitmapByView(mBinding.scrollView))
-                .observeOn(Schedulers.newThread())
-                .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, ""))
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(s -> {
-                    UITipDialog.showInfoNoIcon(this, getString(R.string.save_success));
-                }, throwable -> {
-                    LogUtil.E("a" + throwable);
-                    UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
-                    disMissLoading();
-                }, () -> disMissLoading()));
+        mBinding.scrollView.post(() -> {
+            showLoadingDialog();
+            mSubscription.add(Observable.just("")
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .map(s -> BitmapUtils.getBitmapByView(mBinding.scrollView))
+                    .observeOn(Schedulers.newThread())
+                    .map(bitmap -> BitmapUtils.saveBitmapFile(bitmap, ""))
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(s -> {
+                        UITipDialog.showInfoNoIcon(this, getString(R.string.save_success));
+                    }, throwable -> {
+                        LogUtil.E("a" + throwable);
+                        UITipDialog.showInfoNoIcon(this, getString(R.string.save_fail));
+                        disMissLoadingDialog();
+                    }, () -> disMissLoadingDialog()));
+        });
     }
 
 
@@ -172,7 +195,7 @@ public class RechargeAddressQRActivity extends AbsLoadActivity {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getJsonToString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -189,7 +212,7 @@ public class RechargeAddressQRActivity extends AbsLoadActivity {
 
             @Override
             protected void onFinish() {
-                disMissLoading();
+                disMissLoadingDialog();
             }
         });
     }
