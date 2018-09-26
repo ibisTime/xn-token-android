@@ -111,6 +111,10 @@ public class FindFragment extends BaseLazyFragment {
                 return;
             }
 
+            if (true) {
+                ManagementMoneyListActivity.open(mActivity);
+                return;
+            }
             switch (recommendAppModel.getAction()) {
 
                 case "red_packet"://跳到红包
