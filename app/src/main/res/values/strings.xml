@@ -707,6 +707,7 @@
     <string name="smart_transfer_fee"><Data><![CDATA[本次划转矿工费为<font color="#333333">%1$s </font>%2$s]]></Data></string>
     <string name="smart_transfer_fee2"><Data><![CDATA[本次划转手续费为<font color="#333333">%1$s </font>%2$s]]></Data></string>
     <string name="smart_transfer_balance"><Data><![CDATA[可用余额<font color="#333333">     %1$s </font> %2$s]]></Data></string>
+    <string name="can_use_balance"><Data><![CDATA[可用余额<font color="#333333">     %1$s </font> %2$s]]></Data></string>
     <string name="private_key_account">私钥账户</string>
     <string name="from">从</string>
     <string name="to">到</string>
@@ -784,5 +785,25 @@
     <string name="credit_score_detail_3">个人账户中存入数字货币是增加信用积分最快的方式</string>
     <string name="invite_copy">【Theia是全球首款跨链生态钱包，同时支持BTC、ETH、TUSD等多币数字货币储存。注册即送10积分，千万BTC/ETH/WAN矿山，等您来挖】</string>
     <string name="redpacket_type">当前红包类型：</string>
+    <string name="expected_income">预期年化收益</string>
+    <string name="last_amount">剩余额度</string>
+    <string name="my_invest">我的投资</string>
+    <string name="bi_jia_bao">币加宝</string>
+    <string name="investment">投资总额</string>
+    <string name="expected_income2">预期年化收益率</string>
+    <string name="buy_days">认购期限</string>
+    <string name="start_buy_money">起购额度</string>
+    <string name="start_buy_day">起购日</string>
+    <string name="product_end_day">产品结期</string>
+    <string name="product_start_day">产品起息</string>
+    <string name="product_attributes">产品属性</string>
+    <string name="product_buy_info_1">购买属性</string>
+    <string name="product_buy_info_2">赎回属性</string>
+    <string name="product_buy_info_3">说明书</string>
+    <string name="buy_coin_type">认购币种：</string>
+    <string name="income_type">收益方式：</string>
+    <string name="product_amount">产品总额度：</string>
+    <string name="last_amount2">剩余额度：</string>
+    <string name="buy_amount">购买份额</string>
 
 </resources>

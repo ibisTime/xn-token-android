@@ -56,4 +56,5 @@
     <color name="bga_pp_navigationBarColor">@color/colorPrimaryDark</color>
     <!-- PhotoPicker Toolbar 的颜色 -->
     <color name="bga_pp_colorPrimary">@color/colorPrimary</color>
+    <color name="gray_EFEFEF">#EFEFEF</color>
 </resources>

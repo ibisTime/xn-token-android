@@ -26,7 +26,8 @@ public class ManagementMoneyListAdapter extends BaseQuickAdapter<ManagementMoney
 
 
     public ManagementMoneyListAdapter(@Nullable List<ManagementMoney> data) {
-        super(R.layout.item_manager_money, data);
+//        super(R.layout.item_manager_money, data);
+        super(R.layout.item_manager_money2, data);
     }
 
 
@@ -40,10 +41,10 @@ public class ManagementMoneyListAdapter extends BaseQuickAdapter<ManagementMoney
 
         helper.setText(R.id.tv_name, item.getName());
         helper.setText(R.id.tv_income, StringUtils.showformatPercentage(item.getExpectYield()));
-        helper.setText(R.id.tv_time, mContext.getString(R.string.product_days, item.getLimitDays() + ""));
+//        helper.setText(R.id.tv_time, mContext.getString(R.string.product_days, item.getLimitDays() + ""));
 
-        helper.setText(R.id.tv_min_money, Html.fromHtml(mContext.getString(R.string.product_buy_minamount,
-                AmountUtil.transformFormatToString(item.getMinAmount(), unit, AmountUtil.ALLSCALE) + item.getSymbol())));
+//        helper.setText(R.id.tv_min_money, Html.fromHtml(mContext.getString(R.string.product_buy_minamount,
+//                AmountUtil.transformFormatToString(item.getMinAmount(), unit, AmountUtil.ALLSCALE) + item.getSymbol())));
 
         helper.setText(R.id.tv_state, getStateString(item, unit));
 
@@ -51,9 +52,9 @@ public class ManagementMoneyListAdapter extends BaseQuickAdapter<ManagementMoney
         BigDecimal f = BigDecimalUtils.div(item.getSaleAmount(), item.getAmount(), 2);
         progressBar.setProgress((int) (f.floatValue() * 100));
 
-        helper.setText(R.id.tv_buy_totla_ratio, StringUtils.showformatPercentage(f.floatValue()));
+//        helper.setText(R.id.tv_buy_totla_ratio, StringUtils.showformatPercentage(f.floatValue()));
 
-        helper.setVisible(R.id.view_state_end, isEnd(item.getStatus())); //已结束显示灰色
+//        helper.setVisible(R.id.view_state_end, isEnd(item.getStatus())); //已结束显示灰色
 
     }
 
