@@ -8,6 +8,7 @@
         android:orientation="vertical">
 
         <ScrollView
+
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -24,35 +25,36 @@
                     android:background="@drawable/money_manager_bg2"
                     android:orientation="vertical">
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="45dp">
+                    <!--<FrameLayout-->
+                    <!--android:layout_width="match_parent"-->
+                    <!--android:layout_height="45dp"-->
+                    <!--android:visibility="invisible">-->
 
-                        <ImageView
-                            android:id="@+id/img_finish"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:paddingBottom="10dp"
-                            android:paddingLeft="18dp"
-                            android:paddingRight="18dp"
-                            android:paddingTop="10dp"
-                            android:src="@drawable/back_white" />
+                    <!--<ImageView-->
+                    <!--android:id="@+id/img_finish"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="match_parent"-->
+                    <!--android:paddingBottom="10dp"-->
+                    <!--android:paddingLeft="18dp"-->
+                    <!--android:paddingRight="18dp"-->
+                    <!--android:paddingTop="10dp"-->
+                    <!--android:src="@drawable/back_white" />-->
 
-                        <TextView
-                            android:id="@+id/tv_title"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:layout_marginLeft="45dp"
-                            android:layout_marginRight="45dp"
-                            android:ellipsize="end"
-                            android:singleLine="true"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/title_mid_size"
-                            tools:text="蓝潮基金增长型2期" />
+                    <!--<TextView-->
+                    <!--android:id="@+id/tv_title"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_gravity="center"-->
+                    <!--android:layout_marginLeft="45dp"-->
+                    <!--android:layout_marginRight="45dp"-->
+                    <!--android:ellipsize="end"-->
+                    <!--android:singleLine="true"-->
+                    <!--android:textColor="@color/white"-->
+                    <!--android:textSize="@dimen/title_mid_size"-->
+                    <!--tools:text="蓝潮基金增长型2期" />-->
 
 
-                    </FrameLayout>
+                    <!--</FrameLayout>-->
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -68,6 +70,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_buy_totla_ratio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
@@ -77,9 +80,9 @@
                         android:layout_weight="1"
                         android:ellipsize="end"
                         android:singleLine="true"
+                        android:text="+0.00%"
                         android:textColor="@color/white"
-                        android:textSize="35sp"
-                        tools:text="+12.00000%" />
+                        android:textSize="35sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -89,7 +92,6 @@
                         android:paddingBottom="15dp"
                         android:paddingTop="12dp">
 
-
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -98,14 +100,14 @@
                             android:orientation="vertical">
 
                             <TextView
-                                android:id="@+id/tv_income"
+                                android:id="@+id/tv_end_day"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:ellipsize="end"
                                 android:maxLines="1"
                                 android:textColor="#daffffff"
                                 android:textSize="16sp"
-                                tools:text="10.5%" />
+                                tools:text="0天" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -127,6 +129,7 @@
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/tv_avil_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
@@ -156,8 +159,8 @@
                             android:gravity="center"
                             android:orientation="vertical">
 
-
                             <TextView
+                                android:id="@+id/tv_min_amount"
                                 android:layout_width="wrap_content"
                                 android:layout_height="0dp"
                                 android:layout_weight="1"
@@ -206,7 +209,8 @@
                             android:background="@drawable/oval_blue"
                             android:gravity="center"
                             android:text="1"
-                            android:textColor="#0064FF" />
+                            android:textColor="#0064FF"
+                            android:textSize="12sp" />
 
 
                     </LinearLayout>
@@ -228,8 +232,9 @@
                             android:layout_height="20dp"
                             android:background="@drawable/oval_blue"
                             android:gravity="center"
-                            android:text="1"
-                            android:textColor="#0064FF" />
+                            android:text="2"
+                            android:textColor="#0064FF"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
 
@@ -251,8 +256,9 @@
                             android:layout_marginRight="10dp"
                             android:background="@drawable/oval_blue"
                             android:gravity="center"
-                            android:text="1"
-                            android:textColor="#0064FF" />
+                            android:text="3"
+                            android:textColor="#0064FF"
+                            android:textSize="12sp" />
                     </LinearLayout>
 
 
@@ -285,6 +291,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_start_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
@@ -318,6 +325,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_income_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
@@ -350,6 +358,7 @@
                             android:textSize="12sp" />
 
                         <TextView
+                            android:id="@+id/tv_end_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
@@ -378,7 +387,7 @@
                         android:layout_height="22dp"
                         android:text="@string/product_attributes"
                         android:textColor="#ff464646"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -401,9 +410,10 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tv_coin_name"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="5dp"
                             android:textColor="@color/text_black_cd"
                             android:textSize="14sp"
                             tools:text="ETH" />
@@ -433,10 +443,10 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="5dp"
+                            android:text="@string/income_type_1"
                             android:textColor="@color/text_black_cd"
-                            android:textSize="14sp"
-                            tools:text="ETH" />
+                            android:textSize="14sp" />
 
                     </LinearLayout>
 
@@ -461,9 +471,10 @@
                             android:textSize="14sp" />
 
                         <TextView
+                            android:id="@+id/tv_total_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="10dp"
+                            android:layout_marginLeft="5dp"
                             android:textColor="@color/text_black_cd"
                             android:textSize="14sp"
                             tools:text="ETH" />
@@ -473,6 +484,7 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/linLayout_buy_info"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="10dp"
@@ -486,7 +498,7 @@
                         android:layout_weight="1"
                         android:text="@string/product_buy_info_1"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -506,6 +518,7 @@
 
 
                 <LinearLayout
+                    android:id="@+id/linLayout_back_info"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
                     android:layout_marginTop="1dp"
@@ -519,7 +532,7 @@
                         android:layout_weight="1"
                         android:text="@string/product_buy_info_2"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -538,9 +551,9 @@
                 </WebView>
 
                 <LinearLayout
+                    android:id="@+id/linLayout_product_info"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginBottom="50dp"
                     android:layout_marginTop="1dp"
                     android:background="@color/white"
                     android:gravity="center_vertical">
@@ -552,7 +565,7 @@
                         android:layout_weight="1"
                         android:text="@string/product_buy_info_3"
                         android:textColor="@color/black"
-                        android:textSize="16sp" />
+                        android:textSize="15sp" />
 
                     <ImageView
                         android:layout_width="wrap_content"
@@ -569,6 +582,10 @@
                     android:visibility="gone">
 
                 </WebView>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp" />
 
             </LinearLayout>
         </ScrollView>

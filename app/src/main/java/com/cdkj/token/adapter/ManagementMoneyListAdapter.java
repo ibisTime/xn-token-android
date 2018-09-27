@@ -1,5 +1,6 @@
 package com.cdkj.token.adapter;
 
+import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.text.Html;
 import android.text.TextUtils;
@@ -37,44 +38,48 @@ public class ManagementMoneyListAdapter extends BaseQuickAdapter<ManagementMoney
         if (item == null) return;
 
 
-        BigDecimal unit = LocalCoinDBUtils.getLocalCoinUnit(item.getSymbol());
-
         helper.setText(R.id.tv_name, item.getName());
         helper.setText(R.id.tv_income, StringUtils.showformatPercentage(item.getExpectYield()));
-//        helper.setText(R.id.tv_time, mContext.getString(R.string.product_days, item.getLimitDays() + ""));
 
-//        helper.setText(R.id.tv_min_money, Html.fromHtml(mContext.getString(R.string.product_buy_minamount,
-//                AmountUtil.transformFormatToString(item.getMinAmount(), unit, AmountUtil.ALLSCALE) + item.getSymbol())));
 
-        helper.setText(R.id.tv_state, getStateString(item, unit));
+        helper.setText(R.id.tv_state, getStateString(item));
+        helper.setTextColor(R.id.tv_state, getStateTextColor(item));
+
+        helper.setText(R.id.tv_limite_days, mContext.getString(R.string.product_days, item.getLimitDays() + ""));
+        helper.setText(R.id.tv_avil_amount,
+                AmountUtil.transformFormatToString(item.getAvilAmount(), item.getSymbol(), AmountUtil.ALLSCALE) + item.getSymbol());
 
         ProgressBar progressBar = helper.getView(R.id.progressbar);
         BigDecimal f = BigDecimalUtils.div(item.getSaleAmount(), item.getAmount(), 2);
         progressBar.setProgress((int) (f.floatValue() * 100));
+    }
 
-//        helper.setText(R.id.tv_buy_totla_ratio, StringUtils.showformatPercentage(f.floatValue()));
+    private int getStateTextColor(ManagementMoney item) {
+        if (TextUtils.isEmpty(item.getStatus())) {  //默认灰色
+            return Color.parseColor("#ff999999");
+        }
 
-//        helper.setVisible(R.id.view_state_end, isEnd(item.getStatus())); //已结束显示灰色
-
+        switch (item.getStatus()) {
+            case "4":                       //蓝色
+                return Color.parseColor("#ff0064ff");
+            case "5":           //橘色
+                return Color.parseColor("#ffff6400");
+            case "6":  //灰色
+            case "7":
+            case "8":
+            case "9":
+        }
+        return Color.parseColor("#ff999999");
     }
 
     /*（0草稿，1待审核，2审核通过，3审核不通过，4即将开始，5募集期，6停止交易，7产品封闭期，8还款成功，9募集失败)*/
-
-    /**
-     * 是否结束
-     *
-     * @return
-     */
-    public boolean isEnd(String state) {
-        return TextUtils.equals(state, "8") || TextUtils.equals(state, "9");
-    }
 
     /**
      * 根据状态显示
      *
      * @param data
      */
-    public CharSequence getStateString(ManagementMoney data, BigDecimal unit) {
+    public CharSequence getStateString(ManagementMoney data) {
 
         if (TextUtils.isEmpty(data.getStatus())) {
             return "";
@@ -84,7 +89,8 @@ public class ManagementMoneyListAdapter extends BaseQuickAdapter<ManagementMoney
             case "4":
                 return mContext.getString(R.string.management_money_state_4);
             case "5":
-                return Html.fromHtml(mContext.getString(R.string.product_buy_end, AmountUtil.transformFormatToString(data.getAvilAmount(), unit, AmountUtil.ALLSCALE) + data.getSymbol()));
+                return mContext.getString(R.string.management_money_state_5);
+//                return Html.fromHtml(mContext.getString(R.string.product_buy_end, AmountUtil.transformFormatToString(data.getAvilAmount(), unit, AmountUtil.ALLSCALE) + data.getSymbol()));
             case "6":
 
                 if (BigDecimalUtils.compareEqualsZERO(data.getAvilAmount())) {

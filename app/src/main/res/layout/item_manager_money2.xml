@@ -31,12 +31,15 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="right"
-            android:textColor="#FF6400"
             android:textSize="13sp"
             tools:text="计息中" />
 
 
     </LinearLayout>
+
+    <View
+        style="@style/style_split_line"
+        android:layout_marginTop="10dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,6 +86,7 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/tv_limite_days"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -116,12 +120,13 @@
 
 
             <TextView
+                android:id="@+id/tv_avil_amount"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
-                android:ellipsize="end"
+                android:ellipsize="middle"
+                android:singleLine="true"
                 android:gravity="center"
-                android:maxLines="1"
                 android:textColor="#464646"
                 android:textSize="18sp"
                 tools:text="20.0ETH" />
@@ -142,7 +147,7 @@
         android:id="@+id/progressbar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="2dp"
         android:layout_marginTop="28dp"
         android:layout_weight="1"
         android:indeterminateOnly="false"

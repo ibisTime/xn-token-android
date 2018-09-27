@@ -1,4 +1,4 @@
-package com.cdkj.token.find.product_application.bi_jia_bao;
+package com.cdkj.token.find.product_application.management_money;
 
 import android.content.Context;
 import android.content.Intent;
@@ -21,7 +21,6 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.ManagementMoneyListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityRefreshMoneyManagerBinding;
-import com.cdkj.token.find.product_application.management_money.ManagementMoneyDetailsActivity;
 import com.cdkj.token.model.ManagementMoney;
 
 import java.util.HashMap;
@@ -112,7 +111,7 @@ public class BiJiaBaoListActivity extends BaseActivity {
         managementMoneyListAdapter.setOnItemClickListener((adapter, view, position) -> {
             ManagementMoney managementMoney = managementMoneyListAdapter.getItem(position);
             if (managementMoney == null) return;
-            ManagementMoneyDetailsActivity.open(BiJiaBaoListActivity.this, managementMoney.getCode());
+            BijiaBaoDetailsActivity.open(BiJiaBaoListActivity.this, managementMoney.getCode());
         });
 
         return managementMoneyListAdapter;

@@ -168,7 +168,7 @@
                     <TextView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:background="#F9F9FC "
+                        android:background="#F9F9FC"
                         android:gravity="center"
                         android:text="-"
                         android:textSize="35sp" />
@@ -205,10 +205,10 @@
                     <TextView
                         android:layout_width="50dp"
                         android:layout_height="50dp"
-                        android:background="#F9F9FC "
+                        android:background="#F9F9FC"
                         android:gravity="center"
                         android:text="+"
-                        android:textSize="35dp" />
+                        android:textSize="28dp" />
 
 
                 </LinearLayout>

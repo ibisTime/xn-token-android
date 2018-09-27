@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:background="@drawable/rect_blue_change">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="25dp"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:text="@string/total_investment_assets"
+                    android:textColor="#97ffffff"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="#ffffffff"
+                        android:textSize="25sp"
+                        tools:text="99.99W" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginRight="17dp"
+                        android:gravity="center"
+                        android:text="(BTC)"
+                        android:textColor="#ffffffff"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <com.cdkj.token.views.DashVLineView
+                android:layout_width="1dp"
+                android:layout_height="match_parent" />
+
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="22dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:ellipsize="middle"
+                    android:singleLine="true"
+                    android:text="@string/total_income"
+                    android:textColor="#97ffffff"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:textColor="#ffffffff"
+                        android:textSize="20sp"
+                        tools:text="0.00W" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="25dp"
+                        android:gravity="center"
+                        android:text="(BTC)"
+                        android:textColor="#ffffffff"
+                        android:textSize="14sp" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:background="@color/white"
+            android:paddingLeft="60dp"
+            android:paddingRight="40dp">
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@drawable/my_investment_checkbox"
+                android:paddingLeft="6dp"
+                android:text="@string/money_product_status_1"
+                android:textColor="@drawable/my_investment_checkbox_text_color"
+                android:textSize="15sp" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@drawable/my_investment_checkbox"
+                android:paddingLeft="6dp"
+                android:text="@string/money_product_status_2"
+                android:textColor="@drawable/my_investment_checkbox_text_color"
+                android:textSize="15sp" />
+
+            <android.support.v7.widget.AppCompatCheckBox
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:button="@drawable/my_investment_checkbox"
+                android:paddingLeft="6dp"
+                android:text="@string/money_product_status_3"
+                android:textColor="@drawable/my_investment_checkbox_text_color"
+                android:textSize="15sp" />
+
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/refreshLayout"
+            layout="@layout/layout_common_recycler_refresh" />
+
+
+    </LinearLayout>
+
+</layout>

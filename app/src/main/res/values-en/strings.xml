@@ -1025,6 +1025,15 @@
     <string name="product_amount">产品总额度：</string>
     <string name="last_amount2">剩余额度：</string>
     <string name="buy_amount">购买份额</string>
+    <string name="expected_income3">预计收益</string>
+    <string name="total_share">持有份额</string>
+    <string name="total_income">累计收益</string>
+    <string name="total_investment_assets">投资总资产</string>
+    <string name="money_product_status_1">已申购</string>
+    <string name="money_product_status_2">已持有</string>
+    <string name="money_product_status_3">已回款</string>
+    <string name="management_money_state_5">认购中</string>
+    <string name="income_type_1">年化收益</string>
 
 </resources>
 

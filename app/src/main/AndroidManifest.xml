@@ -298,7 +298,8 @@
         <activity
             android:name="com.li.verification.VerificationAliActivity"
             android:theme="@style/ActivityDialogStyleBottom" />
-        <activity android:name=".find.product_application.bi_jia_bao.BiJiaBaoListActivity" />
+        <activity android:name=".find.product_application.management_money.BiJiaBaoListActivity" />
+        <activity android:name=".find.product_application.management_money.BijiaBaoDetailsActivity" />
 
     </application>
 
