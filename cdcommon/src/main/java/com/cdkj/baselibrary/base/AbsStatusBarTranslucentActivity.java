@@ -73,7 +73,7 @@ public abstract class AbsStatusBarTranslucentActivity extends BaseActivity {
 
     public void setWhiteTitle() {
         mBaseBinding.tvTitle.setTextColor(ContextCompat.getColor(this, R.color.white));
-        mBaseBinding.imgBack.setImageResource(R.drawable.back_img);
+        mBaseBinding.imgBack.setImageResource(R.drawable.back_white);
     }
 
     public void setStatusBarWhite() {

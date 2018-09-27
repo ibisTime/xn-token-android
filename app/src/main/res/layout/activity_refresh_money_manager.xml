@@ -25,8 +25,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingBottom="10dp"
-                    android:paddingLeft="18dp"
-                    android:paddingRight="18dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:paddingTop="10dp"
                     android:src="@drawable/back_white" />
 
@@ -40,6 +40,7 @@
                     android:textSize="@dimen/title_mid_size" />
 
                 <TextView
+                    android:id="@+id/tv_my_invesment"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center|right"

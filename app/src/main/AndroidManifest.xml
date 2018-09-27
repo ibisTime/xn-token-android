@@ -300,6 +300,9 @@
             android:theme="@style/ActivityDialogStyleBottom" />
         <activity android:name=".find.product_application.management_money.BiJiaBaoListActivity" />
         <activity android:name=".find.product_application.management_money.BijiaBaoDetailsActivity" />
+        <activity android:name=".find.product_application.management_money.MyInvestmentDetails" />
+        <activity android:name=".find.product_application.management_money.InvestmentBillListActivity" />
+        <activity android:name=".find.product_application.management_money.BiJiaBaoBuyActivity" />
 
     </application>
 

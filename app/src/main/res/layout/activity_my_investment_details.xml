@@ -6,8 +6,39 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:background="@drawable/rect_blue_change">
+        android:background="@drawable/rect_blue_change"
+        android:fitsSystemWindows="true"
+        android:orientation="vertical">
+
+        <FrameLayout
+            android:id="@+id/fraLayout_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/img_finish"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingBottom="10dp"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:paddingTop="10dp"
+                android:src="@drawable/back_white" />
+
+            <TextView
+                android:id="@+id/tv_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:text="@string/my_investment_details"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title_mid_size" />
+
+
+        </FrameLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -42,9 +73,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:text="0.00"
                         android:textColor="#ffffffff"
-                        android:textSize="25sp"
-                        tools:text="99.99W" />
+                        android:textSize="25sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -67,20 +98,36 @@
 
 
             <LinearLayout
+                android:id="@+id/linLayout_bill"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="22dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ellipsize="middle"
-                    android:singleLine="true"
-                    android:text="@string/total_income"
-                    android:textColor="#97ffffff"
-                    android:textSize="14sp" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:ellipsize="middle"
+                        android:singleLine="true"
+                        android:text="@string/total_income"
+                        android:textColor="#97ffffff"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="10dp"
+                        android:layout_height="10dp"
+                        android:layout_marginLeft="5dp"
+                        android:src="@drawable/more" />
+
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -91,9 +138,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:text="0.00"
                         android:textColor="#ffffffff"
-                        android:textSize="20sp"
-                        tools:text="0.00W" />
+                        android:textSize="20sp" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -116,34 +163,40 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:background="@color/white"
-            android:paddingLeft="60dp"
+            android:paddingLeft="50dp"
             android:paddingRight="40dp">
 
             <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/checkbox_buy"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@drawable/my_investment_checkbox"
+                android:checked="true"
                 android:paddingLeft="6dp"
                 android:text="@string/money_product_status_1"
                 android:textColor="@drawable/my_investment_checkbox_text_color"
                 android:textSize="15sp" />
 
             <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/checkbox_own"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@drawable/my_investment_checkbox"
+                android:checked="true"
                 android:paddingLeft="6dp"
                 android:text="@string/money_product_status_2"
                 android:textColor="@drawable/my_investment_checkbox_text_color"
                 android:textSize="15sp" />
 
             <android.support.v7.widget.AppCompatCheckBox
+                android:id="@+id/checkbox_back_money"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:button="@drawable/my_investment_checkbox"
+                android:checked="true"
                 android:paddingLeft="6dp"
                 android:text="@string/money_product_status_3"
                 android:textColor="@drawable/my_investment_checkbox_text_color"
@@ -152,10 +205,34 @@
 
         </LinearLayout>
 
-        <include
+        <com.scwang.smartrefresh.layout.SmartRefreshLayout
             android:id="@+id/refreshLayout"
-            layout="@layout/layout_common_recycler_refresh" />
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@color/gray_bg"
+            app:srlAccentColor="@android:color/tertiary_text_dark"
+            app:srlEnablePreviewInEditMode="true"
+            app:srlPrimaryColor="@color/gray_bg">
+            <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
+            <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
+            <com.cdkj.baselibrary.views.refresh.ClassicsHeader2
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f8f8f8"
+                android:overScrollMode="never" />
+
+            <com.cdkj.baselibrary.views.refresh.ClassicsFooter2
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+
+        </com.scwang.smartrefresh.layout.SmartRefreshLayout>
 
     </LinearLayout>
 

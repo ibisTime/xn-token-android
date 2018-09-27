@@ -804,4 +804,7 @@
     <string name="money_product_status_3">已回款</string>
     <string name="management_money_state_5">认购中</string>
     <string name="income_type_1">年化收益</string>
+    <string name="my_investment_details">我的投资详情</string>
+    <string name="product_end">到期</string>
+    <string name="investment_bill">投资账单</string>
 </resources>

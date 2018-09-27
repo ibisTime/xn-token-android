@@ -66,10 +66,8 @@ public class BiJiaBaoListActivity extends BaseActivity {
     }
 
     private void initClickListener() {
-
         mBinding.imgFinish.setOnClickListener(view -> finish());
-
-
+        mBinding.tvMyInvesment.setOnClickListener(view -> MyInvestmentDetails.open(this));
     }
 
     void initRefreshHelper() {

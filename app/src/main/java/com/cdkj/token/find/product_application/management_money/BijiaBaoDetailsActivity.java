@@ -87,7 +87,12 @@ public class BijiaBaoDetailsActivity extends AbsStatusBarTranslucentActivity {
         //说明书
         mbinding.linLayoutProductInfo.setOnClickListener(view -> {
             setViewToggleShow(mbinding.webview3);
+        });
 
+        //购买
+
+        mbinding.btnToBuy.setOnClickListener(view -> {
+            BiJiaBaoBuyActivity.open(this);
         });
     }
 
@@ -164,9 +169,9 @@ public class BijiaBaoDetailsActivity extends AbsStatusBarTranslucentActivity {
         mbinding.tvCoinName.setText(managementMoney.getSymbol());
 
 
-        mbinding.tvStartTime.setText(DateUtil.formatStringData(managementMoney.getStartDatetime(),DATE_YMD));
-        mbinding.tvIncomeTime.setText(DateUtil.formatStringData(managementMoney.getIncomeDatetime(),DATE_YMD));
-        mbinding.tvEndTime.setText(DateUtil.formatStringData(managementMoney.getEndDatetime(),DATE_YMD));
+        mbinding.tvStartTime.setText(DateUtil.formatStringData(managementMoney.getStartDatetime(), DATE_YMD));
+        mbinding.tvIncomeTime.setText(DateUtil.formatStringData(managementMoney.getIncomeDatetime(), DATE_YMD));
+        mbinding.tvEndTime.setText(DateUtil.formatStringData(managementMoney.getEndDatetime(), DATE_YMD));
 
 
         //产品介绍

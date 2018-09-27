@@ -4,6 +4,7 @@ import android.support.annotation.Nullable;
 import android.text.TextUtils;
 
 import com.cdkj.baselibrary.utils.DateUtil;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.MyManamentMoneyProduct;
 import com.cdkj.token.utils.AmountUtil;
@@ -23,7 +24,8 @@ public class MyManagementMoneyAdapter extends BaseQuickAdapter<MyManamentMoneyPr
 
 
     public MyManagementMoneyAdapter(@Nullable List<MyManamentMoneyProduct> data) {
-        super(R.layout.item_my_management_money, data);
+//        super(R.layout.item_my_management_money, data);
+        super(R.layout.item_my_management_money_2, data);
     }
 
     @Override
@@ -33,9 +35,10 @@ public class MyManagementMoneyAdapter extends BaseQuickAdapter<MyManamentMoneyPr
         helper.setText(R.id.tv_name, item.getProductInfo().getName());
         helper.setText(R.id.tv_state, getStateString(item.getStatus()));
         helper.setText(R.id.tv_date, DateUtil.formatStringData(item.getCreateDatetime(), DEFAULT_DATE_FMT));
-        helper.setText(R.id.tv_end_date, DateUtil.formatStringData(item.getProductInfo().getArriveDatetime(), DEFAULT_DATE_FMT));
+        helper.setText(R.id.tv_end_date, DateUtil.formatStringData(item.getProductInfo().getArriveDatetime(), DEFAULT_DATE_FMT) + mContext.getString(R.string.product_end));
         helper.setText(R.id.tv_buy_amount, AmountUtil.transformFormatToString(item.getInvestAmount(), item.getProductInfo().getSymbol(), AmountUtil.ALLSCALE) + item.getProductInfo().getSymbol());
         helper.setText(R.id.tv_income, AmountUtil.transformFormatToString(item.getExpectIncome(), item.getProductInfo().getSymbol(), AmountUtil.ALLSCALE) + item.getProductInfo().getSymbol());
+        helper.setText(R.id.tv_income_rate, StringUtils.showformatPercentage(item.getProductInfo().getExpectYield()));
 
     }
 

@@ -22,6 +22,7 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -32,20 +33,22 @@
                     tools:text="蓝潮基金ETH增长型5期蓝潮基金ETH增长型5期" />
 
                 <TextView
+                    android:id="@+id/tv_state"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="5dp"
+                    android:layout_marginLeft="3dp"
                     android:layout_marginRight="50dp"
                     tools:text="已持有" />
 
             </LinearLayout>
 
             <TextView
+                android:id="@+id/tv_end_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="#ff999999"
                 android:textSize="13sp"
-                tools:text="2018/10/21到期" />
+                tools:text="@string/product_end" />
 
         </LinearLayout>
 
@@ -68,6 +71,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/tv_income"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:ellipsize="middle"
@@ -111,6 +115,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_buy_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -133,6 +138,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_income_rate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
