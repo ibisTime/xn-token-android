@@ -18,6 +18,7 @@ import com.cdkj.baselibrary.databinding.LayoutCommonRecyclerRefreshBinding;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.DateUtil;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
@@ -43,6 +44,8 @@ public class InvestmentBillListActivity extends AbsLoadActivity {
     private RefreshHelper refreshHelper;
 
     private TimePickerView timePickerView;
+
+    private String selectDate;
 
     public static void open(Context context) {
         if (context == null) {
@@ -94,7 +97,7 @@ public class InvestmentBillListActivity extends AbsLoadActivity {
 
             @Override
             public void getListDataRequest(int pageindex, int limit, boolean isShowDialog) {
-                getListRequest(pageindex, limit, isShowDialog);
+                getBillListRequest(pageindex, limit, isShowDialog);
             }
         });
 
@@ -102,13 +105,21 @@ public class InvestmentBillListActivity extends AbsLoadActivity {
     }
 
 
-    public void getListRequest(int pageindex, int limit, boolean isShowDialog) {
+    /**
+     * 获取账单列表数据
+     *
+     * @param pageindex
+     * @param limit
+     * @param isShowDialog
+     */
+    public void getBillListRequest(int pageindex, int limit, boolean isShowDialog) {
 
         Map<String, String> map = new HashMap<>();
 
         map.put("userId", SPUtilHelper.getUserId());
         map.put("start", pageindex + "");
         map.put("limit", limit + "");
+        map.put("date", selectDate + "");
 
         if (isShowDialog) showLoadingDialog();
 
@@ -130,9 +141,9 @@ public class InvestmentBillListActivity extends AbsLoadActivity {
 
     public void initPickerView() {
         if (timePickerView == null) {
-
             timePickerView = new TimePickerBuilder(this, (date, v) -> {
-
+                selectDate = DateUtil.format(date, "yyyy-MM");
+                refreshHelper.onDefaluteMRefresh(true);
             }).setSubmitColor(ContextCompat.getColor(this, R.color.text_black_cd))
                     .setCancelColor(ContextCompat.getColor(this, R.color.gray_999999))
                     .setType(new boolean[]{true, true, false, false, false, false})
