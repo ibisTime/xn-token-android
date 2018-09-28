@@ -124,7 +124,8 @@ public class FindFragment extends BaseLazyFragment {
                     SendRedPacketActivity.open(mActivity, recommendAppModel.getCode());
                     break;
                 case "money_manager"://跳到量化理财
-                    ManagementMoneyListActivity.open(mActivity);
+//                    ManagementMoneyListActivity.open(mActivity);
+                    BiJiaBaoListActivity.open(mActivity);
                     break;
                 case "invitation"://跳到邀请有礼
                     InviteActivity.open(mActivity);

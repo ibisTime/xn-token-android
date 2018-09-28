@@ -383,7 +383,7 @@
                     android:padding="15dp">
 
                     <TextView
-                        android:layout_width="64dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="22dp"
                         android:text="@string/product_attributes"
                         android:textColor="#ff464646"
@@ -511,8 +511,7 @@
                 <WebView
                     android:id="@+id/webview_1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone">
+                    android:layout_height="wrap_content">
 
                 </WebView>
 
@@ -545,8 +544,7 @@
                 <WebView
                     android:id="@+id/webview_2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone">
+                    android:layout_height="wrap_content">
 
                 </WebView>
 
@@ -578,8 +576,7 @@
                 <WebView
                     android:id="@+id/webview_3"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone">
+                    android:layout_height="wrap_content">
 
                 </WebView>
 

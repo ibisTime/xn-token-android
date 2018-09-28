@@ -77,8 +77,8 @@
                     android:ellipsize="middle"
                     android:singleLine="true"
                     android:textColor="#ffff6400"
-                    android:textSize="22sp"
-                    tools:text="9.4ETH" />
+                    android:textSize="20sp"
+                    tools:text="9.4fffffffETH" />
 
                 <TextView
                     android:layout_width="wrap_content"

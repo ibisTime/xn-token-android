@@ -20,7 +20,10 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.MyManagementMoneyAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityMyInvestmentDetailsBinding;
+import com.cdkj.token.model.InvestmentAmountModel;
 import com.cdkj.token.model.MyManamentMoneyProduct;
+import com.cdkj.token.utils.AmountUtil;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -77,12 +80,10 @@ public class MyInvestmentDetails extends BaseActivity {
         //已申购
         mBinding.checkboxBuy.setOnCheckedChangeListener((compoundButton, b) -> {
             mRefreshHelper.onDefaluteMRefresh(true);
-
         });
         //已持有
         mBinding.checkboxOwn.setOnCheckedChangeListener((compoundButton, b) -> {
             mRefreshHelper.onDefaluteMRefresh(true);
-
         });
         //已回款
         mBinding.checkboxBackMoney.setOnCheckedChangeListener((compoundButton, b) -> {
@@ -113,15 +114,15 @@ public class MyInvestmentDetails extends BaseActivity {
 
             @Override
             public void getListDataRequest(int pageindex, int limit, boolean isShowDialog) {
-
+                getUsrInvestAmount();
                 if (isShowDialog) showLoadingDialog();
 
-                Map<String, String> map = new HashMap<>();
+                Map<String, Object> map = new HashMap<>();
 
                 map.put("userId", SPUtilHelper.getUserId());
                 map.put("start", pageindex + "");
                 map.put("limit", limit + "");
-                map.put("status", getStatus());
+                map.put("statusList", getStatus());
                 map.put("language", SPUtilHelper.getLanguage());
 
                 Call<BaseResponseModel<ResponseInListModel<MyManamentMoneyProduct>>> call = RetrofitUtils.createApi(MyApi.class).getMyMoneyManageProductList("625526", StringUtils.getRequestJsonString(map));
@@ -146,12 +147,40 @@ public class MyInvestmentDetails extends BaseActivity {
 
     }
 
+
+    /**
+     * 获取用户投资总额
+     */
+    public void getUsrInvestAmount() {
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("userId", SPUtilHelper.getUserId());
+
+        Call<BaseResponseModel<InvestmentAmountModel>> call = RetrofitUtils.createApi(MyApi.class).getUserInvestAmount("625527", StringUtils.getRequestJsonString(map));
+
+        call.enqueue(new BaseResponseModelCallBack<InvestmentAmountModel>(this) {
+            @Override
+            protected void onSuccess(InvestmentAmountModel data, String SucMessage) {
+                mBinding.tvTotalInvest.setText(AmountUtil.transformFormatToString2(data.getTotalInvest(), WalletHelper.COIN_BTC, AmountUtil.ALLSCALE));
+                mBinding.tvTotalIncome.setText(AmountUtil.transformFormatToString2(data.getTotalIncome(), WalletHelper.COIN_BTC, AmountUtil.ALLSCALE));
+            }
+
+            @Override
+            protected void onFinish() {
+
+            }
+        });
+
+
+    }
+
     /**
      * (0申购中，1持有中，2已到期，3募集失败)
      *
      * @return
      */
-    private String getStatus() {
+    private List<String> getStatus() {
 
         List<String> strings = new ArrayList<>();
 
@@ -164,7 +193,7 @@ public class MyInvestmentDetails extends BaseActivity {
         if (mBinding.checkboxBackMoney.isChecked()) {
             strings.add("2");
         }
-        return StringUtils.listToString(strings, ",");
+        return strings;
     }
 
 
@@ -179,7 +208,7 @@ public class MyInvestmentDetails extends BaseActivity {
         MyManagementMoneyAdapter adapter = new MyManagementMoneyAdapter(listData);
 
         adapter.setOnItemClickListener((adapter1, view, position) -> {
-            MyManagementMoneyDetailsActivity.open(this, adapter.getItem(position));
+//            MyManagementMoneyDetailsActivity.open(this, adapter.getItem(position));
         });
 
         return adapter;

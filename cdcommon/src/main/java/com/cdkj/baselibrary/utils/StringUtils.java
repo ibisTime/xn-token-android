@@ -105,9 +105,11 @@ public class StringUtils {
         }
 
         requestMap.put("client", "android");
+        requestMap.put("systemCode", AppConfig.SYSTEMCODE);
+        requestMap.put("companyCode", SPUtilHelper.getLanguage());
+        requestMap.put("companyCode", AppConfig.COMPANYCODE);
         String jsonString = JSON.toJSONString(requestMap);
         LogUtil.BIGLOG("JSON 转换__:        " + jsonString);
-
         return jsonString;
     }
 

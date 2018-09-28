@@ -10,6 +10,7 @@ import com.cdkj.token.model.AppQuestionModel;
 import com.cdkj.token.model.BTCBillModel;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.BannerModel;
+import com.cdkj.token.model.BiJiaBaoAvliModel;
 import com.cdkj.token.model.BillModel;
 import com.cdkj.token.model.BtcFeesModel;
 import com.cdkj.token.model.CoinModel;
@@ -24,6 +25,8 @@ import com.cdkj.token.model.DealResultModel;
 import com.cdkj.token.model.DealUserDataModel;
 import com.cdkj.token.model.ExchangeModel;
 import com.cdkj.token.model.GasPrice;
+import com.cdkj.token.model.InvestBillModel;
+import com.cdkj.token.model.InvestmentAmountModel;
 import com.cdkj.token.model.InviteModel;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.LocalEthTokenCoinBill;
@@ -74,6 +77,16 @@ public interface MyApi {
 
 
     /**
+     * 获取投资流水
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ResponseInListModel<InvestBillModel>>> getInvestBillList(@Field("code") String code, @Field("json") String json);
+
+
+    /**
      * 获取国家列表
      *
      * @return
@@ -83,6 +96,24 @@ public interface MyApi {
     Call<BaseResponseModel<UTXOListModel>> getUtxoList(@Field("code") String code, @Field("json") String json);
 
     /**
+     * 获取可购买区间
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<BiJiaBaoAvliModel>> getBuyInterval(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取用户投资金额
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<InvestmentAmountModel>> getUserInvestAmount(@Field("code") String code, @Field("json") String json);
+
+    /**
      * 获取红包详情
      *
      * @return
@@ -90,6 +121,7 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<RedPacketDetails>> getRedPacketHistoryDetail(@Field("code") String code, @Field("json") String json);
+
     /**
      * 获取红包详情
      *

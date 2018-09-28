@@ -891,4 +891,8 @@
     <string name="my_investment_details">我的投资详情</string>
     <string name="product_end">到期</string>
     <string name="investment_bill">投资账单</string>
+    <string name="fen">份</string>
+    <string name="buy_condition">购买份额必须大于0</string>
+    <string name="buy_condition_1">请阅读并同意条款</string>
+    <string name="month">月</string>
 </resources>

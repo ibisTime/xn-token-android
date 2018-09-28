@@ -21,7 +21,11 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.ManagementMoneyListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityRefreshMoneyManagerBinding;
+import com.cdkj.token.model.InvestmentAmountModel;
 import com.cdkj.token.model.ManagementMoney;
+import com.cdkj.token.utils.AmountUtil;
+import com.cdkj.token.utils.StringUtil;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -60,8 +64,8 @@ public class BiJiaBaoListActivity extends BaseActivity {
         UIStatusBarHelper.translucent(this);
 
         initClickListener();
-
         initRefreshHelper();
+        getUsrInvestAmount();
         mRefreshHelper.onDefaluteMRefresh(true);
     }
 
@@ -156,8 +160,34 @@ public class BiJiaBaoListActivity extends BaseActivity {
             }
         });
 
+    }
+
+    /**
+     * 获取用户投资总额
+     */
+    public void getUsrInvestAmount() {
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("userId", SPUtilHelper.getUserId());
+
+        Call<BaseResponseModel<InvestmentAmountModel>> call = RetrofitUtils.createApi(MyApi.class).getUserInvestAmount("625527", StringUtils.getRequestJsonString(map));
+
+        call.enqueue(new BaseResponseModelCallBack<InvestmentAmountModel>(this) {
+            @Override
+            protected void onSuccess(InvestmentAmountModel data, String SucMessage) {
+                mBinding.tvTotalInvest.setText(AmountUtil.transformFormatToString2(data.getTotalInvest(), WalletHelper.COIN_BTC, AmountUtil.ALLSCALE) + " BTC");
+            }
+
+            @Override
+            protected void onFinish() {
+
+            }
+        });
+
 
     }
+
 
     @Override
     protected void onDestroy() {

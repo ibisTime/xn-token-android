@@ -46,6 +46,25 @@ public class AmountUtil {
     /**
      * 货币单位转换
      *
+     * @param amount
+     * @param
+     * @return
+     */
+    public static String transformFormatToString2(BigDecimal amount, String coinSymbol, int scale) {
+        if (amount == null) {
+            return "0.00";
+        }
+
+        if (TextUtils.isEmpty(coinSymbol)) {
+            return formatCoinAmount(BigDecimalUtils.div(amount, BigDecimal.TEN.pow(18), scale));
+        }
+
+        return formatCoinAmount(BigDecimalUtils.div(amount, getLocalCoinUnit(coinSymbol), scale));
+    }
+
+    /**
+     * 货币单位转换
+     *
      * @param amountString
      * @param
      * @return

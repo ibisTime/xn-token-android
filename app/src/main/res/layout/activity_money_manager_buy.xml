@@ -7,6 +7,8 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
+        <View style="@style/style_split_line" />
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -29,13 +31,15 @@
 
 
                     <TextView
+                        android:id="@+id/tv_coin_balance"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:text="@string/can_use_balance" />
+                        tools:text="@string/can_use_balance" />
 
 
                     <TextView
+                        android:id="@+id/tv_in_money"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
@@ -67,6 +71,7 @@
                         android:background="@drawable/rect_blue_change" />
 
                     <TextView
+                        android:id="@+id/tv_name"
                         android:layout_width="159dp"
                         android:layout_height="21dp"
                         android:layout_marginLeft="15dp"
@@ -94,6 +99,7 @@
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_avil_amount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -109,6 +115,7 @@
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:orientation="horizontal"
+                    android:paddingBottom="10dp"
                     android:paddingLeft="15dp"
                     android:paddingTop="10dp">
 
@@ -116,11 +123,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="@string/product_amount"
+                        android:text="@string/expected_income2"
                         android:textColor="#ff666666"
                         android:textSize="14sp" />
 
                     <TextView
+                        android:id="@+id/tv_expect_yield"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
@@ -166,12 +174,14 @@
                     android:paddingTop="15dp">
 
                     <TextView
+                        android:id="@+id/tv_reduce"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:background="#F9F9FC"
                         android:gravity="center"
+                        android:paddingBottom="4dp"
                         android:text="-"
-                        android:textSize="35sp" />
+                        android:textSize="30sp" />
 
                     <LinearLayout
                         android:layout_width="0dp"
@@ -184,6 +194,7 @@
                             android:layout_height="0.5dp" />
 
                         <TextView
+                            android:id="@+id/tv_buy_amount"
                             android:layout_width="wrap_content"
                             android:layout_height="0dp"
                             android:layout_gravity="center"
@@ -191,9 +202,9 @@
                             android:ellipsize="end"
                             android:gravity="center"
                             android:singleLine="true"
-                            android:text="001"
                             android:textColor="@color/text_black_cd"
-                            android:textSize="30sp" />
+                            android:textSize="25sp"
+                            tools:text="001" />
 
                         <View
                             style="@style/style_split_line"
@@ -203,12 +214,13 @@
                     </LinearLayout>
 
                     <TextView
+                        android:id="@+id/tv_add"
                         android:layout_width="50dp"
                         android:layout_height="50dp"
                         android:background="#F9F9FC"
                         android:gravity="center"
                         android:text="+"
-                        android:textSize="28dp" />
+                        android:textSize="25dp" />
 
 
                 </LinearLayout>
@@ -238,6 +250,7 @@
                     android:paddingTop="20dp">
 
                     <TextView
+                        android:id="@+id/tv_min"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#ff464646"
@@ -253,9 +266,10 @@
                         android:layout_marginRight="15dp"
                         android:layout_weight="1"
                         android:max="100"
-                        android:progress="50" />
+                        android:progress="1" />
 
                     <TextView
+                        android:id="@+id/tv_max"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="#ff464646"
@@ -269,20 +283,24 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="50dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     android:layout_marginTop="10dp">
 
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:src="@drawable/buy_check" />
+                    <android.support.v7.widget.AppCompatCheckBox
+                        android:id="@+id/checkbox_read"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:button="@drawable/buy_info_check"
+                        android:checked="true" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="我统一同意我统一同意我统一同意我统一同意xxx" />
+                        android:text="我已经仔细阅读《XXXXXXXXXXXX》，同意协议中的有关条款。充分了解银行和自身的权利和义务。" />
 
                 </LinearLayout>
 
@@ -292,12 +310,21 @@
         </ScrollView>
 
 
-        <Button
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/selector_btn_blue_change"
-            android:text="@string/buy"
-            android:textColor="@color/white" />
+            android:background="#2871FB">
+
+            <Button
+                android:id="@+id/btn_buy"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/selector_btn_blue_change"
+                android:text="@string/buy"
+                android:textColor="@color/white" />
+
+        </LinearLayout>
+
 
     </LinearLayout>
 </layout>

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.webkit.WebView;
 
 import com.cdkj.baselibrary.api.BaseResponseModel;
+import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
@@ -20,6 +21,7 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityMoneyManagerDetails2Binding;
+import com.cdkj.token.model.BiJiaBaoBuyModel;
 import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
@@ -41,6 +43,8 @@ public class BijiaBaoDetailsActivity extends AbsStatusBarTranslucentActivity {
     private ActivityMoneyManagerDetails2Binding mbinding;
 
     private String mProductCode;//产品编号
+
+    private ManagementMoney mProductModel;
 
     public static void open(Context context, String productCode) {
         if (context == null) {
@@ -92,7 +96,19 @@ public class BijiaBaoDetailsActivity extends AbsStatusBarTranslucentActivity {
         //购买
 
         mbinding.btnToBuy.setOnClickListener(view -> {
-            BiJiaBaoBuyActivity.open(this);
+
+            if (mProductModel == null) return;
+
+            BiJiaBaoBuyModel biJiaBaoBuyModel = new BiJiaBaoBuyModel();
+
+            biJiaBaoBuyModel.setAvilAmount(mProductModel.getAvilAmount());
+            biJiaBaoBuyModel.setExpectYield(mProductModel.getExpectYield());
+            biJiaBaoBuyModel.setCoinSymbol(mProductModel.getSymbol());
+            biJiaBaoBuyModel.setProductCode(mProductModel.getCode());
+            biJiaBaoBuyModel.setProductName(mProductModel.getName());
+            biJiaBaoBuyModel.setIncreAmount(mProductModel.getIncreAmount());
+
+            BiJiaBaoBuyActivity.open(this, biJiaBaoBuyModel);
         });
     }
 
@@ -133,6 +149,7 @@ public class BijiaBaoDetailsActivity extends AbsStatusBarTranslucentActivity {
         call.enqueue(new BaseResponseModelCallBack<ManagementMoney>(this) {
             @Override
             protected void onSuccess(ManagementMoney data, String SucMessage) {
+                mProductModel = data;
                 sheShowData(data);
             }
 
@@ -173,11 +190,86 @@ public class BijiaBaoDetailsActivity extends AbsStatusBarTranslucentActivity {
         mbinding.tvIncomeTime.setText(DateUtil.formatStringData(managementMoney.getIncomeDatetime(), DATE_YMD));
         mbinding.tvEndTime.setText(DateUtil.formatStringData(managementMoney.getEndDatetime(), DATE_YMD));
 
+        //购买属性
+        mbinding.webview1.loadData(getBuyDescByLanguage(managementMoney), "text/html;charset=UTF-8", "UTF-8");
+        //赎回属性
+        mbinding.webview2.loadData(getRedeemDescByLanguage(managementMoney), "text/html;charset=UTF-8", "UTF-8");
+        //说明书
+        mbinding.webview3.loadData(getDirectionsDescByLanguage(managementMoney), "text/html;charset=UTF-8", "UTF-8");
 
-        //产品介绍
-        mbinding.webview3.loadData(managementMoney.getDescription(), "text/html;charset=UTF-8", "UTF-8");
+        mbinding.webview1.setVisibility(View.GONE);
+        mbinding.webview2.setVisibility(View.GONE);
+        mbinding.webview3.setVisibility(View.GONE);
 
     }
+
+
+    /**
+     * 获取购买属性
+     *
+     * @param managementMoney
+     * @return
+     */
+    public String getBuyDescByLanguage(ManagementMoney managementMoney) {
+
+        if (managementMoney == null) {
+            return "";
+        }
+        switch (SPUtilHelper.getLanguage()) {
+            case AppConfig.ENGLISH:
+                return managementMoney.getBuyDescEn();
+            case AppConfig.KOREA:
+                return managementMoney.getBuyDescKo();
+            default:
+                return managementMoney.getBuyDescZhCn();
+        }
+    }
+
+
+    /**
+     * 获取赎回属性
+     *
+     * @param managementMoney
+     * @return
+     */
+    public String getRedeemDescByLanguage(ManagementMoney managementMoney) {
+
+        if (managementMoney == null) {
+            return "";
+        }
+        switch (SPUtilHelper.getLanguage()) {
+            case AppConfig.ENGLISH:
+                return managementMoney.getRedeemDescEn();
+            case AppConfig.KOREA:
+                return managementMoney.getRedeemDescKo();
+            default:
+                return managementMoney.getRedeemDescZhCn();
+        }
+
+    }
+
+
+    /**
+     * 获取说明书
+     *
+     * @param managementMoney
+     * @return
+     */
+    public String getDirectionsDescByLanguage(ManagementMoney managementMoney) {
+
+        if (managementMoney == null) {
+            return "";
+        }
+        switch (SPUtilHelper.getLanguage()) {
+            case AppConfig.ENGLISH:
+                return managementMoney.getDirectionsEn();
+            case AppConfig.KOREA:
+                return managementMoney.getDirectionsKo();
+            default:
+                return managementMoney.getDirectionsZhCn();
+        }
+    }
+
 
     /**
      * 获取币种金额显示+币种名称显示文本

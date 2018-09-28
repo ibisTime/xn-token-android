@@ -15,6 +15,7 @@ import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.DialogMoneyProductBuyConfirm2Binding;
 import com.cdkj.token.databinding.DialogMoneyProductBuySuccessBinding;
+import com.cdkj.token.find.product_application.management_money.MyInvestmentDetails;
 import com.cdkj.token.find.product_application.management_money.MyManagementMoneyListActivity;
 import com.cdkj.token.interfaces.ProductBuyListener;
 import com.cdkj.token.model.ProductBuyStep2Model;
@@ -82,7 +83,8 @@ public class MoneyProductBuySuccessDialog extends Dialog {
     private void startToHistory() {
         dismiss();
         if (mActivity == null) return;
-        MyManagementMoneyListActivity.open(mActivity);
+//        MyManagementMoneyListActivity.open(mActivity);
+        MyInvestmentDetails.open(mActivity);
         mActivity.finish();
     }
 

@@ -389,7 +389,6 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
             }
         });
 
-
     }
 
 

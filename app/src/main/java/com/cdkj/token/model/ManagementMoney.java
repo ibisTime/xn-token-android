@@ -41,6 +41,19 @@ public class ManagementMoney {
      * remark : 无
      */
 
+    private String redeemDescKo;//赎回属性（韩文）
+    private String redeemDescEn;//赎回属性
+    private String redeemDescZhCn;//赎回属性
+
+    private String buyDescKo;//购买属性
+    private String buyDescEn;
+    private String buyDescZhCn;
+
+    private String directionsZhCn;//说明书
+    private String directionsEn;
+    private String directionsKo;
+
+
     private String code;
     private String name;
     private String symbol;
@@ -70,6 +83,80 @@ public class ManagementMoney {
     private String updater;
     private String updateDatetime;
     private String remark;
+
+
+    public String getRedeemDescKo() {
+        return redeemDescKo;
+    }
+
+    public void setRedeemDescKo(String redeemDescKo) {
+        this.redeemDescKo = redeemDescKo;
+    }
+
+    public String getRedeemDescEn() {
+        return redeemDescEn;
+    }
+
+    public void setRedeemDescEn(String redeemDescEn) {
+        this.redeemDescEn = redeemDescEn;
+    }
+
+    public String getRedeemDescZhCn() {
+        return redeemDescZhCn;
+    }
+
+    public void setRedeemDescZhCn(String redeemDescZhCn) {
+        this.redeemDescZhCn = redeemDescZhCn;
+    }
+
+    public String getBuyDescKo() {
+        return buyDescKo;
+    }
+
+    public void setBuyDescKo(String buyDescKo) {
+        this.buyDescKo = buyDescKo;
+    }
+
+    public String getBuyDescEn() {
+        return buyDescEn;
+    }
+
+    public void setBuyDescEn(String buyDescEn) {
+        this.buyDescEn = buyDescEn;
+    }
+
+    public String getBuyDescZhCn() {
+        return buyDescZhCn;
+    }
+
+    public void setBuyDescZhCn(String buyDescZhCn) {
+        this.buyDescZhCn = buyDescZhCn;
+    }
+
+    public String getDirectionsZhCn() {
+        return directionsZhCn;
+    }
+
+    public void setDirectionsZhCn(String directionsZhCn) {
+        this.directionsZhCn = directionsZhCn;
+    }
+
+    public String getDirectionsEn() {
+        return directionsEn;
+    }
+
+    public void setDirectionsEn(String directionsEn) {
+        this.directionsEn = directionsEn;
+    }
+
+    public String getDirectionsKo() {
+        return directionsKo;
+    }
+
+    public void setDirectionsKo(String directionsKo) {
+        this.directionsKo = directionsKo;
+    }
+
 
     public String getCode() {
         return code;
