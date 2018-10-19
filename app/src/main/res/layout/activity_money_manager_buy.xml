@@ -189,26 +189,21 @@
                         android:layout_weight="1"
                         android:orientation="vertical">
 
-                        <View
-                            style="@style/style_split_line"
-                            android:layout_height="0.5dp" />
 
-                        <TextView
-                            android:id="@+id/tv_buy_amount"
-                            android:layout_width="wrap_content"
-                            android:layout_height="0dp"
+                        <EditText
+                            android:id="@+id/edt_buy_amount"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@null"
                             android:layout_gravity="center"
-                            android:layout_weight="1"
                             android:ellipsize="end"
                             android:gravity="center"
+                            android:inputType="number"
                             android:singleLine="true"
                             android:textColor="@color/text_black_cd"
                             android:textSize="25sp"
                             tools:text="001" />
 
-                        <View
-                            style="@style/style_split_line"
-                            android:layout_height="0.5dp" />
 
 
                     </LinearLayout>
@@ -226,6 +221,7 @@
                 </LinearLayout>
 
                 <TextView
+                    android:id="@+id/tv_amount"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_gravity="center"
@@ -286,6 +282,7 @@
                     android:layout_marginBottom="50dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
+                    android:paddingBottom="10dp"
                     android:layout_marginTop="10dp">
 
                     <android.support.v7.widget.AppCompatCheckBox
@@ -294,13 +291,14 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="2dp"
                         android:button="@drawable/buy_info_check"
-                        android:checked="true" />
+                        android:checked="false" />
 
                     <TextView
+                        android:id="@+id/tv_pop_protocol"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
-                        android:text="我已经仔细阅读《XXXXXXXXXXXX》，同意协议中的有关条款。充分了解银行和自身的权利和义务。" />
+                        android:paddingBottom="5dp" />
 
                 </LinearLayout>
 

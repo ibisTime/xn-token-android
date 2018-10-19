@@ -5,7 +5,7 @@ package com.cdkj.token.model;
  * Created by cdkj on 2018/9/28.
  */
 
-public class BiJiaBaoAvliModel {
+public class BiJiaBaoAvilModel {
 
     private int min;//最小可购买份数
     private int max;//最大可购买份数

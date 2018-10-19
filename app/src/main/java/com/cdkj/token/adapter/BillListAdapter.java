@@ -56,6 +56,7 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
             helper.setTextColor(R.id.tv_amount, ContextCompat.getColor(mContext, R.color.out_money));
         }
 
+
         ImageView ivType = helper.getView(R.id.iv_type);
 
         if (TextUtils.equals(item.getKind(), "0")) { // 非冻结流水
@@ -91,6 +92,18 @@ public class BillListAdapter extends BaseQuickAdapter<BillModel.ListBean, BaseVi
                     ivType.setImageResource(R.drawable.coin_in);
                     break;
                 case "jf_lottery_in": // 积分抽奖
+                    ivType.setImageResource(R.drawable.coin_in);
+                    break;
+                case "invite_income_pop_in": // 邀请好友量化分成
+                    ivType.setImageResource(R.drawable.coin_in);
+                    break;
+                case "lhlc_income_in": // 量化理财收益
+                    ivType.setImageResource(R.drawable.coin_in);
+                    break;
+                case "lhlc_invest_out": // 量化理财投资
+                    ivType.setImageResource(R.drawable.coin_out);
+                    break;
+                case "lhlc_repay_in": // 量化理财本金回款
                     ivType.setImageResource(R.drawable.coin_in);
                     break;
             }

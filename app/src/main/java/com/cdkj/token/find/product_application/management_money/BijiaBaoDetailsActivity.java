@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,7 +109,7 @@ public class BijiaBaoDetailsActivity extends AbsStatusBarTranslucentActivity {
             biJiaBaoBuyModel.setProductName(mProductModel.getName());
             biJiaBaoBuyModel.setIncreAmount(mProductModel.getIncreAmount());
 
-            BiJiaBaoBuyActivity.open(this, biJiaBaoBuyModel);
+            BiJiaBaoBuyActivity.open(this, mProductModel);
         });
     }
 
@@ -142,7 +143,7 @@ public class BijiaBaoDetailsActivity extends AbsStatusBarTranslucentActivity {
         map.put("code", mProductCode);
         map.put("language", SPUtilHelper.getLanguage());
 
-        Call<BaseResponseModel<ManagementMoney>> call = RetrofitUtils.createApi(MyApi.class).getMoneyManageProductDetails("625511", StringUtils.getRequestJsonString(map));
+        Call<BaseResponseModel<ManagementMoney>> call = RetrofitUtils.createApi(MyApi.class).getMoneyManageProductDetails("625514", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -173,22 +174,21 @@ public class BijiaBaoDetailsActivity extends AbsStatusBarTranslucentActivity {
 
         mBaseBinding.tvTitle.setText(managementMoney.getName());
 
-        mbinding.tvBuyTotlaRatio.setText(StringUtils.showformatPercentage(managementMoney.getExpectYield()));//年化率
+        String[] totlaRatio = StringUtils.showformatPercentage(managementMoney.getExpectYield()).split("\\.");
+        mbinding.tvBuyTotlaRatio.setText(totlaRatio[0]);//年化率
+        if (totlaRatio.length > 1){
+            mbinding.tvBuyTotlaRatioDecimal.setText("."+totlaRatio[1]);//年化率
+        }
 
         mbinding.tvEndDay.setText(getString(R.string.product_days, managementMoney.getLimitDays() + ""));//产品期限
-
         mbinding.tvAvilAmount.setText(getCoinAmountText(managementMoney, coinUnit, managementMoney.getAvilAmount()));//剩余
-
         mbinding.tvMinAmount.setText(getCoinAmountText(managementMoney, coinUnit, managementMoney.getMinAmount()));//起购
-
         mbinding.tvTotalAmount.setText(getCoinAmountText(managementMoney, coinUnit, managementMoney.getAmount()));//产品总额
-
         mbinding.tvCoinName.setText(managementMoney.getSymbol());
-
 
         mbinding.tvStartTime.setText(DateUtil.formatStringData(managementMoney.getStartDatetime(), DATE_YMD));
         mbinding.tvIncomeTime.setText(DateUtil.formatStringData(managementMoney.getIncomeDatetime(), DATE_YMD));
-        mbinding.tvEndTime.setText(DateUtil.formatStringData(managementMoney.getEndDatetime(), DATE_YMD));
+        mbinding.tvEndTime.setText(DateUtil.formatStringData(managementMoney.getArriveDatetime(), DATE_YMD));
 
         //购买属性
         mbinding.webview1.loadData(getBuyDescByLanguage(managementMoney), "text/html;charset=UTF-8", "UTF-8");
@@ -201,12 +201,45 @@ public class BijiaBaoDetailsActivity extends AbsStatusBarTranslucentActivity {
         mbinding.webview2.setVisibility(View.GONE);
         mbinding.webview3.setVisibility(View.GONE);
 
-    }
+        if (managementMoney.getStatus().equals("5")){ // 5-募集期
+            mbinding.btnToBuy.setVisibility(View.VISIBLE);
+        }else{
+            mbinding.btnToBuy.setVisibility(View.GONE);
+        }
 
+        // 0 不能购买，1 起购，2 起息，3 结期
+        if (TextUtils.isEmpty(managementMoney.getTimeStatus())){
+            return;
+        }
+        int timeStatus = Integer.parseInt(managementMoney.getTimeStatus());
+        if (timeStatus > 0){
+            mbinding.tvProgress1.setBackgroundResource(R.drawable.oval_blue);
+            mbinding.tvProgress1.setTextColor(ContextCompat.getColor(this, R.color.blue_0064ff));
+            mbinding.tvStartTime.setTextColor(ContextCompat.getColor(this, R.color.blue_0064ff));
+            mbinding.tvProgressStart.setTextColor(ContextCompat.getColor(this, R.color.blue_0064ff));
+
+            mbinding.ivSchedule1.setImageResource(R.mipmap.schedule_blue);
+        }
+
+        if (timeStatus > 1){
+            mbinding.tvProgress2.setBackgroundResource(R.drawable.oval_blue);
+            mbinding.tvProgress2.setTextColor(ContextCompat.getColor(this, R.color.blue_0064ff));
+            mbinding.tvIncomeTime.setTextColor(ContextCompat.getColor(this, R.color.blue_0064ff));
+            mbinding.tvProgressIncome.setTextColor(ContextCompat.getColor(this, R.color.blue_0064ff));
+
+            mbinding.ivSchedule2.setImageResource(R.mipmap.schedule_blue);
+        }
+
+        if (timeStatus > 2){
+            mbinding.tvProgress3.setBackgroundResource(R.drawable.oval_blue);
+            mbinding.tvProgress3.setTextColor(ContextCompat.getColor(this, R.color.blue_0064ff));
+            mbinding.tvEndTime.setTextColor(ContextCompat.getColor(this, R.color.blue_0064ff));
+            mbinding.tvProgressEnd.setTextColor(ContextCompat.getColor(this, R.color.blue_0064ff));
+        }
+    }
 
     /**
      * 获取购买属性
-     *
      * @param managementMoney
      * @return
      */

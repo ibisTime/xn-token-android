@@ -42,9 +42,9 @@ android {
         applicationId "com.cdkj.tha"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 10
-        versionName "1.9.1"
-        flavorDimensions "10"
+        versionCode 12
+        versionName "1.9.3"
+        flavorDimensions "12"
 
         multiDexEnabled true
 
@@ -77,7 +77,6 @@ android {
     }
     buildTypes {
 
-
         release {
             buildConfigField "boolean", "IS_DEBUG", "false"
             buildConfigField "String", "umeng", "\"5b73b265b27b0a300c00035c\"" //友盟统计key
@@ -103,6 +102,11 @@ android {
             minifyEnabled false
         }
 
+    }
+
+    dexOptions {
+        incremental true
+        javaMaxHeapSize "4g"
     }
 
     android.applicationVariants.all { variant ->
@@ -165,6 +169,9 @@ dependencies {
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 
     implementation 'com.sina.weibo.sdk:core:4.3.0:openDefaultRelease@aar'
+
+    //
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
 }
 ///格式化打完完成后APK名称中的时间

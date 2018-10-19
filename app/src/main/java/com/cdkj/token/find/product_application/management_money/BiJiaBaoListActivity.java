@@ -24,7 +24,6 @@ import com.cdkj.token.databinding.ActivityRefreshMoneyManagerBinding;
 import com.cdkj.token.model.InvestmentAmountModel;
 import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.utils.AmountUtil;
-import com.cdkj.token.utils.StringUtil;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.util.HashMap;
@@ -44,6 +43,8 @@ public class BiJiaBaoListActivity extends BaseActivity {
 
     private RefreshHelper mRefreshHelper;
 
+    // 投资总额
+    private InvestmentAmountModel investment;
 
     public static void open(Context context) {
         if (context == null) {
@@ -72,6 +73,15 @@ public class BiJiaBaoListActivity extends BaseActivity {
     private void initClickListener() {
         mBinding.imgFinish.setOnClickListener(view -> finish());
         mBinding.tvMyInvesment.setOnClickListener(view -> MyInvestmentDetails.open(this));
+        mBinding.llVisible.setOnClickListener(view -> {
+            if (mBinding.tvTotalInvest.getText().toString().equals("****** BTC")){
+                mBinding.tvTotalInvest.setText("≈ " + AmountUtil.transformFormatToString2(investment.getTotalInvest(), WalletHelper.COIN_BTC, AmountUtil.SCALE_4) + " BTC");
+                mBinding.ivEye.setImageResource(R.mipmap.eye_open_white);
+            }else {
+                mBinding.tvTotalInvest.setText("****** BTC");
+                mBinding.ivEye.setImageResource(R.mipmap.eye_close_white);
+            }
+        });
     }
 
     void initRefreshHelper() {
@@ -176,7 +186,8 @@ public class BiJiaBaoListActivity extends BaseActivity {
         call.enqueue(new BaseResponseModelCallBack<InvestmentAmountModel>(this) {
             @Override
             protected void onSuccess(InvestmentAmountModel data, String SucMessage) {
-                mBinding.tvTotalInvest.setText(AmountUtil.transformFormatToString2(data.getTotalInvest(), WalletHelper.COIN_BTC, AmountUtil.ALLSCALE) + " BTC");
+                investment = data;
+                mBinding.tvTotalInvest.setText("≈ " + AmountUtil.transformFormatToString2(investment.getTotalInvest(), WalletHelper.COIN_BTC, AmountUtil.SCALE_4) + " BTC");
             }
 
             @Override

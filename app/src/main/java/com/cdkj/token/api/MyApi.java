@@ -10,8 +10,9 @@ import com.cdkj.token.model.AppQuestionModel;
 import com.cdkj.token.model.BTCBillModel;
 import com.cdkj.token.model.BalanceListModel;
 import com.cdkj.token.model.BannerModel;
-import com.cdkj.token.model.BiJiaBaoAvliModel;
+import com.cdkj.token.model.BiJiaBaoAvilModel;
 import com.cdkj.token.model.BillModel;
+import com.cdkj.token.model.BjbMyIncome;
 import com.cdkj.token.model.BtcFeesModel;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.ConsultListModel;
@@ -25,6 +26,7 @@ import com.cdkj.token.model.DealResultModel;
 import com.cdkj.token.model.DealUserDataModel;
 import com.cdkj.token.model.ExchangeModel;
 import com.cdkj.token.model.GasPrice;
+import com.cdkj.token.model.IncomeRankTopModel;
 import com.cdkj.token.model.InvestBillModel;
 import com.cdkj.token.model.InvestmentAmountModel;
 import com.cdkj.token.model.InviteModel;
@@ -57,8 +59,6 @@ import com.cdkj.token.model.UserSettingModel;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.model.WithdrawOrderModel;
 import com.cdkj.token.model.db.LocalCoinDbModel;
-
-import java.math.BigInteger;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -102,7 +102,7 @@ public interface MyApi {
      */
     @FormUrlEncoded
     @POST("api")
-    Call<BaseResponseModel<BiJiaBaoAvliModel>> getBuyInterval(@Field("code") String code, @Field("json") String json);
+    Call<BaseResponseModel<BiJiaBaoAvilModel>> getBuyInterval(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取用户投资金额
@@ -802,5 +802,22 @@ public interface MyApi {
     @POST("api")
     Call<BaseResponseModel<RedPackageDetialsBean>> getRedPackageDetails(@Field("code") String code, @Field("json") String json);
 
+    /**
+     * 我的收益查询
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<BjbMyIncome>> getMyIncome(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 收益排行Top100
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<IncomeRankTopModel>> getIncomeRankTop(@Field("code") String code, @Field("json") String json);
 
 }

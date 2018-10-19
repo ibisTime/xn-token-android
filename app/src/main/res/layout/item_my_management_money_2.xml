@@ -16,7 +16,8 @@
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:gravity="center_vertical"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:orientation="horizontal">
@@ -25,19 +26,23 @@
                     android:id="@+id/tv_name"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:ellipsize="middle"
                     android:singleLine="true"
                     android:textColor="#ff464646"
                     android:textSize="15sp"
-                    tools:text="蓝潮基金ETH增长型5期蓝潮基金ETH增长型5期" />
+                    tools:text="蓝潮基金ETH增长型5期" />
 
                 <TextView
-                    android:id="@+id/tv_state"
+                    android:id="@+id/tv_status"
+                    android:textColor="@color/blue_0064ff"
+                    android:background="@drawable/bg_item_invest_status"
+                    android:gravity="center"
+                    android:textSize="10sp"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="3dp"
-                    android:layout_marginRight="50dp"
+                    android:layout_height="15dp"
+                    android:paddingLeft="3dp"
+                    android:paddingRight="3dp"
+                    android:layout_marginLeft="5dp"
                     tools:text="已持有" />
 
             </LinearLayout>

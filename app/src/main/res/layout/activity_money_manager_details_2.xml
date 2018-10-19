@@ -8,7 +8,6 @@
         android:orientation="vertical">
 
         <ScrollView
-
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
@@ -21,40 +20,10 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="215dp"
-                    android:background="@drawable/money_manager_bg2"
+                    android:layout_height="210dp"
+                    android:background="@drawable/money_manager_bg"
                     android:orientation="vertical">
 
-                    <!--<FrameLayout-->
-                    <!--android:layout_width="match_parent"-->
-                    <!--android:layout_height="45dp"-->
-                    <!--android:visibility="invisible">-->
-
-                    <!--<ImageView-->
-                    <!--android:id="@+id/img_finish"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="match_parent"-->
-                    <!--android:paddingBottom="10dp"-->
-                    <!--android:paddingLeft="18dp"-->
-                    <!--android:paddingRight="18dp"-->
-                    <!--android:paddingTop="10dp"-->
-                    <!--android:src="@drawable/back_white" />-->
-
-                    <!--<TextView-->
-                    <!--android:id="@+id/tv_title"-->
-                    <!--android:layout_width="wrap_content"-->
-                    <!--android:layout_height="wrap_content"-->
-                    <!--android:layout_gravity="center"-->
-                    <!--android:layout_marginLeft="45dp"-->
-                    <!--android:layout_marginRight="45dp"-->
-                    <!--android:ellipsize="end"-->
-                    <!--android:singleLine="true"-->
-                    <!--android:textColor="@color/white"-->
-                    <!--android:textSize="@dimen/title_mid_size"-->
-                    <!--tools:text="蓝潮基金增长型2期" />-->
-
-
-                    <!--</FrameLayout>-->
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -69,21 +38,55 @@
                         android:textColor="#97ffffff"
                         android:textSize="14sp" />
 
-                    <TextView
-                        android:id="@+id/tv_buy_totla_ratio"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
+                    <LinearLayout
                         android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:singleLine="true"
-                        android:text="+0.00%"
-                        android:textColor="@color/white"
-                        android:textSize="35sp" />
+                        android:gravity="center_horizontal|bottom"
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginLeft="15dp"
+                            android:text="+"
+                            android:textColor="@color/white"
+                            android:textSize="30sp" />
+
+
+                        <TextView
+                            android:id="@+id/tv_buy_totla_ratio"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="2dp"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            android:textSize="35sp" />
+
+                        <TextView
+
+                            android:id="@+id/tv_buy_totla_ratio_decimal"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="bottom"
+                            android:layout_marginRight="15dp"
+                            android:textStyle="bold"
+                            android:ellipsize="end"
+                            android:singleLine="true"
+                            android:text=".00%"
+                            android:textColor="@color/white"
+                            android:textSize="22sp" />
+
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -204,12 +207,13 @@
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_progress1"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:background="@drawable/oval_blue"
+                            android:background="@drawable/oval_gray"
                             android:gravity="center"
                             android:text="1"
-                            android:textColor="#0064FF"
+                            android:textColor="@color/gray_666666"
                             android:textSize="12sp" />
 
 
@@ -217,8 +221,17 @@
 
 
                     <com.cdkj.token.views.DashLineView
+                        android:id="@+id/iv"
+                        android:visibility="gone"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/iv_schedule1"
+                        android:src="@mipmap/schedule_gray"
+                        android:layout_width="0dp"
+                        android:layout_height="10dp"
                         android:layout_weight="1" />
 
                     <LinearLayout
@@ -228,19 +241,28 @@
                         android:gravity="center">
 
                         <TextView
+                            android:id="@+id/tv_progress2"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:background="@drawable/oval_blue"
+                            android:background="@drawable/oval_gray"
                             android:gravity="center"
                             android:text="2"
-                            android:textColor="#0064FF"
+                            android:textColor="@color/gray_666666"
                             android:textSize="12sp" />
                     </LinearLayout>
 
 
                     <com.cdkj.token.views.DashLineView
+                        android:visibility="gone"
                         android:layout_width="0dp"
                         android:layout_height="1dp"
+                        android:layout_weight="1" />
+
+                    <ImageView
+                        android:id="@+id/iv_schedule2"
+                        android:src="@mipmap/schedule_gray"
+                        android:layout_width="0dp"
+                        android:layout_height="10dp"
                         android:layout_weight="1" />
 
                     <LinearLayout
@@ -251,13 +273,14 @@
                         android:gravity="center">
 
                         <TextView
+                            android:id="@+id/tv_progress3"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
                             android:layout_marginRight="10dp"
-                            android:background="@drawable/oval_blue"
+                            android:background="@drawable/oval_gray"
                             android:gravity="center"
                             android:text="3"
-                            android:textColor="#0064FF"
+                            android:textColor="@color/gray_666666"
                             android:textSize="12sp" />
                     </LinearLayout>
 
@@ -274,20 +297,20 @@
                     android:paddingRight="32dp">
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
 
                         <TextView
+                            android:id="@+id/tv_progress_start"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:gravity="center"
                             android:text="@string/start_buy_day"
-                            android:textColor="#0064FF"
+                            android:textColor="@color/gray_666666"
                             android:textSize="12sp" />
 
                         <TextView
@@ -296,7 +319,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:gravity="center"
-                            android:textColor="#0064FF"
+                            android:textColor="@color/gray_666666"
                             android:textSize="12sp"
                             tools:text="2018/9/21" />
 
@@ -309,19 +332,19 @@
                         android:layout_weight="1" />
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_progress_income"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:gravity="center"
                             android:text="@string/product_start_day"
-                            android:textColor="#0064FF"
+                            android:textColor="@color/gray_666666"
                             android:textSize="12sp" />
 
                         <TextView
@@ -330,7 +353,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:gravity="center"
-                            android:textColor="#0064FF"
+                            android:textColor="@color/gray_666666"
                             android:textSize="12sp"
                             tools:text="2018/9/21" />
 
@@ -342,19 +365,19 @@
                         android:layout_weight="1" />
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
                         <TextView
+                            android:id="@+id/tv_progress_end"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="6dp"
                             android:gravity="center"
                             android:text="@string/product_end_day"
-                            android:textColor="#0064FF"
+                            android:textColor="@color/gray_666666"
                             android:textSize="12sp" />
 
                         <TextView
@@ -363,7 +386,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:gravity="center"
-                            android:textColor="#0064FF"
+                            android:textColor="@color/gray_666666"
                             android:textSize="12sp"
                             tools:text="2018/9/21" />
 
@@ -372,7 +395,6 @@
 
 
                 </LinearLayout>
-
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -515,7 +537,6 @@
 
                 </WebView>
 
-
                 <LinearLayout
                     android:id="@+id/linLayout_back_info"
                     android:layout_width="match_parent"
@@ -589,8 +610,9 @@
 
         <Button
             android:id="@+id/btn_to_buy"
+            android:visibility="gone"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="45dp"
             android:background="@drawable/selector_btn_blue_change"
             android:text="@string/buy"
             android:textColor="@color/white" />

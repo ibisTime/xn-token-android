@@ -63,6 +63,7 @@
                 android:textSize="14sp" />
 
             <LinearLayout
+                android:id="@+id/ll_visible"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
@@ -77,7 +78,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-
                     android:layout_weight="1"
                     android:ellipsize="middle"
                     android:singleLine="true"
@@ -86,10 +86,11 @@
                     android:textSize="30sp" />
 
                 <ImageView
+                    android:id="@+id/iv_eye"
                     android:layout_width="19dp"
                     android:layout_height="13dp"
                     android:layout_marginLeft="15dp"
-                    android:src="@drawable/eye_open" />
+                    android:src="@mipmap/eye_open_white" />
 
             </LinearLayout>
 

@@ -3,7 +3,6 @@ package com.cdkj.baselibrary.base;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
-import android.support.annotation.ColorRes;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 

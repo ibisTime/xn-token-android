@@ -4,9 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.text.TextUtils;
-import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
@@ -115,7 +113,6 @@ public class ImgUtils {
     public static void loadActImgId(Activity context, int imgid, ImageView img) {
 
         if (!AppUtils.isActivityExist(context)) {
-
             return;
         }
 

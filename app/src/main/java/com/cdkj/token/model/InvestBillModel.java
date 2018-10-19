@@ -47,15 +47,15 @@ public class InvestBillModel {
     private String channelType;
     private String channelOrder;
     private String accountNumber;
-    private String transAmount;
+    private String transAmountString;
     private String userId;
     private String realName;
     private String type;
     private String currency;
     private String bizType;
     private String bizNote;
-    private String perAmount;
-    private String postAmount;
+    private String perAmountString;
+    private String postAmountString;
     private String status;
     private String remark;
     private String createDatetime;
@@ -69,6 +69,8 @@ public class InvestBillModel {
     private String _$AdjustDateTime136; // FIXME check this code
     private String systemCode;
     private String companyCode;
+    private String productName;
+    private String refUserMobile;
 
     public String getCode() {
         return code;
@@ -126,12 +128,12 @@ public class InvestBillModel {
         this.accountNumber = accountNumber;
     }
 
-    public String getTransAmount() {
-        return transAmount;
+    public String getTransAmountString() {
+        return transAmountString;
     }
 
-    public void setTransAmount(String transAmount) {
-        this.transAmount = transAmount;
+    public void setTransAmountString(String transAmountString) {
+        this.transAmountString = transAmountString;
     }
 
     public String getUserId() {
@@ -182,20 +184,20 @@ public class InvestBillModel {
         this.bizNote = bizNote;
     }
 
-    public String getPerAmount() {
-        return perAmount;
+    public String getPerAmountString() {
+        return perAmountString;
     }
 
-    public void setPerAmount(String perAmount) {
-        this.perAmount = perAmount;
+    public void setPerAmountString(String perAmountString) {
+        this.perAmountString = perAmountString;
     }
 
-    public String getPostAmount() {
-        return postAmount;
+    public String getPostAmountString() {
+        return postAmountString;
     }
 
-    public void setPostAmount(String postAmount) {
-        this.postAmount = postAmount;
+    public void setPostAmountString(String postAmountString) {
+        this.postAmountString = postAmountString;
     }
 
     public String getStatus() {
@@ -292,5 +294,21 @@ public class InvestBillModel {
 
     public void setCompanyCode(String companyCode) {
         this.companyCode = companyCode;
+    }
+
+    public String getProductName() {
+        return productName;
+    }
+
+    public void setProductName(String productName) {
+        this.productName = productName;
+    }
+
+    public String getRefUserMobile() {
+        return refUserMobile;
+    }
+
+    public void setRefUserMobile(String refUserMobile) {
+        this.refUserMobile = refUserMobile;
     }
 }

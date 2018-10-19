@@ -57,7 +57,7 @@ public class AppConfig {
     public static final String BASE_URL_DEV = "http://m.dev.thachain.org/"; // 研发
     public static final String BASE_URL_TEST = "http://m.thatest.hichengdai.com/"; // 测试
     //    public static final String BASE_URL_TEST = "https://test.thachain.org/"; // 测试
-    public static final String BASE_URL_ONLINE = "http://47.75.165.70:2101/forward-service/"; // 线上
+    public static final String BASE_URL_ONLINE = "https://app.tha.hichengdai.com/"; // 线上
 
 
     public static String getZenDeskUrl() {

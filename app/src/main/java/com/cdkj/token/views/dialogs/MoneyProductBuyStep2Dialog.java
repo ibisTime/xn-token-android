@@ -84,10 +84,11 @@ public class MoneyProductBuyStep2Dialog extends Dialog {
         }
 
         mBinding.tvName.setText(productBuyStep2Model.getProductName());
-        mBinding.tvBuyAmount.setText(productBuyStep2Model.getBuyAmountString() + productBuyStep2Model.getCoinSymbol());
+        mBinding.tvBuyAmount.setText(productBuyStep2Model.getBuyAmountString());
+        mBinding.tvSymbol.setText( productBuyStep2Model.getCoinSymbol());
         mBinding.tvEndTime.setText(productBuyStep2Model.getEndTime());
-        mBinding.tvIncome.setText(productBuyStep2Model.getExpectInComeAmount() + productBuyStep2Model.getCoinSymbol());
-
+        mBinding.tvIncome.setText(productBuyStep2Model.getExpectInComeAmount());
+        mBinding.tvIncomeSymbol.setText(productBuyStep2Model.getCoinSymbol());
     }
 
 

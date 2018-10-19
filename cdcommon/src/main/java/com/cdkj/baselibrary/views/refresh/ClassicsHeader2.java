@@ -38,7 +38,6 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
@@ -136,22 +135,22 @@ public class ClassicsHeader2 extends RelativeLayout implements RefreshHeader {
 
         mSpinnerStyle = SpinnerStyle.values()[ta.getInt(R.styleable.ClassicsHeader_srlClassicsSpinnerStyle, mSpinnerStyle.ordinal())];
 
-        if (ta.hasValue(R.styleable.ClassicsHeader_srlArrowDrawable)) {
-            mArrowView.setImageDrawable(ta.getDrawable(R.styleable.ClassicsHeader_srlArrowDrawable));
-        } else {
+//        if (ta.hasValue(R.styleable.ClassicsHeader_srlArrowDrawable)) {
+//            mArrowView.setImageDrawable(ta.getDrawable(R.styleable.ClassicsHeader_srlArrowDrawable));
+//        } else {
             mArrowDrawable = new PathsDrawable();
             mArrowDrawable.parserColors(0xff666666);
             mArrowDrawable.parserPaths("M20,12l-1.41,-1.41L13,16.17V4h-2v12.17l-5.58,-5.59L4,12l8,8 8,-8z");
             mArrowView.setImageDrawable(mArrowDrawable);
-        }
+//        }
 
-        if (ta.hasValue(R.styleable.ClassicsHeader_srlProgressDrawable)) {
-            mProgressView.setImageDrawable(ta.getDrawable(R.styleable.ClassicsHeader_srlProgressDrawable));
-        } else {
+//        if (ta.hasValue(R.styleable.ClassicsHeader_srlProgressDrawable)) {
+//            mProgressView.setImageDrawable(ta.getDrawable(R.styleable.ClassicsHeader_srlProgressDrawable));
+//        } else {
             mProgressDrawable = new ProgressDrawable();
             mProgressDrawable.setColor(0xff666666);
             mProgressView.setImageDrawable(mProgressDrawable);
-        }
+//        }
 
 
         int primaryColor = ta.getColor(R.styleable.ClassicsHeader_srlPrimaryColor, 0);

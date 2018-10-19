@@ -69,10 +69,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:gravity="right"
-                android:textColor="@color/text_black_cd"
+                android:textColor="@color/oragne"
                 android:textSize="15sp"
                 tools:text="合约编号" />
 
+            <TextView
+                android:id="@+id/tv_symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:gravity="right"
+                android:textColor="@color/text_black_cd"
+                android:textSize="15sp"
+                tools:text="合约编号" />
 
         </LinearLayout>
 
@@ -128,6 +137,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
+                android:gravity="right"
+                android:textColor="@color/oragne"
+                android:textSize="15sp"
+                tools:text="合约编号" />
+
+            <TextView
+                android:id="@+id/tv_income_symbol"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
                 android:gravity="right"
                 android:textColor="@color/text_black_cd"
                 android:textSize="15sp"

@@ -2,7 +2,6 @@ package com.cdkj.baselibrary.nets;
 
 
 import com.cdkj.baselibrary.api.BaseApiServer;
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import retrofit2.Retrofit;
 
@@ -54,6 +53,5 @@ public class RetrofitUtils {
     public static BaseApiServer getBaseAPiService() {
         return createApi(BaseApiServer.class);
     }
-
 
 }

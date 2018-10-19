@@ -193,7 +193,7 @@ public class ManagementMoneyDetailsActivity extends AbsLoadActivity implements U
             mBinding.tvBackMoneyType.setText(R.string.payment_type);
         }
         //产品介绍
-        mBinding.webviewProductIntroduction.loadData(data.getDescription(), "text/html;charset=UTF-8", "UTF-8");
+//        mBinding.webviewProductIntroduction.loadData(data.getDescription(), "text/html;charset=UTF-8", "UTF-8");
 
         if (TextUtils.equals("5", data.getStatus())) {           //5募集期  只有募集期才可以进行购买
             mBinding.btnBuy.setVisibility(View.VISIBLE);

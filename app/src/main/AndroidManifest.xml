@@ -302,7 +302,19 @@
         <activity android:name=".find.product_application.management_money.BijiaBaoDetailsActivity" />
         <activity android:name=".find.product_application.management_money.MyInvestmentDetails" />
         <activity android:name=".find.product_application.management_money.InvestmentBillListActivity" />
-        <activity android:name=".find.product_application.management_money.BiJiaBaoBuyActivity" />
+        <activity android:name=".find.product_application.management_money.BiJiaBaoBuyActivity"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity android:name=".find.product_application.management_money.MyIncomeActivity" >
+
+        </activity>
+        <activity android:name=".find.product_application.management_money.IncomeRankActivity" >
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
+        <activity android:name=".find.product_application.management_money.MyIncomeBillListActivity" />
 
     </application>
 

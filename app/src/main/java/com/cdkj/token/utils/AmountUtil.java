@@ -11,7 +11,6 @@ import java.math.BigInteger;
 import java.text.DecimalFormat;
 
 import static com.cdkj.token.utils.LocalCoinDBUtils.getLocalCoinUnit;
-import static java.math.BigDecimal.ROUND_HALF_UP;
 
 /**
  * Created by lei on 2017/10/20.
@@ -22,6 +21,7 @@ public class AmountUtil {
     public static final int ETH_UNIT_UNIT = 18;
     public static final int ETHSCALE = 8;
     public static final int ALLSCALE = 8;
+    public static final int SCALE_4 = 4;
 
 
     /**
@@ -51,7 +51,7 @@ public class AmountUtil {
      * @return
      */
     public static String transformFormatToString2(BigDecimal amount, String coinSymbol, int scale) {
-        if (amount == null) {
+        if (amount == null || amount.compareTo(BigDecimal.ZERO) == 0) {
             return "0.00";
         }
 

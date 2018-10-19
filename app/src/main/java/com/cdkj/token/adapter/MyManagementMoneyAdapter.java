@@ -1,6 +1,7 @@
 package com.cdkj.token.adapter;
 
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 
 import com.cdkj.baselibrary.utils.DateUtil;
@@ -14,7 +15,6 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import java.util.List;
 
 import static com.cdkj.baselibrary.utils.DateUtil.DATE_YMD;
-import static com.cdkj.baselibrary.utils.DateUtil.DEFAULT_DATE_FMT;
 
 /**
  * 我的 理财列表
@@ -34,13 +34,13 @@ public class MyManagementMoneyAdapter extends BaseQuickAdapter<MyManamentMoneyPr
         if (item == null || item.getProductInfo() == null) return;
 
         helper.setText(R.id.tv_name, item.getProductInfo().getName());
-        helper.setText(R.id.tv_state, getStateString(item.getStatus()));
 //        helper.setText(R.id.tv_date, DateUtil.formatStringData(item.getCreateDatetime(), DEFAULT_DATE_FMT));
         helper.setText(R.id.tv_end_date, DateUtil.formatStringData(item.getProductInfo().getArriveDatetime(), DATE_YMD) + mContext.getString(R.string.product_end));
         helper.setText(R.id.tv_buy_amount, AmountUtil.transformFormatToString(item.getInvestAmount(), item.getProductInfo().getSymbol(), AmountUtil.ALLSCALE) + item.getProductInfo().getSymbol());
-        helper.setText(R.id.tv_income, AmountUtil.transformFormatToString(item.getExpectIncome(), item.getProductInfo().getSymbol(), AmountUtil.ALLSCALE) + item.getProductInfo().getSymbol());
+        helper.setText(R.id.tv_income, AmountUtil.transformFormatToString(item.getExpectIncome(), item.getProductInfo().getSymbol(), AmountUtil.SCALE_4) + item.getProductInfo().getSymbol());
         helper.setText(R.id.tv_income_rate, StringUtils.showformatPercentage(item.getProductInfo().getExpectYield()));
 
+        getStateString(helper, item.getStatus());
     }
 
 
@@ -50,24 +50,38 @@ public class MyManagementMoneyAdapter extends BaseQuickAdapter<MyManamentMoneyPr
      * @param state
      * @return
      */
-    public String getStateString(String state) {
+    public void getStateString(BaseViewHolder helper, String state) {
 
         if (TextUtils.isEmpty(state)) {
-            return "";
+            return;
         }
 
         switch (state) {
             case "0":
-                return mContext.getString(R.string.product_buy_state_0);
-            case "1":
-                return mContext.getString(R.string.product_buy_state_1);
-            case "2":
-                return mContext.getString(R.string.product_buy_state_2);
-            case "3":
-                return mContext.getString(R.string.product_buy_state_3);
-        }
+                helper.setBackgroundRes(R.id.tv_status, R.drawable.bg_item_invest_status);
+                helper.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.blue_0064ff));
+                helper.setText(R.id.tv_status, mContext.getString(R.string.product_buy_state_0));
+                break;
 
-        return "";
+            case "1":
+                helper.setBackgroundRes(R.id.tv_status, R.drawable.bg_item_invest_status);
+                helper.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.blue_0064ff));
+                helper.setText(R.id.tv_status, mContext.getString(R.string.product_buy_state_1));
+                break;
+
+            case "2":
+                helper.setBackgroundRes(R.id.tv_status, R.drawable.bg_item_invest_status_gray);
+                helper.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.gray_999999));
+                helper.setText(R.id.tv_status, mContext.getString(R.string.product_buy_state_2));
+                break;
+
+            case "3":
+                helper.setBackgroundRes(R.id.tv_status, R.drawable.bg_item_invest_status_gray);
+                helper.setTextColor(R.id.tv_status, ContextCompat.getColor(mContext, R.color.gray_999999));
+                helper.setText(R.id.tv_status, mContext.getString(R.string.product_buy_state_3));
+                break;
+
+        }
 
     }
 

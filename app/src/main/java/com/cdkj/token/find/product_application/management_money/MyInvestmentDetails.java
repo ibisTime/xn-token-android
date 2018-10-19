@@ -39,7 +39,6 @@ import retrofit2.Call;
 
 public class MyInvestmentDetails extends BaseActivity {
 
-
     private ActivityMyInvestmentDetailsBinding mBinding;
 
     private RefreshHelper mRefreshHelper;
@@ -76,7 +75,6 @@ public class MyInvestmentDetails extends BaseActivity {
      * 筛选状态改变
      */
     private void initStatusChangeListener() {
-
         //已申购
         mBinding.checkboxBuy.setOnCheckedChangeListener((compoundButton, b) -> {
             mRefreshHelper.onDefaluteMRefresh(true);
@@ -162,8 +160,8 @@ public class MyInvestmentDetails extends BaseActivity {
         call.enqueue(new BaseResponseModelCallBack<InvestmentAmountModel>(this) {
             @Override
             protected void onSuccess(InvestmentAmountModel data, String SucMessage) {
-                mBinding.tvTotalInvest.setText(AmountUtil.transformFormatToString2(data.getTotalInvest(), WalletHelper.COIN_BTC, AmountUtil.ALLSCALE));
-                mBinding.tvTotalIncome.setText(AmountUtil.transformFormatToString2(data.getTotalIncome(), WalletHelper.COIN_BTC, AmountUtil.ALLSCALE));
+                mBinding.tvTotalInvest.setText(AmountUtil.transformFormatToString2(data.getTotalInvest(), WalletHelper.COIN_BTC, AmountUtil.SCALE_4));
+                mBinding.tvTotalIncome.setText(AmountUtil.transformFormatToString2(data.getTotalIncome(), WalletHelper.COIN_BTC, AmountUtil.SCALE_4));
             }
 
             @Override

@@ -18,6 +18,7 @@ public class ThaAppConstant {
     public static final String H5_QUANTITATIVE_FINANCE = "quantitative_finance_"; //量化理财
     public static final String H5_YUBIBAO = "yubibao_"; //余币宝
     public static final String QUESTIONS = "questions_"; //常见问题
+    public static final String H5_POP_PROTOCOL = "pop_protocol_"; //购买协议
 
 
     /**

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:visibility="gone"
+            android:gravity="center_vertical"
+            android:textSize="12sp"
+            android:textColor="@color/gray_999999"
+            android:paddingLeft="15dp"
+            android:background="#EFEFEF"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            tools:text="2018/09/29"/>
+
+        <LinearLayout
+            android:paddingLeft="15dp"
+            android:paddingRight="15dp"
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <ImageView
+                android:id="@+id/iv_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="11dp" />
+
+            <TextView
+                android:id="@+id/tv_mobile"
+                android:layout_marginLeft="5dp"
+                android:textSize="14sp"
+                android:textColor="@color/gray_333333"
+                tools:text="189****5240"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_incomeTotal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="@color/gray_333333"
+                android:textSize="14sp"
+                tools:text="320000 BTC"
+                />
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            style="@style/style_split_line" />
+
+    </LinearLayout>
+</layout>

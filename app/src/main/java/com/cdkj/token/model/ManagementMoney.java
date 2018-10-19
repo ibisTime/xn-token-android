@@ -1,63 +1,78 @@
 package com.cdkj.token.model;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 /**
  * Created by cdkj on 2018/8/16.
  */
 
-public class ManagementMoney {
+public class ManagementMoney implements Serializable {
 
 
     /**
-     * code : CP545435353342
-     * name : 币币赢第一期
-     * symbol : BTC
-     * description : 产品详情描述
-     * expectYield : 0.07
-     * actualYield : 0.08
-     * limitDays : 360
-     * minAmount : 100
-     * increAmount : 10
-     * limitAmount : 500
-     * amount : 1000
-     * avilAmount : 100
-     * saleAmount : 100
-     * successAmount : 1000
-     * saleNum : 4
-     * status : 0
-     * createDatetime : 2018-08-09 00:00:00
-     * startDatetime : 2018-08-09 00:00:00
-     * endDatetime : 2018-08-09 00:00:00
-     * incomeDatetime : 2018-08-09 00:00:00
-     * arriveDatetime : 2018-08-09 00:00:00
-     * repayDatetime : 2018-08-09 00:00:00
+     * code : PD201810062207231658623
+     * nameZhCn : mc3
+     * nameEn : mc3
+     * nameKo : mc3
+     * symbol : ETH
+     * buyDescZhCn : <p>mc3</p><p><br></p>
+     * buyDescEn : <p>mc3</p><p><br></p>
+     * buyDescKo : <p>mc3</p><p><br></p>
+     * redeemDescZhCn : <p>mc3</p><p><br></p>
+     * redeemDescEn : <p>mc3</p><p><br></p>
+     * redeemDescKo : <p>mc3</p><p><br></p>
+     * directionsZhCn : <p>mc3</p><p><br></p>
+     * directionsEn : <p>mc3</p><p><br></p>
+     * directionsKo : <p>mc3</p><p><br></p>
+     * expectYield : 5.0E-4
+     * actualYield : 5.0E-4
+     * limitDays : 1
+     * minAmount : 10000000000000000000
+     * increAmount : 10000000000000000000
+     * limitAmount : 90000000000000000000
+     * amount : 100000000000000000000
+     * avilAmount : 10000000000000000000
+     * saleAmount : 90000000000000000000
+     * successAmount : 50000000000000000000
+     * saleNum : 1
+     * status : 7
+     * creator : admin
+     * createDatetime : Oct 6, 2018 10:07:23 PM
+     * startDatetime : Oct 6, 2018 10:06:19 PM
+     * endDatetime : Oct 6, 2018 10:08:19 PM
+     * incomeDatetime : Oct 6, 2018 10:10:19 PM
+     * arriveDatetime : Oct 6, 2018 10:10:19 PM
+     * repayDatetime : Oct 7, 2018 12:00:00 AM
      * paymentType : 0
      * approver : admin
-     * approveDatetime : 2018-08-09 00:00:00
-     * approveNote : 通过
+     * approveDatetime : Oct 6, 2018 10:07:32 PM
      * updater : admin
-     * updateDatetime : 2018-08-09 00:00:00
-     * remark : 无
+     * updateDatetime : Oct 6, 2018 10:07:40 PM
+     * remark : 平台上架
+     * limitFen : 9
+     * totalFen : 10
+     * name : mc3
+     * buyDesc : <p>mc3</p><p><br></p>
+     * redeemDesc : <p>mc3</p><p><br></p>
+     * directions : <p>mc3</p><p><br></p>
+     * incomeFlag : true
      */
 
-    private String redeemDescKo;//赎回属性（韩文）
-    private String redeemDescEn;//赎回属性
-    private String redeemDescZhCn;//赎回属性
-
-    private String buyDescKo;//购买属性
-    private String buyDescEn;
+    private String code;
+    private String nameZhCn;
+    private String nameEn;
+    private String nameKo;
+    private String symbol;
     private String buyDescZhCn;
-
-    private String directionsZhCn;//说明书
+    private String buyDescEn;
+    private String buyDescKo;
+    private String redeemDescZhCn;
+    private String redeemDescEn;
+    private String redeemDescKo;
+    private String directionsZhCn;
     private String directionsEn;
     private String directionsKo;
-
-
-    private String code;
-    private String name;
-    private String symbol;
-    private String description;
     private float expectYield;
     private float actualYield;
     private int limitDays;
@@ -68,8 +83,9 @@ public class ManagementMoney {
     private BigDecimal avilAmount;
     private BigDecimal saleAmount;
     private BigDecimal successAmount;
-    private String saleNum;
+    private int saleNum;
     private String status;
+    private String creator;
     private String createDatetime;
     private String startDatetime;
     private String endDatetime;
@@ -79,42 +95,66 @@ public class ManagementMoney {
     private String paymentType;
     private String approver;
     private String approveDatetime;
-    private String approveNote;
     private String updater;
     private String updateDatetime;
     private String remark;
+    private int limitFen;
+    private int totalFen;
+    private String name;
+    private String buyDesc;
+    private String redeemDesc;
+    private String directions;
+    private boolean incomeFlag;
 
+    //时间状态
+    private String timeStatus;
 
-    public String getRedeemDescKo() {
-        return redeemDescKo;
+    public String getCode() {
+        return code;
     }
 
-    public void setRedeemDescKo(String redeemDescKo) {
-        this.redeemDescKo = redeemDescKo;
+    public void setCode(String code) {
+        this.code = code;
     }
 
-    public String getRedeemDescEn() {
-        return redeemDescEn;
+    public String getNameZhCn() {
+        return nameZhCn;
     }
 
-    public void setRedeemDescEn(String redeemDescEn) {
-        this.redeemDescEn = redeemDescEn;
+    public void setNameZhCn(String nameZhCn) {
+        this.nameZhCn = nameZhCn;
     }
 
-    public String getRedeemDescZhCn() {
-        return redeemDescZhCn;
+    public String getNameEn() {
+        return nameEn;
     }
 
-    public void setRedeemDescZhCn(String redeemDescZhCn) {
-        this.redeemDescZhCn = redeemDescZhCn;
+    public void setNameEn(String nameEn) {
+        this.nameEn = nameEn;
     }
 
-    public String getBuyDescKo() {
-        return buyDescKo;
+    public String getNameKo() {
+        return nameKo;
     }
 
-    public void setBuyDescKo(String buyDescKo) {
-        this.buyDescKo = buyDescKo;
+    public void setNameKo(String nameKo) {
+        this.nameKo = nameKo;
+    }
+
+    public String getSymbol() {
+        return symbol;
+    }
+
+    public void setSymbol(String symbol) {
+        this.symbol = symbol;
+    }
+
+    public String getBuyDescZhCn() {
+        return buyDescZhCn;
+    }
+
+    public void setBuyDescZhCn(String buyDescZhCn) {
+        this.buyDescZhCn = buyDescZhCn;
     }
 
     public String getBuyDescEn() {
@@ -125,12 +165,36 @@ public class ManagementMoney {
         this.buyDescEn = buyDescEn;
     }
 
-    public String getBuyDescZhCn() {
-        return buyDescZhCn;
+    public String getBuyDescKo() {
+        return buyDescKo;
     }
 
-    public void setBuyDescZhCn(String buyDescZhCn) {
-        this.buyDescZhCn = buyDescZhCn;
+    public void setBuyDescKo(String buyDescKo) {
+        this.buyDescKo = buyDescKo;
+    }
+
+    public String getRedeemDescZhCn() {
+        return redeemDescZhCn;
+    }
+
+    public void setRedeemDescZhCn(String redeemDescZhCn) {
+        this.redeemDescZhCn = redeemDescZhCn;
+    }
+
+    public String getRedeemDescEn() {
+        return redeemDescEn;
+    }
+
+    public void setRedeemDescEn(String redeemDescEn) {
+        this.redeemDescEn = redeemDescEn;
+    }
+
+    public String getRedeemDescKo() {
+        return redeemDescKo;
+    }
+
+    public void setRedeemDescKo(String redeemDescKo) {
+        this.redeemDescKo = redeemDescKo;
     }
 
     public String getDirectionsZhCn() {
@@ -155,39 +219,6 @@ public class ManagementMoney {
 
     public void setDirectionsKo(String directionsKo) {
         this.directionsKo = directionsKo;
-    }
-
-
-    public String getCode() {
-        return code;
-    }
-
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public void setSymbol(String symbol) {
-        this.symbol = symbol;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public float getExpectYield() {
@@ -238,28 +269,12 @@ public class ManagementMoney {
         this.limitAmount = limitAmount;
     }
 
-    public BigDecimal getSuccessAmount() {
-        return successAmount;
-    }
-
-    public void setSuccessAmount(BigDecimal successAmount) {
-        this.successAmount = successAmount;
-    }
-
     public BigDecimal getAmount() {
         return amount;
     }
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
-    }
-
-    public BigDecimal getSaleAmount() {
-        return saleAmount;
-    }
-
-    public void setSaleAmount(BigDecimal saleAmount) {
-        this.saleAmount = saleAmount;
     }
 
     public BigDecimal getAvilAmount() {
@@ -270,11 +285,27 @@ public class ManagementMoney {
         this.avilAmount = avilAmount;
     }
 
-    public String getSaleNum() {
+    public BigDecimal getSaleAmount() {
+        return saleAmount;
+    }
+
+    public void setSaleAmount(BigDecimal saleAmount) {
+        this.saleAmount = saleAmount;
+    }
+
+    public BigDecimal getSuccessAmount() {
+        return successAmount;
+    }
+
+    public void setSuccessAmount(BigDecimal successAmount) {
+        this.successAmount = successAmount;
+    }
+
+    public int getSaleNum() {
         return saleNum;
     }
 
-    public void setSaleNum(String saleNum) {
+    public void setSaleNum(int saleNum) {
         this.saleNum = saleNum;
     }
 
@@ -284,6 +315,14 @@ public class ManagementMoney {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getCreator() {
+        return creator;
+    }
+
+    public void setCreator(String creator) {
+        this.creator = creator;
     }
 
     public String getCreateDatetime() {
@@ -358,14 +397,6 @@ public class ManagementMoney {
         this.approveDatetime = approveDatetime;
     }
 
-    public String getApproveNote() {
-        return approveNote;
-    }
-
-    public void setApproveNote(String approveNote) {
-        this.approveNote = approveNote;
-    }
-
     public String getUpdater() {
         return updater;
     }
@@ -388,5 +419,69 @@ public class ManagementMoney {
 
     public void setRemark(String remark) {
         this.remark = remark;
+    }
+
+    public int getLimitFen() {
+        return limitFen;
+    }
+
+    public void setLimitFen(int limitFen) {
+        this.limitFen = limitFen;
+    }
+
+    public int getTotalFen() {
+        return totalFen;
+    }
+
+    public void setTotalFen(int totalFen) {
+        this.totalFen = totalFen;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getBuyDesc() {
+        return buyDesc;
+    }
+
+    public void setBuyDesc(String buyDesc) {
+        this.buyDesc = buyDesc;
+    }
+
+    public String getRedeemDesc() {
+        return redeemDesc;
+    }
+
+    public void setRedeemDesc(String redeemDesc) {
+        this.redeemDesc = redeemDesc;
+    }
+
+    public String getDirections() {
+        return directions;
+    }
+
+    public void setDirections(String directions) {
+        this.directions = directions;
+    }
+
+    public boolean isIncomeFlag() {
+        return incomeFlag;
+    }
+
+    public void setIncomeFlag(boolean incomeFlag) {
+        this.incomeFlag = incomeFlag;
+    }
+
+    public String getTimeStatus() {
+        return timeStatus;
+    }
+
+    public void setTimeStatus(String timeStatus) {
+        this.timeStatus = timeStatus;
     }
 }

@@ -45,7 +45,7 @@ public class InvestmentBillListActivity extends AbsLoadActivity {
 
     private TimePickerView timePickerView;
 
-    private String selectDate;
+    private String selectDate = "";
 
     public static void open(Context context) {
         if (context == null) {
@@ -119,7 +119,7 @@ public class InvestmentBillListActivity extends AbsLoadActivity {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("start", pageindex + "");
         map.put("limit", limit + "");
-        map.put("date", selectDate + "");
+        map.put("date", selectDate);
 
         if (isShowDialog) showLoadingDialog();
 
@@ -128,7 +128,13 @@ public class InvestmentBillListActivity extends AbsLoadActivity {
         call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<InvestBillModel>>(this) {
             @Override
             protected void onSuccess(ResponseInListModel<InvestBillModel> data, String SucMessage) {
+                refreshHelper.setData(data.getList(), getString(R.string.no_bill), 0);
+            }
 
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+                super.onReqFailure(errorCode, errorMessage);
+                refreshHelper.loadError(errorMessage, 0);
             }
 
             @Override

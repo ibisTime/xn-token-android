@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_width="match_parent"
+            android:layout_height="60dp">
+
+            <TextView
+                android:id="@+id/tv_no"
+                android:textSize="14sp"
+                android:textColor="@color/gray_999999"
+                tools:text="NO.1"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/tv_mobile"
+                android:textSize="14sp"
+                android:textColor="@color/gray_333333"
+                tools:text="189****5240"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:gravity="right"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/expect_income"
+                    android:textColor="@color/gray_999999"
+                    android:textSize="12sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_incomeTotal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/gray_333333"
+                    android:textSize="14sp"
+                    tools:text="320000 BTC"
+                    />
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginLeft="50dp"
+            style="@style/style_split_line" />
+
+    </LinearLayout>
+</layout>

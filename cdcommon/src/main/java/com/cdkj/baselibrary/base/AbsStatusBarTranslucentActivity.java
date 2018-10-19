@@ -3,15 +3,12 @@ package com.cdkj.baselibrary.base;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
 import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.view.View;
 
 import com.cdkj.baselibrary.R;
-import com.cdkj.baselibrary.databinding.ActivityAbsBaseLoadBinding;
 import com.cdkj.baselibrary.databinding.ActivityAbsStatusBarBinding;
-import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 
 
@@ -35,12 +32,7 @@ public abstract class AbsStatusBarTranslucentActivity extends BaseActivity {
             mBaseBinding.linLayoutRoot.addView(contentView);
         }
 
-        mBaseBinding.imgBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        mBaseBinding.imgBack.setOnClickListener(view -> finish());
 
         afterCreate(savedInstanceState);
     }
@@ -57,6 +49,10 @@ public abstract class AbsStatusBarTranslucentActivity extends BaseActivity {
 
     public void setPageBgImage(@DrawableRes int imgId) {
         mBaseBinding.linLayoutRoot.setBackgroundResource(imgId);
+    }
+
+    public void setTitleBgImage(@DrawableRes int imgId) {
+        mBaseBinding.fraLayoutTitle.setBackgroundResource(imgId);
     }
 
     public void setMidTitle(String titleString) {

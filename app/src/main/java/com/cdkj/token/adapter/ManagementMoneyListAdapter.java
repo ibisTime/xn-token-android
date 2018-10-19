@@ -2,7 +2,6 @@ package com.cdkj.token.adapter;
 
 import android.graphics.Color;
 import android.support.annotation.Nullable;
-import android.text.Html;
 import android.text.TextUtils;
 import android.widget.ProgressBar;
 
@@ -11,7 +10,6 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.utils.AmountUtil;
-import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 
@@ -27,7 +25,6 @@ public class ManagementMoneyListAdapter extends BaseQuickAdapter<ManagementMoney
 
 
     public ManagementMoneyListAdapter(@Nullable List<ManagementMoney> data) {
-//        super(R.layout.item_manager_money, data);
         super(R.layout.item_manager_money2, data);
     }
 
@@ -62,14 +59,12 @@ public class ManagementMoneyListAdapter extends BaseQuickAdapter<ManagementMoney
         switch (item.getStatus()) {
             case "4":                       //蓝色
                 return Color.parseColor("#ff0064ff");
-            case "5":           //橘色
-                return Color.parseColor("#ffff6400");
-            case "6":  //灰色
-            case "7":
             case "8":
-            case "9":
+                //灰色
+                return Color.parseColor("#ff999999");
         }
-        return Color.parseColor("#ff999999");
+        //橘色
+        return Color.parseColor("#ffff6400");
     }
 
     /*（0草稿，1待审核，2审核通过，3审核不通过，4即将开始，5募集期，6停止交易，7产品封闭期，8还款成功，9募集失败)*/
@@ -90,17 +85,19 @@ public class ManagementMoneyListAdapter extends BaseQuickAdapter<ManagementMoney
                 return mContext.getString(R.string.management_money_state_4);
             case "5":
                 return mContext.getString(R.string.management_money_state_5);
-//                return Html.fromHtml(mContext.getString(R.string.product_buy_end, AmountUtil.transformFormatToString(data.getAvilAmount(), unit, AmountUtil.ALLSCALE) + data.getSymbol()));
             case "6":
-
-                if (BigDecimalUtils.compareEqualsZERO(data.getAvilAmount())) {
-                    return mContext.getString(R.string.management_money_state_6);
-                } else {
-                    return mContext.getString(R.string.management_money_state_10);
-                }
-
+                return mContext.getString(R.string.management_money_state_6);
+//                if (BigDecimalUtils.compareEqualsZERO(data.getAvilAmount())) {
+//
+//                } else {
+//                    return mContext.getString(R.string.management_money_state_10);
+//                }
             case "7":
-                return mContext.getString(R.string.management_money_state_7);
+                if (data.isIncomeFlag()){
+                    return mContext.getString(R.string.management_money_state_jxz);
+                }else {
+                    return mContext.getString(R.string.management_money_state_7);
+                }
             case "8":
                 return mContext.getString(R.string.management_money_state_8);
             case "9":

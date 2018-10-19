@@ -95,22 +95,22 @@ public class ClassicsFooter2 extends RelativeLayout implements RefreshFooter {
 
         mSpinnerStyle = SpinnerStyle.values()[ta.getInt(R.styleable.ClassicsFooter_srlClassicsSpinnerStyle, mSpinnerStyle.ordinal())];
 
-        if (ta.hasValue(R.styleable.ClassicsFooter_srlArrowDrawable)) {
-            mArrowView.setImageDrawable(ta.getDrawable(R.styleable.ClassicsFooter_srlArrowDrawable));
-        } else {
+//        if (ta.hasValue(R.styleable.ClassicsFooter_srlArrowDrawable)) {
+//            mArrowView.setImageDrawable(ta.getDrawable(R.styleable.ClassicsFooter_srlArrowDrawable));
+//        } else {
             mArrowDrawable = new PathsDrawable();
             mArrowDrawable.parserColors(0xff666666);
             mArrowDrawable.parserPaths("M20,12l-1.41,-1.41L13,16.17V4h-2v12.17l-5.58,-5.59L4,12l8,8 8,-8z");
             mArrowView.setImageDrawable(mArrowDrawable);
-        }
+//        }
 
-        if (ta.hasValue(R.styleable.ClassicsFooter_srlProgressDrawable)) {
-            mProgressView.setImageDrawable(ta.getDrawable(R.styleable.ClassicsFooter_srlProgressDrawable));
-        } else {
+//        if (ta.hasValue(R.styleable.ClassicsFooter_srlProgressDrawable)) {
+//            mProgressView.setImageDrawable(ta.getDrawable(R.styleable.ClassicsFooter_srlProgressDrawable));
+//        } else {
             mProgressDrawable = new ProgressDrawable();
             mProgressDrawable.setColor(0xff666666);
             mProgressView.setImageDrawable(mProgressDrawable);
-        }
+//        }
 
         if (ta.hasValue(R.styleable.ClassicsFooter_srlPrimaryColor)) {
             setPrimaryColor(ta.getColor(R.styleable.ClassicsFooter_srlPrimaryColor, 0));

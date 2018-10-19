@@ -26,8 +26,10 @@
     <color name="white_80">#80ffffff</color>
 
     <color name="green">#2ac64c</color>
+    <color name="green_46aaaf">#46AAAF</color>
 
     <color name="blue">#007AFF</color>
+    <color name="blue_0064ff">#0064FF</color>
     <color name="text_blue">#007AFF</color>
 
     <color name="yellow">#fff9eb</color>
@@ -37,6 +39,7 @@
     <color name="oragne">#ff7d0e</color>
     <color name="red_packet_status_bar">#fea45d</color>
     <color name="oragne_ff6953">#FF6953</color>
+    <color name="oragne_ff8000">#FF8000</color>
 
     <color name="pass_view_rect_input">#007AFF</color>
     <color name="regi_line_color">#c8c8c8</color>
@@ -57,4 +60,10 @@
     <!-- PhotoPicker Toolbar 的颜色 -->
     <color name="bga_pp_colorPrimary">@color/colorPrimary</color>
     <color name="gray_EFEFEF">#EFEFEF</color>
+    
+    <color name="pie_yellow_FFC832">#FFC832</color>
+    <color name="pie_orange_FF6400">#FF6400</color>
+    <color name="pie_green_006C6E">#006C6E</color>
+    <color name="pie_green_46AAAF">#46AAAF</color>
+
 </resources>

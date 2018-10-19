@@ -391,6 +391,7 @@
     <string name="please_correct_transaction_number">请输入正确的转账数量</string>
     <string name="please_to_address">请输入接收地址</string>
     <string name="no_balance">可用余额不足</string>
+    <string name="balance">余额</string>
     <string name="please_input_transaction_number">请输入转账数量</string>
     <string name="no_record">暂无流水</string>
     <string name="withdraw">收款</string>
@@ -682,14 +683,15 @@
     <string name="management_money_state_7">已售罄</string>
     <string name="management_money_state_9">已结束</string>
     <string name="management_money_state_10">募集结束</string>
+    <string name="management_money_state_jxz">计息中</string>
     <string name="money_product_check_1">起购额度为</string>
     <string name="money_product_check_2">请按递增额度购买</string>
     <string name="money_product_check_3">可用余额不足</string>
     <string name="money_product_check_4">限购额度为</string>
     <string name="money_product_check_5">购买金额超出可售额度</string>
-    <string name="product_buy_state_0">申购中</string>
-    <string name="product_buy_state_1">持有中</string>
-    <string name="product_buy_state_2">已到期</string>
+    <string name="product_buy_state_0">已申购</string>
+    <string name="product_buy_state_1">已持有</string>
+    <string name="product_buy_state_2">已回款</string>
     <string name="product_buy_state_3">募集失败</string>
     <string name="transaction_confirm_state">交易确认中</string>
     <string name="management_money_state_8">已到期</string>
@@ -759,7 +761,7 @@
     <string name="invite_26">1. 新用户注册并登录可获得%1s积分奖励</string>
     <string name="invite_27">2. 新用户可获得购买币加宝收益首次翻倍的奖励</string>
     <string name="invite_28">邀请有礼说明</string>
-    <string name="invite_29">2.每邀请1位好友注册并登录后获得好友币加宝收益7%额外奖励。（有效期3个月）</string>
+    <string name="invite_29">2.每邀请1位好友注册并登录后获得好友币加宝收益10%额外奖励。（有效期3个月）</string>
     <string name="invite_30">- 邀请好友界面 -</string>
     <string name="invite_31">- 被邀请人界面 -</string>
     <string name="invite_32">1.每一位用户注册成功并登录可获得奖励%s积分</string>
@@ -818,8 +820,24 @@
     <string name="product_end">到期</string>
     <string name="investment_bill">投资账单</string>
     <string name="fen">份</string>
-    <string name="buy_condition">购买份额必须大于0</string>
-    <string name="buy_condition_1">请阅读并同意条款</string>
     <string name="month">月</string>
+    <string name="bjb_income_yesterday">昨日收益</string>
+    <string name="no_income_rank">暂无排行</string>
+    <string name="my_income">我的收益</string>
+    <string name="no_bill">暂无账单</string>
+    <string name="pop_protocol">Theia钱包理财产品服务协议</string>
+    <string name="read_buy_pop_protocol"><Data><![CDATA[我已经仔细阅读<font color="#3D76FF">《Theia钱包理财产品服务协议》</font>，同意协议中的有关条款。充分了解银行和自身的权利和义务。]]></Data></string>
+    <string name="global_income_rank">全球收益榜</string>
+    <string name="expect_income_btc">预估收益(BTC)</string>
+    <string name="income_share">他的分享</string>
+    <string name="income_rank">排名 NO.</string>
+    <string name="expect_income">预估收益</string>
+    <string name="bjb_income_total">获得总收益</string>
+    <string name="income_pop">量化收益</string>
+    <string name="income_details">详情</string>
+    <string name="income_invite">邀请收益</string>
+    <string name="income_rank_more">查看更多</string>
+    <string name="buyamount_not_empty">购买份额不能为空</string>
+    <string name="rank_100">排名100名以外，加油</string>
 
 </resources>

@@ -112,7 +112,7 @@ public class MoneyProductBuyStep1Dialog extends Dialog {
                     return;
                 }
 
-                BigDecimal bigDecimal = new BigDecimal(buyamount * inComeRate / 360);
+                BigDecimal bigDecimal = new BigDecimal(buyamount * inComeRate / 365);
 
                 buyamount = bigDecimal.setScale(4, ROUND_DOWN).floatValue();
 

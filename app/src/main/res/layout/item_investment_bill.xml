@@ -14,6 +14,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:ellipsize="middle"
@@ -23,6 +24,7 @@
             tools:text="蓝潮基金ETH增长型3期" />
 
         <TextView
+            android:id="@+id/tv_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
@@ -33,25 +35,26 @@
     </LinearLayout>
 
     <LinearLayout
+        android:gravity="right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tv_transAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="#ffff8000"
             android:textSize="15sp"
             tools:text="+ 0.0009 BTC " />
 
         <TextView
+            android:id="@+id/tv_postAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:textColor="#ff464646"
             android:textSize="12sp"
-            tools:text="399.03BTC" />
+            tools:text="余额:399.03BTC" />
 
     </LinearLayout>
 

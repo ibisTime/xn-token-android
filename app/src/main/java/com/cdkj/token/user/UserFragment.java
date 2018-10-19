@@ -27,6 +27,7 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.FragmentUser2Binding;
+import com.cdkj.token.find.product_application.management_money.MyIncomeActivity;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;
 import com.cdkj.token.user.credit.CreditActivity;
@@ -106,6 +107,11 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
         //邀请有礼
         mBinding.linLayoutInvite.setOnClickListener(view -> {
             InviteActivity.open(mActivity);
+        });
+
+        // 我的收益
+        mBinding.linLayoutIncome.setOnClickListener(view -> {
+            MyIncomeActivity.open(mActivity);
         });
 
         //更换头像
