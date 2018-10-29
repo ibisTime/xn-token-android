@@ -1,6 +1,5 @@
 <resources>
 
-    <string name="cancel">取消</string>
     <string name="money_sing">￥</string>
     <string name="activity_authenticate_title">实名认证</string>
     <string name="activity_authenticate_name_hint">请填写真实姓名</string>
@@ -137,4 +136,8 @@
     <string name="request_error_8">已经抢过该红包了</string>
     <string name="request_error_9">红包不存在</string>
     <string name="buy_product_get_income">预计收入</string>
+
+    <string name="go_on">继续</string>
+    <string name="ssl_error">ssl证书验证失败</string>
+    <string name="cancel">取消</string>
 </resources>

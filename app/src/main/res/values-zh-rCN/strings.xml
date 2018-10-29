@@ -829,4 +829,7 @@
     <string name="income_rank_more">查看更多</string>
     <string name="buyamount_not_empty">购买份额不能为空</string>
     <string name="rank_100">排名100名以外，加油</string>
+
+    <string name="ssl_error">ssl证书验证失败</string>
+    <string name="go_on">继续</string>
 </resources>

@@ -147,9 +147,9 @@ public class WebViewActivity extends AbsActivity {
                 // 处理Google play因WebView SSL Error Handler alerts被拒的问题
                 mHandler= handler;
                 AlertDialog.Builder builder = new AlertDialog.Builder(WebViewActivity.this);
-                builder.setMessage("ssl证书验证失败");
-                builder.setPositiveButton("继续", (dialog, which) -> mHandler.proceed());
-                builder.setNegativeButton("取消", (dialog, which) -> mHandler.cancel());
+                builder.setMessage(R.string.ssl_error);
+                builder.setPositiveButton(R.string.go_on, (dialog, which) -> mHandler.proceed());
+                builder.setNegativeButton(R.string.cancel, (dialog, which) -> mHandler.cancel());
                 builder.setOnKeyListener((dialog, keyCode, event) -> {
                     if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
                         mHandler.cancel();
