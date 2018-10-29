@@ -99,28 +99,28 @@ public class MyIncomeActivity extends BaseActivity {
         mBinding.rv.setHasFixedSize(true);
 
         //饼状图
-        mBinding.mPieChart.setUsePercentValues(true);
-        mBinding.mPieChart.getDescription().setEnabled(false);
-        mBinding.mPieChart.setExtraOffsets(0, 0, 0, 0);
+        mBinding.mPieChart.setUsePercentValues(true); // 设置图表是否使用百分比
+        mBinding.mPieChart.getDescription().setEnabled(false);  // 添加图表描述
+        mBinding.mPieChart.setExtraOffsets(0, 0, 0, 0); // 设置饼图圆圈离屏幕的边距
 
         mBinding.mPieChart.setDragDecelerationFrictionCoef(0.95f);
         //设置中间文件
 //        mBinding.mPieChart.setCenterText(generateCenterSpannableText());
 
-        mBinding.mPieChart.setDrawHoleEnabled(true);
-        mBinding.mPieChart.setHoleColor(Color.WHITE);
+        mBinding.mPieChart.setDrawHoleEnabled(true); // 设置图饼中心是否是空心
+        mBinding.mPieChart.setHoleColor(Color.WHITE); // 设置图饼中心颜色
 
-        mBinding.mPieChart.setTransparentCircleColor(Color.WHITE);
+        mBinding.mPieChart.setTransparentCircleColor(ContextCompat.getColor(this, R.color.white)); //设置环形图与中间空心圆之间的环形的颜色
 
-        mBinding.mPieChart.setHoleRadius(83f);
-        mBinding.mPieChart.setTransparentCircleRadius(83f);
+        mBinding.mPieChart.setHoleRadius(83f); //设置圆孔半径
+        mBinding.mPieChart.setTransparentCircleRadius(83f); //设置半透明圈的宽度
 
-        mBinding.mPieChart.setDrawCenterText(true);
+        mBinding.mPieChart.setDrawCenterText(true); // 设置中心圆是否可以显示文字
 
-        mBinding.mPieChart.setRotationAngle(270);
+        mBinding.mPieChart.setRotationAngle(270); //设置初始时的角度
         // 触摸旋转
-        mBinding.mPieChart.setRotationEnabled(true);
-        mBinding.mPieChart.setHighlightPerTapEnabled(true);
+        mBinding.mPieChart.setRotationEnabled(true); //设置是否可以手动旋转
+        mBinding.mPieChart.setHighlightPerTapEnabled(true); // 设置点击Item高亮是否可用
 
         mBinding.mPieChart.animateY(1400, Easing.EasingOption.EaseInOutQuad);
 
@@ -136,10 +136,9 @@ public class MyIncomeActivity extends BaseActivity {
 //        l.setYOffset(0f);
 
         // 输入标签样式
-        mBinding.mPieChart.setEntryLabelColor(ContextCompat.getColor(this, R.color.blue_0064ff));
-        mBinding.mPieChart.setEntryLabelTextSize(0f);
+        mBinding.mPieChart.setEntryLabelColor(ContextCompat.getColor(this, R.color.blue_0064ff)); //设置图表文字颜色
+        mBinding.mPieChart.setEntryLabelTextSize(0f); //设置图表文字大小
 
-        mBinding.mPieChart.setTransparentCircleColor(ContextCompat.getColor(this, R.color.white));
     }
 
     /**
@@ -214,7 +213,7 @@ public class MyIncomeActivity extends BaseActivity {
         }
 
         //模拟数据
-        // 数据一次是:黄，橙，墨绿绿，
+        // 数据一次是:黄，橙，墨绿，绿
         ArrayList<PieEntry> entries = new ArrayList<>();
         entries.add(new PieEntry(ratioPop));
         entries.add(new PieEntry(ratioInvite));

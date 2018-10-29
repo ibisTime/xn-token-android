@@ -42,7 +42,7 @@ public class AppConfig {
 
 
     public final static String LOCAL_COIN_USD_SYMBOL = "$";// 币种显示类型 美元
-    public final static String LOCAL_COIN_CNY_SYMBOL = MoneyUtils.MONEYSING;// 币种显示类型 美元
+    public final static String LOCAL_COIN_CNY_SYMBOL = MoneyUtils.MONEYSING;// 币种显示类型 人民币
     public final static String LOCAL_COIN_KRW_SYMBOL = "₩";// 币种显示类型 韩币
 
 
@@ -55,8 +55,7 @@ public class AppConfig {
 
     // 环境访问地址
     public static final String BASE_URL_DEV = "http://m.dev.thachain.org/"; // 研发
-    public static final String BASE_URL_TEST = "http://m.thatest.hichengdai.com/"; // 测试
-    //    public static final String BASE_URL_TEST = "https://test.thachain.org/"; // 测试
+    public static final String BASE_URL_TEST = "https://test.thachain.org/"; // 测试
     public static final String BASE_URL_ONLINE = "https://app.tha.hichengdai.com/"; // 线上
 
 

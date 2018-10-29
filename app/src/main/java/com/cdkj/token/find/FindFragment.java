@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
@@ -242,7 +243,7 @@ public class FindFragment extends BaseLazyFragment {
 
             if (bannerData.get(position) != null) {
                 if (ImgUtils.isHaveHttp(bannerData.get(position).getUrl())) {
-                    WebViewImgBgActivity.openURL(mActivity, "", bannerData.get(position).getUrl());
+                    WebViewActivity.openURL(mActivity, bannerData.get(position).getName(), bannerData.get(position).getUrl());
                 }
             }
 

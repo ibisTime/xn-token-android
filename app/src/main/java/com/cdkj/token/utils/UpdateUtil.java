@@ -6,7 +6,6 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.net.Uri;
 import android.text.TextUtils;
-import android.widget.Toast;
 
 
 public class UpdateUtil {
@@ -28,9 +27,6 @@ public class UpdateUtil {
             context.startActivity(intent);
         } catch (Exception e) {
             e.printStackTrace();
-            Toast.makeText(context, "error url", Toast.LENGTH_SHORT).show();
-        } finally {
-
         }
     }
 

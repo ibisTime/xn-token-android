@@ -42,7 +42,6 @@
                     android:layout_marginTop="15dp"
                     android:background="@drawable/theia" />
 
-
                 <View
                     style="@style/style_split_line"
                     android:layout_marginLeft="50dp"

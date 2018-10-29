@@ -1,12 +1,14 @@
 package com.cdkj.baselibrary.activitys;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
@@ -36,6 +38,8 @@ import retrofit2.Call;
  * 介绍类webview
  */
 public class WebViewActivity extends AbsActivity {
+
+    private SslErrorHandler mHandler;
 
     private ActivityWebviewBinding mBinding;
 
@@ -138,7 +142,24 @@ public class WebViewActivity extends AbsActivity {
             }
 
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                handler.proceed();  // 接受所有网站的证书
+//                handler.proceed();  // 接受所有网站的证书
+
+                // 处理Google play因WebView SSL Error Handler alerts被拒的问题
+                mHandler= handler;
+                AlertDialog.Builder builder = new AlertDialog.Builder(WebViewActivity.this);
+                builder.setMessage("ssl证书验证失败");
+                builder.setPositiveButton("继续", (dialog, which) -> mHandler.proceed());
+                builder.setNegativeButton("取消", (dialog, which) -> mHandler.cancel());
+                builder.setOnKeyListener((dialog, keyCode, event) -> {
+                    if (event.getAction() == KeyEvent.ACTION_UP && keyCode == KeyEvent.KEYCODE_BACK) {
+                        mHandler.cancel();
+                        dialog.dismiss();
+                        return true;
+                    }
+                    return false;
+                });
+                AlertDialog dialog = builder.create();
+                dialog.show();
             }
         });
         mBinding.webview.setWebViewClient(new WebViewClient() {
