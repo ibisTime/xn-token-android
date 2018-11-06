@@ -143,7 +143,7 @@
             android:name=".wallet.account_wallet.BillListActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.AddChoiceCoinActivity"
+            android:name=".wallet.AddPriChoiceCoinActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".find.MsgListActivity"
@@ -315,6 +315,9 @@
             <!--</intent-filter>-->
         </activity>
         <activity android:name=".find.product_application.management_money.MyIncomeBillListActivity" />
+        <activity android:name=".wallet.AddChoiceCoinActivity" />
+        <activity android:name=".wallet.private_wallet.USDTTransactionDetailsActivity" />
+        <activity android:name=".wallet.private_wallet.WalletUSDTTransferActivity" />
 
     </application>
 

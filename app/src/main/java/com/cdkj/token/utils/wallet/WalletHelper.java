@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.model.BtcSignUTXO;
@@ -31,13 +30,13 @@ import org.bitcoinj.core.TransactionOutPoint;
 import org.bitcoinj.core.Utils;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicKey;
-import org.bitcoinj.crypto.HDKeyDerivation;
 import org.bitcoinj.crypto.HDUtils;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.params.AbstractBitcoinNetParams;
 import org.bitcoinj.params.MainNetParams;
 import org.bitcoinj.params.RegTestParams;
 import org.bitcoinj.script.Script;
+import org.bitcoinj.script.ScriptBuilder;
 import org.bitcoinj.wallet.DeterministicKeyChain;
 import org.bitcoinj.wallet.DeterministicSeed;
 import org.litepal.crud.DataSupport;
@@ -71,6 +70,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
+import foundation.omni.CurrencyID;
+import foundation.omni.OmniIndivisibleValue;
+import foundation.omni.OmniValue;
+import foundation.omni.tx.RawTxBuilder;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -101,11 +104,13 @@ public class WalletHelper {
     public final static String HDPATHETH = "M/44H/60H/0H/0/0";//ETH生成助记词和解析时使用
 
     public final static String HDPATHBTC = "M/44H/0H/0H/0/0";//BTC生成助记词和解析时使用
+    public final static String HDPATHBTC_TEST = "M/44H/1H/0H/0/0";//BTC生成助记词和解析时使用
 
 
     public final static String COIN_ETH = "ETH";// 币种类型 ETH
     public final static String COIN_WAN = "WAN";// 币种类型 WAN
     public final static String COIN_BTC = "BTC";// 币种类型 BTC
+    public final static String COIN_USDT = "USDT";// 币种类型 USDT
 
 
     //ETH 节点地址
@@ -184,6 +189,11 @@ public class WalletHelper {
                 devUrl = "https://testnet.blockchain.info/search?search=";
                 url = "https://www.blockchain.com/btc/tx/";
                 break;
+
+            case COIN_USDT:
+                devUrl = "https://omniexplorer.info/tx/";
+                url = "https://omniexplorer.info/tx/";
+                break;
         }
 
         switch (getThisNodeType()) {
@@ -210,6 +220,35 @@ public class WalletHelper {
                 return MainNetParams.get();
         }
     }
+
+    /**
+     * 获取比特币MainNetParams
+     *
+     * @return
+     */
+    private static String getBtcHDPath() {
+        switch (getThisNodeType()) {
+            case NODE_DEV:
+                return HDPATHBTC_TEST;
+            default:
+                return HDPATHBTC;
+        }
+    }
+
+    /**
+     * 获取比特币MainNetParams
+     *
+     * @return
+     */
+    private static CurrencyID getUSDTCurrencyID() {
+        switch (getThisNodeType()) {
+            case NODE_DEV:
+                return CurrencyID.TOMNI;
+            default:
+                return CurrencyID.USDT;
+        }
+    }
+
 
     /**
      * 根据userId获取用户选择的币种
@@ -330,24 +369,26 @@ public class WalletHelper {
         DeterministicSeed seed = new DeterministicSeed(defaultMnenonic,
                 null, "", Utils.currentTimeSeconds());
 
-//        DeterministicKeyChain keyChain = DeterministicKeyChain.builder()
-//                .seed(seed).build();
-//        List<ChildNumber> keyPathBTC = HDUtils.parsePath(HDPATHBTC);
-//        BigInteger privkeybtc = keyChain.getKeyByPath(keyPathBTC, true).getPrivKey();
-//        ECKey ecKey = ECKey.fromPrivate(privkeybtc);
-//        String privateKey = ecKey.getPrivateKeyEncoded(getBtcMainNetParams()).toString();
-//        String addressBTC = ecKey.toAddress(getBtcMainNetParams()).toString();
+        DeterministicKeyChain keyChain = DeterministicKeyChain.builder()
+                .seed(seed).build();
+        List<ChildNumber> keyPathBTC = HDUtils.parsePath(getBtcHDPath());
 
-
-        DeterministicKey keyBTC = HDKeyDerivation
-                .createMasterPrivateKey(seed.getSeedBytes());
-
-        String privateKeyBTC = keyBTC.getPrivateKeyEncoded(getBtcMainNetParams()).toString();
+        DeterministicKey keyBTC = keyChain.getKeyByPath(keyPathBTC, true);
 
         String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
+        String privateKeyBTC = keyBTC.getPrivateKeyAsHex();
+
+//        BigInteger privkeybtc = keyChain.getKeyByPath(keyPathBTC, true).getPrivKey();
+//        ECKey ecKey = ECKey.fromPrivate(privkeybtc);
+//        String privateKeyBTC = ecKey.getPrivateKeyEncoded(getBtcMainNetParams()).toString();
+//        String addressBTC = ecKey.toAddress(getBtcMainNetParams()).toString();
+
+//        DeterministicKey keyBTC = HDKeyDerivation
+//                .createMasterPrivateKey(seed.getSeedBytes());
+//        String privateKeyBTC = keyBTC.getPrivateKeyEncoded(getBtcMainNetParams()).toString();
+//        String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
 
         dbCoinInfo.setAddress(addressBTC);
-
         dbCoinInfo.setPrivateKey(privateKeyBTC);
 
         return dbCoinInfo;
@@ -363,14 +404,15 @@ public class WalletHelper {
      */
     public static WalletDBModel createAllPrivateKey() throws Exception {
         // 钱包种子
-        DeterministicSeed seed1 = new DeterministicSeed(new SecureRandom(),
+        DeterministicSeed seed = new DeterministicSeed(new SecureRandom(),
                 128, "", Utils.currentTimeSeconds());
 
         // 助记词
-        List<String> mnemonicList = seed1.getMnemonicCode();
+        List<String> mnemonicList = seed.getMnemonicCode();
 
         DeterministicKeyChain keyChain = DeterministicKeyChain.builder()
-                .seed(seed1).build();
+                .seed(seed).build();
+
 
         List<ChildNumber> keyPathETH = HDUtils.parsePath(HDPATHETH);
 
@@ -394,16 +436,25 @@ public class WalletHelper {
 
         //BTC
 
-        // 钱包主秘钥
-        DeterministicKey keyBTC = HDKeyDerivation
-                .createMasterPrivateKey(seed1.getSeedBytes());
+        List<ChildNumber> keyPathBTC = HDUtils.parsePath(getBtcHDPath());
 
-        String privateKeyBTC = keyBTC.getPrivateKeyEncoded(getBtcMainNetParams()).toString();
+        DeterministicKey keyBTC = keyChain.getKeyByPath(keyPathBTC, true);
 
-        String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
+        walletDBModel.setBtcAddress(keyBTC.toAddress(getBtcMainNetParams()).toString());
+        walletDBModel.setBtcPrivateKey(keyBTC.getPrivateKeyAsHex());
 
-        walletDBModel.setBtcAddress(addressBTC);
-        walletDBModel.setBtcPrivateKey(privateKeyBTC);
+//        // 钱包主秘钥
+//        DeterministicKey keyBTC = HDKeyDerivation
+//                .createMasterPrivateKey(seed.getSeedBytes());
+////
+//        String privateKeyBTC = keyBTC.getPrivateKeyEncoded(getBtcMainNetParams()).toString();
+//
+//        String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
+//
+//        walletDBModel.setBtcAddress(addressBTC);
+//        walletDBModel.setBtcPrivateKey(privateKeyBTC);
+
+
 
         return walletDBModel;
     }
@@ -420,18 +471,19 @@ public class WalletHelper {
         DeterministicSeed seed = new DeterministicSeed(defaultMnenonic,
                 null, "", Utils.currentTimeSeconds());
 
-        DeterministicKeyChain keyChain2 = DeterministicKeyChain.builder()
+        DeterministicKeyChain keyChain = DeterministicKeyChain.builder()
                 .seed(seed).build();
-        List<ChildNumber> keyPath = HDUtils.parsePath(HDPATHETH);
-        DeterministicKey key = keyChain2.getKeyByPath(keyPath, true);
-        BigInteger privKey = key.getPrivKey();
+
+        List<ChildNumber> keyPathETH = HDUtils.parsePath(HDPATHETH);
+        DeterministicKey key = keyChain.getKeyByPath(keyPathETH, true);
+        BigInteger priKey = key.getPrivKey();
 
         Credentials credentials = Credentials
-                .create(privKey.toString(16));
+                .create(priKey.toString(16));
 
         WalletDBModel walletDBModel = new WalletDBModel();
-
-        walletDBModel.setHelpWordsEn(StringUtils.listToString(defaultMnenonic, HELPWORD_SPACE_SYMBOL)); //储存下来 用，分割
+        //储存下来 用，分割
+        walletDBModel.setHelpWordsEn(StringUtils.listToString(defaultMnenonic, HELPWORD_SPACE_SYMBOL));
 
         //ETH WAN
         walletDBModel.setEthAddress(credentials.getAddress());
@@ -443,13 +495,12 @@ public class WalletHelper {
 
         //__________________________1____________________________________
 
-//        List<ChildNumber> keyPathBTC = HDUtils.parsePath(HDPATHBTC);
-//
-//        DeterministicKey keyEth = keyChain2.getKeyByPath(keyPathBTC, true);
-//
-//        Credentials credentials2 = Credentials
-//                .create(keyEth.getPrivKey().toString(16));
-//
+        List<ChildNumber> keyPathBTC = HDUtils.parsePath(getBtcHDPath());
+
+        DeterministicKey keyBTC = keyChain.getKeyByPath(keyPathBTC, true);
+
+        walletDBModel.setBtcAddress(keyBTC.toAddress(getBtcMainNetParams()).toString());
+        walletDBModel.setBtcPrivateKey(keyBTC.getPrivateKeyAsHex());
 
 //
 //        LogUtil.E("地址  " + credentials2.getAddress());
@@ -458,15 +509,15 @@ public class WalletHelper {
 //        LogUtil.E("________");
 
         //————————————————————2
-        DeterministicKey keyBTC = HDKeyDerivation
-                .createMasterPrivateKey(seed.getSeedBytes());
-
-        String privateKeyBTC = keyBTC.getPrivateKeyEncoded(getBtcMainNetParams()).toString();
-
-        String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
-
-        walletDBModel.setBtcAddress(addressBTC);
-        walletDBModel.setBtcPrivateKey(privateKeyBTC);
+//        DeterministicKey keyBTC = HDKeyDerivation
+//                .createMasterPrivateKey(seed.getSeedBytes());
+//
+//        String privateKeyBTC = keyBTC.getPrivateKeyEncoded(getBtcMainNetParams()).toString();
+//
+//        String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
+//
+//        walletDBModel.setBtcAddress(addressBTC);
+//        walletDBModel.setBtcPrivateKey(privateKeyBTC);
 
         //__________3
 
@@ -1191,6 +1242,155 @@ public class WalletHelper {
             }
         }
         return -1;
+    }
+
+    public static String signUSDTTransactionData(@NonNull List<UTXOModel> unSpentBTCList,  @NonNull String from, @NonNull String to,
+                                                 @NonNull String privateKey, long amount, int rate) {
+
+        // 构建BTC交易
+        Transaction tx = new Transaction(getBtcMainNetParams());
+
+        // omni交易，必须转移的最小的btc数量，固定不用变
+        long btcValue = Transaction.MIN_NONDUST_OUTPUT.longValue();
+
+        // 获取from地址的UTXO,并按金额从大到小排序
+
+
+        // 私钥
+        DumpedPrivateKey dumpedPrivateKey = DumpedPrivateKey.fromBase58(getBtcMainNetParams(), privateKey);
+        ECKey ecKey = dumpedPrivateKey.getKey();
+
+        // 构建来去方地址
+        Address fromAddress = ecKey.toAddress(getBtcMainNetParams());
+        Address toAddress = Address.fromBase58(getBtcMainNetParams(), to);
+
+        Script omniScript = getOpreturn(getUSDTCurrencyID(), OmniIndivisibleValue.of(amount));
+
+        // 转给对方546比特币（最小值，必须放在第一个output）
+        tx.addOutput(Coin.valueOf(btcValue), toAddress);
+        tx.addOutput(Coin.valueOf(0L), omniScript);
+
+        long sumInputValue = 0; // input总金额
+        int sumInputCount = 0; // input总个数
+        boolean isChange = false; // 是否需要找零
+        long changeValue = 0; // 找零金额
+        List<UTXOModel> inputUtxos = new ArrayList<>();
+
+        for (UTXOModel utxo : unSpentBTCList) {
+            if (utxo == null || utxo.getCount() == null) {
+                continue;
+            }
+
+            inputUtxos.add(utxo);
+            sumInputCount++;
+            sumInputValue += utxo.getCount().longValue();
+
+            if (sumInputValue > btcValue) {
+
+                // 转账后剩余金额
+                long leftValue = sumInputValue - btcValue;
+
+                // 预估矿工费
+                long fee = calMinerFee(sumInputCount, 2, rate);
+
+                // 剩下的钱刚好等于矿工费，不找零
+                if (leftValue == fee) {
+                    break;
+                } else if (leftValue > fee) {
+
+                    // 重新预估矿工费
+                    fee = calMinerFee(sumInputCount, 3, rate);
+
+                    // 剩下的钱比矿工费还多就找零，否则说明剩下的钱比矿工费才多了一点点，直接付给矿工算了
+                    if (leftValue > fee) {
+                        isChange = true;
+                        changeValue = leftValue - fee;
+                    }
+                    break;
+
+                }
+
+            }
+
+        }
+
+        if (sumInputValue <= btcValue) {
+//            throw new BizException(EBizErrorCode.DEFAULT.getCode(), "btc余额不足");
+        }
+
+        // 输出-转给自己
+        if (isChange) {
+            tx.addOutput(Coin.valueOf(changeValue), fromAddress);
+        }
+
+        // 输入未消费列表项
+        for (UTXOModel utxo : inputUtxos) {
+            Sha256Hash hash = Sha256Hash.wrap(utxo.getTxid());
+            TransactionOutPoint outPoint = new TransactionOutPoint(
+                    getBtcMainNetParams(), utxo.getVout().longValue(), hash);
+            Script script = new Script(Hex.decode(utxo.getScriptPubKey()));
+            tx.addSignedInput(outPoint, script, ecKey, Transaction.SigHash.ALL,
+                    true);
+        }
+
+        // 解析出待广播的签名后的原始交易数据
+        return Hex.toHexString(tx.bitcoinSerialize());
+    }
+
+
+    /**
+     * 预估本次交易矿工费
+     * @param inCount
+     * @param outCount
+     * @return
+     * @create: 2018年2月22日 下午5:28:04 xieyj
+     * @history:
+     */
+    public static long calMinerFee(int inCount, int outCount, int rate) {
+
+        // 预估交易大小(bytes)
+        // int preSize = inCount * 148 + outCount * 34 + 10;
+
+        // 计算出手续费
+        // long preFee = (preSize * 100000) / feePerByte
+        // 组装Output，设置找零账户
+        // 如何估算手续费，先预先给一个size,然后拿这个size进行签名
+        // 对签名的数据进行解码，拿到真实大小，然后进行矿工费的修正
+        int preSize = (148 * inCount + 34 * outCount + 10);
+//        int feePerByte = preSize * preSize / rate;
+
+        // 计算出手续费
+        int preFee = preSize * rate;
+        return preFee;
+    }
+
+    public static Script getOpreturn(CurrencyID currencyID, OmniValue amount) {
+        // payload字符串的前缀，有这个才能解析出该交易是基于omni协议的交易
+        String omniPrefix = "6f6d6e69";
+        // 构建payload，创建opretrun，作为交易的一个特殊输出，就可以被识别为omni交易
+        RawTxBuilder builder = new RawTxBuilder();
+        String txHex = omniPrefix
+                + builder.createSimpleSendHex(currencyID, amount);
+        byte[] payload = hexToBinary(txHex);
+        return ScriptBuilder.createOpReturnScript(payload);
+    }
+
+    /**
+     * Convert a hexadecimal string representation of binary data
+     * to byte array.
+     *
+     * @param hex Hexadecimal string
+     * @return binary data
+     */
+    public static byte[] hexToBinary(String hex) {
+        int length = hex.length();
+        byte[] bin = new byte[length / 2];
+        for (int i = 0; i < length; i += 2) {
+            int hi = Character.digit(hex.charAt(i), 16);
+            int lo = Character.digit(hex.charAt(i + 1), 16);
+            bin[i / 2] = (byte) ((hi << 4) + lo);
+        }
+        return bin;
     }
 
 }

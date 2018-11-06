@@ -28,7 +28,7 @@ public class OtherLibManager {
      *
      * @param context
      */
-    public static void initZengDesk(Context context) {
+    public static void initZendesk(Context context) {
         Zendesk.INSTANCE.init(context, AppConfig.getZenDeskUrl(),
                 "71d2ca9aba0cccc12deebfbdd352fbae8c53cd8999dd10bc",
                 "mobile_sdk_client_7af3526c83d0c1999bc3");
@@ -42,7 +42,7 @@ public class OtherLibManager {
     /**
      * 打开帮助中心
      */
-    public static void openZengDeskHelpCenter(Activity activity) {
+    public static void openZendeskHelpCenter(Activity activity) {
 
         UiConfig helpCenterConfig = HelpCenterActivity.builder().withContactUsButtonVisible(false).config();
 
@@ -56,7 +56,7 @@ public class OtherLibManager {
      *
      * @param context
      */
-    public static void initUmen(Context context, String umengKey) {
+    public static void initUmeng(Context context, String umengKey) {
         if (context == null) {
             return;
         }

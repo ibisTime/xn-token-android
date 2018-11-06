@@ -46,7 +46,7 @@ public class MoneyUtils {
     }
 
     public static Double doubleFormatMoney3(BigDecimal money){
-        if(money!=null){
+        if(money != null){
             DecimalFormat df = new DecimalFormat("#######0.00");
             df.setRoundingMode(RoundingMode.CEILING);
             String showMoney = df.format((money));
@@ -58,7 +58,7 @@ public class MoneyUtils {
 
     public static String showPriceWithUnit(BigDecimal big){
 
-        if(big !=null){
+        if(big != null){
             return MONEYSING+doubleFormatMoney(((big.doubleValue())/1000));
         }
         return MONEYSING+"0.00";
@@ -66,7 +66,7 @@ public class MoneyUtils {
 
     public static String showPriceWithoutUnit(BigDecimal big){
 
-        if(big !=null){
+        if(big != null){
             return doubleFormatMoney(((big.doubleValue())/1000));
         }
         return "0";
@@ -79,9 +79,8 @@ public class MoneyUtils {
      */
     public static String showPriceWithUnit(BigDecimal big, int size){
 
-        if(big !=null){
-            BigDecimal bigDecimal=new BigDecimal(size);
-
+        if(big != null){
+            BigDecimal bigDecimal = new BigDecimal(size);
             return  doubleFormatMoney((big.multiply(bigDecimal).doubleValue()/1000));
         }
 

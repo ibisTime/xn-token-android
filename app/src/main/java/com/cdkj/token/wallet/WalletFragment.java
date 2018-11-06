@@ -73,20 +73,19 @@ import static com.cdkj.token.views.CardChangeLayout.TOPVIEW;
 //TODO 代码分离优化  请求嵌套优化
 public class WalletFragment extends BaseLazyFragment {
 
-
-    public static final String HIND_SIGN = "****";//隐藏金额
+    public static final String HIND_SIGN = "****"; // 隐藏金额
 
     private FragmentWallet2Binding mBinding;
 
     private RefreshHelper mRefreshHelper;
 
-    private List<CoinTypeAndAddress> mChooseCoinList;//用户自选的币种
+    private List<CoinTypeAndAddress> mChooseCoinList; // 用户自选的币种
 
-    private boolean isPrivateWallet = false;//当前是否是私密钱包 默认我的钱包
+    private boolean isPrivateWallet = false; // 当前是否是私密钱包 默认我的钱包
 
     private LocalCoinCachePresenter mlLocalCoinCachePresenter;
 
-    private View mImportGuideView;  //导入钱包引导
+    private View mImportGuideView; // 导入钱包引导
     private CoinModel mWalletData;
     private BalanceListModel mPrivateWalletData;
 
@@ -116,7 +115,7 @@ public class WalletFragment extends BaseLazyFragment {
 
         initLocalCoinPresenter();
 
-        initAssectsByEyeState(SPUtilHelper.isAssetsShow());
+        initAssetsByEyeState(SPUtilHelper.isAssetsShow());
 
         mlLocalCoinCachePresenter.getCoinList(mActivity);  //开始时请求币种缓存
 
@@ -164,7 +163,7 @@ public class WalletFragment extends BaseLazyFragment {
         mBinding.fralayoutAssetsShow.setOnClickListener(view -> {
 
             boolean isShow = !SPUtilHelper.isAssetsShow();
-            toggleAssectsByEyeState(isShow);
+            toggleAssetsByEyeState(isShow);
             SPUtilHelper.saveIsAssetsShow(isShow);
 
         });
@@ -187,7 +186,12 @@ public class WalletFragment extends BaseLazyFragment {
 
         //添加自选
         mBinding.imgAddCoin.setOnClickListener(view -> {
-            AddChoiceCoinActivity.open(mActivity);
+            if (isPrivateWallet){
+                AddPriChoiceCoinActivity.open(mActivity);
+            } else {
+                AddChoiceCoinActivity.open(mActivity);
+            }
+
         });
 
         //我的钱包说明
@@ -201,7 +205,6 @@ public class WalletFragment extends BaseLazyFragment {
         });
 
         //一键划转
-
         mBinding.linLayoutSmartTransfer.setOnClickListener(view -> {
             boolean isHasInfo = WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId());
             if (!isHasInfo) {
@@ -211,7 +214,6 @@ public class WalletFragment extends BaseLazyFragment {
             SmartTransferActivity.open(mActivity, isPrivateWallet);
         });
 
-
     }
 
     /**
@@ -219,15 +221,13 @@ public class WalletFragment extends BaseLazyFragment {
      *
      * @param isShow
      */
-    private void toggleAssectsByEyeState(boolean isShow) {
+    private void toggleAssetsByEyeState(boolean isShow) {
         if (isShow) {
             mBinding.tvAssetsShow.setImageResource(R.drawable.eye_open);
             setWalletAssetsText(mWalletData);
             shePrivateWalletAssectText(mPrivateWalletData);
             countAllWalletAmount();
-
         } else {
-
             mBinding.tvAllWalletAmount.setText(AppConfig.getSymbolByType(SPUtilHelper.getLocalMarketSymbol()) + HIND_SIGN);
             mBinding.cardChangeLayout.tvWalletAmount.setText(HIND_SIGN);
             mBinding.cardChangeLayout.tvPriWalletAmount.setText(HIND_SIGN);
@@ -240,7 +240,7 @@ public class WalletFragment extends BaseLazyFragment {
      *
      * @param isShow
      */
-    private void initAssectsByEyeState(boolean isShow) {
+    private void initAssetsByEyeState(boolean isShow) {
         if (isShow) {
             mBinding.tvAssetsShow.setImageResource(R.drawable.eye_open);
             mBinding.cardChangeLayout.tvWalletAmount.setText("0.00");
@@ -298,22 +298,15 @@ public class WalletFragment extends BaseLazyFragment {
                 if (!isHasWallet) {
                     return;
                 }
-                showWalletStateView();
 
-
-                List<WalletBalanceModel> walletBalanceModels = transformToPrivateAdapterData(mPrivateWalletData);
                 mRefreshHelper.setPageIndex(1);
-                mRefreshHelper.setData(walletBalanceModels, getString(R.string.no_assets), R.mipmap.order_none);
-
-//                getPriWalletAssetsData(true, true);
-
+                mRefreshHelper.setData(transformToPrivateAdapterData(mPrivateWalletData), getString(R.string.no_assets), R.mipmap.order_none);
                 break;
 
             case TOPVIEW:                                         //个人钱包
                 isPrivateWallet = false;
                 hindImportGuideView();
                 mRefreshHelper.setData(transformToAdapterData(mWalletData), getString(R.string.no_assets), R.mipmap.order_none);
-//                getWalletAssetsData(false, true);
                 break;
         }
 
@@ -390,7 +383,7 @@ public class WalletFragment extends BaseLazyFragment {
             mBinding.imgChange.setImageResource(R.drawable.change_red);
             mBinding.imgTransfer.setImageResource(R.drawable.transfer_red);
         } else {
-            mBinding.imgAddCoin.setVisibility(View.GONE);
+            mBinding.imgAddCoin.setVisibility(View.VISIBLE);
             mBinding.imgChange.setImageResource(R.drawable.change_blue);
             mBinding.imgTransfer.setImageResource(R.drawable.transfer_blue);
         }
@@ -480,7 +473,7 @@ public class WalletFragment extends BaseLazyFragment {
         map.put("userId", SPUtilHelper.getUserId());
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802503", StringUtils.getRequestJsonString(map));
+        Call call = RetrofitUtils.createApi(MyApi.class).getAccount("802504", StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -493,7 +486,7 @@ public class WalletFragment extends BaseLazyFragment {
             protected void onSuccess(CoinModel data, String SucMessage) {
 
                 mWalletData = data;
-                toggleAssectsByEyeState(SPUtilHelper.isAssetsShow());
+                toggleAssetsByEyeState(SPUtilHelper.isAssetsShow());
                 mRefreshHelper.setPageIndex(1);
                 mRefreshHelper.setData(transformToAdapterData(data), getString(R.string.no_assets), R.mipmap.order_none);
                 if (isRequstPrivateWallet && WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId())) {  //没有添加钱包不用请求私钥钱包数据
@@ -556,14 +549,13 @@ public class WalletFragment extends BaseLazyFragment {
             showLoadingDialog();
         }
 
-
         call.enqueue(new BaseResponseModelCallBack<BalanceListModel>(mActivity) {
             @Override
             protected void onSuccess(BalanceListModel data, String SucMessage) {
 
                 mPrivateWalletData = data;
 
-                toggleAssectsByEyeState(SPUtilHelper.isAssetsShow());
+                toggleAssetsByEyeState(SPUtilHelper.isAssetsShow());
 
                 if (isSetRecyclerData) {
                     List<WalletBalanceModel> walletBalanceModels = transformToPrivateAdapterData(data);
@@ -647,6 +639,8 @@ public class WalletFragment extends BaseLazyFragment {
                     coinTypeAndAddress.setAddress(walletDBModel.getEthAddress());
                 } else if (TextUtils.equals(WalletHelper.COIN_WAN, localCoinDbModel.getSymbol())) {
                     coinTypeAndAddress.setAddress(walletDBModel.getWanAddress());
+                } else if (TextUtils.equals(WalletHelper.COIN_USDT, localCoinDbModel.getSymbol())) {
+                    coinTypeAndAddress.setAddress(walletDBModel.getBtcAddress());
                 }
 
             } else if (LocalCoinDBUtils.isEthTokenCoin(localCoinDbModel.getType())) {
@@ -733,7 +727,6 @@ public class WalletFragment extends BaseLazyFragment {
 
             walletBalanceModel.setCoinBalance(accountListBean.getCoinBalance());
 
-
             walletBalanceModel.setCoinType(accountListBean.getType());
 
             walletBalanceModels.add(walletBalanceModel);
@@ -774,7 +767,6 @@ public class WalletFragment extends BaseLazyFragment {
             if (accountListBean.getBalance() != null) {
                 walletBalanceModel.setCoinBalance(accountListBean.getBalance().toString());
             }
-
 
             walletBalanceModels.add(walletBalanceModel);
         }
@@ -847,9 +839,16 @@ public class WalletFragment extends BaseLazyFragment {
      * @param ad
      */
     @Subscribe
-    public void addCoinChangeEvent(AddCoinChangeEvent ad) {
-        mChooseCoinList = null;
-        getPriWalletAssetsData(true, true);
+    public void addCoinChangeEventPri(AddCoinChangeEvent ad) {
+        if (ad.getTag().equals(AddCoinChangeEvent.PRI)){
+            mChooseCoinList = null;
+            getPriWalletAssetsData(true, true);
+        } else if (ad.getTag().equals(AddCoinChangeEvent.NOT_PRI)){
+            getWalletAssetsData(true, true);
+        }
+
+
     }
+
 
 }

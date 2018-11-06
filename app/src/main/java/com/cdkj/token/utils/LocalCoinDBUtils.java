@@ -2,11 +2,11 @@ package com.cdkj.token.utils;
 
 import android.database.Cursor;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.utils.LogUtil;
-import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.R;
+import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletDBColumn;
 import com.cdkj.token.utils.wallet.WalletHelper;
@@ -207,10 +207,21 @@ public class LocalCoinDBUtils {
         }
     }
 
+    /**
+     * 更新币种信息
+     *
+     * @param requestCoins    后台币种
+     * @param myLocalCoinList 缓存币种
+     */
+    private static void updateLocalCoinByList(List<LocalCoinDbModel> requestCoins, List<LocalCoinDbModel> myLocalCoinList) {
+
+    }
+
+
     //TODO 添加枚举参数
 
     /**
-     * @param currency 币种
+     * @param currency 币种[Thiea]USDT对接
      * @param position 要哪张图片 0:icon官方图标,1:Pic1钱包水印图标,2:Pic2流水加钱图标,3:Pic3流水减钱图标
      * @return
      */
@@ -304,6 +315,7 @@ public class LocalCoinDBUtils {
             }
         }
 
+        Log.e("unit",unit+"");
         return BigDecimal.TEN.pow(unit);
     }
 

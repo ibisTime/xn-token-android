@@ -60,7 +60,7 @@ public class AppConfig {
 
 
     public static String getZenDeskUrl() {
-        return "https://thachainhelp.zendesk.com" + AppConfig.getZenDeskUrlLanguage();
+        return "https://thachainhelp.zendesk.com" + getZenDeskUrlLanguage();
     }
 
     /**

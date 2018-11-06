@@ -57,7 +57,7 @@ public abstract class AbsRefreshListActivity<T> extends AbsLoadActivity {
             }
         });
         mRefreshHelper.init(limit);
-
+        mRefreshHelper.onDefaluteMRefresh(true);
     }
 
 

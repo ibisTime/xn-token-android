@@ -25,4 +25,6 @@
     <string name="ali_vsdk_verify_sms_title">SMS Authentication</string>
     <string name="ali_vsdk_verify_sms_use_call">Can\'t pass, switch to voice call authentication </string>
     <string name="ali_vsdk_verify_submit">Submit</string>
+
+    <string name="verify_failed">Verify failed</string>
 </resources>

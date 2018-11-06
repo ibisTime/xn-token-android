@@ -100,7 +100,7 @@ public class UserLanguageActivity extends AbsStatusBarTranslucentActivity {
      * 重新启动主页
      */
     private void setLanguageAndRestartMain() {
-        OtherLibManager.initZengDesk(this);
+        OtherLibManager.initZendesk(this);
         AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置语言
         EventBus.getDefault().post(new AllFinishEvent());
         MainActivity.open(this);

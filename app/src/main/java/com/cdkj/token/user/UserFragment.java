@@ -138,7 +138,7 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
 
         //帮助中心
         mBinding.helper.setOnClickListener(view -> {
-            OtherLibManager.openZengDeskHelpCenter(mActivity);
+            OtherLibManager.openZendeskHelpCenter(mActivity);
 //            WebViewImgBgActivity.openkey(mActivity, getStrRes(R.string.user_issue), ThaAppConstant.getH5UrlLangage(ThaAppConstant.QUESTIONS));
         });
 
