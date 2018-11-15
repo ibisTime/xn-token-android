@@ -376,7 +376,7 @@ public class WalletHelper {
         DeterministicKey keyBTC = keyChain.getKeyByPath(keyPathBTC, true);
 
         String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
-        String privateKeyBTC = keyBTC.getPrivateKeyAsHex();
+        String privateKeyBTC = keyBTC.getPrivateKeyAsWiF(getBtcMainNetParams());
 
 //        BigInteger privkeybtc = keyChain.getKeyByPath(keyPathBTC, true).getPrivKey();
 //        ECKey ecKey = ECKey.fromPrivate(privkeybtc);
@@ -441,7 +441,7 @@ public class WalletHelper {
         DeterministicKey keyBTC = keyChain.getKeyByPath(keyPathBTC, true);
 
         walletDBModel.setBtcAddress(keyBTC.toAddress(getBtcMainNetParams()).toString());
-        walletDBModel.setBtcPrivateKey(keyBTC.getPrivateKeyAsHex());
+        walletDBModel.setBtcPrivateKey(keyBTC.getPrivateKeyAsWiF(getBtcMainNetParams()));
 
 //        // 钱包主秘钥
 //        DeterministicKey keyBTC = HDKeyDerivation
@@ -493,22 +493,25 @@ public class WalletHelper {
         walletDBModel.setWanPrivateKey(key.getPrivateKeyAsHex());
 
 
-        //__________________________1____________________________________
+        //--------------------------1--------------------------
 
         List<ChildNumber> keyPathBTC = HDUtils.parsePath(getBtcHDPath());
 
         DeterministicKey keyBTC = keyChain.getKeyByPath(keyPathBTC, true);
 
         walletDBModel.setBtcAddress(keyBTC.toAddress(getBtcMainNetParams()).toString());
-        walletDBModel.setBtcPrivateKey(keyBTC.getPrivateKeyAsHex());
+        walletDBModel.setBtcPrivateKey(keyBTC.getPrivateKeyAsWiF(getBtcMainNetParams()));
 
 //
 //        LogUtil.E("地址  " + credentials2.getAddress());
-//        LogUtil.E("私钥  " + keyEth.getPrivateKeyAsHex());
+//        LogUtil.E("私钥1  " + keyBTC.getPrivateKeyAsHex());
+//        LogUtil.E("私钥2  " + keyBTC.getPrivateKeyAsWiF(getBtcMainNetParams()));
+//        LogUtil.E("私钥3  " + keyBTC.getPrivKey());
+//        LogUtil.E("私钥4  " + keyBTC.getPrivateKeyEncoded(MainNetParams.get()).toString());
 //
 //        LogUtil.E("________");
 
-        //————————————————————2
+        //--------------------------2--------------------------
 //        DeterministicKey keyBTC = HDKeyDerivation
 //                .createMasterPrivateKey(seed.getSeedBytes());
 //
@@ -519,7 +522,7 @@ public class WalletHelper {
 //        walletDBModel.setBtcAddress(addressBTC);
 //        walletDBModel.setBtcPrivateKey(privateKeyBTC);
 
-        //__________3
+        //--------------------------3--------------------------
 
 //        BigInteger privkeybtc = keyChain2.getKeyByPath(keyPathBTC, true).getPrivKey();
 //
@@ -595,7 +598,7 @@ public class WalletHelper {
                 walletDBModel.setWalletName(cursor.getString(cursor.getColumnIndex(WalletDBColumn.WALLET_NAME)));
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -757,7 +760,7 @@ public class WalletHelper {
                 return password;
             }
         } catch (Exception e) {
-
+            e.printStackTrace();
         } finally {
             if (cursor != null) {
                 cursor.close();
@@ -941,6 +944,87 @@ public class WalletHelper {
         return transactionHash;
     }
 
+
+    /***
+     *获取矿工费
+     * @param unSpentBTCList 未交易的utxo
+     * @param value      要交易的金额
+     * @param rate sta/byte
+     * @return -1发送的value超出了你的余额
+     *
+     * 148 x inputNum + 34 x outputNum + 10
+     */
+    public static long getBtcFee(List<UTXOModel> unSpentBTCList, long value, int rate) {
+
+        long fee = 0L;
+
+        int inputNum = 0;  //合适的utxo数量
+
+        long totalMoney = 0; //utxo数量总值
+
+        for (UTXOModel us : unSpentBTCList) {
+
+            inputNum++;
+
+            totalMoney += us.getCount().longValue();
+
+            if (totalMoney > value) {
+
+                fee = (148 * inputNum + 34 + 10) * rate; // 不用设置找零时只有一个输出
+
+                if (totalMoney == (value + fee)) {
+
+                    return fee;
+
+                } else if (totalMoney > (value + fee)) {
+
+                    long afterFee = (148 * inputNum + 34 * 2 + 10) * rate; // 设置找零后输出 + 转账地址输出
+
+                    if (totalMoney >= (value + afterFee)){
+
+                        return afterFee;
+
+                    } else { // 找零金额 + 转账地址输出 大于 余额 时，宁可不找零，将剩余金额全部给矿工
+
+                        return fee;
+
+                    }
+
+
+                }
+            }
+        }
+        return -1;
+    }
+
+    /***
+     *获取矿工费
+     * @param unSpentBTCList 未交易的utxo
+     * @param rate sta/byte
+     * @return -1发送的value超出了你的余额
+     *
+     * 148 x inputNum + 34 x outputNum + 10
+     */
+    public static long getSmartBtcFee(List<UTXOModel> unSpentBTCList, long value, int rate) {
+
+        int inputNum = 0;  //合适的utxo数量
+
+        long totalMoney = 0; //utxo数量总值
+
+        for (UTXOModel us : unSpentBTCList) {
+
+            inputNum++;
+
+            totalMoney += us.getCount().longValue();
+
+            if (totalMoney >= value) {
+
+                return (148 * inputNum + 34 * 1 + 10) * rate;
+            }
+        }
+
+        return -1;
+    }
 
     /**
      * 对btc交易进行签名
@@ -1200,51 +1284,11 @@ public class WalletHelper {
     }
 
 
-    /***
-     *获取矿工费
-     * @param unSpentBTCList 未交易的utxo
-     * @param value      要交易的金额
-     * @param rate sta/byte
-     * @return -1发送的value超出了你的余额
-     *
-     * 148 x inputNum + 34 x outputNum + 10
-     */
-    public static long getBtcFee(List<UTXOModel> unSpentBTCList, long value, int rate) {
 
-        long fee = 0L;
 
-        int inputNum = 0;  //合适的utxo数量
 
-        long totalMoney = 0; //utxo数量总值
 
-        for (UTXOModel us : unSpentBTCList) {
-
-            inputNum++;
-
-            totalMoney += us.getCount().longValue();
-
-            if (totalMoney > value) {
-
-                fee = (148 * inputNum + 34 * 1 + 10) * rate;//不用设置找零时只有一个输出
-
-                if (totalMoney == (value + fee))
-
-                    return fee;
-
-                else if (totalMoney > (value + fee)) {
-
-                    fee = (148 * inputNum + 34 * 2 + 10) * rate;     //2=设置找零输出 +转账地址输出
-
-                    if (totalMoney >= (value + fee))
-
-                        return fee;
-                }
-            }
-        }
-        return -1;
-    }
-
-    public static String signUSDTTransactionData(@NonNull List<UTXOModel> unSpentBTCList,  @NonNull String from, @NonNull String to,
+    public static String signUSDTTransactionData(@NonNull List<UTXOModel> unSpentBTCList, @NonNull String from, @NonNull String to,
                                                  @NonNull String privateKey, long amount, int rate) {
 
         // 构建BTC交易
@@ -1314,9 +1358,9 @@ public class WalletHelper {
 
         }
 
-        if (sumInputValue <= btcValue) {
-//            throw new BizException(EBizErrorCode.DEFAULT.getCode(), "btc余额不足");
-        }
+//        if (sumInputValue <= btcValue) {
+//            UITipDialog.showInfo(activity, getString(R.string.no_balance));
+//        }
 
         // 输出-转给自己
         if (isChange) {
@@ -1357,7 +1401,6 @@ public class WalletHelper {
         // 如何估算手续费，先预先给一个size,然后拿这个size进行签名
         // 对签名的数据进行解码，拿到真实大小，然后进行矿工费的修正
         int preSize = (148 * inCount + 34 * outCount + 10);
-//        int feePerByte = preSize * preSize / rate;
 
         // 计算出手续费
         int preFee = preSize * rate;

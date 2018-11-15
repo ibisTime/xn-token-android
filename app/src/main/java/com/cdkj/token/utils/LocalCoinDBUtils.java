@@ -57,12 +57,20 @@ public class LocalCoinDBUtils {
         return TextUtils.equals(WalletHelper.COIN_BTC, coinSymbol);
     }
 
+    public static boolean isBTCChain(String coinSymbol) {
+        return isBTC(coinSymbol) || isUSDT(coinSymbol) ;
+    }
+
     public static boolean isETH(String coinSymbol) {
         return TextUtils.equals(WalletHelper.COIN_ETH, coinSymbol);
     }
 
     public static boolean isWAN(String coinSymbol) {
         return TextUtils.equals(WalletHelper.COIN_WAN, coinSymbol);
+    }
+
+    public static boolean isUSDT(String coinSymbol) {
+        return TextUtils.equals(WalletHelper.COIN_USDT, coinSymbol);
     }
 
 

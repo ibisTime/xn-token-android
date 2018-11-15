@@ -391,6 +391,7 @@
     <string name="please_correct_transaction_number">请输入正确的转账数量</string>
     <string name="please_to_address">请输入接收地址</string>
     <string name="no_balance">可用余额不足</string>
+    <string name="no_btc_balance">BTC可用余额不足</string>
     <string name="balance">余额</string>
     <string name="please_input_transaction_number">请输入转账数量</string>
     <string name="no_record">暂无流水</string>

@@ -38,6 +38,7 @@ import com.cdkj.token.utils.wallet.WalletHelper;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
 import com.uuzuche.lib_zxing.activity.CodeUtils;
 
+import org.bitcoinj.core.Transaction;
 import org.greenrobot.eventbus.EventBus;
 
 import java.math.BigDecimal;
@@ -271,10 +272,15 @@ public class WalletUSDTTransferActivity extends AbsLoadActivity {
             }
             if (mfees == null) return true;
 
-            if (getBtcFee(unSpentBTCList, transactionAmount.longValue(), mfees.intValue()) == -1) {
+            if (getBtcFee(unSpentBTCList, Transaction.MIN_NONDUST_OUTPUT.longValue(), mfees.intValue()) == -1) {
                 UITipDialog.showInfo(this, getString(R.string.no_balance));
                 return true;
             }
+
+//            if (getBtcFee(unSpentBTCList, transactionAmount.longValue(), mfees.intValue()) == -1) {
+//                UITipDialog.showInfo(this, getString(R.string.no_balance));
+//                return true;
+//            }
 
 //            if (mfees == null) return true;
 //

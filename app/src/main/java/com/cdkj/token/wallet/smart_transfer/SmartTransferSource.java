@@ -63,6 +63,8 @@ public class SmartTransferSource extends BaseMVPModel {
 
         void btcUTXOData(List<UTXOModel> utxo);
 
+        void usdtUTXOData(List<UTXOModel> utxo);
+
         void transferSuccess();
 
         void transferFail();
@@ -204,7 +206,7 @@ public class SmartTransferSource extends BaseMVPModel {
      */
     public void getPrivateFeeCoin(String coinSymbol) {
 
-        if (LocalCoinDBUtils.isBTC(coinSymbol)) {
+        if (LocalCoinDBUtils.isBTC(coinSymbol) || LocalCoinDBUtils.isUSDT(coinSymbol)) {
             getFeeForBtc();
             return;
         }
@@ -491,5 +493,37 @@ public class SmartTransferSource extends BaseMVPModel {
 
     }
 
+
+    /**
+     * 获取utxo列表然后进行签名
+     */
+    public void getUSDTUTXO(String btcAddress) {
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("address", btcAddress);
+
+        Call<BaseResponseModel<UTXOListModel>> call = RetrofitUtils.createApi(MyApi.class).getUtxoList("802220", StringUtils.getRequestJsonString(map));
+
+        smartTransferModelCallBack.showDialog();
+
+        call.enqueue(new BaseResponseModelCallBack<UTXOListModel>(null) {
+            @Override
+            protected void onSuccess(UTXOListModel data, String SucMessage) {
+                smartTransferModelCallBack.usdtUTXOData(data.getUtxoList());
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+
+            }
+
+            @Override
+            protected void onFinish() {
+                smartTransferModelCallBack.dismissDialog();
+            }
+        });
+
+    }
 
 }

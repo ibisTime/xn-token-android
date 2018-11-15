@@ -131,6 +131,7 @@ public class WalletFragment extends BaseLazyFragment {
             @Override
             public void cacheEnd(List<LocalCoinDbModel> data) {
                 if (isPrivateWallet) {
+                    mChooseCoinList = null;
                     getPriWalletAssetsData(true, false);
                 } else {
                     getWalletAssetsData(true, false);
@@ -743,7 +744,7 @@ public class WalletFragment extends BaseLazyFragment {
      */
     @NonNull
     private List<WalletBalanceModel> transformToPrivateAdapterData(BalanceListModel data) {
-        List<WalletBalanceModel> walletBalanceModels = new ArrayList<>();
+            List<WalletBalanceModel> walletBalanceModels = new ArrayList<>();
         if (data == null) {
             return walletBalanceModels;
         }

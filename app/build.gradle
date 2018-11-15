@@ -55,8 +55,6 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
-
-
     }
 
     signingConfigs {
@@ -123,9 +121,11 @@ android {
     dataBinding {
         enabled true
     }
+
     sourceSets.main {
         jniLibs.srcDirs = ['libs']
     }
+
     packagingOptions {
         exclude 'META-INF/rxjava.properties'
         exclude 'META-INF/spring.tooling'
@@ -175,6 +175,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 
 }
+
 ///格式化打完完成后APK名称中的时间
 def releaseTime() {
     return new Date().format("yyyyMMdd", TimeZone.getTimeZone("UTC+8"))

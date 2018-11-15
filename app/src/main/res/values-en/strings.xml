@@ -401,6 +401,7 @@
 
 
     <string name="no_balance">Insufficient available balance </string>
+    <string name="no_btc_balance">Insufficient available BTC balance </string>
     <string name="please_input_transaction_number">Please input the transfer amount </string>
     <string name="no_record">no record </string>
     <string name="withdraw">receive </string>

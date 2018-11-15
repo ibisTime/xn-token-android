@@ -347,6 +347,8 @@ public class BiJiaBaoBuyActivity extends AbsLoadActivity implements ProductBuyLi
             return;
         }
 
+        showLoadingDialog();
+
         Map<String, String> map = new HashMap<>();
 
         map.put("productCode", mProductModel.getCode());
@@ -372,7 +374,7 @@ public class BiJiaBaoBuyActivity extends AbsLoadActivity implements ProductBuyLi
 
             @Override
             protected void onFinish() {
-
+                disMissLoadingDialog();
             }
         });
 

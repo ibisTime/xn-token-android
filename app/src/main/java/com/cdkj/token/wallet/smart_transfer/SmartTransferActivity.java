@@ -28,8 +28,6 @@ import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.RecyclerViewSpacesItemDecoration;
 
-import org.spongycastle.pqc.math.linearalgebra.BigIntUtils;
-
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
@@ -154,6 +152,10 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
                         UITipDialog.showInfo(this, getString(R.string.no_balance));
                         return;
                     }
+                }else if (LocalCoinDBUtils.isUSDT(selectCoinSymbol)) {
+
+
+
                 }
 
             }
@@ -169,18 +171,19 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
         String balanceString = "";
 
-//        //btc 或 token币
-//        if (!smartTransferPresenter.isPrivateWallet() || LocalCoinDBUtils.isBTC(selectCoinSymbol) || LocalCoinDBUtils.isTokenCoinBySymbol(selectCoinSymbol)) {
-//            balanceString = AmountUtil.transformFormatToString(balanceBigDecimal, selectCoinSymbol, AmountUtil.ALLSCALE);
-//        } else {
-//            BigDecimal limiteFee = new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
-//                    .multiply(feeBigDecimal);
-//            //余额大于0 余额大于手续费
-//            if (BigDecimalUtils.compareTo(balanceBigDecimal, BigDecimal.ZERO) && BigDecimalUtils.compareTo(balanceBigDecimal, limiteFee)) {
-//                balanceString = AmountUtil.transformFormatToString(BigDecimalUtils.subtract(balanceBigDecimal, limiteFee), selectCoinSymbol, AmountUtil.ALLSCALE);
-//            }
-//        }
-        balanceString = AmountUtil.transformFormatToString(balanceBigDecimal, selectCoinSymbol, AmountUtil.ALLSCALE);
+        //btc 或 token币
+        if (!smartTransferPresenter.isPrivateWallet() || LocalCoinDBUtils.isBTC(selectCoinSymbol) || LocalCoinDBUtils.isTokenCoinBySymbol(selectCoinSymbol)) {
+            balanceString = AmountUtil.transformFormatToString(balanceBigDecimal, selectCoinSymbol, AmountUtil.ALLSCALE);
+        } else {
+            BigDecimal limiteFee = new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
+                    .multiply(feeBigDecimal);
+            //余额大于0 余额大于手续费
+            if (BigDecimalUtils.compareTo(balanceBigDecimal, BigDecimal.ZERO) && BigDecimalUtils.compareTo(balanceBigDecimal, limiteFee)) {
+                balanceString = AmountUtil.transformFormatToString(BigDecimalUtils.subtract(balanceBigDecimal, limiteFee), selectCoinSymbol, AmountUtil.ALLSCALE);
+            }
+        }
+
+//        balanceString = AmountUtil.transformFormatToString(balanceBigDecimal, selectCoinSymbol, AmountUtil.ALLSCALE);
 
         setAmount(balanceString);
     }
@@ -321,7 +324,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
     @Override
     public void setFee(BigDecimal fee) {
         feeBigDecimal = fee;
-        if (smartTransferPresenter.isPrivateWallet() && LocalCoinDBUtils.isBTC(selectCoinSymbol)) {
+        if (smartTransferPresenter.isPrivateWallet() && LocalCoinDBUtils.isBTCChain(selectCoinSymbol)) {
             DecimalFormat df = new DecimalFormat("#######0.#");
             mBinding.tvFee.setText(df.format(fee) + " " + "sat/b");
             return;
