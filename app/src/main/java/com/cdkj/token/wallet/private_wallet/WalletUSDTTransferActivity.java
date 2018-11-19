@@ -50,6 +50,7 @@ import java.util.Map;
 import retrofit2.Call;
 
 import static com.cdkj.token.utils.AmountUtil.ALLSCALE;
+import static com.cdkj.token.utils.wallet.WalletHelper.COIN_BTC;
 import static com.cdkj.token.utils.wallet.WalletHelper.getBtcFee;
 
 /**
@@ -264,7 +265,7 @@ public class WalletUSDTTransferActivity extends AbsLoadActivity {
             }
 
             //转账数量
-            transactionAmount = AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), WalletHelper.COIN_BTC);
+            transactionAmount = AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), COIN_BTC);
 
             if (transactionAmount.compareTo(BigDecimal.ZERO) == 0 || transactionAmount.compareTo(BigDecimal.ZERO) == -1) {
                 UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
@@ -369,7 +370,8 @@ public class WalletUSDTTransferActivity extends AbsLoadActivity {
                         WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
 
                         //获取btc交易签名
-                        String sign = WalletHelper.signUSDTTransactionData(unSpentBTCList, // utxo列表
+                        String sign = WalletHelper.signUSDTTransactionData(this,
+                                unSpentBTCList, // utxo列表
                                 walletDBModel.getBtcAddress(),  // btc地址
                                 mBinding.editToAddress.getText().toString().trim(), // btc转出地址
                                 walletDBModel.getBtcPrivateKey(), // btc 私钥
@@ -397,9 +399,13 @@ public class WalletUSDTTransferActivity extends AbsLoadActivity {
      * 设置矿工费显示
      */
     private void setShowFeesPrice(BigDecimal fees) {
-        if (accountListBean == null || fees == null) return;
+        if (accountListBean == null || fees == null)
+            return;
+
+        long feeBtc = WalletHelper.getEstimateBtcFee(unSpentBTCList, Transaction.MIN_NONDUST_OUTPUT.longValue(), fees.intValue());
+
         DecimalFormat df = new DecimalFormat("#######0.#");
-        mBinding.tvGas.setText(df.format(fees) + " " + "sat/b");
+        mBinding.tvGas.setText(df.format(fees) + " " + "sat/b ≈ " + AmountUtil.toMinWithUnit(new BigDecimal(feeBtc), COIN_BTC, AmountUtil.ALLSCALE));
     }
 
     private void initClickListener() {

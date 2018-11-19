@@ -1,12 +1,15 @@
 package com.cdkj.token.utils.wallet;
 
+import android.app.Activity;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 
+import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.token.R;
 import com.cdkj.token.model.BtcSignUTXO;
 import com.cdkj.token.model.DbCoinInfo;
 import com.cdkj.token.model.UTXOModel;
@@ -17,6 +20,7 @@ import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wan.WanRawTransaction;
 import com.cdkj.token.utils.wan.WanRawTransactionManager;
 import com.cdkj.token.utils.wan.WanTransactionEncoder;
+import com.zendesk.util.CollectionUtils;
 
 import org.bitcoinj.core.Address;
 import org.bitcoinj.core.AddressFormatException;
@@ -83,6 +87,7 @@ import static com.cdkj.baselibrary.appmanager.AppConfig.NODE_DEV;
 import static com.cdkj.baselibrary.appmanager.AppConfig.NODE_REALSE;
 import static com.cdkj.baselibrary.appmanager.AppConfig.getThisNodeType;
 import static com.cdkj.token.utils.AmountUtil.ETH_UNIT_UNIT;
+import static com.cdkj.token.utils.StringUtil.getString;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_COIN_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FINDUSER_SQL;
 import static com.cdkj.token.utils.wallet.WalletDBColumn.FIND_USER_SQL;
@@ -990,11 +995,118 @@ public class WalletHelper {
 
                     }
 
-
                 }
             }
         }
         return -1;
+    }
+
+    /***
+     * 获取预估矿工费
+     * @param unSpentBTCList 未交易的utxo
+     * @param value      要交易的金额
+     * @param rate sta/byte
+     * @return -1发送的value超出了你的余额
+     *
+     * 148 x inputNum + 34 x outputNum + 10
+     */
+    public static long getEstimateBtcFee(List<UTXOModel> unSpentBTCList, long value, int rate) {
+
+        long fee = 0L;
+
+        int inputNum = 0;  //合适的utxo数量
+
+        long totalMoney = 0; //utxo数量总值
+
+        if (CollectionUtils.isEmpty(unSpentBTCList)){ // BTC余额为0，没有UTXO时，默认一个输入，一个输出
+           return calMinerFee(1, 1, rate);
+        }
+
+        for (UTXOModel us : unSpentBTCList) {
+
+            inputNum++;
+
+            totalMoney += us.getCount().longValue();
+
+            fee = calMinerFee(inputNum, 1, rate); // 不用设置找零时只有一个输出
+
+            if (totalMoney == (value + fee)) {
+
+                return fee;
+
+            } else if (totalMoney > (value + fee)) {
+
+                long afterFee = calMinerFee(inputNum, 2, rate); // 设置找零后输出 + 转账地址输出
+
+                if (totalMoney >= (value + afterFee)){
+
+                    return afterFee;
+
+                } else { // 找零金额 + 转账地址输出 大于 余额 时，宁可不找零，将剩余金额全部给矿工
+
+                    return fee;
+
+                }
+
+            }
+        }
+
+
+
+        return fee;
+    }
+
+    /***
+     * 获取预估矿工费
+     * @param unSpentBTCList 未交易的utxo
+     * @param value      要交易的金额
+     * @param rate sta/byte
+     * @return -1发送的value超出了你的余额
+     *
+     * 148 x inputNum + 34 x outputNum + 10
+     */
+    public static long getEstimateUsdtFee(List<UTXOModel> unSpentBTCList, long value, int rate) {
+
+        long fee = 0L;
+
+        int inputNum = 0;  //合适的utxo数量
+
+        long totalMoney = 0; //utxo数量总值
+
+        if (CollectionUtils.isEmpty(unSpentBTCList)){ // BTC余额为0，没有UTXO时，默认一个输入，两个输出
+            return calMinerFee(1, 2, rate);
+        }
+
+        for (UTXOModel us : unSpentBTCList) {
+
+            inputNum++;
+
+            totalMoney += us.getCount().longValue();
+
+            fee = calMinerFee(inputNum, 2, rate);
+
+            if (totalMoney == (value + fee)) {
+
+                return fee;
+
+            } else if (totalMoney > (value + fee)) {
+
+                long afterFee = calMinerFee(inputNum, 3, rate); // 设置找零后输出 + 转账地址输出
+
+                if (totalMoney >= (value + afterFee)){
+
+                    return afterFee;
+
+                } else { // 找零金额 + 转账地址输出 大于 余额 时，宁可不找零，将剩余金额全部给矿工
+
+                    return fee;
+
+                }
+
+            }
+        }
+
+        return fee;
     }
 
     /***
@@ -1288,7 +1400,7 @@ public class WalletHelper {
 
 
 
-    public static String signUSDTTransactionData(@NonNull List<UTXOModel> unSpentBTCList, @NonNull String from, @NonNull String to,
+    public static String signUSDTTransactionData(Activity activity, @NonNull List<UTXOModel> unSpentBTCList, @NonNull String from, @NonNull String to,
                                                  @NonNull String privateKey, long amount, int rate) {
 
         // 构建BTC交易
@@ -1358,9 +1470,9 @@ public class WalletHelper {
 
         }
 
-//        if (sumInputValue <= btcValue) {
-//            UITipDialog.showInfo(activity, getString(R.string.no_balance));
-//        }
+        if (sumInputValue <= btcValue) {
+            UITipDialog.showInfo(activity, getString(R.string.no_btc_balance));
+        }
 
         // 输出-转给自己
         if (isChange) {

@@ -7,7 +7,9 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.SeekBar;
 import android.widget.Toast;
@@ -72,7 +74,6 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
     private BigDecimal mfees;//选择的矿工费
     private BigDecimal minfees;//最小矿工费
 
-
     private List<UTXOModel> unSpentBTCList;
 
     //需要的权限
@@ -81,7 +82,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
     };
-    private BigDecimal transactionAmount;
+    private BigDecimal transactionAmount = BigDecimal.ZERO;
 
     public static void open(Context context, WalletBalanceModel accountListBean) {
         if (context == null) {
@@ -92,6 +93,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         context.startActivity(intent);
     }
 
+    private int SeekBarIndex = 50;
 
     @Override
     public View addMainView() {
@@ -117,7 +119,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         mBaseBinding.titleView.setMidTitle(R.string.transfer);
         mBinding.edtAmount.addTextChangedListener(new EditTextJudgeNumberWatcher(mBinding.edtAmount, 15, 8));
 
-        initClickListener();
+        initListener();
 
         mBinding.btnNext.setOnClickListener(view -> {
             if (transferInputCheck()) return;
@@ -215,7 +217,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             protected void onSuccess(BtcFeesModel data, String SucMessage) {
                 maxFees = data.getFastestFeeMax();
                 minfees = data.getFastestFeeMin();
-                setFeesBySeekBarChange(50);
+                setFeesBySeekBarChange(SeekBarIndex);
             }
 
             @Override
@@ -261,9 +263,6 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
                 UITipDialog.showInfo(this, getStrRes(R.string.no_balance));
                 return true;
             }
-
-            //转账数量
-            transactionAmount = AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), WalletHelper.COIN_BTC);
 
             if (transactionAmount.compareTo(BigDecimal.ZERO) == 0 || transactionAmount.compareTo(BigDecimal.ZERO) == -1) {
                 UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
@@ -391,12 +390,17 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
      * 设置矿工费显示
      */
     private void setShowFeesPrice(BigDecimal fees) {
-        if (accountListBean == null || fees == null) return;
+        if (accountListBean == null || fees == null)
+            return;
+
+        // Btc矿工费
+        long feeBtc = WalletHelper.getEstimateBtcFee(unSpentBTCList, transactionAmount.longValue(), fees.intValue());
+
         DecimalFormat df = new DecimalFormat("#######0.#");
-        mBinding.tvGas.setText(df.format(fees) + " " + "sat/b");
+        mBinding.tvGas.setText(df.format(fees) + " " + "sat/b ≈ " + AmountUtil.toMinWithUnit(new BigDecimal(feeBtc), accountListBean.getCoinSymbol(), AmountUtil.ALLSCALE));
     }
 
-    private void initClickListener() {
+    private void initListener() {
         //扫码
         mBinding.fraLayoutQRcode.setOnClickListener(view -> {
             permissionRequest();
@@ -406,7 +410,8 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         mBinding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                setFeesBySeekBarChange(i);
+                SeekBarIndex = i;
+                setFeesBySeekBarChange(SeekBarIndex);
             }
 
             @Override
@@ -420,6 +425,29 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             }
         });
 
+        mBinding.edtAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (TextUtils.isEmpty(editable)){
+                    //转账数量
+                    transactionAmount = BigDecimal.ZERO;
+                }else {
+                    transactionAmount = AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.edtAmount.getText().toString().trim()), WalletHelper.COIN_BTC);
+                }
+
+                setFeesBySeekBarChange(SeekBarIndex);
+            }
+        });
 
     }
 
@@ -468,4 +496,5 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             }
         }
     }
+
 }

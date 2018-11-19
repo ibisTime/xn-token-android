@@ -52,7 +52,6 @@ public class LocalCoinDBUtils {
         return !isBTC(coinSymbol) && !isETH(coinSymbol) && !isWAN(coinSymbol);
     }
 
-
     public static boolean isBTC(String coinSymbol) {
         return TextUtils.equals(WalletHelper.COIN_BTC, coinSymbol);
     }
@@ -112,7 +111,7 @@ public class LocalCoinDBUtils {
      */
     public static String getAddressByCoin(String coinSymbol, String userId) {
         WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(userId);
-        if (isBTC(coinSymbol)) {
+        if (isBTCChain(coinSymbol)) {
             return walletDBModel.getBtcAddress();
         }
 
@@ -195,11 +194,11 @@ public class LocalCoinDBUtils {
 
             if (!myLocalCoinList.contains(localCoinDbModel)) {  //如果数据库不存在 则保存
 
-                if (!TextUtils.isEmpty(userChooseCoinSymbolString)) {
-                    userChooseCoinSymbolString += COIN_SYMBOL_SPACE_SYMBOL + localCoinDbModel.getSymbol();    //新增币种默认自选
-                } else {
-                    userChooseCoinSymbolString = localCoinDbModel.getSymbol();
-                }
+//                if (!TextUtils.isEmpty(userChooseCoinSymbolString)) {
+//                    userChooseCoinSymbolString += COIN_SYMBOL_SPACE_SYMBOL + localCoinDbModel.getSymbol();    //新增币种默认自选
+//                } else {
+//                    userChooseCoinSymbolString = localCoinDbModel.getSymbol();
+//                }
 
                 saveLocals.add(localCoinDbModel);
             }

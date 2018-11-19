@@ -35,6 +35,7 @@ import java.util.List;
 
 public class SmartTransferPresenter extends BasePresenter<SmartTransferView> implements SmartTransferSource.SmartTransferModelCallBack, UserInfoInterface {
 
+    private Activity activity;
 
     public SmartTransferSource smartTransferModel;
 
@@ -54,6 +55,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
 
 
     public SmartTransferPresenter(Activity activity) {
+        this.activity = activity;
         userInfoPresenter = new UserInfoPresenter(this, activity);
     }
 
@@ -374,7 +376,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
         try {
 
             BigDecimal amountBigDecimal = AmountUtil.bigDecimalFormat(new BigDecimal(amountString), WalletHelper.COIN_BTC);
-            Long feeLong = WalletHelper.getSmartBtcFee(utxo, amountBigDecimal.longValue(), transferGasPrice.intValue());//矿工费
+            Long feeLong = WalletHelper.getBtcFee(utxo, amountBigDecimal.longValue(), transferGasPrice.intValue());//矿工费
 
             if (feeLong == -1) {
                 getMvpView().showMessageDialog(MyApplication.getInstance().getString(R.string.no_balance));
@@ -385,7 +387,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
                     fromAddress,  //btc地址
                     toAddress,//btc转出地址
                     privateKey,//btc 私钥
-                    amountBigDecimal.longValue()-feeLong, feeLong);
+                    amountBigDecimal.longValue(), feeLong);
 
             if (TextUtils.isEmpty(sign)) {
                 getMvpView().transferFail(isPrivateWallet);
@@ -416,15 +418,15 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
         try {
             BigDecimal transAmount = AmountUtil.bigDecimalFormat(new BigDecimal(amountString), WalletHelper.COIN_BTC);
 
-            BigDecimal btcAmount = AmountUtil.bigDecimalFormat(new BigDecimal(Transaction.MIN_NONDUST_OUTPUT.longValue()), WalletHelper.COIN_BTC);
-            Long feeLong = WalletHelper.getBtcFee(utxo, btcAmount.longValue(), transferGasPrice.intValue());//矿工费
+            Long feeLong = WalletHelper.getBtcFee(utxo, Transaction.MIN_NONDUST_OUTPUT.longValue(), transferGasPrice.intValue());//矿工费
 
             if (feeLong == -1) {
-                getMvpView().showMessageDialog(MyApplication.getInstance().getString(R.string.no_balance));
+                getMvpView().showMessageDialog(MyApplication.getInstance().getString(R.string.no_btc_balance));
                 return;
             }
 
-            String sign = WalletHelper.signUSDTTransactionData(utxo,  //utxo列表
+            String sign = WalletHelper.signUSDTTransactionData(activity,
+                    utxo,  //utxo列表
                     fromAddress,  //btc地址
                     toAddress,//btc转出地址
                     privateKey,//btc 私钥

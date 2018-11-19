@@ -2,7 +2,6 @@ package com.cdkj.token.user.login;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
@@ -14,7 +13,6 @@ import com.cdkj.token.R;
 import com.cdkj.token.interfaces.StartPagePresenter;
 import com.cdkj.token.interfaces.StartPageView;
 import com.cdkj.token.model.VersionModel;
-import com.cdkj.token.model.db.LocalCoinDbModel;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -49,23 +47,6 @@ public class StartActivity extends BaseActivity implements StartPageView {
 
         pagePresenter = new StartPagePresenter(this);
         pagePresenter.start();
-
-
-        LocalCoinDbModel model1 = new LocalCoinDbModel();
-        LocalCoinDbModel model2 = new LocalCoinDbModel();
-
-        Log.e("before1", (model2.getClass()== model1.getClass())+"");
-        Log.e("before2", (model2.getClass().isInstance(model1))+"");
-        Log.e("before3", (model2.getClass().equals(model1.getClass()))+"");
-        Log.e("before4", model1.compareTo(model2)+"");
-
-        model1.setPic1("");
-        model2.setPic1("ok");
-
-        Log.e("after1", (model2.getClass()== model1.getClass())+"");
-        Log.e("after2", (model2.getClass().isInstance(model1))+"");
-        Log.e("after3", (model2.getClass().equals(model1.getClass()))+"");
-        Log.e("after4", model1.compareTo(model2)+"");
 
     }
 

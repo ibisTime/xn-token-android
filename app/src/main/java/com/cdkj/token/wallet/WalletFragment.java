@@ -160,7 +160,6 @@ public class WalletFragment extends BaseLazyFragment {
     private void initClickListener() {
 
         //资产显示隐藏
-
         mBinding.fralayoutAssetsShow.setOnClickListener(view -> {
 
             boolean isShow = !SPUtilHelper.isAssetsShow();
@@ -559,7 +558,7 @@ public class WalletFragment extends BaseLazyFragment {
                 toggleAssetsByEyeState(SPUtilHelper.isAssetsShow());
 
                 if (isSetRecyclerData) {
-                    List<WalletBalanceModel> walletBalanceModels = transformToPrivateAdapterData(data);
+                    List<WalletBalanceModel> walletBalanceModels = transformToPrivateAdapterData(mPrivateWalletData);
                     mRefreshHelper.setPageIndex(1);
                     mRefreshHelper.setData(walletBalanceModels, getString(R.string.no_assets), R.mipmap.order_none);
                 }
@@ -845,7 +844,7 @@ public class WalletFragment extends BaseLazyFragment {
             mChooseCoinList = null;
             getPriWalletAssetsData(true, true);
         } else if (ad.getTag().equals(AddCoinChangeEvent.NOT_PRI)){
-            getWalletAssetsData(true, true);
+            getWalletAssetsData(false, true);
         }
 
 

@@ -50,6 +50,25 @@ public class AmountUtil {
      * @param
      * @return
      */
+    public static String toMinWithUnit(BigDecimal amount, String coinSymbol, int scale) {
+        if (amount == null) {
+            return "0"+coinSymbol;
+        }
+
+        if (TextUtils.isEmpty(coinSymbol)) {
+            return formatCoinAmount(BigDecimalUtils.div(amount, BigDecimal.TEN.pow(18), scale));
+        }
+
+        return formatCoinAmount(BigDecimalUtils.div(amount, getLocalCoinUnit(coinSymbol), scale))+coinSymbol;
+    }
+
+    /**
+     * 货币单位转换
+     *
+     * @param amount
+     * @param
+     * @return
+     */
     public static String transformFormatToString2(BigDecimal amount, String coinSymbol, int scale) {
         if (amount == null || amount.compareTo(BigDecimal.ZERO) == 0) {
             return "0.00";

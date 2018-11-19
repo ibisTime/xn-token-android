@@ -163,7 +163,6 @@ public class AddPriChoiceCoinActivity extends AbsRefreshListActivity {
 
                 chooseBuf.append(COIN_SYMBOL_SPACE_SYMBOL);
 
-
             } else {
                 coinDbModel.setChoose(TextUtils.indexOf(chooseCoins, coinDbModel.getSymbol()) != -1);  //判断用户是否配置了币种
             }
