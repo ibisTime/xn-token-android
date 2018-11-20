@@ -258,7 +258,8 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
         addCall(btcBillCall);
 
-        if (isShowDialog) showLoadingDialog();
+        if (isShowDialog)
+            showLoadingDialog();
 
         btcBillCall.enqueue(new BaseResponseModelCallBack<ResponseInListModel<BTCBillModel>>(this) {
             @Override
@@ -396,8 +397,8 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
         Map<String, String> map = new HashMap<>();
         map.put("symbol", accountListBean.getCoinSymbol());
-//        map.put("address", accountListBean.getAddress());
-        map.put("address", "1EQZmWtK1t6yFYi8zJd7gTx2yUHTZa1ePH");
+        map.put("address", accountListBean.getAddress());
+//        map.put("address", "1EQZmWtK1t6yFYi8zJd7gTx2yUHTZa1ePH");
         map.put("start", pageindex + "");
         map.put("limit", limit + "");
 

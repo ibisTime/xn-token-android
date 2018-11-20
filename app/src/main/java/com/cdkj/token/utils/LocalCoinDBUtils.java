@@ -1,5 +1,6 @@
 package com.cdkj.token.utils;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
 import android.util.Log;
@@ -201,6 +202,10 @@ public class LocalCoinDBUtils {
 //                }
 
                 saveLocals.add(localCoinDbModel);
+            }  else { // 数据存在则，更新Icon
+
+                updateLocalCoinBySymbol(localCoinDbModel);
+
             }
         }
 
@@ -400,6 +405,12 @@ public class LocalCoinDBUtils {
         return DataSupport.deleteAll(LocalCoinDbModel.class, DELETE_LOCAL_COIN, symbol) > 0;
     }
 
+    public static int updateLocalCoinBySymbol(LocalCoinDbModel localCoinDbModel) {
+        ContentValues values = new ContentValues();
+        values.put("icon", localCoinDbModel.getIcon());
+
+        return DataSupport.updateAll(LocalCoinDbModel.class, values, DELETE_LOCAL_COIN, localCoinDbModel.getSymbol());
+    }
 
     /**
      * 根据币种获取当前币种的名称 公链币显示当前名称 token币显示 wan 或 eth
