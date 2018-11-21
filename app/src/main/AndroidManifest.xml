@@ -321,7 +321,13 @@
         <activity android:name=".wallet.AddChoiceCoinActivity" />
         <activity android:name=".wallet.private_wallet.USDTTransactionDetailsActivity" />
         <activity android:name=".wallet.private_wallet.WalletUSDTTransferActivity" />
-        <activity android:name=".user.guide.GuideActivity" />
+        <activity android:name=".user.guide.GuideActivity" >
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
 
     </application>
 
