@@ -401,6 +401,7 @@
 
 
     <string name="no_balance">Insufficient available balance </string>
+    <string name="no_btc_balance">Insufficient available BTC balance </string>
     <string name="please_input_transaction_number">Please input the transfer amount </string>
     <string name="no_record">no record </string>
     <string name="withdraw">receive </string>
@@ -1060,6 +1061,8 @@
     <string name="income_rank_more">View more</string>
     <string name="buyamount_not_empty">Purchase portion cannot be empty</string>
     <string name="rank_100">You are not on the ranking list, keep going</string>
+    <string name="ssl_error">ssl证书验证失败</string>
+    <string name="go_on">继续</string>
 
 </resources>
 

@@ -26,4 +26,6 @@
     <string name="ali_vsdk_verify_sms_title">短信安全验证</string>
     <string name="ali_vsdk_verify_sms_use_call">无法通过？接听语音安全验证</string>
     <string name="ali_vsdk_verify_submit">提交</string>
+
+    <string name="verify_failed">认证失败</string>
 </resources>

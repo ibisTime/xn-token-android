@@ -239,7 +239,6 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
 
                         })
                         .observeOn(AndroidSchedulers.mainThread())
-
                         .doOnComplete(() -> disMissLoadingDialog())
                         .subscribe(walletString -> {
                             if (!TextUtils.isEmpty(walletString)) {

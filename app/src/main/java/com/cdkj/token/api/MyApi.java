@@ -3,6 +3,7 @@ package com.cdkj.token.api;
 import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.api.ResponseInListModel;
+import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.UserInfoModel;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.token.model.AddressModel;
@@ -14,6 +15,7 @@ import com.cdkj.token.model.BiJiaBaoAvilModel;
 import com.cdkj.token.model.BillModel;
 import com.cdkj.token.model.BjbMyIncome;
 import com.cdkj.token.model.BtcFeesModel;
+import com.cdkj.token.model.ChoiceCoinModel;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.ConsultListModel;
 import com.cdkj.token.model.ConsultModel;
@@ -32,6 +34,7 @@ import com.cdkj.token.model.InvestmentAmountModel;
 import com.cdkj.token.model.InviteModel;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.LocalEthTokenCoinBill;
+import com.cdkj.token.model.LocalUSDTCoinBill;
 import com.cdkj.token.model.ManagementMoney;
 import com.cdkj.token.model.MarketCoinModel;
 import com.cdkj.token.model.MarketModel;
@@ -266,6 +269,15 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<ResponseInListModel<LocalCoinBill>>> getLocalCoinBillList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取本地币种流水
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ResponseInListModel<LocalUSDTCoinBill>>> getUSDTCoinBillList(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取本地币种流水
@@ -744,6 +756,28 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseListModel<LocalCoinDbModel>> getCoinList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 列表查询可自选的币种
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseListModel<ChoiceCoinModel>> getCoinChoiceList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 添加自选/删除自选
+     *
+     * @param code
+     * @param json
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<IsSuccessModes>> doChoice(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取支持的币种

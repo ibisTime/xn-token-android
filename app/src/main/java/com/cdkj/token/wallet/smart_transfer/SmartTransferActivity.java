@@ -5,35 +5,52 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
+import android.text.Editable;
 import android.text.Html;
 import android.text.Spanned;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.SeekBar;
 
+import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
+import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
+import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.DisplayHelper;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.SmartTrasfterCoinAdapter;
+import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivitySmartTransferBinding;
 import com.cdkj.token.model.CoinModel;
+import com.cdkj.token.model.UTXOListModel;
+import com.cdkj.token.model.UTXOModel;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.RecyclerViewSpacesItemDecoration;
 
-import org.spongycastle.pqc.math.linearalgebra.BigIntUtils;
+import org.bitcoinj.core.Transaction;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.DecimalFormat;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import retrofit2.Call;
+
+import static com.cdkj.token.utils.LocalCoinDBUtils.isBTC;
+import static com.cdkj.token.utils.LocalCoinDBUtils.isUSDT;
+import static com.cdkj.token.utils.wallet.WalletHelper.COIN_BTC;
 
 /**
  * TODO  一键划转 每个币种的操作都一样但是由于不同币种的判断条件不一致和数据源不一致导致结构混乱 需要重构
@@ -50,7 +67,13 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
     private String selectCoinSymbol = "";
     private BigDecimal balanceBigDecimal = BigDecimal.ZERO;
     private BigDecimal feeBigDecimal = BigDecimal.ZERO;
+    private long feeBtc;
 
+    private BigDecimal transactionAmount = BigDecimal.ZERO; // 划转金额
+
+    private List<UTXOModel> utxoList; // BTC/USDT 的 UTXO
+
+    private int SeekBarIndex = 50;
 
     @Override
     protected void onDestroy() {
@@ -119,9 +142,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
                 return;
             }
 
-            BigDecimal amountBigDecimal = new BigDecimal(mBinding.editAmount.getText().toString().trim());
-
-            if (amountBigDecimal.compareTo(BigDecimal.ZERO) == 0 || amountBigDecimal.compareTo(BigDecimal.ZERO) == -1) {
+            if (transactionAmount.compareTo(BigDecimal.ZERO) == 0 || transactionAmount.compareTo(BigDecimal.ZERO) == -1) {
                 UITipDialog.showInfo(this, getString(R.string.please_correct_transaction_number));
                 return;
             }
@@ -132,7 +153,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
                 BigDecimal amountBigInteger = AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.editAmount.getText().toString().trim()),
                         selectCoinSymbol); //转账数量
 
-                if (!LocalCoinDBUtils.isTokenCoinBySymbol(selectCoinSymbol) && !LocalCoinDBUtils.isBTC(selectCoinSymbol)) { //如果不是token币
+                if (!LocalCoinDBUtils.isTokenCoinBySymbol(selectCoinSymbol) && !isBTC(selectCoinSymbol)) { //如果不是token币
 
                     BigDecimal getLimiteFee = new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
                             .multiply(feeBigDecimal);
@@ -146,7 +167,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
                         return;
                     }
 
-                } else if (LocalCoinDBUtils.isBTC(selectCoinSymbol)) {
+                } else if (isBTC(selectCoinSymbol)) {
 
                     int checkInt = amountBigInteger.compareTo(balanceBigDecimal); //比较
 
@@ -155,32 +176,64 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
                         return;
                     }
                 }
-
             }
 
             smartTransferPresenter.showPayPasswordDialog();
         });
+
+        mBinding.editAmount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (TextUtils.isEmpty(editable)){
+                    //转账数量
+                    transactionAmount = BigDecimal.ZERO;
+                }else {
+                    transactionAmount = AmountUtil.bigDecimalFormat(new BigDecimal(editable.toString().trim()), WalletHelper.COIN_BTC);
+                }
+
+                if (isBTC(selectCoinSymbol)){
+                    smartTransferPresenter.setFeesBySeekBarChange(SeekBarIndex);
+                }
+            }
+        });
     }
 
     /**
-     * 显示所有余额 （除BTC、token币、中心化钱包外其他都需要减去手续费 ）
+     * 显示所有余额 （token币、中心化钱包外其他都需要减去手续费 ）
      */
     private void setAllAmountText() {
 
         String balanceString = "";
 
-//        //btc 或 token币
-//        if (!smartTransferPresenter.isPrivateWallet() || LocalCoinDBUtils.isBTC(selectCoinSymbol) || LocalCoinDBUtils.isTokenCoinBySymbol(selectCoinSymbol)) {
-//            balanceString = AmountUtil.transformFormatToString(balanceBigDecimal, selectCoinSymbol, AmountUtil.ALLSCALE);
-//        } else {
-//            BigDecimal limiteFee = new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
-//                    .multiply(feeBigDecimal);
-//            //余额大于0 余额大于手续费
-//            if (BigDecimalUtils.compareTo(balanceBigDecimal, BigDecimal.ZERO) && BigDecimalUtils.compareTo(balanceBigDecimal, limiteFee)) {
-//                balanceString = AmountUtil.transformFormatToString(BigDecimalUtils.subtract(balanceBigDecimal, limiteFee), selectCoinSymbol, AmountUtil.ALLSCALE);
-//            }
-//        }
-        balanceString = AmountUtil.transformFormatToString(balanceBigDecimal, selectCoinSymbol, AmountUtil.ALLSCALE);
+        //btc 或 token币
+        if (!smartTransferPresenter.isPrivateWallet() || LocalCoinDBUtils.isTokenCoinBySymbol(selectCoinSymbol)) {
+            balanceString = AmountUtil.transformFormatToString(balanceBigDecimal, selectCoinSymbol, AmountUtil.ALLSCALE);
+        } else {
+            BigDecimal limitFee;
+            if (isBTC(selectCoinSymbol)){
+                limitFee = new BigDecimal(feeBtc);
+            }else {
+                limitFee = new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
+                        .multiply(feeBigDecimal);
+            }
+
+            //余额大于0 余额大于手续费
+            if (BigDecimalUtils.compareTo(balanceBigDecimal, BigDecimal.ZERO) && BigDecimalUtils.compareTo(balanceBigDecimal, limitFee)) {
+                balanceString = AmountUtil.transformFormatToString(BigDecimalUtils.subtract(balanceBigDecimal, limitFee), selectCoinSymbol, AmountUtil.ALLSCALE);
+            }
+        }
+
+//        balanceString = AmountUtil.transformFormatToString(balanceBigDecimal, selectCoinSymbol, AmountUtil.ALLSCALE);
 
         setAmount(balanceString);
     }
@@ -191,7 +244,6 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
     }
 
     private void initViews() {
-
 
         HashMap<String, Integer> stringIntegerHashMap = new HashMap<>();
 
@@ -214,7 +266,8 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
         mBinding.seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-                smartTransferPresenter.setFeesBySeekBarChange(i);
+                SeekBarIndex = i;
+                smartTransferPresenter.setFeesBySeekBarChange(SeekBarIndex);
             }
 
             @Override
@@ -265,7 +318,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
     @Override
     public void resetFeeBarProgress() {
-        mBinding.seekBar.setProgress(50);
+        mBinding.seekBar.setProgress(SeekBarIndex);
     }
 
 
@@ -294,6 +347,11 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
         if (mBaseBinding.contentView.getVisibility() == View.GONE) {
             mBaseBinding.contentView.setVisibility(View.VISIBLE);
         }
+
+
+        String address = LocalCoinDBUtils.getAddressByCoin(WalletHelper.COIN_BTC, SPUtilHelper.getUserId());
+        getBTCUTXO(address);
+
     }
 
     @Override
@@ -321,9 +379,16 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
     @Override
     public void setFee(BigDecimal fee) {
         feeBigDecimal = fee;
-        if (smartTransferPresenter.isPrivateWallet() && LocalCoinDBUtils.isBTC(selectCoinSymbol)) {
+        if (smartTransferPresenter.isPrivateWallet() && LocalCoinDBUtils.isBTCChain(selectCoinSymbol)) {
+
+            if (isUSDT(selectCoinSymbol)){
+                feeBtc = WalletHelper.getEstimateUsdtFee(utxoList, Transaction.MIN_NONDUST_OUTPUT.longValue(), fee.intValue());
+            }else {
+                feeBtc = WalletHelper.getEstimateBtcFee(utxoList, transactionAmount.longValue(), fee.intValue());
+            }
+
             DecimalFormat df = new DecimalFormat("#######0.#");
-            mBinding.tvFee.setText(df.format(fee) + " " + "sat/b");
+            mBinding.tvFee.setText(df.format(fee) + " " + "sat/b ≈ " + AmountUtil.toMinWithUnit(new BigDecimal(feeBtc), COIN_BTC, AmountUtil.ALLSCALE));
             return;
         }
 
@@ -476,6 +541,33 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
             return true;
         }
         return false;
+    }
+
+    /**
+     * 获取utxo列表然后进行签名
+     */
+    public void getBTCUTXO(String btcAddress) {
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("address", btcAddress);
+
+        Call<BaseResponseModel<UTXOListModel>> call = RetrofitUtils.createApi(MyApi.class).getUtxoList("802220", StringUtils.getRequestJsonString(map));
+
+        showLoadingDialog();
+
+        call.enqueue(new BaseResponseModelCallBack<UTXOListModel>(null) {
+            @Override
+            protected void onSuccess(UTXOListModel data, String SucMessage) {
+                utxoList = data.getUtxoList();
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoadingDialog();
+            }
+        });
+
     }
 
 

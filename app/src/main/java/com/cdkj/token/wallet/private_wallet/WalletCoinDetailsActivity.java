@@ -26,6 +26,7 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.BTCBillListAdapter;
 import com.cdkj.token.adapter.CoinBillListAdapter;
 import com.cdkj.token.adapter.EthTokenCoinBillListAdapter;
+import com.cdkj.token.adapter.USDTBillListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWalletBillBinding;
 import com.cdkj.token.model.BTCBillModel;
@@ -34,6 +35,7 @@ import com.cdkj.token.model.CoinAddressShowModel;
 import com.cdkj.token.model.CoinTypeAndAddress;
 import com.cdkj.token.model.LocalCoinBill;
 import com.cdkj.token.model.LocalEthTokenCoinBill;
+import com.cdkj.token.model.LocalUSDTCoinBill;
 import com.cdkj.token.model.TransferSuccessEvent;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.utils.AmountUtil;
@@ -49,6 +51,7 @@ import java.util.List;
 import java.util.Map;
 
 import retrofit2.Call;
+import retrofit2.Response;
 
 import static com.cdkj.token.utils.AmountUtil.ALLSCALE;
 
@@ -146,6 +149,11 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
                 WalletBTCTransferActivity.open(this, accountListBean);
                 return;
             }
+
+            if (isUSDT()){
+                WalletUSDTTransferActivity.open(this, accountListBean);
+                return;
+            }
             WalletTransferActivity.open(this, accountListBean);
         });
 
@@ -173,18 +181,30 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
                     return getEthTokenCoinDetailsListAdapter(listData);
                 }
 
+                if (isUSDT()){ // USDT
+                    return getUSDTBillListAdapter(listData);
+                }
+
                 return getCoinDetailsListAdapter(listData);
             }
 
             @Override
             public void getListDataRequest(int pageindex, int limit, boolean isShowDialog) {
+                if (accountListBean == null){
+                    return;
+                }
+
                 if (isBTC()) {             //比特币
 
                     getBTCBillRequest(pageindex, limit, isShowDialog);
 
-                } else if (accountListBean != null && LocalCoinDBUtils.isEthTokenCoinByName(accountListBean.getCoinSymbol())) { //ETH token币
+                } else if (LocalCoinDBUtils.isEthTokenCoinByName(accountListBean.getCoinSymbol())) { //ETH token币
 
                     getEthTokenCoinBillList(pageindex, limit, isShowDialog);
+
+                } else if (isUSDT()){ // USDT
+
+                    getUSDTBillRequest(pageindex, limit, isShowDialog);
 
                 } else {                                                                //其它币种
                     getBillRequest(pageindex, limit, isShowDialog);
@@ -238,7 +258,8 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
 
         addCall(btcBillCall);
 
-        if (isShowDialog) showLoadingDialog();
+        if (isShowDialog)
+            showLoadingDialog();
 
         btcBillCall.enqueue(new BaseResponseModelCallBack<ResponseInListModel<BTCBillModel>>(this) {
             @Override
@@ -342,6 +363,70 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
     }
 
     /**
+     * 获取USDT流水列表
+     *
+     * @param listData
+     * @return
+     */
+    USDTBillListAdapter getUSDTBillListAdapter(List listData) {
+
+        USDTBillListAdapter coinDetailsListAdapter = new USDTBillListAdapter(listData, accountListBean.getAddress());
+
+        coinDetailsListAdapter.setOnItemClickListener((adapter, view, position) -> {
+            LocalUSDTCoinBill usdtCoinBill = coinDetailsListAdapter.getItem(position);
+//            if (accountListBean != null) {
+//                usdtCoinBill.setAddress(accountListBean.getAddress());
+//            }
+            USDTTransactionDetailsActivity.open(this, usdtCoinBill, accountListBean.getAddress());
+        });
+
+        return coinDetailsListAdapter;
+    }
+
+
+    /**
+     * 获取流水
+     *
+     * @param pageindex
+     * @param limit
+     * @param isShowDialog
+     */
+    public void getUSDTBillRequest(int pageindex, int limit, boolean isShowDialog) {
+
+        if (accountListBean == null) return;
+
+        Map<String, String> map = new HashMap<>();
+        map.put("symbol", accountListBean.getCoinSymbol());
+        map.put("address", accountListBean.getAddress());
+//        map.put("address", "1EQZmWtK1t6yFYi8zJd7gTx2yUHTZa1ePH");
+        map.put("start", pageindex + "");
+        map.put("limit", limit + "");
+
+        Call<BaseResponseModel<ResponseInListModel<LocalUSDTCoinBill>>> call = RetrofitUtils.createApi(MyApi.class).getUSDTCoinBillList("802505", StringUtils.getRequestJsonString(map));
+
+        addCall(call);
+
+        if (isShowDialog) showLoadingDialog();
+
+        call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<LocalUSDTCoinBill>>(this) {
+            @Override
+            protected void onSuccess(ResponseInListModel<LocalUSDTCoinBill> data, String SucMessage) {
+                mRefreshHelper.setData(data.getList(), getString(R.string.no_record), R.mipmap.order_none);
+            }
+
+            @Override
+            protected void onFinish() {
+                getCoinBalance(accountListBean.getCoinSymbol());
+            }
+
+            @Override
+            public void onResponse(Call<BaseResponseModel<ResponseInListModel<LocalUSDTCoinBill>>> call, Response<BaseResponseModel<ResponseInListModel<LocalUSDTCoinBill>>> response) {
+                super.onResponse(call, response);
+            }
+        });
+    }
+
+    /**
      * 获取流水
      *
      * @param pageindex
@@ -391,6 +476,18 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
             return false;
         }
         return TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_BTC);
+    }
+
+    /**
+     * 判断当前所属是否比特币
+     *
+     * @return
+     */
+    public boolean isUSDT() {
+        if (accountListBean == null) {
+            return false;
+        }
+        return TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_USDT);
     }
 
     /**

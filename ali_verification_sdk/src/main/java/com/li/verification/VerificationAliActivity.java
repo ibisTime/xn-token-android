@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 import com.alibaba.verificationsdk.ui.IActivityCallback;
 import com.alibaba.verificationsdk.ui.VerifyActivity;
@@ -56,8 +57,11 @@ public class VerificationAliActivity extends Activity {
                                 intent.putExtra(SESSIONID, sessionID);
                                 setResult(RESULT_CODE, intent);
                                 break;
+
                             case VerifyActivity.VERIFY_FAILED:
+                                Toast.makeText(VerificationAliActivity.this, R.string.verify_failed, Toast.LENGTH_LONG).show();
                                 break;
+
                             default:
                                 break;
                         }

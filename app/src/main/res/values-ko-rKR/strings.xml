@@ -215,6 +215,7 @@
     <string name="please_correct_transaction_number">정확한 이체수량 입력</string>
     <string name="please_to_address">입금주소 입력</string>
     <string name="no_balance">잔액부족</string>
+    <string name="no_btc_balance">BTC잔액부족</string>
     <string name="please_input_transaction_number">이체수량 입력</string>
     <string name="no_record">내역없음</string>
     <string name="withdraw">수납</string>

@@ -102,6 +102,8 @@
     <string name="confirm">Confirm</string>
     <string name="activity_base_cancel">Cancel</string>
     <string name="cancel">Cancel</string>
+    <string name="go_on">Go on</string>
+    <string name="ssl_error">SSL certificate authentication failure</string>
     <string name="activity_authenticate_name">real name</string>
     <string name="activity_authenticate_id">ID number </string>
     <string name="activity_authenticate_id_hint">Please input the ID number </string>

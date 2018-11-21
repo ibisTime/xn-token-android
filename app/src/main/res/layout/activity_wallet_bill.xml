@@ -197,7 +197,6 @@
                     android:text="@string/transfer_2"
                     android:textSize="12sp" />
 
-
             </LinearLayout>
 
 

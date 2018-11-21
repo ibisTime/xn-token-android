@@ -90,7 +90,9 @@
     <string name="choose_from_album">사진롤에서 선택</string>
     <string name="password_input_hint">최소 6자리</string>
 
+    <string name="ssl_error">ssl 증서 검증 실패 했 다</string>
     <string name="cancel">취소</string>
+    <string name="go_on">계속</string>
     <string name="confirm">확인</string>
     <string name="activity_mobile_modify_success">핸드폰번호 입력</string>
     <string name="sure_">확인</string>

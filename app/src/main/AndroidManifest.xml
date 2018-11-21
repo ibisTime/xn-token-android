@@ -12,6 +12,9 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" /><!--友盟-->
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.USE_FINGERPRINT"/><!--指纹识别-->
+
     <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
     <!--<uses-permission android:name="android.permission.WAKE_LOCK" />-->
     <!--<uses-permission android:name="android.permission.CALL_PHONE" />-->
@@ -143,7 +146,7 @@
             android:name=".wallet.account_wallet.BillListActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".wallet.AddChoiceCoinActivity"
+            android:name=".wallet.AddPriChoiceCoinActivity"
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".find.MsgListActivity"
@@ -315,6 +318,16 @@
             <!--</intent-filter>-->
         </activity>
         <activity android:name=".find.product_application.management_money.MyIncomeBillListActivity" />
+        <activity android:name=".wallet.AddChoiceCoinActivity" />
+        <activity android:name=".wallet.private_wallet.USDTTransactionDetailsActivity" />
+        <activity android:name=".wallet.private_wallet.WalletUSDTTransferActivity" />
+        <activity android:name=".user.guide.GuideActivity" >
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
+
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
+        </activity>
 
     </application>
 

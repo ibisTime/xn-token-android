@@ -347,6 +347,8 @@ public class BiJiaBaoBuyActivity extends AbsLoadActivity implements ProductBuyLi
             return;
         }
 
+        showLoadingDialog();
+
         Map<String, String> map = new HashMap<>();
 
         map.put("productCode", mProductModel.getCode());
@@ -367,12 +369,13 @@ public class BiJiaBaoBuyActivity extends AbsLoadActivity implements ProductBuyLi
                 mBinding.seekBar.setMax(data.getMax()-1);
                 // 初始购买金额
                 mBinding.edtBuyAmount.setText(model.getMin()+"");
+                mBinding.edtBuyAmount.setSelection(mBinding.edtBuyAmount.getText().length());
                 setBuyShare(buyShare);
             }
 
             @Override
             protected void onFinish() {
-
+                disMissLoadingDialog();
             }
         });
 

@@ -22,6 +22,8 @@ import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 
+import org.bitcoinj.core.Transaction;
+
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.List;
@@ -33,6 +35,7 @@ import java.util.List;
 
 public class SmartTransferPresenter extends BasePresenter<SmartTransferView> implements SmartTransferSource.SmartTransferModelCallBack, UserInfoInterface {
 
+    private Activity activity;
 
     public SmartTransferSource smartTransferModel;
 
@@ -52,6 +55,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
 
 
     public SmartTransferPresenter(Activity activity) {
+        this.activity = activity;
         userInfoPresenter = new UserInfoPresenter(this, activity);
     }
 
@@ -88,7 +92,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
 
         getMvpView().seekBarChange();
 
-        if (LocalCoinDBUtils.isBTC(selectCoinData.getCurrency())) {
+        if (LocalCoinDBUtils.isBTCChain(selectCoinData.getCurrency())) {
 
             if (maxBtcFee == null || minBtcFee == null) return;
 
@@ -156,6 +160,11 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
             WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
             if (userWalletIn == null) return;
             smartTransferModel.getBTCUTXO(userWalletIn.getBtcAddress());
+            return;
+        }else if (LocalCoinDBUtils.isUSDT(coinSymbol)){
+            WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+            if (userWalletIn == null) return;
+            smartTransferModel.getUSDTUTXO(userWalletIn.getBtcAddress());
             return;
         }
         String toAddress = getAccountAddressBySymbol(coinSymbol);
@@ -379,6 +388,49 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
                     toAddress,//btc转出地址
                     privateKey,//btc 私钥
                     amountBigDecimal.longValue(), feeLong);
+
+            if (TextUtils.isEmpty(sign)) {
+                getMvpView().transferFail(isPrivateWallet);
+                return;
+            }
+
+            smartTransferModel.btcTransactionBroadcast(sign);
+
+        } catch (Exception e) {
+            LogUtil.E("BTC转账失败" + e);
+            e.printStackTrace();
+            transferFail();
+        }
+    }
+
+    @Override
+    public void usdtUTXOData(List<UTXOModel> utxo) {
+
+        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+
+        String fromAddress = walletDBModel.getBtcAddress();
+
+        String toAddress = getAccountAddressBySymbol(WalletHelper.COIN_BTC);
+
+        String privateKey = walletDBModel.getBtcPrivateKey();
+
+        //        获取btc交易签名
+        try {
+            BigDecimal transAmount = AmountUtil.bigDecimalFormat(new BigDecimal(amountString), WalletHelper.COIN_BTC);
+
+            Long feeLong = WalletHelper.getBtcFee(utxo, Transaction.MIN_NONDUST_OUTPUT.longValue(), transferGasPrice.intValue());//矿工费
+
+            if (feeLong == -1) {
+                getMvpView().showMessageDialog(MyApplication.getInstance().getString(R.string.no_btc_balance));
+                return;
+            }
+
+            String sign = WalletHelper.signUSDTTransactionData(activity,
+                    utxo,  //utxo列表
+                    fromAddress,  //btc地址
+                    toAddress,//btc转出地址
+                    privateKey,//btc 私钥
+                    transAmount.longValue(), transferGasPrice.intValue());
 
             if (TextUtils.isEmpty(sign)) {
                 getMvpView().transferFail(isPrivateWallet);

@@ -1,7 +1,7 @@
 package com.cdkj.token.model.db;
 
+import android.support.annotation.NonNull;
 import android.text.TextUtils;
-import android.widget.EditText;
 
 import org.litepal.crud.DataSupport;
 
@@ -11,7 +11,7 @@ import java.math.BigDecimal;
  * 本地缓存币种model
  * Created by lei on 2018/3/14.
  */
-public class LocalCoinDbModel extends DataSupport implements Cloneable {
+public class LocalCoinDbModel extends DataSupport implements Cloneable,Comparable<LocalCoinDbModel> {
 
 
     /**
@@ -221,5 +221,10 @@ public class LocalCoinDbModel extends DataSupport implements Cloneable {
             return TextUtils.equals(this.getSymbol(), obLocalCoinDbModel.getSymbol());
         }
         return false;
+    }
+
+    @Override
+    public int compareTo(@NonNull LocalCoinDbModel localCoinDbModel) {
+        return 0;
     }
 }

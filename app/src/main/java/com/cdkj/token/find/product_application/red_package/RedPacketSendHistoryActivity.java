@@ -27,7 +27,6 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.RedPacketGetAdapter;
 import com.cdkj.token.adapter.RedPacketSendAdapter;
 import com.cdkj.token.databinding.ActivityRedpacketHistoryBinding;
-import com.cdkj.token.find.product_application.question.ApplicationQuestionListActivity;
 import com.cdkj.token.interfaces.UserInfoInterface;
 import com.cdkj.token.interfaces.UserInfoPresenter;
 import com.cdkj.token.model.MyGetRedPackageBean;
@@ -66,6 +65,8 @@ public class RedPacketSendHistoryActivity extends AbsLoadActivity implements Red
 
     private OptionsPickerView menuPickerView;
     private List<PickerViewModel> pickerViewModels;
+
+    private boolean isShowGet;
 
     public static void openMySend(Context context) {
         if (context == null) {
@@ -165,8 +166,11 @@ public class RedPacketSendHistoryActivity extends AbsLoadActivity implements Red
                 sendTotal = WalletFragment.HIND_SIGN;
             }
 
-            binding.tvTotal.setText(Html.fromHtml(getString(R.string.redpacket_send_total, sendTotal)));
-
+            if (isShowGet){
+                binding.tvTotal.setText(Html.fromHtml(getString(R.string.redpacket_get_total, sendTotal)));
+            }else {
+                binding.tvTotal.setText(Html.fromHtml(getString(R.string.redpacket_send_total, sendTotal)));
+            }
 
             if (redPacketSendAdapter != null) {
                 redPacketSendAdapter.notifyDataSetChanged();
@@ -234,6 +238,7 @@ public class RedPacketSendHistoryActivity extends AbsLoadActivity implements Red
 
     @Override
     public void setSendTotal(String sendTotal) {
+        isShowGet = false;
         showTotla = sendTotal;
         if (!SPUtilHelper.isAssetsShow()) {
             sendTotal = WalletFragment.HIND_SIGN;
@@ -243,6 +248,7 @@ public class RedPacketSendHistoryActivity extends AbsLoadActivity implements Red
 
     @Override
     public void setGetTotal(String getTotal) {
+        isShowGet = true;
         showTotla = getTotal;
         if (!SPUtilHelper.isAssetsShow()) {
             getTotal = WalletFragment.HIND_SIGN;

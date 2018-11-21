@@ -1,12 +1,13 @@
 package com.cdkj.token.utils;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.utils.LogUtil;
-import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.R;
+import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletDBColumn;
 import com.cdkj.token.utils.wallet.WalletHelper;
@@ -52,9 +53,12 @@ public class LocalCoinDBUtils {
         return !isBTC(coinSymbol) && !isETH(coinSymbol) && !isWAN(coinSymbol);
     }
 
-
     public static boolean isBTC(String coinSymbol) {
         return TextUtils.equals(WalletHelper.COIN_BTC, coinSymbol);
+    }
+
+    public static boolean isBTCChain(String coinSymbol) {
+        return isBTC(coinSymbol) || isUSDT(coinSymbol) ;
     }
 
     public static boolean isETH(String coinSymbol) {
@@ -63,6 +67,10 @@ public class LocalCoinDBUtils {
 
     public static boolean isWAN(String coinSymbol) {
         return TextUtils.equals(WalletHelper.COIN_WAN, coinSymbol);
+    }
+
+    public static boolean isUSDT(String coinSymbol) {
+        return TextUtils.equals(WalletHelper.COIN_USDT, coinSymbol);
     }
 
 
@@ -104,7 +112,7 @@ public class LocalCoinDBUtils {
      */
     public static String getAddressByCoin(String coinSymbol, String userId) {
         WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(userId);
-        if (isBTC(coinSymbol)) {
+        if (isBTCChain(coinSymbol)) {
             return walletDBModel.getBtcAddress();
         }
 
@@ -187,13 +195,17 @@ public class LocalCoinDBUtils {
 
             if (!myLocalCoinList.contains(localCoinDbModel)) {  //如果数据库不存在 则保存
 
-                if (!TextUtils.isEmpty(userChooseCoinSymbolString)) {
-                    userChooseCoinSymbolString += COIN_SYMBOL_SPACE_SYMBOL + localCoinDbModel.getSymbol();    //新增币种默认自选
-                } else {
-                    userChooseCoinSymbolString = localCoinDbModel.getSymbol();
-                }
+//                if (!TextUtils.isEmpty(userChooseCoinSymbolString)) {
+//                    userChooseCoinSymbolString += COIN_SYMBOL_SPACE_SYMBOL + localCoinDbModel.getSymbol();    //新增币种默认自选
+//                } else {
+//                    userChooseCoinSymbolString = localCoinDbModel.getSymbol();
+//                }
 
                 saveLocals.add(localCoinDbModel);
+            }  else { // 数据存在则，更新Icon
+
+                updateLocalCoinBySymbol(localCoinDbModel);
+
             }
         }
 
@@ -207,10 +219,21 @@ public class LocalCoinDBUtils {
         }
     }
 
+    /**
+     * 更新币种信息
+     *
+     * @param requestCoins    后台币种
+     * @param myLocalCoinList 缓存币种
+     */
+    private static void updateLocalCoinByList(List<LocalCoinDbModel> requestCoins, List<LocalCoinDbModel> myLocalCoinList) {
+
+    }
+
+
     //TODO 添加枚举参数
 
     /**
-     * @param currency 币种
+     * @param currency 币种[Thiea]USDT对接
      * @param position 要哪张图片 0:icon官方图标,1:Pic1钱包水印图标,2:Pic2流水加钱图标,3:Pic3流水减钱图标
      * @return
      */
@@ -304,6 +327,7 @@ public class LocalCoinDBUtils {
             }
         }
 
+        Log.e("unit",unit+"");
         return BigDecimal.TEN.pow(unit);
     }
 
@@ -381,6 +405,12 @@ public class LocalCoinDBUtils {
         return DataSupport.deleteAll(LocalCoinDbModel.class, DELETE_LOCAL_COIN, symbol) > 0;
     }
 
+    public static int updateLocalCoinBySymbol(LocalCoinDbModel localCoinDbModel) {
+        ContentValues values = new ContentValues();
+        values.put("icon", localCoinDbModel.getIcon());
+
+        return DataSupport.updateAll(LocalCoinDbModel.class, values, DELETE_LOCAL_COIN, localCoinDbModel.getSymbol());
+    }
 
     /**
      * 根据币种获取当前币种的名称 公链币显示当前名称 token币显示 wan 或 eth
