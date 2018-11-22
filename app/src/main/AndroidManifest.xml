@@ -50,11 +50,11 @@
 
 
         <activity android:name=".user.login.StartActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+            <!--<intent-filter>-->
+                <!--<action android:name="android.intent.action.MAIN" />-->
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+                <!--<category android:name="android.intent.category.LAUNCHER" />-->
+            <!--</intent-filter>-->
         </activity>
         <activity
             android:name=".MainActivity"
@@ -322,12 +322,13 @@
         <activity android:name=".wallet.private_wallet.USDTTransactionDetailsActivity" />
         <activity android:name=".wallet.private_wallet.WalletUSDTTransferActivity" />
         <activity android:name=".user.guide.GuideActivity" >
-            <!--<intent-filter>-->
-                <!--<action android:name="android.intent.action.MAIN" />-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-                <!--<category android:name="android.intent.category.LAUNCHER" />-->
-            <!--</intent-filter>-->
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
+        <activity android:name=".user.login.SignUpActivity2" />
 
     </application>
 

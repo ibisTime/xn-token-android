@@ -56,8 +56,8 @@
 
 
     <color name="fontColor_gray">#484848</color>
-
     <color name="fontColor_hint">#aaaaaa</color>
+    <color name="blue_0064ff">#0064ff</color>
 
 
     <color name="btn_select">#165bde</color>

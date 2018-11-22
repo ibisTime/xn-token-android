@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        tool:background="@mipmap/app_page_bg_new"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <android.support.v4.view.ViewPager
+            android:id="@+id/vp_signUp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v4.view.ViewPager>
+
+        <LinearLayout
+            android:layout_marginBottom="45dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            android:layout_gravity="bottom"
+            android:layout_width="match_parent"
+            android:layout_height="7.5dp">
+
+            <View
+                android:id="@+id/v_step1"
+                android:background="@color/green_68c5ca"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <View
+                android:id="@+id/v_step2"
+                android:layout_marginLeft="3dp"
+                android:layout_marginRight="3dp"
+                android:background="@color/white"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+            <View
+                android:id="@+id/v_step3"
+                android:background="@color/white"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"/>
+
+        </LinearLayout>
+        
+    </FrameLayout>
+
+
+        
+</layout>

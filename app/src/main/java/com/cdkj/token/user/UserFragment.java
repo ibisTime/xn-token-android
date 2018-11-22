@@ -22,6 +22,7 @@ import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.CameraHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.QiNiuHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.baselibrary.utils.ToastUtil;
@@ -36,6 +37,7 @@ import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
 import com.cdkj.token.user.setting.UserSettingActivity;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
+import com.zqzn.idauth.sdk.IdResultCallback;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -49,7 +51,7 @@ import retrofit2.Call;
  * Created by cdkj on 2018/6/28.
  */
 
-public class UserFragment extends BaseLazyFragment implements UserInfoInterface {
+public class UserFragment extends BaseLazyFragment implements UserInfoInterface,IdResultCallback {
 
     private FragmentUser2Binding mBinding;
 
@@ -58,6 +60,8 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
     private CommonDialog commonDialog;
 
     private UserInfoPresenter mGetUserInfoPresenter;//获取用户信息
+
+
 
 
     @Nullable
@@ -93,6 +97,10 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
 
 
     private void initClickListener() {
+
+        mBinding.linLayoutIden.setOnClickListener(view -> {
+
+        });
 
         //问题反馈
         mBinding.linLayoutFeedback.setOnClickListener(view -> {
@@ -305,4 +313,8 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
     }
 
 
+    @Override
+    public void notifyResult(IdResult idResult) {
+        LogUtil.E(idResult.result_code+"");
+    }
 }

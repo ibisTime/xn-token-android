@@ -8,11 +8,14 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.interfaces.StartPagePresenter;
 import com.cdkj.token.interfaces.StartPageView;
 import com.cdkj.token.model.VersionModel;
+import com.zqzn.idauth.sdk.DetectEngine;
+import com.zqzn.idauth.sdk.IdResultCallback;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -25,8 +28,9 @@ import static com.cdkj.token.utils.UpdateUtil.startWeb;
  * 启动页
  */
 @Route(path = CdRouteHelper.APPSTART)
-public class StartActivity extends BaseActivity implements StartPageView {
+public class StartActivity extends BaseActivity implements StartPageView,IdResultCallback {
 
+    DetectEngine detectEngine = new DetectEngine();
 
     public StartPagePresenter pagePresenter;
 
@@ -48,6 +52,7 @@ public class StartActivity extends BaseActivity implements StartPageView {
         pagePresenter = new StartPagePresenter(this);
         pagePresenter.start();
 
+//        detectEngine.id_ocr(this, "nJXnQp568zYcnBdPQxC7TANqakUUCjRZqZK8TrwGt7", "887DE27B914988C9CF7B2DEE15E3EDF8",this);
     }
 
     @Override
@@ -140,4 +145,8 @@ public class StartActivity extends BaseActivity implements StartPageView {
         commonDialog.show();
     }
 
+    @Override
+    public void notifyResult(IdResult idResult) {
+        LogUtil.E(idResult.result_code+"");
+    }
 }

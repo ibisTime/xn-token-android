@@ -11,6 +11,7 @@
     <color name="gray_f7f7f7">#f7f7f7</color>
     <color name="gray_f8f8f8">#f8f8f8</color>
     <color name="gray_7a7a7a">#7a7a7a</color>
+    <color name="gray_a7a7a7">#a7a7a7</color>
     <color name="gray_999999">#999999</color>
     <color name="gray_666666">#666666</color>
     <color name="gray_eeeeee">#eeeeee</color>
@@ -27,6 +28,7 @@
 
     <color name="green">#2ac64c</color>
     <color name="green_46aaaf">#46AAAF</color>
+    <color name="green_68c5ca">#68c5ca</color>
 
     <color name="blue">#007AFF</color>
     <color name="blue_0064ff">#0064FF</color>
