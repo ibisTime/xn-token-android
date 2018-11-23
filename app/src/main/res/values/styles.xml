@@ -57,6 +57,13 @@
 
     </declare-styleable>
 
+    <!--用户模块的TabLayout-->
+    <declare-styleable name="user_tab_layout">
+        <attr name="title_right" format="string" />
+        <attr name="title_left" format="string" />
+
+    </declare-styleable>
+
     <!--PickerView 滑动选择-->
     <declare-styleable name="ScrollPicker">
         <attr name="min_text_size" format="dimension" />
