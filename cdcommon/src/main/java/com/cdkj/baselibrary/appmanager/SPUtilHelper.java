@@ -441,4 +441,20 @@ public class SPUtilHelper {
         return !TextUtils.isEmpty(getUserPatternPwd());
     }
 
+
+    /**
+     * 保存194之前版本的错误的BTC地址的地址和私钥，用于获取之前地址的BTC余额和转账
+     * 以 地址+私钥 的形式保存
+     * @param s
+     */
+    public static void savePastBtcInfo(String s) {
+        SPUtils.put(CdApplication.getContext(), "past_btc_info", s);
+    }
+
+    /**
+     * 获取创建钱包时的钱包信息暂时备份
+     */
+    public static String getPastBtcInfo() {
+        return SPUtils.getString(CdApplication.getContext(), "past_btc_info", "");
+    }
 }

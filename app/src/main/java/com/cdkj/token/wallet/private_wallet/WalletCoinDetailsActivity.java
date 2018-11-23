@@ -65,19 +65,22 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
     private ActivityWalletBillBinding mBinding;
 
     private RefreshHelper mRefreshHelper;
+
     private WalletBalanceModel accountListBean;
+    private boolean isPastBtc;
 
 
     /**
      * @param context
      * @param localCoinModel
      */
-    public static void open(Context context, WalletBalanceModel localCoinModel) {
+    public static void open(Context context, WalletBalanceModel localCoinModel,boolean isPastBtc) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, WalletCoinDetailsActivity.class);
         intent.putExtra(CdRouteHelper.DATASIGN, localCoinModel);
+        intent.putExtra(CdRouteHelper.DATASIGN2, isPastBtc);
         context.startActivity(intent);
     }
 
@@ -94,6 +97,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
         setStatusBarBlue();
         setTitleBgBlue();
 
+        isPastBtc = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN2,false);
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
 
         if (accountListBean != null) {
@@ -146,7 +150,7 @@ public class WalletCoinDetailsActivity extends AbsLoadActivity {
             }
             //BTC转账
             if (isBTC()) {
-                WalletBTCTransferActivity.open(this, accountListBean);
+                WalletBTCTransferActivity.open(this, accountListBean, isPastBtc);
                 return;
             }
 

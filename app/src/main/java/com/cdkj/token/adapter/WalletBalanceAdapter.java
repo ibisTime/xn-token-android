@@ -1,6 +1,7 @@
 package com.cdkj.token.adapter;
 
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.ImgUtils;
@@ -25,7 +26,13 @@ public class WalletBalanceAdapter extends BaseQuickAdapter<WalletBalanceModel, B
     @Override
     protected void convert(BaseViewHolder helper, WalletBalanceModel item) {
 
-        helper.setText(R.id.tv_coin_name, item.getCoinSymbol());
+
+        if (TextUtils.equals(item.getAddress(), SPUtilHelper.getPastBtcInfo().split("\\+")[0])){
+            // 老BTC地址需要加上老版本标示
+            helper.setText(R.id.tv_coin_name, item.getCoinSymbol()+"(old version)");
+        } else {
+            helper.setText(R.id.tv_coin_name, item.getCoinSymbol());
+        }
 
         String availablemountString = AmountUtil.transformFormatToString(item.getAvailableAmount(), item.getCoinSymbol(), 8) + " " + item.getCoinSymbol();
 

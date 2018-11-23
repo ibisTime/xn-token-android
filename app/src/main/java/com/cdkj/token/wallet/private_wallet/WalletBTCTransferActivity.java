@@ -64,6 +64,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
     private final int CODEPERSE = 101;
 
+    private Boolean isPastBtc;
     private WalletBalanceModel accountListBean;
 
     private PermissionHelper mPermissionHelper;
@@ -84,12 +85,13 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
     };
     private BigDecimal transactionAmount = BigDecimal.ZERO;
 
-    public static void open(Context context, WalletBalanceModel accountListBean) {
+    public static void open(Context context, WalletBalanceModel accountListBean, Boolean isPastBtc) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, WalletBTCTransferActivity.class);
         intent.putExtra(CdRouteHelper.DATASIGN, accountListBean);
+        intent.putExtra(CdRouteHelper.DATASIGN2, isPastBtc);
         context.startActivity(intent);
     }
 
@@ -107,8 +109,9 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
         setStatusBarBlue();
         setTitleBgBlue();
 
-
+        isPastBtc = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN2, false);
         accountListBean = getIntent().getParcelableExtra(CdRouteHelper.DATASIGN);
+
         mPermissionHelper = new PermissionHelper(this);
         if (accountListBean != null && !TextUtils.isEmpty(accountListBean.getCoinBalance())) {
             mBinding.tvCurrency.setText(AmountUtil.transformFormatToString(new BigDecimal(accountListBean.getCoinBalance()), accountListBean.getCoinSymbol(), ALLSCALE) + " " + accountListBean.getCoinSymbol());
@@ -138,11 +141,23 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
         Map<String, String> map = new HashMap<>();
 
-        WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+        if (isPastBtc){
+            String btcInfo = SPUtilHelper.getPastBtcInfo();
 
-        if (userWalletIn == null) return;
+            if (TextUtils.isEmpty(btcInfo))
+                return;
 
-        map.put("address", userWalletIn.getBtcAddress());
+            map.put("address", btcInfo.split("\\+")[0]);
+        }else {
+            WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+
+            if (userWalletIn == null)
+                return;
+
+            map.put("address", userWalletIn.getBtcAddress());
+        }
+
+
 
         showLoadingDialog();
 
@@ -301,12 +316,20 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
     private boolean isSameAddress() {
         if (accountListBean == null) return false;
 
-        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+
 
         String toAddress = mBinding.editToAddress.getText().toString();
 
-        //币种类型
-        return TextUtils.equals(toAddress, walletDBModel.getBtcAddress());
+        if (isPastBtc){
+            String btcInfo = SPUtilHelper.getPastBtcInfo();
+            return TextUtils.equals(toAddress, btcInfo.split("\\+")[0]);
+
+        } else {
+            WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+            //币种类型
+            return TextUtils.equals(toAddress, walletDBModel.getBtcAddress());
+        }
+
     }
 
 
@@ -359,13 +382,26 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
                     try {
 
-                        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+                        String address;
+                        String privateKey;
+
+                        if (isPastBtc){
+                            String btcInfo = SPUtilHelper.getPastBtcInfo();
+                            address = btcInfo.split("\\+")[0];
+                            privateKey = btcInfo.split("\\+")[1];
+                        }else {
+                            WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+                            address = walletDBModel.getBtcAddress();
+                            privateKey = walletDBModel.getBtcPrivateKey();
+                        }
+
+
 
                         //获取btc交易签名
                         String sign = WalletHelper.signBTCTransactionData(unSpentBTCList,  //utxo列表
-                                walletDBModel.getBtcAddress(),  //btc地址
+                                address,  //btc地址
                                 mBinding.editToAddress.getText().toString().trim(),//btc转出地址
-                                walletDBModel.getBtcPrivateKey(),//btc 私钥
+                                privateKey,//btc 私钥
                                 transactionAmount.longValue()   //需要交易的金额
                                 , getBtcFee(unSpentBTCList, transactionAmount.longValue(), mfees.intValue())); //矿工费
 

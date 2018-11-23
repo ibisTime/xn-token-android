@@ -5,7 +5,9 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
+import android.util.Log;
 
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -34,6 +36,7 @@ import org.bitcoinj.core.TransactionOutPoint;
 import org.bitcoinj.core.Utils;
 import org.bitcoinj.crypto.ChildNumber;
 import org.bitcoinj.crypto.DeterministicKey;
+import org.bitcoinj.crypto.HDKeyDerivation;
 import org.bitcoinj.crypto.HDUtils;
 import org.bitcoinj.crypto.MnemonicCode;
 import org.bitcoinj.params.AbstractBitcoinNetParams;
@@ -1546,6 +1549,30 @@ public class WalletHelper {
             bin[i / 2] = (byte) ((hi << 4) + lo);
         }
         return bin;
+    }
+
+
+    public static void getPastBtcAddress(){
+
+        List<String> memonic = getHelpWordsListByUserId(SPUtilHelper.getUserId());
+
+        if (memonic.size() == 0)
+            return;
+
+        DeterministicSeed seed = new DeterministicSeed(memonic,
+                null, "", Utils.currentTimeSeconds());
+
+        DeterministicKey keyBTC = HDKeyDerivation
+                .createMasterPrivateKey(seed.getSeedBytes());
+
+        String privateKeyBTC = keyBTC.getPrivateKeyEncoded(getBtcMainNetParams()).toString();
+
+        String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
+
+        SPUtilHelper.savePastBtcInfo(addressBTC+"+"+privateKeyBTC);
+
+        Log.e("pastBTC","a="+addressBTC);
+        Log.e("pastBTC","p="+privateKeyBTC);
     }
 
 }

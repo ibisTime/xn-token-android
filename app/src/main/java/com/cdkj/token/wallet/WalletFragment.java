@@ -415,7 +415,12 @@ public class WalletFragment extends BaseLazyFragment {
                     }
 
                     if (isPrivateWallet) {
-                        WalletCoinDetailsActivity.open(mActivity, walletBalanceAdapter.getItem(position));
+
+                        WalletBalanceModel localCoinModel = walletBalanceAdapter.getItem(position);
+
+                        String address = SPUtilHelper.getPastBtcInfo().split("\\+")[0];
+
+                        WalletCoinDetailsActivity.open(mActivity, localCoinModel,TextUtils.equals(address, localCoinModel.getAddress()));
                     } else {
                         BillListActivity.open(mActivity, walletBalanceAdapter.getItem(position));
                     }
@@ -536,6 +541,21 @@ public class WalletFragment extends BaseLazyFragment {
             disMissLoading();
             mRefreshHelper.refreshLayoutStop();
             return;
+        }
+
+        Boolean isHasBtc = false;
+        for (CoinTypeAndAddress coin : mChooseCoinList){
+            if (TextUtils.equals(coin.getSymbol(),WalletHelper.COIN_BTC)){// 跟随新BTC地址自选，如果新BTC地址没有自选，老的也不出现
+                isHasBtc = true;
+            }
+        }
+        if (isHasBtc){// 每次刷新时获取老的BTC地址和私钥
+            WalletHelper.getPastBtcAddress();
+            String adress = SPUtilHelper.getPastBtcInfo();
+            CoinTypeAndAddress pastBtcAddress = new CoinTypeAndAddress();
+            pastBtcAddress.setSymbol(WalletHelper.COIN_BTC);
+            pastBtcAddress.setAddress(adress.split("\\+")[0]);
+            mChooseCoinList.add(pastBtcAddress);
         }
 
         Map<String, Object> map = new HashMap<>();
@@ -749,6 +769,14 @@ public class WalletFragment extends BaseLazyFragment {
         }
 
         for (BalanceListModel.AccountListBean accountListBean : data.getAccountList()) {
+
+            if (TextUtils.equals(accountListBean.getAddress(), SPUtilHelper.getPastBtcInfo().split("\\+")[0])){
+
+                if (new BigDecimal(accountListBean.getBalance()).compareTo(BigDecimal.ZERO) == 0){
+                    // 如果老版本老BTC地址余额为零则不展示
+                    continue;
+                }
+            }
 
             WalletBalanceModel walletBalanceModel = new WalletBalanceModel();
 
