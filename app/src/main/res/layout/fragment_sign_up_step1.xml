@@ -15,33 +15,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <com.cdkj.token.views.UserTableLayout
+            android:id="@+id/tl_signUP"
             android:layout_marginTop="100dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-                
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-
-            </LinearLayout>
-
-        </LinearLayout>
+            android:layout_height="wrap_content"
+            app:title_left="手机注册"
+            app:title_right="邮箱"
+            />
 
         <com.cdkj.token.views.SignInEditClearCountryCodeLayout
             android:id="@+id/edt_username"

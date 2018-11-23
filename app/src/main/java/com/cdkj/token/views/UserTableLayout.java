@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.LayoutUserTabBinding;
+import com.cdkj.token.interfaces.UserTabLayoutInterface;
 
 /**
  * Created by cdkj on 2018/11/23.
@@ -20,6 +21,8 @@ public class UserTableLayout extends LinearLayout {
 
     private Context mContext;
     private LayoutUserTabBinding mBinding;
+
+    private UserTabLayoutInterface mInterface;
 
     String titleLeft;
     String titleRight;
@@ -43,6 +46,11 @@ public class UserTableLayout extends LinearLayout {
         init();
     }
 
+    public UserTableLayout setInterface(UserTabLayoutInterface mInterface) {
+        this.mInterface = mInterface;
+        return this;
+    }
+
     private void init() {
 
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.layout_user_tab, this, true);
@@ -55,6 +63,9 @@ public class UserTableLayout extends LinearLayout {
 
             mBinding.lineLeft.setVisibility(VISIBLE);
             mBinding.tvTitleLeft.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+
+            if (null != mInterface)
+                mInterface.onLeftTabListener();
         });
 
         mBinding.llRight.setOnClickListener(view -> {
@@ -62,6 +73,9 @@ public class UserTableLayout extends LinearLayout {
 
             mBinding.lineRight.setVisibility(VISIBLE);
             mBinding.tvTitleRight.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+
+            if (null != mInterface)
+                mInterface.onRightTabListener();
         });
     }
 
