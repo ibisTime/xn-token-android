@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingLeft="33dp"
+        android:paddingRight="33dp"
+        tool:background="@mipmap/app_page_bg_new"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <com.cdkj.token.views.SignInEditClearLayout
+            android:id="@+id/edt_password"
+            android:layout_marginTop="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:title="@string/user_password"
+            app:hint_text="密码为8～25位数字+字母" />
+
+
+        <com.cdkj.token.views.SignInEditClearLayout
+            android:id="@+id/edt_rePassword"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:title="@string/user_sign_up_repwd"
+            app:hint_text="两次输入的密码必须一致" />
+        
+        <Button
+            android:id="@+id/btn_success"
+            android:text="@string/success"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="75dp"
+            android:background="@drawable/btn_sign_bg"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
+
+    </LinearLayout>
+</layout>

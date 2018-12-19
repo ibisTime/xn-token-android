@@ -135,9 +135,18 @@ public class CoinModel implements Serializable, AmountShowTypeInterface {
         private String priceHKD;
         private String priceKRW;
 
+        private String percentChange24h;
 
         private String localCoinType;//本地类型
         private boolean isChoose;//本地是否配置选中
+
+        public String getPercentChange24h() {
+            return percentChange24h;
+        }
+
+        public void setPercentChange24h(String percentChange24h) {
+            this.percentChange24h = percentChange24h;
+        }
 
         public String getPriceKRW() {
             return priceKRW;
@@ -441,6 +450,7 @@ public class CoinModel implements Serializable, AmountShowTypeInterface {
             dest.writeString(this.priceUSD);
             dest.writeString(this.priceHKD);
             dest.writeString(this.priceKRW);
+            dest.writeString(this.percentChange24h);
             dest.writeString(this.localCoinType);
             dest.writeByte(this.isChoose ? (byte) 1 : (byte) 0);
         }
@@ -476,6 +486,7 @@ public class CoinModel implements Serializable, AmountShowTypeInterface {
             this.priceUSD = in.readString();
             this.priceHKD = in.readString();
             this.priceKRW = in.readString();
+            this.percentChange24h = in.readString();
             this.localCoinType = in.readString();
             this.isChoose = in.readByte() != 0;
         }

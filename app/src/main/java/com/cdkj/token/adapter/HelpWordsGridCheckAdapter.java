@@ -1,6 +1,5 @@
 package com.cdkj.token.adapter;
 
-import android.graphics.Color;
 import android.support.annotation.Nullable;
 
 import com.cdkj.token.R;
@@ -26,11 +25,9 @@ public class HelpWordsGridCheckAdapter extends BaseQuickAdapter<HelpWordsCheckMo
     protected void convert(BaseViewHolder helper, HelpWordsCheckModel item) {
 
         if (item.isChoose()) {
-            helper.setTextColor(R.id.tv_words, Color.parseColor("#CCCCCC"));
-            helper.setBackgroundColor(R.id.tv_words, Color.parseColor("#F8F8F8"));
+            helper.setBackgroundRes(R.id.tv_words, R.drawable.btn_memonic_light);
         } else {
-            helper.setTextColor(R.id.tv_words, Color.parseColor("#333333"));
-            helper.setBackgroundColor(R.id.tv_words, Color.parseColor("#ffffff"));
+            helper.setBackgroundRes(R.id.tv_words, R.drawable.btn_memonic_dark);
         }
 
         helper.setText(R.id.tv_words, item.getWords());

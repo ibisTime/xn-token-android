@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -74,18 +73,18 @@ public class SignInEditClearCodeLayout extends LinearLayout {
             mBinding.imgEditClear.setVisibility(GONE);
         });
 
-        mBinding.edit.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    changeImgShowState();
-                    mBinding.viewLine.setBackgroundResource(R.drawable.line_blue_gradient);
-                } else {
-                    mBinding.imgEditClear.setVisibility(GONE);
-                    mBinding.viewLine.setBackgroundResource(R.drawable.gray);
-                }
-            }
-        });
+//        mBinding.edit.setOnFocusChangeListener(new OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if (b) {
+//                    changeImgShowState();
+//                    mBinding.viewLine.setBackgroundResource(R.drawable.line_blue_gradient);
+//                } else {
+//                    mBinding.imgEditClear.setVisibility(GONE);
+//                    mBinding.viewLine.setBackgroundResource(R.drawable.gray);
+//                }
+//            }
+//        });
     }
 
     void changeImgShowState() {

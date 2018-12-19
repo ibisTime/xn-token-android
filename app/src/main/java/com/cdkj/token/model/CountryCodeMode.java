@@ -29,6 +29,17 @@ public class CountryCodeMode {
     private String status;
     private String pic;
 
+    // 首字母
+    private String sort = "";
+
+    public String getSort() {
+        return sort;
+    }
+
+    public void setSort(String sort) {
+        this.sort = sort;
+    }
+
     public String getCode() {
         return code;
     }

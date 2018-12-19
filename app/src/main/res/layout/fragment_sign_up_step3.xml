@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
 
     <data>
 
@@ -7,8 +9,52 @@
 
     <LinearLayout
         android:orientation="vertical"
+        android:paddingLeft="33dp"
+        android:paddingRight="33dp"
+        tool:background="@mipmap/app_page_bg_new"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <TextView
+            android:layout_marginTop="70dp"
+            android:text="@string/trade_pwd_input"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.cdkj.token.views.SignInEditClearImageLayout
+            android:id="@+id/edt_trade_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:hint_text="@string/please_input_transaction_pwd" />
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:text="@string/trade_pwd_re_input"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.cdkj.token.views.SignInEditClearImageLayout
+            android:id="@+id/edt_re_trade_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:hint_text="@string/please_check_transaction" />
+        
+        <Button
+            android:id="@+id/btn_success"
+            android:text="@string/signup_success"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:layout_marginTop="75dp"
+            android:background="@drawable/btn_sign_bg"
+            android:layout_width="match_parent"
+            android:layout_height="45dp" />
 
     </LinearLayout>
 </layout>

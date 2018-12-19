@@ -6,7 +6,6 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreatePassWordBinding;
@@ -68,7 +67,7 @@ public abstract class AbsWalletPassWordCheckActivity extends AbsLoadActivity {
      * @param pwd
      */
     private void checkOldPassword(String pwd) {
-        checkPassWord(WalletHelper.checkPasswordByUserId(pwd, SPUtilHelper.getUserId()));
+        checkPassWord(WalletHelper.checkPasswordByUserId(pwd, WalletHelper.WALLET_USER));
     }
 
 

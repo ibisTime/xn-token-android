@@ -17,20 +17,57 @@
 
         <com.cdkj.token.views.UserTableLayout
             android:id="@+id/tl_signUP"
-            android:layout_marginTop="100dp"
+            android:layout_marginTop="70dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title_left="手机注册"
-            app:title_right="邮箱"
+            app:title_left="@string/signup_mobile"
+            app:title_right="@string/signup_email"
             />
 
-        <com.cdkj.token.views.SignInEditClearCountryCodeLayout
-            android:id="@+id/edt_username"
-            android:layout_marginTop="23dp"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hint_text="@string/user_sign_in_mobile_hint" />
+            android:layout_height="wrap_content">
 
+            <com.cdkj.token.views.SignInEditClearCountryCodeLayout
+                android:id="@+id/edt_mobile"
+                android:layout_marginTop="23dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint_text="@string/user_sign_in_mobile_hint" />
+
+            <com.cdkj.token.views.SignInEditClearLayout
+                android:id="@+id/edt_email"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                app:title="@string/user_email"
+                app:hint_text="@string/user_email_hint" />
+
+            <com.cdkj.token.views.SignInEditClearCodeLayout
+                android:id="@+id/edt_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                app:hint_text="@string/user_sign_up_code_hint" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="70dp"
+            android:layout_gravity="right"
+            android:layout_width="52dp"
+            android:layout_height="52dp">
+
+            <ImageButton
+                android:id="@+id/btn_next"
+                android:background="@mipmap/next_step"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

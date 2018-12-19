@@ -14,7 +14,8 @@ import com.cdkj.token.R;
 import com.cdkj.token.interfaces.StartPagePresenter;
 import com.cdkj.token.interfaces.StartPageView;
 import com.cdkj.token.model.VersionModel;
-import com.zqzn.idauth.sdk.DetectEngine;
+import com.cdkj.token.user.guide.GuideActivity;
+import com.cdkj.token.utils.wallet.WalletHelper;
 import com.zqzn.idauth.sdk.IdResultCallback;
 
 import org.greenrobot.eventbus.EventBus;
@@ -28,9 +29,10 @@ import static com.cdkj.token.utils.UpdateUtil.startWeb;
  * 启动页
  */
 @Route(path = CdRouteHelper.APPSTART)
-public class StartActivity extends BaseActivity implements StartPageView,IdResultCallback {
+//public class SplashActivity extends BaseActivity implements StartPageView {
+public class SplashActivity extends BaseActivity implements StartPageView,IdResultCallback {
 
-    DetectEngine detectEngine = new DetectEngine();
+
 
     public StartPagePresenter pagePresenter;
 
@@ -49,10 +51,11 @@ public class StartActivity extends BaseActivity implements StartPageView,IdResul
 
         setContentView(R.layout.activity_start);
 
+        WalletHelper.checkLastVersionWalletUser();
+
         pagePresenter = new StartPagePresenter(this);
         pagePresenter.start();
 
-//        detectEngine.id_ocr(this, "nJXnQp568zYcnBdPQxC7TANqakUUCjRZqZK8TrwGt7", "887DE27B914988C9CF7B2DEE15E3EDF8",this);
     }
 
     @Override
@@ -64,14 +67,14 @@ public class StartActivity extends BaseActivity implements StartPageView,IdResul
     public void versionUpdateDialog(VersionModel versionModel) {
         if (isForceUpload(versionModel.getForceUpdate())) { // 强制更新
             showSureDialog(getStrRes(R.string.tip_update), versionModel.getNote(), view -> {
-                startWeb(StartActivity.this, versionModel.getDownloadUrl());
+                startWeb(SplashActivity.this, versionModel.getDownloadUrl());
                 EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
                 finish();
             });
 
         } else {
             showDoubleWarnListen(getStrRes(R.string.tip_update), versionModel.getNote(), view -> {
-                startWeb(StartActivity.this, versionModel.getDownloadUrl());
+                startWeb(SplashActivity.this, versionModel.getDownloadUrl());
             }, view -> {
                 if (pagePresenter != null) {
                     pagePresenter.refuseUpdate();
@@ -88,7 +91,8 @@ public class StartActivity extends BaseActivity implements StartPageView,IdResul
 
     @Override
     public void startLogin() {
-        SignInActivity.open(this, true);
+//        SignInActivity.open(this, true);
+        GuideActivity.open(this);
         finish();
     }
 

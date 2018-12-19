@@ -3,34 +3,29 @@ package com.cdkj.token.wallet.backup_guide;
 import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.TextView;
 
 import com.alibaba.fastjson.JSON;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
-import com.cdkj.baselibrary.base.AbsLoadActivity;
+import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
-import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.HelpWordsGridCheckAdapter;
-import com.cdkj.token.databinding.ActivityBackupWalletWordsCheckBinding;
+import com.cdkj.token.databinding.ActivityBackupWalletWordsCheck2Binding;
 import com.cdkj.token.model.HelpWordsCheckModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.utils.wallet.WalletHelper;
-import com.cdkj.token.views.recycler.GridDivider;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -45,9 +40,9 @@ import io.reactivex.schedulers.Schedulers;
  * Created by cdkj on 2018/6/7.
  */
 
-public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
+public class BackupWalletWordsCheckActivity extends AbsStatusBarTranslucentActivity {
 
-    private ActivityBackupWalletWordsCheckBinding mBinding;
+    private ActivityBackupWalletWordsCheck2Binding mBinding;
 
     private List<String> mChooseWordList;//用户选择的单词列表
     private HelpWordsGridCheckAdapter helpWordsGridAdapter;
@@ -68,20 +63,22 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
 
 
     @Override
-    public View addMainView() {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_backup_wallet_words_check, null, false);
+    public View addContentView() {
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_backup_wallet_words_check2, null, false);
         return mBinding.getRoot();
     }
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        setStatusBarBlue();
-        setTitleBgBlue();
+        setMidTitle(R.string.wallet_backup_memonic);
+        setWhiteTitle();
+        setPageBgImage(R.mipmap.app_page_bg_new);
+
 
         isFromWalletToolBackup = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN, false);
         mChooseWordList = new ArrayList<>();
-        mBaseBinding.titleView.setMidTitle(R.string.wallet_backup);
+
 
         mBinding.recyclerView.setLayoutManager(new GridLayoutManager(this, 3) {
             @Override
@@ -89,11 +86,12 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
                 return false;
             }
         });
-        mBinding.recyclerView.addItemDecoration(new GridDivider(this, DisplayHelper.dp2px(this, 1), ContextCompat.getColor(this, R.color.gray_dee0e5)));
+//        mBinding.recyclerView.addItemDecoration(new GridDivider(this, DisplayHelper.dp2px(this, 1), ContextCompat.getColor(this, R.color.gray_dee0e5)));
 
         ((DefaultItemAnimator) mBinding.recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-        initAdapter();
 
+        initAdapter();
+        initListener();
     }
 
     void initAdapter() {
@@ -110,21 +108,29 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
                 @Override
                 public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
 
+                    mBinding.tvTip.setVisibility(View.GONE);
+
                     HelpWordsCheckModel checkModel = helpWordsGridAdapter.getItem(position);
 
                     if (checkModel == null || checkModel.isChoose()) {  //已经选择过的不再选择
                         return;
                     }
                     mChooseWordList.add(checkModel.getWords());
-                    if (mChooseWordList.size() >= 12) {
-                        checkInputWords();
-                    }
+
                     checkModel.setChoose(true);
                     helpWordsGridAdapter.notifyItemChanged(position);
                     addChooseViewByWords(checkModel, position);
                 }
             });
         }
+    }
+
+    private void initListener(){
+        mBinding.btnOk.setOnClickListener(view -> {
+            if (mChooseWordList.size() >= 12) {
+                checkInputWords();
+            }
+        });
     }
 
     /**
@@ -134,7 +140,7 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
      */
     public List<String> getWordsisFromBackup() {
         if (isFromWalletToolBackup) {
-            return WalletHelper.getHelpWordsListByUserId(SPUtilHelper.getUserId());
+            return WalletHelper.getHelpWordsListByUserId(WalletHelper.WALLET_USER);
         }
 
         WalletDBModel walletDBModel = JSON.parseObject(SPUtilHelper.getWalletCache(), WalletDBModel.class);
@@ -186,8 +192,7 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
         showDoubleWarnListen(getString(R.string.backup_introtation_dialog_title), getString(R.string.backup_introtation_dialog_content), view1 -> {
 
             if (!isFromWalletToolBackup) {
-                EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
-                MainActivity.open(BackupWalletWordsCheckActivity.this);
+                BackupWalletSuccessActivity.open(this, BackupWalletSuccessActivity.CREATE);
             }
             finish();
         });
@@ -200,8 +205,8 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
      */
     void addChooseViewByWords(HelpWordsCheckModel checkModel, int postion) {
         FlexboxLayout.LayoutParams layoutParams = new FlexboxLayout.LayoutParams(FlexboxLayout.LayoutParams.WRAP_CONTENT, FlexboxLayout.LayoutParams.WRAP_CONTENT);
-        layoutParams.leftMargin = 15;
-        layoutParams.bottomMargin = 10;
+        layoutParams.rightMargin = DisplayHelper.dp2px(this, 6);
+        layoutParams.bottomMargin = DisplayHelper.dp2px(this, 6);
         TextView textView = createText(checkModel.getWords(), postion);
         mBinding.flexLayout.addView(textView, layoutParams);
     }
@@ -233,15 +238,19 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
 
         TextView textView = new TextView(this);
 
+        // 获取助记词输入框宽度 = 原始屏幕宽度 - 两边边距 - 每个助记词的边距
+        int screenWidth = DisplayHelper.getScreenWidth(this) - DisplayHelper.dp2px(this, 50) - DisplayHelper.dp2px(this, 24);
+
+        textView.setWidth(screenWidth/3);
+        textView.setHeight(DisplayHelper.dp2px(this, 40));
+
+        textView.setGravity(Gravity.CENTER);
         textView.setText(word);
-
-        textView.setTextColor(Color.parseColor("#407EF9"));
-
-        textView.setBackgroundColor(Color.parseColor("#EDF3FF"));
-
-        textView.setPadding(8, 10, 8, 10);
-
+        textView.setTextColor(ContextCompat.getColor(this, R.color.white));
+        textView.setBackgroundResource(R.drawable.btn_memonic_light);
         textView.setTag(position);
+
+
 
         textView.setOnClickListener(new View.OnClickListener() {      //用户点击已经选择的View
             @Override
@@ -251,6 +260,10 @@ public class BackupWalletWordsCheckActivity extends AbsLoadActivity {
                 HelpWordsCheckModel helpWordsCheckModel = helpWordsGridAdapter.getItem(position);
                 helpWordsCheckModel.setChoose(false);
                 helpWordsGridAdapter.notifyItemChanged((int) textView.getTag());
+
+                if (mChooseWordList.size() == 0){
+                    mBinding.tvTip.setVisibility(View.VISIBLE);
+                }
             }
         });
 

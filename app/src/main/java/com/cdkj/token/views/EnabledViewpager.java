@@ -11,7 +11,12 @@ import android.view.MotionEvent;
  */
 public class EnabledViewpager extends ViewPager {
 
-    private boolean isPagingEnabled = false;
+    /**
+     * 上一次x坐标
+     */
+    private float beforeX;
+
+    private boolean isPagingEnabled = true;
 
     public EnabledViewpager(Context context) {
         super(context);
@@ -21,16 +26,6 @@ public class EnabledViewpager extends ViewPager {
         super(context, attrs);
     }
 
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return this.isPagingEnabled && super.onTouchEvent(event);
-    }
-
-    @Override
-    public boolean onInterceptTouchEvent(MotionEvent event) {
-        return this.isPagingEnabled && super.onInterceptTouchEvent(event);
-    }
-
     public void setPagingEnabled(boolean b) {
         this.isPagingEnabled = b;
     }
@@ -38,4 +33,33 @@ public class EnabledViewpager extends ViewPager {
     public int getCurrentItem() {
         return PagerAdapter.POSITION_NONE;
     }
+
+    //-----禁止左滑-------左滑：上一次坐标 > 当前坐标
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if(isPagingEnabled){
+            return super.dispatchTouchEvent(ev);
+        }else  {
+            switch (ev.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    beforeX = ev.getX();
+                    break;
+
+                case MotionEvent.ACTION_MOVE:
+                    float motionValue = ev.getX() - beforeX;
+                    if (motionValue < 0) {//禁止左滑
+                        return true;
+                    }
+                    beforeX = ev.getX();
+
+                    break;
+
+                default:
+                    break;
+            }
+            return super.dispatchTouchEvent(ev);
+        }
+
+    }
+
 }

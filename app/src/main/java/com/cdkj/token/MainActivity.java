@@ -19,6 +19,7 @@ import com.cdkj.token.wallet.WalletFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,6 +32,8 @@ public class MainActivity extends BaseActivity {
     public static final int CONSULT = 1;
     public static final int ME = 2;
     private List<Fragment> fragments;
+
+    public BigDecimal totalAsset = BigDecimal.ZERO;
 
     /**
      * 打开当前页面
@@ -160,6 +163,14 @@ public class MainActivity extends BaseActivity {
         });
     }
 
+    public void updateTotalAsset(BigDecimal totalAsset){
+        if (null != totalAsset)
+            this.totalAsset = totalAsset;
+    }
+
+    public BigDecimal getTotalAsset(){
+        return totalAsset;
+    }
 
     @Override
     protected void onDestroy() {

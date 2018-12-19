@@ -110,6 +110,16 @@ public class BalanceListModel implements AmountShowTypeInterface {
         private String priceHKD;
         private String priceKRW;
 
+        private String percentChange24h;
+
+        public String getPercentChange24h() {
+            return percentChange24h;
+        }
+
+        public void setPercentChange24h(String percentChange24h) {
+            this.percentChange24h = percentChange24h;
+        }
+
         public String getAmountKRW() {
             return amountKRW;
         }
@@ -222,6 +232,7 @@ public class BalanceListModel implements AmountShowTypeInterface {
             dest.writeString(this.priceUSD);
             dest.writeString(this.priceHKD);
             dest.writeString(this.priceKRW);
+            dest.writeString(this.percentChange24h);
         }
 
         protected AccountListBean(Parcel in) {
@@ -236,6 +247,7 @@ public class BalanceListModel implements AmountShowTypeInterface {
             this.priceUSD = in.readString();
             this.priceHKD = in.readString();
             this.priceKRW = in.readString();
+            this.percentChange24h = in.readString();
         }
 
         public static final Creator<AccountListBean> CREATOR = new Creator<AccountListBean>() {

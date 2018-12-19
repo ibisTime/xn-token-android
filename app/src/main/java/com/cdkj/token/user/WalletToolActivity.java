@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -17,7 +16,7 @@ import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserWalletBinding;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.wallet.WalletPasswordModifyActivity2;
-import com.cdkj.token.wallet.backup_guide.BackupWalletStartActivity;
+import com.cdkj.token.wallet.backup_guide.BackupWalletActivity;
 import com.cdkj.token.wallet.export.WalletExportPasswordCheckActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -58,7 +57,7 @@ public class WalletToolActivity extends AbsLoadActivity {
         setTitleBgBlue();
         initClickListener();
 
-        mBinding.tvWalletName.setText(WalletHelper.getWalletNameByUserId(SPUtilHelper.getUserId()));
+        mBinding.tvWalletName.setText(WalletHelper.getWalletNameByUserId(WalletHelper.WALLET_USER));
 
     }
 
@@ -112,15 +111,16 @@ public class WalletToolActivity extends AbsLoadActivity {
      */
     private void checkPassword(String tradePwd, int type) {
 
-        if (!WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {  //用户密码输入错误
+        if (!WalletHelper.checkPasswordByUserId(tradePwd, WalletHelper.WALLET_USER)) {  //用户密码输入错误
             UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
             return;
         }
 
         switch (type) {
             case DIALOG_BACKUP:
-                BackupWalletStartActivity.open(this, true);
+                BackupWalletActivity.open(this, true);
                 break;
+
             case DIALOG_DELETE:
                 deleteWallet();
                 break;
@@ -129,7 +129,7 @@ public class WalletToolActivity extends AbsLoadActivity {
     }
 
     private void deleteWallet() {
-        WalletHelper.deleteUserWallet(SPUtilHelper.getUserId());
+        WalletHelper.deleteUserWallet(WalletHelper.WALLET_USER);
         UITipDialog.showSuccess(this, getString(R.string.wallet_delete_success), dialogInterface -> {
             EventBus.getDefault().post(new AllFinishEvent());
             MainActivity.open(this);

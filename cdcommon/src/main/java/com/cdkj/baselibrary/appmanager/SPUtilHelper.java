@@ -15,7 +15,6 @@ import static com.cdkj.baselibrary.appmanager.AppConfig.BUILD_TYPE_TEST;
 
 public class SPUtilHelper {
 
-
     private static final String USERTOKEN = "user_toke";
     private static final String USERID = "user_id";
     private static final String SECRET_USERID = "secret_user_id";
@@ -205,7 +204,6 @@ public class SPUtilHelper {
      */
     public static String getUserId() {
         return SPUtils.getString(CdApplication.getContext(), USERID, "");
-
     }
 
     /**
@@ -224,7 +222,6 @@ public class SPUtilHelper {
      */
     public static String getSecretUserId() {
         return SPUtils.getString(CdApplication.getContext(), SECRET_USERID, "");
-
     }
 
 
@@ -439,6 +436,22 @@ public class SPUtilHelper {
      */
     public static boolean isSetPatternPwd() {
         return !TextUtils.isEmpty(getUserPatternPwd());
+    }
+
+
+    /**
+     * 设置新手指导是否显示
+     *
+     */
+    public static void saveRookieGuideShowed() {
+        SPUtils.put(CdApplication.getContext(), "is_rookie_guide_show", true);
+    }
+
+    /**
+     * 获取新手指导是否显示，默认没显示
+     */
+    public static boolean isRookieGuideShow() {
+        return SPUtils.getBoolean(CdApplication.getContext(), "is_rookie_guide_show", false);
     }
 
 }

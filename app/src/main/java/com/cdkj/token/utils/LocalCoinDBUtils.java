@@ -111,7 +111,7 @@ public class LocalCoinDBUtils {
      * @return
      */
     public static String getAddressByCoin(String coinSymbol, String userId) {
-        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(userId);
+        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(userId);
         if (isBTCChain(coinSymbol)) {
             return walletDBModel.getBtcAddress();
         }
@@ -186,7 +186,7 @@ public class LocalCoinDBUtils {
      */
     private static void updateLocalCoinByAdd(List<LocalCoinDbModel> requestCoins, List<LocalCoinDbModel> myLocalCoinList) {
 
-        String userChooseCoinSymbolString = WalletHelper.getUserChooseCoinSymbolString(SPUtilHelper.getUserId()); //用户自选币种
+        String userChooseCoinSymbolString = WalletHelper.getUserChooseCoinSymbolString(WalletHelper.WALLET_USER); //用户自选币种
 
         List<LocalCoinDbModel> saveLocals = new ArrayList<>();
 
@@ -213,8 +213,8 @@ public class LocalCoinDBUtils {
 
             DataSupport.saveAll(saveLocals);
 
-            if (SPUtilHelper.isLoginNoStart() && WalletHelper.userIsCoinChoosed(SPUtilHelper.getUserId())) {  //如果当前用户已经登录 并且添加过自选
-                WalletHelper.updateUserChooseCoinString(userChooseCoinSymbolString, SPUtilHelper.getUserId());  //更新用户自选
+            if (SPUtilHelper.isLoginNoStart() && WalletHelper.userIsCoinChoosed(WalletHelper.WALLET_USER)) {  //如果当前用户已经登录 并且添加过自选
+                WalletHelper.updateUserChooseCoinString(userChooseCoinSymbolString, WalletHelper.WALLET_USER);  //更新用户自选
             }
         }
     }

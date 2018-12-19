@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <FrameLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:background="@color/white"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_marginTop="25dp"
+                    android:paddingLeft="27dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:background="@mipmap/country_list_search"
+                        android:layout_width="17dp"
+                        android:layout_height="15dp" />
+
+                    <EditText
+                        android:id="@+id/edt_search"
+                        android:layout_marginLeft="12dp"
+                        android:textColor="@color/black"
+                        android:textSize="16sp"
+                        android:background="@null"
+                        android:imeOptions="actionSearch"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_marginTop="4dp"
+                    android:layout_marginLeft="12dp"
+                    android:layout_marginRight="12dp"
+                    style="@style/style_split_line"/>
+
+            </LinearLayout>
+
+            <com.scwang.smartrefresh.layout.SmartRefreshLayout
+                android:id="@+id/refreshLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/gray_bg"
+                app:srlAccentColor="@android:color/tertiary_text_dark"
+                app:srlEnablePreviewInEditMode="true"
+                app:srlPrimaryColor="@color/gray_bg">
+                <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
+                <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
+                <com.cdkj.baselibrary.views.refresh.ClassicsHeader2
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv"
+                    android:background="#f8f8f8"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:overScrollMode="never" />
+
+                <com.cdkj.baselibrary.views.refresh.ClassicsFooter2
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
+            </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_gravity="right"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content">
+
+            <ListView
+                android:id="@+id/lv_sort"
+                android:divider="@color/white"
+                android:fastScrollEnabled="false"
+                android:dividerHeight="0dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+            </ListView>
+
+        </LinearLayout>
+
+    </FrameLayout>
+</layout>

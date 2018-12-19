@@ -31,6 +31,10 @@ public class LoginPresenter {
         this.mListener = view;
     }
 
+    private boolean isEmail(String account){
+        return account.contains("@");
+    }
+
     //处理登录逻辑
     public void login(String username, String password, String countryCode, Context context) {
         this.mContext = context;
@@ -46,14 +50,13 @@ public class LoginPresenter {
 
         HashMap<String, String> hashMap = new HashMap<>();
 
-        hashMap.put("loginName", username);
+        hashMap.put("loginName", isEmail(username) ? username : SPUtilHelper.getCountryInterCode() + username);
         hashMap.put("loginPwd", password);
-        hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
-        hashMap.put("countryCode", SPUtilHelper.getCountryCode());
+        hashMap.put("countryCode", countryCode);
         hashMap.put("kind", AppConfig.USERTYPE);
         hashMap.put("systemCode", AppConfig.SYSTEMCODE);
 
-        call = RetrofitUtils.getBaseAPiService().userLogin("805050", StringUtils.getRequestJsonString(hashMap));
+        call = RetrofitUtils.getBaseAPiService().userLogin("805051", StringUtils.getRequestJsonString(hashMap));
 
         mListener.StartLogin();
 

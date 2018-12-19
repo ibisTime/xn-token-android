@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.FragmentGuidePrivateBinding;
+import com.cdkj.token.wallet.trade_pwd.TradePwdActivity;
 
 /**
  * Created by cdkj on 2018/11/21.
@@ -35,7 +36,19 @@ public class GuidePrivateFragment extends BaseLazyFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_guide_private, null, false);
 
+        initListener();
+
         return mBinding.getRoot();
+    }
+
+    private void initListener() {
+        mBinding.btnCreate.setOnClickListener(view -> {
+            TradePwdActivity.open(mActivity, TradePwdActivity.CREATE, null, null);
+        });
+
+        mBinding.btnImport.setOnClickListener(view -> {
+            TradePwdActivity.open(mActivity, TradePwdActivity.RECOVER, null, null);
+        });
     }
 
 

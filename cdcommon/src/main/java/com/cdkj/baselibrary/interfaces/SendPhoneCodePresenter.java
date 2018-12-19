@@ -6,7 +6,6 @@ import android.text.TextUtils;
 
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.AppConfig;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.model.SendVerificationCode;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -42,15 +41,15 @@ public class SendPhoneCodePresenter {
     /**
      * 启动安全验证界面
      *
-     * @param sendVerificationCode
+     * @param code
      */
-    public void openVerificationActivity(SendVerificationCode sendVerificationCode) {
-        this.sendVerificationCode = sendVerificationCode;
-        if (sendVerificationCode == null) {
+    public void openVerificationActivity(SendVerificationCode code) {
+        this.sendVerificationCode = code;
+        if (code == null) {
             return;
         }
-        if (TextUtils.isEmpty(sendVerificationCode.getPhone())) {
-            ToastUtil.show(activity, this.activity.getString(R.string.activity_mobile_mobile_hint));
+        if (TextUtils.isEmpty(code.getAccount())) {
+            ToastUtil.show(activity, this.activity.getString(isEmail(code.getAccount()) ? R.string.activity_mobile_email_hint : R.string.activity_mobile_mobile_hint));
             return;
         }
         VerificationAliActivity.open(activity, AL_IVERIFICATION_REQUEST_CODE);
@@ -75,22 +74,25 @@ public class SendPhoneCodePresenter {
         }
     }
 
+    private boolean isEmail(String account){
+        return account.contains("@");
+    }
 
     /**
      * 请求
      */
-    private void request(SendVerificationCode sendVerificationCode) {
+    private void request(SendVerificationCode code) {
 
         HashMap<String, String> hashMap = new HashMap<>();
 
         hashMap.put("systemCode", AppConfig.SYSTEMCODE);
         hashMap.put("companyCode", AppConfig.COMPANYCODE);
-        hashMap.put("mobile", sendVerificationCode.getPhone());
-        hashMap.put("bizType", sendVerificationCode.getBizType());
-        hashMap.put("kind", sendVerificationCode.getKind());
-        hashMap.put("interCode", sendVerificationCode.getCountryCode()); //国际区号
-        hashMap.put("sessionId", sendVerificationCode.getSessionID()); //阿里验证
-        call = RetrofitUtils.getBaseAPiService().successRequest("805953", StringUtils.getRequestJsonString(hashMap));
+        hashMap.put(isEmail(code.getAccount()) ? "email" :"mobile", code.getAccount());
+        hashMap.put("bizType", code.getBizType());
+        hashMap.put("kind", code.getKind());
+        hashMap.put("interCode", code.getCountryCode()); //国际区号
+        hashMap.put("sessionId", code.getSessionID()); //阿里验证
+        call = RetrofitUtils.getBaseAPiService().successRequest(isEmail(code.getAccount()) ? "805954" : "805953", StringUtils.getRequestJsonString(hashMap));
 
         mListener.StartSend();
         call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(activity) {

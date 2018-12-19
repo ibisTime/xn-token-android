@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingLeft="33dp"
+        android:paddingRight="33dp"
+        tool:background="@mipmap/app_page_bg_new"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="70dp"/>
+
+        <com.cdkj.token.views.UserTableLayout
+            android:id="@+id/tl_signUP"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title_left="@string/forget_mobile"
+            app:title_right="@string/forget_email"
+            />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.cdkj.token.views.SignInEditClearCountryCodeLayout
+                android:id="@+id/edt_mobile"
+                android:layout_marginTop="23dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint_text="@string/user_sign_in_mobile_hint" />
+
+            <com.cdkj.token.views.SignInEditClearLayout
+                android:id="@+id/edt_email"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                app:title="@string/user_email"
+                app:hint_text="@string/user_email_hint" />
+
+            <com.cdkj.token.views.SignInEditClearCodeLayout
+                android:id="@+id/edt_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                app:hint_text="@string/user_sign_up_code_hint" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="70dp"
+            android:layout_gravity="right"
+            android:layout_width="52dp"
+            android:layout_height="52dp">
+
+            <ImageButton
+                android:id="@+id/btn_next"
+                android:background="@mipmap/next_step"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

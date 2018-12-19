@@ -15,7 +15,7 @@
             android:gravity="center"
             android:paddingBottom="22dp"
             android:paddingTop="40dp"
-            android:textColor="@color/text_black_cd"
+            android:textColor="@color/blue_0064ff"
             android:textSize="20sp"
             tools:text="标题" />
 

@@ -7,25 +7,25 @@ package com.cdkj.baselibrary.model;
 
 public class SendVerificationCode {
 
-    private String phone;
+    private String account;
     private String sessionID;
     private String bizType;
     private String kind;
     private String countryCode;
 
-    public SendVerificationCode(String phone, String bizType, String kind, String countryCode) {
-        this.phone = phone;
+    public SendVerificationCode(String account, String bizType, String kind, String countryCode) {
+        this.account = account;
         this.bizType = bizType;
         this.kind = kind;
         this.countryCode = countryCode;
     }
 
-    public String getPhone() {
-        return phone;
+    public String getAccount() {
+        return account;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setAccount(String account) {
+        this.account = account;
     }
 
     public String getSessionID() {

@@ -1,6 +1,7 @@
 package com.cdkj.baselibrary.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
@@ -253,56 +254,144 @@ public class QiNiuHelper {
         mSubscription.add(Observable.just(dataList.get(upLoadListIndex))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.io())
-                .map(new Function<String, byte[]>() {
-                    @Override
-                    public byte[] apply(@NonNull String s) throws Exception {
-                        return mImageCompressInterface.onCompress(context, s);
-                    }
-                })
+                .map(s -> mImageCompressInterface.onCompress(context, s))
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new Consumer<byte[]>() {
-                    @Override
-                    public void accept(byte[] bytes) throws Exception {
-                        if (bytes == null || bytes.length == 0) {
+                .subscribe(bytes -> {
+                    if (bytes == null || bytes.length == 0) {
+                        if (listListener != null) {
+                            listListener.onFal(CdApplication.getContext().getString(R.string.upload_pic_fail));
+                        }
+                        return;
+                    }
+                    uploadSingleByte(new QiNiuCallBack() {
+                        @Override
+                        public void onSuccess(String key) {
+                            if (listListener != null) {
+                                listListener.onChange(upLoadListIndex, key);
+                            }
+                            if (upLoadListIndex < dataList.size() - 1) {
+                                upLoadListIndex++;
+                                upLoadListPic(upLoadListIndex, dataList, token, listListener);
+                            } else {
+                                upLoadListIndex = 0;
+                                if (listListener != null) {
+                                    listListener.onSuccess();
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onFal(String info) {
                             if (listListener != null) {
                                 listListener.onFal(CdApplication.getContext().getString(R.string.upload_pic_fail));
                             }
-                            return;
+
                         }
-                        uploadSingle(new QiNiuCallBack() {
-                            @Override
-                            public void onSuccess(String key) {
-                                if (listListener != null) {
-                                    listListener.onChange(upLoadListIndex, key);
-                                }
-                                if (upLoadListIndex < dataList.size() - 1) {
-                                    upLoadListIndex++;
-                                    upLoadListPic(upLoadListIndex, dataList, token, listListener);
-                                } else {
-                                    upLoadListIndex = 0;
-                                    if (listListener != null) {
-                                        listListener.onSuccess();
-                                    }
-
-                                }
-                            }
-
-                            @Override
-                            public void onFal(String info) {
-                                if (listListener != null) {
-                                    listListener.onFal(CdApplication.getContext().getString(R.string.upload_pic_fail));
-                                }
-
-                            }
-                        }, bytes, token);
-                    }
-                }, new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        if (listListener != null) {
+                    }, bytes, token);
+                }, throwable -> {
+                    if (listListener != null) {
 //                            listListener.onError(CdApplication.getContext().getString(R.string.error_unknown));
-                            listListener.onError(CdApplication.getContext().getString(R.string.upload_pic_fail));
+                        listListener.onError(CdApplication.getContext().getString(R.string.upload_pic_fail));
+                    }
+                }));
+
+    }
+
+    /**
+     * 多图片上传
+     *
+     * @param dataList
+     * @param listListener
+     */
+    public void upLoadListPicByBitmap(final List<Bitmap> dataList, final upLoadListImageListener listListener) {
+        if (dataList == null || dataList.isEmpty()) {
+            return;
+        }
+        getQiniuToeknRequest().enqueue(new BaseResponseModelCallBack<QiniuGetTokenModel>(context) {
+            @Override
+            protected void onSuccess(QiniuGetTokenModel data, String SucMessage) {
+                if (data == null || TextUtils.isEmpty(data.getUploadToken())) {
+                    if (listListener != null) {
+                        listListener.onFal(CdApplication.getContext().getString(R.string.upload_pic_fail));
+                    }
+                    return;
+                }
+                upLoadListPicByBitmap(0, dataList, data.getUploadToken(), listListener);
+            }
+
+            @Override
+            protected void onReqFailure(String errorCode, String errorMessage) {
+                if (listListener != null) {
+                    listListener.onFal(CdApplication.getContext().getString(R.string.upload_pic_fail));
+                }
+            }
+
+            @Override
+            protected void onFinish() {
+
+            }
+        });
+    }
+
+    /**
+     * 循环调用实现多图片上传
+     *
+     * @param dataList
+     * @param token
+     * @param listListener
+     */
+    private void upLoadListPicByBitmap(int index, final List<Bitmap> dataList, final String token, final upLoadListImageListener listListener) {
+        this.upLoadListIndex = index;
+        if (TextUtils.isEmpty(token) || dataList.get(index) == null) {
+            if (listListener != null) {
+                listListener.onFal(CdApplication.getContext().getString(R.string.upload_pic_fail));
+            }
+            return;
+        }
+
+        mSubscription.add(Observable.just(dataList.get(upLoadListIndex))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.io())
+                .map(bitmap -> BitmapUtils.Bitmap2Bytes(bitmap))
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(bytes -> {
+                    if (bytes == null || bytes.length == 0) {
+                        if (listListener != null) {
+                            listListener.onFal(CdApplication.getContext().getString(R.string.upload_pic_fail));
                         }
+                        return;
+                    }
+                    uploadSingleByte(new QiNiuCallBack() {
+                        @Override
+                        public void onSuccess(String key) {
+                            if (listListener != null) {
+                                listListener.onChange(upLoadListIndex, key);
+                            }
+                            if (upLoadListIndex < dataList.size() - 1) {
+                                upLoadListIndex++;
+                                upLoadListPicByBitmap(upLoadListIndex, dataList, token, listListener);
+                            } else {
+                                upLoadListIndex = 0;
+                                if (listListener != null) {
+                                    listListener.onSuccess();
+                                }
+
+                            }
+                        }
+
+                        @Override
+                        public void onFal(String info) {
+                            if (listListener != null) {
+                                listListener.onFal(CdApplication.getContext().getString(R.string.upload_pic_fail));
+                            }
+
+                        }
+                    }, bytes, token);
+                }, throwable -> {
+                    if (listListener != null) {
+//                            listListener.onError(CdApplication.getContext().getString(R.string.error_unknown));
+                        listListener.onError(CdApplication.getContext().getString(R.string.upload_pic_fail));
                     }
                 }));
 
@@ -314,7 +403,7 @@ public class QiNiuHelper {
      * @param callBack
      * @param
      */
-    public void uploadSingle(final QiNiuCallBack callBack, byte[] data, String token) {
+    public void uploadSingleByte(final QiNiuCallBack callBack, byte[] data, String token) {
 
         Configuration config = new Configuration.Builder().build();
         UploadManager uploadManager = new UploadManager(config);

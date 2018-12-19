@@ -13,6 +13,7 @@ import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivitySignUp2Binding;
+import com.cdkj.token.model.SignUpInfoModel;
 import com.cdkj.token.user.login.signup.SignUpStep1Fragment;
 import com.cdkj.token.user.login.signup.SignUpStep2Fragment;
 import com.cdkj.token.user.login.signup.SignUpStep3Fragment;
@@ -29,6 +30,9 @@ public class SignUpActivity2 extends AbsStatusBarTranslucentActivity {
     private ActivitySignUp2Binding mBinding;
 
     private List<Fragment> fragments;
+    private Fragment signUpStep1Fragment;
+
+    private SignUpInfoModel mSignUpInfoModel;
 
     public static void open(Context context) {
         if (context == null) {
@@ -49,9 +53,15 @@ public class SignUpActivity2 extends AbsStatusBarTranslucentActivity {
 
         setPageBgImage(R.mipmap.app_page_bg_new);
 
-        setMidTitle("新用户注册");
+        setMidTitle(R.string.activity_sign_up_title);
+        setWhiteTitle();
 
+        init();
         initViewPager();
+    }
+
+    private void init() {
+        mSignUpInfoModel = new SignUpInfoModel();
     }
 
     /**
@@ -62,7 +72,8 @@ public class SignUpActivity2 extends AbsStatusBarTranslucentActivity {
         //设置fragment数据
         fragments = new ArrayList<>();
 
-        fragments.add(SignUpStep1Fragment.getInstance());
+        signUpStep1Fragment = SignUpStep1Fragment.getInstance();
+        fragments.add(signUpStep1Fragment);
         fragments.add(SignUpStep2Fragment.getInstance());
         fragments.add(SignUpStep3Fragment.getInstance());
 
@@ -70,6 +81,7 @@ public class SignUpActivity2 extends AbsStatusBarTranslucentActivity {
         mBinding.vpSignUp.setOffscreenPageLimit(fragments.size());
 
         mBinding.vpSignUp.setCurrentItem(0);
+        mBinding.vpSignUp.setPagingEnabled(false); // 按条件禁止滑动
 
         mBinding.vpSignUp.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
@@ -103,5 +115,18 @@ public class SignUpActivity2 extends AbsStatusBarTranslucentActivity {
         });
     }
 
+    public void setCurrentItem(int index){
+        if (null != mBinding)
+            mBinding.vpSignUp.setCurrentItem(index);
+    }
+
+    public SignUpInfoModel getSignUpInfo(){
+        return mSignUpInfoModel;
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        signUpStep1Fragment.onActivityResult(requestCode, resultCode, data);
+    }
 
 }

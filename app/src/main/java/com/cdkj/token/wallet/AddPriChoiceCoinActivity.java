@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsRefreshListActivity;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -105,7 +104,7 @@ public class AddPriChoiceCoinActivity extends AbsRefreshListActivity {
             String chooseCoinsStrings = StringUtils.subStringEnd(chooseCoins.toString(), 0);  //去掉最后一个分割符号
 
             if (!TextUtils.equals(this.chooseCoins, chooseCoinsStrings)) { //配置改变 保存用户选择
-                WalletHelper.updateUserChooseCoinString(chooseCoinsStrings, SPUtilHelper.getUserId());
+                WalletHelper.updateUserChooseCoinString(chooseCoinsStrings, WalletHelper.WALLET_USER);
                 EventBus.getDefault().postSticky(new AddCoinChangeEvent().setTag(AddCoinChangeEvent.PRI));   //通知上级界面刷新
             }
         }
@@ -147,7 +146,7 @@ public class AddPriChoiceCoinActivity extends AbsRefreshListActivity {
 
         List<LocalCoinDbModel> dbModels = new ArrayList<>();
 
-        chooseCoins = WalletHelper.getUserChooseCoinSymbolString(SPUtilHelper.getUserId());
+        chooseCoins = WalletHelper.getUserChooseCoinSymbolString(WalletHelper.WALLET_USER);
 
         StringBuffer chooseBuf = new StringBuffer();
 
@@ -155,7 +154,7 @@ public class AddPriChoiceCoinActivity extends AbsRefreshListActivity {
 
             if (coinDbModel == null) continue;
 
-            if (!WalletHelper.userIsCoinChoosed(SPUtilHelper.getUserId())) { //第一次配置全部选中
+            if (!WalletHelper.userIsCoinChoosed(WalletHelper.WALLET_USER)) { //第一次配置全部选中
 
                 coinDbModel.setChoose(true);
 
@@ -182,11 +181,11 @@ public class AddPriChoiceCoinActivity extends AbsRefreshListActivity {
      * @param chooseBuf
      */
     private void checkFirstChooseAndSave(StringBuffer chooseBuf) {
-        if (!WalletHelper.userIsCoinChoosed(SPUtilHelper.getUserId())) { //第一次配置 保存
+        if (!WalletHelper.userIsCoinChoosed(WalletHelper.WALLET_USER)) { //第一次配置 保存
             chooseCoins = StringUtils.subStringEnd(chooseBuf.toString(), 0);  //去掉最后一个分割符号
             UserConfigDBModel userChooseCoinDBModel = new UserConfigDBModel();
             userChooseCoinDBModel.setChooseCoins(chooseCoins);
-            userChooseCoinDBModel.setUserId(SPUtilHelper.getUserId());
+            userChooseCoinDBModel.setUserId(WalletHelper.WALLET_USER);
             userChooseCoinDBModel.setIsChoosed(1);
             userChooseCoinDBModel.save();
         }

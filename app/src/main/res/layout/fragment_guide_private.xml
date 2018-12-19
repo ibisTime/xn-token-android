@@ -16,14 +16,14 @@
         <TextView
             android:layout_marginTop="68dp"
             android:textSize="18sp"
-            android:text="私钥钱包"
+            android:text="@string/guide_private_title"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="Theia的私钥钱包是一款多链钱包，便捷的管理你的所有链上资产，私钥本地保存，安全可靠。"
+            android:text="@string/guide_private_info"
             android:textColor="@color/white"
             android:layout_marginTop="22dp"
             android:layout_marginLeft="30dp"
@@ -32,6 +32,8 @@
             android:layout_height="wrap_content" />
         
         <ImageView
+            android:layout_marginBottom="74dp"
+            android:src="@drawable/guide_private_icon"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
@@ -46,7 +48,7 @@
             
             <Button
                 android:id="@+id/btn_create"
-                android:text="创建私钥钱包"
+                android:text="@string/guide_private_create"
                 android:textSize="15sp"
                 android:textColor="@color/blue_0064ff"
                 android:background="@drawable/corner_guide_btn"
@@ -60,7 +62,7 @@
 
             <Button
                 android:id="@+id/btn_import"
-                android:text="导入助记词"
+                android:text="@string/guide_private_import"
                 android:textSize="15sp"
                 android:textColor="@color/gray_a7a7a7"
                 android:background="@drawable/corner_guide_btn"

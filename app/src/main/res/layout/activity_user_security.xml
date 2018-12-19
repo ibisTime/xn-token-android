@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <ScrollView
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
@@ -15,132 +16,119 @@
             android:paddingLeft="@dimen/cardLayout_parent_margin_left"
             android:paddingRight="@dimen/cardLayout_parent_margin_right">
 
-
-            <android.support.v7.widget.CardView
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/card_cornerradius"
-                app:cardElevation="@dimen/card_elevation"
-                app:cardUseCompatPadding="true">
+                android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/ll_trade_pwd"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
+                    android:layout_height="@dimen/layout_item_height"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical">
 
-                    <LinearLayout
-                        android:id="@+id/ll_trade_pwd"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/layout_item_height"
-                        android:background="?attr/selectableItemBackground"
-                        android:gravity="center_vertical">
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_weight="1"
+                        android:text="@string/user_setting_trade_pwd"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
-                            android:text="@string/user_setting_trade_pwd"
-                            android:textColor="@color/gray_666666"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:layout_width="@dimen/img_more_right_width"
-                            android:layout_height="@dimen/img_more_right_height"
-                            android:layout_marginRight="15dp"
-                            android:background="@mipmap/more" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/gray_dee0e5" />
-
-
-                    <LinearLayout
-                        android:id="@+id/ll_google"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/layout_item_height"
-                        android:background="?attr/selectableItemBackground"
-                        android:gravity="center_vertical">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
-                            android:text="@string/user_setting_google"
-                            android:textColor="@color/gray_666666"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tv_google"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="15dp"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:layout_width="@dimen/img_more_right_width"
-                            android:layout_height="@dimen/img_more_right_height"
-                            android:layout_marginRight="15dp"
-                            android:background="@mipmap/more" />
-
-                    </LinearLayout>
-
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="@color/gray_dee0e5" />
-
-                    <LinearLayout
-                        android:id="@+id/ll_mail"
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/layout_item_height"
-                        android:background="?attr/selectableItemBackground"
-                        android:gravity="center_vertical"
-                        android:visibility="gone">
-
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="15dp"
-                            android:layout_weight="1"
-                            android:text="@string/user_setting_mail"
-                            android:textColor="@color/gray_666666"
-                            android:textSize="14sp" />
-
-                        <TextView
-                            android:id="@+id/tv_mail"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="15dp"
-                            android:textColor="@color/black"
-                            android:textSize="14sp" />
-
-                        <ImageView
-                            android:layout_width="@dimen/img_more_right_width"
-                            android:layout_height="@dimen/img_more_right_height"
-                            android:layout_marginRight="15dp"
-                            android:background="@mipmap/more" />
-
-                    </LinearLayout>
+                    <ImageView
+                        android:layout_width="@dimen/img_more_right_width"
+                        android:layout_height="@dimen/img_more_right_height"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/more" />
 
                 </LinearLayout>
-            </android.support.v7.widget.CardView>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_dee0e5" />
 
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:cardBackgroundColor="@color/white"
-                app:cardCornerRadius="@dimen/card_cornerradius"
-                app:cardElevation="@dimen/card_elevation"
-                app:cardUseCompatPadding="true">
+                <LinearLayout
+                    android:id="@+id/ll_google"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_item_height"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="12dp"
+                        android:layout_weight="1"
+                        android:text="@string/user_setting_google"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_google"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:textColor="@color/blue_0064ff"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/img_more_right_width"
+                        android:layout_height="@dimen/img_more_right_height"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/more" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_dee0e5" />
+
+                <LinearLayout
+                    android:id="@+id/ll_mail"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/layout_item_height"
+                    android:background="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="1"
+                        android:text="@string/user_setting_mail"
+                        android:textColor="@color/gray_666666"
+                        android:textStyle="bold"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_mail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="15dp"
+                        android:textColor="@color/black"
+                        android:textSize="14sp" />
+
+                    <ImageView
+                        android:layout_width="@dimen/img_more_right_width"
+                        android:layout_height="@dimen/img_more_right_height"
+                        android:layout_marginRight="15dp"
+                        android:background="@mipmap/more" />
+
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/line_email"
+                    android:visibility="gone"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_dee0e5" />
 
                 <LinearLayout
                     android:id="@+id/ll_password"
@@ -153,10 +141,11 @@
                         android:id="@+id/tv_pwd_state"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="12dp"
                         android:layout_weight="1"
-                        android:textColor="@color/gray_666666"
+                        android:textColor="@color/black"
                         android:textSize="14sp"
+                        android:textStyle="bold"
                         tools:text="@string/user_setting_password" />
 
                     <ImageView
@@ -167,20 +156,25 @@
 
                 </LinearLayout>
 
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_dee0e5" />
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/layout_item_height"
-                    android:layout_marginTop="61dp"
                     android:background="?attr/selectableItemBackground"
                     android:gravity="center_vertical">
 
                     <TextView
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="15dp"
+                        android:layout_marginLeft="12dp"
                         android:layout_weight="1"
                         android:text="@string/pattern_pwd"
-                        android:textColor="@color/gray_666666"
+                        android:textColor="@color/black"
+                        android:textStyle="bold"
                         android:textSize="14sp" />
 
                     <android.support.v7.widget.SwitchCompat
@@ -192,10 +186,13 @@
                 </LinearLayout>
 
                 <View
-                    style="@style/style_split_line"
-                    android:layout_marginTop="@dimen/layout_item_height" />
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/gray_dee0e5" />
 
-            </android.support.v7.widget.CardView>
+
+            </LinearLayout>
+
 
 
             <LinearLayout
@@ -321,10 +318,10 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="60dp"
-                android:background="@drawable/selector_btn_blue_line"
+                android:background="@drawable/selector_blue"
                 android:gravity="center"
                 android:text="@string/user_setting_sign_out"
-                android:textColor="@drawable/selector_text_blue_white"
+                android:textColor="@color/white"
                 android:textSize="16sp" />
 
         </LinearLayout>

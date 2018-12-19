@@ -1,0 +1,402 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/ll_guide_1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:layout_marginTop="185dp"
+                android:layout_width="wrap_content"
+                android:layout_height="54dp">
+
+                <LinearLayout
+                    android:layout_gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:background="@color/white"
+                        android:layout_marginLeft="22dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp">
+
+                        <Button
+                            android:background="@drawable/wallet_friends"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:background="@color/white"
+                        android:layout_marginLeft="25dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp">
+
+                        <Button
+                            android:background="@drawable/wallet_smart_transfer"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:background="@color/white"
+                        android:layout_marginLeft="25dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp">
+
+                        <Button
+                            android:background="@drawable/wallet_transfer_change"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp" />
+
+                    </LinearLayout>
+
+
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_gravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp">
+
+                    <ImageView
+                        android:id="@+id/iv_friends"
+                        android:background="@mipmap/guide_dashed"
+                        android:layout_marginLeft="22dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_flash"
+                        android:background="@mipmap/guide_dashed"
+                        android:layout_marginLeft="25dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+
+                    <ImageView
+                        android:id="@+id/iv_transfer"
+                        android:background="@mipmap/guide_dashed"
+                        android:layout_marginLeft="25dp"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp" />
+
+                </LinearLayout>
+
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_marginLeft="8dp"
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/guide_dashed_white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/guide_dialog_address_book"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/guide_dashed_white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/transfer_change"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="75dp"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@mipmap/guide_dashed_white" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5dp"
+                        android:text="@string/fast_transfer"
+                        android:textColor="@color/white"
+                        android:textSize="16sp" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_width="247dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_sure"
+                    android:layout_width="86dp"
+                    android:layout_height="33dp"
+                    android:background="@drawable/selector_blue"
+                    android:gravity="center"
+                    android:text="@string/backup_dialog_ok"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/ll_guide_2"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <FrameLayout
+                android:layout_marginTop="240dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:background="@color/white"
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp">
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/img_coin_logo"
+                            android:background="@color/gray_dee0e5"
+                            android:layout_width="31dp"
+                            android:layout_height="31dp" />
+
+                        <TextView
+                            android:id="@+id/tv_coin_name"
+                            android:text="BTC"
+                            android:layout_marginTop="5dp"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_market_price"
+                            android:text="≈ 45660CNY"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_marginTop="9dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_rate"
+                                android:text="0.00%"
+                                android:textSize="14sp"
+                                android:textColor="@color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ImageView
+                                android:id="@+id/iv_rate"
+                                android:background="@mipmap/wallet_percent_down"
+                                android:layout_marginLeft="3dp"
+                                android:layout_width="7dp"
+                                android:layout_height="10dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginRight="20dp"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:shadowColor="@color/black"
+                                android:textColor="@color/text_black_cd"
+                                android:textSize="16sp"
+                                android:textStyle="bold"
+                                android:text="0.00000000" />
+
+                            <TextView
+                                android:id="@+id/tv_symbol"
+                                android:layout_marginLeft="3dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:shadowColor="@color/black"
+                                android:textColor="@color/text_black_cd"
+                                android:textSize="14sp"
+                                android:text="BTC" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_amount_cny"
+                            android:layout_marginTop="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/black"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            android:text="≈ 0CNY" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp">
+
+                    <ImageView
+                        android:background="@mipmap/guide_dashed_long"
+                        android:layout_marginLeft="5dp"
+                        android:layout_marginRight="5dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent" />
+
+                </LinearLayout>
+
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content">
+                    
+                    <ImageView
+                        android:layout_marginLeft="35dp"
+                        android:background="@mipmap/guide_dashed_white_left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <TextView
+                        android:layout_marginTop="50dp"
+                        android:text="@string/guide_dialog_hint"
+                        android:textSize="16sp"
+                        android:textColor="@color/white"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="35dp"
+                        android:background="@mipmap/guide_gesture"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_width="280dp"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btn_sure2"
+                    android:layout_width="86dp"
+                    android:layout_height="33dp"
+                    android:background="@drawable/selector_blue"
+                    android:gravity="center"
+                    android:text="@string/backup_dialog_ok"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+        
+    </FrameLayout>
+</layout>

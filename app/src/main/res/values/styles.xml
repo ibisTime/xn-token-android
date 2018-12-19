@@ -53,7 +53,13 @@
 
     <!---->
     <declare-styleable name="sign_edit_clear_layout">
-        <attr name="hint_text" format="string"></attr>//输入框输入状态颜色
+        <attr name="hint_text" format="string" />//输入框输入状态颜色
+        <attr name="title" format="string" />//输入框输入状态颜色
+
+    </declare-styleable>
+
+    <declare-styleable name="sign_pwd_rule">
+        <attr name="rule" format="string" />
 
     </declare-styleable>
 

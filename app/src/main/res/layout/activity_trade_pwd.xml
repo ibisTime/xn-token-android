@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:paddingLeft="33dp"
+        android:paddingRight="33dp"
+        tool:background="@mipmap/app_page_bg_new"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_marginTop="50dp"
+            android:text="@string/trade_pwd_input"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.cdkj.token.views.SignInEditClearImageLayout
+            android:id="@+id/edt_trade_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:hint_text="@string/please_input_transaction_pwd" />
+
+        <TextView
+            android:layout_marginTop="5dp"
+            android:text="@string/trade_pwd_hint"
+            android:textSize="10sp"
+            android:layout_marginLeft="40dp"
+            android:textColor="@color/gray_d6d5d5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:text="@string/trade_pwd_re_input"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.cdkj.token.views.SignInEditClearImageLayout
+            android:id="@+id/edt_re_trade_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:hint_text="@string/please_check_transaction" />
+
+        <TextView
+            android:id="@+id/tv_google"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:text="@string/activity_find_google"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.cdkj.token.views.SignInEditClearImageLayout
+            android:id="@+id/edt_google"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:hint_text="@string/activity_find_google_hint" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/zhu"
+                android:text="@string/trade_pwd_warning"
+                android:textSize="12sp"
+                android:textColor="@color/white"
+                android:layout_marginTop="7dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:id="@+id/ll_rule1"
+                android:gravity="center_vertical"
+                android:layout_marginTop="7dp"
+                android:layout_below="@id/zhu"
+                android:layout_toRightOf="@id/zhu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <ImageView
+                    android:background="@mipmap/sign_pwd_rule_no_pass"
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="4dp"
+                    android:layout_height="4dp" />
+
+                <TextView
+                    android:layout_marginLeft="6dp"
+                    android:text="@string/trade_pwd_rule1"
+                    android:textSize="11sp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_rule2"
+                android:gravity="center_vertical"
+                android:layout_marginTop="7dp"
+                android:layout_below="@id/ll_rule1"
+                android:layout_toRightOf="@id/zhu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:background="@mipmap/sign_pwd_rule_no_pass"
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="4dp"
+                    android:layout_height="4dp" />
+
+                <TextView
+                    android:layout_marginLeft="6dp"
+                    android:text="@string/trade_pwd_rule2"
+                    android:textSize="11sp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_rule3"
+                android:gravity="center_vertical"
+                android:layout_marginTop="7dp"
+                android:layout_below="@id/ll_rule2"
+                android:layout_toRightOf="@id/zhu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:background="@mipmap/sign_pwd_rule_no_pass"
+                    android:layout_marginLeft="2dp"
+                    android:layout_width="4dp"
+                    android:layout_height="4dp" />
+
+                <TextView
+                    android:layout_marginLeft="6dp"
+                    android:text="@string/trade_pwd_rule3"
+                    android:textSize="11sp"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+            
+            
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_marginTop="25dp"
+            android:layout_gravity="right"
+            android:layout_width="52dp"
+            android:layout_height="52dp">
+
+            <ImageButton
+                android:id="@+id/btn_next"
+                android:background="@mipmap/next_step"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+        
+    </LinearLayout>
+</layout>

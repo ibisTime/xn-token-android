@@ -11,23 +11,14 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
-import com.cdkj.token.databinding.ActivityImportStartBinding;
-import com.cdkj.token.model.db.WalletDBModel;
-import com.cdkj.token.user.WebViewImgBgActivity;
 import com.cdkj.token.common.ThaAppConstant;
-import com.cdkj.token.utils.wallet.WalletHelper;
+import com.cdkj.token.databinding.ActivityImportStartBinding;
+import com.cdkj.token.user.WebViewImgBgActivity;
 
 import java.util.ArrayList;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 import static com.cdkj.baselibrary.utils.StringUtils.stringFilter;
 
@@ -227,51 +218,51 @@ public class ImportWalletStartActivity extends AbsLoadActivity {
      * 验证组记词
      */
     private void checkWordsAndSave() {
-        showLoadingDialog();
-        mSubscription.add(
-                Observable.just(StringUtils.mergeSpace(mBinding.editWords.getText().toString().trim()))
-                        .subscribeOn(Schedulers.newThread())
-                        .map(s -> StringUtils.mergeSpace(s))
-                        .map(s -> {
-                            mWordList = StringUtils.splitAsArrayList(s, StringUtils.SPACE_SYMBOL);
-                            return mWordList;
-                        })
-                        .map(wds -> WalletHelper.checkMnenonic(wds))
-                        .subscribeOn(AndroidSchedulers.mainThread())
-                        .filter(isPass -> {
-                            if (!isPass) {
-                                UITipDialog.showFail(this, getString(R.string.wallet_import_fail));
-                            }
-                            return isPass == true;
-                        })
-                        .subscribeOn(Schedulers.newThread())
-                        .map(isPass -> {
-                            WalletDBModel dbModel2 = WalletHelper.createAllCoinPrivateKeybyMnenonic(mWordList); //TODO 导入缺少BTC
-                            dbModel2.setWalletPassWord(mPassword);
-                            dbModel2.setUserId(SPUtilHelper.getUserId());
-                            dbModel2.setWalletName(mBinding.editWalletName.getText());
-                            return dbModel2.save();
-                        })
-
-                        .observeOn(AndroidSchedulers.mainThread())
-
-                        .doFinally(() -> disMissLoadingDialog())
-
-                        .subscribe(isSave -> {
-
-                            if (isSave) {
-                                ImportWalletSuccessActivity.open(this);
-                                finish();
-                            } else {
-                                UITipDialog.showFail(this, getString(R.string.wallet_import_fail));
-                            }
-
-                        }, throwable -> {
-                            ToastUtil.show(ImportWalletStartActivity.this, getString(R.string.check_words_fail));
-                        })
-
-
-        );
+//        showLoadingDialog();
+//        mSubscription.add(
+//                Observable.just(StringUtils.mergeSpace(mBinding.editWords.getText().toString().trim()))
+//                        .subscribeOn(Schedulers.newThread())
+//                        .map(s -> StringUtils.mergeSpace(s))
+//                        .map(s -> {
+//                            mWordList = StringUtils.splitAsArrayList(s, StringUtils.SPACE_SYMBOL);
+//                            return mWordList;
+//                        })
+//                        .map(wds -> WalletHelper.checkMnenonic(wds))
+//                        .subscribeOn(AndroidSchedulers.mainThread())
+//                        .filter(isPass -> {
+//                            if (!isPass) {
+//                                UITipDialog.showFail(this, getString(R.string.wallet_import_fail));
+//                            }
+//                            return isPass == true;
+//                        })
+//                        .subscribeOn(Schedulers.newThread())
+//                        .map(isPass -> {
+//                            WalletDBModel dbModel2 = WalletHelper.createAllCoinPrivateKeybyMnenonic(mWordList); //TODO 导入缺少BTC
+//                            dbModel2.setWalletPassWord(mPassword);
+//                            dbModel2.setUserId(SPUtilHelper.getUserId());
+//                            dbModel2.setWalletName(mBinding.editWalletName.getText());
+//                            return dbModel2.save();
+//                        })
+//
+//                        .observeOn(AndroidSchedulers.mainThread())
+//
+//                        .doFinally(() -> disMissLoadingDialog())
+//
+//                        .subscribe(isSave -> {
+//
+//                            if (isSave) {
+//                                ImportWalletSuccessActivity.open(this);
+//                                finish();
+//                            } else {
+//                                UITipDialog.showFail(this, getString(R.string.wallet_import_fail));
+//                            }
+//
+//                        }, throwable -> {
+//                            ToastUtil.show(ImportWalletStartActivity.this, getString(R.string.check_words_fail));
+//                        })
+//
+//
+//        );
     }
 
 

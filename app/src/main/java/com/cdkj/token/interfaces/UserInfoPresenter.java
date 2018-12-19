@@ -2,7 +2,6 @@ package com.cdkj.token.interfaces;
 
 import android.app.Activity;
 
-import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.UserInfoModel;
@@ -11,6 +10,7 @@ import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
+import com.cdkj.token.user.login.ForgetPwdActivity;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -172,7 +172,14 @@ public class UserInfoPresenter {
 
         if (!isSet) {
             showDoubleWarnListen(activity.getString(R.string.please_set_account_money_password), view -> {
-                PayPwdModifyActivity.open(activity, false, SPUtilHelper.getUserPhoneNum());    //跳转设置支付密码界面
+
+                ForgetPwdActivity.open(activity,
+                        SPUtilHelper.getUserPhoneNum(),
+                        SPUtilHelper.getUserEmail(),
+                        ForgetPwdActivity.RC_TRADE_PWD_MODIFY);
+
+
+//                PayPwdModifyActivity.open(activity, false, SPUtilHelper.getUserPhoneNum());    //跳转设置支付密码界面
             });
         }
         return isSet;

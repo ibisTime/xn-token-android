@@ -11,7 +11,7 @@
         <ViewStub
             android:id="@+id/toptitlelayout"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/title_height"
+            android:layout_height="wrap_content"
             android:layout="@layout/common_title_info" />
 
         <FrameLayout

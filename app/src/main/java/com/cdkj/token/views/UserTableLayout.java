@@ -3,8 +3,8 @@ package com.cdkj.token.views;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.LinearLayout;
@@ -19,17 +19,22 @@ import com.cdkj.token.interfaces.UserTabLayoutInterface;
 
 public class UserTableLayout extends LinearLayout {
 
-    private Context mContext;
+    public static int LEFT = 0;
+    public static int RIGHT = 1;
+
+    private int position = 0;
     private LayoutUserTabBinding mBinding;
 
     private UserTabLayoutInterface mInterface;
+
+    int light = Color.parseColor("#ffffff");
+    int dark = Color.parseColor("#D6D5D5");
 
     String titleLeft;
     String titleRight;
 
     public UserTableLayout(Context context) {
         this(context, null);
-        mContext = context;
     }
 
     public UserTableLayout(Context context, @Nullable AttributeSet attrs) {
@@ -61,8 +66,10 @@ public class UserTableLayout extends LinearLayout {
         mBinding.llLeft.setOnClickListener(view -> {
             setDarkView();
 
+            position = LEFT;
+
             mBinding.lineLeft.setVisibility(VISIBLE);
-            mBinding.tvTitleLeft.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+            mBinding.tvTitleLeft.setTextColor(light);
 
             if (null != mInterface)
                 mInterface.onLeftTabListener();
@@ -71,8 +78,10 @@ public class UserTableLayout extends LinearLayout {
         mBinding.llRight.setOnClickListener(view -> {
             setDarkView();
 
+            position = RIGHT;
+
             mBinding.lineRight.setVisibility(VISIBLE);
-            mBinding.tvTitleRight.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+            mBinding.tvTitleRight.setTextColor(light);
 
             if (null != mInterface)
                 mInterface.onRightTabListener();
@@ -80,11 +89,18 @@ public class UserTableLayout extends LinearLayout {
     }
 
     private void setDarkView(){
-        mBinding.tvTitleLeft.setTextColor(ContextCompat.getColor(mContext, R.color.gray_d6d5d5));
-        mBinding.tvTitleRight.setTextColor(ContextCompat.getColor(mContext, R.color.gray_d6d5d5));
+        mBinding.tvTitleLeft.setTextColor(dark);
+        mBinding.tvTitleRight.setTextColor(dark);
 
         mBinding.lineLeft.setVisibility(GONE);
         mBinding.lineRight.setVisibility(GONE);
     }
 
+    public int getPosition(){
+        return position;
+    }
+
+    public int setPosition(int position){
+        return this.position = position;
+    }
 }

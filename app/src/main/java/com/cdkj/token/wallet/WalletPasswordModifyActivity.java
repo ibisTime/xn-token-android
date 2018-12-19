@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.token.R;
@@ -82,7 +81,7 @@ public class WalletPasswordModifyActivity extends AbsLoadActivity {
      * @param pwd
      */
     private void checkOldPassword(String pwd) {
-        if (WalletHelper.checkPasswordByUserId(pwd, SPUtilHelper.getUserId())) {
+        if (WalletHelper.checkPasswordByUserId(pwd, WalletHelper.WALLET_USER)) {
             isCheckOldPassWordState = false;
             mBinding.passWordLayout.passWordLayout.removeAllPwd();
             mBinding.tvTips.setText(R.string.please_set_transaction_password);
@@ -114,7 +113,7 @@ public class WalletPasswordModifyActivity extends AbsLoadActivity {
 
         } else {               //两次密码输入一致
             try {
-                WalletHelper.updateWalletPassWord(mPassWord, SPUtilHelper.getUserId());
+                WalletHelper.updateWalletPassWord(mPassWord, WalletHelper.WALLET_USER);
                 UITipDialog.showSuccess(WalletPasswordModifyActivity.this, getString(R.string.update_password_success), dialogInterface -> {
                     finish();
                 });

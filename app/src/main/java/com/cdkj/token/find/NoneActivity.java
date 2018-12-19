@@ -30,6 +30,8 @@ public class NoneActivity extends AbsActivity {
 
     public static final int ONE_CLICK = 5;//一键划转
 
+    public static final int FRIENDS = 6;//通讯录
+
     /**
      * 加载activity
      *
@@ -100,6 +102,7 @@ public class NoneActivity extends AbsActivity {
                 mBinding.tvContent2.setText(R.string.please_wait);
                 setTopTitle(getString(R.string.transfer_change));
                 break;
+
             case ONE_CLICK:
                 mBinding.tvTitle.setVisibility(View.GONE);
                 mBinding.tvContent.setVisibility(View.GONE);

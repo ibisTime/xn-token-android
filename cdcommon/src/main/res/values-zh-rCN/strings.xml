@@ -15,7 +15,7 @@
     <string name="activity_authenticate_download_title">是否下载并安装支付宝完成认证?</string>
     <string name="activity_authenticate_download_confirm">好的</string>
     <string name="activity_authenticate_download_cancel">取消</string>
-    <string name="activity_find_title">找回密码</string>
+    <string name="activity_find_title">密码找回</string>
     <string name="activity_find_mobile_hint">请输入手机号</string>
     <string name="activity_find_code_hint">请输入验证码</string>
     <string name="activity_find_google_hint">请输入谷歌验证码</string>
@@ -139,4 +139,5 @@
     <string name="request_error_7">红包已抢完</string>
     <string name="request_error_8">已经抢过该红包了</string>
     <string name="request_error_9">红包不存在</string>
+    <string name="activity_mobile_email_hint">请输入邮箱</string>
 </resources>

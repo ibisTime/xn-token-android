@@ -13,7 +13,7 @@ import android.view.View;
 
 import com.cdkj.baselibrary.api.BaseResponseListModel;
 import com.cdkj.baselibrary.appmanager.AppConfig;
-import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.IntroductionInfoModel;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
@@ -34,7 +34,7 @@ import retrofit2.Call;
  * Created by cdkj on 2018/5/26.
  */
 
-public class UserJoinActivity extends AbsStatusBarTranslucentActivity {
+public class UserJoinActivity extends AbsActivity {
 
     private ActivityJoinUsBinding mBindin;
 
@@ -45,17 +45,15 @@ public class UserJoinActivity extends AbsStatusBarTranslucentActivity {
         context.startActivity(new Intent(context, UserJoinActivity.class));
     }
 
-
     @Override
-    public View addContentView() {
+    public View addMainView() {
         mBindin = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_join_us, null, false);
         return mBindin.getRoot();
     }
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        setMidTitle(getStrRes(R.string.user_title_join));
-        setPageBgImage(R.drawable.my_bg);
+        setTopTitle(getStrRes(R.string.user_title_join));
         getCommnityList();
     }
 

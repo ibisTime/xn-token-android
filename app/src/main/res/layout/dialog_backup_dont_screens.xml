@@ -8,66 +8,87 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="35dp"
-            android:layout_marginRight="35dp"
-            android:background="@drawable/dialog_backup_bg"
             android:orientation="vertical"
-            android:paddingLeft="15dp"
-            android:paddingRight="15dp">
+            android:gravity="center_horizontal"
+            android:background="@drawable/bg_dialog_private_agreement"
+            android:layout_marginLeft="50dp"
+            android:layout_marginRight="50dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_marginTop="45dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:text="@string/backup_follow_order"
+                    android:textSize="18sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/blue_0064ff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:layout_marginLeft="7dp"
+                    android:text="@string/backup_write_memonic"
+                    android:textSize="14sp"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
             <TextView
+                android:layout_marginTop="11dp"
+                android:text="@string/backup_dialog_page"
+                android:textSize="14sp"
+                android:textColor="@color/black"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="25dp"
-                android:text="@string/backup_start_dialog_1"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/tv_i_know"
+                android:layout_width="117dp"
+                android:layout_height="32dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/selector_blue"
+                android:gravity="center"
+                android:text="@string/backup_dialog_ok"
                 android:textColor="@color/white"
-                android:textSize="22sp" />
+                android:textSize="16sp" />
+
+            <LinearLayout
+                android:gravity="center_vertical"
+                android:layout_marginTop="45dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:background="@mipmap/backup_warning"
+                    android:layout_width="13dp"
+                    android:layout_height="13dp" />
+
+                <TextView
+                    android:layout_marginLeft="3dp"
+                    android:text="@string/backup_dialog_hint1"
+                    android:textSize="14sp"
+                    android:textColor="@color/blue_0064ff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
 
             <TextView
+                android:layout_marginTop="7.5dp"
+                android:layout_marginBottom="25dp"
+                android:text="@string/backup_dialog_hint2"
+                android:textSize="14sp"
+                android:textColor="@color/gray_acacac"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:text="@string/backup_start_dialog_2"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="5dp"
-                android:text="@string/backup_start_dialog_3"
-                android:textColor="@color/white"
-                android:textSize="12sp" />
-
-            <ImageView
-                android:layout_width="71dp"
-                android:layout_height="71dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="15dp"
-                android:src="@drawable/backup_start_dialog" />
-
+                android:layout_height="wrap_content" />
 
         </LinearLayout>
-
-        <TextView
-            android:id="@+id/tv_i_know"
-            android:layout_width="122dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="-20dp"
-            android:background="@drawable/corner_sign_btn_gray"
-            android:gravity="center"
-            android:paddingBottom="10dp"
-            android:paddingTop="10dp"
-            android:text="@string/i_know"
-            android:textColor="#FF6A54"
-            android:textSize="14sp" />
 
     </LinearLayout>
 

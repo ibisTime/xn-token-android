@@ -10,10 +10,9 @@ import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 
-import com.alibaba.android.arouter.facade.annotation.Route;
 import com.cdkj.baselibrary.activitys.AppBuildTypeActivity;
-import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.AppConfig;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
@@ -34,12 +33,13 @@ import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivitySignInBinding;
 import com.cdkj.token.user.CountryCodeListActivity;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.util.HashMap;
 
 import retrofit2.Call;
 
-@Route(path = CdRouteHelper.APPLOGIN)
+
 public class SignInActivity extends AbsStatusBarTranslucentActivity implements LoginInterface, SendCodeInterface {
 
     private boolean canOpenMain;
@@ -146,7 +146,7 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
 
         //找回密码
         mBinding.edtPassword.getRughtText().setOnClickListener(v -> {
-            FindLoginPwdActivity.open(this, mBinding.edtUsername.getText().toString().trim());
+//            ForgetPwdActivity.open(this, mBinding.edtUsername.getText().toString().trim());
         });
 
         //注册
@@ -250,6 +250,8 @@ public class SignInActivity extends AbsStatusBarTranslucentActivity implements L
         SPUtilHelper.saveUserToken(user.getToken());
         SPUtilHelper.saveUserPhoneNum(mBinding.edtUsername.getText().toString().trim());
         OtherLibManager.uemProfileSignIn(user.getUserId());
+
+        WalletHelper.checkLastVersionWalletUser();
 
         if (canOpenMain) {
             MainActivity.open(this);

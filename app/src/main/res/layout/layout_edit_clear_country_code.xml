@@ -17,9 +17,9 @@
             <LinearLayout
                 android:layout_marginLeft="12dp"
                 android:id="@+id/linLayout_country"
-                android:layout_width="wrap_content"
+                android:layout_width="68dp"
                 android:layout_height="match_parent"
-                android:gravity="center"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -40,7 +40,6 @@
                         android:textColor="@color/white"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
                         tools:text="+86" />
 
                     <ImageView
@@ -61,7 +60,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_gravity="center_vertical"
-                android:layout_marginLeft="25dp"
                 android:background="@null"
                 android:gravity="center_vertical"
                 android:textSize="14sp"
@@ -89,7 +87,7 @@
         <View
             android:id="@+id/view_line"
             android:layout_width="match_parent"
-            android:layout_height="1.5dp"
+            android:layout_height="1dp"
             android:background="@color/white" />
 
     </LinearLayout>

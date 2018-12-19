@@ -209,7 +209,7 @@ public class StartPagePresenter {
     }
 
     /**
-     * 获取七牛之后 判断用户是否登录 没登陆进行国家匹配
+     * 获取七牛之后 判断用户是否登录 没登录进行国家匹配
      */
     private void qiniuAfter() {
         if (SPUtilHelper.isLoginNoStart()) {

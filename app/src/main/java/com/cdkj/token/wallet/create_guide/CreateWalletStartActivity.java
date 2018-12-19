@@ -229,9 +229,9 @@ public class CreateWalletStartActivity extends AbsLoadActivity {
 
                             WalletDBModel walletDBModel2 = WalletHelper.createAllPrivateKey();
 
-                            walletDBModel2.setWalletPassWord(pass);  //TODO 缺少BTC
+                            walletDBModel2.setWalletPassWord(pass);
 
-                            walletDBModel2.setUserId(SPUtilHelper.getUserId());
+                            walletDBModel2.setUserId(WalletHelper.WALLET_USER);
 
                             walletDBModel2.setWalletName(mBinding.editWalletName.getText());
 

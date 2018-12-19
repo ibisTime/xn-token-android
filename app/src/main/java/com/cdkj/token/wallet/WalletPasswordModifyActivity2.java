@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.view.View;
 
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.token.R;
@@ -139,7 +138,7 @@ public class WalletPasswordModifyActivity2 extends AbsLoadActivity {
                 return;
             }
 
-            if (!WalletHelper.checkPasswordByUserId(mBinding.editOldPwd.getText().toString(), SPUtilHelper.getUserId())) {
+            if (!WalletHelper.checkPasswordByUserId(mBinding.editOldPwd.getText().toString(), WalletHelper.WALLET_USER)) {
                 UITipDialog.showInfoNoIcon(this, getString(R.string.old_pwd_error));
                 return;
             }
@@ -157,7 +156,7 @@ public class WalletPasswordModifyActivity2 extends AbsLoadActivity {
      */
     private void updatePassword() {
         try {
-            WalletHelper.updateWalletPassWord(mBinding.editNewPwdRe.getText().toString(), SPUtilHelper.getUserId());
+            WalletHelper.updateWalletPassWord(mBinding.editNewPwdRe.getText().toString(), WalletHelper.WALLET_USER);
             UITipDialog.showSuccess(WalletPasswordModifyActivity2.this, getString(R.string.update_password_success), dialogInterface -> {
                 finish();
             });

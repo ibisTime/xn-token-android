@@ -14,11 +14,10 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.ImgUtils;
-import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityPatternLockCheckBinding;
 import com.cdkj.token.model.PatternLockCheckFinish;
-import com.cdkj.token.user.login.SignInActivity;
+import com.cdkj.token.user.login.SignInActivity2;
 import com.cdkj.token.views.pattern_lock.OnPatternChangeListener;
 import com.cdkj.token.views.pattern_lock.PatternHelper;
 import com.cdkj.token.views.pattern_lock.PatternLockView;
@@ -124,7 +123,7 @@ public class PatternLockCheckActivity extends AbsLoadActivity {
         SPUtilHelper.logOutClear();
         OtherLibManager.uemProfileSignOff();
         EventBus.getDefault().post(new AllFinishEvent());
-        SignInActivity.open(PatternLockCheckActivity.this, true);
+        SignInActivity2.open(PatternLockCheckActivity.this, true);
     }
 
 

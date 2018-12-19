@@ -1,0 +1,265 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+   <FrameLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+
+       <ImageView
+           android:layout_width="match_parent"
+           android:layout_height="175dp"
+           android:background="@mipmap/user_bg" />
+
+       <LinearLayout
+           android:layout_marginTop="@dimen/status_bar_height"
+           android:background="@color/white"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:orientation="vertical">
+
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="wrap_content"
+               android:orientation="vertical">
+
+
+               <FrameLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="@dimen/title_height"
+                   android:background="@color/white">
+
+                   <TextView
+                       android:layout_width="wrap_content"
+                       android:layout_height="wrap_content"
+                       android:layout_gravity="center"
+                       android:text="@string/main_tag_consult"
+                       android:textColor="@color/text_color"
+                       android:textSize="18sp" />
+
+               </FrameLayout>
+
+           </LinearLayout>
+
+           <com.scwang.smartrefresh.layout.SmartRefreshLayout
+               android:id="@+id/refreshLayout"
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               app:srlAccentColor="@android:color/tertiary_text_dark"
+               app:srlEnablePreviewInEditMode="true">
+               <!--srlAccentColor srlPrimaryColor 将会改变 Header 和 Footer 的主题颜色-->
+               <!--srlEnablePreviewInEditMode 可以开启和关闭预览功能-->
+               <com.cdkj.baselibrary.views.refresh.ClassicsHeader2
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content" />
+
+               <ScrollView
+                   android:background="@color/white"
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent">
+
+                   <LinearLayout
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:orientation="vertical"
+                       android:paddingBottom="20dp">
+
+                       <android.support.v7.widget.CardView
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content"
+                           android:layout_marginLeft="15dp"
+                           android:layout_marginRight="15dp"
+                           app:cardCornerRadius="5dp">
+
+                           <com.youth.banner.Banner
+                               android:id="@+id/banner"
+                               android:layout_width="match_parent"
+                               android:layout_height="150dp"
+                               app:image_scale_type="fit_xy" />
+
+                       </android.support.v7.widget.CardView>
+
+                       <LinearLayout
+                           android:paddingTop="9dp"
+                           android:layout_marginBottom="4dp"
+                           android:orientation="horizontal"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+
+                           <LinearLayout
+                               android:id="@+id/ll_recommend"
+                               android:orientation="vertical"
+                               android:gravity="center"
+                               android:layout_weight="1"
+                               android:layout_width="0dp"
+                               android:layout_height="wrap_content">
+
+                               <ImageView
+                                   android:id="@+id/iv_recommend"
+                                   android:src="@mipmap/find_redpack"
+                                   android:layout_width="26dp"
+                                   android:layout_height="26dp" />
+
+                               <TextView
+                                   android:id="@+id/tv_recommend"
+                                   android:layout_marginTop="9dp"
+                                   android:textSize="14sp"
+                                   android:textStyle="bold"
+                                   android:text="@string/send_red_package"
+                                   android:textColor="@color/black"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content" />
+
+                           </LinearLayout>
+
+                           <LinearLayout
+                               android:id="@+id/ll_recommend2"
+                               android:orientation="vertical"
+                               android:gravity="center"
+                               android:layout_weight="1"
+                               android:layout_width="0dp"
+                               android:layout_height="wrap_content">
+
+                               <ImageView
+                                   android:id="@+id/iv_recommend2"
+                                   android:src="@mipmap/find_income"
+                                   android:layout_width="26dp"
+                                   android:layout_height="26dp" />
+
+                               <TextView
+                                   android:id="@+id/tv_recommend2"
+                                   android:layout_marginTop="9dp"
+                                   android:text="@string/lianghualicai"
+                                   android:textSize="14sp"
+                                   android:textStyle="bold"
+                                   android:textColor="@color/black"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content" />
+
+                           </LinearLayout>
+
+                           <LinearLayout
+                               android:id="@+id/ll_recommend3"
+                               android:orientation="vertical"
+                               android:gravity="center"
+                               android:layout_weight="1"
+                               android:layout_width="0dp"
+                               android:layout_height="wrap_content">
+
+                               <ImageView
+                                   android:id="@+id/iv_recommend3"
+                                   android:src="@mipmap/find_invite"
+                                   android:layout_width="26dp"
+                                   android:layout_height="26dp" />
+
+                               <TextView
+                                   android:id="@+id/tv_recommend3"
+                                   android:layout_marginTop="9dp"
+                                   android:text="@string/invite_text_2"
+                                   android:textSize="14sp"
+                                   android:textStyle="bold"
+                                   android:textColor="@color/black"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content" />
+
+                           </LinearLayout>
+
+                           <LinearLayout
+                               android:id="@+id/ll_more"
+                               android:orientation="vertical"
+                               android:gravity="center"
+                               android:layout_weight="1"
+                               android:layout_width="0dp"
+                               android:layout_height="wrap_content">
+
+                               <ImageView
+                                   android:id="@+id/iv_more"
+                                   android:src="@mipmap/find_more_rc"
+                                   android:layout_width="26dp"
+                                   android:layout_height="26dp" />
+
+                               <TextView
+                                   android:id="@+id/tv_more"
+                                   android:layout_marginTop="9dp"
+                                   android:text="@string/find_more"
+                                   android:textSize="14sp"
+                                   android:textStyle="bold"
+                                   android:textColor="@color/black"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content" />
+
+                           </LinearLayout>
+
+                       </LinearLayout>
+
+                       <LinearLayout
+                           android:paddingTop="15dp"
+                           android:paddingLeft="12dp"
+                           android:paddingBottom="15dp"
+                           android:layout_width="match_parent"
+                           android:layout_height="wrap_content">
+
+                           <Button
+                               android:id="@+id/btn_typeGame"
+                               android:text="@string/find_games"
+                               android:textColor="@color/white"
+                               android:textStyle="bold"
+                               android:background="@mipmap/find_category"
+                               android:layout_width="78dp"
+                               android:layout_height="30dp" />
+
+                           <Button
+                               android:id="@+id/btn_typeTool"
+                               android:layout_marginLeft="6dp"
+                               android:text="@string/find_tools"
+                               android:textColor="@color/gray_acacac"
+                               android:textStyle="bold"
+                               android:background="@mipmap/find_category_dark"
+                               android:layout_width="78dp"
+                               android:layout_height="30dp" />
+
+                           <Button
+                               android:id="@+id/btn_typeInfo"
+                               android:layout_marginLeft="6dp"
+                               android:text="@string/find_infos"
+                               android:textColor="@color/gray_acacac"
+                               android:textStyle="bold"
+                               android:background="@mipmap/find_category_dark"
+                               android:layout_width="78dp"
+                               android:layout_height="30dp" />
+
+                       </LinearLayout>
+
+                       <RelativeLayout
+                           android:layout_width="match_parent"
+                           android:layout_height="0dp"
+                           android:layout_weight="1"
+                           android:descendantFocusability="blocksDescendants">
+
+                           <android.support.v7.widget.RecyclerView
+                               android:id="@+id/recyclerView_app"
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:layout_marginLeft="10dp">
+
+                           </android.support.v7.widget.RecyclerView>
+
+
+                       </RelativeLayout>
+
+                   </LinearLayout>
+
+               </ScrollView>
+
+               <com.cdkj.baselibrary.views.refresh.ClassicsFooter2
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content" />
+
+
+           </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+       </LinearLayout>
+
+   </FrameLayout>
+
+</layout>

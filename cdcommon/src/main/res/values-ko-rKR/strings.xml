@@ -163,4 +163,5 @@
     <string name="request_error_8">이미 홍빠오를 획득하셨습니다</string>
 
     <string name="request_error_9">홍빠오가 존재하지 않습니다</string>
+    <string name="activity_mobile_email_hint">请输入邮箱</string>
 </resources>
