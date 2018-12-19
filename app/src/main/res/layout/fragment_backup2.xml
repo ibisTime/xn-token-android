@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingLeft="33dp"
+        android:paddingRight="33dp"
+        tool:background="@mipmap/app_page_bg_new"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <TextView
+                tool:text="ok"
+                android:id="@+id/tv_memonic1"
+                android:gravity="center"
+                android:background="@drawable/bg_memonic_light"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="15dp"
+                android:layout_width="150dp"
+                android:layout_height="40dp" />
+
+            <TextView
+                tool:text="ok"
+                android:id="@+id/tv_memonic2"
+                android:gravity="center"
+                android:background="@drawable/bg_memonic_light"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="15dp"
+                android:layout_width="150dp"
+                android:layout_height="40dp" />
+
+            <TextView
+                tool:text="ok"
+                android:id="@+id/tv_memonic3"
+                android:gravity="center"
+                android:background="@drawable/bg_memonic_light"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="15dp"
+                android:layout_width="150dp"
+                android:layout_height="40dp" />
+
+            <TextView
+                tool:text="ok"
+                android:id="@+id/tv_memonic4"
+                android:gravity="center"
+                android:background="@drawable/bg_memonic_light"
+                android:textSize="16sp"
+                android:textColor="@color/white"
+                android:layout_marginBottom="15dp"
+                android:layout_width="150dp"
+                android:layout_height="40dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_marginTop="30dp"
+            android:layout_gravity="right"
+            android:layout_width="52dp"
+            android:layout_height="52dp">
+
+            <ImageButton
+                android:id="@+id/btn_next"
+                android:background="@mipmap/next_step"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</layout>

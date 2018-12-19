@@ -11,7 +11,9 @@ import org.litepal.crud.DataSupport;
  */
 public class WalletDBModel extends DataSupport {
 
+    // 私钥钱包索引，196（不包含196）版本以前用系统用户UserId，196版本更换为"正在使用"、"已删除"两种用户，切"正在使用"有且只有一个
     public String userId;
+
     public String walletName; //钱包名称
     public String helpWordsEn;// 助记词 英文
     public String walletPassWord;

@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
@@ -117,28 +116,28 @@ public class WebViewActivity extends AbsActivity {
         //输入法
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE | WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN);
 
-//        webView = new WebView(this);
         mBinding.webview.getSettings().setJavaScriptEnabled(true);//js
         mBinding.webview.getSettings().setDefaultTextEncodingName("UTF-8");
-        mBinding.webview.getSettings().setSupportZoom(true);   //// 支持缩放
-        mBinding.webview.getSettings().setBuiltInZoomControls(true);//// 支持缩放
-        mBinding.webview.getSettings().setDomStorageEnabled(true);//开启DOM
-        mBinding.webview.getSettings().setLoadWithOverviewMode(true);//// 缩放至屏幕的大小
-        mBinding.webview.getSettings().setUseWideViewPort(true);//将图片调整到适合webview的大小
-        mBinding.webview.getSettings().setLoadsImagesAutomatically(true);//支持自动加载图片
+//       mBinding.webview.getSettings().setSupportZoom(true);   //// 支持缩放
+//       mBinding.webview.getSettings().setBuiltInZoomControls(true);//// 支持缩放
+//       mBinding.webview.getSettings().setDomStorageEnabled(true);//开启DOM
+//       mBinding.webview.getSettings().setLoadWithOverviewMode(false);//// 缩放至屏幕的大小
+//       mBinding.webview.getSettings().setUseWideViewPort(true);//将图片调整到适合mBinding.webview的大小
+//       webView.getSettings().setLoadsImagesAutomatically(true);//支持自动加载图片
         mBinding.webview.setWebChromeClient(new MyWebViewClient1());
-        mBinding.webview.getSettings().setLayoutAlgorithm(WebSettings.LayoutAlgorithm.NARROW_COLUMNS);
 
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-//            mBinding.webview.getSettings().setMixedContentMode( mBinding.webview.getSettings().MIXED_CONTENT_ALWAYS_ALLOW);
-//        }
-//
+        mBinding.webview.setWebViewClient(new WebViewClient() {
+            @Override
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                view.loadUrl(url);
+                return true;
+            }
+        });
 
         mBinding.webview.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-
             }
 
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
@@ -162,14 +161,6 @@ public class WebViewActivity extends AbsActivity {
                 dialog.show();
             }
         });
-        mBinding.webview.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-        });
-//        mBinding.linLayoutWebView.addView(webView, 1);
 
     }
 

@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -64,7 +63,7 @@ public class WalletHelpWordsShowActivity extends AbsLoadActivity {
 
         commonDialog.show();
 
-        List<String> wordList = WalletHelper.getHelpWordsListByUserId(SPUtilHelper.getUserId());
+        List<String> wordList = WalletHelper.getHelpWordsListByUserId(WalletHelper.WALLET_USER);
 
         if (wordList != null) {
             mBinding.tvWords.setText(StringUtils.listToString(wordList, SPACE_SYMBOL));

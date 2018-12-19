@@ -15,7 +15,6 @@ import android.widget.SeekBar;
 
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -349,7 +348,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
         }
 
 
-        String address = LocalCoinDBUtils.getAddressByCoin(WalletHelper.COIN_BTC, SPUtilHelper.getUserId());
+        String address = LocalCoinDBUtils.getAddressByCoin(WalletHelper.COIN_BTC, WalletHelper.WALLET_USER);
         getBTCUTXO(address);
 
     }
@@ -492,7 +491,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
                         return;
                     }
 
-                    if (!WalletHelper.checkPasswordByUserId(inputMsg, SPUtilHelper.getUserId())) {  //用户密码输入错误
+                    if (!WalletHelper.checkPasswordByUserId(inputMsg, WalletHelper.WALLET_USER)) {  //用户密码输入错误
                         UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
                         return;
                     }

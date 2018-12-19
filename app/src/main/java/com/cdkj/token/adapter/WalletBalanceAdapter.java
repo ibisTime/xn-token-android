@@ -20,7 +20,7 @@ import java.util.List;
 public class WalletBalanceAdapter extends BaseQuickAdapter<WalletBalanceModel, BaseViewHolder> {
 
     public WalletBalanceAdapter(@Nullable List<WalletBalanceModel> data) {
-        super(R.layout.item_coin_assets, data);
+        super(R.layout.item_coin_assets_2, data);
     }
 
     @Override
@@ -34,9 +34,10 @@ public class WalletBalanceAdapter extends BaseQuickAdapter<WalletBalanceModel, B
             helper.setText(R.id.tv_coin_name, item.getCoinSymbol());
         }
 
-        String availablemountString = AmountUtil.transformFormatToString(item.getAvailableAmount(), item.getCoinSymbol(), 8) + " " + item.getCoinSymbol();
+        String availablemountString = AmountUtil.transformFormatToString(item.getAvailableAmount(), item.getCoinSymbol(), 8);
 
         helper.setText(R.id.tv_amount, availablemountString);
+        helper.setText(R.id.tv_symbol, item.getCoinSymbol());
 
         ImgUtils.loadImage(mContext, item.getCoinImgUrl(), helper.getView(R.id.img_coin_logo));
 
@@ -44,16 +45,29 @@ public class WalletBalanceAdapter extends BaseQuickAdapter<WalletBalanceModel, B
 
         helper.setText(R.id.tv_amount_cny, getAmountString(item));
 
+        helper.addOnClickListener(R.id.ll_item);
+        helper.addOnClickListener(R.id.btn_charge);
+        helper.addOnClickListener(R.id.btn_withdraw);
+
+
+        if (Double.parseDouble(item.getPercentChange24h()) >= 0){
+            helper.setBackgroundRes(R.id.iv_rate, R.mipmap.wallet_percent_up);
+            helper.setText(R.id.tv_rate, "+" + item.getPercentChange24h() + "%");
+        }else {
+            helper.setBackgroundRes(R.id.iv_rate, R.mipmap.wallet_percent_down);
+            helper.setText(R.id.tv_rate, item.getPercentChange24h() + "%");
+        }
+
     }
 
     public String getMarketPriceString(WalletBalanceModel item) {
         String priceString = item.getLocalMarketPrice();
-        return priceString + SPUtilHelper.getLocalMarketSymbol();
+        return "≈ " + priceString + SPUtilHelper.getLocalMarketSymbol();
     }
 
     public String getAmountString(WalletBalanceModel item) {
         String priceString = item.getLocalAmount();
-        return priceString + SPUtilHelper.getLocalMarketSymbol();
+        return "≈ " + priceString + SPUtilHelper.getLocalMarketSymbol();
     }
 
 }

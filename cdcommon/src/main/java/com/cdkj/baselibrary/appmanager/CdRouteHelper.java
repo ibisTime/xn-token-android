@@ -23,6 +23,8 @@ public class CdRouteHelper {
     //获取数据标志
     public static final String DATASIGN = "dataSign";
     public static final String DATASIGN2 = "dataSign2";
+    public static final String DATASIGN3 = "dataSign3";
+    public static final String DATASIGN4 = "dataSign4";
 
 
     /**

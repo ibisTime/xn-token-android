@@ -4,7 +4,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.GridLayoutManager;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,10 +13,13 @@ import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.api.BaseResponseListModel;
+import com.cdkj.baselibrary.api.BaseResponseModel;
+import com.cdkj.baselibrary.api.ResponseInListModel;
 import com.cdkj.baselibrary.appmanager.AppConfig;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
+import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.ImgUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -23,12 +27,13 @@ import com.cdkj.token.R;
 import com.cdkj.token.adapter.AppListAdapter;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.common.loader.BannerImageLoader;
-import com.cdkj.token.databinding.FragmentFindBinding;
+import com.cdkj.token.databinding.FragmentFind2Binding;
+import com.cdkj.token.find.dapp.DAppActivity;
 import com.cdkj.token.find.product_application.management_money.BiJiaBaoListActivity;
 import com.cdkj.token.find.product_application.red_package.SendRedPacketActivity;
 import com.cdkj.token.model.BannerModel;
+import com.cdkj.token.model.DAppModel;
 import com.cdkj.token.model.RecommendAppModel;
-import com.cdkj.token.user.WebViewImgBgActivity;
 import com.cdkj.token.user.invite.InviteActivity;
 import com.youth.banner.BannerConfig;
 
@@ -46,12 +51,20 @@ import retrofit2.Call;
 
 public class FindFragment extends BaseLazyFragment {
 
-    private FragmentFindBinding mBinding;
+    private FragmentFind2Binding mBinding;
     private List<BannerModel> bannerData = new ArrayList<>();
 
     private AppListAdapter appListAdapter;
     public static String RED_PACKET = "red_packet";
 
+    public String CATEGORY_GAME = "0";
+    public String CATEGORY_TOOL = "1";
+    public String CATEGORY_INFO = "2";
+
+    private String category = CATEGORY_GAME;
+
+    // 发红包AppCode
+    private String appCode = "";
     /**
      * 获得fragment实例
      *
@@ -66,7 +79,7 @@ public class FindFragment extends BaseLazyFragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        mBinding = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.fragment_find, null, false);
+        mBinding = DataBindingUtil.inflate(mActivity.getLayoutInflater(), R.layout.fragment_find_2, null, false);
 
         initRecyclerViewAndAdapter();
 
@@ -91,7 +104,7 @@ public class FindFragment extends BaseLazyFragment {
      * 初始化recyclerView适配器
      */
     void initRecyclerViewAndAdapter() {
-        mBinding.recyclerViewApp.setLayoutManager(new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false) {
+        mBinding.recyclerViewApp.setLayoutManager(new GridLayoutManager(mActivity, 2) {
             @Override
             public boolean canScrollVertically() {
                 return false;
@@ -106,36 +119,12 @@ public class FindFragment extends BaseLazyFragment {
                 return;
             }
 
-            RecommendAppModel recommendAppModel = appListAdapter.getItem(position);
+            DAppActivity.open(mActivity, appListAdapter.getItem(position).getId());
 
-            if (recommendAppModel == null || TextUtils.isEmpty(recommendAppModel.getAction())) {
-                return;
-            }
+        });
 
-//            if (true) {
-//                ManagementMoneyListActivity.open(mActivity);
-//                BiJiaBaoListActivity.open(mActivity);
-//                return;
-//            }
-            switch (recommendAppModel.getAction()) {
-
-                case "red_packet"://跳到红包
-//                    SendRedPackageActivity.open(mActivity);
-                    SendRedPacketActivity.open(mActivity, recommendAppModel.getCode());
-                    break;
-                case "money_manager"://跳到量化理财
-//                    ManagementMoneyListActivity.open(mActivity);
-                    BiJiaBaoListActivity.open(mActivity);
-                    break;
-                case "invitation"://跳到邀请有礼
-                    InviteActivity.open(mActivity);
-                    break;
-                case "none":
-                    WebViewImgBgActivity.openContent(mActivity, recommendAppModel.getName(), recommendAppModel.getDescription());
-                    break;
-            }
-
-
+        appListAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            WebViewActivity.openURL(mActivity, appListAdapter.getItem(position).getName(), appListAdapter.getItem(position).getUrl());
         });
 
         mBinding.recyclerViewApp.setAdapter(appListAdapter);
@@ -143,32 +132,67 @@ public class FindFragment extends BaseLazyFragment {
 
     private void initListener() {
         //消息
-        mBinding.flRight.setOnClickListener(view -> {
-            MsgListActivity.open(mActivity);
+//        mBinding.flRight.setOnClickListener(view -> {
+//            MsgListActivity.open(mActivity);
+//        });
+
+        mBinding.llRecommend.setOnClickListener(view -> {
+            if (!TextUtils.isEmpty(appCode))
+                SendRedPacketActivity.open(mActivity, appCode);
         });
 
-//        //首创玩法
-//        mBinding.linLayoutFirstPlay.setOnClickListener(view -> {
-////            NoneActivity.open(mActivity, NoneActivity.FIRST_CREATE);
-//            WebViewImgBgActivity.openkey(mActivity, getString(R.string.consult_1), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_GLOBAL_MASTER));
-//        });
-//
-//        mBinding.linLayoutYbb.setOnClickListener(view -> {
-////            NoneActivity.open(mActivity, NoneActivity.YBB);
-//            WebViewImgBgActivity.openkey(mActivity, getString(R.string.yibibao), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_YUBIBAO));
-//        });
-//
-//        mBinding.linLayoutLhlc.setOnClickListener(view -> {
-////            NoneActivity.open(mActivity, NoneActivity.LHLC);
-////            WebViewImgBgActivity.openkey(mActivity, getString(R.string.lianghualicai), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_QUANTITATIVE_FINANCE));
-//            ManagementMoneyListActivity.open(mActivity);
-//        });
-//
-//        mBinding.linLayoutRedPacket.setOnClickListener(view -> {
-//            //跳转到红包
-//            SendRedPackageActivity.open(mActivity);
-//        });
+        mBinding.llRecommend2.setOnClickListener(view -> {
+            BiJiaBaoListActivity.open(mActivity);
+        });
 
+        mBinding.llRecommend3.setOnClickListener(view -> {
+            InviteActivity.open(mActivity);
+        });
+
+        mBinding.llMore.setOnClickListener(view -> {
+//            WebViewImgBgActivity.openContent(mActivity, recommendAppModel.getName(), recommendAppModel.getDescription());
+        });
+
+        mBinding.btnTypeGame.setOnClickListener(view -> {
+            initCategoryView();
+
+            mBinding.btnTypeGame.setTextColor(ContextCompat.getColor(mActivity, R.color.white));
+            mBinding.btnTypeGame.setBackgroundResource(R.mipmap.find_category);
+
+            category = CATEGORY_GAME;
+            getDAPPList();
+        });
+
+        mBinding.btnTypeInfo.setOnClickListener(view -> {
+            initCategoryView();
+
+            mBinding.btnTypeInfo.setTextColor(ContextCompat.getColor(mActivity, R.color.white));
+            mBinding.btnTypeInfo.setBackgroundResource(R.mipmap.find_category);
+
+            category = CATEGORY_INFO;
+            getDAPPList();
+        });
+
+        mBinding.btnTypeTool.setOnClickListener(view -> {
+            initCategoryView();
+
+            mBinding.btnTypeTool.setTextColor(ContextCompat.getColor(mActivity, R.color.white));
+            mBinding.btnTypeTool.setBackgroundResource(R.mipmap.find_category);
+
+            category = CATEGORY_TOOL;
+            getDAPPList();
+        });
+    }
+
+    private void initCategoryView(){
+        mBinding.btnTypeGame.setTextColor(ContextCompat.getColor(mActivity, R.color.gray_acacac));
+        mBinding.btnTypeGame.setBackgroundResource(R.mipmap.find_category_dark);
+
+        mBinding.btnTypeInfo.setTextColor(ContextCompat.getColor(mActivity, R.color.gray_acacac));
+        mBinding.btnTypeInfo.setBackgroundResource(R.mipmap.find_category_dark);
+
+        mBinding.btnTypeTool.setTextColor(ContextCompat.getColor(mActivity, R.color.gray_acacac));
+        mBinding.btnTypeTool.setBackgroundResource(R.mipmap.find_category_dark);
     }
 
 
@@ -214,7 +238,7 @@ public class FindFragment extends BaseLazyFragment {
 
             @Override
             protected void onFinish() {
-                getAppList();
+                getLocalAppList();
             }
         });
     }
@@ -242,9 +266,25 @@ public class FindFragment extends BaseLazyFragment {
             if (bannerData == null || position > bannerData.size()) return;
 
             if (bannerData.get(position) != null) {
-                if (ImgUtils.isHaveHttp(bannerData.get(position).getUrl())) {
-                    WebViewActivity.openURL(mActivity, bannerData.get(position).getName(), bannerData.get(position).getUrl());
+
+                switch (bannerData.get(position).getAction()){
+
+                    case "0":
+                        // do nothing
+                        break;
+
+                    case "1":
+                        if (ImgUtils.isHaveHttp(bannerData.get(position).getUrl())) {
+                            WebViewActivity.openURL(mActivity, bannerData.get(position).getName(), bannerData.get(position).getUrl());
+                        }
+                        break;
+
+                    case "2":
+                        DAppActivity.open(mActivity, Integer.parseInt(bannerData.get(position).getUrl()));
+                        break;
+
                 }
+
             }
 
         });
@@ -256,22 +296,51 @@ public class FindFragment extends BaseLazyFragment {
     /**
      * 获取应用列表
      */
-    public void getAppList() {
+    public void getLocalAppList() {
 
         Map<String, String> map = new HashMap<>();
 
         map.put("language", SPUtilHelper.getLanguage());
         map.put("location", "0");
         map.put("status", "1");
-//        map.put("orderColumn", "order_no");
-//        map.put("orderDir", "desc");
 
         Call<BaseResponseListModel<RecommendAppModel>> call = RetrofitUtils.createApi(MyApi.class).getAppList("625412", StringUtils.getRequestJsonString(map));
 
         call.enqueue(new BaseResponseListCallBack<RecommendAppModel>(mActivity) {
             @Override
             protected void onSuccess(List<RecommendAppModel> data, String SucMessage) {
-                appListAdapter.replaceData(data);
+                for(RecommendAppModel model : data){
+                    if (model.getAction().equals("red_packet")){
+                        appCode = model.getCode();
+                    }
+                }
+            }
+
+            @Override
+            protected void onFinish() {
+                getDAPPList();
+            }
+        });
+
+    }
+
+    public void getDAPPList(){
+        showLoadingDialog();
+
+        Map<String, String> map = new HashMap<>();
+
+        map.put("category", category);
+        map.put("name", "");
+        map.put("start", "1");
+        map.put("limit", "20");
+
+        Call<BaseResponseModel<ResponseInListModel<DAppModel>>> call = RetrofitUtils.createApi(MyApi.class).getDAppList("625456", StringUtils.getRequestJsonString(map));
+
+        call.enqueue(new BaseResponseModelCallBack<ResponseInListModel<DAppModel>>(mActivity) {
+            @Override
+            protected void onSuccess(ResponseInListModel<DAppModel> data, String SucMessage) {
+                appListAdapter.replaceData(data.getList());
+                appListAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -282,7 +351,6 @@ public class FindFragment extends BaseLazyFragment {
                 disMissLoading();
             }
         });
-
     }
 
     @Override

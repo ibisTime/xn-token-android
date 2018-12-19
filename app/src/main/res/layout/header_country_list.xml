@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+    </data>
+
+    <LinearLayout
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:gravity="center_vertical"
+            android:layout_marginTop="25dp"
+            android:paddingLeft="27dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:background="@mipmap/country_list_search"
+                android:layout_width="17dp"
+                android:layout_height="15dp" />
+
+            <EditText
+                android:id="@+id/edt_search"
+                android:layout_marginLeft="12dp"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:background="@null"
+                android:imeOptions="actionSearch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+        <View
+            android:layout_marginTop="4dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginRight="12dp"
+            style="@style/style_split_line"/>
+
+    </LinearLayout>
+</layout>

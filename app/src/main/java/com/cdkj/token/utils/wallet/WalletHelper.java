@@ -106,6 +106,13 @@ import static com.cdkj.token.utils.wallet.WalletDBColumn.WALLET_NAME;
 //TODO 转账方法流程逻辑封装 除了单币种转账 还有一键划转， 如果逻辑改变，需要修改好几处地方，不方便
 public class WalletHelper {
 
+    public final static String DEFAULT_PRI_WALLET = "Private Wallet";// 默认私钥钱包名称
+
+    public final static String WALLET_USER_ACTIVE = "wallet_user_active";// 正在使用的用户
+    public final static String WALLET_USER_DELETED = "wallet_user_deleted";// 已删除的用户
+
+    public static String WALLET_USER = WALLET_USER_ACTIVE;// 私钥钱包用户,新版本(196)默认为WALLET_USER_ACTIVE
+
     //助记词分隔符
     public final static String HELPWORD_SPACE_SYMBOL = ",";
 
@@ -579,9 +586,9 @@ public class WalletHelper {
      * @param userId
      * @return
      */
-    public static WalletDBModel getUserWalletInfoByUsreId(String userId) {
+    public static WalletDBModel getUserWalletInfoByUserId(String userId) {
 
-        Cursor cursor = getUserInfoCursorByUserId(userId);
+        Cursor cursor = getUserInfoCursorByUserId(WalletHelper.WALLET_USER);
 
         WalletDBModel walletDBModel = new WalletDBModel();
 
@@ -670,7 +677,7 @@ public class WalletHelper {
     public static String getPrivateKeyByCoinType(String userId, String coinType) {
 
         WalletDBModel walletDBModel2 =
-                WalletHelper.getUserWalletInfoByUsreId(userId);
+                WalletHelper.getUserWalletInfoByUserId(userId);
 
         if (walletDBModel2 == null || TextUtils.isEmpty(coinType)) {
             return "";
@@ -1398,11 +1405,6 @@ public class WalletHelper {
 
     }
 
-
-
-
-
-
     public static String signUSDTTransactionData(Activity activity, @NonNull List<UTXOModel> unSpentBTCList, @NonNull String from, @NonNull String to,
                                                  @NonNull String privateKey, long amount, int rate) {
 
@@ -1575,4 +1577,21 @@ public class WalletHelper {
         Log.e("pastBTC","p="+privateKeyBTC);
     }
 
+    /**
+     * 兼容上一版本私钥钱包，默认取应用打开后第一个登录的用户的UserID取数据库获取私钥钱包，如果:
+     * 有：
+     *  在用户删除以前使用当前UserId作为索引查询私钥钱包；删除后使用默认钱包用户 WALLET_USER_ACTIVE
+     * 无：
+     *  则钱包用户默认为 WALLET_USER_ACTIVE
+     */
+    public static void checkLastVersionWalletUser(){
+
+        boolean isHasWallet = isUserAddedWallet(SPUtilHelper.getUserId());
+
+        // 曾经有过私钥钱包
+        if (isHasWallet){
+            WALLET_USER = SPUtilHelper.getUserId();
+        }
+
+    }
 }

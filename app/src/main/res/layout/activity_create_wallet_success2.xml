@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        tools:background="@mipmap/app_page_bg_new"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="140dp"
+            android:text="@string/wallet_backup_memonic"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_marginTop="23dp"
+            android:text="@string/create_success_info"
+            android:textSize="14sp"
+            android:lineSpacingExtra="10dp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <LinearLayout
+            android:layout_marginTop="70dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/btn_later"
+                android:text="@string/backup_later"
+                android:textStyle="bold"
+                android:textColor="@color/gray_d6d5d5"
+                android:textSize="16sp"
+                android:background="@drawable/btn_backup_dark"
+                android:layout_marginLeft="@dimen/dp_40"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="45dp" />
+
+            <View
+                android:layout_width="20dp"
+                android:layout_height="45dp"/>
+
+            <Button
+                android:id="@+id/btn_now_backup"
+                android:text="@string/backup_now"
+                android:textStyle="bold"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:background="@drawable/btn_sign_bg"
+                android:layout_marginRight="@dimen/dp_40"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="45dp" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</layout>

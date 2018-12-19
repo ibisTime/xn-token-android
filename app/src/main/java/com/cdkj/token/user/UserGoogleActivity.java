@@ -21,8 +21,6 @@ import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserGoogleBinding;
 
-import org.json.JSONObject;
-
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -39,12 +37,17 @@ import static com.cdkj.baselibrary.utils.SystemUtils.paste;
 
 public class UserGoogleActivity extends AbsActivity implements SendCodeInterface {
 
+    public final static String REQ_OPEN_CODE = "805078";
+    public final static String REQ_CLOSE_CODE = "805079";
+
     private SendPhoneCodePresenter mSendCodePresenter;
 
     private ActivityUserGoogleBinding mBinding;
 
     private String status;
     private String bizType;
+
+    private String loginName; // 登录名：邮箱 或 手机
 
     public static void open(Context context, String status) {
         if (context == null) {
@@ -126,6 +129,16 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
             getGoogleKey();
         }
 
+        // 是否有手机号，没有则替换为邮箱
+        if (TextUtils.isEmpty(SPUtilHelper.getUserPhoneNum())){
+            loginName = SPUtilHelper.getUserEmail();
+
+            mBinding.tvSmsCodeTitle.setText(getStrRes(R.string.user_email_code));
+            mBinding.edtCode.setHint(getStrRes(R.string.user_email_code_hint));
+        }else {
+            // 登录名为手机号码
+            loginName = SPUtilHelper.getUserPhoneNum();
+        }
 
         mSendCodePresenter = new SendPhoneCodePresenter(this, this);
     }
@@ -142,16 +155,18 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
         mBinding.btnSend.setOnClickListener(view -> {
 
             if (status.equals("close")) {
-                bizType = "805072";
+                bizType = REQ_CLOSE_CODE;
             } else {
-                bizType = "805071";
+                bizType = REQ_OPEN_CODE;
             }
 
 
-            String phone = SPUtilHelper.getUserPhoneNum();
+            if (TextUtils.isEmpty(loginName)){
+
+            }
 
             SendVerificationCode sendVerificationCode = new SendVerificationCode(
-                    phone, bizType, "C", SPUtilHelper.getCountryInterCode());
+                    loginName, bizType, "C", SPUtilHelper.getCountryInterCode());
 
             mSendCodePresenter.openVerificationActivity(sendVerificationCode);
 
@@ -234,9 +249,9 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
         map.put("googleCaptcha", mBinding.edtGoogle.getText().toString());
         map.put("secret", mBinding.tvKey.getText().toString());
         map.put("smsCaptcha", mBinding.edtCode.getText().toString());
-        map.put("userId", SPUtilHelper.getUserId());
+        map.put("loginName", loginName);
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805071", StringUtils.getRequestJsonString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest(REQ_OPEN_CODE, StringUtils.getRequestJsonString(map));
 
         addCall(call);
 
@@ -268,10 +283,10 @@ public class UserGoogleActivity extends AbsActivity implements SendCodeInterface
         Map<String, String> map = new HashMap<>();
         map.put("googleCaptcha", mBinding.edtGoogle.getText().toString());
         map.put("smsCaptcha", mBinding.edtCode.getText().toString());
-        map.put("userId", SPUtilHelper.getUserId());
+        map.put("loginName", loginName);
         map.put("token", SPUtilHelper.getUserToken());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805072", StringUtils.getRequestJsonString(map));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest(REQ_CLOSE_CODE, StringUtils.getRequestJsonString(map));
 
         addCall(call);
 

@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
@@ -65,7 +64,7 @@ public class WalletBackupCheckActivity extends AbsLoadActivity {
     public void afterCreate(Bundle savedInstanceState) {
         isFromBackup = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN, false);
 
-        List<String> words = WalletHelper.getHelpWordsListByUserId(SPUtilHelper.getUserId());
+        List<String> words = WalletHelper.getHelpWordsListByUserId(WalletHelper.WALLET_USER);
 
         Collections.shuffle(words);//打乱数组顺序
 

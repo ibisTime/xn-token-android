@@ -11,9 +11,8 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Toast;
 
-import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
-import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.AppConfig;
+import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
@@ -29,6 +28,7 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityWithdrawBinding;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.LocalCoinDbModel;
+import com.cdkj.token.user.login.ForgetPwdActivity;
 import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.EditTextJudgeNumberWatcher;
 import com.uuzuche.lib_zxing.activity.CaptureActivity;
@@ -144,7 +144,13 @@ public class WithdrawActivity extends AbsLoadActivity {
                 UITipDialog.showInfo(WithdrawActivity.this, getString(R.string.please_set_account_money_password), new DialogInterface.OnDismissListener() {
                     @Override
                     public void onDismiss(DialogInterface dialogInterface) {
-                        PayPwdModifyActivity.open(WithdrawActivity.this, SPUtilHelper.getTradePwdFlag(), SPUtilHelper.getUserPhoneNum());
+
+                        ForgetPwdActivity.open(WithdrawActivity.this,
+                                SPUtilHelper.getUserPhoneNum(),
+                                SPUtilHelper.getUserEmail(),
+                                ForgetPwdActivity.RC_TRADE_PWD_MODIFY);
+
+//                        PayPwdModifyActivity.open(WithdrawActivity.this, SPUtilHelper.getTradePwdFlag(), SPUtilHelper.getUserPhoneNum());
                     }
                 });
             }

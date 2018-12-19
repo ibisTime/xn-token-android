@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <View
+            style="@style/style_split_line"
+            android:layout_height="1dp"
+            android:layout_marginRight="12dp"
+            android:layout_marginLeft="12dp" />
+
+        <com.mcxtzhang.swipemenulib.SwipeMenuLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:clickable="true">
+
+            <LinearLayout
+                android:id="@+id/ll_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:gravity="center_vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <LinearLayout
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/img_coin_logo"
+                            android:layout_width="31dp"
+                            android:layout_height="31dp" />
+
+                        <TextView
+                            android:id="@+id/tv_coin_name"
+                            tools:text="BTC"
+                            android:layout_marginTop="5dp"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:textStyle="bold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/tv_market_price"
+                            tools:text="≈ 45660CNY"
+                            android:textSize="14sp"
+                            android:textColor="@color/black"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content" />
+
+                        <LinearLayout
+                            android:gravity="center"
+                            android:layout_marginTop="9dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_rate"
+                                android:text="0.00%"
+                                android:textSize="14sp"
+                                android:textColor="@color/black"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content" />
+
+                            <ImageView
+                                android:id="@+id/iv_rate"
+                                android:layout_marginLeft="3dp"
+                                android:layout_width="7dp"
+                                android:layout_height="10dp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_marginRight="20dp"
+                        android:gravity="right"
+                        android:orientation="vertical"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+
+                            <TextView
+                                android:id="@+id/tv_amount"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:shadowColor="@color/black"
+                                android:textColor="@color/text_black_cd"
+                                android:textSize="20sp"
+                                android:textStyle="bold"
+                                android:text="0.00000000" />
+
+                            <TextView
+                                android:id="@+id/tv_symbol"
+                                android:layout_marginLeft="3dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:shadowColor="@color/black"
+                                android:textColor="@color/text_black_cd"
+                                android:textSize="14sp"
+                                tools:text="BTC" />
+
+                        </LinearLayout>
+
+                        <TextView
+                            android:id="@+id/tv_amount_cny"
+                            android:layout_marginTop="8dp"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:shadowColor="@color/black"
+                            android:textColor="@color/black"
+                            android:textSize="14sp"
+                            tools:text="≈ 0CNY" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 以下都是侧滑菜单的内容依序排列 -->
+            <Button
+                android:id="@+id/btn_charge"
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:background="#c3c3c3"
+                android:text="充币"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+            <Button
+                android:id="@+id/btn_withdraw"
+                android:layout_width="65dp"
+                android:layout_height="match_parent"
+                android:background="#ff4545"
+                android:text="提币"
+                android:textColor="@android:color/white"
+                android:textSize="15sp" />
+
+        </com.mcxtzhang.swipemenulib.SwipeMenuLayout>
+
+
+    </LinearLayout>
+
+
+
+</layout>

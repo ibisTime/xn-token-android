@@ -157,12 +157,12 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
 
         //BTC 先获取UTXO 获取到后进行签名
         if (LocalCoinDBUtils.isBTC(coinSymbol)) {
-            WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+            WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
             if (userWalletIn == null) return;
             smartTransferModel.getBTCUTXO(userWalletIn.getBtcAddress());
             return;
         }else if (LocalCoinDBUtils.isUSDT(coinSymbol)){
-            WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+            WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
             if (userWalletIn == null) return;
             smartTransferModel.getUSDTUTXO(userWalletIn.getBtcAddress());
             return;
@@ -276,7 +276,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
             return;
         }
         if (isPrivateWallet) {
-            String address = LocalCoinDBUtils.getAddressByCoin(selectCoinData.getCurrency(), SPUtilHelper.getUserId());
+            String address = LocalCoinDBUtils.getAddressByCoin(selectCoinData.getCurrency(), WalletHelper.WALLET_USER);
             smartTransferModel.getPrivateCoinBalanceBySymbol(selectCoinData.getCurrency(), address);
         } else {
             balanceData(selectCoinData.getAmount());
@@ -363,7 +363,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
     public void btcUTXOData(List<UTXOModel> utxo) {
 
 
-        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
 
         String fromAddress = walletDBModel.getBtcAddress();
 
@@ -406,7 +406,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
     @Override
     public void usdtUTXOData(List<UTXOModel> utxo) {
 
-        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
 
         String fromAddress = walletDBModel.getBtcAddress();
 

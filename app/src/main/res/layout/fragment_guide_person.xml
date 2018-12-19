@@ -16,14 +16,14 @@
         <TextView
             android:layout_marginTop="68dp"
             android:textSize="18sp"
-            android:text="个人钱包"
+            android:text="@string/guide_person_title"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:text="便捷的资产管理，绝对安全的“存入即冷”托管模式。个人钱包还提供了稳定的资产理财方案和趣味应用。"
+            android:text="@string/guide_person_info"
             android:textSize="14sp"
             android:textColor="@color/white"
             android:layout_marginTop="22dp"
@@ -33,6 +33,8 @@
             android:layout_height="wrap_content" />
         
         <ImageView
+            android:layout_marginBottom="74dp"
+            android:src="@drawable/guide_person_icon"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
@@ -49,11 +51,10 @@
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
-                android:text="登陆个人帐户"
+                android:background="@drawable/corner_guide_btn"
+                android:text="@string/guide_person_in"
                 android:textColor="@color/blue_0064ff"
                 android:textSize="15sp" />
-                <!--android:background="@drawable/corner_guide_btn"-->
-
 
             <View
                 android:layout_width="12.5dp"
@@ -62,14 +63,13 @@
             <Button
                 android:id="@+id/btn_signUp"
                 android:layout_marginRight="50dp"
-                android:text="创建个人帐户"
+                android:text="@string/guide_person_up"
                 android:textSize="15sp"
+                android:textColor="@color/gray_a7a7a7"
+                android:background="@drawable/corner_guide_btn"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="35dp" />
-                <!--android:textColor="@color/gray_a7a7a7"-->
-                <!--android:background="@drawable/corner_guide_btn"-->
-
             
         </LinearLayout>
 

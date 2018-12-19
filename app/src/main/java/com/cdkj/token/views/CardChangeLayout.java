@@ -45,7 +45,7 @@ public class CardChangeLayout extends FrameLayout {
 
     private int animatorDuration = 300; //动画执行时长 毫秒
 
-    private float viewScaleSize = 0.8f; //底部View缩放比例
+    private float viewScaleSize = 1f; //底部View缩放比例
 
     private float buttomViewRightTranslationX; //底部View向右移动距离
 
@@ -74,10 +74,11 @@ public class CardChangeLayout extends FrameLayout {
         gestureDetector = new GestureDetectorCompat(context,
                 new YScrollDetector());
 
-        margin = DisplayHelper.dp2px(getContext(), 15);
-        viewRightMargin = DisplayHelper.dp2px(getContext(), 20);
+        margin = DisplayHelper.dp2px(getContext(), 12);
+        viewRightMargin = DisplayHelper.dp2px(getContext(), 12);
 
-        buttomViewRightTranslationX = viewRightMargin + viewRightMargin * viewScaleSize + margin; // 底部View向右移动距离
+        buttomViewRightTranslationX = viewRightMargin * viewScaleSize; // 底部View向右移动距离
+//        buttomViewRightTranslationX = viewRightMargin + viewRightMargin * viewScaleSize + margin; // 底部View向右移动距离
     }
 
     @Override

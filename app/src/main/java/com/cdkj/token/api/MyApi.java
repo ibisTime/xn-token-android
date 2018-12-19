@@ -21,6 +21,8 @@ import com.cdkj.token.model.ConsultListModel;
 import com.cdkj.token.model.ConsultModel;
 import com.cdkj.token.model.ConsultingModel;
 import com.cdkj.token.model.CountryCodeMode;
+import com.cdkj.token.model.DAppGuideModel;
+import com.cdkj.token.model.DAppModel;
 import com.cdkj.token.model.DealDetailModel;
 import com.cdkj.token.model.DealHistoryModel;
 import com.cdkj.token.model.DealModel;
@@ -188,6 +190,32 @@ public interface MyApi {
     @POST("api")
     Call<BaseResponseListModel<RecommendAppModel>> getAppList(@Field("code") String code, @Field("json") String json);
 
+    /**
+     * 获取应用列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ResponseInListModel<DAppModel>>> getDAppList(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取应用列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<DAppModel>> getDApp(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 获取应用列表
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<ResponseInListModel<DAppGuideModel.DAppGuide>>> getDAppGuideList(@Field("code") String code, @Field("json") String json);
 
     /**
      * 获取BTC流水记录（去中心化钱包）

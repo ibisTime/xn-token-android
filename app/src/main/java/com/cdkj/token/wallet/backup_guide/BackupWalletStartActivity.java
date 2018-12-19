@@ -5,16 +5,13 @@ import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.GridLayoutManager;
 import android.view.View;
-import android.view.WindowManager;
 
 import com.alibaba.fastjson.JSON;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
-import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
@@ -25,9 +22,6 @@ import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.dialogs.BackupPromptDialog;
 import com.cdkj.token.views.recycler.GridDivider;
 
-import org.spongycastle.asn1.esf.SPuri;
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -111,7 +105,7 @@ public class BackupWalletStartActivity extends AbsLoadActivity {
      */
     public List<String> getWordsisFromBackup() {
         if (isFromWalletToolBackup) {
-            return WalletHelper.getHelpWordsListByUserId(SPUtilHelper.getUserId());
+            return WalletHelper.getHelpWordsListByUserId(WalletHelper.WALLET_USER);
         }
 
         WalletDBModel walletDBModel = JSON.parseObject(SPUtilHelper.getWalletCache(), WalletDBModel.class);
@@ -125,7 +119,7 @@ public class BackupWalletStartActivity extends AbsLoadActivity {
     private void initClickListener() {
 
         mBinding.btnNext.setOnClickListener(view -> {
-            BackupWalletWordsCheckActivity.open(this, isFromWalletToolBackup);
+//            BackupWalletWordsCheckActivity.open(this, isFromWalletToolBackup);
             finish();
         });
     }

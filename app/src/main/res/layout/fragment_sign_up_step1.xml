@@ -15,41 +15,59 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <com.cdkj.token.views.UserTableLayout
+            android:id="@+id/tl_signUP"
+            android:layout_marginTop="70dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title_left="@string/signup_mobile"
+            app:title_right="@string/signup_email"
+            />
+
         <LinearLayout
-            android:layout_marginTop="100dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-                
-                <!--<TextView-->
-                    <!--android:layout_width=""-->
-                    <!--android:layout_height="" />-->
+            <com.cdkj.token.views.SignInEditClearCountryCodeLayout
+                android:id="@+id/edt_mobile"
+                android:layout_marginTop="23dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:hint_text="@string/user_sign_in_mobile_hint" />
 
-            </LinearLayout>
+            <com.cdkj.token.views.SignInEditClearLayout
+                android:id="@+id/edt_email"
+                android:visibility="gone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
+                app:title="@string/user_email"
+                app:hint_text="@string/user_email_hint" />
 
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content">
-
-
-            </LinearLayout>
+            <com.cdkj.token.views.SignInEditClearCodeLayout
+                android:id="@+id/edt_code"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                app:hint_text="@string/user_sign_up_code_hint" />
 
         </LinearLayout>
 
-        <com.cdkj.token.views.SignInEditClearCountryCodeLayout
-            android:id="@+id/edt_username"
-            android:layout_marginTop="23dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hint_text="@string/user_sign_in_mobile_hint" />
 
+        <LinearLayout
+            android:layout_marginTop="70dp"
+            android:layout_gravity="right"
+            android:layout_width="52dp"
+            android:layout_height="52dp">
+
+            <ImageButton
+                android:id="@+id/btn_next"
+                android:background="@mipmap/next_step"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+        </LinearLayout>
 
     </LinearLayout>
 </layout>

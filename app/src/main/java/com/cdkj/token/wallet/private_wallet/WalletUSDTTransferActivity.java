@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -138,7 +137,7 @@ public class WalletUSDTTransferActivity extends AbsLoadActivity {
 
         Map<String, String> map = new HashMap<>();
 
-        WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+        WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
 
         if (userWalletIn == null) return;
 
@@ -309,7 +308,7 @@ public class WalletUSDTTransferActivity extends AbsLoadActivity {
     private boolean isSameAddress() {
         if (accountListBean == null) return false;
 
-        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
 
         String toAddress = mBinding.editToAddress.getText().toString();
 
@@ -360,14 +359,14 @@ public class WalletUSDTTransferActivity extends AbsLoadActivity {
                         return;
                     }
 
-                    if (!WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {
+                    if (!WalletHelper.checkPasswordByUserId(tradePwd, WalletHelper.WALLET_USER)) {
                         UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
                         return;
                     }
 
                     try {
 
-                        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+                        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
 
                         //获取btc交易签名
                         String sign = WalletHelper.signUSDTTransactionData(this,

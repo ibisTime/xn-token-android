@@ -160,7 +160,7 @@ public class WebViewImgBgActivity extends AbsStatusBarTranslucentActivity {
             }
         });
 
-        mBinding.linLayoutWebView.addView(webView );
+        mBinding.linLayoutWebView.addView(webView);
 
     }
 

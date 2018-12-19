@@ -16,7 +16,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.cdkj.token.R;
-import com.cdkj.token.databinding.LayoutEditClearBinding;
 import com.cdkj.token.databinding.LayoutEditClearCountryCodeBinding;
 
 /**
@@ -76,19 +75,19 @@ public class SignInEditClearCountryCodeLayout extends LinearLayout {
             mBinding.imgEditClear.setVisibility(GONE);
         });
 
-        mBinding.edit.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-
-                if (b) {
-                    changeImgShowState();
-                    mBinding.viewLine.setBackgroundResource(R.drawable.line_blue_gradient);
-                } else {
-                    mBinding.imgEditClear.setVisibility(GONE);
-                    mBinding.viewLine.setBackgroundResource(R.drawable.gray);
-                }
-            }
-        });
+//        mBinding.edit.setOnFocusChangeListener(new OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//
+//                if (b) {
+//                    changeImgShowState();
+//                    mBinding.viewLine.setBackgroundResource(R.drawable.line_blue_gradient);
+//                } else {
+//                    mBinding.imgEditClear.setVisibility(GONE);
+//                    mBinding.viewLine.setBackgroundResource(R.drawable.gray);
+//                }
+//            }
+//        });
     }
 
     void changeImgShowState() {

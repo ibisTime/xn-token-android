@@ -6,16 +6,13 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.view.Gravity;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
-import com.cdkj.baselibrary.activitys.PayPwdModifyActivity;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.utils.DisplayHelper;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.DialogPayPasswordInputBinding;
-import com.cdkj.token.databinding.DialogRedPacketBalanceBinding;
+import com.cdkj.token.user.login.ForgetPwdActivity;
 import com.cdkj.token.views.password.SixPassWordView;
 
 /**
@@ -64,7 +61,11 @@ public class UserPayPasswordInputDialog extends Dialog {
         //忘记密码
         mBinding.tvForget.setOnClickListener(view -> {
             dismiss();
-            PayPwdModifyActivity.open(mActivity, true, SPUtilHelper.getUserPhoneNum());
+
+            ForgetPwdActivity.open(mActivity,
+                    SPUtilHelper.getUserPhoneNum(),
+                    SPUtilHelper.getUserEmail(),
+                    ForgetPwdActivity.RC_TRADE_PWD_MODIFY);
         });
 
         mBinding.passView.setPasswordInputEndListener(new SixPassWordView.PasswordInputEndListener() {

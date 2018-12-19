@@ -94,6 +94,7 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
         initClickListener();
         initEditWatcher();
 
+        mBinding.editAmount.requestFocus();
     }
 
     /**
@@ -176,7 +177,6 @@ public class SendRedPacketActivity extends AbsLoadActivity implements SendRedPac
     private void initClickListener() {
 
         //币种选择
-
         mBinding.linLayoutCoinSelect.setOnClickListener(view -> {
             CoinSelectListActivity.open(this);
         });

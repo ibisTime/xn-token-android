@@ -22,6 +22,7 @@ public class WalletBalanceModel implements Parcelable {
     private String address;
     private String coinBalance = "0";        //拥有币数量
 
+    private String percentChange24h;
 
     private BigDecimal frozenAmount;//冻结金额
     private BigDecimal amount;     //总金额
@@ -42,14 +43,6 @@ public class WalletBalanceModel implements Parcelable {
 
     public void setCoinSymbol(String coinSymbol) {
         this.coinSymbol = coinSymbol;
-    }
-
-    public BigDecimal getAvailableAmount() {
-        return availableAmount;
-    }
-
-    public void setAvailableAmount(BigDecimal availableAmount) {
-        this.availableAmount = availableAmount;
     }
 
     public String getLocalMarketPrice() {
@@ -100,6 +93,14 @@ public class WalletBalanceModel implements Parcelable {
         this.coinBalance = coinBalance;
     }
 
+    public String getPercentChange24h() {
+        return percentChange24h;
+    }
+
+    public void setPercentChange24h(String percentChange24h) {
+        this.percentChange24h = percentChange24h;
+    }
+
     public BigDecimal getFrozenAmount() {
         return frozenAmount;
     }
@@ -114,6 +115,14 @@ public class WalletBalanceModel implements Parcelable {
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public BigDecimal getAvailableAmount() {
+        return availableAmount;
+    }
+
+    public void setAvailableAmount(BigDecimal availableAmount) {
+        this.availableAmount = availableAmount;
     }
 
     public WalletBalanceModel() {
@@ -134,6 +143,7 @@ public class WalletBalanceModel implements Parcelable {
         dest.writeString(this.accountNumber);
         dest.writeString(this.address);
         dest.writeString(this.coinBalance);
+        dest.writeString(this.percentChange24h);
         dest.writeSerializable(this.frozenAmount);
         dest.writeSerializable(this.amount);
         dest.writeSerializable(this.availableAmount);
@@ -148,6 +158,7 @@ public class WalletBalanceModel implements Parcelable {
         this.accountNumber = in.readString();
         this.address = in.readString();
         this.coinBalance = in.readString();
+        this.percentChange24h = in.readString();
         this.frozenAmount = (BigDecimal) in.readSerializable();
         this.amount = (BigDecimal) in.readSerializable();
         this.availableAmount = (BigDecimal) in.readSerializable();

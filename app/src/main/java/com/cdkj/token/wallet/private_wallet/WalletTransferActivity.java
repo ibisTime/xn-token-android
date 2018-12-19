@@ -13,7 +13,6 @@ import android.widget.Toast;
 
 import com.cdkj.baselibrary.api.BaseResponseModel;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -198,7 +197,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
 
         if (accountListBean == null) return false;
 
-        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
 
         String toAddress = mBinding.editToAddress.getText().toString();
 
@@ -283,7 +282,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
      */
     private String transferByCoin() throws Exception {
 
-        WalletDBModel w = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+        WalletDBModel w = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
 
         if (TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_WAN)) {   //TODO 转账地址优化
             return WalletHelper.transferForWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getDeflutGasLimit(), transferGasPrice);
@@ -379,7 +378,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
                         return;
                     }
 
-                    if (!WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {
+                    if (!WalletHelper.checkPasswordByUserId(tradePwd, WalletHelper.WALLET_USER)) {
                         UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
                         return;
                     }

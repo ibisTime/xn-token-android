@@ -118,6 +118,7 @@
             android:layout_height="50dp">
 
             <TextView
+                android:id="@+id/tv_smsCodeTitle"
                 android:gravity="center_vertical"
                 android:paddingLeft="10dp"
                 android:text="@string/sms_code_title"

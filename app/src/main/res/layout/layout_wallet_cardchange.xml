@@ -6,13 +6,14 @@
 
     <com.cdkj.token.views.CardChangeLayout
         android:id="@+id/cardChangeLayout"
+        android:layout_marginTop="12dp"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="138dp"
         tools:showIn="@layout/fragment_wallet_2">
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="138dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="0dp">
 
@@ -36,9 +37,9 @@
                     android:textSize="14sp"
                     tools:text="@string/my_wallet" />
 
-
                 <ImageView
                     android:id="@+id/img_my_private_wallet_info"
+                    android:visibility="invisible"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_gravity="center_vertical"
@@ -52,7 +53,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/img_my_private_wallet_info"
-                    android:layout_marginLeft="45dp"
+                    android:layout_toRightOf="@+id/tv_private_wallet_symbol"
+                    android:layout_marginLeft="6dp"
                     android:text="0.00"
                     android:textColor="@color/white"
                     android:textSize="28sp" />
@@ -62,8 +64,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/img_my_private_wallet_info"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="1dp"
+                    android:layout_marginLeft="45dp"
+                    android:textSize="26sp"
                     android:textColor="@color/white"
                     tools:text="@string/money_sing" />
 
@@ -74,7 +77,7 @@
 
         <android.support.v7.widget.CardView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="138dp"
             app:cardCornerRadius="10dp"
             app:cardElevation="0dp">
 
@@ -101,6 +104,7 @@
 
                 <ImageView
                     android:id="@+id/img_my_wallet_info"
+                    android:visibility="invisible"
                     android:layout_width="18dp"
                     android:layout_height="18dp"
                     android:layout_gravity="center_vertical"
@@ -114,8 +118,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/img_my_wallet_info"
-                    android:layout_marginLeft="45dp"
+                    android:layout_toRightOf="@+id/tv_wallet_symbol"
+                    android:layout_marginLeft="2dp"
                     android:text="0.00"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     android:textSize="28sp" />
 
@@ -124,8 +130,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/img_my_wallet_info"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginLeft="45dp"
+                    android:textSize="26sp"
+                    android:textStyle="bold"
                     android:textColor="@color/white"
                     tools:text="@string/money_sing" />
 

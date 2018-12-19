@@ -169,4 +169,5 @@
     <string name="request_error_8">You\'ve got the gift already</string>
 
     <string name="request_error_9">Gift not exist</string>
+    <string name="activity_mobile_email_hint">请输入邮箱</string>
 </resources>

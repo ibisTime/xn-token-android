@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
@@ -61,7 +60,7 @@ public class CoinPrivateKeyShowActivity extends AbsLoadActivity {
         mSubscription.add(
                 Observable.just("")
                         .subscribeOn(Schedulers.io())
-                        .map(s -> WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId()))
+                        .map(s -> WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER))
                         .filter(walletDBModel1 -> walletDBModel1 != null)
                         .observeOn(AndroidSchedulers.mainThread())
                         .subscribe(walletDBModel1 -> {

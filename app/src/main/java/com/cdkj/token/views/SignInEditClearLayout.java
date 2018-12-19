@@ -9,7 +9,6 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
@@ -25,6 +24,7 @@ public class SignInEditClearLayout extends LinearLayout {
 
     public LayoutEditClearBinding mBinding;
 
+    private String title;
     private String hintText;
 
     public SignInEditClearLayout(Context context) {
@@ -40,6 +40,7 @@ public class SignInEditClearLayout extends LinearLayout {
 
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.sign_edit_clear_layout);
 
+        title = ta.getString(R.styleable.sign_edit_clear_layout_title);
         hintText = ta.getString(R.styleable.sign_edit_clear_layout_hint_text);
         init();
     }
@@ -49,6 +50,7 @@ public class SignInEditClearLayout extends LinearLayout {
 
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.layout_edit_clear, this, true);
 
+        mBinding.tvTitle.setText(title);
         mBinding.edit.setHint(hintText);
 
         mBinding.edit.addTextChangedListener(new TextWatcher() {
@@ -73,18 +75,18 @@ public class SignInEditClearLayout extends LinearLayout {
             mBinding.imgEditClear.setVisibility(GONE);
         });
 
-        mBinding.edit.setOnFocusChangeListener(new OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-                if (b) {
-                    changeImgShowState();
-                    mBinding.viewLine.setBackgroundResource(R.drawable.line_blue_gradient);
-                } else {
-                    mBinding.imgEditClear.setVisibility(GONE);
-                    mBinding.viewLine.setBackgroundResource(R.drawable.gray);
-                }
-            }
-        });
+//        mBinding.edit.setOnFocusChangeListener(new OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View view, boolean b) {
+//                if (b) {
+//                    changeImgShowState();
+//                    mBinding.viewLine.setBackgroundResource(R.drawable.line_blue_gradient);
+//                } else {
+//                    mBinding.imgEditClear.setVisibility(GONE);
+//                    mBinding.viewLine.setBackgroundResource(R.drawable.gray);
+//                }
+//            }
+//        });
     }
 
     void changeImgShowState() {

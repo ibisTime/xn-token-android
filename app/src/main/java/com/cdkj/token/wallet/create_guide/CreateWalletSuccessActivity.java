@@ -6,21 +6,26 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.view.View;
 
-import com.cdkj.baselibrary.base.AbsLoadActivity;
+import com.alibaba.fastjson.JSON;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
+import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
+import com.cdkj.baselibrary.model.AllFinishEvent;
+import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
-import com.cdkj.token.databinding.ActivityCreateWalletSuccessBinding;
-import com.cdkj.token.user.WebViewImgBgActivity;
-import com.cdkj.token.common.ThaAppConstant;
-import com.cdkj.token.wallet.backup_guide.BackupWalletStartActivity;
+import com.cdkj.token.databinding.ActivityCreateWalletSuccess2Binding;
+import com.cdkj.token.model.db.WalletDBModel;
+import com.cdkj.token.wallet.backup_guide.BackupWalletActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 创建钱包成功
  * Created by cdkj on 2018/6/6.
  */
 
-public class CreateWalletSuccessActivity extends AbsLoadActivity {
+public class CreateWalletSuccessActivity extends AbsStatusBarTranslucentActivity {
 
-    private ActivityCreateWalletSuccessBinding mBinding;
+    private ActivityCreateWalletSuccess2Binding mBinding;
 
     public static void open(Context context) {
         if (context == null) {
@@ -30,32 +35,41 @@ public class CreateWalletSuccessActivity extends AbsLoadActivity {
         context.startActivity(intent);
     }
 
-    @Override
-    protected boolean canLoadTopTitleView() {
-        return false;
-    }
 
     @Override
-    public View addMainView() {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_create_wallet_success, null, false);
+    public View addContentView() {
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_create_wallet_success2, null, false);
         return mBinding.getRoot();
     }
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        setStatusBarBlue();
-        setTitleBgBlue();
+        setMidTitle(R.string.wallet_backup_memonic);
+        setWhiteTitle();
+        setPageBgImage(R.mipmap.app_page_bg_new);
 
         //立即备份
         mBinding.btnNowBackup.setOnClickListener(view -> {
-            BackupWalletStartActivity.open(this, false);
+//            BackupWalletStartActivity.open(this, false);
+            BackupWalletActivity.open(this,false);
             finish();
         });
 
-        //如何备份
-        mBinding.tvImportWallet.setOnClickListener(view -> {
-            WebViewImgBgActivity.openkey(this, getString(R.string.backup_wallet_intro), ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_MNEMONIC_BACKUP));
+        //稍后备份
+        mBinding.btnLater.setOnClickListener(view -> {
+
+            WalletDBModel walletDBModel = JSON.parseObject(SPUtilHelper.getWalletCache(), WalletDBModel.class);
+            if (walletDBModel.save()){
+                SPUtilHelper.createWalletCache("");  //清除缓存
+                EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
+                MainActivity.open(CreateWalletSuccessActivity.this);
+                finish();
+
+            } else {
+                showSureDialog(getString(R.string.wallet_create_fail), null);
+            }
+
         });
     }
 

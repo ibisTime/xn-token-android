@@ -390,11 +390,11 @@ public class WalletFragmentPresenter {
 
         List<CoinTypeAndAddress> chooseCoinList = new ArrayList<>();
 
-        String chooseSymbol = WalletHelper.getUserChooseCoinSymbolString(SPUtilHelper.getUserId()); //获取用户选择币种
+        String chooseSymbol = WalletHelper.getUserChooseCoinSymbolString(WalletHelper.WALLET_USER); //获取用户选择币种
 
-        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());//获取钱包信息
+        WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);//获取钱包信息
 
-        boolean isFirstChoose = WalletHelper.userIsCoinChoosed(SPUtilHelper.getUserId());
+        boolean isFirstChoose = WalletHelper.userIsCoinChoosed(WalletHelper.WALLET_USER);
 
 
         for (LocalCoinDbModel localCoinDbModel : localCoinDbModels) {           //获取本地缓存的币种

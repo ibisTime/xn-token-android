@@ -245,7 +245,7 @@ public class SmartTransferSource extends BaseMVPModel {
                          CoinModel.AccountListBean accountListBean) throws Exception {
 
 
-        String toAddress = LocalCoinDBUtils.getAddressByCoin(accountListBean.getCurrency(), SPUtilHelper.getUserId());
+        String toAddress = LocalCoinDBUtils.getAddressByCoin(accountListBean.getCurrency(), WalletHelper.WALLET_USER);
 
         Map<String, String> map = new HashMap<>();
         map.put("googleCaptcha", googleCode);
@@ -326,7 +326,7 @@ public class SmartTransferSource extends BaseMVPModel {
      */
     private String transferByCoin(String coinSymbol, String toAddress, String amount, BigInteger transferGasPrice) throws Exception {
 
-        WalletDBModel w = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+        WalletDBModel w = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
 
         if (TextUtils.equals(coinSymbol, WalletHelper.COIN_WAN)) {
             return WalletHelper.transferForWan(w, toAddress, amount, WalletHelper.getDeflutGasLimit(), transferGasPrice);

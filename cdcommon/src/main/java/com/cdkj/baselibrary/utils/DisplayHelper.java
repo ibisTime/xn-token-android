@@ -54,10 +54,12 @@ public class DisplayHelper {
      * @return
      */
     public static DisplayMetrics getDisplayMetrics(Context context) {
-        DisplayMetrics displayMetrics = new DisplayMetrics();
-        ((WindowManager) context.getApplicationContext().getSystemService(Context.WINDOW_SERVICE))
-                .getDefaultDisplay().getMetrics(displayMetrics);
-        return displayMetrics;
+        WindowManager wm = (WindowManager) context
+                .getSystemService(Context.WINDOW_SERVICE);
+        DisplayMetrics outMetrics = new DisplayMetrics();
+        wm.getDefaultDisplay().getMetrics(outMetrics);
+
+        return outMetrics;
     }
 
     /**

@@ -9,7 +9,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.os.Bundle;
 
-import com.cdkj.token.user.login.StartActivity;
+import com.cdkj.token.user.login.SplashActivity;
 
 /**
  * 应用前后台状态监听帮助类，仅在Application中使用
@@ -65,7 +65,7 @@ public class AppFrontBackHelper {
         @Override
 
         public void onActivityStarted(Activity activity) {
-            if (activity instanceof StartActivity) {  //开始启动页面不用执行
+            if (activity instanceof SplashActivity) {  //开始启动页面不用执行
                 return;
             }
 
@@ -97,7 +97,7 @@ public class AppFrontBackHelper {
 
         public void onActivityStopped(Activity activity) {
 
-            if (activity instanceof StartActivity) {
+            if (activity instanceof SplashActivity) {
                 return;
             }
 

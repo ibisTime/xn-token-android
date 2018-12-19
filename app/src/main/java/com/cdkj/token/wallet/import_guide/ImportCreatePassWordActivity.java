@@ -8,22 +8,14 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
-import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityCreatePassWordBinding;
-import com.cdkj.token.model.db.WalletDBModel;
-import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.password.PassWordLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import io.reactivex.Observable;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 /**
  * 创建密码 （导入钱包）
@@ -109,30 +101,30 @@ public class ImportCreatePassWordActivity extends AbsLoadActivity {
      * @param paword
      */
     public void createMnemonicWordsAsyn(String paword) {
-        showLoadingDialog();
-        mSubscription.add(
-                Observable.just(paword)
-                        .subscribeOn(Schedulers.newThread())
-                        .map(isSavePass -> {
-                            WalletDBModel dbModel2 = WalletHelper.createAllCoinPrivateKeybyMnenonic(mWords); //TODO 导入缺少BTC
-                            dbModel2.setWalletPassWord(paword);
-                            dbModel2.setUserId(SPUtilHelper.getUserId());
-                            return dbModel2.save();
-                        })
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .doOnComplete(() -> disMissLoadingDialog())
-                        .subscribe(isSave -> {
-                            if (isSave) {
-                                ImportWalletSuccessActivity.open(ImportCreatePassWordActivity.this);
-                            } else {
-                                ToastUtil.show(this, getString(R.string.wallet_import_fail));
-                            }
-                            finish();
-                        }, throwable -> {
-                            ToastUtil.show(this, getString(R.string.wallet_import_fail));
-                            finish();
-                        })
-        );
+//        showLoadingDialog();
+//        mSubscription.add(
+//                Observable.just(paword)
+//                        .subscribeOn(Schedulers.newThread())
+//                        .map(isSavePass -> {
+//                            WalletDBModel dbModel2 = WalletHelper.createAllCoinPrivateKeybyMnenonic(mWords); //TODO 导入缺少BTC
+//                            dbModel2.setWalletPassWord(paword);
+//                            dbModel2.setUserId(SPUtilHelper.getUserId());
+//                            return dbModel2.save();
+//                        })
+//                        .observeOn(AndroidSchedulers.mainThread())
+//                        .doOnComplete(() -> disMissLoadingDialog())
+//                        .subscribe(isSave -> {
+//                            if (isSave) {
+//                                ImportWalletSuccessActivity.open(ImportCreatePassWordActivity.this);
+//                            } else {
+//                                ToastUtil.show(this, getString(R.string.wallet_import_fail));
+//                            }
+//                            finish();
+//                        }, throwable -> {
+//                            ToastUtil.show(this, getString(R.string.wallet_import_fail));
+//                            finish();
+//                        })
+//        );
 
     }
 

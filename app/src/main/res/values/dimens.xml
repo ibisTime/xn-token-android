@@ -2,18 +2,18 @@
 <resources>
     <dimen name="user_fragment_card_cornerradius">5dp</dimen>
     <dimen name="user_fragment_card_elevation">3dp</dimen>
-    <dimen name="user_fragment_item_img_width">18dp</dimen>
-    <dimen name="user_fragment_item_img_height">18dp</dimen>
+    <dimen name="user_fragment_item_img_width">20dp</dimen>
+    <dimen name="user_fragment_item_img_height">20dp</dimen>
     <dimen name="img_more_right_width">7dp</dimen>
     <dimen name="img_more_right_height">12dp</dimen>
     <dimen name="card_cornerradius">5dp</dimen>
     <dimen name="card_elevation">2dp</dimen>
-    <dimen name="cardLayout_parent_margin_left">13dp</dimen>
-    <dimen name="cardLayout_parent_margin_right">13dp</dimen>
-    <dimen name="status_bar_height">0dp</dimen>
-    <dimen name="layout_item_height">60dp</dimen>
+    <dimen name="cardLayout_parent_margin_left">12dp</dimen>
+    <dimen name="cardLayout_parent_margin_right">12dp</dimen>
+    <dimen name="status_bar_height">25dp</dimen>
+    <dimen name="layout_item_height">58dp</dimen>
     <dimen name="btn_height">50dp</dimen>
-    <dimen name="input_item_height">55dp</dimen>
+    <dimen name="input_item_height">45dp</dimen>
     <dimen name="friend_qrimg_line_top">10dp</dimen>
     <dimen name="friend_qrimg_friend_width">150dp</dimen>
 </resources>

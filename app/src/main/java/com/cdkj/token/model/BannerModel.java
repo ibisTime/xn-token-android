@@ -38,6 +38,7 @@ public class BannerModel {
     private String contentType;
     private String companyCode;
     private String systemCode;
+    private String action;
 
     public String getCode() {
         return code;
@@ -149,5 +150,13 @@ public class BannerModel {
 
     public void setSystemCode(String systemCode) {
         this.systemCode = systemCode;
+    }
+
+    public String getAction() {
+        return action;
+    }
+
+    public void setAction(String action) {
+        this.action = action;
     }
 }

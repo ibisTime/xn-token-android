@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.cdkj.baselibrary.appmanager.AppConfig;
-import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
+import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
@@ -33,7 +33,7 @@ import static com.cdkj.token.utils.UpdateUtil.startWeb;
  * 设置
  * Created by cdkj on 2018/8/8.
  */
-public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
+public class UserSettingActivity extends AbsActivity {
 
     private ActivityUserSettingBinding mBinding;
 
@@ -48,17 +48,15 @@ public class UserSettingActivity extends AbsStatusBarTranslucentActivity {
         context.startActivity(intent);
     }
 
-
     @Override
-    public View addContentView() {
+    public View addMainView() {
         mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_user_setting, null, false);
         return mBinding.getRoot();
     }
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        setMidTitle(getStrRes(R.string.setting));
-        setPageBgImage(R.drawable.my_bg);
+        setTopTitle(getStrRes(R.string.setting));
         initClickListener();
         getVersion();
     }
