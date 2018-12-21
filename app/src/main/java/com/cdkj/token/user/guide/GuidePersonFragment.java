@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.cdkj.baselibrary.base.BaseLazyFragment;
+import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.FragmentGuidePersonBinding;
 import com.cdkj.token.user.login.SignInActivity2;
@@ -44,7 +45,7 @@ public class GuidePersonFragment extends BaseLazyFragment {
 
     private void initListener() {
         mBinding.btnSignIn.setOnClickListener(view -> {
-            SignInActivity2.open(mActivity, true);
+            SignInActivity2.open(mActivity, MainActivity.class, null);
         });
 
         mBinding.btnSignUp.setOnClickListener(view -> {

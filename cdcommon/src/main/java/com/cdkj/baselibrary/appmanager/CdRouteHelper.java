@@ -32,9 +32,16 @@ public class CdRouteHelper {
      *
      * @param canopenmain 打开后是否跳转到主页
      */
-    public static void openLogin(boolean canopenmain) {
+    public static void openLogin() {
         ARouter.getInstance().build(APPLOGIN)
-                .withBoolean(DATASIGN, canopenmain)
+                .greenChannel()                                       //不使用任何拦截器
+                .navigation();
+    }
+
+    public static void openLogin(Class<?> openToCls, Class<?> closeToCls) {
+        ARouter.getInstance().build(APPLOGIN)
+                .withSerializable(DATASIGN3, openToCls)
+                .withSerializable(DATASIGN4, closeToCls)
                 .greenChannel()                                       //不使用任何拦截器
                 .navigation();
     }

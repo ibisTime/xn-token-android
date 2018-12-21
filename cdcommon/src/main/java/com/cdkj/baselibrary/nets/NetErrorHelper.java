@@ -11,7 +11,6 @@ import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
-import com.cdkj.baselibrary.model.LoginFailureEvent;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.ToastUtil;
 
@@ -191,7 +190,7 @@ public class NetErrorHelper {
         EventBus.getDefault().post(new AllFinishEvent());//登录失效
 
         // 路由跳转登录页面
-        CdRouteHelper.openLogin(true);
+        CdRouteHelper.openLogin();
     }
 
 

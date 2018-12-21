@@ -167,7 +167,7 @@
                 <TextView
                     android:id="@+id/tv_property_hint"
                     android:visibility="gone"
-                    android:text="私钥钱包未创建，显示部分资产"
+                    android:text="@string/user_property_hint"
                     android:gravity="center"
                     android:paddingBottom="10dp"
                     android:textSize="12sp"

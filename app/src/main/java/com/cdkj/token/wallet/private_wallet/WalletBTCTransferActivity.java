@@ -149,7 +149,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
             map.put("address", btcInfo.split("\\+")[0]);
         }else {
-            WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUserId(SPUtilHelper.getUserId());
+            WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
 
             if (userWalletIn == null)
                 return;
@@ -325,7 +325,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             return TextUtils.equals(toAddress, btcInfo.split("\\+")[0]);
 
         } else {
-            WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(SPUtilHelper.getUserId());
+            WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
             //币种类型
             return TextUtils.equals(toAddress, walletDBModel.getBtcAddress());
         }
@@ -375,7 +375,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
                         return;
                     }
 
-                    if (!WalletHelper.checkPasswordByUserId(tradePwd, SPUtilHelper.getUserId())) {
+                    if (!WalletHelper.checkPasswordByUserId(tradePwd, WalletHelper.WALLET_USER)) {
                         UITipDialog.showInfoNoIcon(this, getString(R.string.transaction_password_error));
                         return;
                     }
@@ -390,7 +390,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
                             address = btcInfo.split("\\+")[0];
                             privateKey = btcInfo.split("\\+")[1];
                         }else {
-                            WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(SPUtilHelper.getUserId());
+                            WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
                             address = walletDBModel.getBtcAddress();
                             privateKey = walletDBModel.getBtcPrivateKey();
                         }

@@ -19,11 +19,13 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
+import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.model.CountrySelectEvent;
 import com.cdkj.baselibrary.nets.BaseResponseListCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.RefreshHelper;
 import com.cdkj.baselibrary.utils.StringUtils;
+import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.CountryCodeListAdapter;
 import com.cdkj.token.adapter.CountryListSortAdapter;
@@ -31,6 +33,8 @@ import com.cdkj.token.api.MyApi;
 import com.cdkj.token.comparator.PinyinComparator;
 import com.cdkj.token.databinding.ActivityCountryListBinding;
 import com.cdkj.token.model.CountryCodeMode;
+import com.cdkj.token.user.guide.GuideActivity;
+import com.cdkj.token.user.login.SignInActivity2;
 import com.cdkj.token.utils.HanyuPinyinHelper;
 import com.zendesk.util.CollectionUtils;
 
@@ -187,6 +191,8 @@ public class CountryCodeListActivity extends AbsActivity {
 
             AppConfig.changeLanguageForCountry(this, countryCodeListAdapter.getSelectInterCode(position));
             AppConfig.changeLocalCoinTypeForCountry(countryCodeListAdapter.getSelectInterCode(position));
+            EventBus.getDefault().post(new AllFinishEvent());
+            SignInActivity2.open(this, MainActivity.class, GuideActivity.class);
             finish();
         });
 

@@ -33,7 +33,7 @@
         
         <ImageView
             android:layout_marginBottom="74dp"
-            android:src="@drawable/guide_private_icon"
+            android:src="@drawable/guide_person_icon"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
@@ -49,6 +49,10 @@
             <Button
                 android:id="@+id/btn_create"
                 android:text="@string/guide_private_create"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:ellipsize="middle"
+                android:singleLine="true"
                 android:textSize="15sp"
                 android:textColor="@color/blue_0064ff"
                 android:background="@drawable/corner_guide_btn"
@@ -63,6 +67,10 @@
             <Button
                 android:id="@+id/btn_import"
                 android:text="@string/guide_private_import"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:ellipsize="middle"
+                android:singleLine="true"
                 android:textSize="15sp"
                 android:textColor="@color/black"
                 android:background="@drawable/corner_guide_btn"

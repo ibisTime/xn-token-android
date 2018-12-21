@@ -20,7 +20,6 @@ import com.cdkj.baselibrary.interfaces.LoginPresenter;
 import com.cdkj.baselibrary.model.UserLoginModel;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
-import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivitySignIn2Binding;
 import com.cdkj.token.interfaces.UserTabLayoutInterface;
@@ -36,19 +35,23 @@ public class SignInActivity2 extends AbsStatusBarTranslucentActivity implements 
 
     private ActivitySignIn2Binding mBinding;
 
-    private boolean skipToMain; // 登录动作结束后是否跳转到主页
     private LoginPresenter mPresenter;
 
     private int changeDevCount = 0;//用于记录研发或测试环境切换条件
 
-    public static void open(Context context, boolean skipToMain) {
+    private Class<?> openToCls; // 登录动作结束后需要打开的界面
+    private Class<?> closeToCls; // 登录页面关闭时需要打开的界面
+
+    public static void open(Context context, Class<?> openToCls, Class<?> closeToCls) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, SignInActivity2.class);
-        intent.putExtra(CdRouteHelper.DATASIGN, skipToMain);
+        intent.putExtra(CdRouteHelper.DATASIGN, openToCls);
+        intent.putExtra(CdRouteHelper.DATASIGN2, closeToCls);
         context.startActivity(intent);
     }
+
 
     @Override
     public View addContentView() {
@@ -78,7 +81,9 @@ public class SignInActivity2 extends AbsStatusBarTranslucentActivity implements 
 
     private void init() {
         mPresenter = new LoginPresenter(this);
-        skipToMain = getIntent().getBooleanExtra(CdRouteHelper.DATASIGN, false);
+
+        openToCls = (Class<?>) getIntent().getSerializableExtra(CdRouteHelper.DATASIGN);
+        closeToCls = (Class<?>) getIntent().getSerializableExtra(CdRouteHelper.DATASIGN2);
     }
 
 
@@ -91,12 +96,7 @@ public class SignInActivity2 extends AbsStatusBarTranslucentActivity implements 
     private void initListener(){
 
         mBaseBinding.imgBack.setOnClickListener(view -> {
-            if (skipToMain) {
-                MainActivity.open(this);
-                return;
-            }
-
-            finish();
+            finishActivity();
         });
 
         mBinding.tlSignUP.setInterface(this);
@@ -219,9 +219,12 @@ public class SignInActivity2 extends AbsStatusBarTranslucentActivity implements 
         SPUtilHelper.saveUserEmail(mBinding.edtEmail.getText().toString().trim());
         OtherLibManager.uemProfileSignIn(user.getUserId());
 
-        if (skipToMain) {
-            MainActivity.open(this);
+        if (null != openToCls) { // 不打开界面，直接关闭
+            open(openToCls);
         }
+
+        openToCls = null;
+        closeToCls = null;
         finish();
     }
 
@@ -237,10 +240,21 @@ public class SignInActivity2 extends AbsStatusBarTranslucentActivity implements 
 
     @Override
     public void onBackPressed() {
-        if (skipToMain) {
-            MainActivity.open(this);
-            return;
+        finishActivity();
+    }
+
+    private void finishActivity(){
+        if (null != closeToCls) { // 不打开界面，直接关闭
+            open(closeToCls);
         }
+
+        openToCls = null;
+        closeToCls = null;
         finish();
+    }
+
+    private void open(Class<?> cls){
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
     }
 }

@@ -1062,6 +1062,7 @@
     <string name="buyamount_not_empty">Purchase portion cannot be empty</string>
     <string name="rank_100">You are not on the ranking list, keep going</string>
     <string name="ssl_error">SSL certificate authentication failure</string>
+
     <string name="go_on">Go on</string>
     <string name="no_dapp_guide">No Strategy</string>
     <string name="sign_up_low">Low</string>
@@ -1080,20 +1081,22 @@
     <string name="activity_trade_pwd">Transaction password</string>
     <string name="backup_follow_order">Please follow the order</string>
     <string name="backup_write_memonic">Copy the four mnemonics below</string>
+    <string name="backup_page">/3(Three pages)</string>
     <string name="success">Complete</string>
     <string name="backup_success_info1">Safekeeping</string>
     <string name="backup_success_info2">In case of being stolen</string>
     <string name="backup_success_info3">Don\'t lose</string>
+    <string name="backup_check_info">Please send your copy of 12 mnemonic input words in the correct order</string>
     <string name="create_success_info">Have created BTC, ETH, WAN and other N main chain currency wallet addresses for you\nTheia wallet supports a set of mnemonics to manage multiple mainline currency wallet addresses</string>
     <string name="backup_later">Backup later</string>
     <string name="backup_now">Start backup</string>
-    <string name="dapp_start">Start the game</string>
-    <string name="dapp_grade">评分</string>
-    <string name="dapp_download">下载量</string>
-    <string name="dapp_vol">成交量</string>
+    <string name="dapp_start">Start</string>
+    <string name="dapp_grade">Score</string>
+    <string name="dapp_download">Download quantity</string>
+    <string name="dapp_vol">Volume</string>
     <string name="dapp_intro">Introduce</string>
     <string name="dapp_guide">Strategy</string>
-    <string name="developing">正在紧张开发中...</string>
+    <string name="developing">Is in the middle of a tense development…</string>
     <string name="user_password">Password</string>
     <string name="user_email_hint2">Please enter the correct email address</string>
     <string name="forget_mobile">Mobile phone recovery</string>
@@ -1107,8 +1110,8 @@
     <string name="signin_register"><![CDATA[Register now >]]></string>
     <string name="signin_forget"><![CDATA[Forgot >]]></string>
     <string name="signup_seccess">Account created successfully</string>
-    <string name="signup_info">恭喜您开启THEIA一站式数字资产管理之路</string>
-    <string name="splash_info">一站式数字资产管理平台</string>
+    <string name="signup_info">Congratulations on opening the way to Theia one-stop digital asset Management</string>
+    <string name="splash_info">One-stop Digital asset management platform</string>
     <string name="trade_pwd_input">Enter the trading password</string>
     <string name="trade_pwd_hint">Password is more than 6 digits or letters</string>
     <string name="trade_pwd_re_input">Confirm Transaction Password</string>
@@ -1120,18 +1123,18 @@
     <string name="backup_dialog_ok">I know</string>
     <string name="backup_dialog_hint1">Don\'t take screenshots to save mnemonics</string>
     <string name="backup_dialog_hint2">Getting mnemonics is equal to controlling asset ownership</string>
-    <string name="guide_dialog_hint">向左滑动，迅速打开 充币、提币功能</string>
-    <string name="guide_dialog_address_book">通讯录</string>
+    <string name="guide_dialog_hint">Swipe left and open quickly Replenishment , token function</string>
+    <string name="guide_dialog_address_book">Contacts</string>
     <string name="find_more">More exciting</string>
     <string name="find_games">Games</string>
     <string name="find_tools">Tools</string>
     <string name="find_infos">Consulting class</string>
     <string name="guide_person_title">Personal wallet</string>
-    <string name="guide_person_info">便捷的资产管理，绝对安全的“存入即冷”托管模式。个人钱包还提供了稳定的资产理财方案和趣味应用。</string>
+    <string name="guide_person_info">Convenient asset Management, absolutely secure "deposit is cold" managed mode. Personal wallets also provide a stable asset banking solution and fun applications</string>
     <string name="guide_person_in">Login to a personal account</string>
     <string name="guide_person_up">Create a personal account</string>
     <string name="guide_private_title">Private key wallet</string>
-    <string name="guide_private_info">Theia的私钥钱包是一款多链钱包，便捷的管理你的所有链上资产，私钥本地保存，安全可靠。</string>
+    <string name="guide_private_info">Theia\'s private key wallet is a multi-chain wallet that conveniently manages all your linked assets, the private key is saved , and is safe and reliable.</string>
     <string name="guide_private_create">Create a private key wallet</string>
     <string name="guide_private_import">Import mnemonic</string>
     <string name="signup_mobile">Register your phone</string>
@@ -1159,6 +1162,7 @@
     <string name="please_input_pay_pwd">Please enter the capital password</string>
     <string name="pay_pwd_re_input">Confirm capital Password</string>
     <string name="please_check_pay_pwd">Please confirm capital Password</string>
+    <string name="user_property_hint">Private key wallet not to create, display some assets</string>
 
 </resources>
 

@@ -69,9 +69,8 @@ public class PayPwdActivity extends AbsStatusBarTranslucentActivity {
     }
 
     private void init(){
-
-        smsCode = getIntent().getStringExtra(CdRouteHelper.DATASIGN2);
-        account = getIntent().getStringExtra(CdRouteHelper.DATASIGN3);
+        smsCode = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
+        account = getIntent().getStringExtra(CdRouteHelper.DATASIGN2);
 
     }
 
@@ -93,9 +92,7 @@ public class PayPwdActivity extends AbsStatusBarTranslucentActivity {
     private void initListener() {
         mBinding.btnSuccess.setOnClickListener(view -> {
             if (check()){
-
                 modify(mBinding.edtReTradePassword.getText().toString().trim());
-
             }
         });
     }
@@ -135,7 +132,7 @@ public class PayPwdActivity extends AbsStatusBarTranslucentActivity {
             }
         }
 
-        return false;
+        return true;
     }
 
 

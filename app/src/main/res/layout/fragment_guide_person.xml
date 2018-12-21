@@ -34,7 +34,7 @@
         
         <ImageView
             android:layout_marginBottom="74dp"
-            android:src="@drawable/guide_person_icon"
+            android:src="@drawable/guide_private_icon"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"/>
@@ -48,6 +48,10 @@
             <Button
                 android:id="@+id/btn_signIn"
                 android:layout_marginLeft="50dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:ellipsize="middle"
+                android:singleLine="true"
                 android:layout_width="0dp"
                 android:layout_height="35dp"
                 android:layout_weight="1"
@@ -63,6 +67,10 @@
             <Button
                 android:id="@+id/btn_signUp"
                 android:layout_marginRight="50dp"
+                android:paddingLeft="3dp"
+                android:paddingRight="3dp"
+                android:ellipsize="middle"
+                android:singleLine="true"
                 android:text="@string/guide_person_up"
                 android:textSize="15sp"
                 android:textColor="@color/black"

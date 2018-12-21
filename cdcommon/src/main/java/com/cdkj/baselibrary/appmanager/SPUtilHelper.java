@@ -24,10 +24,20 @@ public class SPUtilHelper {
      *
      * @return
      */
-    public static boolean isLogin(boolean skipToMain) {
+    public static boolean isLogin(Class<?> openToCls, Class<?> closeToCls) {
         if (TextUtils.isEmpty(getUserToken())) {
             // 路由跳转登录页面
-            CdRouteHelper.openLogin(skipToMain);
+            CdRouteHelper.openLogin(openToCls, closeToCls);
+            return false;
+        }
+
+        return true;
+    }
+
+    public static boolean isLogin() {
+        if (TextUtils.isEmpty(getUserToken())) {
+            // 路由跳转登录页面
+            CdRouteHelper.openLogin();
             return false;
         }
 

@@ -54,7 +54,7 @@ public class BackupWalletActivity extends AbsStatusBarTranslucentActivity {
     @Override
     public void afterCreate(Bundle savedInstanceState) {
 
-        setMidTitle("备份钱包助记词");
+        setMidTitle(R.string.wallet_backup_memonic);
         setWhiteTitle();
         setPageBgImage(R.mipmap.app_page_bg_new);
 

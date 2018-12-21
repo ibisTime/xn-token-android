@@ -11,12 +11,15 @@ import android.view.View;
 
 import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
+import com.cdkj.baselibrary.model.LoginFinishEvent;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivitySignUp2Binding;
 import com.cdkj.token.model.SignUpInfoModel;
 import com.cdkj.token.user.login.signup.SignUpStep1Fragment;
 import com.cdkj.token.user.login.signup.SignUpStep2Fragment;
 import com.cdkj.token.user.login.signup.SignUpStep3Fragment;
+
+import org.greenrobot.eventbus.Subscribe;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -127,6 +130,13 @@ public class SignUpActivity2 extends AbsStatusBarTranslucentActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         signUpStep1Fragment.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Subscribe
+    public void finishAll(LoginFinishEvent loginFinishEvent) {
+        if (canEvenFinish()) {
+            this.finish();
+        }
     }
 
 }

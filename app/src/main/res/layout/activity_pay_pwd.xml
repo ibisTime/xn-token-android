@@ -65,7 +65,7 @@
 
         <Button
             android:id="@+id/btn_success"
-            android:text="@string/signup_success"
+            android:text="@string/confirm"
             android:textSize="16sp"
             android:textColor="@color/white"
             android:textStyle="bold"

@@ -159,7 +159,7 @@
                 android:layout_width="65dp"
                 android:layout_height="match_parent"
                 android:background="#c3c3c3"
-                android:text="充币"
+                android:text="@string/wallet_bill_list_charge"
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />
 
@@ -168,7 +168,7 @@
                 android:layout_width="65dp"
                 android:layout_height="match_parent"
                 android:background="#ff4545"
-                android:text="提币"
+                android:text="@string/wallet_bill_list_withdraw"
                 android:textColor="@android:color/white"
                 android:textSize="15sp" />
 

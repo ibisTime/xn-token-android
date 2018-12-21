@@ -840,9 +840,9 @@
     <string name="buyamount_not_empty">购买份额不能为空</string>
     <string name="rank_100">排名100名以外，加油</string>
     <string name="ssl_error">ssl证书验证失败</string>
+
     <string name="go_on">继续</string>
     <string name="cancel">取消</string>
-
     <string name="no_dapp_guide">暂无攻略</string>
     <string name="sign_up_low">低</string>
     <string name="sign_up_mid">中</string>
@@ -858,7 +858,6 @@
     <string name="wallet_recover_hint">钱包助记词恢复成功</string>
     <string name="wallet_backup_memonic">备份钱包助记词</string>
     <string name="activity_trade_pwd">交易密码</string>
-
     <string name="backup_follow_order">请按顺序</string>
     <string name="backup_write_memonic">抄写下方四个助记词</string>
     <string name="backup_page">/3(共三页)</string>
@@ -866,7 +865,6 @@
     <string name="backup_success_info1">妥善保管</string>
     <string name="backup_success_info2">以防被盗</string>
     <string name="backup_success_info3">切勿丢失</string>
-
     <string name="backup_check_info">请将您抄下的12个助记词按照正确的顺序输入</string>
     <string name="create_success_info">已为您创建BTC,ETC,WAN等N个助廉币种钱包地址\nThiea钱包支持一套助记词管理多个主链币种钱包地址</string>
     <string name="backup_later">稍后备份</string>
@@ -943,6 +941,7 @@
     <string name="please_input_pay_pwd">请输入资金密码</string>
     <string name="pay_pwd_re_input">确认资金密码</string>
     <string name="please_check_pay_pwd">请确认资金密码</string>
+    <string name="user_property_hint">私钥钱包未创建，显示部分资产</string>
 
 
 </resources>

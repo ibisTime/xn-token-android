@@ -87,10 +87,6 @@
         <activity
             android:name=".user.setting.UserAboutActivity"
             android:windowSoftInputMode="adjustPan" />
-        <activity
-            android:name=".user.login.SignInActivity"
-            android:launchMode="singleTask"
-            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".user.login.SignUpActivity" />
         //找回密码
         <activity

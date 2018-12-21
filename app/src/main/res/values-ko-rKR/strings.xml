@@ -914,31 +914,30 @@
     <string name="income_rank_more">더보기</string>
     <string name="buyamount_not_empty">구입분액 수도 없 는 빈</string>
     <string name="rank_100">순위100위에 들지못했습니다. 힘내세요</string>
+
     <string name="no_dapp_guide">아직 공략</string>
     <string name="sign_up_low">낮음</string>
     <string name="sign_up_mid">보통</string>
     <string name="sign_up_high">높음</string>
     <string name="user_repassword_size_hint">비밀번호 자릿수는 8~25자리</string>
-
-    <string name="activity_sign_in_title">登录Theia个人账户</string>
-    <string name="activity_sign_up_title">新用户注册</string>
-
+    <string name="activity_sign_in_title">로그인 Theia 개인 계좌 를 갖 고 있다</string>
+    <string name="activity_sign_up_title">신규 가입자 등록</string>
     <string name="user_iden_ok">신원 인증 완료</string>
     <string name="user_iden_not_ok">신원 인증 미완료</string>
     <string name="expand_text_more">펼치기</string>
-    <string name="expand_text_less">收起</string>
+    <string name="expand_text_less">접</string>
     <string name="wallet_back_up_hint">지갑 연상기호 백업을 성공했습니다!</string>
-
-    <string name="wallet_recover_hint">钱包助记词恢复成功</string>
-
+    <string name="wallet_recover_hint">돈지갑 협조하다 기억하다 단어 회복 에 성공 했 다</string>
     <string name="wallet_backup_memonic">백업 지갑 연상기호</string>
     <string name="activity_trade_pwd">거래 비밀번호</string>
     <string name="backup_follow_order">순서대로 해주세요</string>
     <string name="backup_write_memonic">아래의 4개 연상 기호를 따라 써주세요</string>
+    <string name="backup_page">/3(총 3쪽)</string>
     <string name="success">완성</string>
     <string name="backup_success_info1">안전한 보관</string>
     <string name="backup_success_info2">도난 방지</string>
     <string name="backup_success_info3">잃어버리지 마세요</string>
+    <string name="backup_check_info">당 신의 주 세요 필사 한 12 개 협조하다 기억하다 표현 대로 하는 게 바른 순 입력 했 다</string>
     <string name="create_success_info">이미 BTC,ETH,WAN등 N개의 주 연결 화폐 지갑 주소를 개설했습니다./nTheia 지갑은 하나의 연상기호로 많은 주 연결 화폐 지갑 주소를 관리할 것을 권장합니다. </string>
     <string name="backup_later">잠시후 백업</string>
     <string name="backup_now">백업 시작</string>
@@ -948,12 +947,10 @@
     <string name="dapp_vol">거래량</string>
     <string name="dapp_intro">소개</string>
     <string name="dapp_guide">공략</string>
-    <string name="developing">빠르게 개발중...</string>
-
-    <string name="user_password">密码</string>
+    <string name="developing">긴장 발달의 한가운데에…</string>
+    <string name="user_password">비밀번호</string>
     <string name="user_email_hint2">이메일 형식이 맞지 않습니다.</string>
-
-    <string name="forget_mobile"> 핸드폰 회복</string>
+    <string name="forget_mobile">핸드폰 회복</string>
     <string name="forget_email">이메일 회복</string>
     <string name="recover_title">연상 기호 지갑 복구</string>
     <string name="recover_intro">지갑을 복구하기 위해서 하단의 표에 12개의 연상 기호를 입력해 주십시오. 연상 기호 입력 후 "스페이스 바"를 누르면 다음으로 넘어갈 수 있습니다.</string>
@@ -963,11 +960,9 @@
     <string name="signin">접속</string>
     <string name="signin_register"><![CDATA[회원가입 >]]></string>
     <string name="signin_forget"><![CDATA[비밀번호 되찾기 >]]></string>
-
-    <string name="signup_seccess">账号创建成功</string>
-    <string name="signup_info">恭喜您开启THEIA一站式数字资产管理之路</string>
-    <string name="splash_info">一站式数字资产管理平台</string>
-
+    <string name="signup_seccess">계정 만들기가 성공 했습니다.</string>
+    <string name="signup_info">하나-스톱 디지털 자산 관리를 위한 길을 열어 축 하</string>
+    <string name="splash_info">원스톱 디지털 자산 관리 플랫폼</string>
     <string name="trade_pwd_input">거래 설정 비밀번호를 입력해주세요</string>
     <string name="trade_pwd_hint">비밀번호는 6자리 이상의 숫자 혹은 알파벳입니다</string>
     <string name="trade_pwd_re_input">거래 비밀번호를 확인해주세요</string>
@@ -989,9 +984,7 @@
     <string name="guide_person_info">간편한 자산 관리, 절대 안전의 "예치 즉시 얼림" 신탁 방식. 개인 지갑은 안정적인 재산 재무 방안과 흥미 응용도 제공합니다.</string>
     <string name="guide_person_in">개인 계좌에 접속</string>
     <string name="guide_person_up">개인 계좌 개설</string>
-
     <string name="guide_private_title">私钥钱包</string>
-
     <string name="guide_private_info">Theia의 개인 키 지갑은 한 곳에 여러 개를 연결할 수 있는 지갑입니다. 당신이 가지고 있는 모든 연결된 자산을 간편하게 관리할 수 있습니다. 개인 키는 이곳에서 보관하므로 안전합니다.</string>
     <string name="guide_private_create">개인 키 지갑 만들기</string>
     <string name="guide_private_import">도입 연상 기호</string>
@@ -1012,7 +1005,6 @@
     <string name="user_security">계좌의 안전</string>
     <string name="user_forget_title">비밀번호 되찾기</string>
     <string name="user_sms_code">인증번호</string>
-
     <string name="privacy_agreement_title">프라이버시 서비스 합의서와 약관</string>
     <string name="user_not_login">미접속</string>
     <string name="activity_tradepwd_title_set">거래 설정 비밀번호</string>
@@ -1021,4 +1013,5 @@
     <string name="please_input_pay_pwd">자금 비밀번호 입력</string>
     <string name="pay_pwd_re_input">거래 비밀번호를 확인해주세요</string>
     <string name="please_check_pay_pwd">거래 비밀번호를 확인해주세요</string>
+    <string name="user_property_hint">불법의 자물쇠 지갑 을 미 창설 일부 자산 이다</string>
 </resources>

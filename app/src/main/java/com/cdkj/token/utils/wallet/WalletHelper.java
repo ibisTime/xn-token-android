@@ -1573,6 +1573,9 @@ public class WalletHelper {
 
         String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
 
+        Log.e("getPastBtcAddress",privateKeyBTC);
+        Log.e("getPastBtcAddress",addressBTC);
+
         SPUtilHelper.savePastBtcInfo(addressBTC+"+"+privateKeyBTC);
     }
 

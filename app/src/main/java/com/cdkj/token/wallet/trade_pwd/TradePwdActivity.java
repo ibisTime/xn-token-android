@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
@@ -88,19 +87,16 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
             setMidTitle(R.string.activity_tradepwd_title);
         } else {
             setMidTitle(R.string.activity_tradepwd_title_set);
+            getPrivacy();
         }
 
-        getPrivacy();
     }
 
     private void initView() {
-        InputFilter[] filters = {new InputFilter.LengthFilter(6)};
-        mBinding.edtTradePassword.getEditText().setFilters(filters);
-        mBinding.edtReTradePassword.getEditText().setFilters(filters);
 
-        mBinding.edtOldPwd.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-        mBinding.edtTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
-        mBinding.edtReTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        mBinding.edtOldPwd.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        mBinding.edtTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        mBinding.edtReTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
         if (openWay == MODIFY){
             mBinding.tvOldPwd.setVisibility(View.VISIBLE);

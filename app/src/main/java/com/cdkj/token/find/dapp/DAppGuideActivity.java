@@ -77,7 +77,7 @@ public class DAppGuideActivity extends AbsActivity {
         });
 
         mBinding.flRight.setOnClickListener(view -> {
-            if (SPUtilHelper.isLogin(false)){
+            if (SPUtilHelper.isLogin()){
                 ShareActivity.open(this, loadUrl, title, content);
             }
 

@@ -137,16 +137,30 @@ public class FindFragment extends BaseLazyFragment {
 //        });
 
         mBinding.llRecommend.setOnClickListener(view -> {
-            if (!TextUtils.isEmpty(appCode))
-                SendRedPacketActivity.open(mActivity, appCode);
+
+            if (SPUtilHelper.isLogin()){
+
+                if (!TextUtils.isEmpty(appCode)){
+                    SendRedPacketActivity.open(mActivity, appCode);
+                }
+
+            }
+
         });
 
         mBinding.llRecommend2.setOnClickListener(view -> {
-            BiJiaBaoListActivity.open(mActivity);
+
+            if (SPUtilHelper.isLogin()) {
+                BiJiaBaoListActivity.open(mActivity);
+            }
         });
 
         mBinding.llRecommend3.setOnClickListener(view -> {
-            InviteActivity.open(mActivity);
+
+            if (SPUtilHelper.isLogin()){
+                InviteActivity.open(mActivity);
+            }
+
         });
 
         mBinding.llMore.setOnClickListener(view -> {

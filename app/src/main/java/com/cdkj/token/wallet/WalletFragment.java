@@ -19,7 +19,6 @@ import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.BaseLazyFragment;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.interfaces.BaseRefreshCallBack;
-import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.NetUtils;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
@@ -44,6 +43,7 @@ import com.cdkj.token.model.MsgListModel;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.WalletDBModel;
+import com.cdkj.token.user.guide.GuideActivity;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.CardChangeLayout;
@@ -60,7 +60,6 @@ import com.cdkj.token.wallet.smart_transfer.SmartTransferActivity;
 import com.cdkj.token.wallet.trade_pwd.TradePwdActivity;
 import com.cdkj.token.wallet.transfer_change.ExpectActivity;
 
-import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 
 import java.math.BigDecimal;
@@ -125,9 +124,18 @@ public class WalletFragment extends BaseLazyFragment {
 
         initLocalCoinPresenter();
 
-        mlLocalCoinCachePresenter.getCoinList(mActivity);  //开始时请求币种缓存
-
         return mBinding.getRoot();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        if (null != mBinding && null != mlLocalCoinCachePresenter){
+            mlLocalCoinCachePresenter.getCoinList(mActivity);  //开始时请求币种缓存
+        }
+
+
     }
 
     /**
@@ -221,7 +229,7 @@ public class WalletFragment extends BaseLazyFragment {
         //一键划转
         mBinding.btnSmartTransfer.setOnClickListener(view -> {
 
-            if (SPUtilHelper.isLogin(false)){
+            if (SPUtilHelper.isLogin()){
 
                 boolean isHasInfo = WalletHelper.isUserAddedWallet(WalletHelper.WALLET_USER);
                 if (!isHasInfo) {
@@ -244,11 +252,8 @@ public class WalletFragment extends BaseLazyFragment {
             @Override
             public boolean onChangeStart(int index) {
                 if (!SPUtilHelper.isLoginNoStart()) {   //如果用户没登录则跳转的登录界面
-                    EventBus.getDefault().post(new AllFinishEvent());
-                    CdRouteHelper.openLogin(true);
-                    if (mActivity != null) {
-                        mActivity.finish();
-                    }
+
+                    CdRouteHelper.openLogin(MainActivity.class, GuideActivity.class);
                     return false;
                 }
 
@@ -575,12 +580,18 @@ public class WalletFragment extends BaseLazyFragment {
             }
         }
         if (isHasBtc){// 每次刷新时获取老的BTC地址和私钥
-            WalletHelper.getPastBtcAddress();
-            String adress = SPUtilHelper.getPastBtcInfo();
-            CoinTypeAndAddress pastBtcAddress = new CoinTypeAndAddress();
-            pastBtcAddress.setSymbol(WalletHelper.COIN_BTC);
-            pastBtcAddress.setAddress(adress.split("\\+")[0]);
-            mChooseCoinList.add(pastBtcAddress);
+
+            if (SPUtilHelper.isLoginNoStart()){ // 未登录时不添加老地址
+
+                WalletHelper.getPastBtcAddress();
+                String adress = SPUtilHelper.getPastBtcInfo();
+                CoinTypeAndAddress pastBtcAddress = new CoinTypeAndAddress();
+                pastBtcAddress.setSymbol(WalletHelper.COIN_BTC);
+                pastBtcAddress.setAddress(adress.split("\\+")[0]);
+                mChooseCoinList.add(pastBtcAddress);
+
+            }
+
         }
 
         Map<String, Object> map = new HashMap<>();

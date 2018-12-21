@@ -117,7 +117,7 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface,
     private void initClickListener() {
 
         mBinding.linLayoutIden.setOnClickListener(view -> {
-            if (SPUtilHelper.isLogin(false)){
+            if (SPUtilHelper.isLogin()){
                 if (null == mData){
                     return;
                 }
@@ -135,35 +135,35 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface,
 
         // 问题反馈
         mBinding.linLayoutFeedback.setOnClickListener(view -> {
-            if (SPUtilHelper.isLogin(false)){
+            if (SPUtilHelper.isLogin()){
                 QuestionFeedbackSubmitActivity.open(mActivity);
             }
         });
 
         // 修改昵称
         mBinding.tvNickName.setOnClickListener(view -> {
-            if (SPUtilHelper.isLogin(false)){
+            if (SPUtilHelper.isLogin()){
                 NickModifyActivity.open(mActivity, SPUtilHelper.getUserName());
             }
         });
 
         // 我的收益
         mBinding.linLayoutIncome.setOnClickListener(view -> {
-            if (SPUtilHelper.isLogin(false)){
+            if (SPUtilHelper.isLogin()){
                 MyIncomeActivity.open(mActivity);
             }
         });
 
         //更换头像
         mBinding.imgLogo.setOnClickListener(view -> {
-            if (SPUtilHelper.isLogin(false)){
+            if (SPUtilHelper.isLogin()){
                 ImageSelectActivity.launchFragment(this, PHOTOFLAG);
             }
         });
 
         // 账户与安全
         mBinding.linLayoutUserAccount.setOnClickListener(view -> {
-            if (SPUtilHelper.isLogin(false)){
+            if (SPUtilHelper.isLogin()){
                 UserSecurityActivity.open(mActivity);
             }
         });

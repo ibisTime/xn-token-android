@@ -25,6 +25,8 @@
                 <TextView
                     android:id="@+id/tv_tip"
                     android:layout_marginTop="15dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginLeft="6dp"
                     android:layout_gravity="center_horizontal"
                     android:text="@string/backup_check_info"
                     android:textSize="14sp"
@@ -63,7 +65,7 @@
 
             <Button
                 android:id="@+id/btn_ok"
-                android:text="完成"
+                android:text="@string/success"
                 android:textSize="16sp"
                 android:textColor="@color/white"
                 android:background="@drawable/btn_memonic_ok"

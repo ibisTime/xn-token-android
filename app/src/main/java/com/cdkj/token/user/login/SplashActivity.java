@@ -30,8 +30,6 @@ import static com.cdkj.token.utils.UpdateUtil.startWeb;
 //public class SplashActivity extends BaseActivity implements StartPageView {
 public class SplashActivity extends BaseActivity implements StartPageView {
 
-
-
     public StartPagePresenter pagePresenter;
 
     public void onCreate(Bundle savedInstanceState) {
