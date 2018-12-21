@@ -44,7 +44,25 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:hint_text="@string/please_check_pay_pwd" />
-        
+
+        <TextView
+            android:id="@+id/tv_google"
+            android:visibility="gone"
+            android:layout_marginTop="20dp"
+            android:text="@string/activity_find_google"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.cdkj.token.views.SignInEditClearImageLayout
+            android:id="@+id/edt_google"
+            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:hint_text="@string/activity_find_google_hint" />
+
         <Button
             android:id="@+id/btn_success"
             android:text="@string/signup_success"

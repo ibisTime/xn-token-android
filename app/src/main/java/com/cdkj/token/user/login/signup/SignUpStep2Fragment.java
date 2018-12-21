@@ -94,22 +94,33 @@ public class SignUpStep2Fragment extends BaseLazyFragment {
 
                 String pwd = editable.toString();
                 if (pwd.equals(mBinding.edtRePassword.getText())){
-
                     isRule1Pass = checkRule1(pwd);
                     isRule2Pass = checkRule2(pwd);
                     isRule3Pass = checkRule3(pwd);
+                } else {
+                    isRule1Pass = false;
+                    isRule2Pass = false;
+                    isRule3Pass = false;
+                }
 
-                    mBinding.srlRule1.changeRuleState(isRule1Pass);
-                    mBinding.srlRule2.changeRuleState(isRule2Pass);
-                    mBinding.srlRule3.changeRuleState(isRule3Pass);
+                mBinding.srlRule1.changeRuleState(isRule1Pass);
+                mBinding.srlRule2.changeRuleState(isRule2Pass);
+                mBinding.srlRule3.changeRuleState(isRule3Pass);
 
-                    if (isRule1Pass){
-                        mBinding.tvLevel.setText(R.string.sign_up_low);
-                    }else if (isRule1Pass && isRule2Pass){
-                        mBinding.tvLevel.setText(R.string.sign_up_mid);
-                    }else if (isRule1Pass && isRule2Pass && isRule3Pass){
-                        mBinding.tvLevel.setText(R.string.sign_up_high);
-                    }
+                if (isRule1Pass){
+                    mBinding.tvLevel.setText(R.string.sign_up_low);
+                }
+
+                if (isRule1Pass && isRule2Pass || isRule1Pass && isRule3Pass){
+                    mBinding.tvLevel.setText(R.string.sign_up_mid);
+                }
+
+                if (isRule1Pass && isRule2Pass && isRule3Pass){
+                    mBinding.tvLevel.setText(R.string.sign_up_high);
+                }
+
+                if (!isRule1Pass && !isRule2Pass && !isRule3Pass){
+                    mBinding.tvLevel.setText("");
                 }
             }
         });
@@ -132,23 +143,33 @@ public class SignUpStep2Fragment extends BaseLazyFragment {
 
                 String pwd = editable.toString();
                 if (pwd.equals(mBinding.edtPassword.getText())){
-
                     isRule1Pass = checkRule1(pwd);
                     isRule2Pass = checkRule2(pwd);
                     isRule3Pass = checkRule3(pwd);
+                } else {
+                    isRule1Pass = false;
+                    isRule2Pass = false;
+                    isRule3Pass = false;
+                }
 
+                mBinding.srlRule1.changeRuleState(isRule1Pass);
+                mBinding.srlRule2.changeRuleState(isRule2Pass);
+                mBinding.srlRule3.changeRuleState(isRule3Pass);
 
-                    mBinding.srlRule1.changeRuleState(isRule1Pass);
-                    mBinding.srlRule2.changeRuleState(isRule2Pass);
-                    mBinding.srlRule3.changeRuleState(isRule3Pass);
+                if (isRule1Pass){
+                    mBinding.tvLevel.setText(R.string.sign_up_low);
+                }
 
-                    if (isRule1Pass){
-                        mBinding.tvLevel.setText(R.string.sign_up_low);
-                    }else if (isRule1Pass && isRule2Pass){
-                        mBinding.tvLevel.setText(R.string.sign_up_mid);
-                    }else if (isRule1Pass && isRule2Pass && isRule3Pass){
-                        mBinding.tvLevel.setText(R.string.sign_up_high);
-                    }
+                if (isRule1Pass && isRule2Pass || isRule1Pass && isRule3Pass){
+                    mBinding.tvLevel.setText(R.string.sign_up_mid);
+                }
+
+                if (isRule1Pass && isRule2Pass && isRule3Pass){
+                    mBinding.tvLevel.setText(R.string.sign_up_high);
+                }
+
+                if (!isRule1Pass && !isRule2Pass && !isRule3Pass){
+                    mBinding.tvLevel.setText("");
                 }
 
             }
@@ -157,7 +178,8 @@ public class SignUpStep2Fragment extends BaseLazyFragment {
 
     private boolean checkRule1(String pwd){
 
-        if (pwd.length() >= 8 && pwd.length() <= 25){
+        String rule = "^(?![0-9]+$)(?![a-zA-Z]+$)[0-9A-Za-z]{8,16}$";
+        if (pwd.matches(rule)){
             return true;
         }else {
             return false;
@@ -209,7 +231,7 @@ public class SignUpStep2Fragment extends BaseLazyFragment {
         }
 
         if (!isRule1Pass){
-            UITipDialog.showInfoNoIcon(mActivity, getString(R.string.user_repassword_size_hint));
+            UITipDialog.showInfoNoIcon(mActivity, getString(R.string.signup_pwd_rule1));
             return false;
         }
 

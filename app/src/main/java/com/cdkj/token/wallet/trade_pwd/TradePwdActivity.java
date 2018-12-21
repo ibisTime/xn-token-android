@@ -15,7 +15,6 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsStatusBarTranslucentActivity;
 import com.cdkj.baselibrary.dialog.UITipDialog;
-import com.cdkj.baselibrary.model.IsSuccessModes;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.StringUtils;
@@ -40,6 +39,7 @@ import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
 /**
+ * 交易密码
  * Created by cdkj on 2018/11/26.
  */
 
@@ -47,22 +47,18 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
 
     public static int CREATE = 0;
     public static int RECOVER = 1;
-    public static int FiND_OUT = 2;
+    public static int MODIFY = 2;
 
     private ActivityTradePwdBinding mBinding;
 
     private int openWay;
-    private String smsCode; // 仅修改密码时必传入
-    private String account; // 仅修改密码时必传入
 
-    public static void open(Context context, int OpenWay, String account, String smsCode) {
+    public static void open(Context context, int OpenWay) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, TradePwdActivity.class);
         intent.putExtra(CdRouteHelper.DATASIGN, OpenWay);
-        intent.putExtra(CdRouteHelper.DATASIGN2, smsCode);
-        intent.putExtra(CdRouteHelper.DATASIGN3, account);
         context.startActivity(intent);
     }
 
@@ -87,13 +83,11 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
 
     private void init(){
         openWay = getIntent().getIntExtra(CdRouteHelper.DATASIGN, 0);
-        smsCode = getIntent().getStringExtra(CdRouteHelper.DATASIGN2);
-        account = getIntent().getStringExtra(CdRouteHelper.DATASIGN3);
 
-        if (openWay == FiND_OUT){
-            setMidTitle(R.string.activity_paypwd_title);
+        if (openWay == MODIFY){
+            setMidTitle(R.string.activity_tradepwd_title);
         } else {
-            setMidTitle(R.string.activity_paypwd_title_set);
+            setMidTitle(R.string.activity_tradepwd_title_set);
         }
 
         getPrivacy();
@@ -104,13 +98,13 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
         mBinding.edtTradePassword.getEditText().setFilters(filters);
         mBinding.edtReTradePassword.getEditText().setFilters(filters);
 
-        mBinding.edtTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        mBinding.edtReTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        mBinding.edtGoogle.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        mBinding.edtOldPwd.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        mBinding.edtTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        mBinding.edtReTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
 
-        if (SPUtilHelper.getGoogleAuthFlag()){
-            mBinding.tvGoogle.setVisibility(View.VISIBLE);
-            mBinding.edtGoogle.setVisibility(View.VISIBLE);
+        if (openWay == MODIFY){
+            mBinding.tvOldPwd.setVisibility(View.VISIBLE);
+            mBinding.edtOldPwd.setVisibility(View.VISIBLE);
         }
     }
 
@@ -126,7 +120,7 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
                 } else if (openWay == RECOVER){
                     RecoverWalletActivity.open(this, pwd);
                 } else {
-                    findOut(pwd);
+                    updatePassword(pwd);
                 }
 
             }
@@ -154,14 +148,44 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
             return false;
         }
 
-        if (SPUtilHelper.getGoogleAuthFlag()) {
-            if (TextUtils.isEmpty(mBinding.edtGoogle.getText().toString())) {
-                UITipDialog.showInfoNoIcon(this, getString(com.cdkj.baselibrary.R.string.activity_paypwd_google_hint));
-                return true;
+        if (openWay == MODIFY){
+            if (!WalletHelper.checkPasswordByUserId(mBinding.edtOldPwd.getText().toString(), WalletHelper.WALLET_USER)) {
+                UITipDialog.showInfoNoIcon(this, getString(R.string.old_pwd_error));
+                return false;
             }
         }
 
         return true;
+    }
+
+    private void getPrivacy(){
+        showLoadingDialog();
+
+        Map<String, String> map = new HashMap<>();
+        map.put("ckey", ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_PRIVACY));
+        map.put("systemCode", AppConfig.SYSTEMCODE);
+        map.put("companyCode", AppConfig.COMPANYCODE);
+
+        Call call = RetrofitUtils.createApi(MyApi.class).getSystemParameter("660917", StringUtils.getRequestJsonString(map));
+        addCall(call);
+
+        call.enqueue(new BaseResponseModelCallBack<SystemParameterModel>(null) {
+
+            @Override
+            protected void onSuccess(SystemParameterModel data, String SucMessage) {
+                if (TextUtils.isEmpty(data.getCvalue())) {
+                    return;
+                }
+
+                // 打开界面显示 隐私协议 弹窗
+                new InfoSureDialog(TradePwdActivity.this).setInfoTitle(getString(R.string.privacy_agreement_title)).setInfoContent(data.getCvalue()).show();
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoadingDialog();
+            }
+        });
     }
 
     /**
@@ -205,69 +229,21 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
 
     }
 
-
-    private void getPrivacy(){
-        showLoadingDialog();
-
-        Map<String, String> map = new HashMap<>();
-        map.put("ckey", ThaAppConstant.getH5UrlLangage(ThaAppConstant.H5_PRIVACY));
-        map.put("systemCode", AppConfig.SYSTEMCODE);
-        map.put("companyCode", AppConfig.COMPANYCODE);
-
-        Call call = RetrofitUtils.createApi(MyApi.class).getSystemParameter("660917", StringUtils.getRequestJsonString(map));
-        addCall(call);
-
-        call.enqueue(new BaseResponseModelCallBack<SystemParameterModel>(null) {
-
-            @Override
-            protected void onSuccess(SystemParameterModel data, String SucMessage) {
-                if (TextUtils.isEmpty(data.getCvalue())) {
-                    return;
-                }
-
-                // 打开界面显示 隐私协议 弹窗
-                new InfoSureDialog(TradePwdActivity.this).setInfoTitle(getString(R.string.privacy_agreement_title)).setInfoContent(data.getCvalue()).show();
-            }
-
-            @Override
-            protected void onFinish() {
-                disMissLoadingDialog();
-            }
-        });
-    }
-
-    private void findOut(String password) {
-
-        Map<String, String> object = new HashMap<>();
-
-        object.put("loginName", account);
-        object.put("smsCaptcha", smsCode);
-        object.put("newTradePwd", password);
-        object.put("googleCaptcha", mBinding.edtGoogle.getText().toString());
-
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805077", StringUtils.getRequestJsonString(object));
-        addCall(call);
-        showLoadingDialog();
-        call.enqueue(new BaseResponseModelCallBack<IsSuccessModes>(this) {
-            @Override
-            protected void onSuccess(IsSuccessModes data, String SucMessage) {
-
-                if (!data.isSuccess()) {
-                    return;
-                }
-
-                SPUtilHelper.saveTradePwdFlag(true);
-
-                UITipDialog.showSuccess(TradePwdActivity.this, getString(R.string.activity_paypwd_modify_sucess), dialogInterface -> finish());
-
-            }
-
-            @Override
-            protected void onFinish() {
-                disMissLoadingDialog();
-            }
-        });
-
-
+    /**
+     * 修改密码
+     *
+     * @param
+     */
+    private void updatePassword(String password) {
+        try {
+            WalletHelper.updateWalletPassWord(password, WalletHelper.WALLET_USER);
+            UITipDialog.showSuccess(TradePwdActivity.this, getString(R.string.update_password_success), dialogInterface -> {
+                finish();
+            });
+        } catch (Exception e) {
+            UITipDialog.showSuccess(TradePwdActivity.this, getString(R.string.update_password_fail), dialogInterface -> {
+                finish();
+            });
+        }
     }
 }

@@ -148,9 +148,8 @@ public class WithdrawActivity extends AbsLoadActivity {
                         ForgetPwdActivity.open(WithdrawActivity.this,
                                 SPUtilHelper.getUserPhoneNum(),
                                 SPUtilHelper.getUserEmail(),
-                                ForgetPwdActivity.RC_TRADE_PWD_MODIFY);
+                                ForgetPwdActivity.RC_PAY_PWD_MODIFY);
 
-//                        PayPwdModifyActivity.open(WithdrawActivity.this, SPUtilHelper.getTradePwdFlag(), SPUtilHelper.getUserPhoneNum());
                     }
                 });
             }

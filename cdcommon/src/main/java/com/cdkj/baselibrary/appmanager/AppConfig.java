@@ -63,6 +63,11 @@ public class AppConfig {
         return "https://thachainhelp.zendesk.com" + getZenDeskUrlLanguage();
     }
 
+
+    // 智趣人脸识别
+    public static final String ZHIQU_APP_KEY = "nJXnQp568zYcnBdPQxC7TANqakUUCjRZqZK8TrwGt7";
+    public static final String ZHIQU_SECRET_KEY = "887DE27B914988C9CF7B2DEE15E3EDF8";
+
     /**
      * 获取Zendesk语言类型
      *

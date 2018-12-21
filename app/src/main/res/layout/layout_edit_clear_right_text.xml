@@ -25,7 +25,7 @@
                 android:gravity="center_vertical"
                 android:textColor="@color/text_black_cd"
                 android:textColorHint="@color/text_hint_color"
-                android:textSize="16sp"
+                android:textSize="15sp"
                 tools:hint="请输入" />
 
             <FrameLayout
@@ -53,7 +53,7 @@
                 android:paddingLeft="10dp"
                 android:text="@string/user_sign_in_forget"
                 android:textColor="@color/gray_666666"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
 
 
         </LinearLayout>

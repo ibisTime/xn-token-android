@@ -65,7 +65,7 @@ public class UserPayPasswordInputDialog extends Dialog {
             ForgetPwdActivity.open(mActivity,
                     SPUtilHelper.getUserPhoneNum(),
                     SPUtilHelper.getUserEmail(),
-                    ForgetPwdActivity.RC_TRADE_PWD_MODIFY);
+                    ForgetPwdActivity.RC_PAY_PWD_MODIFY);
         });
 
         mBinding.passView.setPasswordInputEndListener(new SixPassWordView.PasswordInputEndListener() {

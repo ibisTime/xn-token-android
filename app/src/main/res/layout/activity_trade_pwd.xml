@@ -15,8 +15,29 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"/>
+
         <TextView
-            android:layout_marginTop="50dp"
+            android:id="@+id/tv_old_pwd"
+            android:text="@string/old_password"
+            android:visibility="gone"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <com.cdkj.token.views.SignInEditClearImageLayout
+            android:id="@+id/edt_old_pwd"
+            android:visibility="gone"
+            android:layout_marginBottom="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:hint_text="@string/activity_find_password_hint" />
+
+        <TextView
             android:text="@string/trade_pwd_input"
             android:textStyle="bold"
             android:textSize="16sp"
@@ -31,6 +52,7 @@
             app:hint_text="@string/please_input_transaction_pwd" />
 
         <TextView
+            android:visibility="gone"
             android:layout_marginTop="5dp"
             android:text="@string/trade_pwd_hint"
             android:textSize="10sp"
@@ -54,23 +76,7 @@
             android:layout_height="wrap_content"
             app:hint_text="@string/please_check_transaction" />
 
-        <TextView
-            android:id="@+id/tv_google"
-            android:visibility="gone"
-            android:layout_marginTop="20dp"
-            android:text="@string/activity_find_google"
-            android:textStyle="bold"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
 
-        <com.cdkj.token.views.SignInEditClearImageLayout
-            android:id="@+id/edt_google"
-            android:visibility="gone"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:hint_text="@string/activity_find_google_hint" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -159,8 +165,8 @@
                     android:layout_height="wrap_content" />
 
             </LinearLayout>
-            
-            
+
+
         </RelativeLayout>
 
         <LinearLayout

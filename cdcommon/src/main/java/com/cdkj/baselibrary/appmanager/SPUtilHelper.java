@@ -1,7 +1,6 @@
 package com.cdkj.baselibrary.appmanager;
 
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import com.cdkj.baselibrary.CdApplication;
@@ -25,11 +24,10 @@ public class SPUtilHelper {
      *
      * @return
      */
-    public static boolean isLogin(Context context, boolean canopenmain) {
-        if (TextUtils.isEmpty(getUserId())) {
-            SPUtilHelper.logOutClear();
+    public static boolean isLogin(boolean skipToMain) {
+        if (TextUtils.isEmpty(getUserToken())) {
             // 路由跳转登录页面
-            CdRouteHelper.openLogin(canopenmain);
+            CdRouteHelper.openLogin(skipToMain);
             return false;
         }
 
@@ -42,7 +40,7 @@ public class SPUtilHelper {
      * @return
      */
     public static boolean isLoginNoStart() {
-        if (TextUtils.isEmpty(getUserId())) {
+        if (TextUtils.isEmpty(getUserToken())) {
             return false;
         }
         return true;
@@ -53,7 +51,7 @@ public class SPUtilHelper {
      * 退出登录清除数据
      */
     public static void logOutClear() {
-        saveUserId("");
+//        saveUserId(""); // userId不清除，留下为钱包查询做索引，登录验证通过Token判断
         saveUserToken("");
         saveRealName("");
         saveUserName("");

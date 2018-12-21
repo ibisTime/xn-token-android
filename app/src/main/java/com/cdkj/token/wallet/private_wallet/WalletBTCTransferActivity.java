@@ -149,7 +149,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
 
             map.put("address", btcInfo.split("\\+")[0]);
         }else {
-            WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+            WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUserId(SPUtilHelper.getUserId());
 
             if (userWalletIn == null)
                 return;
@@ -325,7 +325,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
             return TextUtils.equals(toAddress, btcInfo.split("\\+")[0]);
 
         } else {
-            WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+            WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(SPUtilHelper.getUserId());
             //币种类型
             return TextUtils.equals(toAddress, walletDBModel.getBtcAddress());
         }
@@ -390,7 +390,7 @@ public class WalletBTCTransferActivity extends AbsLoadActivity {
                             address = btcInfo.split("\\+")[0];
                             privateKey = btcInfo.split("\\+")[1];
                         }else {
-                            WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUsreId(SPUtilHelper.getUserId());
+                            WalletDBModel walletDBModel = WalletHelper.getUserWalletInfoByUserId(SPUtilHelper.getUserId());
                             address = walletDBModel.getBtcAddress();
                             privateKey = walletDBModel.getBtcPrivateKey();
                         }

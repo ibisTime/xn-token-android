@@ -64,8 +64,8 @@ public class SignUpStep3Fragment extends BaseLazyFragment {
     }
 
     private void initView() {
-        mBinding.edtTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        mBinding.edtReTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        mBinding.edtTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
+        mBinding.edtReTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD);
     }
 
     private void initListener() {

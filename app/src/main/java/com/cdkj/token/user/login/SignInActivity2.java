@@ -90,6 +90,15 @@ public class SignInActivity2 extends AbsStatusBarTranslucentActivity implements 
 
     private void initListener(){
 
+        mBaseBinding.imgBack.setOnClickListener(view -> {
+            if (skipToMain) {
+                MainActivity.open(this);
+                return;
+            }
+
+            finish();
+        });
+
         mBinding.tlSignUP.setInterface(this);
 
         mBinding.btnSignIn.setOnClickListener(view -> {
@@ -228,6 +237,10 @@ public class SignInActivity2 extends AbsStatusBarTranslucentActivity implements 
 
     @Override
     public void onBackPressed() {
+        if (skipToMain) {
+            MainActivity.open(this);
+            return;
+        }
         finish();
     }
 }

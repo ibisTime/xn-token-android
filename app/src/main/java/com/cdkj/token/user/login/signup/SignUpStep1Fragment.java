@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -66,6 +67,9 @@ public class SignUpStep1Fragment extends BaseLazyFragment implements UserTabLayo
     }
 
     private void initView() {
+        InputFilter[] filters = {new InputFilter.LengthFilter(6)};
+        mBinding.edtCode.getEditText().setFilters(filters);
+
         mBinding.edtMobile.getEditText().setInputType(InputType.TYPE_CLASS_PHONE);
         mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()));
     }

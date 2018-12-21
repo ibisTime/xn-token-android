@@ -176,7 +176,7 @@ public class UserInfoPresenter {
                 ForgetPwdActivity.open(activity,
                         SPUtilHelper.getUserPhoneNum(),
                         SPUtilHelper.getUserEmail(),
-                        ForgetPwdActivity.RC_TRADE_PWD_MODIFY);
+                        ForgetPwdActivity.RC_PAY_PWD_MODIFY);
 
 
 //                PayPwdModifyActivity.open(activity, false, SPUtilHelper.getUserPhoneNum());    //跳转设置支付密码界面

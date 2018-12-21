@@ -12,12 +12,14 @@ import com.cdkj.baselibrary.appmanager.OtherLibManager;
 import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
+import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserSecurityBinding;
+import com.cdkj.token.user.guide.GuideActivity;
 import com.cdkj.token.user.login.ForgetPwdActivity;
-import com.cdkj.token.user.login.SignInActivity2;
 import com.cdkj.token.user.pattern_lock.PatternLockSettingActivity;
 import com.cdkj.token.user.setting.UserLanguageActivity;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -97,17 +99,8 @@ public class UserSecurityActivity extends AbsActivity {
             ForgetPwdActivity.open(this,
                     SPUtilHelper.getUserPhoneNum(),
                     SPUtilHelper.getUserEmail(),
-                    ForgetPwdActivity.RC_TRADE_PWD_MODIFY);
-//            PayPwdModifyActivity.open(this, SPUtilHelper.getTradePwdFlag(), SPUtilHelper.getUserPhoneNum());
+                    ForgetPwdActivity.RC_PAY_PWD_MODIFY);
         });
-
-//        mBinding.llIdentity.setOnClickListener(view -> {
-//            if (SPUtilHelper.getRealName() == null || SPUtilHelper.getRealName().equals("")) {
-//                AuthenticateActivity.open(this);
-//            } else {
-//                showToast(getStrRes(R.string.user_identity_success));
-//            }
-//        });
 
         //绑定邮箱
         mBinding.llMail.setOnClickListener(view -> {
@@ -145,11 +138,26 @@ public class UserSecurityActivity extends AbsActivity {
 
         mBinding.btnConfirm.setOnClickListener(view -> {
             showDoubleWarnListen(getStrRes(R.string.user_setting_sign_out) + "?", view1 -> {
-                SPUtilHelper.logOutClear();
-                OtherLibManager.uemProfileSignOff();
-                EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
-                SignInActivity2.open(UserSecurityActivity.this, true);
-                finish();
+
+                if ( WalletHelper.isUserAddedWallet(WalletHelper.WALLET_USER)){ // 有私钥钱包
+
+                    SPUtilHelper.logOutClear();
+                    OtherLibManager.uemProfileSignOff();
+                    EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
+                    MainActivity.open(UserSecurityActivity.this);
+                    finish();
+
+                }else { // 没有私钥钱包
+
+                    SPUtilHelper.logOutClear();
+                    OtherLibManager.uemProfileSignOff();
+                    EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
+                    GuideActivity.open(UserSecurityActivity.this);
+                    finish();
+
+                }
+
+
             });
         });
     }

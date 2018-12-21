@@ -897,7 +897,7 @@
     <string name="trade_pwd_hint">密码为6位数字/英文</string>
     <string name="trade_pwd_re_input">确认交易密码</string>
     <string name="trade_pwd_warning">注:</string>
-    <string name="trade_pwd_rule1">密码,用户解锁全币和法币</string>
+    <string name="trade_pwd_rule1">密码,用户解锁钱包和法币</string>
     <string name="trade_pwd_rule2">交易密码为本地密码,请妥善保存,丢失将无法找回</string>
     <string name="trade_pwd_rule3">可通过删除私钥钱包重新导入助记词设置新密码</string>
     <string name="backup_dialog_page">共三页</string>
@@ -936,6 +936,13 @@
     <string name="user_sms_code">验证码</string>
     <string name="user_forget_title">忘记密码</string>
     <string name="privacy_agreement_title">隐私服务协议及条款</string>
+    <string name="user_not_login">未登录</string>
+    <string name="activity_tradepwd_title_set">设置交易密码</string>
+    <string name="activity_tradepwd_title">修改交易密码</string>
+    <string name="pay_pwd_input">输入资金密码</string>
+    <string name="please_input_pay_pwd">请输入资金密码</string>
+    <string name="pay_pwd_re_input">确认资金密码</string>
+    <string name="please_check_pay_pwd">请确认资金密码</string>
 
 
 </resources>

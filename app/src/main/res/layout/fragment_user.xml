@@ -3,17 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <FrameLayout
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:showIn="@layout/fragment_user2">
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="190dp"
-            android:background="@mipmap/user_bg" />
 
         <LinearLayout
+            android:background="@mipmap/user_bg"
             android:orientation="vertical"
             android:gravity="center_horizontal"
             android:layout_width="match_parent"
@@ -28,7 +26,7 @@
                 <ImageView
                     android:id="@+id/img_logo"
                     android:layout_width="60dp"
-                    android:layout_height="45dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="bottom"
                     android:src="@drawable/user_logo" />
 
@@ -37,7 +35,8 @@
 
             <TextView
                 android:id="@+id/tv_nick_name"
-                android:layout_marginTop="10dp"
+                android:text="@string/user_not_login"
+                android:layout_marginTop="15dp"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_weight="1"
@@ -59,6 +58,7 @@
 
             <LinearLayout
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center_vertical|right"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
@@ -81,10 +81,7 @@
 
         </LinearLayout>
 
-
-
         <ScrollView
-            android:layout_marginTop="190dp"
             android:background="@color/white"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -199,7 +196,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:textStyle="bold"
                         android:text="@string/my_income"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -235,8 +231,7 @@
                         android:layout_weight="1"
                         android:text="@string/user_inden"
                         android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        android:textSize="16sp" />
 
                     <TextView
                         android:id="@+id/tv_iden_flag"
@@ -276,7 +271,6 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:text="@string/user_security"
-                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -310,7 +304,6 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
                         android:text="@string/wallet_tool"
-                        android:textStyle="bold"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
 
@@ -344,7 +337,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:textStyle="bold"
                         android:text="@string/user_join"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -384,7 +376,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:textStyle="bold"
                         android:text="@string/question_feedback"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -419,7 +410,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:textStyle="bold"
                         android:text="@string/user_issue"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -454,7 +444,6 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="1"
-                        android:textStyle="bold"
                         android:text="@string/setting"
                         android:textColor="@color/black"
                         android:textSize="16sp" />
@@ -471,6 +460,6 @@
 
         </ScrollView>
 
-    </FrameLayout>
+    </LinearLayout>
 
 </layout>

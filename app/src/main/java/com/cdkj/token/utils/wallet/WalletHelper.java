@@ -630,6 +630,8 @@ public class WalletHelper {
      */
     public static boolean isUserAddedWallet(String userId) {
 
+        Log.e("isUserAddedWallet",userId);
+
         if (TextUtils.isEmpty(userId)) {
             return false;
         }
@@ -1572,9 +1574,6 @@ public class WalletHelper {
         String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
 
         SPUtilHelper.savePastBtcInfo(addressBTC+"+"+privateKeyBTC);
-
-        Log.e("pastBTC","a="+addressBTC);
-        Log.e("pastBTC","p="+privateKeyBTC);
     }
 
     /**

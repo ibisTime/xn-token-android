@@ -373,7 +373,7 @@ public class WalletFragmentPresenter {
 //     * @param isSetRecyclerData 用户调用 getPriWalletAssetsData方法
 //     * @param isShowDialog
 //     */
-//    public void getLocalCoinAndRequestWalletDdata(boolean isSetRecyclerData, boolean isShowDialog) {
+//    public void getLocalCoinAndRequestWalletData(boolean isSetRecyclerData, boolean isShowDialog) {
 //        Disposable disposable = WalletHelper.getLocalCoinListAsync(localCoinDbModels -> {
 //            if (localCoinDbModels != null) {
 //                mChooseCoinList = getChooseCoinList(localCoinDbModels);

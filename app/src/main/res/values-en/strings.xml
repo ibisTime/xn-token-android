@@ -1112,7 +1112,7 @@
     <string name="trade_pwd_input">Enter the trading password</string>
     <string name="trade_pwd_hint">Password is more than 6 digits or letters</string>
     <string name="trade_pwd_re_input">Confirm Transaction Password</string>
-    <string name="trade_pwd_warning">注:</string>
+    <string name="trade_pwd_warning">Note:</string>
     <string name="trade_pwd_rule1">Password, user unlocks all currency and  Crypto currency</string>
     <string name="trade_pwd_rule2">The transaction password is a local password, please keep it in a safe place. If you lose it, you will not be able to retrieve it.</string>
     <string name="trade_pwd_rule3">You can re-import the mnemonic by deleting the private key wallet to set a new password.</string>
@@ -1152,6 +1152,13 @@
     <string name="user_sms_code">Code</string>
     <string name="user_forget_title">Forgot</string>
     <string name="privacy_agreement_title">Privacy Service Agreement and Terms</string>
+    <string name="user_not_login">Not logged in</string>
+    <string name="activity_tradepwd_title_set">Set up a trading password</string>
+    <string name="activity_tradepwd_title">Set up a trading password</string>
+    <string name="pay_pwd_input">Enter the capital password</string>
+    <string name="please_input_pay_pwd">Please enter the capital password</string>
+    <string name="pay_pwd_re_input">Confirm capital Password</string>
+    <string name="please_check_pay_pwd">Please confirm capital Password</string>
 
 </resources>
 

@@ -357,7 +357,8 @@
         <activity android:name=".find.dapp.ShareActivity"
             android:screenOrientation="portrait"
             android:theme="@style/ActivityDialogStyleBottom"
-            android:windowSoftInputMode="adjustPan" />/>
+            android:windowSoftInputMode="adjustPan" />
+        <activity android:name=".wallet.trade_pwd.PayPwdActivity" />/>
 
     </application>
 

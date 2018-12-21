@@ -187,8 +187,6 @@ public class CountryCodeListActivity extends AbsActivity {
 
             AppConfig.changeLanguageForCountry(this, countryCodeListAdapter.getSelectInterCode(position));
             AppConfig.changeLocalCoinTypeForCountry(countryCodeListAdapter.getSelectInterCode(position));
-//            EventBus.getDefault().post(new AllFinishEvent());
-//            SignInActivity.open(this, true);
             finish();
         });
 

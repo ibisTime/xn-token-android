@@ -23,7 +23,7 @@ import com.cdkj.token.databinding.ActivityForgetPwdBinding;
 import com.cdkj.token.interfaces.UserTabLayoutInterface;
 import com.cdkj.token.user.CountryCodeListActivity;
 import com.cdkj.token.views.UserTableLayout;
-import com.cdkj.token.wallet.trade_pwd.TradePwdActivity;
+import com.cdkj.token.wallet.trade_pwd.PayPwdActivity;
 
 import static com.cdkj.token.views.UserTableLayout.LEFT;
 
@@ -36,26 +36,24 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
     // RC(REQUEST_CODE)
     public final static String RC_LOGIN_PWD_FIND_OUT = "login_pwd_find_out"; // 找回登陆密码
     public final static String RC_LOGIN_PWD_MODIFY = "login_pwd_modify"; // 修改登陆密码
-    public final static String RC_TRADE_PWD_MODIFY = "trade_pwd_modify"; // 修改资金密码
+    public final static String RC_PAY_PWD_MODIFY = "pay_pwd_modify"; // 修改资金密码（个人帐户）
 
     private ActivityForgetPwdBinding mBinding;
 
     private SendPhoneCodePresenter mSendCodePresenter;
 
-
-
     private String mobile = "";
     private String email = "";
-    private String code = "";
+    private String openType = "";
 
-    public static void open(Context context, String mobile, String email, String code) {
+    public static void open(Context context, String mobile, String email, String openType) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, ForgetPwdActivity.class);
         intent.putExtra(CdRouteHelper.DATASIGN, mobile);
         intent.putExtra(CdRouteHelper.DATASIGN2, email);
-        intent.putExtra(CdRouteHelper.DATASIGN3, code);
+        intent.putExtra(CdRouteHelper.DATASIGN3, openType);
         context.startActivity(intent);
     }
 
@@ -90,13 +88,13 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
         if (getIntent() != null) {
             mobile = getIntent().getStringExtra(CdRouteHelper.DATASIGN);
             email = getIntent().getStringExtra(CdRouteHelper.DATASIGN2);
-            code = getIntent().getStringExtra(CdRouteHelper.DATASIGN3);
+            openType = getIntent().getStringExtra(CdRouteHelper.DATASIGN3);
         }
         mBinding.edtMobile.getEditText().setText(mobile);
         mBinding.edtEmail.getEditText().setText(email);
 
         // 设置标题
-        switch (code){
+        switch (openType){
             case RC_LOGIN_PWD_FIND_OUT: // 找回登录密码: 忘记密码
                 setMidTitle(R.string.user_forget_title);
                 break;
@@ -105,9 +103,10 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
                 setMidTitle(R.string.user_setting_password);
                 break;
 
-            case RC_TRADE_PWD_MODIFY: // 修改资金密码
+            case RC_PAY_PWD_MODIFY: // 修改资金密码
                 setMidTitle(R.string.activity_paypwd_title);
                 break;
+
         }
     }
 
@@ -115,7 +114,7 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
         mBinding.edtMobile.getEditText().setInputType(InputType.TYPE_CLASS_PHONE);
         mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()));
 
-        if (TextUtils.equals(RC_LOGIN_PWD_MODIFY, code) || TextUtils.equals(RC_TRADE_PWD_MODIFY, code)){
+        if (TextUtils.equals(RC_LOGIN_PWD_MODIFY, openType) || TextUtils.equals(RC_PAY_PWD_MODIFY, openType)){
             // 修改登陆密码 和 修改资金密码时:
 
             // 邮箱和手机不可输入
@@ -159,6 +158,12 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
                 account = mBinding.edtEmail.getText().toString().trim();
             }
 
+            String code;
+            if (TextUtils.equals(RC_PAY_PWD_MODIFY, openType)){
+                code = PayPwdActivity.REQUEST_CODE;
+            } else {
+                code = FindOutPwdActivity.REQUEST_CODE;
+            }
             sendVerificationCode = new SendVerificationCode(
                     account, code, "C", SPUtilHelper.getCountryInterCode());
 
@@ -177,19 +182,19 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
                 account = mBinding.edtEmail.getText().toString().trim();
             }
 
-            if (TextUtils.isEmpty(code)){
+            if (TextUtils.isEmpty(openType)){
                 return;
             }
 
-            switch (code){
+            switch (openType){
 
                 case RC_LOGIN_PWD_FIND_OUT: // 找回登录密码
                 case RC_LOGIN_PWD_MODIFY: // 修改登录密码
                     FindOutPwdActivity.open(this, account, mBinding.edtCode.getText().toString().trim());
                     break;
 
-                case RC_TRADE_PWD_MODIFY: // 修改资金密码
-                    TradePwdActivity.open(this, TradePwdActivity.FiND_OUT, account, mBinding.edtCode.getText().toString().trim());
+                case RC_PAY_PWD_MODIFY: // 修改资金密码（个人帐户）
+                    PayPwdActivity.open(this, account, mBinding.edtCode.getText().toString().trim());
                     break;
 
             }

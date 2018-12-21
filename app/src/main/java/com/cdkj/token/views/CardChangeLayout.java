@@ -362,5 +362,8 @@ public class CardChangeLayout extends FrameLayout {
         void onChangeEnd(int index);//布局动画切换结束
     }
 
+    public void showBottomView(){
+        startAnimator(childTopView, childBottomView);
+    }
 
 }

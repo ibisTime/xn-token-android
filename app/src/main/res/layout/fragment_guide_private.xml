@@ -64,7 +64,7 @@
                 android:id="@+id/btn_import"
                 android:text="@string/guide_private_import"
                 android:textSize="15sp"
-                android:textColor="@color/gray_a7a7a7"
+                android:textColor="@color/black"
                 android:background="@drawable/corner_guide_btn"
                 android:layout_weight="1"
                 android:layout_width="0dp"

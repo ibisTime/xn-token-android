@@ -8,7 +8,6 @@ import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
-import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.interfaces.StartPagePresenter;
@@ -16,7 +15,6 @@ import com.cdkj.token.interfaces.StartPageView;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.user.guide.GuideActivity;
 import com.cdkj.token.utils.wallet.WalletHelper;
-import com.zqzn.idauth.sdk.IdResultCallback;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -30,7 +28,7 @@ import static com.cdkj.token.utils.UpdateUtil.startWeb;
  */
 @Route(path = CdRouteHelper.APPSTART)
 //public class SplashActivity extends BaseActivity implements StartPageView {
-public class SplashActivity extends BaseActivity implements StartPageView,IdResultCallback {
+public class SplashActivity extends BaseActivity implements StartPageView {
 
 
 
@@ -91,7 +89,6 @@ public class SplashActivity extends BaseActivity implements StartPageView,IdResu
 
     @Override
     public void startLogin() {
-//        SignInActivity.open(this, true);
         GuideActivity.open(this);
         finish();
     }
@@ -149,8 +146,4 @@ public class SplashActivity extends BaseActivity implements StartPageView,IdResu
         commonDialog.show();
     }
 
-    @Override
-    public void notifyResult(IdResult idResult) {
-        LogUtil.E(idResult.result_code+"");
-    }
 }

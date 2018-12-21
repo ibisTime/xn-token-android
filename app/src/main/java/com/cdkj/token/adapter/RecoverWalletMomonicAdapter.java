@@ -37,16 +37,16 @@ public class RecoverWalletMomonicAdapter extends BaseQuickAdapter<RecoverWalletM
 
         edtMemonic = helper.getView(R.id.edt_memonic);
 
-        if (helper.getLayoutPosition() == 0){
-            edtMemonic.setFocusable(true);
-            edtMemonic.setFocusableInTouchMode(true);
-            edtMemonic.requestFocus();
-        }else {
-            edtMemonic.setFocusable(false);
-            edtMemonic.setFocusableInTouchMode(false);
-            // 如果之前没设置过点击事件，该处可省略
-            edtMemonic.setOnClickListener(null);
-        }
+//        if (helper.getLayoutPosition() == 0){
+//            edtMemonic.setFocusable(true);
+//            edtMemonic.setFocusableInTouchMode(true);
+//            edtMemonic.requestFocus();
+//        }else {
+//            edtMemonic.setFocusable(false);
+//            edtMemonic.setFocusableInTouchMode(false);
+//            // 如果之前没设置过点击事件，该处可省略
+//            edtMemonic.setOnClickListener(null);
+//        }
 
         setEditTextInhibitInputSpace(helper, item, edtMemonic);
 

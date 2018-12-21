@@ -971,7 +971,7 @@
     <string name="trade_pwd_input">거래 설정 비밀번호를 입력해주세요</string>
     <string name="trade_pwd_hint">비밀번호는 6자리 이상의 숫자 혹은 알파벳입니다</string>
     <string name="trade_pwd_re_input">거래 비밀번호를 확인해주세요</string>
-    <string name="trade_pwd_warning">注:</string>
+    <string name="trade_pwd_warning">참고:</string>
     <string name="trade_pwd_rule1">비밀번호, 사용자가 모든 화폐와 암호 화폐 해제</string>
     <string name="trade_pwd_rule2">거래 비밀번호는 현지 비밀번호 입니다. 잘 보관해 주십시오. 분실시 되돌릴 방법이 없습니다.</string>
     <string name="trade_pwd_rule3">개인 키 지갑을 삭제하고 새로운 도입 연상 기호를 설정할 수 있습니다.</string>
@@ -1014,4 +1014,11 @@
     <string name="user_sms_code">인증번호</string>
 
     <string name="privacy_agreement_title">프라이버시 서비스 합의서와 약관</string>
+    <string name="user_not_login">미접속</string>
+    <string name="activity_tradepwd_title_set">거래 설정 비밀번호</string>
+    <string name="activity_tradepwd_title">거래 설정 비밀번호</string>
+    <string name="pay_pwd_input">자금 비밀번호 입력</string>
+    <string name="please_input_pay_pwd">자금 비밀번호 입력</string>
+    <string name="pay_pwd_re_input">거래 비밀번호를 확인해주세요</string>
+    <string name="please_check_pay_pwd">거래 비밀번호를 확인해주세요</string>
 </resources>

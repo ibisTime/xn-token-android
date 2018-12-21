@@ -67,13 +67,13 @@ public class MainActivity extends BaseActivity {
      */
     private void initListener() {
 
-        mBinding.layoutMainBottom.llConsult.setOnClickListener(v -> {
-            setShowIndex(CONSULT);
+        mBinding.layoutMainBottom.llWallet.setOnClickListener(v -> {
+            setShowIndex(WALLET);
 
         });
 
-        mBinding.layoutMainBottom.llWallet.setOnClickListener(v -> {
-            setShowIndex(WALLET);
+        mBinding.layoutMainBottom.llConsult.setOnClickListener(v -> {
+            setShowIndex(CONSULT);
 
         });
 
@@ -175,7 +175,6 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-//        CoinListService.close(this);
     }
 
 

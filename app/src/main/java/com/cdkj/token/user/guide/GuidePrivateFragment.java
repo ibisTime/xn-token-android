@@ -43,11 +43,11 @@ public class GuidePrivateFragment extends BaseLazyFragment {
 
     private void initListener() {
         mBinding.btnCreate.setOnClickListener(view -> {
-            TradePwdActivity.open(mActivity, TradePwdActivity.CREATE, null, null);
+            TradePwdActivity.open(mActivity, TradePwdActivity.CREATE);
         });
 
         mBinding.btnImport.setOnClickListener(view -> {
-            TradePwdActivity.open(mActivity, TradePwdActivity.RECOVER, null, null);
+            TradePwdActivity.open(mActivity, TradePwdActivity.RECOVER);
         });
     }
 

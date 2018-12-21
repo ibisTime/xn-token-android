@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.base.AbsLoadActivity;
 import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
@@ -14,10 +15,11 @@ import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.token.MainActivity;
 import com.cdkj.token.R;
 import com.cdkj.token.databinding.ActivityUserWalletBinding;
+import com.cdkj.token.user.guide.GuideActivity;
 import com.cdkj.token.utils.wallet.WalletHelper;
-import com.cdkj.token.wallet.WalletPasswordModifyActivity2;
 import com.cdkj.token.wallet.backup_guide.BackupWalletActivity;
 import com.cdkj.token.wallet.export.WalletExportPasswordCheckActivity;
+import com.cdkj.token.wallet.trade_pwd.TradePwdActivity;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -69,7 +71,9 @@ public class WalletToolActivity extends AbsLoadActivity {
         });
 
         //修改钱包密码
-        mBinding.llModify.setOnClickListener(view -> WalletPasswordModifyActivity2.open(this));
+        mBinding.llModify.setOnClickListener(view -> {
+            TradePwdActivity.open(this, TradePwdActivity.MODIFY);
+        });
         mBinding.llOut.setOnClickListener(view -> WalletExportPasswordCheckActivity.open(this));
 
         mBinding.btnDelete.setOnClickListener(view -> {
@@ -131,9 +135,21 @@ public class WalletToolActivity extends AbsLoadActivity {
     private void deleteWallet() {
         WalletHelper.deleteUserWallet(WalletHelper.WALLET_USER);
         UITipDialog.showSuccess(this, getString(R.string.wallet_delete_success), dialogInterface -> {
-            EventBus.getDefault().post(new AllFinishEvent());
-            MainActivity.open(this);
-            finish();
+
+            if (SPUtilHelper.isLoginNoStart()){
+
+                EventBus.getDefault().post(new AllFinishEvent());
+                MainActivity.open(this);
+                finish();
+
+            }else {
+
+                EventBus.getDefault().post(new AllFinishEvent());
+                GuideActivity.open(this);
+                finish();
+
+            }
+
         });
     }
 }

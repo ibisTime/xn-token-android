@@ -31,6 +31,8 @@ import retrofit2.Call;
 
 public class FindOutPwdActivity extends AbsStatusBarTranslucentActivity {
 
+    public static final String REQUEST_CODE = "805076";
+
     private ActivityFindOutPwdBinding mBinding;
 
     private String account;
@@ -137,7 +139,7 @@ public class FindOutPwdActivity extends AbsStatusBarTranslucentActivity {
         hashMap.put("interCode", SPUtilHelper.getCountryInterCode());
         hashMap.put("countryCode", SPUtilHelper.getCountryCode());
 
-        Call call = RetrofitUtils.getBaseAPiService().successRequest("805076", StringUtils.getRequestJsonString(hashMap));
+        Call call = RetrofitUtils.getBaseAPiService().successRequest(REQUEST_CODE, StringUtils.getRequestJsonString(hashMap));
 
         addCall(call);
 

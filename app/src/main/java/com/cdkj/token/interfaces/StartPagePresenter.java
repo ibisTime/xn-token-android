@@ -14,6 +14,7 @@ import com.cdkj.token.model.CountryCodeMode;
 import com.cdkj.token.model.SystemParameterModel;
 import com.cdkj.token.model.VersionModel;
 import com.cdkj.token.utils.wallet.WalletDBAegisUtils;
+import com.cdkj.token.utils.wallet.WalletHelper;
 
 import java.util.HashMap;
 import java.util.List;
@@ -215,7 +216,13 @@ public class StartPagePresenter {
         if (SPUtilHelper.isLoginNoStart()) {
             startMain();
         } else {
-            getCountryList();
+
+            if (WalletHelper.isUserAddedWallet(WalletHelper.WALLET_USER)){ // 有私钥钱包
+                startMain();
+            } else {
+                getCountryList();
+            }
+
         }
     }
 
