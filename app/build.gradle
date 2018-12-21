@@ -39,12 +39,12 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.cdkj.tha"
+        applicationId "com.cdkj.wallet"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 17
-        versionName "1.9.5"
-        flavorDimensions "17"
+        versionCode 1
+        versionName "1.0.0"
+        flavorDimensions "1"
 
         multiDexEnabled true
 
@@ -109,7 +109,7 @@ android {
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
-            outputFileName = "THA_${variant.buildType.name}_${variant.productFlavors[0].name}_${variant.versionName}_${releaseTime()}.apk"
+            outputFileName = "WALLET_${variant.buildType.name}_${variant.productFlavors[0].name}_${variant.versionName}_${releaseTime()}.apk"
         }
     }
 

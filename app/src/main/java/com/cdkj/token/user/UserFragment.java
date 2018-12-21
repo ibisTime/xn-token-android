@@ -34,8 +34,6 @@ import com.cdkj.token.user.credit.CreditActivity;
 import com.cdkj.token.user.invite.InviteActivity;
 import com.cdkj.token.user.question_feedback.QuestionFeedbackSubmitActivity;
 import com.cdkj.token.user.setting.UserSettingActivity;
-import com.cdkj.token.utils.wallet.WalletHelper;
-import com.cdkj.token.wallet.create_guide.CreateWalletStartActivity;
 
 import org.greenrobot.eventbus.Subscribe;
 
@@ -126,15 +124,6 @@ public class UserFragment extends BaseLazyFragment implements UserInfoInterface 
 
         //加入社群
         mBinding.joinUs.setOnClickListener(view -> UserJoinActivity.open(mActivity));
-        //钱包工具
-        mBinding.walletTool.setOnClickListener(view -> {
-            boolean isHasInfo = WalletHelper.isUserAddedWallet(SPUtilHelper.getUserId());
-            if (!isHasInfo) {
-                CreateWalletStartActivity.open(mActivity);
-                return;
-            }
-            WalletToolActivity.open(mActivity);
-        });
 
         //帮助中心
         mBinding.helper.setOnClickListener(view -> {

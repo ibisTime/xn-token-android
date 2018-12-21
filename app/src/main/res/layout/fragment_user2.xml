@@ -367,41 +367,6 @@
                             android:layout_marginLeft="48dp" />
 
                         <LinearLayout
-                            android:id="@+id/wallet_tool"
-                            android:layout_width="match_parent"
-                            android:layout_height="60dp"
-                            android:background="?attr/selectableItemBackground"
-                            android:gravity="center_vertical">
-
-                            <ImageView
-                                android:layout_width="@dimen/user_fragment_item_img_width"
-                                android:layout_height="@dimen/user_fragment_item_img_height"
-                                android:layout_marginLeft="15dp"
-                                android:src="@drawable/user_item_5" />
-
-                            <TextView
-                                android:layout_width="0dp"
-                                android:layout_height="wrap_content"
-                                android:layout_marginLeft="15dp"
-                                android:layout_weight="1"
-                                android:text="@string/wallet_tool"
-                                android:textColor="@color/black"
-                                android:textSize="14sp" />
-
-                            <ImageView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginRight="15dp"
-                                android:background="@mipmap/more" />
-
-                        </LinearLayout>
-
-
-                        <View
-                            style="@style/style_split_line"
-                            android:layout_marginLeft="48dp" />
-
-                        <LinearLayout
                             android:id="@+id/helper"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
