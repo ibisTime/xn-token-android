@@ -25,6 +25,8 @@ import java.util.LinkedHashMap;
 
 import retrofit2.Call;
 
+import static com.cdkj.baselibrary.utils.StringUtils.isEmail;
+
 /**
  * Created by cdkj on 2018/11/26.
  */
@@ -128,7 +130,7 @@ public class FindOutPwdActivity extends AbsStatusBarTranslucentActivity {
 
         HashMap<String, String> hashMap = new LinkedHashMap<String, String>();
 
-        hashMap.put("loginName", account);
+        hashMap.put("loginName", isEmail(account) ? account : SPUtilHelper.getCountryInterCode() + account);
         hashMap.put("newLoginPwd", mBinding.edtPassword.getText().toString());
         hashMap.put("smsCaptcha", smsCode);
         hashMap.put("kind", AppConfig.USERTYPE);
