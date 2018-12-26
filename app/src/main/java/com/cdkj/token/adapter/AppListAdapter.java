@@ -26,47 +26,9 @@ public class AppListAdapter extends BaseQuickAdapter<DAppModel, BaseViewHolder> 
         if (item == null) return;
 
         helper.setText(R.id.tv_title_app, item.getName());
+        helper.setText(R.id.tv_intro, item.getDesc());
+
         ImgUtils.loadImage(mContext, item.getPicList(), helper.getView(R.id.img_app));
-
-        switch (item.getGrade()){
-
-            case 0:
-                break;
-
-            case 1:
-                helper.setBackgroundRes(R.id.iv_star1, R.mipmap.dapp_stars_light);
-                break;
-
-            case 2:
-                helper.setBackgroundRes(R.id.iv_star1, R.mipmap.dapp_stars_light);
-                helper.setBackgroundRes(R.id.iv_star2, R.mipmap.dapp_stars_light);
-                break;
-
-            case 3:
-                helper.setBackgroundRes(R.id.iv_star1, R.mipmap.dapp_stars_light);
-                helper.setBackgroundRes(R.id.iv_star2, R.mipmap.dapp_stars_light);
-                helper.setBackgroundRes(R.id.iv_star3, R.mipmap.dapp_stars_light);
-                break;
-
-            case 4:
-                helper.setBackgroundRes(R.id.iv_star1, R.mipmap.dapp_stars_light);
-                helper.setBackgroundRes(R.id.iv_star2, R.mipmap.dapp_stars_light);
-                helper.setBackgroundRes(R.id.iv_star3, R.mipmap.dapp_stars_light);
-                helper.setBackgroundRes(R.id.iv_star4, R.mipmap.dapp_stars_light);
-                break;
-
-            case 5:
-            default:
-                helper.setBackgroundRes(R.id.iv_star1, R.mipmap.dapp_stars_light);
-                helper.setBackgroundRes(R.id.iv_star2, R.mipmap.dapp_stars_light);
-                helper.setBackgroundRes(R.id.iv_star3, R.mipmap.dapp_stars_light);
-                helper.setBackgroundRes(R.id.iv_star4, R.mipmap.dapp_stars_light);
-                helper.setBackgroundRes(R.id.iv_star5, R.mipmap.dapp_stars_light);
-                break;
-
-        }
-
-        helper.addOnClickListener(R.id.btn_start);
 
     }
 

@@ -167,31 +167,31 @@ public class FindFragment extends BaseLazyFragment {
 //            WebViewImgBgActivity.openContent(mActivity, recommendAppModel.getName(), recommendAppModel.getDescription());
         });
 
-        mBinding.btnTypeGame.setOnClickListener(view -> {
+        mBinding.tvTypeGame.setOnClickListener(view -> {
             initCategoryView();
 
-            mBinding.btnTypeGame.setTextColor(ContextCompat.getColor(mActivity, R.color.white));
-            mBinding.btnTypeGame.setBackgroundResource(R.mipmap.find_category);
+            mBinding.tvTypeGame.setTextColor(ContextCompat.getColor(mActivity, R.color.blue_0064ff));
+            mBinding.lineTypeGame.setVisibility(View.VISIBLE);
 
             category = CATEGORY_GAME;
             getDAPPList();
         });
 
-        mBinding.btnTypeInfo.setOnClickListener(view -> {
+        mBinding.tvTypeInfo.setOnClickListener(view -> {
             initCategoryView();
 
-            mBinding.btnTypeInfo.setTextColor(ContextCompat.getColor(mActivity, R.color.white));
-            mBinding.btnTypeInfo.setBackgroundResource(R.mipmap.find_category);
+            mBinding.tvTypeInfo.setTextColor(ContextCompat.getColor(mActivity, R.color.blue_0064ff));
+            mBinding.lineTypeInfo.setVisibility(View.VISIBLE);
 
             category = CATEGORY_INFO;
             getDAPPList();
         });
 
-        mBinding.btnTypeTool.setOnClickListener(view -> {
+        mBinding.tvTypeTool.setOnClickListener(view -> {
             initCategoryView();
 
-            mBinding.btnTypeTool.setTextColor(ContextCompat.getColor(mActivity, R.color.white));
-            mBinding.btnTypeTool.setBackgroundResource(R.mipmap.find_category);
+            mBinding.tvTypeTool.setTextColor(ContextCompat.getColor(mActivity, R.color.blue_0064ff));
+            mBinding.lineTypeTool.setVisibility(View.VISIBLE);
 
             category = CATEGORY_TOOL;
             getDAPPList();
@@ -199,14 +199,14 @@ public class FindFragment extends BaseLazyFragment {
     }
 
     private void initCategoryView(){
-        mBinding.btnTypeGame.setTextColor(ContextCompat.getColor(mActivity, R.color.gray_acacac));
-        mBinding.btnTypeGame.setBackgroundResource(R.mipmap.find_category_dark);
+        mBinding.tvTypeGame.setTextColor(ContextCompat.getColor(mActivity, R.color.gray_acacac));
+        mBinding.lineTypeGame.setVisibility(View.GONE);
 
-        mBinding.btnTypeInfo.setTextColor(ContextCompat.getColor(mActivity, R.color.gray_acacac));
-        mBinding.btnTypeInfo.setBackgroundResource(R.mipmap.find_category_dark);
+        mBinding.tvTypeInfo.setTextColor(ContextCompat.getColor(mActivity, R.color.gray_acacac));
+        mBinding.lineTypeInfo.setVisibility(View.GONE);
 
-        mBinding.btnTypeTool.setTextColor(ContextCompat.getColor(mActivity, R.color.gray_acacac));
-        mBinding.btnTypeTool.setBackgroundResource(R.mipmap.find_category_dark);
+        mBinding.tvTypeTool.setTextColor(ContextCompat.getColor(mActivity, R.color.gray_acacac));
+        mBinding.lineTypeTool.setVisibility(View.GONE);
     }
 
 

@@ -27,7 +27,6 @@ import static com.cdkj.token.utils.UpdateUtil.startWeb;
  * 启动页
  */
 @Route(path = CdRouteHelper.APPSTART)
-//public class SplashActivity extends BaseActivity implements StartPageView {
 public class SplashActivity extends BaseActivity implements StartPageView {
 
     public StartPagePresenter pagePresenter;

@@ -11,26 +11,23 @@
         android:orientation="vertical">
 
         <android.support.v7.widget.CardView
-            android:layout_marginRight="10dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="7dp"
+            android:layout_marginRight="7dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             app:cardCornerRadius="10dp"
             android:layout_width="match_parent"
-            android:layout_height="113dp">
+            android:layout_height="80dp">
             
             <LinearLayout
+                android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
 
-                <ImageView
-                    android:id="@+id/img_app"
-                    android:layout_width="78dp"
-                    android:scaleType="center"
-                    android:layout_height="match_parent"
-                    android:background="@color/gray_ebebeb" />
-
                 <LinearLayout
-                    android:gravity="center"
+                    android:layout_marginLeft="11dp"
+                    android:gravity="center_vertical"
                     android:orientation="vertical"
                     android:layout_width="0dp"
                     android:layout_weight="1"
@@ -38,66 +35,45 @@
 
                     <TextView
                         android:id="@+id/tv_title_app"
-                        android:textSize="14sp"
+                        android:textSize="16sp"
                         android:textStyle="bold"
+                        android:ellipsize="end"
+                        android:singleLine="true"
                         android:textColor="@color/black"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
 
-                    <LinearLayout
-                        android:layout_marginTop="10dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/iv_star1"
-                            android:background="@mipmap/dapp_stars_gray"
-                            android:layout_width="12dp"
-                            android:layout_height="12dp" />
-
-                        <ImageView
-                            android:id="@+id/iv_star2"
-                            android:background="@mipmap/dapp_stars_gray"
-                            android:layout_marginLeft="1dp"
-                            android:layout_width="12dp"
-                            android:layout_height="12dp" />
-
-                        <ImageView
-                            android:id="@+id/iv_star3"
-                            android:background="@mipmap/dapp_stars_gray"
-                            android:layout_marginLeft="1dp"
-                            android:layout_width="12dp"
-                            android:layout_height="12dp" />
-
-                        <ImageView
-                            android:id="@+id/iv_star4"
-                            android:background="@mipmap/dapp_stars_gray"
-                            android:layout_marginLeft="1dp"
-                            android:layout_width="12dp"
-                            android:layout_height="12dp" />
-
-                        <ImageView
-                            android:id="@+id/iv_star5"
-                            android:background="@mipmap/dapp_stars_gray"
-                            android:layout_marginLeft="1dp"
-                            android:layout_width="12dp"
-                            android:layout_height="12dp" />
-
-                    </LinearLayout>
-
-                    <Button
-                        android:id="@+id/btn_start"
-                        android:text="@string/dapp_start"
+                    <TextView
+                        android:id="@+id/tv_intro"
                         android:textSize="12sp"
-                        android:layout_marginTop="10dp"
-                        android:textColor="@color/blue"
-                        android:layout_marginLeft="7dp"
-                        android:layout_marginRight="7dp"
-                        android:background="@drawable/btn_find_blue_bg_line"
-                        android:layout_width="wrap_content"
-                        android:layout_height="25dp" />
+                        android:layout_marginTop="7dp"
+                        android:textColor="@color/gray_acacac"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                 </LinearLayout>
+
+                <android.support.v7.widget.CardView
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="7dp"
+                    app:cardCornerRadius="10dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp">
+
+                    <ImageView
+                        android:id="@+id/img_app"
+                        android:layout_width="match_parent"
+                        android:scaleType="center"
+                        android:layout_height="match_parent"
+                        android:background="@color/gray_ebebeb" />
+
+                </android.support.v7.widget.CardView>
+
+
+
+
 
             </LinearLayout>
 
