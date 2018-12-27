@@ -961,7 +961,7 @@
     <string name="signin_register"><![CDATA[회원가입 >]]></string>
     <string name="signin_forget"><![CDATA[비밀번호 되찾기 >]]></string>
     <string name="signup_seccess">계정 만들기가 성공 했습니다.</string>
-    <string name="signup_info">하나-스톱 디지털 자산 관리를 위한 길을 열어 축 하</string>
+    <string name="signup_info">원스톱 디지털 자산 관리의 길에 들어서신 것을 축하드립니다.</string>
     <string name="splash_info">원스톱 디지털 자산 관리 플랫폼</string>
     <string name="trade_pwd_input">거래 설정 비밀번호를 입력해주세요</string>
     <string name="trade_pwd_hint">비밀번호는 6자리 이상의 숫자 혹은 알파벳입니다</string>
@@ -981,11 +981,11 @@
     <string name="find_tools">공구류</string>
     <string name="find_infos">자문류</string>
     <string name="guide_person_title">개인 지갑</string>
-    <string name="guide_person_info">간편한 자산 관리, 절대 안전의 "예치 즉시 얼림" 신탁 방식. 개인 지갑은 안정적인 재산 재무 방안과 흥미 응용도 제공합니다.</string>
+    <string name="guide_person_info">편리한 자산 관리, 절대적으로 안전한 "예금 즉시 냉각" 관리 모드. 또한 개인 지갑은 안정적인 자산 재테크  방안과 재미 있는 응용 프로그램을 제공 합니다.</string>
     <string name="guide_person_in">개인 계좌에 접속</string>
     <string name="guide_person_up">개인 계좌 개설</string>
     <string name="guide_private_title">私钥钱包</string>
-    <string name="guide_private_info">Theia의 개인 키 지갑은 한 곳에 여러 개를 연결할 수 있는 지갑입니다. 당신이 가지고 있는 모든 연결된 자산을 간편하게 관리할 수 있습니다. 개인 키는 이곳에서 보관하므로 안전합니다.</string>
+    <string name="guide_private_info">THEIA의 개인 키 지갑은 편리하게 귀하의 모든 연결 된 자산을 관리할 수 있고, 개인 키가 본지에 저장되어 안전하고 신뢰할 수 있는  멀티 체인 지갑입니다.</string>
     <string name="guide_private_create">개인 키 지갑 만들기</string>
     <string name="guide_private_import">도입 연상 기호</string>
     <string name="signup_mobile">핸드폰 등록</string>
