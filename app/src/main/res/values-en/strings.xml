@@ -1098,7 +1098,7 @@
     <string name="dapp_guide">Guide</string>
     <string name="developing">Being under intense development…</string>
     <string name="user_password">Password</string>
-    <string name="user_email_hint2">Please enter the correct email address</string>
+    <string name="user_email_hint2">Mailbox Format error</string>
     <string name="forget_mobile">Retrieve phone password</string>
     <string name="forget_email">Retrieve email password</string>
     <string name="recover_title">Recover private key wallet</string>

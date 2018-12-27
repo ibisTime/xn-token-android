@@ -865,7 +865,7 @@
     <string name="dapp_guide">攻略</string>
     <string name="developing">正在紧张开发中…</string>
     <string name="user_password">密码</string>
-    <string name="user_email_hint2">请输入正确的邮箱地址</string>
+    <string name="user_email_hint2">邮箱格式错误</string>
     <string name="forget_mobile">手机找回</string>
     <string name="forget_email">邮箱找回</string>
     <string name="recover_title">恢复助记词钱包</string>

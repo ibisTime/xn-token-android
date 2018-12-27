@@ -26,6 +26,8 @@ import java.util.Map;
 
 import retrofit2.Call;
 
+import static com.cdkj.baselibrary.utils.StringUtils.isEmail;
+
 /**
  * 修改资金密码
  * Created by cdkj on 2017/6/29.
@@ -140,7 +142,7 @@ public class PayPwdActivity extends AbsStatusBarTranslucentActivity {
 
         Map<String, String> object = new HashMap<>();
 
-        object.put("loginName", account);
+        object.put("loginName", isEmail(account) ? account : SPUtilHelper.getCountryInterCode() + account);
         object.put("smsCaptcha", smsCode);
         object.put("newTradePwd", password);
         object.put("googleCaptcha", mBinding.edtGoogle.getText().toString());

@@ -949,7 +949,7 @@
     <string name="dapp_guide">공략</string>
     <string name="developing">긴장 발달의 한가운데에…</string>
     <string name="user_password">비밀번호</string>
-    <string name="user_email_hint2">이메일 형식이 맞지 않습니다.</string>
+    <string name="user_email_hint2">사서함 형식 오류</string>
     <string name="forget_mobile">핸드폰 회복</string>
     <string name="forget_email">이메일 회복</string>
     <string name="recover_title">연상 기호 지갑 복구</string>
