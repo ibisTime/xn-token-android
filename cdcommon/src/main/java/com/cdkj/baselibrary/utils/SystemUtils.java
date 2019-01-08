@@ -1,5 +1,6 @@
 package com.cdkj.baselibrary.utils;
 
+import android.annotation.SuppressLint;
 import android.content.ClipData;
 import android.content.ClipboardManager;
 import android.content.Context;
@@ -10,14 +11,12 @@ import android.os.Environment;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.Log;
-import android.widget.Toast;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.lang.reflect.Method;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
@@ -26,6 +25,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.Collection;
 import java.util.Enumeration;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
@@ -197,6 +197,7 @@ public class SystemUtils {
      * @param con
      * @return
      */
+    @SuppressLint("MissingPermission")
     public static String getIMEI(Context con) {
         try {
             TelephonyManager tm = (TelephonyManager) con.getSystemService(Context.TELEPHONY_SERVICE);
@@ -520,5 +521,15 @@ public class SystemUtils {
         return ip;
     }
 
+    public static Locale getSystemLanguage(Context con) {
+        Locale locale;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            locale = con.getResources().getConfiguration().getLocales().get(0);
+        } else {
+            locale = con.getResources().getConfiguration().locale;
+            locale= Locale.getDefault();
+        }
+        return locale;
+    }
 
 }

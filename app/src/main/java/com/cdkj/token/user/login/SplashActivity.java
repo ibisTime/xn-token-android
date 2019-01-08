@@ -45,7 +45,6 @@ public class SplashActivity extends BaseActivity implements StartPageView {
         }
 
         setContentView(R.layout.activity_start);
-
         WalletHelper.checkLastVersionWalletUser();
 
         pagePresenter = new StartPagePresenter(this);

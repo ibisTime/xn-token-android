@@ -5,7 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/ali_verification_sdk/ali_verification_sdk.iml" filepath="$PROJECT_DIR$/ali_verification_sdk/ali_verification_sdk.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/cdcommon/cdcommon.iml" filepath="$PROJECT_DIR$/cdcommon/cdcommon.iml" />
-      <module fileurl="file://$PROJECT_DIR$/xn-token-android.iml" filepath="$PROJECT_DIR$/xn-token-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/tha.iml" filepath="$PROJECT_DIR$/tha.iml" />
     </modules>
   </component>
 </project>

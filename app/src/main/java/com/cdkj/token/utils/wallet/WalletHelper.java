@@ -289,7 +289,6 @@ public class WalletHelper {
                 cursor.close();
             }
         }
-
         return string;
     }
 
@@ -303,7 +302,6 @@ public class WalletHelper {
         values.put(WalletDBColumn.CHOOSECOINIDS, coins);
         DataSupport.updateAll(UserConfigDBModel.class, values, FIND_USER_SQL, userId);
     }
-
 
     //获取本地所有缓存币种
     public static Disposable getLocalCoinListAsync(LocalCoinListGetListener listGetListener) {
@@ -470,7 +468,6 @@ public class WalletHelper {
 //        walletDBModel.setBtcPrivateKey(privateKeyBTC);
 
 
-
         return walletDBModel;
     }
 
@@ -630,7 +627,7 @@ public class WalletHelper {
      */
     public static boolean isUserAddedWallet(String userId) {
 
-        Log.e("isUserAddedWallet",userId);
+        Log.e("isUserAddedWallet", userId);
 
         if (TextUtils.isEmpty(userId)) {
             return false;
@@ -997,7 +994,7 @@ public class WalletHelper {
 
                     long afterFee = (148 * inputNum + 34 * 2 + 10) * rate; // 设置找零后输出 + 转账地址输出
 
-                    if (totalMoney >= (value + afterFee)){
+                    if (totalMoney >= (value + afterFee)) {
 
                         return afterFee;
 
@@ -1030,8 +1027,8 @@ public class WalletHelper {
 
         long totalMoney = 0; //utxo数量总值
 
-        if (CollectionUtils.isEmpty(unSpentBTCList)){ // BTC余额为0，没有UTXO时，默认一个输入，一个输出
-           return calMinerFee(1, 1, rate);
+        if (CollectionUtils.isEmpty(unSpentBTCList)) { // BTC余额为0，没有UTXO时，默认一个输入，一个输出
+            return calMinerFee(1, 1, rate);
         }
 
         for (UTXOModel us : unSpentBTCList) {
@@ -1050,7 +1047,7 @@ public class WalletHelper {
 
                 long afterFee = calMinerFee(inputNum, 2, rate); // 设置找零后输出 + 转账地址输出
 
-                if (totalMoney >= (value + afterFee)){
+                if (totalMoney >= (value + afterFee)) {
 
                     return afterFee;
 
@@ -1062,7 +1059,6 @@ public class WalletHelper {
 
             }
         }
-
 
 
         return fee;
@@ -1085,7 +1081,7 @@ public class WalletHelper {
 
         long totalMoney = 0; //utxo数量总值
 
-        if (CollectionUtils.isEmpty(unSpentBTCList)){ // BTC余额为0，没有UTXO时，默认一个输入，两个输出
+        if (CollectionUtils.isEmpty(unSpentBTCList)) { // BTC余额为0，没有UTXO时，默认一个输入，两个输出
             return calMinerFee(1, 2, rate);
         }
 
@@ -1105,7 +1101,7 @@ public class WalletHelper {
 
                 long afterFee = calMinerFee(inputNum, 3, rate); // 设置找零后输出 + 转账地址输出
 
-                if (totalMoney >= (value + afterFee)){
+                if (totalMoney >= (value + afterFee)) {
 
                     return afterFee;
 
@@ -1503,6 +1499,7 @@ public class WalletHelper {
 
     /**
      * 预估本次交易矿工费
+     *
      * @param inCount
      * @param outCount
      * @return
@@ -1556,9 +1553,10 @@ public class WalletHelper {
     }
 
 
-    public static void getPastBtcAddress(){
+    public static void getPastBtcAddress() {
 
-        List<String> memonic = getHelpWordsListByUserId(SPUtilHelper.getUserId());
+//        List<String> memonic = getHelpWordsListByUserId(SPUtilHelper.getUserId());
+        List<String> memonic = getHelpWordsListByUserId(WALLET_USER);
 
         if (memonic.size() == 0)
             return;
@@ -1573,25 +1571,25 @@ public class WalletHelper {
 
         String addressBTC = keyBTC.toAddress(getBtcMainNetParams()).toString();
 
-        Log.e("getPastBtcAddress",privateKeyBTC);
-        Log.e("getPastBtcAddress",addressBTC);
+        Log.e("getPastBtcAddress", privateKeyBTC);
+        Log.e("getPastBtcAddress", addressBTC);
 
-        SPUtilHelper.savePastBtcInfo(addressBTC+"+"+privateKeyBTC);
+        SPUtilHelper.savePastBtcInfo(addressBTC + "+" + privateKeyBTC);
     }
 
     /**
      * 兼容上一版本私钥钱包，默认取应用打开后第一个登录的用户的UserID取数据库获取私钥钱包，如果:
      * 有：
-     *  在用户删除以前使用当前UserId作为索引查询私钥钱包；删除后使用默认钱包用户 WALLET_USER_ACTIVE
+     * 在用户删除以前使用当前UserId作为索引查询私钥钱包；删除后使用默认钱包用户 WALLET_USER_ACTIVE
      * 无：
-     *  则钱包用户默认为 WALLET_USER_ACTIVE
+     * 则钱包用户默认为 WALLET_USER_ACTIVE
      */
-    public static void checkLastVersionWalletUser(){
+    public static void checkLastVersionWalletUser() {
 
         boolean isHasWallet = isUserAddedWallet(SPUtilHelper.getUserId());
 
         // 曾经有过私钥钱包
-        if (isHasWallet){
+        if (isHasWallet) {
             WALLET_USER = SPUtilHelper.getUserId();
         }
 

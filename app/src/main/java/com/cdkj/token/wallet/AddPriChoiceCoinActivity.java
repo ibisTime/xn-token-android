@@ -154,13 +154,21 @@ public class AddPriChoiceCoinActivity extends AbsRefreshListActivity {
 
             if (coinDbModel == null) continue;
 
-            if (!WalletHelper.userIsCoinChoosed(WalletHelper.WALLET_USER)) { //第一次配置全部选中
+            if (!WalletHelper.userIsCoinChoosed(WalletHelper.WALLET_USER)) { //第一次配置全部选中(只选中四个WAN  BTC   ETH   USDT)
 
-                coinDbModel.setChoose(true);
+                //WAN  BTC   ETH   USDT
+                if ("WAN".equalsIgnoreCase(coinDbModel.getSymbol()) || "BTC".equalsIgnoreCase(coinDbModel.getSymbol()) || "ETH".equalsIgnoreCase(coinDbModel.getSymbol()) || "USDT".equalsIgnoreCase(coinDbModel.getSymbol())) {
+                    coinDbModel.setChoose(true);
 
-                chooseBuf.append(coinDbModel.getSymbol());
+                    chooseBuf.append(coinDbModel.getSymbol());
 
-                chooseBuf.append(COIN_SYMBOL_SPACE_SYMBOL);
+                    chooseBuf.append(COIN_SYMBOL_SPACE_SYMBOL);
+                }
+//                coinDbModel.setChoose(true);
+//
+//                chooseBuf.append(coinDbModel.getSymbol());
+//
+//                chooseBuf.append(COIN_SYMBOL_SPACE_SYMBOL);
 
             } else {
                 coinDbModel.setChoose(TextUtils.indexOf(chooseCoins, coinDbModel.getSymbol()) != -1);  //判断用户是否配置了币种
@@ -190,6 +198,4 @@ public class AddPriChoiceCoinActivity extends AbsRefreshListActivity {
             userChooseCoinDBModel.save();
         }
     }
-
-
 }

@@ -118,7 +118,7 @@ public class PayPwdModifyActivity extends AbsActivity implements SendCodeInterfa
             }
         });
 
-//发送验证码
+        //发送验证码
         mBinding.btnSend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

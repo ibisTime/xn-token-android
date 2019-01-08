@@ -28,6 +28,8 @@ public class SignInEditClearCountryCodeLayout extends LinearLayout {
     public LayoutEditClearCountryCodeBinding mBinding;
 
     private String hintText;
+    private boolean minHint;//是否启用悬浮提示  默认启用
+    private boolean isShowClear;
 
     public SignInEditClearCountryCodeLayout(Context context) {
         this(context, null);
@@ -43,6 +45,8 @@ public class SignInEditClearCountryCodeLayout extends LinearLayout {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.sign_edit_clear_layout);
 
         hintText = ta.getString(R.styleable.sign_edit_clear_layout_hint_text);
+        minHint = ta.getBoolean(R.styleable.sign_edit_clear_layout_min_hint, true);
+        isShowClear = ta.getBoolean(R.styleable.sign_edit_clear_layout_is_show_clear, true);
         init();
     }
 
@@ -50,13 +54,14 @@ public class SignInEditClearCountryCodeLayout extends LinearLayout {
     private void init() {
 
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.layout_edit_clear_country_code, this, true);
-
         mBinding.edit.setHint(hintText);
-
         mBinding.edit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                //开始输入的时候就将提示浮现再上方
+                if (minHint) {
+                    mBinding.tvilEt.setHint(hintText);
+                }
             }
 
             @Override
@@ -66,6 +71,13 @@ public class SignInEditClearCountryCodeLayout extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable editable) {
+                String text = editable.toString();
+                //当内容全部删除时在将上浮的  提示浮动下来
+                if (TextUtils.isEmpty(text)) {
+                    if (minHint) {
+                        mBinding.tvilEt.setHint("");
+                    }
+                }
 
             }
         });
@@ -98,7 +110,7 @@ public class SignInEditClearCountryCodeLayout extends LinearLayout {
         if (TextUtils.isEmpty(getText())) {
             mBinding.imgEditClear.setVisibility(GONE);
         } else {
-            mBinding.imgEditClear.setVisibility(VISIBLE);
+            mBinding.imgEditClear.setVisibility(isShowClear ? VISIBLE : GONE);
         }
     }
 
@@ -108,6 +120,16 @@ public class SignInEditClearCountryCodeLayout extends LinearLayout {
 
     public EditText getEditText() {
         return mBinding.edit;
+    }
+
+    public void setIsShowClear(boolean isShowClear) {
+        this.isShowClear = isShowClear;
+        mBinding.imgEditClear.setVisibility(isShowClear ? VISIBLE : GONE);
+    }
+
+    public void setMinHint(boolean minHint) {
+        this.minHint = minHint;
+        mBinding.tvilEt.setHint(minHint ? hintText : "");
     }
 
     public TextView getLeftTextView() {

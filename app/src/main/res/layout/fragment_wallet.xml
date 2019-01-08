@@ -83,6 +83,7 @@
                     android:layout_height="wrap_content" />
 
                 <ScrollView
+                    android:fillViewport="true"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:scrollbars="none">
@@ -143,14 +144,17 @@
                             android:layout_width="match_parent"
                             android:layout_height="0dp"
                             android:layout_weight="1"
-
                             android:descendantFocusability="blocksDescendants">
 
                             <android.support.v7.widget.RecyclerView
+
                                 android:id="@+id/rv_wallet"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:overScrollMode="never" />
+                            <View
+                                android:layout_width="1dp"
+                                android:layout_height="match_parent"/>
 
                         </RelativeLayout>
 

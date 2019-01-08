@@ -25,6 +25,9 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Call;
 
+import static com.cdkj.baselibrary.appmanager.AppConfig.ENGLISH;
+import static com.cdkj.baselibrary.appmanager.AppConfig.KOREA;
+import static com.cdkj.baselibrary.appmanager.AppConfig.SIMPLIFIED;
 import static com.cdkj.token.utils.wallet.WalletHelper.HELPWORD_SPACE_SYMBOL;
 
 /**
@@ -195,12 +198,25 @@ public class StartPagePresenter {
 
     /**
      * 获取第一个国家并保存国家信息
+     * <p>
+     * //修改为  获取sp中保存的对应国家 并保存国家信息  如果返回的列表中没有对应的储存的国家信息(基本不会出现)则再获取第一个国家的信息并保存
      *
      * @param data
      */
     private void checkCountryAndSave(List<CountryCodeMode> data) {
         if (data == null || data.isEmpty()) return;
-        CountryCodeMode countryCodeMode = data.get(0);
+        CountryCodeMode countryCodeMode = null;
+        for (CountryCodeMode mode : data) {
+            if (checkCountry(mode)) {
+                //检查到就跳出循环
+                countryCodeMode = mode;
+                break;
+            }
+        }
+        if (countryCodeMode == null) {
+            //如果遍历完了  还是为空就说明没有匹配到对应的国家 那么就取返回列表的第一个
+            countryCodeMode = data.get(0);
+        }
         if (countryCodeMode == null) return;
         SPUtilHelper.saveCountryInterCode(countryCodeMode.getInterCode());
         SPUtilHelper.saveCountryCode(countryCodeMode.getCode());
@@ -210,6 +226,34 @@ public class StartPagePresenter {
     }
 
     /**
+     * 检查国家对应语言
+     */
+    private boolean checkCountry(CountryCodeMode mode) {
+        String language = SPUtilHelper.getLanguage();
+        switch (language) {
+            case ENGLISH:
+
+                if ("UK".equalsIgnoreCase(mode.getInterSimpleCode()) || "US".equalsIgnoreCase(mode.getInterSimpleCode())) {
+                    return true;
+                }
+                break;
+            case KOREA:
+                if ("KR".equalsIgnoreCase(mode.getInterSimpleCode())) {
+                    return true;
+                }
+                break;
+            case SIMPLIFIED:
+
+                if ("ZH".equalsIgnoreCase(mode.getInterSimpleCode())) {
+                    return true;
+                }
+                break;
+        }
+        return false;
+    }
+
+
+    /**
      * 获取七牛之后 判断用户是否登录 没登录进行国家匹配
      */
     private void qiniuAfter() {
@@ -217,7 +261,7 @@ public class StartPagePresenter {
             startMain();
         } else {
 
-            if (WalletHelper.isUserAddedWallet(WalletHelper.WALLET_USER)){ // 有私钥钱包
+            if (WalletHelper.isUserAddedWallet(WalletHelper.WALLET_USER)) { // 有私钥钱包
                 startMain();
             } else {
                 getCountryList();

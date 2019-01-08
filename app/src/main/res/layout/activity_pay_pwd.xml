@@ -8,36 +8,37 @@
     </data>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingLeft="33dp"
         android:paddingRight="33dp"
-        tool:background="@mipmap/app_page_bg_new"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        tool:background="@mipmap/app_page_bg_new">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
             android:text="@string/pay_pwd_input"
-            android:textStyle="bold"
-            android:textSize="16sp"
             android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <com.cdkj.token.views.SignInEditClearImageLayout
             android:id="@+id/edt_trade_password"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:hint_text="@string/please_input_pay_pwd" />
+            app:hint_text="@string/please_input_pay_pwd"
+            />
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/pay_pwd_re_input"
-            android:textStyle="bold"
-            android:textSize="16sp"
             android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <com.cdkj.token.views.SignInEditClearImageLayout
             android:id="@+id/edt_re_trade_password"
@@ -47,32 +48,32 @@
 
         <TextView
             android:id="@+id/tv_google"
-            android:visibility="gone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
             android:text="@string/activity_find_google"
-            android:textStyle="bold"
-            android:textSize="16sp"
             android:textColor="@color/white"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:visibility="gone" />
 
         <com.cdkj.token.views.SignInEditClearImageLayout
             android:id="@+id/edt_google"
-            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:visibility="gone"
             app:hint_text="@string/activity_find_google_hint" />
 
         <Button
             android:id="@+id/btn_success"
-            android:text="@string/confirm"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
             android:layout_marginTop="75dp"
             android:background="@drawable/btn_sign_bg"
-            android:layout_width="match_parent"
-            android:layout_height="45dp" />
+            android:text="@string/confirm"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 </layout>

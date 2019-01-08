@@ -26,6 +26,8 @@ public class SignInEditClearLayout extends LinearLayout {
 
     private String title;
     private String hintText;
+    private boolean minHint;
+    private boolean isShowClear;
 
     public SignInEditClearLayout(Context context) {
         this(context, null);
@@ -42,6 +44,8 @@ public class SignInEditClearLayout extends LinearLayout {
 
         title = ta.getString(R.styleable.sign_edit_clear_layout_title);
         hintText = ta.getString(R.styleable.sign_edit_clear_layout_hint_text);
+        minHint = ta.getBoolean(R.styleable.sign_edit_clear_layout_min_hint, true);
+        isShowClear = ta.getBoolean(R.styleable.sign_edit_clear_layout_is_show_clear, true);
         init();
     }
 
@@ -49,14 +53,16 @@ public class SignInEditClearLayout extends LinearLayout {
     private void init() {
 
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.layout_edit_clear, this, true);
-
         mBinding.tvTitle.setText(title);
         mBinding.edit.setHint(hintText);
+
 
         mBinding.edit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                if (minHint) {
+                    mBinding.tvilEt.setHint(hintText);
+                }
             }
 
             @Override
@@ -66,7 +72,12 @@ public class SignInEditClearLayout extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                String text = editable.toString();
+                if (TextUtils.isEmpty(text)) {
+                    if (minHint) {
+                        mBinding.tvilEt.setHint("");
+                    }
+                }
             }
         });
 
@@ -93,7 +104,7 @@ public class SignInEditClearLayout extends LinearLayout {
         if (TextUtils.isEmpty(getText())) {
             mBinding.imgEditClear.setVisibility(GONE);
         } else {
-            mBinding.imgEditClear.setVisibility(VISIBLE);
+            mBinding.imgEditClear.setVisibility(isShowClear ? VISIBLE : GONE);
         }
     }
 
@@ -105,4 +116,13 @@ public class SignInEditClearLayout extends LinearLayout {
         return mBinding.edit;
     }
 
+    public void setIsShowClear(boolean isShowClear) {
+        this.isShowClear = isShowClear;
+        mBinding.imgEditClear.setVisibility(isShowClear ? VISIBLE : GONE);
+    }
+
+    public void setMinHint(boolean minHint) {
+        this.minHint = minHint;
+        mBinding.tvilEt.setHint(minHint ? hintText : "");
+    }
 }

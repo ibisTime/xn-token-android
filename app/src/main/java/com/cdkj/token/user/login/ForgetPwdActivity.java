@@ -59,7 +59,7 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
 
     @Override
     public View addContentView() {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_forget_pwd,null,false);
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_forget_pwd, null, false);
         return mBinding.getRoot();
     }
 
@@ -77,7 +77,7 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
     @Override
     public void onResume() {
         super.onResume();
-        if (null != mBinding){
+        if (null != mBinding) {
             mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()));
         }
     }
@@ -94,7 +94,7 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
         mBinding.edtEmail.getEditText().setText(email);
 
         // 设置标题
-        switch (openType){
+        switch (openType) {
             case RC_LOGIN_PWD_FIND_OUT: // 找回登录密码: 忘记密码
                 setMidTitle(R.string.user_forget_title);
                 break;
@@ -114,21 +114,24 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
         mBinding.edtMobile.getEditText().setInputType(InputType.TYPE_CLASS_PHONE);
         mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()));
 
-        if (TextUtils.equals(RC_LOGIN_PWD_MODIFY, openType) || TextUtils.equals(RC_PAY_PWD_MODIFY, openType)){
+        if (TextUtils.equals(RC_LOGIN_PWD_MODIFY, openType) || TextUtils.equals(RC_PAY_PWD_MODIFY, openType)) {
             // 修改登陆密码 和 修改资金密码时:
 
             // 邮箱和手机不可输入
             mBinding.edtMobile.getEditText().setEnabled(false);
             mBinding.edtEmail.getEditText().setEnabled(false);
-
+            mBinding.edtMobile.setIsShowClear(false);
+            mBinding.edtEmail.setIsShowClear(false);
+            mBinding.edtMobile.setMinHint(false);
+            mBinding.edtEmail.setMinHint(false);
             // 切换Tab隐藏，只显示 邮箱 或 手机 其中一种方式
             mBinding.tlSignUP.setVisibility(View.GONE);
             // 是否有手机号，没有则替换为邮箱
-            if (TextUtils.isEmpty(mobile)){
+            if (TextUtils.isEmpty(mobile)) {
                 mBinding.tlSignUP.setPosition(UserTableLayout.RIGHT);
                 mBinding.edtMobile.setVisibility(View.GONE);
                 mBinding.edtEmail.setVisibility(View.VISIBLE);
-            }else {
+            } else {
                 mBinding.tlSignUP.setPosition(UserTableLayout.LEFT);
                 mBinding.edtMobile.setVisibility(View.VISIBLE);
                 mBinding.edtEmail.setVisibility(View.GONE);
@@ -152,14 +155,14 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
 
             String account;
             SendVerificationCode sendVerificationCode;
-            if (mBinding.tlSignUP.getPosition() == LEFT){
+            if (mBinding.tlSignUP.getPosition() == LEFT) {
                 account = mBinding.edtMobile.getText().toString().trim();
-            }else {
+            } else {
                 account = mBinding.edtEmail.getText().toString().trim();
             }
 
             String code;
-            if (TextUtils.equals(RC_PAY_PWD_MODIFY, openType)){
+            if (TextUtils.equals(RC_PAY_PWD_MODIFY, openType)) {
                 code = PayPwdActivity.REQUEST_CODE;
             } else {
                 code = FindOutPwdActivity.REQUEST_CODE;
@@ -176,17 +179,17 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
             }
 
             String account;
-            if (mBinding.tlSignUP.getPosition() == LEFT){
+            if (mBinding.tlSignUP.getPosition() == LEFT) {
                 account = mBinding.edtMobile.getText().toString().trim();
-            }else {
+            } else {
                 account = mBinding.edtEmail.getText().toString().trim();
             }
 
-            if (TextUtils.isEmpty(openType)){
+            if (TextUtils.isEmpty(openType)) {
                 return;
             }
 
-            switch (openType){
+            switch (openType) {
 
                 case RC_LOGIN_PWD_FIND_OUT: // 找回登录密码
                 case RC_LOGIN_PWD_MODIFY: // 修改登录密码
@@ -205,21 +208,21 @@ public class ForgetPwdActivity extends AbsStatusBarTranslucentActivity implement
 
     private boolean check(String type) {
 
-        if (mBinding.tlSignUP.getPosition() == LEFT){
+        if (mBinding.tlSignUP.getPosition() == LEFT) {
 
             if (TextUtils.isEmpty(mBinding.edtMobile.getText().toString().trim())) {
                 UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_mobile_hint));
                 return false;
             }
 
-        }else {
+        } else {
 
             if (TextUtils.isEmpty(mBinding.edtEmail.getText().toString().trim())) {
                 UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_email_hint));
                 return false;
             }
 
-            if (!StringUtils.isEmail(mBinding.edtEmail.getText().toString().trim())){
+            if (!StringUtils.isEmail(mBinding.edtEmail.getText().toString().trim())) {
                 UITipDialog.showInfoNoIcon(this, getString(R.string.user_email_hint2));
                 return false;
             }

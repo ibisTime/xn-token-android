@@ -407,21 +407,6 @@ public class SPUtilHelper {
         return SPUtils.getString(CdApplication.getContext(), "pattern_key", "");
     }
 
-    /**
-     * 创建钱包时的钱包信息暂时备份，备份之后会被清除（用户只有在备份之后这个钱包信息才被认可）
-     *
-     * @param s
-     */
-    public static void createWalletCache(String s) {
-        SPUtils.put(CdApplication.getContext(), "create_wallet_cache", s);
-    }
-
-    /**
-     * 获取创建钱包时的钱包信息暂时备份
-     */
-    public static String getWalletCache() {
-        return SPUtils.getString(CdApplication.getContext(), "create_wallet_cache", "");
-    }
 
     /**
      * 钱包界面资产显示还是隐藏
@@ -447,9 +432,27 @@ public class SPUtilHelper {
     }
 
 
+
+    /**
+     * 创建钱包时的钱包信息暂时备份，备份之后会被清除（用户只有在备份之后这个钱包信息才被认可）
+     *
+     * @param s
+     */
+    public static void createWalletCache(String s) {
+        SPUtils.put(CdApplication.getContext(), "create_wallet_cache", s);
+    }
+
+    /**
+     * 获取创建钱包时的钱包信息暂时备份
+     */
+    public static String getWalletCache() {
+        return SPUtils.getString(CdApplication.getContext(), "create_wallet_cache", "");
+    }
+
     /**
      * 保存194之前版本的错误的BTC地址的地址和私钥，用于获取之前地址的BTC余额和转账
      * 以 地址+私钥 的形式保存
+     *
      * @param s
      */
     public static void savePastBtcInfo(String s) {
@@ -465,7 +468,6 @@ public class SPUtilHelper {
 
     /**
      * 设置新手指导是否显示
-     *
      */
     public static void saveRookieGuideShowed() {
         SPUtils.put(CdApplication.getContext(), "is_rookie_guide_show", true);
@@ -477,5 +479,20 @@ public class SPUtilHelper {
     public static boolean isRookieGuideShow() {
         return SPUtils.getBoolean(CdApplication.getContext(), "is_rookie_guide_show", false);
     }
+
+    /**
+     * 设置是否第一次进入app  是否第一次打开  第一次打开默认为true
+     */
+    public static void saveFirstOpen() {
+        SPUtils.put(CdApplication.getContext(), "is_first_open", false);
+    }
+
+    /**
+     * 获取否第一次进入app  是否第一次打开  第一次打开默认为true
+     */
+    public static boolean isFirstOpen() {
+        return SPUtils.getBoolean(CdApplication.getContext(), "is_first_open", true);
+    }
+
 
 }

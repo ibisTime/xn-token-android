@@ -8,102 +8,103 @@
     </data>
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical"
         android:paddingLeft="33dp"
         android:paddingRight="33dp"
-        tool:background="@mipmap/app_page_bg_new"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        tool:background="@mipmap/app_page_bg_new">
 
 
         <com.cdkj.token.views.UserTableLayout
             android:id="@+id/tl_signUP"
-            android:layout_marginTop="70dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="70dp"
             app:title_left="@string/signin_mobile"
-            app:title_right="@string/signin_email"
-            />
+            app:title_right="@string/signin_email" />
 
         <LinearLayout
-            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
 
             <com.cdkj.token.views.SignInEditClearCountryCodeLayout
                 android:id="@+id/edt_mobile"
-                android:layout_marginTop="23dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="23dp"
                 app:hint_text="@string/user_sign_in_mobile_hint" />
+
 
             <com.cdkj.token.views.SignInEditClearLayout
                 android:id="@+id/edt_email"
-                android:visibility="gone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="23dp"
-                app:title="@string/user_email"
-                app:hint_text="@string/user_email_hint" />
+                android:visibility="gone"
+                app:hint_text="@string/user_email_hint"
+                app:title="@string/user_email" />
 
             <com.cdkj.token.views.SignInEditClearLayout
                 android:id="@+id/edt_pwd"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="23dp"
-                app:title="@string/user_password"
-                app:hint_text="@string/user_password_hint" />
+                app:hint_text="@string/user_password_hint"
+                app:title="@string/user_password" />
 
         </LinearLayout>
 
         <Button
             android:id="@+id/btn_signIn"
-            android:text="@string/signin"
-            android:textSize="16sp"
-            android:textColor="@color/white"
-            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
             android:layout_marginTop="42dp"
             android:background="@drawable/btn_sign_bg"
-            android:layout_width="match_parent"
-            android:layout_height="45dp" />
+            android:text="@string/signin"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
         <LinearLayout
-            android:gravity="center"
-            android:layout_marginTop="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center">
+
             <TextView
                 android:id="@+id/tv_signUP"
-                android:text="@string/signin_register"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            
+                android:layout_height="wrap_content"
+                android:text="@string/signin_register"
+                android:textColor="@color/white" />
+
             <View
+                android:layout_width="1dp"
+                android:layout_height="12dp"
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp"
-                android:background="@color/white"
-                android:layout_width="1dp"
-                android:layout_height="12dp"/>
+                android:background="@color/white" />
 
             <TextView
                 android:id="@+id/tv_forget"
-                android:text="@string/signin_forget"
-                android:textColor="@color/white"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
-            
+                android:layout_height="wrap_content"
+                android:text="@string/signin_forget"
+                android:textColor="@color/white" />
+
         </LinearLayout>
 
         <ImageView
             android:id="@+id/img_tha"
-            android:visibility="gone"
             android:layout_width="108dp"
             android:layout_height="49dp"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="43dp"
-            android:src="@drawable/icon_sign_in" />
-        
+            android:src="@drawable/icon_sign_in"
+            android:visibility="gone" />
+
     </LinearLayout>
 </layout>

@@ -25,6 +25,8 @@ public class SignInEditClearImageLayout extends LinearLayout {
     public LayoutEditImageClearBinding mBinding;
 
     private String hintText;
+    private boolean minHint;
+    private boolean isShowClear;
 
     public SignInEditClearImageLayout(Context context) {
         this(context, null);
@@ -40,6 +42,8 @@ public class SignInEditClearImageLayout extends LinearLayout {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.sign_edit_clear_layout);
 
         hintText = ta.getString(R.styleable.sign_edit_clear_layout_hint_text);
+        minHint = ta.getBoolean(R.styleable.sign_edit_clear_layout_min_hint, true);
+        isShowClear = ta.getBoolean(R.styleable.sign_edit_clear_layout_is_show_clear, true);
         init();
     }
 
@@ -47,13 +51,15 @@ public class SignInEditClearImageLayout extends LinearLayout {
     private void init() {
 
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.layout_edit_image_clear, this, true);
-
         mBinding.edit.setHint(hintText);
+
 
         mBinding.edit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                if (minHint) {
+                    mBinding.tvilEt.setHint(hintText);
+                }
             }
 
             @Override
@@ -63,7 +69,12 @@ public class SignInEditClearImageLayout extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                String text = editable.toString();
+                if (TextUtils.isEmpty(text)) {
+                    if (minHint) {
+                        mBinding.tvilEt.setHint("");
+                    }
+                }
             }
         });
 
@@ -90,7 +101,7 @@ public class SignInEditClearImageLayout extends LinearLayout {
         if (TextUtils.isEmpty(getText())) {
             mBinding.imgEditClear.setVisibility(GONE);
         } else {
-            mBinding.imgEditClear.setVisibility(VISIBLE);
+            mBinding.imgEditClear.setVisibility(isShowClear ? VISIBLE : GONE);
         }
     }
 

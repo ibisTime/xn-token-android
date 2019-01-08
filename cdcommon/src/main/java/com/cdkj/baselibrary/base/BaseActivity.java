@@ -13,10 +13,12 @@ import android.widget.EditText;
 
 import com.cdkj.baselibrary.R;
 import com.cdkj.baselibrary.appmanager.OtherLibManager;
+import com.cdkj.baselibrary.appmanager.SPUtilHelper;
 import com.cdkj.baselibrary.dialog.CommonDialog;
 import com.cdkj.baselibrary.dialog.LoadingDialog;
 import com.cdkj.baselibrary.model.AllFinishEvent;
 import com.cdkj.baselibrary.utils.AppUtils;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.baselibrary.utils.UIStatusBarHelper;
 
@@ -60,6 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         mCallList = new ArrayList<>();
 
         AppUtils.setAppLanguage(this, getUserLanguageLocal());   //设置用户使用语言
+        LogUtil.E("当前语言为:baseactivity"+SPUtilHelper.getLanguage());
     }
 
 

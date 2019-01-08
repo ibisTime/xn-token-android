@@ -52,15 +52,14 @@ public class CreateWalletSuccessActivity extends AbsStatusBarTranslucentActivity
         //立即备份
         mBinding.btnNowBackup.setOnClickListener(view -> {
 //            BackupWalletStartActivity.open(this, false);
-            BackupWalletActivity.open(this,false);
+            BackupWalletActivity.open(this, false);
             finish();
         });
 
         //稍后备份
         mBinding.btnLater.setOnClickListener(view -> {
-
             WalletDBModel walletDBModel = JSON.parseObject(SPUtilHelper.getWalletCache(), WalletDBModel.class);
-            if (walletDBModel.save()){
+            if (walletDBModel.save()) {
                 SPUtilHelper.createWalletCache("");  //清除缓存
                 EventBus.getDefault().post(new AllFinishEvent()); //结束所有界面
                 MainActivity.open(CreateWalletSuccessActivity.this);

@@ -23,6 +23,7 @@ import com.cdkj.token.adapter.HelpWordsGridCheckAdapter;
 import com.cdkj.token.databinding.ActivityBackupWalletWordsCheck2Binding;
 import com.cdkj.token.model.HelpWordsCheckModel;
 import com.cdkj.token.model.db.WalletDBModel;
+import com.cdkj.token.utils.TipHelper;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.android.flexbox.FlexboxLayout;
@@ -116,8 +117,8 @@ public class BackupWalletWordsCheckActivity extends AbsStatusBarTranslucentActiv
                         return;
                     }
                     mChooseWordList.add(checkModel.getWords());
-
                     checkModel.setChoose(true);
+                    TipHelper.Vibrate(BackupWalletWordsCheckActivity.this, 100);
                     helpWordsGridAdapter.notifyItemChanged(position);
                     addChooseViewByWords(checkModel, position);
                 }
@@ -125,7 +126,7 @@ public class BackupWalletWordsCheckActivity extends AbsStatusBarTranslucentActiv
         }
     }
 
-    private void initListener(){
+    private void initListener() {
         mBinding.btnOk.setOnClickListener(view -> {
             if (mChooseWordList.size() >= 12) {
                 checkInputWords();
@@ -241,7 +242,7 @@ public class BackupWalletWordsCheckActivity extends AbsStatusBarTranslucentActiv
         // 获取助记词输入框宽度 = 原始屏幕宽度 - 两边边距 - 每个助记词的边距
         int screenWidth = DisplayHelper.getScreenWidth(this) - DisplayHelper.dp2px(this, 50) - DisplayHelper.dp2px(this, 24);
 
-        textView.setWidth(screenWidth/3);
+        textView.setWidth(screenWidth / 3);
         textView.setHeight(DisplayHelper.dp2px(this, 40));
 
         textView.setGravity(Gravity.CENTER);
@@ -251,7 +252,6 @@ public class BackupWalletWordsCheckActivity extends AbsStatusBarTranslucentActiv
         textView.setTag(position);
 
 
-
         textView.setOnClickListener(new View.OnClickListener() {      //用户点击已经选择的View
             @Override
             public void onClick(View view) {
@@ -259,9 +259,10 @@ public class BackupWalletWordsCheckActivity extends AbsStatusBarTranslucentActiv
                 mBinding.flexLayout.removeView(textView);
                 HelpWordsCheckModel helpWordsCheckModel = helpWordsGridAdapter.getItem(position);
                 helpWordsCheckModel.setChoose(false);
+                TipHelper.Vibrate(BackupWalletWordsCheckActivity.this, 100);
                 helpWordsGridAdapter.notifyItemChanged((int) textView.getTag());
 
-                if (mChooseWordList.size() == 0){
+                if (mChooseWordList.size() == 0) {
                     mBinding.tvTip.setVisibility(View.VISIBLE);
                 }
             }

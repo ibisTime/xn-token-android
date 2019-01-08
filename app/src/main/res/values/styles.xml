@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -55,7 +55,8 @@
     <declare-styleable name="sign_edit_clear_layout">
         <attr name="hint_text" format="string" />//输入框输入状态颜色
         <attr name="title" format="string" />//输入框输入状态颜色
-
+        <attr name="min_hint" format="boolean" />//是否启用悬浮的小提示 默认启用
+        <attr name="is_show_clear" format="boolean" />//是否启清除按钮  默认启用
     </declare-styleable>
 
     <declare-styleable name="sign_pwd_rule">
@@ -99,5 +100,17 @@
         <attr name="plv_lineWidth" format="dimension|reference" />
         <attr name="plv_enableAutoClean" format="boolean|reference" />
     </declare-styleable>
+
+    <style name="CustomAppTheme_textinputLayout" parent="Theme.AppCompat.Light.NoActionBar">
+
+        <item name="colorAccent">#3498db</item>
+        <item name="android:textColorHint">@color/white</item>
+        <item name="colorControlNormal">@color/white</item>
+        <item name="colorControlActivated">@color/white</item>
+        <item name="colorControlHighlight">@color/white</item>
+        <item name="android:windowTranslucentStatus" tools:ignore="NewApi">true</item>
+        <!--还可以设置  上浮文字的大小  颜色  眼睛以及自定义眼睛图片 错误信息提示等等-->
+    </style>
+
 
 </resources>

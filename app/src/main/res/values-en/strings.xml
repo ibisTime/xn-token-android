@@ -427,7 +427,7 @@
     <string name="choose_country">Select a country </string>
     <string name="wallet_tool">Wallet tool </string>
     <string name="wallet_delete_success">Wallet deleted successfully</string>
-    <string name="send_red_package">Sent red packet</string>
+    <string name="send_red_package">Send</string>
     <string name="send_you_red_package"> Sent you a red packet </string>
     <string name="defaut_red_package_mesg"> Red Packet Rings, Money Rises </string>
 
@@ -499,7 +499,7 @@
     <string name="waite_title_3">Quantitative Finance: </string>
     <string name="consult_1">Global Master and Apprentice Initiative</string>
     <string name="yibibao">Yubibao</string>
-    <string name="lianghualicai">Quantitative Finance</string>
+    <string name="lianghualicai">Wealth</string>
     <string name="recommend_application">Recommend Applications</string>
     <string name="copy_success">replicated</string>
     <string name="account_login">Account login</string>
@@ -692,7 +692,7 @@
 
     <string name="friend_qrimg_1">Scan QR code to get rewards</string>
 
-    <string name="invite_text_2">Invite friend</string>
+    <string name="invite_text_2">Invite</string>
 
     <string name="invite_text_3">Register for Theia Wallet</string>
 
@@ -1010,8 +1010,8 @@
     <string name="redpacket_type">Current type：</string>
     <string name="expected_income">Anticipated annualized return</string>
     <string name="last_amount">Remaining quota</string>
-    <string name="my_invest">My Investment</string>
-    <string name="bi_jia_bao">Quantitative Finance</string>
+    <string name="my_invest">My Record</string>
+    <string name="bi_jia_bao">Wealth</string>
     <string name="investment">Total amount of investment</string>
     <string name="expected_income2">Anticipated annualized return</string>
     <string name="buy_days">Subscription period</string>
@@ -1135,8 +1135,8 @@
     <string name="guide_person_up">Create</string>
     <string name="guide_private_title">Private key wallet</string>
     <string name="guide_private_info">Theia\'s private key wallet is a multi-chain wallet that conveniently manages all your digital assets; the private key is saved locally, safe and reliable.</string>
-    <string name="guide_private_create">Create private key wallet</string>
-    <string name="guide_private_import">Import mnemonic</string>
+    <string name="guide_private_create">Create</string>
+    <string name="guide_private_import">Import</string>
     <string name="signup_mobile">Phone registration</string>
     <string name="signup_email">Email registration</string>
     <string name="signup_pwd_input">Enter password</string>

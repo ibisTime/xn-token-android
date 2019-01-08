@@ -26,6 +26,7 @@ public class SignInEditClearCodeLayout extends LinearLayout {
     public LayoutEditClearSendCodeBinding mBinding;
 
     private String hintText;
+    private boolean minHint;
 
     public SignInEditClearCodeLayout(Context context) {
         this(context, null);
@@ -41,6 +42,7 @@ public class SignInEditClearCodeLayout extends LinearLayout {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.sign_edit_clear_layout);
 
         hintText = ta.getString(R.styleable.sign_edit_clear_layout_hint_text);
+        minHint = ta.getBoolean(R.styleable.sign_edit_clear_layout_min_hint, true);
         init();
     }
 
@@ -48,13 +50,15 @@ public class SignInEditClearCodeLayout extends LinearLayout {
     private void init() {
 
         mBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.layout_edit_clear_send_code, this, true);
-
         mBinding.edit.setHint(hintText);
+
 
         mBinding.edit.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+                if (minHint) {
+                    mBinding.tvilEt.setHint(hintText);
+                }
             }
 
             @Override
@@ -64,7 +68,12 @@ public class SignInEditClearCodeLayout extends LinearLayout {
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                String text = editable.toString();
+                if (TextUtils.isEmpty(text)) {
+                    if (minHint) {
+                        mBinding.tvilEt.setHint("");
+                    }
+                }
             }
         });
 
@@ -107,6 +116,7 @@ public class SignInEditClearCodeLayout extends LinearLayout {
     public Button getSendCodeBtn() {
         return mBinding.btnSend;
     }
+
     public EditText getEditText() {
         return mBinding.edit;
     }

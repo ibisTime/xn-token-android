@@ -35,10 +35,10 @@ android {
 
     }
 
-    dexOptions {
-        incremental true
-        javaMaxHeapSize "4g"
-    }
+//    dexOptions {
+//        incremental true
+//        javaMaxHeapSize "4g"
+//    }
 
     dataBinding {
         enabled true

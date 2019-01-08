@@ -8,7 +8,7 @@ import android.util.Log;
  */
 public class LogUtil {
 
-    public static Boolean isLog = false;
+    public static Boolean isLog = true;
 
     private static final String TAG = "LOG_THA";
 

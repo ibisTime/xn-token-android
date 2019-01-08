@@ -106,10 +106,10 @@ android {
 
     }
 
-    dexOptions {
-        incremental true
-        javaMaxHeapSize "4g"
-    }
+//    dexOptions {
+//        incremental true
+//        javaMaxHeapSize "4g"
+//    }
 
     android.applicationVariants.all { variant ->
         variant.outputs.all {
@@ -173,7 +173,7 @@ dependencies {
     implementation(name: 'idauthsdk', ext: 'aar')
     // 测滑菜单
     implementation 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.3.0'
-    implementation files('/Users/lei/Downloads/pinyin4j/lib/pinyin4j-2.5.0.jar')
+//    implementation files('/Users/lei/Downloads/pinyin4j/lib/pinyin4j-2.5.0.jar')//这个本来是本地的,我将它下载下来放到了lib里面了
 }
 
 ///格式化打完完成后APK名称中的时间

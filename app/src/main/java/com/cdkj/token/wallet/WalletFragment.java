@@ -44,6 +44,7 @@ import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.LocalCoinDbModel;
 import com.cdkj.token.model.db.WalletDBModel;
 import com.cdkj.token.user.guide.GuideActivity;
+import com.cdkj.token.utils.AmountUtil;
 import com.cdkj.token.utils.LocalCoinDBUtils;
 import com.cdkj.token.utils.wallet.WalletHelper;
 import com.cdkj.token.views.CardChangeLayout;
@@ -82,6 +83,7 @@ import static com.cdkj.token.views.CardChangeLayout.TOPVIEW;
 //TODO 代码分离优化  请求嵌套优化
 public class WalletFragment extends BaseLazyFragment {
 
+
     public static final String HIND_SIGN = "****"; // 隐藏金额
 
     private FragmentWalletBinding mBinding;
@@ -111,7 +113,7 @@ public class WalletFragment extends BaseLazyFragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         mBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_wallet, null, false);
-
+        mBinding.rvWallet.setNestedScrollingEnabled(false);
         initViewState();
 
         initRefresh();
@@ -131,7 +133,7 @@ public class WalletFragment extends BaseLazyFragment {
     public void onResume() {
         super.onResume();
 
-        if (null != mBinding && null != mlLocalCoinCachePresenter){
+        if (null != mBinding && null != mlLocalCoinCachePresenter) {
             mlLocalCoinCachePresenter.getCoinList(mActivity);  //开始时请求币种缓存
         }
 
@@ -155,6 +157,7 @@ public class WalletFragment extends BaseLazyFragment {
                     mChooseCoinList = null;
                     getPriWalletAssetsData(true, false, true);
                 } else {
+                    mChooseCoinList=null;
                     getWalletAssetsData(true, false, true);
                 }
             }
@@ -167,7 +170,7 @@ public class WalletFragment extends BaseLazyFragment {
      */
     void initViewState() {
 
-        if (!SPUtilHelper.isRookieGuideShow()){
+        if (!SPUtilHelper.isRookieGuideShow()) {
             // 打开界面显示 隐私协议 弹窗
             new RookieGuideDialog(mActivity).show();
         }
@@ -208,7 +211,7 @@ public class WalletFragment extends BaseLazyFragment {
 
         //添加自选
         mBinding.btnAddCoin.setOnClickListener(view -> {
-            if (isPrivateWallet){
+            if (isPrivateWallet) {
                 AddPriChoiceCoinActivity.open(mActivity);
             } else {
                 AddChoiceCoinActivity.open(mActivity);
@@ -229,7 +232,7 @@ public class WalletFragment extends BaseLazyFragment {
         //一键划转
         mBinding.btnSmartTransfer.setOnClickListener(view -> {
 
-            if (SPUtilHelper.isLogin()){
+            if (SPUtilHelper.isLogin()) {
 
                 boolean isHasInfo = WalletHelper.isUserAddedWallet(WalletHelper.WALLET_USER);
                 if (!isHasInfo) {
@@ -285,9 +288,9 @@ public class WalletFragment extends BaseLazyFragment {
                 if (!isHasWallet) {
                     return;
                 }
-
+                List<WalletBalanceModel> walletBalanceModels = checkWalletBalanceModels();
                 mRefreshHelper.setPageIndex(1);
-                mRefreshHelper.setData(transformToPrivateAdapterData(mPrivateWalletData), getString(R.string.no_assets), R.mipmap.order_none);
+                mRefreshHelper.setData(walletBalanceModels, getString(R.string.no_assets), R.mipmap.order_none);
                 break;
 
             case TOPVIEW:                                         //个人钱包
@@ -427,7 +430,7 @@ public class WalletFragment extends BaseLazyFragment {
                                     return;
                                 }
 
-                                if (LocalCoinDBUtils.isUSDT(accountListBean.getCoinSymbol())){
+                                if (LocalCoinDBUtils.isUSDT(accountListBean.getCoinSymbol())) {
                                     WalletUSDTTransferActivity.open(mActivity, accountListBean);
                                     return;
                                 }
@@ -574,14 +577,14 @@ public class WalletFragment extends BaseLazyFragment {
         }
 
         Boolean isHasBtc = false;
-        for (CoinTypeAndAddress coin : mChooseCoinList){
-            if (TextUtils.equals(coin.getSymbol(), WalletHelper.COIN_BTC)){// 跟随新BTC地址自选，如果新BTC地址没有自选，老的也不出现
+        for (CoinTypeAndAddress coin : mChooseCoinList) {
+            if (TextUtils.equals(coin.getSymbol(), WalletHelper.COIN_BTC)) {// 跟随新BTC地址自选，如果新BTC地址没有自选，老的也不出现
                 isHasBtc = true;
             }
         }
-        if (isHasBtc){// 每次刷新时获取老的BTC地址和私钥
+        if (isHasBtc) {// 每次刷新时获取老的BTC地址和私钥
 
-            if (SPUtilHelper.isLoginNoStart()){ // 未登录时不添加老地址
+            if (SPUtilHelper.isLoginNoStart()) { // 未登录时不添加老地址
 
                 WalletHelper.getPastBtcAddress();
                 String adress = SPUtilHelper.getPastBtcInfo();
@@ -591,7 +594,6 @@ public class WalletFragment extends BaseLazyFragment {
                 mChooseCoinList.add(pastBtcAddress);
 
             }
-
         }
 
         Map<String, Object> map = new HashMap<>();
@@ -613,14 +615,15 @@ public class WalletFragment extends BaseLazyFragment {
                 toggleAssetsByEyeState();
 
                 if (isSetRecyclerData) {
-                    List<WalletBalanceModel> walletBalanceModels = transformToPrivateAdapterData(mPrivateWalletData);
+                    List<WalletBalanceModel> walletBalanceModels = checkWalletBalanceModels();
+
                     mRefreshHelper.setPageIndex(1);
                     mRefreshHelper.setData(walletBalanceModels, getString(R.string.no_assets), R.mipmap.order_none);
                 }
 
-                if (isFirstLoad){
+                if (isFirstLoad) {
                     if (!SPUtilHelper.isLoginNoStart()) { // 如果用户没登录判断是否有私钥钱包
-                        if (WalletHelper.isUserAddedWallet(WalletHelper.WALLET_USER)){ // 如果用户有私钥钱包
+                        if (WalletHelper.isUserAddedWallet(WalletHelper.WALLET_USER)) { // 如果用户有私钥钱包
 //                            changeLayoutByIndex(BOTTOMVIEW);
                             mBinding.cardChangeLayout.cardChangeLayout.showBottomView();
                         }
@@ -641,6 +644,22 @@ public class WalletFragment extends BaseLazyFragment {
                 disMissLoading();
             }
         });
+    }
+
+    @NonNull
+    private List<WalletBalanceModel> checkWalletBalanceModels() {
+        if (mPrivateWalletData == null) return null;
+        List<WalletBalanceModel> walletBalanceModels = transformToPrivateAdapterData(mPrivateWalletData);
+        for (int i = 0; i < walletBalanceModels.size(); i++) {
+            WalletBalanceModel item = walletBalanceModels.get(i);
+            if (TextUtils.equals(item.getAddress(), SPUtilHelper.getPastBtcInfo().split("\\+")[0])) {
+                String availablemountString = AmountUtil.transformFormatToString(item.getAvailableAmount(), item.getCoinSymbol(), 8);
+                if (Double.parseDouble(availablemountString) <= 0.0) {
+                    walletBalanceModels.remove(item);
+                }
+            }
+        }
+        return walletBalanceModels;
     }
 
 
@@ -679,35 +698,18 @@ public class WalletFragment extends BaseLazyFragment {
             if (localCoinDbModel == null) {
                 continue;
             }
-            //如果用户没有添加过自选 则不进行自选币种判断
-            if (isFirstChoose && TextUtils.indexOf(chooseSymbol, localCoinDbModel.getSymbol()) == -1) {
-                continue;
-            }
-
-            CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();    //0 公链币（ETH BTC WAN） 1 ethtoken（ETH） 2 wantoken（WAN）        通过币种和type 添加地址
-
-            if (LocalCoinDBUtils.isCommonChainCoinByType(localCoinDbModel.getType())) {
-
-                if (TextUtils.equals(WalletHelper.COIN_BTC, localCoinDbModel.getSymbol())) {
-                    coinTypeAndAddress.setAddress(walletDBModel.getBtcAddress());
-                } else if (TextUtils.equals(WalletHelper.COIN_ETH, localCoinDbModel.getSymbol())) {
-                    coinTypeAndAddress.setAddress(walletDBModel.getEthAddress());
-                } else if (TextUtils.equals(WalletHelper.COIN_WAN, localCoinDbModel.getSymbol())) {
-                    coinTypeAndAddress.setAddress(walletDBModel.getWanAddress());
-                } else if (TextUtils.equals(WalletHelper.COIN_USDT, localCoinDbModel.getSymbol())) {
-                    coinTypeAndAddress.setAddress(walletDBModel.getBtcAddress());
+            //判断是否自选过  是的话就判断是否在自选列表中  否则就添加默认打的四个币种
+            if (isFirstChoose) {
+                //如果用户没有添加过自选 则不进行自选币种判断
+                if (TextUtils.indexOf(chooseSymbol, localCoinDbModel.getSymbol()) == -1) {
+                    continue;
                 }
-
-            } else if (LocalCoinDBUtils.isEthTokenCoin(localCoinDbModel.getType())) {
-
-                coinTypeAndAddress.setAddress(walletDBModel.getEthAddress());
-
-            } else if (LocalCoinDBUtils.isWanTokenCoin(localCoinDbModel.getType())) {
-
-                coinTypeAndAddress.setAddress(walletDBModel.getWanAddress());
-
+            } else {
+                if (!("WAN".equalsIgnoreCase(localCoinDbModel.getSymbol()) || "BTC".equalsIgnoreCase(localCoinDbModel.getSymbol()) || "ETH".equalsIgnoreCase(localCoinDbModel.getSymbol()) || "USDT".equalsIgnoreCase(localCoinDbModel.getSymbol()))) {
+                    continue;
+                }
             }
-            coinTypeAndAddress.setSymbol(localCoinDbModel.getSymbol());
+            CoinTypeAndAddress coinTypeAndAddress = setCoinTypeAndAddress(walletDBModel, localCoinDbModel);
 
             if (!TextUtils.isEmpty(coinTypeAndAddress.getAddress())) {
                 chooseCoinList.add(coinTypeAndAddress);
@@ -716,6 +718,42 @@ public class WalletFragment extends BaseLazyFragment {
         }
 
         return chooseCoinList;
+    }
+
+    /**
+     * 根据币种类型 设置不同的币种地址
+     *
+     * @param walletDBModel
+     * @param localCoinDbModel
+     * @return
+     */
+    @NonNull
+    private CoinTypeAndAddress setCoinTypeAndAddress(WalletDBModel walletDBModel, LocalCoinDbModel localCoinDbModel) {
+        CoinTypeAndAddress coinTypeAndAddress = new CoinTypeAndAddress();    //0 公链币（ETH BTC WAN） 1 ethtoken（ETH） 2 wantoken（WAN）        通过币种和type 添加地址
+
+        if (LocalCoinDBUtils.isCommonChainCoinByType(localCoinDbModel.getType())) {
+
+            if (TextUtils.equals(WalletHelper.COIN_BTC, localCoinDbModel.getSymbol())) {
+                coinTypeAndAddress.setAddress(walletDBModel.getBtcAddress());
+            } else if (TextUtils.equals(WalletHelper.COIN_ETH, localCoinDbModel.getSymbol())) {
+                coinTypeAndAddress.setAddress(walletDBModel.getEthAddress());
+            } else if (TextUtils.equals(WalletHelper.COIN_WAN, localCoinDbModel.getSymbol())) {
+                coinTypeAndAddress.setAddress(walletDBModel.getWanAddress());
+            } else if (TextUtils.equals(WalletHelper.COIN_USDT, localCoinDbModel.getSymbol())) {
+                coinTypeAndAddress.setAddress(walletDBModel.getBtcAddress());
+            }
+
+        } else if (LocalCoinDBUtils.isEthTokenCoin(localCoinDbModel.getType())) {
+
+            coinTypeAndAddress.setAddress(walletDBModel.getEthAddress());
+
+        } else if (LocalCoinDBUtils.isWanTokenCoin(localCoinDbModel.getType())) {
+
+            coinTypeAndAddress.setAddress(walletDBModel.getWanAddress());
+
+        }
+        coinTypeAndAddress.setSymbol(localCoinDbModel.getSymbol());
+        return coinTypeAndAddress;
     }
 
     /**
@@ -780,7 +818,7 @@ public class WalletFragment extends BaseLazyFragment {
      */
     @NonNull
     private List<WalletBalanceModel> transformToPrivateAdapterData(BalanceListModel data) {
-            List<WalletBalanceModel> walletBalanceModels = new ArrayList<>();
+        List<WalletBalanceModel> walletBalanceModels = new ArrayList<>();
         if (data == null) {
             return walletBalanceModels;
         }
@@ -833,7 +871,7 @@ public class WalletFragment extends BaseLazyFragment {
         call.enqueue(new BaseResponseModelCallBack<MsgListModel>(mActivity) {
             @Override
             protected void onSuccess(MsgListModel data, String SucMessage) {
-                Log.e("data",data.getList().size()+"");
+                Log.e("data", data.getList().size() + "");
                 if (data.getList() == null || data.getList().size() < 1) {
                     mBinding.linLayoutBulletin.setVisibility(View.GONE);
                     return;
@@ -880,10 +918,10 @@ public class WalletFragment extends BaseLazyFragment {
      */
     @Subscribe
     public void addCoinChangeEventPri(AddCoinChangeEvent ad) {
-        if (ad.getTag().equals(AddCoinChangeEvent.PRI)){
+        if (ad.getTag().equals(AddCoinChangeEvent.PRI)) {
             mChooseCoinList = null;
             getPriWalletAssetsData(true, true, false);
-        } else if (ad.getTag().equals(AddCoinChangeEvent.NOT_PRI)){
+        } else if (ad.getTag().equals(AddCoinChangeEvent.NOT_PRI)) {
             getWalletAssetsData(false, true, false);
         }
 
