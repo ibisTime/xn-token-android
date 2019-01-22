@@ -63,7 +63,7 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
 
     @Override
     public View addContentView() {
-        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_trade_pwd,null,false);
+        mBinding = DataBindingUtil.inflate(getLayoutInflater(), R.layout.activity_trade_pwd, null, false);
         return mBinding.getRoot();
     }
 
@@ -80,10 +80,10 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
 
     }
 
-    private void init(){
+    private void init() {
         openWay = getIntent().getIntExtra(CdRouteHelper.DATASIGN, 0);
 
-        if (openWay == MODIFY){
+        if (openWay == MODIFY) {
             setMidTitle(R.string.activity_tradepwd_title);
         } else {
             setMidTitle(R.string.activity_tradepwd_title_set);
@@ -98,7 +98,7 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
         mBinding.edtTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         mBinding.edtReTradePassword.getEditText().setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
 
-        if (openWay == MODIFY){
+        if (openWay == MODIFY) {
             mBinding.tvOldPwd.setVisibility(View.VISIBLE);
             mBinding.edtOldPwd.setVisibility(View.VISIBLE);
         }
@@ -107,13 +107,13 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
 
     private void initListener() {
         mBinding.btnNext.setOnClickListener(view -> {
-            if (check()){
+            if (check()) {
 
                 String pwd = mBinding.edtReTradePassword.getText().toString().trim();
 
-                if (openWay == CREATE){
+                if (openWay == CREATE) {
                     createMnemonicWordsAsyn(pwd);
-                } else if (openWay == RECOVER){
+                } else if (openWay == RECOVER) {
                     RecoverWalletActivity.open(this, pwd);
                 } else {
                     updatePassword(pwd);
@@ -123,7 +123,7 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
         });
     }
 
-    private boolean check(){
+    private boolean check() {
         if (TextUtils.isEmpty(mBinding.edtTradePassword.getText().toString().trim())) {
             UITipDialog.showInfoNoIcon(this, getStrRes(R.string.user_password_hint));
             return false;
@@ -144,7 +144,7 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
             return false;
         }
 
-        if (openWay == MODIFY){
+        if (openWay == MODIFY) {
             if (!WalletHelper.checkPasswordByUserId(mBinding.edtOldPwd.getText().toString(), WalletHelper.WALLET_USER)) {
                 UITipDialog.showInfoNoIcon(this, getString(R.string.old_pwd_error));
                 return false;
@@ -154,7 +154,7 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
         return true;
     }
 
-    private void getPrivacy(){
+    private void getPrivacy() {
         showLoadingDialog();
 
         Map<String, String> map = new HashMap<>();
@@ -174,7 +174,7 @@ public class TradePwdActivity extends AbsStatusBarTranslucentActivity {
                 }
 
                 // 打开界面显示 隐私协议 弹窗
-                new InfoSureDialog(TradePwdActivity.this).setInfoTitle(getString(R.string.privacy_agreement_title)).setInfoContent(data.getCvalue()).show();
+                new InfoSureDialog(TradePwdActivity.this).setInfoTitle(getString(R.string.privacy_agreement_title)).setShowWeb(true).setInfoContent(data.getCvalue()).show();
             }
 
             @Override

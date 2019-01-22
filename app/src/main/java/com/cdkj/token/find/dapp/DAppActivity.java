@@ -8,7 +8,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.util.TypedValue;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.cdkj.baselibrary.activitys.WebViewActivity;
 import com.cdkj.baselibrary.api.BaseResponseModel;
@@ -32,6 +36,7 @@ import com.cdkj.token.databinding.ActivityDappBinding;
 import com.cdkj.token.model.DAppGuideModel;
 import com.cdkj.token.model.DAppModel;
 import com.cdkj.token.model.DappIntroModel;
+import com.scwang.smartrefresh.layout.util.DensityUtil;
 import com.zendesk.util.CollectionUtils;
 
 import java.util.HashMap;
@@ -74,18 +79,18 @@ public class DAppActivity extends AbsActivity {
 
     @Override
     public void afterCreate(Bundle savedInstanceState) {
-        
+
         init();
         initListener();
     }
 
-    private void init(){
+    private void init() {
         appId = getIntent().getIntExtra(CdRouteHelper.DATASIGN, 0);
 
         getDAPP();
     }
 
-    public void getDAPP(){
+    public void getDAPP() {
         showLoadingDialog();
 
         Map<String, Object> map = new HashMap<>();
@@ -108,7 +113,7 @@ public class DAppActivity extends AbsActivity {
         });
     }
 
-    private void initView(){
+    private void initView() {
         if (dAppModel == null)
             return;
 
@@ -116,24 +121,45 @@ public class DAppActivity extends AbsActivity {
         mBinding.tvName.setText(dAppModel.getName());
         mBinding.tvCompany.setText(dAppModel.getCompany());
 
-        if (!CollectionUtils.isEmpty(dAppModel.getLabelList())){
-            if (dAppModel.getLabelList().size() == 1){
-                mBinding.tvLabel1.setText(dAppModel.getLabelList().get(0));
-                mBinding.tvLabel1.setVisibility(View.VISIBLE);
-            }else if(dAppModel.getLabelList().size() > 1){
-                mBinding.tvLabel1.setVisibility(View.VISIBLE);
-                mBinding.tvLabel2.setVisibility(View.VISIBLE);
+        if (!CollectionUtils.isEmpty(dAppModel.getLabelList())) {
 
-                mBinding.tvLabel1.setText(dAppModel.getLabelList().get(0));
-                mBinding.tvLabel2.setText(dAppModel.getLabelList().get(1));
+            for (int i = 0; i < dAppModel.getLabelList().size(); i++) {
+                TextView tv2 = new TextView(this);
+                tv2.setText(dAppModel.getLabelList().get(i));
+//                if (i + 1 % 2 == 0) {
+//                    tv2.setBackgroundResource(R.drawable.bg_label_dapp_orange);
+//                } else {
+//                    tv2.setBackgroundResource(R.drawable.bg_label_dapp_yellow);
+//                }
+                tv2.setBackgroundResource(R.drawable.bg_label_dapp_yellow);
+                tv2.setPadding(DensityUtil.dp2px(8), 0, DensityUtil.dp2px(8), 0);
+                tv2.setGravity(Gravity.CENTER);
+                // tv2.setTag(i);// 如果有点击事件  或者其他的 可以用集合存放个起来  通过tag判断
+                LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT);
+                //这里设置的是标签间的间隔  如果不设置  每个标签之间会紧紧的贴在一起 比较难看
+                layoutParams.setMargins(0, DensityUtil.dp2px(4), DensityUtil.dp2px(4), 0);
+                tv2.setTextColor(ContextCompat.getColor(this, R.color.white));
+                tv2.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                mBinding.flexboxSpec.addView(tv2, layoutParams);
             }
+//            if (dAppModel.getLabelList().size() == 1) {
+//                mBinding.tvLabel1.setText(dAppModel.getLabelList().get(0));
+//                mBinding.tvLabel1.setVisibility(View.VISIBLE);
+//            } else if (dAppModel.getLabelList().size() > 1) {
+//                mBinding.tvLabel1.setVisibility(View.VISIBLE);
+//                mBinding.tvLabel2.setVisibility(View.VISIBLE);
+//
+//                mBinding.tvLabel1.setText(dAppModel.getLabelList().get(0));
+//                mBinding.tvLabel2.setText(dAppModel.getLabelList().get(1));
+//            }
         }
 
-        mBinding.tvStars.setText("("+dAppModel.getGrade()+")");
+        mBinding.tvStars.setText("(" + dAppModel.getGrade() + ")");
         setStars(dAppModel.getGrade());
 
-        mBinding.tvDownloadNum.setText(dAppModel.getDownload()+"");
-        mBinding.tvVol.setText(dAppModel.getVolume()+"");
+        mBinding.tvDownloadNum.setText(dAppModel.getDownload() + "");
+        mBinding.tvVol.setText(dAppModel.getVolume() + "");
 
 
         DappIntroModel dappIntroModel = new DappIntroModel();
@@ -144,9 +170,9 @@ public class DAppActivity extends AbsActivity {
 
         initGuide();
     }
-    
-    private void setStars(int grade){
-        switch (grade){
+
+    private void setStars(int grade) {
+        switch (grade) {
 
             case 0:
                 break;
@@ -204,7 +230,7 @@ public class DAppActivity extends AbsActivity {
 
     private void initBtnView() {
 
-        if (isLeftSide){
+        if (isLeftSide) {
             mBinding.btnIntro.setTextColor(ContextCompat.getColor(this, R.color.white));
             mBinding.btnIntro.setBackgroundResource(R.drawable.selector_blue);
 
@@ -226,7 +252,7 @@ public class DAppActivity extends AbsActivity {
 
     }
 
-    public void initIntro(DappIntroModel dappIntroModel){
+    public void initIntro(DappIntroModel dappIntroModel) {
 
         int width = DisplayHelper.getScreenWidth(this) - DisplayHelper.dp2px(this, 15 * 2);
         mBinding.etvIntro.initWidth(width);
@@ -253,7 +279,7 @@ public class DAppActivity extends AbsActivity {
     }
 
     //
-    public void initGuide(){
+    public void initGuide() {
 
         mRefreshHelper = new RefreshHelper(this, new BaseRefreshCallBack(this) {
             @Override
@@ -281,7 +307,7 @@ public class DAppActivity extends AbsActivity {
         mRefreshHelper.onDefaluteMRefresh(true);
     }
 
-    public void getDAPPGuideList(){
+    public void getDAPPGuideList() {
         Map<String, Object> map = new HashMap<>();
 
         map.put("dappId", dAppModel.getId());
@@ -309,7 +335,7 @@ public class DAppActivity extends AbsActivity {
 
             DAppGuideModel.DAppGuide dAppGuide = adapter.getItem(position);
 
-            if (TextUtils.isEmpty(h5Url)){
+            if (TextUtils.isEmpty(h5Url)) {
                 geShareUrlRequest(dAppGuide);
                 return;
             }

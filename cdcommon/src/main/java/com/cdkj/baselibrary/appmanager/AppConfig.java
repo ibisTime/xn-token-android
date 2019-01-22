@@ -105,6 +105,8 @@ public class AppConfig {
      * @return
      */
     public static String getBaseURL() {
+
+
         if (LogUtil.isLog) {
             switch (SPUtilHelper.getAPPBuildType()) {
                 case BUILD_TYPE_TEST: // 测试
