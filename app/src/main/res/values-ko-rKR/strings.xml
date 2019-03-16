@@ -1014,4 +1014,5 @@
     <string name="pay_pwd_re_input">거래 비밀번호를 확인해주세요</string>
     <string name="please_check_pay_pwd">거래 비밀번호를 확인해주세요</string>
     <string name="user_property_hint">불법의 자물쇠 지갑 을 미 창설 일부 자산 이다</string>
+    <string name="find_award">노드 보너스</string>
 </resources>

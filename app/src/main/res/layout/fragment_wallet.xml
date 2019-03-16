@@ -15,31 +15,31 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/status_bar_height"
             android:background="@color/white"
-            android:orientation="vertical"
-            android:layout_marginTop="@dimen/status_bar_height">
+            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/linLayout_bulletin"
-                android:gravity="center_vertical"
                 android:layout_width="match_parent"
                 android:layout_height="35dp"
                 android:background="@color/gray_f3f3f3"
+                android:gravity="center_vertical"
                 android:paddingLeft="12dp"
                 android:paddingRight="12dp">
 
                 <TextView
-                    android:textSize="@dimen/sp_12"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:text="@string/system_message"
                     android:textColor="@color/blue_185DED"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/sp_12" />
 
                 <ImageView
-                    android:layout_marginLeft="2.5dp"
                     android:layout_width="12dp"
                     android:layout_height="10dp"
                     android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="2.5dp"
                     android:src="@mipmap/notice" />
 
                 <TextView
@@ -82,11 +82,17 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <ScrollView
-                    android:fillViewport="true"
+                <!--<ScrollView-->
+                <!--android:fillViewport="true"-->
+                <!--android:layout_width="match_parent"-->
+                <!--android:layout_height="match_parent"-->
+                <!--android:scrollbars="none">-->
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scrollbars="none">
+                    android:orientation="vertical">
+
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -99,43 +105,43 @@
 
                         <LinearLayout
                             android:id="@+id/ll_tools"
-                            android:paddingTop="12dp"
-                            android:paddingBottom="12dp"
                             android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            android:layout_height="wrap_content"
+                            android:paddingTop="12dp"
+                            android:paddingBottom="12dp">
 
                             <Button
                                 android:id="@+id/btn_friends"
-                                android:background="@drawable/wallet_friends"
-                                android:layout_marginLeft="32dp"
                                 android:layout_width="30dp"
-                                android:layout_height="30dp" />
+                                android:layout_height="30dp"
+                                android:layout_marginLeft="32dp"
+                                android:background="@drawable/wallet_friends" />
 
                             <Button
                                 android:id="@+id/btn_smartTransfer"
-                                android:background="@drawable/wallet_smart_transfer"
-                                android:layout_marginLeft="45dp"
                                 android:layout_width="30dp"
-                                android:layout_height="30dp" />
+                                android:layout_height="30dp"
+                                android:layout_marginLeft="45dp"
+                                android:background="@drawable/wallet_smart_transfer" />
 
                             <Button
                                 android:id="@+id/btn_transferChange"
-                                android:background="@drawable/wallet_transfer_change"
-                                android:layout_marginLeft="45dp"
                                 android:layout_width="30dp"
-                                android:layout_height="30dp" />
+                                android:layout_height="30dp"
+                                android:layout_marginLeft="45dp"
+                                android:background="@drawable/wallet_transfer_change" />
 
                             <View
-                                android:layout_weight="1"
                                 android:layout_width="0dp"
-                                android:layout_height="30dp"/>
+                                android:layout_height="30dp"
+                                android:layout_weight="1" />
 
                             <Button
                                 android:id="@+id/btn_addCoin"
-                                android:background="@drawable/add_blue"
-                                android:layout_marginRight="12dp"
                                 android:layout_width="20dp"
-                                android:layout_height="20dp" />
+                                android:layout_height="20dp"
+                                android:layout_marginRight="12dp"
+                                android:background="@drawable/add_blue" />
 
                         </LinearLayout>
 
@@ -152,9 +158,10 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:overScrollMode="never" />
+
                             <View
                                 android:layout_width="1dp"
-                                android:layout_height="match_parent"/>
+                                android:layout_height="match_parent" />
 
                         </RelativeLayout>
 
@@ -168,8 +175,8 @@
 
                     </LinearLayout>
 
-                </ScrollView>
-
+                    <!--</ScrollView>-->
+                </LinearLayout>
 
                 <com.cdkj.baselibrary.views.refresh.ClassicsFooter2
                     android:layout_width="match_parent"

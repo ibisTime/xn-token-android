@@ -15,6 +15,7 @@ import com.cdkj.token.common.AppFrontBackHelper;
 import com.cdkj.token.model.PatternLockCheckFinish;
 import com.cdkj.token.user.pattern_lock.PatternLockCheckActivity;
 import com.cdkj.token.utils.BGAGlideImageLoader2;
+import com.hjq.toast.ToastUtils;
 import com.uuzuche.lib_zxing.activity.ZXingLibrary;
 import com.zendesk.logger.Logger;
 
@@ -89,6 +90,8 @@ public class MyApplication extends Application {
 //            SPUtilHelper.saveFirstOpen();
         }
         OtherLibManager.initZendesk(this);
+
+        ToastUtils.init(this);
 
     }
 

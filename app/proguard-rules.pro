@@ -245,3 +245,6 @@
     -keep class com.alibaba.wireless.security.**{*;}
     -keep class com.alibaba.verificationsdk.**{*;}
     -keep interface com.alibaba.verificationsdk.ui.IActivityCallback
+
+#toast 工具类的轮混淆
+    -keep class com.hjq.toast.** {*;}

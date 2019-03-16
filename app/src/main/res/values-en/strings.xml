@@ -1163,6 +1163,7 @@
     <string name="pay_pwd_re_input">Confirm the fund password</string>
     <string name="please_check_pay_pwd">Please confirm your fund password</string>
     <string name="user_property_hint">Private key wallet not to create, display some assets</string>
+    <string name="find_award">Node reward</string>
 
 </resources>
 

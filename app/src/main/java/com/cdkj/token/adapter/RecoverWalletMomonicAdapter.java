@@ -4,8 +4,11 @@ import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.EditText;
 
+import com.cdkj.baselibrary.utils.InputMethodUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.model.RecoverWalletMemonicModel;
 import com.chad.library.adapter.base.BaseQuickAdapter;
@@ -37,6 +40,8 @@ public class RecoverWalletMomonicAdapter extends BaseQuickAdapter<RecoverWalletM
 
         edtMemonic = helper.getView(R.id.edt_memonic);
 
+
+
 //        if (helper.getLayoutPosition() == 0){
 //            edtMemonic.setFocusable(true);
 //            edtMemonic.setFocusableInTouchMode(true);
@@ -47,6 +52,15 @@ public class RecoverWalletMomonicAdapter extends BaseQuickAdapter<RecoverWalletM
 //            // 如果之前没设置过点击事件，该处可省略
 //            edtMemonic.setOnClickListener(null);
 //        }
+
+        edtMemonic.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                //点击的时候弹出软键盘,不增加这个点击事件 再华为手机上无法弹出软键盘
+                InputMethodUtils.showInputMethod(edtMemonic);
+                return false;
+            }
+        });
 
         setEditTextInhibitInputSpace(helper, item, edtMemonic);
 

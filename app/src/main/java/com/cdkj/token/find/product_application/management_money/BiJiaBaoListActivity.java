@@ -45,12 +45,14 @@ public class BiJiaBaoListActivity extends BaseActivity {
 
     // 投资总额
     private InvestmentAmountModel investment;
+    private String symbol;
 
-    public static void open(Context context) {
+    public static void open(Context context,String symbol) {
         if (context == null) {
             return;
         }
         Intent intent = new Intent(context, BiJiaBaoListActivity.class);
+        intent.putExtra("symbol",symbol);
         context.startActivity(intent);
     }
 
@@ -63,6 +65,9 @@ public class BiJiaBaoListActivity extends BaseActivity {
 
         UIStatusBarHelper.setStatusBarLightMode(this);
         UIStatusBarHelper.translucent(this);
+        if (getIntent()!=null) {
+            symbol = getIntent().getStringExtra("symbol");
+        }
 
         initClickListener();
         initRefreshHelper();
@@ -143,6 +148,7 @@ public class BiJiaBaoListActivity extends BaseActivity {
         map.put("status", "appDisplay");
         map.put("start", pageindex + "");
         map.put("limit", limit + "");
+        map.put("symbol", symbol);
         map.put("language", SPUtilHelper.getLanguage());
         if (isShowDialog) {
             showLoadingDialog();

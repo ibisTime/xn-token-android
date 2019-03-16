@@ -65,6 +65,7 @@ public class FindFragment extends BaseLazyFragment {
 
     // 发红包AppCode
     private String appCode = "";
+
     /**
      * 获得fragment实例
      *
@@ -138,9 +139,9 @@ public class FindFragment extends BaseLazyFragment {
 
         mBinding.llRecommend.setOnClickListener(view -> {
 
-            if (SPUtilHelper.isLogin()){
+            if (SPUtilHelper.isLogin()) {
 
-                if (!TextUtils.isEmpty(appCode)){
+                if (!TextUtils.isEmpty(appCode)) {
                     SendRedPacketActivity.open(mActivity, appCode);
                 }
 
@@ -151,16 +152,22 @@ public class FindFragment extends BaseLazyFragment {
         mBinding.llRecommend2.setOnClickListener(view -> {
 
             if (SPUtilHelper.isLogin()) {
-                BiJiaBaoListActivity.open(mActivity);
+                BiJiaBaoListActivity.open(mActivity, null);
             }
         });
 
         mBinding.llRecommend3.setOnClickListener(view -> {
 
-            if (SPUtilHelper.isLogin()){
+            if (SPUtilHelper.isLogin()) {
                 InviteActivity.open(mActivity);
             }
 
+        });
+        //节点奖励
+        mBinding.llAward.setOnClickListener(view -> {
+            if (SPUtilHelper.isLogin()) {
+                BiJiaBaoListActivity.open(mActivity, "WAN");
+            }
         });
 
         mBinding.llMore.setOnClickListener(view -> {
@@ -198,7 +205,7 @@ public class FindFragment extends BaseLazyFragment {
         });
     }
 
-    private void initCategoryView(){
+    private void initCategoryView() {
         mBinding.tvTypeGame.setTextColor(ContextCompat.getColor(mActivity, R.color.gray_acacac));
         mBinding.lineTypeGame.setVisibility(View.GONE);
 
@@ -281,7 +288,7 @@ public class FindFragment extends BaseLazyFragment {
 
             if (bannerData.get(position) != null) {
 
-                switch (bannerData.get(position).getAction()){
+                switch (bannerData.get(position).getAction()) {
 
                     case "0":
                         // do nothing
@@ -296,9 +303,12 @@ public class FindFragment extends BaseLazyFragment {
                     case "2":
                         DAppActivity.open(mActivity, Integer.parseInt(bannerData.get(position).getUrl()));
                         break;
-
+                    case "3":
+                        if (SPUtilHelper.isLogin()) {
+                            BiJiaBaoListActivity.open(mActivity, bannerData.get(position).getUrl());
+                        }
+                        break;
                 }
-
             }
 
         });
@@ -323,8 +333,8 @@ public class FindFragment extends BaseLazyFragment {
         call.enqueue(new BaseResponseListCallBack<RecommendAppModel>(mActivity) {
             @Override
             protected void onSuccess(List<RecommendAppModel> data, String SucMessage) {
-                for(RecommendAppModel model : data){
-                    if (model.getAction().equals("red_packet")){
+                for (RecommendAppModel model : data) {
+                    if (model.getAction().equals("red_packet")) {
                         appCode = model.getCode();
                     }
                 }
@@ -338,7 +348,7 @@ public class FindFragment extends BaseLazyFragment {
 
     }
 
-    public void getDAPPList(){
+    public void getDAPPList() {
         showLoadingDialog();
 
         Map<String, String> map = new HashMap<>();

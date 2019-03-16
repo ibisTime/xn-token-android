@@ -22,6 +22,7 @@ import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
 import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.DisplayHelper;
+import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.adapter.SmartTrasfterCoinAdapter;
@@ -151,6 +152,8 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
                 BigDecimal amountBigInteger = AmountUtil.bigDecimalFormat(new BigDecimal(mBinding.editAmount.getText().toString().trim()),
                         selectCoinSymbol); //转账数量
+
+                LogUtil.E("转账数量"+amountBigInteger);
 
                 if (!LocalCoinDBUtils.isTokenCoinBySymbol(selectCoinSymbol) && !isBTC(selectCoinSymbol)) { //如果不是token币
 
@@ -377,6 +380,7 @@ public class SmartTransferActivity extends AbsLoadActivity implements SmartTrans
 
     @Override
     public void setFee(BigDecimal fee) {
+        LogUtil.E("值为:"+feeBigDecimal);
         feeBigDecimal = fee;
         if (smartTransferPresenter.isPrivateWallet() && LocalCoinDBUtils.isBTCChain(selectCoinSymbol)) {
 

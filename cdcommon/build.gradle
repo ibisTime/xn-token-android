@@ -126,6 +126,8 @@ dependencies {
 
     api group: 'com.zendesk', name: 'support', version: '2.1.1'
 
+    api 'com.hjq:toast:5.6'//toast工具类  避免有些手机无法弹出toast
+
 
     //    debugApi 'com.facebook.stetho:stetho:1.5.0'
 

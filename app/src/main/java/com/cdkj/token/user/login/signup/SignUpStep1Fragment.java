@@ -134,6 +134,7 @@ public class SignUpStep1Fragment extends BaseLazyFragment implements UserTabLayo
     @Override
     public void onResume() {
         super.onResume();
+
         if (null != mBinding){
             mBinding.edtMobile.getLeftTextView().setText(StringUtils.transformShowCountryCode(SPUtilHelper.getCountryInterCode()));
         }

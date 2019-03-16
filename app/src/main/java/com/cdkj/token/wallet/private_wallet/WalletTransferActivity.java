@@ -440,9 +440,17 @@ public class WalletTransferActivity extends AbsLoadActivity {
      */
     void setGaspriceBySeekBarChange(int i) {
         if (mGasPrice == null) return;
-        BigDecimal minPrice = new BigDecimal(mGasPrice).multiply(new BigDecimal(0.85));//最小矿工费  最大最小是GasPrice上下浮动15%
-        BigDecimal maxPrice = new BigDecimal(mGasPrice).multiply(new BigDecimal(1.15)); //最大矿工费
+        BigDecimal minPrice;
+        BigDecimal maxPrice;
+        if (TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_WAN)) {
+            //如果是wan的话 最小值为181  最大值为  返回的值减去181+返回的值
+            minPrice = new BigDecimal("181000000000");
+            maxPrice = new BigDecimal(mGasPrice.subtract(new BigInteger("181000000000")).add(mGasPrice));
+        } else {
+            minPrice = new BigDecimal(mGasPrice).multiply(new BigDecimal(0.85));//最小矿工费  最大最小是GasPrice上下浮动15%
+            maxPrice = new BigDecimal(mGasPrice).multiply(new BigDecimal(1.15)); //最大矿工费
 
+        }
         float Progress = i / 100f;
 
         BigDecimal ProgressBigDecimal = new BigDecimal(Progress);

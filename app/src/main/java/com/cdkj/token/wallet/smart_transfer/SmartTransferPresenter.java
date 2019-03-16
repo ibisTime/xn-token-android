@@ -106,10 +106,17 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
 
         } else {
             if (mGasPrice == null) return;
-            //最小矿工费  最大最小是GasPrice上下浮动15%
-            BigDecimal minGasPrice = new BigDecimal(mGasPrice).multiply(new BigDecimal(0.85));
-            //最大矿工费
-            BigDecimal maxGasPrice = new BigDecimal(mGasPrice).multiply(new BigDecimal(1.15));
+            BigDecimal minGasPrice;
+            BigDecimal maxGasPrice;
+            if (TextUtils.equals(selectCoinData.getCurrency(), WalletHelper.COIN_WAN)) {
+                //如果是wan的话 最小值为181  最大值为  返回的值减去181+返回的值
+                minGasPrice = new BigDecimal("181000000000");
+                maxGasPrice = new BigDecimal(mGasPrice.subtract(new BigInteger("181000000000")).add(mGasPrice));
+            } else {
+                minGasPrice = new BigDecimal(mGasPrice).multiply(new BigDecimal(0.85));//最小矿工费  最大最小是GasPrice上下浮动15%
+                maxGasPrice = new BigDecimal(mGasPrice).multiply(new BigDecimal(1.15)); //最大矿工费
+
+            }
 
             float Progress = i / 100f;
 
@@ -161,7 +168,7 @@ public class SmartTransferPresenter extends BasePresenter<SmartTransferView> imp
             if (userWalletIn == null) return;
             smartTransferModel.getBTCUTXO(userWalletIn.getBtcAddress());
             return;
-        }else if (LocalCoinDBUtils.isUSDT(coinSymbol)){
+        } else if (LocalCoinDBUtils.isUSDT(coinSymbol)) {
             WalletDBModel userWalletIn = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
             if (userWalletIn == null) return;
             smartTransferModel.getUSDTUTXO(userWalletIn.getBtcAddress());

@@ -130,6 +130,7 @@ public class RecoverWalletActivity extends AbsStatusBarTranslucentActivity {
                         .subscribeOn(AndroidSchedulers.mainThread())
                         .filter(isPass -> {
                             if (!isPass) {
+                                ToastUtil.show(this,getString(R.string.wallet_import_fail));
                                 UITipDialog.showFail(this, getString(R.string.wallet_import_fail));
                             }
                             return isPass == true;

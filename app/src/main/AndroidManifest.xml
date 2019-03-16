@@ -11,9 +11,17 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" /><!---->
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.READ_PHONE_STATE" /><!--友盟-->
+    <!--相机权限  以及扫描二维码需要的几个权限-->
     <uses-permission android:name="android.permission.CAMERA" />
-
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+    <uses-permission android:name="android.permission.FLASHLIGHT" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <!--相机权限  以及扫描二维码需要的几个权限-->
     <uses-permission android:name="android.permission.USE_FINGERPRINT"/><!--指纹识别-->
+
+
+
 
     <!--<uses-permission android:name="android.permission.GET_TASKS" />-->
     <!--<uses-permission android:name="android.permission.WAKE_LOCK" />-->

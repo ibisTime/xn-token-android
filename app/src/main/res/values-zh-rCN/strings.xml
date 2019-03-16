@@ -930,4 +930,5 @@
     <string name="pay_pwd_re_input">确认资金密码</string>
     <string name="please_check_pay_pwd">请确认资金密码</string>
     <string name="user_property_hint">私钥钱包未创建，显示部分资产</string>
+    <string name="find_award">节点奖励</string>
 </resources>
