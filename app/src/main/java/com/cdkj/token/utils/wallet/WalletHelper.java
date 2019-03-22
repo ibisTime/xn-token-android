@@ -933,9 +933,7 @@ public class WalletHelper {
         //创建交易
         BigInteger priceValue = new BigDecimal(money).multiply(BigDecimal.TEN.pow(ETH_UNIT_UNIT)).toBigInteger(); //需要转账的金额
 
-        WanRawTransaction rawTransaction = WanRawTransaction.createTransaction(
-                nonce, gas_price, gas_limit, toAddress, priceValue, "");
-
+        WanRawTransaction rawTransaction = WanRawTransaction.createTransaction(nonce, gas_price, gas_limit, toAddress, priceValue, "");
         //签名Transaction，这里要对交易做签名
         byte[] signedMessage = WanTransactionEncoder.signMessage(rawTransaction, credentials);
 

@@ -12,7 +12,6 @@ import com.cdkj.baselibrary.adapters.ViewPagerAdapter;
 import com.cdkj.baselibrary.appmanager.CdRouteHelper;
 import com.cdkj.baselibrary.base.BaseActivity;
 import com.cdkj.baselibrary.model.AllFinishEvent;
-import com.cdkj.baselibrary.utils.ToastUtil;
 import com.cdkj.token.databinding.ActivityMainBinding;
 import com.cdkj.token.find.FindFragment;
 import com.cdkj.token.user.UserFragment;
@@ -55,7 +54,6 @@ public class MainActivity extends BaseActivity {
         initListener();
         init();
         initViewPager();
-        ToastUtil.show(this,"啊啊按时打卡的");
     }
 
 

@@ -18,11 +18,14 @@ import com.cdkj.baselibrary.dialog.TextPwdInputDialog;
 import com.cdkj.baselibrary.dialog.UITipDialog;
 import com.cdkj.baselibrary.nets.BaseResponseModelCallBack;
 import com.cdkj.baselibrary.nets.RetrofitUtils;
+import com.cdkj.baselibrary.utils.BigDecimalUtils;
 import com.cdkj.baselibrary.utils.LogUtil;
 import com.cdkj.baselibrary.utils.PermissionHelper;
+import com.cdkj.baselibrary.utils.StringUtils;
 import com.cdkj.token.R;
 import com.cdkj.token.api.MyApi;
 import com.cdkj.token.databinding.ActivityTransferBinding;
+import com.cdkj.token.model.CionAddressType;
 import com.cdkj.token.model.GasPrice;
 import com.cdkj.token.model.WalletBalanceModel;
 import com.cdkj.token.model.db.WalletDBModel;
@@ -37,6 +40,7 @@ import org.web3j.crypto.WalletUtils;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.HashMap;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -67,6 +71,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
 
     private TextPwdInputDialog passWordInputDialog;
 
+    private boolean isContractAddress = false;//是否是  合约地址 仅限于  wan 和 eth使用
 
     //需要的权限
     private String[] needLocationPermissions = {
@@ -111,9 +116,30 @@ public class WalletTransferActivity extends AbsLoadActivity {
 
         initClickListener();
 
-        mBinding.btnNext.setOnClickListener(view -> {
-            if (transferInputCheck()) return;
-            showPasswordInputDialog();
+    }
+
+    /**
+     * 转账确认地址类型
+     */
+    private void transferInputCheckAddressType() {
+        showLoadingDialog();
+        HashMap<String, String> map = new HashMap<>();
+        map.put("address", mBinding.editToAddress.getText().toString());
+        map.put("symbol", accountListBean.getCoinSymbol());
+
+        Call<BaseResponseModel<CionAddressType>> baseResponseModelCall = RetrofitUtils.createApi(MyApi.class).transferInputCheckAddressType("802108", StringUtils.getRequestJsonString(map));
+        addCall(baseResponseModelCall);
+        baseResponseModelCall.enqueue(new BaseResponseModelCallBack<CionAddressType>(this) {
+            @Override
+            protected void onSuccess(CionAddressType data, String SucMessage) {
+                isContractAddress = data.isIsSuccess();
+                showPasswordInputDialog();
+            }
+
+            @Override
+            protected void onFinish() {
+                disMissLoadingDialog();
+            }
         });
     }
 
@@ -285,11 +311,23 @@ public class WalletTransferActivity extends AbsLoadActivity {
         WalletDBModel w = WalletHelper.getUserWalletInfoByUserId(WalletHelper.WALLET_USER);
 
         if (TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_WAN)) {   //TODO 转账地址优化
-            return WalletHelper.transferForWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getDeflutGasLimit(), transferGasPrice);
+            if (isContractAddress) {
+                LogUtil.E("pppppp 合约wan单位: " + BigInteger.valueOf(210000) + " 手续费: " + transferGasPrice);
+                return WalletHelper.transferForWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), BigInteger.valueOf(210000), transferGasPrice);
+            } else {
+                LogUtil.E("pppppp 普通wan单位: " + WalletHelper.getDeflutGasLimit() + " 手续费: " + transferGasPrice);
+                return WalletHelper.transferForWan(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getDeflutGasLimit(), transferGasPrice);
+            }
         }
 
         if (TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_ETH)) {
-            return WalletHelper.transferForEth(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getDeflutGasLimit(), transferGasPrice);
+            if (isContractAddress) {
+                LogUtil.E("pppppp 合约ETH单位: " + BigInteger.valueOf(210000) + " 手续费: " + transferGasPrice);
+                return WalletHelper.transferForEth(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), BigInteger.valueOf(210000), transferGasPrice);
+            } else {
+                LogUtil.E("pppppp 普通ETH单位: " + WalletHelper.getDeflutGasLimit() + " 手续费: " + transferGasPrice);
+                return WalletHelper.transferForEth(w, mBinding.editToAddress.getText().toString(), mBinding.edtAmount.getText().toString().trim(), WalletHelper.getDeflutGasLimit(), transferGasPrice);
+            }
         }
 
         //币种类型
@@ -324,8 +362,6 @@ public class WalletTransferActivity extends AbsLoadActivity {
         } else {
             call = RetrofitUtils.createApi(MyApi.class).getGasPrice("802358", "{}");
         }
-
-
         addCall(call);
 
         call.enqueue(new BaseResponseModelCallBack<GasPrice>(this) {
@@ -400,9 +436,23 @@ public class WalletTransferActivity extends AbsLoadActivity {
      */
     private void setShowGasPrice(BigInteger gasPrice) {
         if (accountListBean == null || gasPrice == null) return;
-        mBinding.tvGas.setText(
-                AmountUtil.transformFormatToString(new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
-                        .multiply(new BigDecimal(gasPrice)), accountListBean.getCoinSymbol(), ALLSCALE) + " " + getCoinUnitName(accountListBean.getCoinSymbol()));
+
+        if (TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_WAN) || LocalCoinDBUtils.isWanTokenCoin(LocalCoinDBUtils.getLocalCoinType(accountListBean.getCoinSymbol()))) {
+            //如果是 wan或者wantoken币  显示的时候单位变化一下
+            BigDecimal serverMoney = BigDecimalUtils.div(new BigDecimal(gasPrice), new BigDecimal(1000000000), 4);
+            mBinding.tvGas.setText(serverMoney + " Gwin");
+
+        } else if (TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_ETH) || LocalCoinDBUtils.isEthTokenCoin(LocalCoinDBUtils.getLocalCoinType(accountListBean.getCoinSymbol()))) {
+            //如果是 eth或者ethtoken币  显示的时候单位变化一下
+            BigDecimal serverMoney = BigDecimalUtils.div(new BigDecimal(gasPrice), new BigDecimal(1000000000), 4);
+            mBinding.tvGas.setText(serverMoney + " Gwei");
+        } else {
+            mBinding.tvGas.setText(
+                    AmountUtil.transformFormatToString(new BigDecimal(WalletHelper.getDeflutGasLimit())                   //limite * gasPrice
+                            .multiply(new BigDecimal(gasPrice)), accountListBean.getCoinSymbol(), ALLSCALE) + " " + getCoinUnitName(accountListBean.getCoinSymbol()));
+
+        }
+
     }
 
 
@@ -410,6 +460,17 @@ public class WalletTransferActivity extends AbsLoadActivity {
         //扫码
         mBinding.fraLayoutQRcode.setOnClickListener(view -> {
             permissionRequest();
+        });
+
+        mBinding.btnNext.setOnClickListener(view -> {
+            if (transferInputCheck()) return;
+
+            if (TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_WAN) || TextUtils.equals(accountListBean.getCoinSymbol(), WalletHelper.COIN_ETH)) {
+                transferInputCheckAddressType();
+            } else {
+                showPasswordInputDialog();
+            }
+
         });
 
         //矿工费滑动设置显示
@@ -458,7 +519,7 @@ public class WalletTransferActivity extends AbsLoadActivity {
         BigDecimal lilmit = maxPrice.subtract(minPrice).multiply(ProgressBigDecimal);
 
         transferGasPrice = ((lilmit.add(minPrice)).toBigInteger());
-
+        LogUtil.E("pppppp 滑动后的手续费值为: " + transferGasPrice);
         setShowGasPrice(transferGasPrice);
     }
 

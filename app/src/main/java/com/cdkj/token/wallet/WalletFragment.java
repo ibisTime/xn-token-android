@@ -248,7 +248,7 @@ public class WalletFragment extends BaseLazyFragment {
     }
 
     /**
-     * 顶部卡片布局改变监听
+     * 顶部卡片布局改变监听 切换
      */
     void initCardChangeListener() {
         mBinding.cardChangeLayout.cardChangeLayout.setChangeCallBack(new CardChangeLayout.ChangeCallBack() {

@@ -22,7 +22,7 @@ public class WalletBalanceModel implements Parcelable {
     private String address;
     private String coinBalance = "0";        //拥有币数量
 
-    private String percentChange24h;
+    private String percentChange24h;   //24小时百分比变化
 
     private BigDecimal frozenAmount;//冻结金额
     private BigDecimal amount;     //总金额

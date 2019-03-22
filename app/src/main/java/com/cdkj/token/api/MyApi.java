@@ -16,6 +16,7 @@ import com.cdkj.token.model.BillModel;
 import com.cdkj.token.model.BjbMyIncome;
 import com.cdkj.token.model.BtcFeesModel;
 import com.cdkj.token.model.ChoiceCoinModel;
+import com.cdkj.token.model.CionAddressType;
 import com.cdkj.token.model.CoinModel;
 import com.cdkj.token.model.ConsultListModel;
 import com.cdkj.token.model.ConsultModel;
@@ -881,5 +882,14 @@ public interface MyApi {
     @FormUrlEncoded
     @POST("api")
     Call<BaseResponseModel<IncomeRankTopModel>> getIncomeRankTop(@Field("code") String code, @Field("json") String json);
+
+    /**
+     * 收益排行Top100
+     *
+     * @return
+     */
+    @FormUrlEncoded
+    @POST("api")
+    Call<BaseResponseModel<CionAddressType>> transferInputCheckAddressType(@Field("code") String code, @Field("json") String json);
 
 }

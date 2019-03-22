@@ -54,9 +54,11 @@ public class AppConfig {
 
 
     // 环境访问地址
-    public static final String BASE_URL_DEV = "http://m.dev.thachain.org/"; // 研发
-    public static final String BASE_URL_TEST = "https://test.thachain.org/"; // 测试
-    public static final String BASE_URL_ONLINE = "https://app.tha.hichengdai.com/"; // 线上
+    public static final String BASE_URL_DEV = "http://m.dev.thachain.org/"; // 研发 原
+//    public static final String BASE_URL_TEST = "https://test.thachain.org/"; // 测试
+//    public static final String BASE_URL_TEST = "http://47.52.135.2:2701/forward-service/"; // 测试  原
+    public static final String BASE_URL_TEST = "https://app.tha.hichengdai.com/"; // 测试  原
+    public static final String BASE_URL_ONLINE = "https://app.tha.hichengdai.com/"; // 线上   原
 
 
     public static String getZenDeskUrl() {

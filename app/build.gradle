@@ -42,8 +42,8 @@ android {
         applicationId "com.cdkj.tha"
         minSdkVersion 16
         targetSdkVersion 26
-        versionCode 21
-        versionName "2.1.0"
+        versionCode 26
+        versionName "2.1.2"
 //        flavorDimensions "20"
         flavorDimensions "21"
 
